@@ -5,16 +5,15 @@ import { useRouter } from "expo-router";
 
 import genericStyles from './Stylesheets/styles';
 import styles from './Stylesheets/styles_characterCreation';
-import { Arma, Personaje } from './types'; // Import custom types
+import { Personaje } from './types'; // Import custom types
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialIcons } from '@expo/vector-icons';
 
-const AddItemScreen = () => {
+const AddCharacterScreen = () => {
   const router = useRouter();
 
   const [characters, setCharacters] = useState<Personaje[]>([]);
-  const [items, setItems] = useState<Arma[]>([]);
 
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
@@ -118,9 +117,14 @@ const AddItemScreen = () => {
           Math.trunc((CharacterStats[1] - 10) / 2) + (CharacterSkillProficiencies[15] ? (CharacterSkillExpertises[15] ? 2*PB : PB) : 0), //Sigilo    
           Math.trunc((CharacterStats[4] - 10) / 2) + (CharacterSkillProficiencies[16] ? (CharacterSkillExpertises[16] ? 2*PB : PB) : 0), //Supervivencia
           Math.trunc((CharacterStats[4] - 10) / 2) + (CharacterSkillProficiencies[17] ? (CharacterSkillExpertises[17] ? 2*PB : PB) : 0), //Trato con Animales
-        ]
+        ],
 
-      };    
+        Equipment: {
+          Armas: [],
+          Armaduras: [],
+        },
+      };
+
       setCharacters([...characters, newCharacter]);      
       
       router.push('/');
@@ -136,53 +140,6 @@ const AddItemScreen = () => {
   {    
     AsyncStorage.setItem('characters', JSON.stringify(characters));    
   }, [characters])
-
-  // Add a new item (Weapon, Armor or Other)
-  const addItem = () =>
-  {
-    if(CharacterName && CharacterRace && CharacterClass)
-    {
-      const newItem: Arma = {
-        id: (String)(new Date()),
-        icon: 'face',
-        fields: 
-        {
-          CharacterName,
-          CharacterRace,
-          CharacterClass,
-        },
-      };    
-      setItems([...items, newItem]);
-    
-      router.push('/');
-    }
-    else
-    {
-      console.log("Los campos no pueden estar vacíos");      
-    }
-  };
-  // Add a custom field to a selected item
-  const addCustomField = () => 
-  {
-    if (selectedItem && newField) {
-      setItems((prevItems) =>
-        prevItems.map((item) =>
-          item.id === selectedItem
-            ? {
-                ...item,
-                fields: 
-                {
-                  ...item.fields,
-                  [newField]: newFieldValue,
-                },
-              }
-            : item
-        )
-      );
-      setNewField('');
-      setNewFieldValue('');
-    }
-  };
 
   const modifyCharacterStat = (index: number, isIncreasing: boolean) => 
   {
@@ -1004,25 +961,8 @@ const AddItemScreen = () => {
         </View>    
 
       </View>
-      {selectedItem && (
-        <View style={genericStyles.customFieldContainer}>
-          <TextInput
-            placeholder="Field Name"
-            value={newField}
-            onChangeText={setNewField}
-            style={styles.input}
-          />
-          <TextInput
-            placeholder="Field Value"
-            value={newFieldValue}
-            onChangeText={setNewFieldValue}
-            style={styles.input}
-          />
-          <Button title="Add Field" onPress={addCustomField} />
-        </View>
-      )}
     </ScrollView>
   );
 };
 
-export default AddItemScreen;
+export default AddCharacterScreen;

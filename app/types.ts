@@ -1,3 +1,21 @@
+export type Arma = 
+{
+  id: string; // Unique identifier
+  icon: string; // Icon name
+
+  Name: string,
+  Type: string,
+  Damage: string,
+  fields: { [key: string]: string }; // Dynamic fields as key-value pairs
+};
+
+export type Armadura = 
+{
+  id: string; // Unique identifier
+  icon: string; // Icon name
+  fields: { [key: string]: string }; // Dynamic fields as key-value pairs
+};
+
 export type Personaje = 
 {
   //Internal Id
@@ -27,12 +45,9 @@ export type Personaje =
   ProficiencyBonus: number;
   ArmorClass: number;
   InitiativeBonus: number;
-}
 
-export type Arma = 
-{
-  id: string; // Unique identifier
-  icon: string; // Icon name
-  fields: { [key: string]: string }; // Dynamic fields as key-value pairs
-};
-  
+  Equipment: {
+    Armas: Arma[];
+    Armaduras: Armadura[];
+  }
+}

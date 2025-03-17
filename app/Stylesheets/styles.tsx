@@ -29,7 +29,7 @@ const styles = StyleSheet.create(
   list: {
     marginTop: 20,
   },
-  listItem: {
+  characterCard: {
     flexDirection: 'row',
     alignItems: 'center',
     
@@ -45,22 +45,38 @@ const styles = StyleSheet.create(
     
     marginBottom: 10,
   },
-  listItem_textContainer: {
-    flex: 1,
-  },
-  listItem_Title: {
-    color: '#e8e6e3',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  listItem_Text: {
-    color: '#b2aca2',
-  },
   iconContainer: {
     marginRight: 10,
     backgroundColor: '#2196F3',
     borderRadius: 50,
     padding: 10,
+  },
+  characterCard_TextContainer: {
+    flex: 1,
+  },
+  characterCard_Title: {
+    color: '#e8e6e3',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  characterCard_Text: {
+    color: '#b2aca2',
+  },
+  characterCard_ButtonsContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    gap: 5,
+  },
+  characterCard_ActionIcon: {
+    paddingVertical: 5,
+    paddingHorizontal: 7.4,
+
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: '#da8466',
+
   },
   //#endregion
 

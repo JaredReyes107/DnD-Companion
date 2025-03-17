@@ -3,14 +3,14 @@ import { StyleSheet } from "react-native"
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
+
+    paddingTop: 20,
     backgroundColor: '#1e2021',   
   },
   tabsMenu: 
   {
     display: 'flex',
     flexDirection: 'row',
-
-    marginTop: 20,
   },
   tabSectionContainer_Active: 
   {
@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     backgroundColor: '#1a1a1a',
 
-    borderRadius: 5,
     borderWidth: 1,
+    borderRadius: 5,
     borderColor: '#1a1a1a',
     
     //Top Bar
@@ -35,26 +35,7 @@ const styles = StyleSheet.create({
   {
     color: '#cbcbcb', //#e8e6e3
   },
-  detailsCard: 
-  {
-    flexDirection: 'row',
-    alignItems: 'center',
-    
-    padding: 10,
-
-    borderRadius: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.3,
-    shadowRadius: 1,
-    elevation: 2,
-
-    backgroundColor: '#1a1a1a',
-    //backgroundColor: '#1A1A1A',
-
-    marginRight: 10,
-    marginLeft: 10,
-  },
+  
   //#region Character Skills and Stats
   detailsBody: {
     display: 'flex',

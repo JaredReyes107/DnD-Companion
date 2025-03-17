@@ -59,18 +59,18 @@ const IndexScreen = () => {
 
   const renderListItem = ({ item }: { item: Personaje }) => (
     <View>
-      <TouchableOpacity onPress={ () => loadCharacterDetails(item.id)} style={styles.listItem}>
+      <TouchableOpacity onPress={ () => loadCharacterDetails(item.id)} style={styles.characterCard}>
         <View style={styles.iconContainer}>
           <MaterialIcons name="face" size={24} color="white" />
         </View>
-        <View style={styles.listItem_textContainer}>
-          <Text key="Nombre" style={styles.listItem_Title}>
+        <View style={styles.characterCard_TextContainer}>
+          <Text key="Nombre" style={styles.characterCard_Title}>
             {item.Name}
           </Text>
-          <Text key="Raza" style={styles.listItem_Text}>
+          <Text key="Raza" style={styles.characterCard_Text}>
             {item.Race}
           </Text>
-          <Text key="Clase" style={styles.listItem_Text}>
+          <Text key="Clase" style={styles.characterCard_Text}>
             {item.Class}
           </Text>
         </View>

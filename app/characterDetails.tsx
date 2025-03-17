@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { ScrollView, View, Text, TouchableOpacity, Alert } from "react-native";
 import { useRouter } from "expo-router";
 
 import genericStyles from './Stylesheets/styles';
@@ -10,9 +10,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useFonts } from "expo-font";
 import { Montserrat_500Medium } from "@expo-google-fonts/montserrat";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function CharacterSheet() {
+export default function CharacterSheetScreen() {
   const router = useRouter();
   
   const [character, setCharacter] = useState<Personaje>();
@@ -62,6 +62,7 @@ export default function CharacterSheet() {
   return (
     <ScrollView style={styles.rootContainer}>
 
+      {/* 
       <View style={styles.tabsMenu}>
         <View style={styles.tabSectionContainer_Active}>
           <Text style={styles.tabSectionName_Active}>
@@ -69,21 +70,36 @@ export default function CharacterSheet() {
           </Text>
         </View>
       </View>    
-
-      <View style={styles.detailsCard}>
+      */}
+      <View style={[genericStyles.characterCard, {marginHorizontal: 10}]}>
         <View style={genericStyles.iconContainer}>
           <MaterialIcons name="face" size={24} color="white" />
         </View>
-        <View style={genericStyles.listItem_textContainer}>
-          <Text key="Nombre" style={genericStyles.listItem_Title}>
+
+        <View style={genericStyles.characterCard_TextContainer}>
+          <Text key="Nombre" style={genericStyles.characterCard_Title}>
             {character?.Name}
           </Text>
-          <Text key="Raza" style={genericStyles.listItem_Text}>
+          <Text key="Raza" style={genericStyles.characterCard_Text}>
             {character?.Race}
           </Text>
-          <Text key="Clase" style={genericStyles.listItem_Text}>
+          <Text key="Clase" style={genericStyles.characterCard_Text}>
             {character?.Class}
           </Text>
+        </View>
+
+        <View style={genericStyles.characterCard_ButtonsContainer}>
+          <TouchableOpacity onPress={() => 0} style={genericStyles.characterCard_ActionIcon}>
+            <MaterialCommunityIcons name="sword-cross" size={24} color="#da8466" />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => router.push('/characterDetails_Equipment')} style={genericStyles.characterCard_ActionIcon}>
+            <MaterialCommunityIcons name="bag-personal" size={24} color="#da8466" />
+          </TouchableOpacity>
+          
+          <TouchableOpacity onPress={() => 0} style={genericStyles.characterCard_ActionIcon}>
+            <MaterialCommunityIcons name="lightning-bolt" size={24} color="#da8466" />
+          </TouchableOpacity>
         </View>
       </View>
 
