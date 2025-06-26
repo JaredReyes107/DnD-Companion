@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { ScrollView, View, Text, TouchableOpacity, FlatList, Alert } from "react-native";
 import { useRouter } from "expo-router";
 
-import genericStyles from './Stylesheets/styles';
-import styles from './Stylesheets/styles_characterDetails';
-import { Personaje, Arma} from './types'; // Import custom types
+import genericStyles from './Stylesheets/GenericStyles';
+import styles from './Stylesheets/CharacterDetails';
+import { Character, Weapon} from './Types/'; // Import custom types
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -13,7 +13,7 @@ import { Montserrat_500Medium } from "@expo-google-fonts/montserrat";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function CharacterSheet() {
-  const [character, setCharacter] = useState<Personaje>();
+  const [character, setCharacter] = useState<Character>();
 
   // Add a custom field to a selected item
   /*
@@ -40,7 +40,7 @@ export default function CharacterSheet() {
     };
     */
 
-  const renderWeaponItem = ({ item }: { item: Arma }) => (
+  const renderWeaponItem = ({ item }: { item: Weapon }) => (
     <View>
       <TouchableOpacity onPress={ () => 0} style={genericStyles.characterCard}>
         <View style={genericStyles.iconContainer}>

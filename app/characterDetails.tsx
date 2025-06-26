@@ -1,63 +1,57 @@
+// Libraries
 import React, { useEffect, useState } from "react";
-import { ScrollView, View, Text, TouchableOpacity, Alert } from "react-native";
+import { ScrollView, View, Text, TouchableOpacity, FlatList, Alert } from "react-native";
 import { useRouter } from "expo-router";
 
-import genericStyles from './Stylesheets/styles';
-import styles from './Stylesheets/styles_characterDetails';
-import { Personaje } from './types'; // Import custom types
+// Custom Components
+import { loadCharacterFromStorage } from './Utilities/storage';
+import { Character, Feature } from './Types';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+// Styles
 import { useFonts } from "expo-font";
 import { Montserrat_500Medium } from "@expo-google-fonts/montserrat";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 
+// Custom Styles
+import genericStyles from './Stylesheets/GenericStyles';
+import styles from './Stylesheets/CharacterDetails';
+
 export default function CharacterSheetScreen() {
   const router = useRouter();
   
-  const [character, setCharacter] = useState<Personaje>();
+  const [character, setCharacter] = useState<Character>();
 
-  //Retrieve the details of the selected character
-  const loadCharacterFromStorage = async () => {
-    try 
+  const fetchCharacter = async () => {
+    const result = await loadCharacterFromStorage();
+    if (result)
     {
-      //Get the id of the selected character
-      const selectedCharacterId = await AsyncStorage.getItem('selectedCharacterId'); 
-
-      //Find the character
-      const charactersData = await AsyncStorage.getItem('characters');
-      if (charactersData !== null) 
-      {
-        const data: Personaje[] = JSON.parse(charactersData); // Parse the JSON string into an array
-        const selectedCharacter = data.find((item) => item.id === selectedCharacterId); // Find the object with the matching id
-           
-        setCharacter(selectedCharacter);   
-        
-        return selectedCharacter;        
-      }
-
-      Alert.alert('No data found');
-      return null;
-    } 
-    catch (error) 
-    {
-      Alert.alert('Error retrieving data:' + error);
-      return null;
+      setCharacter(result);
     }
   };
 
   //Load details of the selected character whenever this view is loaded
   useEffect(() => {    
-    loadCharacterFromStorage();
+    fetchCharacter();
   }, []);
-
-  useEffect(() => {
-    
-  }, [character])
 
   const [fontsLoaded] = useFonts({
     Montserrat: Montserrat_500Medium,
   });
+
+  //TODO: Not styled. Not currently used. Used it another section/window for the feature details.
+  const renderFeatures = ({ item }: { item: Feature }) => (
+    <View>
+      <Text>
+        {item.name}
+      </Text>
+      <Text>
+        {item.description}
+      </Text>
+      <Text>
+        {item.charges?.usesLeft} / {item.charges?.max}
+      </Text>
+    </View>
+  );
 
   return (
     <ScrollView style={styles.rootContainer}>
@@ -71,7 +65,7 @@ export default function CharacterSheetScreen() {
         </View>
       </View>    
       */}
-      <View style={[genericStyles.characterCard, {marginHorizontal: 10}]}>
+      <View style={[genericStyles.characterCard, {marginHorizontal: 20}]}>
         <View style={genericStyles.iconContainer}>
           <MaterialIcons name="face" size={24} color="white" />
         </View>
@@ -84,16 +78,16 @@ export default function CharacterSheetScreen() {
             {character?.Race}
           </Text>
           <Text key="Clase" style={genericStyles.characterCard_Text}>
-            {character?.Class}
+            {character?.Classes.at(0)?.class.label}
           </Text>
         </View>
 
         <View style={genericStyles.characterCard_ButtonsContainer}>
-          <TouchableOpacity onPress={() => 0} style={genericStyles.characterCard_ActionIcon}>
+          <TouchableOpacity onPress={() => router.replace('/Play' as any)} style={genericStyles.characterCard_ActionIcon}>
             <MaterialCommunityIcons name="sword-cross" size={24} color="#da8466" />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => router.push('/characterDetails_Equipment')} style={genericStyles.characterCard_ActionIcon}>
+          <TouchableOpacity onPress={() => router.push('/CharacterEquipment' as any)} style={genericStyles.characterCard_ActionIcon}>
             <MaterialCommunityIcons name="bag-personal" size={24} color="#da8466" />
           </TouchableOpacity>
           
@@ -102,7 +96,6 @@ export default function CharacterSheetScreen() {
           </TouchableOpacity>
         </View>
       </View>
-
       <View style={styles.detailsBody}>
         
         {/* Main Statistics and Modifiers */}
@@ -196,7 +189,7 @@ export default function CharacterSheetScreen() {
               <View style={styles.secondaryStatBox}>
                 <View style={styles.secondaryStatModifier}>
                   <Text style={styles.secondaryStatText}>Puntos</Text>
-                  <Text style={styles.secondaryStatModifierValue}>{character?.HitPoints}</Text>
+                  <Text style={styles.secondaryStatModifierValue}>{character?.HP}</Text>
                   <Text style={styles.secondaryStatText}>de Golpe</Text>
                 </View>
               </View>

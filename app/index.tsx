@@ -1,16 +1,21 @@
+// Libraries
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { useRouter } from "expo-router";
-
-import styles from './Stylesheets/styles';
-import { Personaje } from './types'; // Import custom types
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Custom Components
+import { ClassDetails, Character } from './Types'; // Import custom types
+
+import { MaterialIcons } from '@expo/vector-icons';
+import { ThemedView } from '@/components/ThemedView';
+
+import styles from './Stylesheets/GenericStyles';
+import { CLASSES } from '@/constants/Classes';
 
 const IndexScreen = () => {
   const router = useRouter();
-  const [characters, setCharacters] = useState<Personaje[]>([]);
+  const [characters, setCharacters] = useState<Character[]>([]);
 
   //Función para llamar a cargar objetos
   const loadItemsFromStorage = async () => {
@@ -54,10 +59,10 @@ const IndexScreen = () => {
       console.error('Error saving string:', error);
     }
 
-    router.push('/characterDetails')
+    router.push('../CharacterDetails')
   }
 
-  const renderListItem = ({ item }: { item: Personaje }) => (
+  const renderListItem = ({ item }: { item: Character }) => (
     <View>
       <TouchableOpacity onPress={ () => loadCharacterDetails(item.id)} style={styles.characterCard}>
         <View style={styles.iconContainer}>
@@ -71,21 +76,21 @@ const IndexScreen = () => {
             {item.Race}
           </Text>
           <Text key="Clase" style={styles.characterCard_Text}>
-            {item.Class}
+            {item.Classes.at(0)?.class.label}
           </Text>
         </View>
-        <TouchableOpacity onPress={() => deleteItem(item.id)}>
-          <MaterialIcons name="delete" size={24} color="red" />
+        <TouchableOpacity onPress={() => deleteItem(item.id)} style={styles.characterCard_ActionIcon}>
+          <MaterialIcons name="delete" size={24} color="#da8466" />
         </TouchableOpacity>
       </TouchableOpacity>
     </View>
   );
 
   return (
-    <View style={styles.rootContainer}>
+    <ThemedView style={styles.rootContainer}>
       <View style={styles.headerContainer}>
         <Text style={styles.header}>Personajes</Text>
-        <TouchableOpacity onPress={ () => router.push('/characterCreation')}>
+        <TouchableOpacity onPress={ () => router.push('/CharacterCreation' as any)}>
           <View style={styles.iconButton}>
             <MaterialIcons name="add" size={24} color="white"></MaterialIcons>
           </View>
@@ -97,7 +102,7 @@ const IndexScreen = () => {
         renderItem={renderListItem}
         style={styles.list}
       />
-    </View>
+    </ThemedView>
   );
 };
 

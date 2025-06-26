@@ -165,6 +165,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat', 
     fontSize: 20,
     color: '#cccccc',
+    
+    textAlign: 'center',
   },
   proficienciesContainer: {
     display: 'flex',

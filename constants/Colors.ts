@@ -12,15 +12,23 @@ export const Colors = {
     background: '#fff',
     tint: tintColorLight,
     icon: '#687076',
+
     tabIconDefault: '#687076',
     tabIconSelected: tintColorLight,
+    tabBarBackground: '#f0f0f0',
+
+
   },
   dark: {
     text: '#ECEDEE',
-    background: '#151718',
+    background: '#1e2021',
     tint: tintColorDark,
     icon: '#9BA1A6',
+
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,
+    tabBarBackground: '#111',
+
+    
   },
 };

@@ -3,16 +3,28 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create(
 {
   //#region Character Creation 
-  fieldContainer : {
+  fieldContainer : 
+  {
     display: 'flex',
     gap: 10,
 
     marginBottom: 10,
   },
-  fieldHeader: {
+  fieldHeader: 
+  {
     color: '#d8d4cf',
   },
-  input: {
+  subfieldContainer : 
+  {
+    display: 'flex',
+    gap: 10,
+
+    paddingLeft: 25,
+
+    marginBottom: 10,
+  },
+  input: 
+  {
     borderWidth: 1,
     borderColor: '#3e4446',
     padding: 10,
@@ -20,20 +32,26 @@ const styles = StyleSheet.create(
 
     color: '#d8d4cf',
   },
-  label: {
+  label: 
+  {
     fontSize: 18,
     marginBottom: 10,
   },
-  pickerContainer: {
+  pickerContainer: 
+  {
     borderWidth: 1,
     borderColor: '#3e4446',
     borderRadius: 5,
 
     color: '#d8d4cf'
   },
-  picker: {
+  picker: 
+  {    
+    minHeight: 0,
+
     backgroundColor: 'transparent',
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
 
     borderWidth: 0,
     borderColor: '#3e4446',
@@ -41,12 +59,19 @@ const styles = StyleSheet.create(
 
     color: '#d8d4cf',    
   },
-  counterContainer: {
+  pickerText: 
+  {
+    color: '#d8d4cf',    
+  },
+
+  counterContainer: 
+  {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
   },
-  counterInput: {
+  counterInput: 
+  {
     flex: 1,
 
     borderWidth: 1,
@@ -56,11 +81,13 @@ const styles = StyleSheet.create(
 
     color: '#d8d4cf',    
   },
-  counterButtonsContainer: {
+  counterButtonsContainer: 
+  {
     flexDirection: 'row',
     marginLeft: 10,
   },
-  counterButtons: {
+  counterButtons:
+  {
     width: 36,
     height: 36,
     backgroundColor: '#35393b',
@@ -71,18 +98,22 @@ const styles = StyleSheet.create(
     justifyContent: 'center',
     alignItems: 'center',
   },
-  buttonText: {
+  buttonText: 
+  {
     color: 'white',
     fontSize: 24,
   },
-  statsContainer : {
+
+  statsContainer : 
+  {
     display: 'flex',
     paddingRight: 10,
     paddingLeft: 10,
 
     gap: 5,
   },
-  statContainer : {
+  statContainer : 
+  {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -91,15 +122,18 @@ const styles = StyleSheet.create(
     width: '100%',
     maxWidth: 500,
   },
-  statTitle : {
+  statTitle : 
+  {
     color: '#cdc8c2',
   },
-  statDetailsContainer : {
+  statDetailsContainer : 
+  {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
   },
-  statValue : {
+  statValue : 
+  {
     width: 125,
 
     borderWidth: 1,
@@ -112,11 +146,13 @@ const styles = StyleSheet.create(
 
     color: '#d8d4cf',
   },
-  statDetailsButtonsContainer : {
+  statDetailsButtonsContainer : 
+  {
     flexDirection: 'row',
     marginLeft: 5,
   },
-  statDetailsButtons : {
+  statDetailsButtons : 
+  {
     width: 24,
     height: 24,
     backgroundColor: '#35393b',
@@ -127,30 +163,37 @@ const styles = StyleSheet.create(
     justifyContent: 'center',
     alignItems: 'center',
   },
-  proficienciesContainer : {
+  
+  proficienciesContainer : 
+  {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
 
     gap: 5,
   },
-  proficiencyButton : {
+  proficiencyButton : 
+  {
 
   },
-  addButtonContainer: {
+
+  addButtonContainer: 
+  {
     display: 'flex',
     alignItems: 'center',
 
     margin: 10,
   },
-  addButton: {
+  addButton: 
+  {
     width: '50%',
     backgroundColor: '#4CAF50',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
   },
-  addButtonText: {
+  addButtonText: 
+  {
     color: '#fff',
   },
   //#endregion
