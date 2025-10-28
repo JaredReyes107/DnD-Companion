@@ -4,8 +4,8 @@ import { ScrollView, View, Text, TouchableOpacity, FlatList, Alert } from "react
 import { useRouter } from "expo-router";
 
 // Custom Components
-import { loadCharacterFromStorage } from './Utilities/storage';
-import { Character, Feature } from './Types';
+import { loadCharacterFromStorage } from '@/lib/utilities/storage';
+import { Character, Feature } from '@/types';
 
 // Styles
 import { useFonts } from "expo-font";
@@ -13,8 +13,8 @@ import { Montserrat_500Medium } from "@expo-google-fonts/montserrat";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 // Custom Styles
-import genericStyles from './Stylesheets/GenericStyles';
-import styles from './Stylesheets/CharacterDetails';
+import genericStyles from '@/stylesheets/GenericStyles';
+import styles from '@/stylesheets/CharacterDetails';
 
 export default function CharacterSheetScreen() {
   const router = useRouter();

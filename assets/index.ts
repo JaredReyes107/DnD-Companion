@@ -1,0 +1,1 @@
+export * as Icon_Slashing from "@/assets/images/damageTypes/Icon_Slashing.png"

@@ -97,6 +97,6 @@ export type Feature = {
 
   data?: Record<
     string,
-    number | string | boolean | FeatureScaling | FeatureCharges | any
+    number | string | boolean | FeatureScaling | FeatureCharges | unknown
   >;
 };

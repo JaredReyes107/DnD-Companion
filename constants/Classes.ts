@@ -1,4 +1,4 @@
-import { ClassName, Class, Subclass } from "@/app/Types/Class";
+import { ClassName, Class, Subclass } from "@/types/Class";
 import { BARBARIAN, BARD } from "./Classes/";
 
 export const CLASSES: Record<ClassName, Class> = 

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { ScrollView, View, Text, TouchableOpacity, FlatList, Alert } from "react-native";
 import { useRouter } from "expo-router";
 
-import genericStyles from './Stylesheets/GenericStyles';
-import styles from './Stylesheets/CharacterDetails';
-import { Character, Weapon} from './Types/'; // Import custom types
+import genericStyles from '@/stylesheets/GenericStyles';
+import styles from '@/stylesheets/CharacterDetails';
+import { Character, Weapon} from '@/types/'; // Import custom types
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

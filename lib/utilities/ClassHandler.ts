@@ -32,14 +32,9 @@ export const getUnlockedClassFeatures = (
             charges.usesLeft = charges.max;
             break;
           case "ability":
-            const usableValue = Math.max(
-              1,
-              character.StatModifiers[charges.scaling.abilityIndex],
-            );
-
-            charges.max = usableValue;
+            charges.max = Math.max(1, character.StatModifiers[charges.scaling.abilityIndex]);
             charges.usesLeft = charges.max;
-            break;
+            break; 
           case "proficiency":
             charges.max = character.ProficiencyBonus;
             charges.usesLeft = charges.max;

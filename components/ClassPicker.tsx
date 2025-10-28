@@ -1,7 +1,7 @@
 import React from 'react';
 import CustomPicker from '@/components/CustomPicker';
 import { CLASSES } from '@/constants/Classes';
-import { ClassName } from "@/app/Types/Class";
+import { ClassName } from "@/types/Class";
 
 type Props = {
   selectedClass: ClassName | null;

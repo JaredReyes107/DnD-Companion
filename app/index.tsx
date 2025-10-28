@@ -5,12 +5,12 @@ import { useRouter } from "expo-router";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Custom Components
-import { ClassDetails, Character } from './Types'; // Import custom types
+import { ClassDetails, Character } from '@/types'; // Import custom types
 
 import { MaterialIcons } from '@expo/vector-icons';
 import { ThemedView } from '@/components/ThemedView';
 
-import styles from './Stylesheets/GenericStyles';
+import styles from '@/stylesheets/GenericStyles';
 import { CLASSES } from '@/constants/Classes';
 
 const IndexScreen = () => {

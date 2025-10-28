@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
 
-import styles from '@/app/Stylesheets/CharacterCreation';
+import styles from '@/stylesheets/CharacterCreation';
 
 type Option<T> = {
   label: string;

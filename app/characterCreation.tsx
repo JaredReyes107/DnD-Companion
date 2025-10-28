@@ -5,20 +5,21 @@ import { useRouter } from "expo-router";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Custom Classes and Constants
-import { ClassDetails, Character } from './Types'; // Import custom types
+import { ClassDetails, Character } from '@/types'; // Import custom types
 import { CLASSES } from '@/constants/Classes';
-import { ClassName, Class } from "@/app/Types/Class";
+import { ClassName, Class } from "@/types/Class";
 
 // Custom Components
 import ClassPicker from '@/components/ClassPicker';
 
 import { MaterialIcons } from '@expo/vector-icons';
 
-import styles from './Stylesheets/CharacterCreation';
-import genericStyles from './Stylesheets/GenericStyles';
+import styles from '@/stylesheets/CharacterCreation';
+import genericStyles from '@/stylesheets/GenericStyles';
 import CustomPicker from '@/components/CustomPicker';
 import { Alignment, ALIGNMENTS } from '@/constants/Alignments';
-import { getUnlockedClassFeatures } from './Utilities/classHandler';
+import { getUnlockedClassFeatures } from '@/lib/utilities/ClassHandler';
+import { BaseDamageEffectiveness } from '@/types/DamageTypes';
 
 const AddCharacterScreen = () => {
   const router = useRouter();
@@ -93,12 +94,12 @@ const AddCharacterScreen = () => {
         XP: CharacterXP,
 
         // Standard Order: Strength, Dexterity, Constitution, Intelligence, Wisdom and Charisma
-        Stats: CharacterStats,        
+        Stats: CharacterStats,
         StatModifiers: [
-          Math.round((CharacterStats[0] - 10.5) / 2), 
+          Math.round((CharacterStats[0] - 10.5) / 2),
           Math.round((CharacterStats[1] - 10.5) / 2),
           Math.round((CharacterStats[2] - 10.5) / 2),
-          Math.round((CharacterStats[3] - 10.5) / 2), 
+          Math.round((CharacterStats[3] - 10.5) / 2),
           Math.round((CharacterStats[4] - 10.5) / 2),
           Math.round((CharacterStats[5] - 10.5) / 2),
         ],
@@ -112,10 +113,10 @@ const AddCharacterScreen = () => {
         // Standard Order: Strength, Dexterity, Constitution, Intelligence, Wisdom and Charisma
         SavingThrowsProficiencies: CharacterSTProficiencies,
         SavingThrowModifiers: [
-          CharacterSTProficiencies[0] ? Math.trunc((CharacterStats[0] - 10) / 2) + PB : Math.trunc((CharacterStats[0] - 10) / 2),  
+          CharacterSTProficiencies[0] ? Math.trunc((CharacterStats[0] - 10) / 2) + PB : Math.trunc((CharacterStats[0] - 10) / 2),
           CharacterSTProficiencies[1] ? Math.trunc((CharacterStats[1] - 10) / 2) + PB : Math.trunc((CharacterStats[1] - 10) / 2),
           CharacterSTProficiencies[2] ? Math.trunc((CharacterStats[2] - 10) / 2) + PB : Math.trunc((CharacterStats[2] - 10) / 2),
-          CharacterSTProficiencies[3] ? Math.trunc((CharacterStats[3] - 10) / 2) + PB : Math.trunc((CharacterStats[3] - 10) / 2), 
+          CharacterSTProficiencies[3] ? Math.trunc((CharacterStats[3] - 10) / 2) + PB : Math.trunc((CharacterStats[3] - 10) / 2),
           CharacterSTProficiencies[4] ? Math.trunc((CharacterStats[4] - 10) / 2) + PB : Math.trunc((CharacterStats[4] - 10) / 2),
           CharacterSTProficiencies[5] ? Math.trunc((CharacterStats[5] - 10) / 2) + PB : Math.trunc((CharacterStats[5] - 10) / 2)
         ],
@@ -123,25 +124,25 @@ const AddCharacterScreen = () => {
         // By alfabetical order, in Spanish
         SkillProficiencies: CharacterSkillProficiencies,
         SkillExpertises: CharacterSkillExpertises,
-        SkillModifiers : [
-          Math.trunc((CharacterStats[1] - 10) / 2) + (CharacterSkillProficiencies[0]  ? (CharacterSkillExpertises[0]  ? 2*PB : PB) : 0), //Acrobacias
-          Math.trunc((CharacterStats[3] - 10) / 2) + (CharacterSkillProficiencies[1]  ? (CharacterSkillExpertises[1]  ? 2*PB : PB) : 0), //Arcanos
-          Math.trunc((CharacterStats[0] - 10) / 2) + (CharacterSkillProficiencies[2]  ? (CharacterSkillExpertises[2]  ? 2*PB : PB) : 0), //Atletismo
-          Math.trunc((CharacterStats[5] - 10) / 2) + (CharacterSkillProficiencies[3]  ? (CharacterSkillExpertises[3]  ? 2*PB : PB) : 0), //Engañar
-          Math.trunc((CharacterStats[3] - 10) / 2) + (CharacterSkillProficiencies[4]  ? (CharacterSkillExpertises[4]  ? 2*PB : PB) : 0), //Historia
-          Math.trunc((CharacterStats[5] - 10) / 2) + (CharacterSkillProficiencies[5]  ? (CharacterSkillExpertises[5]  ? 2*PB : PB) : 0), //Interpretación
-          Math.trunc((CharacterStats[5] - 10) / 2) + (CharacterSkillProficiencies[6]  ? (CharacterSkillExpertises[6]  ? 2*PB : PB) : 0), //Intimidación
-          Math.trunc((CharacterStats[3] - 10) / 2) + (CharacterSkillProficiencies[7]  ? (CharacterSkillExpertises[7]  ? 2*PB : PB) : 0), //Investigación
-          Math.trunc((CharacterStats[1] - 10) / 2) + (CharacterSkillProficiencies[8]  ? (CharacterSkillExpertises[8]  ? 2*PB : PB) : 0), //Juego de Manos
-          Math.trunc((CharacterStats[4] - 10) / 2) + (CharacterSkillProficiencies[9]  ? (CharacterSkillExpertises[9]  ? 2*PB : PB) : 0), //Medicina
-          Math.trunc((CharacterStats[3] - 10) / 2) + (CharacterSkillProficiencies[10] ? (CharacterSkillExpertises[10] ? 2*PB : PB) : 0), //Naturaleza
-          Math.trunc((CharacterStats[4] - 10) / 2) + (CharacterSkillProficiencies[11] ? (CharacterSkillExpertises[11] ? 2*PB : PB) : 0), //Percepción
-          Math.trunc((CharacterStats[4] - 10) / 2) + (CharacterSkillProficiencies[12] ? (CharacterSkillExpertises[12] ? 2*PB : PB) : 0), //Perspicacia
-          Math.trunc((CharacterStats[5] - 10) / 2) + (CharacterSkillProficiencies[13] ? (CharacterSkillExpertises[13] ? 2*PB : PB) : 0), //Persuasión
-          Math.trunc((CharacterStats[3] - 10) / 2) + (CharacterSkillProficiencies[14] ? (CharacterSkillExpertises[14] ? 2*PB : PB) : 0), //Religión
-          Math.trunc((CharacterStats[1] - 10) / 2) + (CharacterSkillProficiencies[15] ? (CharacterSkillExpertises[15] ? 2*PB : PB) : 0), //Sigilo    
-          Math.trunc((CharacterStats[4] - 10) / 2) + (CharacterSkillProficiencies[16] ? (CharacterSkillExpertises[16] ? 2*PB : PB) : 0), //Supervivencia
-          Math.trunc((CharacterStats[4] - 10) / 2) + (CharacterSkillProficiencies[17] ? (CharacterSkillExpertises[17] ? 2*PB : PB) : 0), //Trato con Animales
+        SkillModifiers: [
+          Math.trunc((CharacterStats[1] - 10) / 2) + (CharacterSkillProficiencies[0] ? (CharacterSkillExpertises[0] ? 2 * PB : PB) : 0), //Acrobacias
+          Math.trunc((CharacterStats[3] - 10) / 2) + (CharacterSkillProficiencies[1] ? (CharacterSkillExpertises[1] ? 2 * PB : PB) : 0), //Arcanos
+          Math.trunc((CharacterStats[0] - 10) / 2) + (CharacterSkillProficiencies[2] ? (CharacterSkillExpertises[2] ? 2 * PB : PB) : 0), //Atletismo
+          Math.trunc((CharacterStats[5] - 10) / 2) + (CharacterSkillProficiencies[3] ? (CharacterSkillExpertises[3] ? 2 * PB : PB) : 0), //Engañar
+          Math.trunc((CharacterStats[3] - 10) / 2) + (CharacterSkillProficiencies[4] ? (CharacterSkillExpertises[4] ? 2 * PB : PB) : 0), //Historia
+          Math.trunc((CharacterStats[5] - 10) / 2) + (CharacterSkillProficiencies[5] ? (CharacterSkillExpertises[5] ? 2 * PB : PB) : 0), //Interpretación
+          Math.trunc((CharacterStats[5] - 10) / 2) + (CharacterSkillProficiencies[6] ? (CharacterSkillExpertises[6] ? 2 * PB : PB) : 0), //Intimidación
+          Math.trunc((CharacterStats[3] - 10) / 2) + (CharacterSkillProficiencies[7] ? (CharacterSkillExpertises[7] ? 2 * PB : PB) : 0), //Investigación
+          Math.trunc((CharacterStats[1] - 10) / 2) + (CharacterSkillProficiencies[8] ? (CharacterSkillExpertises[8] ? 2 * PB : PB) : 0), //Juego de Manos
+          Math.trunc((CharacterStats[4] - 10) / 2) + (CharacterSkillProficiencies[9] ? (CharacterSkillExpertises[9] ? 2 * PB : PB) : 0), //Medicina
+          Math.trunc((CharacterStats[3] - 10) / 2) + (CharacterSkillProficiencies[10] ? (CharacterSkillExpertises[10] ? 2 * PB : PB) : 0), //Naturaleza
+          Math.trunc((CharacterStats[4] - 10) / 2) + (CharacterSkillProficiencies[11] ? (CharacterSkillExpertises[11] ? 2 * PB : PB) : 0), //Percepción
+          Math.trunc((CharacterStats[4] - 10) / 2) + (CharacterSkillProficiencies[12] ? (CharacterSkillExpertises[12] ? 2 * PB : PB) : 0), //Perspicacia
+          Math.trunc((CharacterStats[5] - 10) / 2) + (CharacterSkillProficiencies[13] ? (CharacterSkillExpertises[13] ? 2 * PB : PB) : 0), //Persuasión
+          Math.trunc((CharacterStats[3] - 10) / 2) + (CharacterSkillProficiencies[14] ? (CharacterSkillExpertises[14] ? 2 * PB : PB) : 0), //Religión
+          Math.trunc((CharacterStats[1] - 10) / 2) + (CharacterSkillProficiencies[15] ? (CharacterSkillExpertises[15] ? 2 * PB : PB) : 0), //Sigilo    
+          Math.trunc((CharacterStats[4] - 10) / 2) + (CharacterSkillProficiencies[16] ? (CharacterSkillExpertises[16] ? 2 * PB : PB) : 0), //Supervivencia
+          Math.trunc((CharacterStats[4] - 10) / 2) + (CharacterSkillProficiencies[17] ? (CharacterSkillExpertises[17] ? 2 * PB : PB) : 0), //Trato con Animales
         ],
 
         // Inventory
@@ -153,7 +154,8 @@ const AddCharacterScreen = () => {
         // Combat data an Optional features
         HP: CharacterHP ? CharacterHP : 4 * CharacterLevel,
         CurrentHP: CharacterHP,
-        TempHP: 0
+        TempHP: 0,
+        DamageEffectiveness: BaseDamageEffectiveness,
       };
 
       // Add features

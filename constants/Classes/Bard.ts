@@ -1,5 +1,5 @@
-import { Feature } from "@/app/Types";
-import { Class, Subclass } from "@/app/Types/Class";
+import { Feature } from "@/types";
+import { Class, Subclass } from "@//types/Class";
 
 const CLASS_FEATURES: Feature[] =
 [
