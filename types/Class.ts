@@ -27,8 +27,8 @@ export type Class = {
 };
 
 export type Subclass = {
-  value: string;
   name: string;
+  label: string;
   source: string; // PHB, XGE, TCE, etc.
   //subclassFeatures: Rasgo[];
 };

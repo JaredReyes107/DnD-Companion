@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, View, Text, TouchableOpacity, FlatList, Alert } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  Alert,
+} from "react-native";
 import { useRouter } from "expo-router";
 
-import genericStyles from '@/stylesheets/GenericStyles';
-import styles from '@/stylesheets/CharacterDetails';
-import { Character, Weapon} from '@/types/'; // Import custom types
+import genericStyles from "@/stylesheets/GenericStyles";
+import styles from "@/stylesheets/CharacterDetails";
+import { Character, Weapon } from "@/types/"; // Import custom types
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { useFonts } from "expo-font";
 import { Montserrat_500Medium } from "@expo-google-fonts/montserrat";
@@ -42,7 +49,7 @@ export default function CharacterSheet() {
 
   const renderWeaponItem = ({ item }: { item: Weapon }) => (
     <View>
-      <TouchableOpacity onPress={ () => 0} style={genericStyles.characterCard}>
+      <TouchableOpacity onPress={() => 0} style={genericStyles.characterCard}>
         <View style={genericStyles.iconContainer}>
           <MaterialIcons name="face" size={24} color="white" />
         </View>
@@ -61,14 +68,14 @@ export default function CharacterSheet() {
     </View>
   );
 
-  return(
+  return (
     <ScrollView style={genericStyles.rootContainer}>
       <FlatList
-          data={character?.Equipment.Armas}
-          keyExtractor={(item) => item.id}
-          renderItem={renderWeaponItem}
-          style={genericStyles.list}
-        />
+        data={character?.Equipment.Armas}
+        keyExtractor={(item) => item.id}
+        renderItem={renderWeaponItem}
+        style={genericStyles.list}
+      />
 
       {/* Interface for adding custom fields
       {selectedItem && (

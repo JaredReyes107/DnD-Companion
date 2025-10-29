@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Feature } from "@/types";
 import { Class, Subclass } from "@//types/Class";
 

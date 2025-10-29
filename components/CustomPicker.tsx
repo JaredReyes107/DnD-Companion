@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
+import React, { useEffect, useState } from "react";
+import DropDownPicker, { ItemType } from "react-native-dropdown-picker";
 
-import styles from '@/stylesheets/CharacterCreation';
+import styles from "@/stylesheets/CharacterCreation";
 
 type Option<T> = {
   label: string;
@@ -15,20 +15,17 @@ type CustomPickerProps<T> = {
   placeholder?: string;
 };
 
-export default function CustomPicker<T extends string>(
-{
+export default function CustomPicker<T extends string>({
   items,
   selectedValue,
   onChange,
-  placeholder = 'Selecciona una opción',
-}: CustomPickerProps<T>) 
-{
+  placeholder = "Selecciona una opción",
+}: CustomPickerProps<T>) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<T | null>(selectedValue);
 
   useEffect(() => {
-    if (value !== null) 
-      {
+    if (value !== null) {
       onChange(value);
     }
   }, [value]);
@@ -41,27 +38,25 @@ export default function CustomPicker<T extends string>(
       setOpen={setOpen}
       setValue={setValue}
       setItems={() => {}}
-      
       placeholder={value ?? placeholder}
-      
-      theme="DARK"      
-      style={[{ backgroundColor: '#1e2021', zIndex: 1000}, styles.picker]}
-      dropDownContainerStyle={{ backgroundColor: '#333', borderColor: '#3e4446', zIndex: 1000, }}
+      theme="DARK"
+      style={[{ backgroundColor: "#1e2021", zIndex: 1000 }, styles.picker]}
+      dropDownContainerStyle={{
+        backgroundColor: "#333",
+        borderColor: "#3e4446",
+        zIndex: 1000,
+      }}
       textStyle={styles.pickerText}
-
       // Hover/press effect
-      listItemContainerStyle={
-      {
-        backgroundColor: '#222',
+      listItemContainerStyle={{
+        backgroundColor: "#222",
       }}
-      selectedItemLabelStyle={
-      {
-        fontWeight: 'bold',
-        color: '#00c0ff',
+      selectedItemLabelStyle={{
+        fontWeight: "bold",
+        color: "#00c0ff",
       }}
-      selectedItemContainerStyle={
-      {
-        backgroundColor: '#444',
+      selectedItemContainerStyle={{
+        backgroundColor: "#444",
       }}
     />
   );

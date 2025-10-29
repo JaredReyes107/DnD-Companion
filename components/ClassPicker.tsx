@@ -1,6 +1,6 @@
-import React from 'react';
-import CustomPicker from '@/components/CustomPicker';
-import { CLASSES } from '@/constants/Classes';
+import React from "react";
+import CustomPicker from "@/components/CustomPicker";
+import { CLASSES } from "@/constants/Classes";
 import { ClassName } from "@/types/Class";
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 
 export default function ClassPicker({ selectedClass, onChange }: Props) {
   const sortedItems = Object.values(CLASSES)
-    .sort((a, b) => a.label.localeCompare(b.label, 'es')) // locale-aware for accented letters
+    .sort((a, b) => a.label.localeCompare(b.label, "es")) // locale-aware for accented letters
     .map((cls) => ({
       value: cls.value,
       label: cls.label,

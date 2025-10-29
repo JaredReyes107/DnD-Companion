@@ -1,10 +1,13 @@
-import { Entypo, FontAwesome, FontAwesome6, Ionicons, 
+import {
+  Entypo,
+  FontAwesome,
+  FontAwesome6,
+  Ionicons,
 } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Text, View, TouchableOpacity, Modal, Button,
-} from "react-native";
+import { Text, View, TouchableOpacity, Modal, Button } from "react-native";
 
 import * as CombatEngine from "../../lib/utilities/CombatEngine";
 import { loadCharacterFromStorage } from "../../lib/utilities/storage";
