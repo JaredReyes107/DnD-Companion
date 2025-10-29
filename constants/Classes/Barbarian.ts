@@ -1,12 +1,14 @@
-import { Feature } from "@/app/Types";
-import { Class, Subclass } from "@/app/Types/Class";
+/* eslint-disable prettier/prettier */
+import { Feature } from "@/types";
+import { Class, Subclass } from "@/types/Class";
 
 const CLASS_FEATURES: Feature[] =
 [
   {
-    name: "Furia",
+    name: "Rage",
+    label: "Furia",
     level: 1,
-    source: "class",
+    featureSource: "class",
     description:
       `
         Durante tu turno, puedes dejarte llevar por la furia como acción adicional. Mientras estás en furia, consigues los siguientes beneficios si no llevas armadura pesada:
@@ -30,9 +32,10 @@ const CLASS_FEATURES: Feature[] =
     tags: ["combat", "damage", "resistance"]
   },
   {
-    name: "Defensa sin armadura",
+    name: "Unarmored Defense",
+    label: "Defensa sin armadura",
     level: 1,
-    source: "class",
+    featureSource: "class",
     description:
       `
         Mientras no llevas la armadura, tu CA es igual a 10 + tu modificador por Destreza + tu modificador por Constitución
@@ -43,9 +46,10 @@ const CLASS_FEATURES: Feature[] =
     tags: ["defense", "passive"]
   },
   {
-    name: "Ataque Temerario",
+    name: "Reckless Attack",
+    label: "Ataque Temerario",
     level: 2,
-    source: "class",
+    featureSource: "class",
     description:
       `
         Cuando ataques por primera vez en tu turno, puedes hacer un ataque temerario, que, durante ese turno, te da ventaja en las tiradas de ataque con armas cuerpo a cuerpo utilizando Fuerza, 
@@ -56,7 +60,7 @@ const CLASS_FEATURES: Feature[] =
   {
     name: "Sentido del Peligro",
     level: 2,
-    source: "class",
+    featureSource: "class",
     description:
       `
         Tienes ventaja en las tiradas de salvación de Destreza contra efectos que puedes ver, como trampas y conjuros. 
@@ -67,7 +71,7 @@ const CLASS_FEATURES: Feature[] =
   {
     name: "Primal Path",
     level: 3,
-    source: "class",
+    featureSource: "class",
     description:
       `
         En el nivel 3 inicias una senda de tu elección. Tu elección te concede rasgos en los niveles 3, 6, 10 y 14.
@@ -77,7 +81,7 @@ const CLASS_FEATURES: Feature[] =
   {
     name: "Mejora de característica",
     level: 4,
-    source: "class",
+    featureSource: "class",
     description:
       `
         Incrementa una característica de tu elección en 2 o dos características en 1. 
@@ -88,7 +92,7 @@ const CLASS_FEATURES: Feature[] =
   {
     name: "Ataque Adicional",
     level: 5,
-    source: "class",
+    featureSource: "class",
     description:
       `
         Puedes atacar dos veces en lugar de una cuando realices la acción de atacar en tu turno
@@ -98,7 +102,7 @@ const CLASS_FEATURES: Feature[] =
   {
     name: "Movimiento Rápido",
     level: 5,
-    source: "class",
+    featureSource: "class",
     description:
       `
         Tu velocidad aumenta en 10 pies mientras no lleves armadura pesada
@@ -111,7 +115,7 @@ const CLASS_FEATURES: Feature[] =
   {
     name: "Instinto Salvaje",
     level: 7,
-    source: "class",
+    featureSource: "class",
     description:
       `
         Tienes ventaja en las tiradas de iniciativa. 
@@ -122,7 +126,7 @@ const CLASS_FEATURES: Feature[] =
   {
     name: "Crítico Brutal",
     level: 9,
-    source: "class",
+    featureSource: "class",
     description:
       `
         Puedes tirar dados adicionales de daño del arma cuando determines el daño adicional de un golpe crítico con un ataque cuerpo a cuerpo.
@@ -136,7 +140,7 @@ const CLASS_FEATURES: Feature[] =
   {
     name: "Relentless Rage",
     level: 11,
-    source: "class",
+    featureSource: "class",
     description:
       "If you drop to 0 hit points while raging and don't die outright, you can make a DC 10 Constitution saving throw. On a success, you drop to 1 hit point instead. The DC increases by 5 each time you succeed, resetting on a short or long rest.",
     tags: ["survivability"]
@@ -144,7 +148,7 @@ const CLASS_FEATURES: Feature[] =
   {
     name: "Persistent Rage",
     level: 15,
-    source: "class",
+    featureSource: "class",
     description:
       "Your rage is so fierce that it ends early only if you fall unconscious or choose to end it.",
     tags: ["combat"]
@@ -152,7 +156,7 @@ const CLASS_FEATURES: Feature[] =
   {
     name: "Indomitable Might",
     level: 18,
-    source: "class",
+    featureSource: "class",
     description:
       "If your total for a Strength check is less than your Strength score, you can use that score in place of the total.",
     tags: ["utility"]
@@ -160,7 +164,7 @@ const CLASS_FEATURES: Feature[] =
   {
     name: "Primal Champion",
     level: 20,
-    source: "class",
+    featureSource: "class",
     description:
       "Your Strength and Constitution scores increase by 4. Your maximum for those scores is now 24.",
     data: {
