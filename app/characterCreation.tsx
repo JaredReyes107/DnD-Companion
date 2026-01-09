@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+
 // Libraries
 import React, { useEffect, useState } from "react";
 import {
@@ -9,39 +11,49 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
+  FlatList,
 } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Custom Classes and Constants
-import { ClassDetails, Character } from "@/types"; // Import custom types
-import { CLASSES } from "@/constants/Classes";
-import { ClassName, Class } from "@/types/Class";
-
-// Custom Components
-import ClassPicker from "@/components/ClassPicker";
+import { Character } from "@/game/types/templates/Character"; // Import custom types
+import { Alignment, ALIGNMENTS } from "@/game/base-data/Alignments";
+import { Ability, AbilityScores, SavingThrows } from "@/game/types/templates/AbilityScores";
+import { getCharacterSkillsFromState } from "@/lib/adapters/SkillHelper";
+import { getAllClassTemplates } from "@/game/registries/ClassRegistry";
 
 import { MaterialIcons } from "@expo/vector-icons";
 
+import CustomPicker from "@/components/CustomPicker";
+import { MainClassForm } from "@/components/MainClassForm";
+import { SecondaryClassesForm } from "@/components/SecondaryClassesForm";
+
 import styles from "@/stylesheets/CharacterCreation";
 import genericStyles from "@/stylesheets/GenericStyles";
-import CustomPicker from "@/components/CustomPicker";
-import { Alignment, ALIGNMENTS } from "@/constants/Alignments";
-import { getUnlockedClassFeatures } from "@/lib/utilities/ClassHandler";
-import { BaseDamageEffectiveness } from "@/types/DamageTypes";
 
-const AddCharacterScreen = () => {
+export default function CharacterCreationScreen () {
   const router = useRouter();
 
   const [characters, setCharacters] = useState<Character[]>([]);
 
   const [CharacterName, setCharacterName] = useState("");
   const [CharacterRace, setCharacterRace] = useState("");
-  const [CharacterAlignment, setCharacterAlignment] =
-    useState<Alignment | null>(null);
-  const [CharacterClass, setCharacterClass] = useState<ClassName | null>(null);
-  const [CharacterLevel, setCharacterLevel] = useState(1);
-  const [CharacterXP, setXP] = useState(0);
+  const [CharacterAlignment, setCharacterAlignment] = useState<Alignment | null>(null);
+  
+  type ClassDraft = {
+    id: string;        // instance id (uuid)
+    classTemplateId: string | null;
+    level: number;
+  };
+  const [mainClass, setMainClass] = useState<ClassDraft>({
+     id: crypto.randomUUID(),
+    classTemplateId: null,
+    level: 1,
+  });
+  const [secondaryClasses, setSecondaryClasses] = useState<ClassDraft[]>([]);
+  
+  const [CharacterXP, setCharacterXP] = useState(0);
 
   const [CharacterSpeed, setCharacterSpeed] = useState(30);
   const [CharacterHP, setCharacterHP] = useState(0);
@@ -116,215 +128,95 @@ const AddCharacterScreen = () => {
   }, []);
 
   const addCharacter = () => {
-    if (CharacterName) {
-      const PB = Math.trunc((CharacterLevel + 3) / 4) + 1;
-
-      // Create the object required for the Classes property
-      const CharacterClasses: ClassDetails[] = [
-        {
-          class: CharacterClass
-            ? CLASSES[CharacterClass]
-            : CLASSES["Barbarian"],
-          level: CharacterLevel,
-          classFeatures: [],
-        },
-      ];
-
-      // Create base character
-      let newCharacter: Character = {
-        id: String(new Date()),
-        icon: "face",
-
-        // Identity
-        Name: CharacterName,
-        Race: CharacterRace ? CharacterRace : "Humano",
-        Alignment: CharacterAlignment
-          ? (CharacterAlignment as string)
-          : "Lawful Good",
-
-        // Classes
-        Classes: CharacterClasses,
-        XP: CharacterXP,
-
-        // Standard Order: Strength, Dexterity, Constitution, Intelligence, Wisdom and Charisma
-        Stats: CharacterStats,
-        StatModifiers: [
-          Math.round((CharacterStats[0] - 10.5) / 2),
-          Math.round((CharacterStats[1] - 10.5) / 2),
-          Math.round((CharacterStats[2] - 10.5) / 2),
-          Math.round((CharacterStats[3] - 10.5) / 2),
-          Math.round((CharacterStats[4] - 10.5) / 2),
-          Math.round((CharacterStats[5] - 10.5) / 2),
-        ],
-
-        // Calculated data
-        ProficiencyBonus: PB,
-        InitiativeBonus: Math.round((CharacterStats[1] - 10.5) / 2),
-        ArmorClass: 10 + Math.round((CharacterStats[1] - 10.5) / 2),
-        Speed: CharacterSpeed ? CharacterSpeed : 30,
-
-        // Standard Order: Strength, Dexterity, Constitution, Intelligence, Wisdom and Charisma
-        SavingThrowsProficiencies: CharacterSTProficiencies,
-        SavingThrowModifiers: [
-          CharacterSTProficiencies[0]
-            ? Math.trunc((CharacterStats[0] - 10) / 2) + PB
-            : Math.trunc((CharacterStats[0] - 10) / 2),
-          CharacterSTProficiencies[1]
-            ? Math.trunc((CharacterStats[1] - 10) / 2) + PB
-            : Math.trunc((CharacterStats[1] - 10) / 2),
-          CharacterSTProficiencies[2]
-            ? Math.trunc((CharacterStats[2] - 10) / 2) + PB
-            : Math.trunc((CharacterStats[2] - 10) / 2),
-          CharacterSTProficiencies[3]
-            ? Math.trunc((CharacterStats[3] - 10) / 2) + PB
-            : Math.trunc((CharacterStats[3] - 10) / 2),
-          CharacterSTProficiencies[4]
-            ? Math.trunc((CharacterStats[4] - 10) / 2) + PB
-            : Math.trunc((CharacterStats[4] - 10) / 2),
-          CharacterSTProficiencies[5]
-            ? Math.trunc((CharacterStats[5] - 10) / 2) + PB
-            : Math.trunc((CharacterStats[5] - 10) / 2),
-        ],
-
-        // By alfabetical order, in Spanish
-        SkillProficiencies: CharacterSkillProficiencies,
-        SkillExpertises: CharacterSkillExpertises,
-        SkillModifiers: [
-          Math.trunc((CharacterStats[1] - 10) / 2) +
-            (CharacterSkillProficiencies[0]
-              ? CharacterSkillExpertises[0]
-                ? 2 * PB
-                : PB
-              : 0), //Acrobacias
-          Math.trunc((CharacterStats[3] - 10) / 2) +
-            (CharacterSkillProficiencies[1]
-              ? CharacterSkillExpertises[1]
-                ? 2 * PB
-                : PB
-              : 0), //Arcanos
-          Math.trunc((CharacterStats[0] - 10) / 2) +
-            (CharacterSkillProficiencies[2]
-              ? CharacterSkillExpertises[2]
-                ? 2 * PB
-                : PB
-              : 0), //Atletismo
-          Math.trunc((CharacterStats[5] - 10) / 2) +
-            (CharacterSkillProficiencies[3]
-              ? CharacterSkillExpertises[3]
-                ? 2 * PB
-                : PB
-              : 0), //Engañar
-          Math.trunc((CharacterStats[3] - 10) / 2) +
-            (CharacterSkillProficiencies[4]
-              ? CharacterSkillExpertises[4]
-                ? 2 * PB
-                : PB
-              : 0), //Historia
-          Math.trunc((CharacterStats[5] - 10) / 2) +
-            (CharacterSkillProficiencies[5]
-              ? CharacterSkillExpertises[5]
-                ? 2 * PB
-                : PB
-              : 0), //Interpretación
-          Math.trunc((CharacterStats[5] - 10) / 2) +
-            (CharacterSkillProficiencies[6]
-              ? CharacterSkillExpertises[6]
-                ? 2 * PB
-                : PB
-              : 0), //Intimidación
-          Math.trunc((CharacterStats[3] - 10) / 2) +
-            (CharacterSkillProficiencies[7]
-              ? CharacterSkillExpertises[7]
-                ? 2 * PB
-                : PB
-              : 0), //Investigación
-          Math.trunc((CharacterStats[1] - 10) / 2) +
-            (CharacterSkillProficiencies[8]
-              ? CharacterSkillExpertises[8]
-                ? 2 * PB
-                : PB
-              : 0), //Juego de Manos
-          Math.trunc((CharacterStats[4] - 10) / 2) +
-            (CharacterSkillProficiencies[9]
-              ? CharacterSkillExpertises[9]
-                ? 2 * PB
-                : PB
-              : 0), //Medicina
-          Math.trunc((CharacterStats[3] - 10) / 2) +
-            (CharacterSkillProficiencies[10]
-              ? CharacterSkillExpertises[10]
-                ? 2 * PB
-                : PB
-              : 0), //Naturaleza
-          Math.trunc((CharacterStats[4] - 10) / 2) +
-            (CharacterSkillProficiencies[11]
-              ? CharacterSkillExpertises[11]
-                ? 2 * PB
-                : PB
-              : 0), //Percepción
-          Math.trunc((CharacterStats[4] - 10) / 2) +
-            (CharacterSkillProficiencies[12]
-              ? CharacterSkillExpertises[12]
-                ? 2 * PB
-                : PB
-              : 0), //Perspicacia
-          Math.trunc((CharacterStats[5] - 10) / 2) +
-            (CharacterSkillProficiencies[13]
-              ? CharacterSkillExpertises[13]
-                ? 2 * PB
-                : PB
-              : 0), //Persuasión
-          Math.trunc((CharacterStats[3] - 10) / 2) +
-            (CharacterSkillProficiencies[14]
-              ? CharacterSkillExpertises[14]
-                ? 2 * PB
-                : PB
-              : 0), //Religión
-          Math.trunc((CharacterStats[1] - 10) / 2) +
-            (CharacterSkillProficiencies[15]
-              ? CharacterSkillExpertises[15]
-                ? 2 * PB
-                : PB
-              : 0), //Sigilo
-          Math.trunc((CharacterStats[4] - 10) / 2) +
-            (CharacterSkillProficiencies[16]
-              ? CharacterSkillExpertises[16]
-                ? 2 * PB
-                : PB
-              : 0), //Supervivencia
-          Math.trunc((CharacterStats[4] - 10) / 2) +
-            (CharacterSkillProficiencies[17]
-              ? CharacterSkillExpertises[17]
-                ? 2 * PB
-                : PB
-              : 0), //Trato con Animales
-        ],
-
-        // Inventory
-        Equipment: {
-          Armas: [],
-          Armaduras: [],
-        },
-
-        // Combat data an Optional features
-        HP: CharacterHP ? CharacterHP : 4 * CharacterLevel,
-        CurrentHP: CharacterHP,
-        TempHP: 0,
-        DamageEffectiveness: BaseDamageEffectiveness,
-      };
-
-      // Add features
-      newCharacter.Classes[0].classFeatures = getUnlockedClassFeatures(
-        newCharacter,
-        0,
-      );
-
-      setCharacters([...characters, newCharacter]);
-
-      router.push("/");
-    } else {
-      console.log("El nombre no puede estar vacío");
+    if (!CharacterName) 
+    {
+      Alert.alert("Error", "El nombre no puede estar vacío");
+      return;
     }
+
+    const abilityOrder: Ability[] = ["STR", "DEX", "CON", "INT", "WIS", "CHA"];
+
+    const abilityScores = abilityOrder.reduce((acc, ability, index) => {
+      acc[ability] = {
+        ability,
+        value: CharacterStats[index],
+      };
+      return acc;
+    }, {} as AbilityScores);
+
+    const savingThrows = abilityOrder.reduce((acc, ability, index) => {
+      acc[ability] = {
+        ability,
+        hasProficiency: CharacterSTProficiencies[index],
+      };
+      return acc;
+    }, {} as SavingThrows);
+
+    const characterClasses = [mainClass, ...secondaryClasses];
+
+    const classesById = Object.fromEntries(
+      characterClasses.map((c) => [
+        c.id,
+        {
+          classId: c.classTemplateId!,
+          level: c.level,
+          activeFeatures: [],
+        },
+      ])
+    );
+
+    if (characterClasses.some(d => !d.id)) {
+      Alert.alert("Todas las clases deben estar seleccionadas");
+      return;
+    }
+
+    const newCharacter: Character = {
+      id: crypto.randomUUID(),
+      icon: "face",
+
+      name: CharacterName,
+      race: CharacterRace || "Humano",
+      alignment: CharacterAlignment ?? "Lawful Good",
+      experiencePoints: CharacterXP,
+
+      classes: {
+        byId: classesById,
+        order: characterClasses.map((c) => c.id),
+      },
+
+      abilityScores,
+      savingThrows,
+      skills: getCharacterSkillsFromState(
+        CharacterSkillProficiencies,
+        CharacterSkillExpertises
+      ),
+
+      hitPoints: {
+        baseMaximumHP: CharacterHP || 4 * 5,
+        currentMaximumHP: CharacterHP || 4 * 5,
+        currentHP: CharacterHP || 4 * 5,
+        temporalHP: 0,
+      },
+
+      speed: CharacterSpeed || 30,
+
+      combatState: {
+        actionUsed: false,
+        bonusActionUsed: false,
+        reactionUsed: false,
+
+        conditions: [],
+      },
+    };
+
+    console.log(getCharacterSkillsFromState(
+        CharacterSkillProficiencies,
+        CharacterSkillExpertises
+      ));
+
+    setCharacters([...characters, newCharacter]);
+
+    router.push("/");
   };
 
   // Save in local storage whenever a character is added, modified or deleted
@@ -376,6 +268,8 @@ const AddCharacterScreen = () => {
     setCharacterSkillExpertises(updatedSkills);
   };
 
+  const classTemplates = getAllClassTemplates();
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -404,7 +298,7 @@ const AddCharacterScreen = () => {
           </View>
 
           {/* Alignment */}
-          <View style={[styles.fieldContainer, { zIndex: 10 }]}>
+          <View style={[styles.fieldContainer, { zIndex: 100 }]}>
             <Text style={styles.fieldHeader}>Alineamiento</Text>
             <View style={styles.pickerContainer}>
               <CustomPicker
@@ -416,103 +310,59 @@ const AddCharacterScreen = () => {
             </View>
           </View>
 
-          {/* Main Class */}
-          <View style={[styles.fieldContainer, { zIndex: 9 }]}>
-            <Text style={styles.fieldHeader}>Clase</Text>
-            <View style={styles.pickerContainer}>
-              <ClassPicker
-                selectedClass={CharacterClass}
-                onChange={(val) => setCharacterClass(val)}
-              ></ClassPicker>
-            </View>
+          {/* XP */}
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldHeader}>Puntos de Experiencia</Text>
+            <TextInput
+              placeholder=""
+              onChangeText={(val) => setCharacterXP(+val)}
+              style={styles.input}
+            />
           </View>
 
-          {/* Main Class Level */}
-          <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>Nivel</Text>
-            <View style={styles.counterContainer}>
-              <Text style={styles.counterInput}>{CharacterLevel}</Text>
-              <View style={styles.counterButtonsContainer}>
-                <TouchableOpacity
-                  style={styles.counterButtons}
-                  onPress={() =>
-                    setCharacterLevel(
-                      CharacterLevel > 1 ? CharacterLevel - 1 : 1,
-                    )
-                  }
-                >
-                  <MaterialIcons
-                    name="remove"
-                    size={16}
-                    color="white"
-                  ></MaterialIcons>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.counterButtons}
-                  onPress={() =>
-                    setCharacterLevel(
-                      CharacterLevel < 20 ? CharacterLevel + 1 : 20,
-                    )
-                  }
-                >
-                  <MaterialIcons
-                    name="add"
-                    size={16}
-                    color="white"
-                  ></MaterialIcons>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
+          {/* Main Class */}
+          <MainClassForm
+            classTemplates={classTemplates}
+            value={mainClass}
+            onChange={setMainClass}
+          />
 
           {/* Secondary Classes */}
-          <View style={styles.subfieldContainer}>
-            <View style={[styles.fieldContainer, { zIndex: 8 }]}>
-              <Text style={styles.fieldHeader}>Clase</Text>
-              <View style={styles.pickerContainer}>
-                <ClassPicker
-                  selectedClass={CharacterClass}
-                  onChange={(val) => setCharacterClass(val)}
-                ></ClassPicker>
-              </View>
-            </View>
-            <View style={styles.fieldContainer}>
-              <Text style={styles.fieldHeader}>Nivel</Text>
-              <View style={styles.counterContainer}>
-                <Text style={styles.counterInput}>{CharacterLevel}</Text>
-                <View style={styles.counterButtonsContainer}>
-                  <TouchableOpacity
-                    style={styles.counterButtons}
-                    onPress={() =>
-                      setCharacterLevel(
-                        CharacterLevel > 1 ? CharacterLevel - 1 : 1,
+          <FlatList
+            data={secondaryClasses}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+                <View>
+                  <SecondaryClassesForm
+                    value={item}
+                    classTemplates={classTemplates}
+                    onChange={(updated) =>
+                      setSecondaryClasses((prev) =>
+                        prev.map((c) => (c.id === item.id ? updated : c))
                       )
                     }
-                  >
-                    <MaterialIcons
-                      name="remove"
-                      size={16}
-                      color="white"
-                    ></MaterialIcons>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.counterButtons}
-                    onPress={() =>
-                      setCharacterLevel(
-                        CharacterLevel < 20 ? CharacterLevel + 1 : 20,
-                      )
+                    onRemove={() =>
+                      setSecondaryClasses((prev) => prev.filter((c) => c.id !== item.id))
                     }
-                  >
-                    <MaterialIcons
-                      name="add"
-                      size={16}
-                      color="white"
-                    ></MaterialIcons>
-                  </TouchableOpacity>
+                  />
                 </View>
-              </View>
-            </View>
-          </View>
+              
+            )}
+          />
+          <TouchableOpacity
+            style={styles.addClassButtonContainer}
+            onPress={() =>
+              setSecondaryClasses((prev) => [
+                ...prev,
+                {
+                  id: crypto.randomUUID(),
+                  classTemplateId: null,
+                  level: 1,
+                },
+              ])
+            }>
+            <Text style={styles.addClassButton}>+ Añadir clase</Text>
+          </TouchableOpacity>
 
           {/* Speed */}
           <View style={styles.fieldContainer}>
@@ -521,7 +371,7 @@ const AddCharacterScreen = () => {
               <Text style={styles.counterInput}>{CharacterSpeed}</Text>
               <View style={styles.counterButtonsContainer}>
                 <TouchableOpacity
-                  style={styles.counterButtons}
+                  style={styles.counterButton}
                   onPress={() =>
                     setCharacterSpeed(
                       CharacterSpeed > 0 ? CharacterSpeed - 5 : 0,
@@ -530,12 +380,11 @@ const AddCharacterScreen = () => {
                 >
                   <MaterialIcons
                     name="remove"
-                    size={16}
-                    color="white"
+                    style={styles.counterButtonIcon}
                   ></MaterialIcons>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={styles.counterButtons}
+                  style={styles.counterButton}
                   onPress={() =>
                     setCharacterSpeed(
                       CharacterSpeed < 40 ? CharacterSpeed + 5 : 75,
@@ -544,8 +393,7 @@ const AddCharacterScreen = () => {
                 >
                   <MaterialIcons
                     name="add"
-                    size={16}
-                    color="white"
+                    style={styles.counterButtonIcon}
                   ></MaterialIcons>
                 </TouchableOpacity>
               </View>
@@ -1970,9 +1818,9 @@ const AddCharacterScreen = () => {
             </View>
           </View>
 
-          <View style={styles.addButtonContainer}>
-            <TouchableOpacity onPress={addCharacter} style={styles.addButton}>
-              <Text style={styles.addButtonText}>Añadir Personaje</Text>
+          <View style={styles.submitButtonContainer}>
+            <TouchableOpacity onPress={addCharacter} style={styles.submitButton}>
+              <Text style={styles.submitButtonText}>Añadir Personaje</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -1980,5 +1828,3 @@ const AddCharacterScreen = () => {
     </KeyboardAvoidingView>
   );
 };
-
-export default AddCharacterScreen;

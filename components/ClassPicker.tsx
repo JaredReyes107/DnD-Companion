@@ -1,25 +1,29 @@
 import React from "react";
 import CustomPicker from "@/components/CustomPicker";
-import { CLASSES } from "@/constants/Classes";
-import { ClassName } from "@/types/Class";
+import { ClassTemplate } from "@/game/types/templates/ClassTemplate";
 
 type Props = {
-  selectedClass: ClassName | null;
-  onChange: (value: ClassName) => void;
+  classTemplates: ClassTemplate[];
+  selectedClassId: string | null;
+  onChange: (classTemplateId: string) => void;
 };
 
-export default function ClassPicker({ selectedClass, onChange }: Props) {
-  const sortedItems = Object.values(CLASSES)
-    .sort((a, b) => a.label.localeCompare(b.label, "es")) // locale-aware for accented letters
+export default function ClassPicker({
+  classTemplates,
+  selectedClassId,
+  onChange,
+}: Props) {
+  const items = [...classTemplates]
+    .sort((a, b) => a.name.localeCompare(b.name, "es"))
     .map((cls) => ({
-      value: cls.value,
-      label: cls.label,
+      value: cls.id,
+      label: cls.name,
     }));
 
   return (
-    <CustomPicker<ClassName>
-      items={sortedItems}
-      selectedValue={selectedClass}
+    <CustomPicker<string>
+      items={items}
+      selectedValue={selectedClassId}
       onChange={onChange}
       placeholder="Selecciona una clase"
     />

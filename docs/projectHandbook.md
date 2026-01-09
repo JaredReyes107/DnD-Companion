@@ -27,13 +27,23 @@ Its goal is to ensure **consistency, readability, maintainability, and scalabili
 ## 3. Repository Structure
 ```
 /root
-  /app               # Screens, stylesheets and others
+  /app               # Screens
   /assets            # Images, icons, sounds and other media resources
-  /components        # Reusable UI components (PascalCase)
+  /components        # Reusable UI components
   /constants         # Static data, enums, config
   /docs              # Documentation
+  /game              # Game types, rules, registries and official player options
+    /base-data
+    /instances
+    /registries
+    /rules
+    /types
+      /instances
+      /templates
   /hooks             # Custom React hooks
-  /lib               # APIs, storage, utilities
+  /lib               # APIs, storage, UI adapters, utilities
+    /adapters        
+    /utilities
   /stylesheets       # Style files for screens
   /types             # Global TypeScript types
   .gitignore

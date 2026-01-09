@@ -39,8 +39,11 @@ export default function CustomPicker<T extends string>({
       setValue={setValue}
       setItems={() => {}}
       placeholder={value ?? placeholder}
+      listMode="MODAL"
+      modalTitle={placeholder}
+      modalAnimationType="fade"
       theme="DARK"
-      style={[{ backgroundColor: "#1e2021", zIndex: 1000 }, styles.picker]}
+      style={[{ backgroundColor: "#1e2021" }, styles.picker]}
       dropDownContainerStyle={{
         backgroundColor: "#333",
         borderColor: "#3e4446",

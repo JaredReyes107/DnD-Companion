@@ -55,6 +55,55 @@ const styles = StyleSheet.create({
     color: "#d8d4cf",
   },
 
+  fieldClassContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    gap: 10,
+  },
+  pickerClassContainer: {
+    flex: 1,
+  },
+  addClassButtonContainer: {
+    marginLeft: 25,
+    marginBottom: 10,
+
+    borderWidth: 1,
+    borderColor: "#3e4446",
+    borderRadius: 5,
+
+    color: "#d8d4cf",
+  },
+  addClassButton: {
+    minHeight: 0,
+
+    backgroundColor: "transparent",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+
+    borderWidth: 0,
+    borderColor: "#3e4446",
+    borderRadius: 5,
+
+    color: "#d8d4cf",
+  },
+  removeClassButton: {
+    width: 36,
+    height: 36,
+    backgroundColor: "#35393b",
+    padding: 10,
+    margin: 5,
+    borderRadius: 50,
+
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  removeClassButtonText: {
+    color: "white",
+    fontSize: 18,
+  },
+
   counterContainer: {
     display: "flex",
     flexDirection: "row",
@@ -74,7 +123,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginLeft: 10,
   },
-  counterButtons: {
+  counterButton: {
     width: 36,
     height: 36,
     backgroundColor: "#35393b",
@@ -85,9 +134,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  buttonText: {
+  counterButtonIcon: {
     color: "white",
-    fontSize: 24,
+    fontSize: 16,
   },
 
   statsContainer: {
@@ -152,20 +201,20 @@ const styles = StyleSheet.create({
   },
   proficiencyButton: {},
 
-  addButtonContainer: {
+  submitButtonContainer: {
     display: "flex",
     alignItems: "center",
 
     margin: 10,
   },
-  addButton: {
+  submitButton: {
     width: "50%",
     backgroundColor: "#4CAF50",
     padding: 10,
     borderRadius: 5,
     alignItems: "center",
   },
-  addButtonText: {
+  submitButtonText: {
     color: "#fff",
   },
   //#endregion

@@ -4,16 +4,15 @@ import {
   FontAwesome6,
   Ionicons,
 } from "@expo/vector-icons";
-import { Image } from "expo-image";
+//import { Image } from "expo-image";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Text, View, TouchableOpacity, Modal, Button } from "react-native";
 
-import * as CombatEngine from "../../lib/utilities/CombatEngine";
-import { loadCharacterFromStorage } from "../../lib/utilities/storage";
+import { Character } from "@/game/types/templates/Character";
+import { loadCharacterFromStorage } from "../../lib/utilities/StorageSystem";
 import styles from "../../stylesheets/combat/index";
 import genericStyles from "../../stylesheets/GenericStyles";
-import { Character } from "../../types";
 
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
@@ -22,7 +21,9 @@ export default function App() {
   let baseCharacter;
   const [character, setCharacter] = useState<Character>();
 
-  const totalHP = (character?.TempHP ?? 0) + (character?.CurrentHP ?? 0);
+  const totalHP =
+    (character?.hitPoints.temporalHP ?? 0) +
+    (character?.hitPoints.currentHP ?? 0);
 
   //#region DMG Taken Window
   const [dmgTakenWindow, setDmgTakenWindow] = useState(false);
@@ -35,11 +36,11 @@ export default function App() {
     const selectedCharacter = await loadCharacterFromStorage();
     if (selectedCharacter) {
       baseCharacter = selectedCharacter;
-      console.log(selectedCharacter.CurrentHP);
+      console.log(selectedCharacter.hitPoints.currentHP);
 
       setCharacter(selectedCharacter);
 
-      CombatEngine.startCombat(selectedCharacter);
+      //CombatEngine.startCombat(selectedCharacter);
     }
   };
 
@@ -119,6 +120,7 @@ export default function App() {
 
                 {/* Damage Types Board */}
                 <View style={styles.damageTypes_Grid}>
+                  {/*
                   <TouchableOpacity style={styles.damageTypes_Button}>
                     <Image
                       source={require("@/assets/images/damageTypes/Icon_Bludgeoning.png")}
@@ -197,13 +199,6 @@ export default function App() {
                       style={styles.damageTypes_Icon}
                     />
                   </TouchableOpacity>
-                  {/* NOTE: True Damage Button
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image 
-                      source={require('@/assets/images/damageTypes/Icon_True.png')} 
-                      style={styles.damageTypes_Icon} 
-                    />
-                  </TouchableOpacity>
                   */}
                 </View>
               </View>
@@ -242,9 +237,12 @@ export default function App() {
           >
             <TouchableOpacity
               onPress={() => {
-                if (character?.TempHP != undefined) {
+                if (character?.hitPoints.temporalHP != undefined) {
                   const modifiedCharacter = character;
-                  modifiedCharacter.TempHP = Math.max(0, character?.TempHP - 1);
+                  modifiedCharacter.hitPoints.temporalHP = Math.max(
+                    0,
+                    character?.hitPoints.temporalHP - 1,
+                  );
 
                   updateCharacter(modifiedCharacter);
                 }
@@ -255,14 +253,17 @@ export default function App() {
             <TouchableOpacity style={styles.blockCenter}>
               <Text style={styles.blockTitle}>HP Temporal</Text>
               <Text style={styles.blockValue}>
-                {character?.TempHP ? character?.TempHP : 0}
+                {character?.hitPoints.temporalHP
+                  ? character?.hitPoints.temporalHP
+                  : 0}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                if (character?.TempHP != undefined) {
+                if (character?.hitPoints.temporalHP != undefined) {
                   const modifiedCharacter = character;
-                  modifiedCharacter.TempHP = character?.TempHP + 1;
+                  modifiedCharacter.hitPoints.temporalHP =
+                    character?.hitPoints.temporalHP + 1;
 
                   updateCharacter(modifiedCharacter);
                 }
@@ -275,11 +276,11 @@ export default function App() {
           <View style={[styles.blockContainer, { backgroundColor: "#d32f2f" }]}>
             <TouchableOpacity
               onPress={() => {
-                if (character?.CurrentHP != undefined) {
+                if (character?.hitPoints.currentHP != undefined) {
                   const modifiedCharacter = character;
-                  modifiedCharacter.CurrentHP = Math.max(
+                  modifiedCharacter.hitPoints.currentHP = Math.max(
                     0,
-                    character?.CurrentHP - 1,
+                    character?.hitPoints.currentHP - 1,
                   );
 
                   updateCharacter(modifiedCharacter);
@@ -291,16 +292,18 @@ export default function App() {
             <TouchableOpacity style={styles.blockCenter}>
               <Text style={styles.blockTitle}>HP</Text>
               <Text style={styles.blockValue}>
-                {character?.CurrentHP ? character.CurrentHP : 0}
+                {character?.hitPoints.currentHP
+                  ? character.hitPoints.currentHP
+                  : 0}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                if (character?.CurrentHP != undefined) {
+                if (character?.hitPoints.currentHP != undefined) {
                   const modifiedCharacter = character;
-                  modifiedCharacter.CurrentHP = Math.min(
-                    character.HP,
-                    character?.CurrentHP + 1,
+                  modifiedCharacter.hitPoints.currentHP = Math.min(
+                    character.hitPoints.baseMaximumHP,
+                    character?.hitPoints.currentHP + 1,
                   );
 
                   updateCharacter(modifiedCharacter);
@@ -318,7 +321,7 @@ export default function App() {
             <TouchableOpacity
               onPress={() =>
                 character
-                  ? updateCharacter(CombatEngine.takeLongRest(character))
+                  ? {} //updateCharacter(CombatEngine.takeLongRest(character))
                   : {}
               }
               style={styles.restButton}
@@ -329,7 +332,7 @@ export default function App() {
             <TouchableOpacity
               onPress={() =>
                 character
-                  ? updateCharacter(CombatEngine.takeShortRest(character))
+                  ? {} //updateCharacter(CombatEngine.takeShortRest(character))
                   : {}
               }
               style={styles.restButton}
