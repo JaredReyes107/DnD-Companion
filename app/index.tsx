@@ -4,20 +4,19 @@ import { View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// Custom Components
-import { ClassDetails, Character } from "@/types"; // Import custom types
+// Import custom types
+import { Character } from "@/game/types/templates/Character";
 
+// Custom Components
 import { MaterialIcons } from "@expo/vector-icons";
 import { ThemedView } from "@/components/ThemedView";
 
 import styles from "@/stylesheets/GenericStyles";
-import { CLASSES } from "@/constants/Classes";
 
 const IndexScreen = () => {
   const router = useRouter();
   const [characters, setCharacters] = useState<Character[]>([]);
 
-  //Función para llamar a cargar objetos
   const loadItemsFromStorage = async () => {
     try {
       const storedItems = await AsyncStorage.getItem("characters");
@@ -25,7 +24,7 @@ const IndexScreen = () => {
         setCharacters(JSON.parse(storedItems));
       }
     } catch (error) {
-      Alert.alert("Error", "Failed to load items");
+      Alert.alert("Error", "Failed to load items: " + error);
     }
   };
 
@@ -52,13 +51,13 @@ const IndexScreen = () => {
       console.error("Error saving string:", error);
     }
 
-    router.push("../CharacterDetails");
+    router.push("../CharacterSheet");
   };
 
-  const renderListItem = ({ item }: { item: Character }) => (
+  const renderListItem = ({ item: character }: { item: Character }) => (
     <View>
       <TouchableOpacity
-        onPress={() => loadCharacterDetails(item.id)}
+        onPress={() => loadCharacterDetails(character.id)}
         style={styles.characterCard}
       >
         <View style={styles.iconContainer}>
@@ -66,17 +65,23 @@ const IndexScreen = () => {
         </View>
         <View style={styles.characterCard_TextContainer}>
           <Text key="Nombre" style={styles.characterCard_Title}>
-            {item.Name}
+            {character.name}
           </Text>
           <Text key="Raza" style={styles.characterCard_Text}>
-            {item.Race}
+            {character.race}
           </Text>
           <Text key="Clase" style={styles.characterCard_Text}>
-            {item.Classes.at(0)?.class.label}
+            {character.classes.order.map(
+              (characterClass) =>
+                character.classes.byId[characterClass].classId +
+                " " +
+                character.classes.byId[characterClass].level +
+                " ",
+            )}
           </Text>
         </View>
         <TouchableOpacity
-          onPress={() => deleteItem(item.id)}
+          onPress={() => deleteItem(character.id)}
           style={styles.characterCard_ActionIcon}
         >
           <MaterialIcons name="delete" size={24} color="#da8466" />

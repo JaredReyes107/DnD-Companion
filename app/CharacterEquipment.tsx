@@ -11,7 +11,6 @@ import { useRouter } from "expo-router";
 
 import genericStyles from "@/stylesheets/GenericStyles";
 import styles from "@/stylesheets/CharacterDetails";
-import { Character, Weapon } from "@/types/"; // Import custom types
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
