@@ -70,14 +70,6 @@ const CharacterCreationScreen = () => {
   const [CharacterStats, setCharacterStats] = useState([
     10, 10, 10, 10, 10, 10,
   ]);
-  const [CharacterSTProficiencies] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
   const [characterSavingThrows, setCharacterSavingThrows] =
     useState<CharacterSavingThrows>(buildSavingThrows);
   const [characterSkillProficiencies, setCharacterSkillProficiencies] =
@@ -118,14 +110,6 @@ const CharacterCreationScreen = () => {
       return acc;
     }, {} as AbilityScores);
 
-    const savingThrows = abilityOrder.reduce((acc, ability, index) => {
-      acc[ability] = {
-        ability,
-        hasProficiency: CharacterSTProficiencies[index],
-      };
-      return acc;
-    }, {} as CharacterSavingThrows);
-
     const characterClasses = [mainClass, ...secondaryClasses];
 
     const classesById = Object.fromEntries(
@@ -159,7 +143,7 @@ const CharacterCreationScreen = () => {
       },
 
       abilityScores,
-      savingThrows,
+      savingThrows: characterSavingThrows,
       skills: characterSkillProficiencies,
 
       hitPoints: {
