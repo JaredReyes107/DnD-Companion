@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Ability } from "@/game/types/templates/AbilityScores";
+import { Ability } from "@/game/types/templates/abilities-scores";
 
 export type SkillRegistry = Record<string, Ability>
 

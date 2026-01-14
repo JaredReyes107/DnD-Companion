@@ -7,7 +7,7 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
-export default function TabTwoScreen() {
+const TabTwoScreen = () => {
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
@@ -52,6 +52,7 @@ export default function TabTwoScreen() {
           provide files for different screen densities
         </ThemedText>
         <Image
+          // eslint-disable-next-line @typescript-eslint/no-require-imports
           source={require("@/assets/images/react-logo.png")}
           style={{ alignSelf: "center" }}
         />
@@ -108,7 +109,9 @@ export default function TabTwoScreen() {
       </Collapsible>
     </ParallaxScrollView>
   );
-}
+};
+
+export default TabTwoScreen;
 
 const styles = StyleSheet.create({
   headerImage: {

@@ -1,4 +1,4 @@
-import { Feature } from "@/game/types/templates/Feature";
+import { Feature } from "@/game/types/templates/feature";
 
 export const RAGE: Feature = {
   id: "Rage",

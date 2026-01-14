@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { SKILLS } from "@/game/base-data/SKILLS";
-import { Character } from "@/game/types/templates/Character";
-import { Skill, CharacterSkills, SkillInstance } from "@/game/types/templates/Skills";
+import { SKILLS } from "@/game/base-data/skills";
+import { Character } from "@/game/types/templates/character";
+import { Skill, CharacterSkills, SkillInstance } from "@/game/types/templates/character-skills";
 
 type SkillView = {
   id: string;
@@ -9,15 +9,23 @@ type SkillView = {
   state: SkillInstance;
 };
 
+export function buildCharacterSkills(): CharacterSkills {
+ return Object.keys(SKILLS).reduce((acc, skillId) => {
+    acc[skillId] = {
+      skill: skillId,
+      hasProficiency: false,
+      hasExpertise: false,
+    };
+    return acc;
+  }, {} as CharacterSkills);
+}
+
 export function getCharacterSkillsToArray(character: Character): SkillView[] {
   const skillList: SkillView[] = Object.entries(SKILLS).map(([id, def]) => ({
     id,
     definition: def,
     state: character.skills[id],
   }));
-
-  console.log(skillList);
-  
 
   return skillList;
 }

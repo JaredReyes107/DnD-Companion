@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { ClassInstance } from "@/game/types/instances/ClassInstance";
+import { ClassInstance } from "@/game/types/instances/class-instance";
 
 export type CharacterClasses = {
   byId: Record<string, ClassInstance>;

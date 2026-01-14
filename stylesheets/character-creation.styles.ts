@@ -1,7 +1,8 @@
+/* eslint-disable prettier/prettier */
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  //#region Character Creation
+  //#region General Styles
   fieldContainer: {
     display: "flex",
     gap: 10,
@@ -54,7 +55,9 @@ const styles = StyleSheet.create({
   pickerText: {
     color: "#d8d4cf",
   },
+  //#endregion
 
+  //#region Class Styles
   fieldClassContainer: {
     display: "flex",
     flexDirection: "row",
@@ -103,7 +106,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
   },
+  //#endregion
 
+  //#region Counter Styles
   counterContainer: {
     display: "flex",
     flexDirection: "row",
@@ -138,6 +143,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
   },
+  //#endregion
 
   statsContainer: {
     display: "flex",
@@ -192,14 +198,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
+  proficienciesList: {
+    display: "flex",
+    flexDirection: "row",
+
+    gap: 5,
+  },
   proficienciesContainer: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
 
+    marginBottom: 5,
     gap: 5,
   },
-  proficiencyButton: {},
+  proficiencyButton: {
+
+  },
 
   submitButtonContainer: {
     display: "flex",

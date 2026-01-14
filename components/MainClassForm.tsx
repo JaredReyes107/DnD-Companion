@@ -4,9 +4,9 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import ClassPicker from "@/components/ClassPicker";
-import { ClassTemplate } from "@/game/types/templates/ClassTemplate";
+import { ClassTemplate } from "@/game/types/templates/class-template";
 
-import styles from "@/stylesheets/CharacterCreation";
+import styles from "@/stylesheets/character-creation.styles";
 
 type ClassDraft = {
   id: string;           // UUID interno del slot
@@ -20,7 +20,7 @@ type Props = {
   onChange: (value: ClassDraft) => void;
 };
 
-export function MainClassForm({ classTemplates, value, onChange }: Props) {
+export const MainClassForm = ({ classTemplates, value, onChange }: Props) => {
   return (
     <View style={[styles.fieldContainer, { zIndex: 95 }]}>
       <Text style={styles.fieldHeader}>Clase principal</Text>

@@ -1,6 +1,7 @@
+/* eslint-disable prettier/prettier */
 import React from "react";
 import CustomPicker from "@/components/CustomPicker";
-import { ClassTemplate } from "@/game/types/templates/ClassTemplate";
+import { ClassTemplate } from "@/game/types/templates/class-template";
 
 type Props = {
   classTemplates: ClassTemplate[];
@@ -8,11 +9,11 @@ type Props = {
   onChange: (classTemplateId: string) => void;
 };
 
-export default function ClassPicker({
+const ClassPicker = ({
   classTemplates,
   selectedClassId,
   onChange,
-}: Props) {
+}: Props) => {
   const items = [...classTemplates]
     .sort((a, b) => a.name.localeCompare(b.name, "es"))
     .map((cls) => ({
@@ -28,4 +29,6 @@ export default function ClassPicker({
       placeholder="Selecciona una clase"
     />
   );
-}
+};
+
+export default ClassPicker;

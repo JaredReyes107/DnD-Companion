@@ -2,10 +2,10 @@
 import { Character } from "@/game/types/templates/aracter";
 import { getAbilityModifier as getAbilityModifier } from "./abilities-modifiers";
 
-export function getInitiativeBonus(character: Character): number {
-  const total = getAbilityModifier(character.abilityScores.DEX.value);
+export function getArmorClass(character: Character): number {
+  const total = 10 + getAbilityModifier(character.abilityScores.DEX.value);
 
-  //total += applyFeatureModifiers(character, "initiative");
+  //total += applyFeatureModifiers(character, "armorClass");
 
   return total;
 }

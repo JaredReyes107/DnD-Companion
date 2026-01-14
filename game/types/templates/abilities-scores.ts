@@ -7,6 +7,15 @@ export type Ability =
   | "WIS"
   | "CHA";
 
+export const ABILITY_ORDER: Ability[] = [
+  "STR",
+  "DEX",
+  "CON",
+  "INT",
+  "WIS",
+  "CHA",
+];
+
 export type AbilityScore = {
   ability: Ability;
   value: number;
@@ -14,9 +23,9 @@ export type AbilityScore = {
 
 export type AbilityScores = Record<Ability, AbilityScore>;
 
-export type SavingThrow = {
+export type SavingThrowInstance = {
   ability: Ability;
   hasProficiency: boolean;
 }
 
-export type SavingThrows = Record<Ability, SavingThrow>
+export type CharacterSavingThrows = Record<Ability, SavingThrowInstance>

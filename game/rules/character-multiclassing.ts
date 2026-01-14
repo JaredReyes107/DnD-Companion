@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */  
-import { CharacterClasses } from "@/game/types/instances/CharacterClasses";
-import { ClassInstance } from "@/game/types/instances/ClassInstance";
+import { CharacterClasses } from "@/game/types/instances/character-classes";
+import { ClassInstance } from "@/game/types/instances/class-instance";
 
 export function getTotalCharacterLevel(classes: CharacterClasses): number {
   return classes.order.reduce(  

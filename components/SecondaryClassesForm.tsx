@@ -4,9 +4,9 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import ClassPicker from "@/components/ClassPicker";
-import { ClassTemplate } from "@/game/types/templates/ClassTemplate";
+import { ClassTemplate } from "@/game/types/templates/class-template";
 
-import styles from "@/stylesheets/CharacterCreation";
+import styles from "@/stylesheets/character-creation.styles";
 
 type ClassDraft = {
   id: string;           // UUID interno del slot
@@ -21,12 +21,12 @@ type Props = {
   onRemove: () => void;
 };
 
-export function SecondaryClassesForm({
+export const SecondaryClassesForm = ({
   value,
   classTemplates,
   onChange,
   onRemove,
-}: Props) {
+}: Props) => {
   return (
     <View style={[styles.subfieldContainer]}>
       <View style={styles.fieldClassContainer}>

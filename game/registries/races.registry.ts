@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Race } from "@/game/types/templates/Race";
+import { Race } from "@/game/types/templates/character-race";
 
 export type RaceRegistry = Record<string, Race>
 

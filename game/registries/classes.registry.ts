@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { CLASSES } from "@/game/base-data/CLASSES"
+import { CLASSES } from "@/game/base-data/classes"
 
-import { ClassTemplate } from "../types/templates/ClassTemplate";
+import { ClassTemplate } from "../types/templates/class-template";
 
 export function buildClassRegistry(
   base: Record<string, ClassTemplate>,
@@ -13,7 +13,7 @@ export function buildClassRegistry(
   };
 }
 
-let homebrewClasses: Record<string, ClassTemplate> = {};
+const homebrewClasses: Record<string, ClassTemplate> = {};
 
 export function getAllClassTemplates(): ClassTemplate[] {
   return [
