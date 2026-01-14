@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { Character } from "@/game/types/templates/Character";
-import { getTotalCharacterLevel } from "./CharacterMulticlass";
+import { Character } from "@/game/types/templates/character";
+import { getTotalCharacterLevel } from "./character-multiclassing";
 
 export function getProficiencyBonus(character: Character): number {
-  let totalLevel = getTotalCharacterLevel(character.classes);
+  const totalLevel = getTotalCharacterLevel(character.classes);
 
   return Math.trunc((totalLevel + 3) / 4) + 1;
 }

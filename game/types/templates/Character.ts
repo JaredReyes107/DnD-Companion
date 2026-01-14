@@ -1,13 +1,14 @@
-import { Alignment } from "@/game/base-data/Alignments";
-import { CharacterClasses } from "../instances/CharacterClasses";
+/* eslint-disable prettier/prettier */
+import { Alignment } from "@/game/base-data/alignments";
+import { CharacterClasses } from "../instances/character-classes";
 import {
   AbilityScores,
-  SavingThrows,
-} from "@/game/types/templates/AbilityScores";
-import { CharacterSkills } from "./Skills";
-import { HitPoints } from "./HitPoints";
-import { CombatState } from "./CombatState";
-import { CharacterSpellcasting } from "../instances/CharacterSpellcasting";
+  CharacterSavingThrows,
+} from "@/game/types/templates/abilities-scores";
+import { CharacterSkills } from "./character-skills";
+import { HitPoints } from "./hit-points";
+import { CombatState } from "./combat-state";
+import { CharacterSpellcasting } from "../instances/character-spellcasting";
 
 export type Character = {
   // Internal Id
@@ -23,7 +24,7 @@ export type Character = {
   classes: CharacterClasses;
 
   abilityScores: AbilityScores;
-  savingThrows: SavingThrows;
+  savingThrows: CharacterSavingThrows;
   skills: CharacterSkills;
 
   hitPoints: HitPoints;

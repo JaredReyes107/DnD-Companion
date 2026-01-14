@@ -1,9 +1,11 @@
 import { View, Text } from "react-native";
 
-export default function ProfileScreen() {
+const ProfileScreen = () => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Profile Tab</Text>
     </View>
   );
-}
+};
+
+export default ProfileScreen;

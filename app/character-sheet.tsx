@@ -10,9 +10,8 @@ import {
 import { useRouter } from "expo-router";
 
 // Custom Components
-import { loadCharacterFromStorage } from "@/lib/utilities/StorageSystem";
-import { Character } from "@/game/types/templates/Character";
-import { Feature } from "@/game/types/templates/Feature";
+import { loadCharacterFromStorage } from "@/lib/utilities/system-storage";
+import { Character } from "@/game/types/templates/character";
 import { ProficiencyIcon } from "@/components/ProficiencyIcon";
 
 // Styles
@@ -21,24 +20,24 @@ import { Montserrat_500Medium } from "@expo-google-fonts/montserrat";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 // Custom Styles
-import genericStyles from "@/stylesheets/GenericStyles";
-import styles from "@/stylesheets/CharacterDetails";
+import genericStyles from "@/stylesheets/generic.styles";
+import styles from "@/stylesheets/character-sheet.styles";
 
 // Character Functions
-import { getInitiativeBonus } from "@/game/rules/Initiative";
-import { getArmorClass } from "@/game/rules/ArmorClass";
+import { getInitiativeBonus } from "@/game/rules/initiative";
+import { getArmorClass } from "@/game/rules/armor-class";
 import {
   getAbilityModifier,
   getProficiencyBonus,
-} from "@/game/rules/AbilityModifiers";
-import { getSavingThrowModifier } from "@/game/rules/SavingThrowModifier";
-import { getSkillModifier } from "@/game/rules/SkillModifiers";
+} from "@/game/rules/abilities-modifiers";
+import { getSavingThrowModifier } from "@/game/rules/saving-throws-modifiers";
+import { getSkillModifier } from "@/game/rules/skills-modifiers";
 
 // Helper Functions
-import { PrintNumberWithSign } from "@/lib/utilities/PrintNumberWithSign";
-import { getCharacterSkillsToArray } from "@/lib/adapters/SkillHelper";
+import { PrintNumberWithSign } from "@/lib/utilities/formater-numbers";
+import { getCharacterSkillsToArray } from "@/lib/adapters/builder-skills";
 
-export default function CharacterSheetScreen() {
+const CharacterSheetScreen = () => {
   const router = useRouter();
 
   const [character, setCharacter] = useState<Character>();
@@ -55,20 +54,10 @@ export default function CharacterSheetScreen() {
     fetchCharacter();
   }, []);
 
-  const [fontsLoaded] = useFonts({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_fontsLoaded] = useFonts({
     Montserrat: Montserrat_500Medium,
   });
-
-  //TODO: Not styled. Not currently used. Use in another section/window for the feature details.
-  const renderFeatures = ({ item }: { item: Feature }) => (
-    <View>
-      <Text>{item.id}</Text>
-      <Text>{item.description}</Text>
-      <Text>
-        {item.charges?.usesLeft} / {item.charges?.max}
-      </Text>
-    </View>
-  );
 
   if (!character) {
     return (
@@ -113,7 +102,7 @@ export default function CharacterSheetScreen() {
 
           <View style={genericStyles.characterCard_ButtonsContainer}>
             <TouchableOpacity
-              onPress={() => router.replace("/Play" as any)}
+              onPress={() => router.replace("../combat")}
               style={genericStyles.characterCard_ActionIcon}
             >
               <MaterialCommunityIcons
@@ -124,7 +113,8 @@ export default function CharacterSheetScreen() {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => router.push("/CharacterEquipment" as any)}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              onPress={() => router.push("/character-equipment" as any)}
               style={genericStyles.characterCard_ActionIcon}
             >
               <MaterialCommunityIcons
@@ -467,7 +457,6 @@ export default function CharacterSheetScreen() {
               <Text style={genericStyles.header}>Habilidades</Text>
             </View>
 
-            {/* Transform this into a FlatList */}
             <FlatList
               data={getCharacterSkillsToArray(character)}
               keyExtractor={(item) => item.id}
@@ -496,4 +485,6 @@ export default function CharacterSheetScreen() {
       </ScrollView>
     );
   }
-}
+};
+
+export default CharacterSheetScreen;

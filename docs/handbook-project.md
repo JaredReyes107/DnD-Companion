@@ -58,13 +58,14 @@ Its goal is to ensure **consistency, readability, maintainability, and scalabili
 | Element | Convention | Example |
 |---------|------------|---------|
 | Folders | kebab-case | `docs`, `app-example` |
-| Files | kebab-case | `data_utils.py` |
+| Files | kebab-case | `character-creation.tsx` |
 | Classes | PascalCase | `UserProfile` |
 | Components | PascalCase | `ThemedText` |
 | Constants | UPPER_SNAKE_CASE| `MAX_RETRIES` |
 | Variables | camelCase | `userCount` |
 | Functions | camelCase | `calculateTotal()` |
 | Hooks | camelCase | `useEffect()` |
+| Styles | kebab-case | `addCharacter-button` |
 | Branches | kebab-case + prefix | `feature/authentication-flow`, `fix/button-alignment` |
 | Commits | Conventional Commits | `feature(ui): add login modal` |
 
@@ -81,12 +82,13 @@ Its goal is to ensure **consistency, readability, maintainability, and scalabili
 ### 5.1 Coding Guidelines
 - 2 spaces indentation.
 - Always use semicolons.
-- Single quotes for strings.
+- Double quotes for strings.
 - No unused imports or vars.
 - Destructure props and context.
 - Keep component files under ~200 lines; split logic into hooks or subcomponents.
+- Enforce linting with ```npm run lint``` and ```npm run lint:fix```
 
-### 5.1 Comments Guidelines
+### 5.2 Comments Guidelines
 
 ---
 
@@ -178,7 +180,7 @@ git push origin v1.2.0
 
 | Date | Version | Changes |
 |------|----------|----------|
-| [YYYY-MM-DD] | 1.0 | Initial version |
+| [2025-27-10 ] | 1.0 | Initial version |
 
 ---
 

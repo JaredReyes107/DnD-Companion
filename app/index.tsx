@@ -5,13 +5,13 @@ import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Import custom types
-import { Character } from "@/game/types/templates/Character";
+import { Character } from "@/game/types/templates/character";
 
 // Custom Components
 import { MaterialIcons } from "@expo/vector-icons";
 import { ThemedView } from "@/components/ThemedView";
 
-import styles from "@/stylesheets/GenericStyles";
+import styles from "@/stylesheets/generic.styles";
 
 const IndexScreen = () => {
   const router = useRouter();
@@ -30,7 +30,9 @@ const IndexScreen = () => {
 
   //Load characters whenever this view is loaded
   useEffect(() => {
-    loadItemsFromStorage();
+    (async () => {
+      await loadItemsFromStorage();
+    })();
   }, []);
 
   const deleteItem = async (id: string) => {
@@ -51,7 +53,7 @@ const IndexScreen = () => {
       console.error("Error saving string:", error);
     }
 
-    router.push("../CharacterSheet");
+    router.push("../character-sheet");
   };
 
   const renderListItem = ({ item: character }: { item: Character }) => (
@@ -94,9 +96,7 @@ const IndexScreen = () => {
     <ThemedView style={styles.rootContainer}>
       <View style={styles.headerContainer}>
         <Text style={styles.header}>Personajes</Text>
-        <TouchableOpacity
-          onPress={() => router.push("/CharacterCreation" as any)}
-        >
+        <TouchableOpacity onPress={() => router.push("../character-creation")}>
           <View style={styles.iconButton}>
             <MaterialIcons name="add" size={24} color="white"></MaterialIcons>
           </View>

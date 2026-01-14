@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */  
-import { Character } from "@/game/types/templates/Character";
-import { getAbilityModifier, getProficiencyBonus } from "./AbilityModifiers";
-import { SavingThrow } from "@/game/types/templates/AbilityScores";
+import { Character } from "@/game/types/templates/character";
+import { getAbilityModifier, getProficiencyBonus } from "./abilities-modifiers";
+import { SavingThrowInstance } from "@/game/types/templates/abilities-scores";
 
 export function getSavingThrowModifier(
   character: Character,
-  savingThrow: SavingThrow
+  savingThrow: SavingThrowInstance
 ): number {
   const modifiers: number[] = [];
 

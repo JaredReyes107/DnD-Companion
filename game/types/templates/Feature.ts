@@ -1,4 +1,4 @@
-import { DamageType } from "./DamageTypes";
+import { DamageType } from "./damage-types";
 
 // Custom data
 export type CombatRole = "active" | "passive" | "none" | "special";

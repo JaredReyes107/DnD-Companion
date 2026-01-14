@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Ability } from "./AbilityScores";
+import { Ability } from "./abilities-scores";
 
 export type Spellcasting = {
   type: "full" | "half" | "third" | "pact";

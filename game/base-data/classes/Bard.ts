@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { ClassTemplate } from "@/game/types/templates/ClassTemplate";
+import { ClassTemplate } from "@/game/types/templates/class-template";
 
 export const BARD: ClassTemplate = {
   id: "bard",

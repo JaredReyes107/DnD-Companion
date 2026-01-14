@@ -9,16 +9,15 @@ import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Text, View, TouchableOpacity, Modal, Button } from "react-native";
 
-import { Character } from "@/game/types/templates/Character";
-import { loadCharacterFromStorage } from "../../lib/utilities/StorageSystem";
-import styles from "../../stylesheets/combat/index";
-import genericStyles from "../../stylesheets/GenericStyles";
+import { Character } from "@/game/types/templates/aracter";
+import { loadCharacterFromStorage } from "../../lib/utilities/system-storage";
+import styles from "../../stylesheets/combat/index.styles";
+import genericStyles from "../../stylesheets/generic.styles";
 
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
-export default function App() {
-  let baseCharacter;
+const App = () => {
   const [character, setCharacter] = useState<Character>();
 
   const totalHP =
@@ -32,18 +31,6 @@ export default function App() {
 
   //#endregion
 
-  const fetchCharacter = async () => {
-    const selectedCharacter = await loadCharacterFromStorage();
-    if (selectedCharacter) {
-      baseCharacter = selectedCharacter;
-      console.log(selectedCharacter.hitPoints.currentHP);
-
-      setCharacter(selectedCharacter);
-
-      //CombatEngine.startCombat(selectedCharacter);
-    }
-  };
-
   const updateCharacter = (changes: Partial<typeof character>) => {
     setCharacter((prev) => {
       if (!prev) return prev; // or maybe throw if character is required
@@ -53,6 +40,17 @@ export default function App() {
 
   //Load details of the selected character whenever this view is loaded
   useEffect(() => {
+    const fetchCharacter = async () => {
+      const selectedCharacter = await loadCharacterFromStorage();
+      if (selectedCharacter) {
+        console.log(selectedCharacter.hitPoints.currentHP);
+
+        setCharacter(selectedCharacter);
+
+        //CombatEngine.startCombat(selectedCharacter);
+      }
+    };
+
     fetchCharacter();
   }, []);
 
@@ -238,11 +236,16 @@ export default function App() {
             <TouchableOpacity
               onPress={() => {
                 if (character?.hitPoints.temporalHP != undefined) {
-                  const modifiedCharacter = character;
-                  modifiedCharacter.hitPoints.temporalHP = Math.max(
-                    0,
-                    character?.hitPoints.temporalHP - 1,
-                  );
+                  const modifiedCharacter = {
+                    ...character,
+                    hitPoints: {
+                      ...character.hitPoints,
+                      temporalHP: Math.max(
+                        0,
+                        character?.hitPoints.temporalHP - 1,
+                      ),
+                    },
+                  };
 
                   updateCharacter(modifiedCharacter);
                 }
@@ -261,9 +264,13 @@ export default function App() {
             <TouchableOpacity
               onPress={() => {
                 if (character?.hitPoints.temporalHP != undefined) {
-                  const modifiedCharacter = character;
-                  modifiedCharacter.hitPoints.temporalHP =
-                    character?.hitPoints.temporalHP + 1;
+                  const modifiedCharacter = {
+                    ...character,
+                    hitPoints: {
+                      ...character.hitPoints,
+                      temporalHP: character?.hitPoints.temporalHP + 1,
+                    },
+                  };
 
                   updateCharacter(modifiedCharacter);
                 }
@@ -277,11 +284,16 @@ export default function App() {
             <TouchableOpacity
               onPress={() => {
                 if (character?.hitPoints.currentHP != undefined) {
-                  const modifiedCharacter = character;
-                  modifiedCharacter.hitPoints.currentHP = Math.max(
-                    0,
-                    character?.hitPoints.currentHP - 1,
-                  );
+                  const modifiedCharacter = {
+                    ...character,
+                    hitPoints: {
+                      ...character.hitPoints,
+                      currentHP: Math.max(
+                        0,
+                        character?.hitPoints.currentHP - 1,
+                      ),
+                    },
+                  };
 
                   updateCharacter(modifiedCharacter);
                 }
@@ -300,11 +312,16 @@ export default function App() {
             <TouchableOpacity
               onPress={() => {
                 if (character?.hitPoints.currentHP != undefined) {
-                  const modifiedCharacter = character;
-                  modifiedCharacter.hitPoints.currentHP = Math.min(
-                    character.hitPoints.baseMaximumHP,
-                    character?.hitPoints.currentHP + 1,
-                  );
+                  const modifiedCharacter = {
+                    ...character,
+                    hitPoints: {
+                      ...character.hitPoints,
+                      currentHP: Math.min(
+                        character.hitPoints.baseMaximumHP,
+                        character?.hitPoints.currentHP + 1,
+                      ),
+                    },
+                  };
 
                   updateCharacter(modifiedCharacter);
                 }
@@ -369,4 +386,6 @@ export default function App() {
       </View>
     </ThemedView>
   );
-}
+};
+
+export default App;

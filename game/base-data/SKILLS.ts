@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Skill } from "@/game/types/templates/Skills";
+import { Skill } from "@/game/types/templates/character-skills";
 
 export const SKILLS: Record<string, Skill> = {
   acrobatics: {

@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { Ability } from "@/game/types/templates/AbilityScores";
-import { Feature } from "@/game/types/templates/Feature";
-import { Spellcasting } from "@/game/types/templates/Spellcasting";
+import { Ability } from "@/game/types/templates/abilities-scores";
+import { Feature } from "@/game/types/templates/feature";
+import { Spellcasting } from "@/game/types/templates/spellcasting";
 
 export type ClassTemplate = {
   id: string;

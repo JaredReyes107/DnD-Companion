@@ -6,10 +6,9 @@ import {
 import { Tabs } from "expo-router";
 import React from "react";
 
-import { useColorScheme } from "@/hooks/useColorScheme";
 import { useThemeColor } from "@/hooks/useThemeColor";
 
-export default function TabLayout() {
+const TabLayout = () => {
   const tint = useThemeColor({}, "tint");
   const tabBarBackground = useThemeColor({}, "tabBarBackground");
 
@@ -25,7 +24,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="actions"
+        name="tab-actions"
         options={{
           title: "Acciones",
           tabBarIcon: ({ color, focused }) => (
@@ -53,7 +52,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="resources"
+        name="tab-resources"
         options={{
           title: "Recursos",
           tabBarIcon: ({ color, focused }) => (
@@ -68,4 +67,6 @@ export default function TabLayout() {
       />
     </Tabs>
   );
-}
+};
+
+export default TabLayout;

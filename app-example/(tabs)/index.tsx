@@ -5,12 +5,13 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
-export default function HomeScreen() {
+const HomeScreen = () => {
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
       headerImage={
         <Image
+          // eslint-disable-next-line @typescript-eslint/no-require-imports
           source={require("@/assets/images/partial-react-logo.png")}
           style={styles.reactLogo}
         />
@@ -52,7 +53,9 @@ export default function HomeScreen() {
       </ThemedView>
     </ParallaxScrollView>
   );
-}
+};
+
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   titleContainer: {

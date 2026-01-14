@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import DropDownPicker, { ItemType } from "react-native-dropdown-picker";
+import React, { useState } from "react";
+import DropDownPicker from "react-native-dropdown-picker";
 
-import styles from "@/stylesheets/CharacterCreation";
+import styles from "@/stylesheets/character-creation.styles";
 
 type Option<T> = {
   label: string;
@@ -15,40 +15,37 @@ type CustomPickerProps<T> = {
   placeholder?: string;
 };
 
-export default function CustomPicker<T extends string>({
+const CustomPicker = <T extends string>({
   items,
   selectedValue,
   onChange,
   placeholder = "Selecciona una opción",
-}: CustomPickerProps<T>) {
+}: CustomPickerProps<T>) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState<T | null>(selectedValue);
-
-  useEffect(() => {
-    if (value !== null) {
-      onChange(value);
-    }
-  }, [value]);
 
   return (
     <DropDownPicker
       open={open}
-      value={value}
+      value={selectedValue}
       items={items}
       setOpen={setOpen}
-      setValue={setValue}
+      setValue={(cb) => {
+        const next = typeof cb === "function" ? cb(selectedValue) : cb;
+        if (next !== null && next !== selectedValue) {
+          onChange(next);
+        }
+      }}
       setItems={() => {}}
-      placeholder={value ?? placeholder}
-      listMode="MODAL"
-      modalTitle={placeholder}
-      modalAnimationType="fade"
+      placeholder={placeholder}
       theme="DARK"
       style={[{ backgroundColor: "#1e2021" }, styles.picker]}
       dropDownContainerStyle={{
         backgroundColor: "#333",
         borderColor: "#3e4446",
-        zIndex: 1000,
       }}
+      listMode="MODAL"
+      modalTitle={placeholder}
+      modalAnimationType="fade"
       textStyle={styles.pickerText}
       // Hover/press effect
       listItemContainerStyle={{
@@ -63,4 +60,6 @@ export default function CustomPicker<T extends string>({
       }}
     />
   );
-}
+};
+
+export default CustomPicker;
