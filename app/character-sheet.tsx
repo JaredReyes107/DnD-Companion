@@ -36,6 +36,7 @@ import { getSkillModifier } from "@/game/rules/skills-modifiers";
 // Helper Functions
 import { PrintNumberWithSign } from "@/lib/utilities/formater-numbers";
 import { getCharacterSkillsToArray } from "@/lib/adapters/builder-skills";
+import { getCharacterSavingThrowsToArray } from "@/lib/adapters/builder-saving-throws";
 
 const CharacterSheetScreen = () => {
   const router = useRouter();
@@ -332,123 +333,35 @@ const CharacterSheetScreen = () => {
 
           {/* Saving Throws */}
           <View style={styles.detailsSection}>
-            <View style={genericStyles.headerContainer}>
-              <Text style={genericStyles.header}>Tiradas de Salvación</Text>
-            </View>
-
-            <View style={styles.proficienciesContainer}>
-              <View style={styles.proficiencyRow}>
-                <View style={styles.proficiencyDetails}>
-                  <ProficiencyIcon
-                    hasProficiency={character.savingThrows.STR.hasProficiency}
-                  />
-                  <Text style={styles.proficiencyText}>Fuerza</Text>
+            <FlatList
+              style={[{ marginHorizontal: -20 }]}
+              data={getCharacterSavingThrowsToArray(character)}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <View
+                  style={[
+                    styles.proficienciesContainer,
+                    { paddingHorizontal: 20 },
+                  ]}
+                >
+                  <View style={styles.proficiencyRow}>
+                    <View style={styles.proficiencyDetails}>
+                      <ProficiencyIcon
+                        hasProficiency={item.state.hasProficiency}
+                      />
+                      <Text style={styles.proficiencyText}>
+                        {item.definition.toString()}
+                      </Text>
+                    </View>
+                    <Text style={styles.proficiencyModifierBold}>
+                      {PrintNumberWithSign(
+                        getSavingThrowModifier(character, item.state),
+                      )}
+                    </Text>
+                  </View>
                 </View>
-                <Text style={styles.proficiencyModifierBold}>
-                  {PrintNumberWithSign(
-                    getSavingThrowModifier(
-                      character,
-                      character.savingThrows.STR,
-                    ),
-                  )}
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.proficienciesContainer}>
-              <View style={styles.proficiencyRow}>
-                <View style={styles.proficiencyDetails}>
-                  <ProficiencyIcon
-                    hasProficiency={character.savingThrows.DEX.hasProficiency}
-                  />
-                  <Text style={styles.proficiencyText}>Destreza</Text>
-                </View>
-                <Text style={styles.proficiencyModifierBold}>
-                  {PrintNumberWithSign(
-                    getSavingThrowModifier(
-                      character,
-                      character.savingThrows.DEX,
-                    ),
-                  )}
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.proficienciesContainer}>
-              <View style={styles.proficiencyRow}>
-                <View style={styles.proficiencyDetails}>
-                  <ProficiencyIcon
-                    hasProficiency={character.savingThrows.CON.hasProficiency}
-                  />
-                  <Text style={styles.proficiencyText}>Constitución</Text>
-                </View>
-                <Text style={styles.proficiencyModifierBold}>
-                  {PrintNumberWithSign(
-                    getSavingThrowModifier(
-                      character,
-                      character.savingThrows.CON,
-                    ),
-                  )}
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.proficienciesContainer}>
-              <View style={styles.proficiencyRow}>
-                <View style={styles.proficiencyDetails}>
-                  <ProficiencyIcon
-                    hasProficiency={character.savingThrows.INT.hasProficiency}
-                  />
-                  <Text style={styles.proficiencyText}>Inteligencia</Text>
-                </View>
-                <Text style={styles.proficiencyModifierBold}>
-                  {PrintNumberWithSign(
-                    getSavingThrowModifier(
-                      character,
-                      character.savingThrows.INT,
-                    ),
-                  )}
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.proficienciesContainer}>
-              <View style={styles.proficiencyRow}>
-                <View style={styles.proficiencyDetails}>
-                  <ProficiencyIcon
-                    hasProficiency={character.savingThrows.WIS.hasProficiency}
-                  />
-                  <Text style={styles.proficiencyText}>Sabiduría</Text>
-                </View>
-                <Text style={styles.proficiencyModifierBold}>
-                  {PrintNumberWithSign(
-                    getSavingThrowModifier(
-                      character,
-                      character.savingThrows.WIS,
-                    ),
-                  )}
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.proficienciesContainer}>
-              <View style={styles.proficiencyRow}>
-                <View style={styles.proficiencyDetails}>
-                  <ProficiencyIcon
-                    hasProficiency={character.savingThrows.CHA.hasProficiency}
-                  />
-                  <Text style={styles.proficiencyText}>Carisma</Text>
-                </View>
-                <Text style={styles.proficiencyModifierBold}>
-                  {PrintNumberWithSign(
-                    getSavingThrowModifier(
-                      character,
-                      character.savingThrows.CHA,
-                    ),
-                  )}
-                </Text>
-              </View>
-            </View>
+              )}
+            />
           </View>
 
           {/* Skills */}

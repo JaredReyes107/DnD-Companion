@@ -1,10 +1,9 @@
-/* eslint-disable prettier/prettier */
 import { Ability } from "./abilities-scores";
 
 export type Skill = {
   name: string;
   ability: Ability;
-}
+};
 
 export type SkillInstance = {
   skill: string;
@@ -12,4 +11,4 @@ export type SkillInstance = {
   hasExpertise: boolean;
 };
 
-export type CharacterSkills = Record<string,  SkillInstance>;
+export type CharacterSkills = Record<string, SkillInstance>;

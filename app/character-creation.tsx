@@ -18,15 +18,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Character } from "@/game/types/templates/character"; // Import custom types
 import { Alignment, ALIGNMENTS } from "@/game/base-data/alignments";
 import {
-  Ability,
   ABILITY_ORDER,
   AbilityScores,
   CharacterSavingThrows,
 } from "@/game/types/templates/abilities-scores";
+
+import { buildAbilityScores } from "@/lib/adapters/builder-ability-scores";
+import { buildSavingThrows } from "@/lib/adapters/builder-saving-throws";
 import { SKILL_ORDER } from "@/game/base-data/skills";
 import { CharacterSkills } from "@/game/types/templates/character-skills";
 import { buildCharacterSkills } from "@/lib/adapters/builder-skills";
-import { buildSavingThrows } from "@/lib/adapters/builder-saving-throws";
 import { getAllClassTemplates } from "@/game/registries/classes.registry";
 
 import { MaterialIcons } from "@expo/vector-icons";
@@ -34,8 +35,9 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CustomPicker from "@/components/CustomPicker";
 import { MainClassForm } from "@/components/MainClassForm";
 import { SecondaryClassesForm } from "@/components/SecondaryClassesForm";
-import SkillProficiencyInput from "@/components/SkillProficiencyInput";
+import AbilityScoreInput from "@/components/AbilityScoresInput";
 import SavingThrowProficiencyInput from "@/components/SavingThrowProficiencyInput";
+import SkillProficiencyInput from "@/components/SkillProficiencyInput";
 
 import styles from "@/stylesheets/character-creation.styles";
 import genericStyles from "@/stylesheets/generic.styles";
@@ -67,21 +69,12 @@ const CharacterCreationScreen = () => {
   const [CharacterSpeed, setCharacterSpeed] = useState(30);
   const [CharacterHP, setCharacterHP] = useState(0);
 
-  const [CharacterStats, setCharacterStats] = useState([
-    10, 10, 10, 10, 10, 10,
-  ]);
-  const [CharacterSTProficiencies] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [characterAbilityScores, setCharacterAbilityScores] =
+    useState<AbilityScores>(buildAbilityScores());
   const [characterSavingThrows, setCharacterSavingThrows] =
-    useState<CharacterSavingThrows>(buildSavingThrows);
+    useState<CharacterSavingThrows>(buildSavingThrows());
   const [characterSkillProficiencies, setCharacterSkillProficiencies] =
-    useState<CharacterSkills>(buildCharacterSkills);
+    useState<CharacterSkills>(buildCharacterSkills());
 
   const loadCharactersFromStorage = async () => {
     try {
@@ -107,24 +100,6 @@ const CharacterCreationScreen = () => {
       Alert.alert("Error", "El nombre no puede estar vacío");
       return;
     }
-
-    const abilityOrder: Ability[] = ["STR", "DEX", "CON", "INT", "WIS", "CHA"];
-
-    const abilityScores = abilityOrder.reduce((acc, ability, index) => {
-      acc[ability] = {
-        ability,
-        value: CharacterStats[index],
-      };
-      return acc;
-    }, {} as AbilityScores);
-
-    const savingThrows = abilityOrder.reduce((acc, ability, index) => {
-      acc[ability] = {
-        ability,
-        hasProficiency: CharacterSTProficiencies[index],
-      };
-      return acc;
-    }, {} as CharacterSavingThrows);
 
     const characterClasses = [mainClass, ...secondaryClasses];
 
@@ -158,8 +133,8 @@ const CharacterCreationScreen = () => {
         order: characterClasses.map((c) => c.id),
       },
 
-      abilityScores,
-      savingThrows,
+      abilityScores: characterAbilityScores,
+      savingThrows: characterSavingThrows,
       skills: characterSkillProficiencies,
 
       hitPoints: {
@@ -190,17 +165,6 @@ const CharacterCreationScreen = () => {
     console.log("Saving characters to storage:", characters);
     AsyncStorage.setItem("characters", JSON.stringify(characters));
   }, [characters]);
-
-  const modifyCharacterStat = (index: number, isIncreasing: boolean) => {
-    const updatedStats = [...CharacterStats];
-    if (isIncreasing) {
-      updatedStats[index] += 1;
-    } else {
-      updatedStats[index] -= 1;
-    }
-
-    setCharacterStats(updatedStats);
-  };
 
   const classTemplates = getAllClassTemplates();
 
@@ -354,227 +318,25 @@ const CharacterCreationScreen = () => {
           <View style={styles.fieldContainer}>
             <Text style={styles.fieldHeader}>Estadísticas</Text>
             <View style={styles.statsContainer}>
-              <View style={styles.statContainer}>
-                <Text style={styles.statTitle}>Fuerza</Text>
-                <View style={styles.statDetailsContainer}>
-                  <Text style={styles.statValue}>{CharacterStats[0]}</Text>
-                  <View style={styles.statDetailsButtonsContainer}>
-                    <TouchableOpacity
-                      style={styles.statDetailsButtons}
-                      onPress={() =>
-                        CharacterStats[0] > 0
-                          ? modifyCharacterStat(0, false)
-                          : null
-                      }
-                    >
-                      <MaterialIcons
-                        name="remove"
-                        size={12}
-                        color="white"
-                      ></MaterialIcons>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.statDetailsButtons}
-                      onPress={() =>
-                        CharacterStats[0] < 20
-                          ? modifyCharacterStat(0, true)
-                          : null
-                      }
-                    >
-                      <MaterialIcons
-                        name="add"
-                        size={12}
-                        color="white"
-                      ></MaterialIcons>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.statContainer}>
-                <Text style={styles.statTitle}>Destreza</Text>
-                <View style={styles.statDetailsContainer}>
-                  <Text style={styles.statValue}>{CharacterStats[1]}</Text>
-                  <View style={styles.statDetailsButtonsContainer}>
-                    <TouchableOpacity
-                      style={styles.statDetailsButtons}
-                      onPress={() =>
-                        CharacterStats[1] > 0
-                          ? modifyCharacterStat(1, false)
-                          : null
-                      }
-                    >
-                      <MaterialIcons
-                        name="remove"
-                        size={12}
-                        color="white"
-                      ></MaterialIcons>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.statDetailsButtons}
-                      onPress={() =>
-                        CharacterStats[1] < 20
-                          ? modifyCharacterStat(1, true)
-                          : null
-                      }
-                    >
-                      <MaterialIcons
-                        name="add"
-                        size={12}
-                        color="white"
-                      ></MaterialIcons>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.statContainer}>
-                <Text style={styles.statTitle}>Constitución</Text>
-                <View style={styles.statDetailsContainer}>
-                  <Text style={styles.statValue}>{CharacterStats[2]}</Text>
-                  <View style={styles.statDetailsButtonsContainer}>
-                    <TouchableOpacity
-                      style={styles.statDetailsButtons}
-                      onPress={() =>
-                        CharacterStats[2] > 0
-                          ? modifyCharacterStat(2, false)
-                          : null
-                      }
-                    >
-                      <MaterialIcons
-                        name="remove"
-                        size={12}
-                        color="white"
-                      ></MaterialIcons>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.statDetailsButtons}
-                      onPress={() =>
-                        CharacterStats[2] < 20
-                          ? modifyCharacterStat(2, true)
-                          : null
-                      }
-                    >
-                      <MaterialIcons
-                        name="add"
-                        size={12}
-                        color="white"
-                      ></MaterialIcons>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.statContainer}>
-                <Text style={styles.statTitle}>Inteligencia</Text>
-                <View style={styles.statDetailsContainer}>
-                  <Text style={styles.statValue}>{CharacterStats[3]}</Text>
-                  <View style={styles.statDetailsButtonsContainer}>
-                    <TouchableOpacity
-                      style={styles.statDetailsButtons}
-                      onPress={() =>
-                        CharacterStats[3] > 0
-                          ? modifyCharacterStat(3, false)
-                          : null
-                      }
-                    >
-                      <MaterialIcons
-                        name="remove"
-                        size={12}
-                        color="white"
-                      ></MaterialIcons>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.statDetailsButtons}
-                      onPress={() =>
-                        CharacterStats[3] < 20
-                          ? modifyCharacterStat(3, true)
-                          : null
-                      }
-                    >
-                      <MaterialIcons
-                        name="add"
-                        size={12}
-                        color="white"
-                      ></MaterialIcons>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.statContainer}>
-                <Text style={styles.statTitle}>Sabiduría</Text>
-                <View style={styles.statDetailsContainer}>
-                  <Text style={styles.statValue}>{CharacterStats[4]}</Text>
-                  <View style={styles.statDetailsButtonsContainer}>
-                    <TouchableOpacity
-                      style={styles.statDetailsButtons}
-                      onPress={() =>
-                        CharacterStats[4] > 0
-                          ? modifyCharacterStat(4, false)
-                          : null
-                      }
-                    >
-                      <MaterialIcons
-                        name="remove"
-                        size={12}
-                        color="white"
-                      ></MaterialIcons>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.statDetailsButtons}
-                      onPress={() =>
-                        CharacterStats[4] < 20
-                          ? modifyCharacterStat(4, true)
-                          : null
-                      }
-                    >
-                      <MaterialIcons
-                        name="add"
-                        size={12}
-                        color="white"
-                      ></MaterialIcons>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.statContainer}>
-                <Text style={styles.statTitle}>Carisma</Text>
-                <View style={styles.statDetailsContainer}>
-                  <Text style={styles.statValue}>{CharacterStats[5]}</Text>
-                  <View style={styles.statDetailsButtonsContainer}>
-                    <TouchableOpacity
-                      style={styles.statDetailsButtons}
-                      onPress={() =>
-                        CharacterStats[5] > 0
-                          ? modifyCharacterStat(5, false)
-                          : null
-                      }
-                    >
-                      <MaterialIcons
-                        name="remove"
-                        size={12}
-                        color="white"
-                      ></MaterialIcons>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.statDetailsButtons}
-                      onPress={() =>
-                        CharacterStats[5] < 20
-                          ? modifyCharacterStat(5, true)
-                          : null
-                      }
-                    >
-                      <MaterialIcons
-                        name="add"
-                        size={12}
-                        color="white"
-                      ></MaterialIcons>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
+              <FlatList
+                data={ABILITY_ORDER}
+                keyExtractor={(ability) => ability}
+                renderItem={({ item: ability }) => (
+                  <AbilityScoreInput
+                    label={ability}
+                    score={characterAbilityScores[ability].value}
+                    onChange={(delta) =>
+                      setCharacterAbilityScores((prev) => ({
+                        ...prev,
+                        [ability]: {
+                          ...prev[ability],
+                          value: prev[ability].value + delta,
+                        },
+                      }))
+                    }
+                  />
+                )}
+              />
             </View>
           </View>
 
@@ -650,6 +412,7 @@ const CharacterCreationScreen = () => {
             </View>
           </View>
 
+          {/* Submit Button */}
           <View style={styles.submitButtonContainer}>
             <TouchableOpacity
               onPress={addCharacter}

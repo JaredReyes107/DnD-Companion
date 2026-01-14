@@ -160,6 +160,8 @@ const styles = StyleSheet.create({
 
     width: "100%",
     maxWidth: 500,
+
+    marginBottom: 5,
   },
   statTitle: {
     color: "#cdc8c2",
