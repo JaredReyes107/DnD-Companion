@@ -1,7 +1,10 @@
-/* eslint-disable prettier/prettier */
 import { SKILLS } from "@/game/base-data/skills";
 import { Character } from "@/game/types/templates/character";
-import { Skill, CharacterSkills, SkillInstance } from "@/game/types/templates/character-skills";
+import {
+  Skill,
+  CharacterSkills,
+  SkillInstance,
+} from "@/game/types/templates/character-skills";
 
 type SkillView = {
   id: string;
@@ -10,7 +13,7 @@ type SkillView = {
 };
 
 export function buildCharacterSkills(): CharacterSkills {
- return Object.keys(SKILLS).reduce((acc, skillId) => {
+  return Object.keys(SKILLS).reduce((acc, skillId) => {
     acc[skillId] = {
       skill: skillId,
       hasProficiency: false,
@@ -43,4 +46,3 @@ export function getCharacterSkillsFromState(
     return acc;
   }, {} as CharacterSkills);
 }
-

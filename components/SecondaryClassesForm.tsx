@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -9,7 +8,7 @@ import { ClassTemplate } from "@/game/types/templates/class-template";
 import styles from "@/stylesheets/character-creation.styles";
 
 type ClassDraft = {
-  id: string;           // UUID interno del slot
+  id: string; // UUID interno del slot
   classTemplateId: string | null;
   level: number;
 };
@@ -40,11 +39,8 @@ export const SecondaryClassesForm = ({
           </View>
         </View>
 
-        <TouchableOpacity 
-          style={styles.removeClassButton}
-          onPress={onRemove}
-        >
-          <MaterialIcons name="close" style={styles.removeClassButtonText}/>
+        <TouchableOpacity style={styles.removeClassButton} onPress={onRemove}>
+          <MaterialIcons name="close" style={styles.removeClassButtonText} />
         </TouchableOpacity>
 
         <View style={styles.counterContainer}>
@@ -56,7 +52,7 @@ export const SecondaryClassesForm = ({
                 onChange({ ...value, level: Math.max(1, value.level - 1) })
               }
             >
-              <MaterialIcons name="remove" size={16} color="white"/>
+              <MaterialIcons name="remove" size={16} color="white" />
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.counterButton}
@@ -64,11 +60,11 @@ export const SecondaryClassesForm = ({
                 onChange({ ...value, level: Math.min(20, value.level + 1) })
               }
             >
-              <MaterialIcons name="add" size={16} color="white"/>
+              <MaterialIcons name="add" size={16} color="white" />
             </TouchableOpacity>
           </View>
         </View>
       </View>
     </View>
   );
-}
+};

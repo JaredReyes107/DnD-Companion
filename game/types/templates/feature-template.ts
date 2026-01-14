@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 export type FeatureDefinition = {
   id: string;
   label: string;

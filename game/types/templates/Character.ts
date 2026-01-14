@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Alignment } from "@/game/base-data/alignments";
 import { CharacterClasses } from "../instances/character-classes";
 import {

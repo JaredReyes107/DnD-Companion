@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Ability } from "./abilities-scores";
 
 export type Spellcasting = {

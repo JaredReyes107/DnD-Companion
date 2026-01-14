@@ -1,11 +1,4 @@
-/* eslint-disable prettier/prettier */
-export type Ability = 
-  | "STR"
-  | "DEX"
-  | "CON"
-  | "INT"
-  | "WIS"
-  | "CHA";
+export type Ability = "STR" | "DEX" | "CON" | "INT" | "WIS" | "CHA";
 
 export const ABILITY_ORDER: Ability[] = [
   "STR",
@@ -26,6 +19,6 @@ export type AbilityScores = Record<Ability, AbilityScore>;
 export type SavingThrowInstance = {
   ability: Ability;
   hasProficiency: boolean;
-}
+};
 
-export type CharacterSavingThrows = Record<Ability, SavingThrowInstance>
+export type CharacterSavingThrows = Record<Ability, SavingThrowInstance>;

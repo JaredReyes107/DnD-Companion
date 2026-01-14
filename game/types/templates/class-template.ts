@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Ability } from "@/game/types/templates/abilities-scores";
 import { Feature } from "@/game/types/templates/feature";
 import { Spellcasting } from "@/game/types/templates/spellcasting";
