@@ -1,27 +1,43 @@
-/* eslint-disable prettier/prettier */
-import { CLASSES } from "@/game/base-data/classes"
-
-import { ClassTemplate } from "../types/templates/class-template";
-
-export function buildClassRegistry(
-  base: Record<string, ClassTemplate>,
-  homebrew: Record<string, ClassTemplate>,
-) {
-  return {
-    ...base,
-    ...homebrew,
-  };
-}
+import { CLASSES } from "@/game//base-data/classes";
+import { ClassTemplate } from "@/game/types/templates/class-template";
+import { ClassInstance } from "@/game/types/instances/class-instance";
+import { CharacterClasses } from "@/game/types/instances/character-classes";
 
 const homebrewClasses: Record<string, ClassTemplate> = {};
 
-export function getAllClassTemplates(): ClassTemplate[] {
-  return [
-    ...Object.values(CLASSES),
-    ...Object.values(homebrewClasses),
-  ]
-}
-
 export function registerHomebrewClass(cls: ClassTemplate) {
   homebrewClasses[cls.id] = cls;
+}
+
+export function getClassRegistry(): Record<string, ClassTemplate> {
+  return {
+    ...CLASSES,
+    ...homebrewClasses,
+  };
+}
+
+// Helpers
+
+export function getClassTemplateById(id: string): ClassTemplate {
+  const cls = getClassRegistry()[id];
+  if (!cls) {
+    throw new Error(`ClassTemplate not found: ${id}`);
+  }
+  return cls;
+}
+
+export function resolveClassInstance(instance: ClassInstance): ClassTemplate {
+  return getClassTemplateById(instance.classId);
+}
+
+export function getAllClassTemplates(): ClassTemplate[] {
+  return Object.values(getClassRegistry());
+}
+
+export function getClassTemplatesFromCharacter(
+  classes: CharacterClasses,
+): ClassTemplate[] {
+  return classes.order.map((id) =>
+    getClassTemplateById(classes.byId[id].classId),
+  );
 }

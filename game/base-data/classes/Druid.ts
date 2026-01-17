@@ -10,9 +10,11 @@ export const DRUID: ClassTemplate = {
   primaryAbilities: ["WIS"],
   savingThrows: ["DEX", "WIS"],
 
-  spellcasting: {
-    type: "full",
-    ability: "WIS"
+  spellcastingTemplate: {
+    id: "druid_spellcasting",
+    ability: "WIS",
+    kind: "standard",
+    progression: "full",
   },
 
   featuresByLevel: {

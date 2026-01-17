@@ -10,9 +10,11 @@ export const PALADIN: ClassTemplate = {
   primaryAbilities: ["STR", "CHA"],
   savingThrows: ["CON", "CHA"],
 
-  spellcasting: {
-    type: "half",
-    ability: "CHA"
+  spellcastingTemplate: {
+    id: "paladin_spellcasting",
+    ability: "CHA",
+    kind: "standard",
+    progression: "half",
   },
 
   featuresByLevel: {

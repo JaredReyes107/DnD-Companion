@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */  
-import { Character } from "@/game/types/templates/character";
+import { Character } from "@/game/types/instances/character";
 import { getAbilityModifier, getProficiencyBonus } from "./abilities-modifiers";
 import { SavingThrowInstance } from "@/game/types/templates/abilities-scores";
 

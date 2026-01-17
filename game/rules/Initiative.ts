@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-import { Character } from "@/game/types/templates/aracter";
+import { Character } from "@/game/types/instances/character";
 import { getAbilityModifier as getAbilityModifier } from "./abilities-modifiers";
 
 export function getInitiativeBonus(character: Character): number {

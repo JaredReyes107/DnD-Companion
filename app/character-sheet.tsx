@@ -11,7 +11,7 @@ import { useRouter } from "expo-router";
 
 // Custom Components
 import { loadCharacterFromStorage } from "@/lib/utilities/system-storage";
-import { Character } from "@/game/types/templates/character";
+import { Character } from "@/game/types/instances/character";
 import { ProficiencyIcon } from "@/components/ProficiencyIcon";
 
 // Styles
@@ -35,8 +35,8 @@ import { getSkillModifier } from "@/game/rules/skills-modifiers";
 
 // Helper Functions
 import { PrintNumberWithSign } from "@/lib/utilities/formater-numbers";
-import { getCharacterSkillsToArray } from "@/lib/adapters/builder-skills";
-import { getCharacterSavingThrowsToArray } from "@/lib/adapters/builder-saving-throws";
+import { getCharacterSkillsToArray } from "@/lib/helpers/skills-helper";
+import { getCharacterSavingThrowsToArray } from "@/lib/helpers/saving-throws-helper";
 
 const CharacterSheetScreen = () => {
   const router = useRouter();

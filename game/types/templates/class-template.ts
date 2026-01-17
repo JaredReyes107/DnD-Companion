@@ -1,6 +1,6 @@
 import { Ability } from "@/game/types/templates/abilities-scores";
-import { Feature } from "@/game/types/templates/feature";
-import { Spellcasting } from "@/game/types/templates/spellcasting";
+import { SpellcastingTemplate } from "./spellcasting-template";
+import { FeatureTemplate } from "./feature-template";
 
 export type ClassTemplate = {
   id: string;
@@ -11,7 +11,7 @@ export type ClassTemplate = {
   primaryAbilities: Ability[];
   savingThrows: [Ability, Ability];
 
-  spellcasting?: Spellcasting;
+  spellcastingTemplate?: SpellcastingTemplate;
 
-  featuresByLevel: Record<number, Feature[]>;
+  featuresByLevel: Record<number, FeatureTemplate[]>;
 };

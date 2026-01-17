@@ -10,9 +10,11 @@ export const ARTIFICER: ClassTemplate = {
   primaryAbilities: ["INT"],
   savingThrows: ["CON", "INT"],
 
-  spellcasting: {
-    type: "half",
-    ability: "INT"
+  spellcastingTemplate: {
+    id: "artificer_spellcasting",
+    ability: "INT",
+    kind: "standard",
+    progression: "half",
   },
 
   featuresByLevel: {

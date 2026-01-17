@@ -10,9 +10,11 @@ export const RANGER: ClassTemplate = {
   primaryAbilities: ["DEX", "WIS"],
   savingThrows: ["STR", "DEX"],
 
-  spellcasting: {
-    type: "half",
-    ability: "WIS"
+  spellcastingTemplate: {
+    id: "ranger_spellcasting",
+    ability: "WIS",
+    kind: "standard",
+    progression: "half",
   },
 
   featuresByLevel: {

@@ -1,14 +1,34 @@
-export type FeatureDefinition = {
+export type CombatRole = "active" | "passive" | "none" | "special";
+export type ActionSlot = "action" | "bonusAction" | "reaction" | "passive";
+
+export type ModifierTag =
+  | "ac"
+  | "speed"
+  | "resistance"
+  | "concentrationAdvantage"
+  | "saveBonus"
+  | "statBonus"
+  | "skillBonus"
+  | "initiativeBonus"
+  | "activeToggle"
+  | "temporaryHP"
+  | "ignoreOpportunityAttacks"
+  | "reactionType";
+
+export type FeatureTemplate = {
   id: string;
   label: string;
-
-  level: number;
+  description: string;
 
   source: "class" | "subclass" | "race" | "feat" | "background" | "other";
+  // if source = 'class'
+  classId?: string;
+  level?: number;
 
-  description: string;
+  combatRole: CombatRole;
+  actionSlot?: ActionSlot;
 
   tags?: string[]; // "combat", "passive", "resource", "movement", etc.
 
-  grantsResources?: string[]; // ids of ResourceDefinitions
+  resources?: string[]; // ids of ResourceDefinitions
 };

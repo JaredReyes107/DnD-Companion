@@ -15,7 +15,7 @@ import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Custom Classes and Constants
-import { Character } from "@/game/types/templates/character"; // Import custom types
+import { Character } from "@/game/types/instances/character"; // Import custom types
 import { Alignment, ALIGNMENTS } from "@/game/base-data/alignments";
 import {
   ABILITY_ORDER,
@@ -23,11 +23,11 @@ import {
   CharacterSavingThrows,
 } from "@/game/types/templates/abilities-scores";
 
-import { buildAbilityScores } from "@/lib/adapters/builder-ability-scores";
-import { buildSavingThrows } from "@/lib/adapters/builder-saving-throws";
+import { buildAbilityScores } from "@/lib/helpers/ability-scores-helper";
+import { buildSavingThrows } from "@/lib/helpers/saving-throws-helper";
 import { SKILL_ORDER } from "@/game/base-data/skills";
 import { CharacterSkills } from "@/game/types/templates/character-skills";
-import { buildCharacterSkills } from "@/lib/adapters/builder-skills";
+import { buildCharacterSkills } from "@/lib/helpers/skills-helper";
 import { getAllClassTemplates } from "@/game/registries/classes.registry";
 
 import { MaterialIcons } from "@expo/vector-icons";
@@ -41,6 +41,8 @@ import SkillProficiencyInput from "@/components/SkillProficiencyInput";
 
 import styles from "@/stylesheets/character-creation.styles";
 import genericStyles from "@/stylesheets/generic.styles";
+import { buildSpellSlots } from "@/game/rules/spellcasting";
+import { buildCharacterClassResources } from "@/lib/helpers/resources-helper";
 
 const CharacterCreationScreen = () => {
   const router = useRouter();
@@ -146,6 +148,10 @@ const CharacterCreationScreen = () => {
 
       speed: CharacterSpeed || 30,
 
+      spellSlots: {},
+      features: {},
+      resources: {},
+
       combatState: {
         actionUsed: false,
         bonusActionUsed: false,
@@ -154,6 +160,11 @@ const CharacterCreationScreen = () => {
         conditions: [],
       },
     };
+
+    newCharacter.spellSlots = buildSpellSlots(newCharacter);
+    newCharacter.resources = buildCharacterClassResources(newCharacter);
+
+    console.log(newCharacter.resources);
 
     setCharacters([...characters, newCharacter]);
 

@@ -10,9 +10,10 @@ export const WARLOCK: ClassTemplate = {
   primaryAbilities: ["CHA"],
   savingThrows: ["INT", "CHA"],
 
-  spellcasting: {
-    type: "pact",
-    ability: "CHA"
+  spellcastingTemplate: {
+    id: "warlock_spellcasting",
+    ability: "CHA",
+    kind: "pact",
   },
 
   featuresByLevel: {

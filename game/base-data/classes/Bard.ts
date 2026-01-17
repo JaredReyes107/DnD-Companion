@@ -10,9 +10,11 @@ export const BARD: ClassTemplate = {
   primaryAbilities: ["CHA"],
   savingThrows: ["DEX", "CHA"],
 
-  spellcasting: {
-    type: "full",
+  spellcastingTemplate: {
+    id: "bard_spellcasting",
     ability: "CHA",
+    kind: "standard",
+    progression: "full",
   },
 
   featuresByLevel: {

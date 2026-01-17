@@ -1,0 +1,49 @@
+import { Character } from "@/game/types/instances/character";
+import { CharacterResources } from "@/game/types/instances/character-resources";
+import { FeatureTemplate } from "@/game/types/templates/feature-template";
+import { getActiveFeatures } from "./features-helper";
+import { getResourceById } from "@/game/registries/resources.registry";
+import { evaluateFormula } from "./resource-scaling";
+
+export function getResourcesFromFeatures(
+  features: FeatureTemplate[],
+): Set<string> {
+  const ids = new Set<string>();
+
+  for (const feature of features) {
+    feature.resources?.forEach((id) => ids.add(id));
+  }
+
+  return ids;
+}
+
+export function buildCharacterClassResources(
+  character: Character,
+): CharacterResources {
+  const characterFeatures = getActiveFeatures(character.classes);
+
+  const resourceIds = getResourcesFromFeatures(characterFeatures);
+
+  const nextResources = { ...character.resources };
+
+  // Añadir recursos faltantes
+  for (const id of resourceIds) {
+    if (!nextResources[id]) {
+      const template = getResourceById(id);
+
+      nextResources[id] = {
+        resourceId: id,
+        current: evaluateFormula(template.scalingType, character),
+      };
+    }
+  }
+
+  // Eliminar recursos que ya no deberían existir
+  for (const id of Object.keys(nextResources)) {
+    if (!resourceIds.has(id)) {
+      delete nextResources[id];
+    }
+  }
+
+  return nextResources;
+}

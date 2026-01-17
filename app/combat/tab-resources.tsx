@@ -1,10 +1,37 @@
-import { View, Text } from "react-native";
+import { SpellSlotsSection } from "@/components/SpellSlotsSection";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import { SpellSlotLevel } from "@/game/types/instances/spell-slot-instance";
+import { useCharacter } from "@/hooks/useCharacter";
+
+import genericStyles from "@/stylesheets/generic.styles";
 
 const ProfileScreen = () => {
+  const { character, saveCharacter } = useCharacter();
+
+  if (!character) return null;
+
+  const updateSpellSlot = (level: number, newUsed: number) => {
+    saveCharacter({
+      ...character,
+      spellSlots: {
+        ...character.spellSlots,
+        [level]: {
+          ...character.spellSlots[level as SpellSlotLevel]!,
+          used: newUsed,
+        },
+      },
+    });
+  };
+
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Profile Tab</Text>
-    </View>
+    <ThemedView style={[genericStyles.rootContainer, { alignItems: "center" }]}>
+      <ThemedText>Spell Slots</ThemedText>
+      <SpellSlotsSection
+        spellSlots={character.spellSlots}
+        onChange={updateSpellSlot}
+      />
+    </ThemedView>
   );
 };
 
