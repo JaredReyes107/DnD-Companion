@@ -9,7 +9,7 @@ import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Text, View, TouchableOpacity, Modal, Button } from "react-native";
 
-import { Character } from "@/game/types/templates/aracter";
+import { Character } from "@/game/types/instances/character";
 import { loadCharacterFromStorage } from "../../lib/utilities/system-storage";
 import styles from "../../stylesheets/combat/index.styles";
 import genericStyles from "../../stylesheets/generic.styles";
@@ -43,8 +43,6 @@ const App = () => {
     const fetchCharacter = async () => {
       const selectedCharacter = await loadCharacterFromStorage();
       if (selectedCharacter) {
-        console.log(selectedCharacter.hitPoints.currentHP);
-
         setCharacter(selectedCharacter);
 
         //CombatEngine.startCombat(selectedCharacter);

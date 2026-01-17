@@ -4,7 +4,7 @@ import {
   SkillInstance,
 } from "@/game/types/templates/character-skills";
 import { SKILLS } from "@/game/base-data/skills";
-import { Character } from "@/game/types/templates/character";
+import { Character } from "@/game/types/instances/character";
 
 export function buildCharacterSkills(): CharacterSkills {
   return Object.keys(SKILLS).reduce((acc, skillId) => {

@@ -5,7 +5,7 @@ import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Import custom types
-import { Character } from "@/game/types/templates/character";
+import { Character } from "@/game/types/instances/character";
 
 // Custom Components
 import { MaterialIcons } from "@expo/vector-icons";

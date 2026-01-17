@@ -4,7 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 import styles from "@/stylesheets/character-creation.styles";
 import { SKILLS } from "@/game/base-data/skills";
-import { SkillInstance } from "@/game/types/templates/character-skills";
+import { SkillInstance } from "@/game/types/instances/character-skills";
 
 type Props = {
   skillId: string;

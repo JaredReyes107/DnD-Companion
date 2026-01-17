@@ -10,9 +10,11 @@ export const CLERIC: ClassTemplate = {
   primaryAbilities: ["WIS"],
   savingThrows: ["WIS", "CHA"],
 
-  spellcasting: {
-    type: "full",
+  spellcastingTemplate: {
+    id: "cleric_spellcasting",
     ability: "WIS",
+    kind: "standard",
+    progression: "full",
   },
 
   featuresByLevel: {

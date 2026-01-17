@@ -4,7 +4,7 @@ import {
   CharacterSavingThrows,
   SavingThrowInstance,
 } from "@/game/types/templates/abilities-scores";
-import { Character } from "@/game/types/templates/character";
+import { Character } from "@/game/types/instances/character";
 
 export function buildSavingThrows(): CharacterSavingThrows {
   return ABILITY_ORDER.reduce((acc, ability) => {

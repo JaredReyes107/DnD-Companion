@@ -10,9 +10,11 @@ export const WIZARD: ClassTemplate = {
   primaryAbilities: ["INT"],
   savingThrows: ["INT", "WIS"],
 
-  spellcasting: {
-    type: "full",
-    ability: "INT"
+  spellcastingTemplate: {
+    id: "wizard_spellcasting",
+    ability: "INT",
+    kind: "standard",
+    progression: "full",
   },
 
   featuresByLevel: {
