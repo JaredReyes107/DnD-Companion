@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     gap: 15,
 
     width: "100%",
-    marginBottom: 24,
+    marginBottom: 10,
   },
   resourceCategoryTitle: {
     fontSize: 18,

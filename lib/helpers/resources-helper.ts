@@ -2,8 +2,12 @@ import { Character } from "@/game/types/instances/character";
 import { CharacterResources } from "@/game/types/instances/character-resources";
 import { FeatureTemplate } from "@/game/types/templates/feature-template";
 import { getActiveFeatures } from "./features-helper";
-import { getResourceById } from "@/game/registries/resources.registry";
+import {
+  getResourceById,
+  GroupedResources,
+} from "@/game/registries/resources.registry";
 import { evaluateFormula } from "./resource-scaling";
+import { ResourceCategory } from "@/game/types/templates/resource-template";
 
 export function getResourcesFromFeatures(
   features: FeatureTemplate[],
@@ -30,10 +34,12 @@ export function buildCharacterClassResources(
   for (const id of resourceIds) {
     if (!nextResources[id]) {
       const template = getResourceById(id);
+      const charges = evaluateFormula(template, character);
 
       nextResources[id] = {
         resourceId: id,
-        current: evaluateFormula(template, character),
+        max: charges,
+        current: charges,
       };
     }
   }
@@ -46,4 +52,18 @@ export function buildCharacterClassResources(
   }
 
   return nextResources;
+}
+
+export type ResourceSectionData = {
+  category: ResourceCategory;
+  resources: GroupedResources[ResourceCategory];
+};
+
+export function groupedResourcesToArray(
+  grouped: GroupedResources,
+): ResourceSectionData[] {
+  return Object.entries(grouped).map(([category, resources]) => ({
+    category: category as ResourceCategory,
+    resources,
+  }));
 }

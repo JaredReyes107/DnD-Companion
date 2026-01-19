@@ -163,8 +163,6 @@ const CharacterCreationScreen = () => {
     newCharacter.spellSlots = buildSpellSlots(newCharacter);
     newCharacter.resources = buildCharacterClassResources(newCharacter);
 
-    console.log(newCharacter.resources);
-
     setCharacters([...characters, newCharacter]);
 
     router.push("/");

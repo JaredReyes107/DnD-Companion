@@ -6,7 +6,7 @@ import styles from "@/stylesheets/combat/tab-resource";
 
 type Props = {
   spellSlots: SpellSlots;
-  onChange: (level: number, used: number) => void;
+  onChange: (level: number, current: number) => void;
 };
 
 export const SpellSlotsSection = ({ spellSlots, onChange }: Props) => {
@@ -25,7 +25,7 @@ export const SpellSlotsSection = ({ spellSlots, onChange }: Props) => {
             <SpellSlotElement
               key={level}
               level={level}
-              used={slot.used}
+              current={slot.current}
               max={slot.max}
               onChange={(v) => onChange(level, v)}
             />

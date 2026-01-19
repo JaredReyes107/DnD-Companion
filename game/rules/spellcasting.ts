@@ -73,7 +73,7 @@ export function buildStandardSpellSlots(casterLevel: number): SpellSlots {
 
     slots[level] = {
       max,
-      used: 0,
+      current: max,
     };
   });
 
@@ -93,7 +93,6 @@ const PACT_MAGIC_TABLE: Record<
   7: { level: 4, slots: 2 },
   8: { level: 4, slots: 2 },
   9: { level: 5, slots: 2 },
-  // etc si quieres
 };
 
 export function buildPactMagicSlots(warlockLevel: number): SpellSlots {
@@ -126,6 +125,5 @@ export function buildSpellSlots(character: Character): SpellSlots {
     slots = buildPactMagicSlots(classLevel);
   }
   */
-
   return slots;
 }

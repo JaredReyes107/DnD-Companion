@@ -3,32 +3,33 @@ import { ThemedText } from "@/components/ThemedText";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import styles from "@/stylesheets/combat/tab-resource";
-import { ResourceInstance } from "@/game/types/instances/resource-instance";
 
 type Props = {
-  resource: ResourceInstance;
-  used: number;
+  label: string;
+  current: number;
   max: number;
   onChange: (newUsed: number) => void;
 };
 
-export const SpellSlotElement = ({ resource, used, max, onChange }: Props) => {
+export const ResourceElement = ({ label, current, max, onChange }: Props) => {
   return (
     <View style={styles.resourceElementContainer}>
       <ThemedText style={[styles.resourceElementName, { width: 80 }]}>
-        Lv {resource.resourceId}
+        {label}
       </ThemedText>
 
       <ThemedText>
-        {max - used} / {max}
+        {current} / {max}
       </ThemedText>
 
       <View style={{ flexDirection: "row", gap: 12 }}>
-        <TouchableOpacity onPress={() => used < max && onChange(used + 1)}>
+        <TouchableOpacity onPress={() => current > 0 && onChange(current - 1)}>
           <MaterialIcons name="remove" size={18} color="white" />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => used > 0 && onChange(used - 1)}>
+        <TouchableOpacity
+          onPress={() => current < max && onChange(current + 1)}
+        >
           <MaterialIcons name="add" size={18} color="white" />
         </TouchableOpacity>
       </View>
