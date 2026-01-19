@@ -41,3 +41,16 @@ export function getClassTemplatesFromCharacter(
     getClassTemplateById(classes.byId[id].classId),
   );
 }
+
+export function getClassInstanceByTemplateId(
+  classes: CharacterClasses,
+  classTemplateId: string,
+): ClassInstance | undefined {
+  for (const instanceId of classes.order) {
+    const instance = classes.byId[instanceId];
+    if (instance.classId === classTemplateId) {
+      return instance;
+    }
+  }
+  return undefined;
+}

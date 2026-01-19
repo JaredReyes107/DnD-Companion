@@ -33,7 +33,7 @@ export function buildCharacterClassResources(
 
       nextResources[id] = {
         resourceId: id,
-        current: evaluateFormula(template.scalingType, character),
+        current: evaluateFormula(template, character),
       };
     }
   }

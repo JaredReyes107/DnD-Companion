@@ -62,5 +62,18 @@ export const SORCERER: ClassTemplate = {
         combatRole: "active"
       },
     ],
+
+    7: [
+      {
+        id: "lucky",
+        label: "Lucky",
+        source: "class",
+        level: 4,
+        description: "You gain sorcery points that you can use to create spell slots.",
+        tags: ["resource"],
+        combatRole: "active",
+        resources: ["luck_points"]
+      },
+    ],
   },
 };

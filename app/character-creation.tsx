@@ -111,7 +111,6 @@ const CharacterCreationScreen = () => {
         {
           classId: c.classTemplateId!,
           level: c.level,
-          activeFeatures: [],
         },
       ]),
     );
@@ -173,7 +172,6 @@ const CharacterCreationScreen = () => {
 
   // Save in local storage whenever a character is added, modified or deleted
   useEffect(() => {
-    console.log("Saving characters to storage:", characters);
     AsyncStorage.setItem("characters", JSON.stringify(characters));
   }, [characters]);
 

@@ -1,4 +1,3 @@
-//TODO: Repurpose for features
 import { BASE_RESOURCES } from "@/game/base-data/resources";
 import {
   ResourceCategory,

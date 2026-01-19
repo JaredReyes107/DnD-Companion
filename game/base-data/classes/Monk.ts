@@ -11,6 +11,17 @@ export const MONK: ClassTemplate = {
   savingThrows: ["STR", "DEX"],
 
   featuresByLevel: {
-    
+    2: [
+      {
+        id: "ki",
+        label: "Ki",
+        source: "class",
+        level: 2,
+        description: "You gain ki points that you can use to fuel various ki features.",
+        tags: ["resource"],
+        combatRole: "active",
+        resources: ["ki_points"]
+      },
+    ]
   },
 };

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { ClassInstance } from "@/game/types/instances/class-instance";
 
 export type CharacterClasses = {
