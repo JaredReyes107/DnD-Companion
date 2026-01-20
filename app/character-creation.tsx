@@ -12,6 +12,7 @@ import {
   FlatList,
 } from "react-native";
 import { useRouter } from "expo-router";
+import * as Crypto from "expo-crypto";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Custom Classes and Constants
@@ -55,12 +56,12 @@ const CharacterCreationScreen = () => {
     useState<Alignment | null>(null);
 
   type ClassDraft = {
-    id: string; // instance id (uuid)
+    id: string;
     classTemplateId: string | null;
     level: number;
   };
   const [mainClass, setMainClass] = useState<ClassDraft>({
-    id: crypto.randomUUID(),
+    id: Crypto.randomUUID(),
     classTemplateId: null,
     level: 1,
   });
@@ -121,7 +122,7 @@ const CharacterCreationScreen = () => {
     }
 
     const newCharacter: Character = {
-      id: crypto.randomUUID(),
+      id: Crypto.randomUUID(),
       icon: "face",
 
       name: CharacterName,
@@ -261,7 +262,7 @@ const CharacterCreationScreen = () => {
               setSecondaryClasses((prev) => [
                 ...prev,
                 {
-                  id: crypto.randomUUID(),
+                  id: Crypto.randomUUID(),
                   classTemplateId: null,
                   level: 1,
                 },

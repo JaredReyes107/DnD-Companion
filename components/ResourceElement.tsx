@@ -14,15 +14,13 @@ type Props = {
 export const ResourceElement = ({ label, current, max, onChange }: Props) => {
   return (
     <View style={styles.resourceElementContainer}>
-      <ThemedText style={[styles.resourceElementName, { width: 80 }]}>
-        {label}
-      </ThemedText>
+      <ThemedText style={styles.resourceElementName}>{label}</ThemedText>
 
-      <ThemedText>
+      <ThemedText style={styles.resourceElementValues}>
         {current} / {max}
       </ThemedText>
 
-      <View style={{ flexDirection: "row", gap: 12 }}>
+      <View style={styles.resourceElementButtonsContainer}>
         <TouchableOpacity onPress={() => current > 0 && onChange(current - 1)}>
           <MaterialIcons name="remove" size={18} color="white" />
         </TouchableOpacity>

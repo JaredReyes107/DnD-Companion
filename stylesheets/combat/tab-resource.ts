@@ -30,12 +30,19 @@ const styles = StyleSheet.create({
     backgroundColor: "#D69F38",
   },
   resourceElementName: {
+    minWidth: 80,
+    maxWidth: 120,
+
     fontSize: 18,
     fontWeight: "600",
     textAlign: "center",
   },
   resourceElementValues: {
     fontSize: 16,
+  },
+  resourceElementButtonsContainer: {
+    flexDirection: "row",
+    gap: 12,
   },
 });
 
