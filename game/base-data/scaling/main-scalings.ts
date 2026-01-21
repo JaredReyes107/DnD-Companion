@@ -47,4 +47,8 @@ export function registerMainScalings() {
   registerScaling("CHA", ({ character }) =>
     getAbilityModifier(character.abilityScores.CHA.value),
   );
+
+  registerScaling("spellcasting", ({ character }) =>
+    getAbilityModifier(character.abilityScores.CHA.value),
+  );
 }

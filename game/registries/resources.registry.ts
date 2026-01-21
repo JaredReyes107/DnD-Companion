@@ -5,6 +5,7 @@ import {
 } from "../types/templates/resource-template";
 import { ResourceInstance } from "../types/instances/resource-instance";
 import { CharacterResources } from "../types/instances/character-resources";
+import { SPELL_SLOTS } from "../base-data/resources/spell-slots";
 
 const homebrewResources: Record<string, ResourceTemplate> = {};
 
@@ -14,6 +15,7 @@ export function registerHomebrewResource(res: ResourceTemplate) {
 
 export function getResourceRegistry() {
   return {
+    ...SPELL_SLOTS,
     ...BASE_RESOURCES,
     ...homebrewResources,
   };

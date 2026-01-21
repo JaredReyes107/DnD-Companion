@@ -6,7 +6,6 @@ import {
 } from "@/game/types/templates/abilities-scores";
 import { CharacterSkills } from "@/game/types/templates/character-skills";
 import { HitPoints } from "@/game/types/templates/hit-points";
-import { SpellSlots } from "../instances/spell-slot-instance";
 import { FeatureInstance } from "./feature-instance";
 import { ResourceInstance } from "./resource-instance";
 import { CombatState } from "@/game/types/templates/combat-state";
@@ -31,7 +30,6 @@ export type Character = {
   hitPoints: HitPoints;
   speed: number;
 
-  spellSlots: SpellSlots;
   features: Record<string, FeatureInstance>;
   resources: Record<string, ResourceInstance>;
 

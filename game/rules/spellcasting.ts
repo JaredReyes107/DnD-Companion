@@ -1,4 +1,4 @@
-import { Character } from "@/game/types/instances/character";
+import { Character } from "@/game/types/instances/Character";
 import { CharacterClasses } from "@/game/types/instances/character-classes";
 import {
   SpellSlots,
@@ -8,6 +8,7 @@ import {
   getClassTemplateById,
   getClassTemplatesFromCharacter,
 } from "../registries/classes.registry";
+import { CharacterResources } from "../types/instances/character-resources";
 
 export function getTotalCasterLevel(
   characterClasses: CharacterClasses,
@@ -62,16 +63,19 @@ const STANDARD_SPELL_SLOTS: number[][] = [
   [4, 3, 3, 3, 3, 2, 2, 1, 1],
 ];
 
-export function buildStandardSpellSlots(casterLevel: number): SpellSlots {
+export function buildStandardSpellSlots(
+  casterLevel: number,
+): CharacterResources {
   const row = STANDARD_SPELL_SLOTS[casterLevel - 1];
   if (!row) return {};
 
-  const slots: SpellSlots = {};
+  const slots: CharacterResources = {};
 
   row.forEach((max, index) => {
-    const level = (index + 1) as SpellSlotLevel;
+    const resourceId = "spell_slot_" + (index + 1);
 
-    slots[level] = {
+    slots[resourceId] = {
+      resourceId,
       max,
       current: max,
     };
@@ -107,8 +111,8 @@ export function buildPactMagicSlots(warlockLevel: number): SpellSlots {
   };
 }
 
-export function buildSpellSlots(character: Character): SpellSlots {
-  let slots: SpellSlots = {};
+export function buildSpellSlots(character: Character): CharacterResources {
+  let characterSpellSlots: CharacterResources = {};
 
   const spellcastingTemplates = getClassTemplatesFromCharacter(
     character.classes,
@@ -117,7 +121,9 @@ export function buildSpellSlots(character: Character): SpellSlots {
     .filter(Boolean);
 
   if (spellcastingTemplates.length > 0) {
-    slots = buildStandardSpellSlots(getTotalCasterLevel(character.classes));
+    characterSpellSlots = {
+      ...buildStandardSpellSlots(getTotalCasterLevel(character.classes)),
+    };
   }
 
   /*
@@ -125,5 +131,5 @@ export function buildSpellSlots(character: Character): SpellSlots {
     slots = buildPactMagicSlots(classLevel);
   }
   */
-  return slots;
+  return characterSpellSlots;
 }

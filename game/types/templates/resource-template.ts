@@ -13,7 +13,7 @@ export type ResourceTemplate = {
   label: string; // i18n key o texto
   sourceId: string; // classId, featureId, raceId, etc
   //origin: "Players Handbook", //For distinguishing official rules and homebrew
-  category: ResourceCategory; //For UI
+  category: ResourceCategory; //For UI scetions in the Dashboard
 
   scalingType: string; // ej: "PB", "CHA", "class-level", "character-level","fixed:3", etc
   recharge: "shortRest" | "longRest" | "perTurn" | "none" | "custom";

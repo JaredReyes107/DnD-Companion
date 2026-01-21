@@ -34,7 +34,7 @@ export const SORCERER: ClassTemplate = {
         source: "class",
         level: 1,
         description: "You can cast sorcerer spells.",
-        combatRole: "passive"
+        combatRole: "passive",
       },
     ],
 

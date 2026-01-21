@@ -55,7 +55,6 @@ const CharacterSheetScreen = () => {
     fetchCharacter();
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_fontsLoaded] = useFonts({
     Montserrat: Montserrat_500Medium,
   });

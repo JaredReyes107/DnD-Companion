@@ -9,13 +9,14 @@ import {
   KeyboardAvoidingView,
   FlatList,
   SectionList,
+  ScrollView,
 } from "react-native";
 import { useRouter } from "expo-router";
 import * as Crypto from "expo-crypto";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Custom Classes and Constants
-import { Character } from "@/game/types/instances/character"; // Import custom types
+import { Character } from "@/game/types/instances/Character"; // Import custom types
 import { Alignment, ALIGNMENTS } from "@/game/base-data/alignments";
 import {
   ABILITY_ORDER,
@@ -30,8 +31,7 @@ import { SKILL_ORDER } from "@/game/base-data/skills";
 import { CharacterSkills } from "@/game/types/templates/character-skills";
 import { buildCharacterSkills } from "@/lib/helpers/skills-helper";
 import { getAllClassTemplates } from "@/game/registries/classes.registry";
-import { buildSpellSlots } from "@/game/rules/spellcasting";
-import { buildCharacterClassResources } from "@/lib/helpers/resources-helper";
+import { buildCharacterResources } from "@/lib/helpers/resources-helper";
 
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -150,7 +150,6 @@ const CharacterCreationScreen = () => {
 
       speed: CharacterSpeed || 30,
 
-      spellSlots: {},
       features: {},
       resources: {},
 
@@ -163,8 +162,8 @@ const CharacterCreationScreen = () => {
       },
     };
 
-    newCharacter.spellSlots = buildSpellSlots(newCharacter);
-    newCharacter.resources = buildCharacterClassResources(newCharacter);
+    newCharacter.resources = buildCharacterResources(newCharacter);
+    console.log(newCharacter.resources);
 
     setCharacters([...characters, newCharacter]);
 
@@ -500,15 +499,17 @@ const CharacterCreationScreen = () => {
 
   return (
     <KeyboardAvoidingView style={genericStyles.rootContainer}>
-      <ThemedView>
-        <SectionList
-          sections={sections}
-          keyExtractor={(item, index) =>
-            typeof item === "string" ? item + index : item.id
-          }
-          renderItem={renderItem}
-        />
-      </ThemedView>
+      <ScrollView>
+        <ThemedView>
+          <SectionList
+            sections={sections}
+            keyExtractor={(item, index) =>
+              typeof item === "string" ? item + index : item.id
+            }
+            renderItem={renderItem}
+          />
+        </ThemedView>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };

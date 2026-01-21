@@ -1,10 +1,8 @@
 import { ThemedView } from "@/components/ThemedView";
 import { FlatList } from "react-native";
 import { ResourceSection } from "@/components/ResourceSection";
-import { SpellSlotsSection } from "@/components/SpellSlotsSection";
 
 import { groupResourcesByCategory } from "@/game/registries/resources.registry";
-import { SpellSlotLevel } from "@/game/types/instances/spell-slot-instance";
 import { groupedResourcesToArray } from "@/lib/helpers/resources-helper";
 
 import { useCharacter } from "@/hooks/useCharacter";
@@ -17,19 +15,6 @@ const ProfileScreen = () => {
 
   if (!character) return null;
 
-  const updateSpellSlot = (level: number, newCurrent: number) => {
-    saveCharacter({
-      ...character,
-      spellSlots: {
-        ...character.spellSlots,
-        [level]: {
-          ...character.spellSlots[level as SpellSlotLevel]!,
-          current: newCurrent,
-        },
-      },
-    });
-  };
-
   const grouped = groupResourcesByCategory(character.resources);
   const sections = groupedResourcesToArray(grouped);
 
@@ -40,10 +25,6 @@ const ProfileScreen = () => {
         { alignItems: "center", paddingHorizontal: 15 },
       ]}
     >
-      <SpellSlotsSection
-        spellSlots={character.spellSlots}
-        onChange={updateSpellSlot}
-      />
       <FlatList
         data={sections}
         keyExtractor={(item) => item.category}
