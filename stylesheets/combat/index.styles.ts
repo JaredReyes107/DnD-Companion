@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
   window_title: {
     fontSize: 18,
-    fontWeight: 600,
+    fontWeight: "bold",
   },
   window_body: {
     display: "flex",
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
   blockButton: {
     fontSize: 50,
-    fontWeight: 400,
+    fontWeight: "regular",
     color: "#fff",
   },
   blockValue: {
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   },
   restText: {
     fontSize: 28,
-    fontWeight: 600,
+    fontWeight: "bold",
   },
   deathThrowsSection: {
     display: "flex",
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     maxWidth: 180,
 
     fontSize: 18,
-    fontWeight: 600,
+    fontWeight: "bold",
     textAlign: "center",
   },
   deathThrowsBody: {
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
   },
   deathThrowsText: {
     fontSize: 16,
-    fontWeight: 400,
+    fontWeight: "regular",
   },
   deathThrowsTally: {
     display: "flex",

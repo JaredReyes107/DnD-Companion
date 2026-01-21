@@ -51,7 +51,7 @@ export const ResourceSection = ({
         {category.toString()}
       </ThemedText>
 
-      <ThemedView style={styles.resourceCategoryContainer}>
+      <ThemedView style={styles.resourceElementsList}>
         {resources.map(({ template, instance }) => (
           <ResourceElement
             key={template.id}

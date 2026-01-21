@@ -1,4 +1,3 @@
-import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { FlatList } from "react-native";
 import { ResourceSection } from "@/components/ResourceSection";
@@ -11,7 +10,7 @@ import { groupedResourcesToArray } from "@/lib/helpers/resources-helper";
 import { useCharacter } from "@/hooks/useCharacter";
 
 import genericStyles from "@/stylesheets/generic.styles";
-import styles from "@/stylesheets/combat/tab-resource";
+//import styles from "@/stylesheets/combat/tab-resource";
 
 const ProfileScreen = () => {
   const { character, saveCharacter } = useCharacter();
@@ -35,8 +34,12 @@ const ProfileScreen = () => {
   const sections = groupedResourcesToArray(grouped);
 
   return (
-    <ThemedView style={[genericStyles.rootContainer, { alignItems: "center" }]}>
-      <ThemedText style={styles.resourceCategoryTitle}>Spell Slots</ThemedText>
+    <ThemedView
+      style={[
+        genericStyles.rootContainer,
+        { alignItems: "center", paddingHorizontal: 15 },
+      ]}
+    >
       <SpellSlotsSection
         spellSlots={character.spellSlots}
         onChange={updateSpellSlot}

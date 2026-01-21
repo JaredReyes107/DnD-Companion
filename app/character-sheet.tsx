@@ -60,7 +60,7 @@ const CharacterSheetScreen = () => {
     Montserrat: Montserrat_500Medium,
   });
 
-  if (!character) {
+  if (!character || !_fontsLoaded) {
     return (
       <View>
         <Text>Cargando personaje…</Text>
@@ -68,7 +68,7 @@ const CharacterSheetScreen = () => {
     );
   } else {
     return (
-      <ScrollView style={styles.rootContainer}>
+      <ScrollView style={genericStyles.rootContainer}>
         {/* 
         <View style={styles.tabsMenu}>
           <View style={styles.tabSectionContainer_Active}>

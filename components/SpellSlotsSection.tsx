@@ -1,4 +1,6 @@
 import { ThemedView } from "@/components/ThemedView";
+import { ThemedText } from "./ThemedText";
+
 import { SpellSlots } from "@/game/types/instances/spell-slot-instance";
 import { SpellSlotElement } from "./SpellSlotElement";
 
@@ -17,8 +19,9 @@ export const SpellSlotsSection = ({ spellSlots, onChange }: Props) => {
   if (levels.length === 0) return null;
 
   return (
-    <ThemedView style={{ marginTop: 10 }}>
-      <ThemedView style={styles.resourceCategoryContainer}>
+    <ThemedView style={styles.resourceCategoryContainer}>
+      <ThemedText style={styles.resourceCategoryTitle}>Spell Slots</ThemedText>
+      <ThemedView style={styles.resourceElementsList}>
         {levels.map((level) => {
           const slot = spellSlots[level as keyof SpellSlots]!;
           return (

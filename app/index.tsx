@@ -93,7 +93,7 @@ const IndexScreen = () => {
   );
 
   return (
-    <ThemedView style={styles.rootContainer}>
+    <ThemedView style={[styles.rootContainer, { paddingHorizontal: 20 }]}>
       <View style={styles.headerContainer}>
         <Text style={styles.header}>Personajes</Text>
         <TouchableOpacity onPress={() => router.push("../character-creation")}>
