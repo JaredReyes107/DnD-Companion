@@ -92,6 +92,7 @@ export const PALADIN: ClassTemplate = {
         source: "class",
         level: 3,
         description: "You swear the oath that binds you as a paladin forever.",
+        resources: ["channel_divinity"],
         tags: ["subclass"],
       },
     ],

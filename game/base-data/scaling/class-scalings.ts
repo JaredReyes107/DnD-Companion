@@ -20,12 +20,21 @@ export function registerClassScalings() {
 
   //Adapt to resolve conflicts with paladin
   registerScaling("channel-divinity", ({ character }) => {
-    const cleric = Object.values(character.classes.byId).find(
+    const clericClass = Object.values(character.classes.byId).find(
       (c) => c.classId === "cleric",
     );
+    const paladinClass = Object.values(character.classes.byId).find(
+      (c) => c.classId === "paladin",
+    );
 
-    if (!cleric) return 0;
-    return cleric.level >= 6 ? 2 : 1;
+    if (!clericClass && !paladinClass) return 0;
+
+    if (clericClass) {
+      if (clericClass.level >= 18) return 3;
+      if (clericClass.level >= 6) return 2;
+    }
+
+    return 1;
   });
 
   registerScaling("action-surge", ({ character }) => {

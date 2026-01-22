@@ -14,7 +14,7 @@ export function evaluateFormula(
   if (resource.scalingType.includes(":")) {
     const scalingType = resource.scalingType.split(":")[0];
     const operator = resource.scalingType.split(":")[1].at(0);
-    const value = Number(resource.scalingType.slice(0));
+    const value = Number(resource.scalingType.split(":")[1].slice(1));
 
     const scaler = getScaling(scalingType);
 
