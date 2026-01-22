@@ -9,7 +9,6 @@ import {
   KeyboardAvoidingView,
   FlatList,
   SectionList,
-  ScrollView,
 } from "react-native";
 import { useRouter } from "expo-router";
 import * as Crypto from "expo-crypto";
@@ -498,18 +497,18 @@ const CharacterCreationScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingView style={genericStyles.rootContainer}>
-      <ScrollView>
-        <ThemedView>
-          <SectionList
-            sections={sections}
-            keyExtractor={(item, index) =>
-              typeof item === "string" ? item + index : item.id
-            }
-            renderItem={renderItem}
-          />
-        </ThemedView>
-      </ScrollView>
+    <KeyboardAvoidingView
+      style={[genericStyles.rootContainer, { paddingHorizontal: 20 }]}
+    >
+      <ThemedView>
+        <SectionList
+          sections={sections}
+          keyExtractor={(item, index) =>
+            typeof item === "string" ? item + index : item.id
+          }
+          renderItem={renderItem}
+        />
+      </ThemedView>
     </KeyboardAvoidingView>
   );
 };

@@ -32,6 +32,7 @@ export type Character = {
 
   features: Record<string, FeatureInstance>;
   resources: Record<string, ResourceInstance>;
+  //actions: Record<string, ActionInstance>;
 
   combatState: CombatState;
 };

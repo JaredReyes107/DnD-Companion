@@ -1,42 +1,21 @@
 import { ResourceTemplate as ResourceTemplate } from "@/game/types/templates/resource-template";
+import { RESOURCES_BARBARIAN } from "./resources/barbarian-resources";
+import { RESOURCES_BARD } from "./resources/bard-resources";
+import { RESOURCES_CLERIC } from "./resources/cleric-resources";
+import { RESOURCES_DRUID } from "./resources/druid-resources";
+import { RESOURCES_FIGHTER } from "./resources/fighter-resources";
+import { RESOURCES_MONK } from "./resources/monk-resources";
+import { RESOURCES_SORCERER } from "./resources/sorcerer-resources";
+import { RESOURCES_PALADIN } from "./resources/paladin-resources";
+import { RESOURCES_RANGER } from "./resources/ranger-resources";
+import { RESOURCES_ROGUE } from "./resources/rogue-resources";
+import { RESOURCES_WARLOCK } from "./resources/warlock-resources";
+import { RESOURCES_WIZARD } from "./resources/wizard-resources";
+import { RESOURCES_ARTIFICER } from "./resources/artificer-resources";
 
 const FEATS: Record<string, ResourceTemplate> = {
-  /*luck_points: {
-    id: "luck_points",
-    label: "Luck Points",
-    source: "feat",
-    category: "feat",
-    scalingType: "fixed-3",
-    recharge: "longRest",
-    tags: ["utility"],
-  },*/
-};
-
-export const RESOURCES_MONK: Record<string, ResourceTemplate> = {
-  ki_points: {
-    id: "ki_points",
-    label: "Ki Points",
-    sourceId: "monk",
-    category: "class-feature",
-    scalingType: "class-level",
-    recharge: "shortRest",
-    tags: ["combat", "mobility"],
-  },
-};
-
-export const RESOURCES_SORCERER: Record<string, ResourceTemplate> = {
-  sorcery_points: {
-    id: "sorcery_points",
-    label: "Sorcery Points",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    sourceId: "sorcerer",
-    category: "class-feature", //For UI
-    scalingType: "class-level",
-    recharge: "longRest",
-    tags: ["combat", "support"],
-  },
   luck_points: {
-    id: "luck_points",
+    id: "luck-points",
     label: "Luck Points",
     sourceId: "sorcerer",
     category: "feat",
@@ -48,26 +27,17 @@ export const RESOURCES_SORCERER: Record<string, ResourceTemplate> = {
 
 export const BASE_RESOURCES: Record<string, ResourceTemplate> = {
   ...FEATS,
+  ...RESOURCES_ARTIFICER,
+  ...RESOURCES_BARBARIAN,
+  ...RESOURCES_BARD,
+  ...RESOURCES_CLERIC,
+  ...RESOURCES_DRUID,
+  ...RESOURCES_FIGHTER,
   ...RESOURCES_MONK,
+  ...RESOURCES_PALADIN,
+  ...RESOURCES_RANGER,
+  ...RESOURCES_ROGUE,
   ...RESOURCES_SORCERER,
-
-  bardic_inspiration: {
-    id: "bardic_inspiration",
-    label: "Bardic Inspiration",
-    sourceId: "class",
-    category: "class-feature",
-    scalingType: "CHA",
-    recharge: "longRest",
-    tags: ["combat", "support"],
-  },
-
-  rage: {
-    id: "rage",
-    label: "Rage",
-    sourceId: "class",
-    category: "class-feature",
-    scalingType: "level",
-    recharge: "longRest",
-    tags: ["combat"],
-  },
+  ...RESOURCES_WARLOCK,
+  ...RESOURCES_WIZARD,
 };

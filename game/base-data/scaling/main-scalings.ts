@@ -24,6 +24,11 @@ export function registerMainScalings() {
     return sourceClass.level;
   });
 
+  //#region Ability Score Scalers
+  registerScaling("STR:", ({ character }) =>
+    getAbilityModifier(character.abilityScores.STR.value),
+  );
+
   registerScaling("STR", ({ character }) =>
     getAbilityModifier(character.abilityScores.STR.value),
   );
@@ -51,4 +56,5 @@ export function registerMainScalings() {
   registerScaling("spellcasting", ({ character }) =>
     getAbilityModifier(character.abilityScores.CHA.value),
   );
+  //#endregion
 }

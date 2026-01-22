@@ -1,19 +1,19 @@
 /* eslint-disable prettier/prettier */
 import { ClassTemplate } from "@/game/types/templates/class-template";
 
-import { ARTIFICER } from "./classes/Artificer";
-import { BARBARIAN } from "./classes/Barbarian";
-import { BARD } from "./classes/Bard";
-import { CLERIC } from "./classes/Cleric";
-import { FIGHTER } from "./classes/Fighter";
-import { DRUID } from "./classes/Druid";
-import { MONK } from "./classes/Monk";
-import { PALADIN } from "./classes/Paladin";
-import { RANGER } from "./classes/Ranger";
-import { ROGUE } from "./classes/Rogue";
-import { SORCERER } from "./classes/Sorcerer";
-import { WARLOCK } from "./classes/Warlock";
-import { WIZARD } from "./classes/Wizard";
+import { ARTIFICER } from "./classes-templates/Artificer";
+import { BARBARIAN } from "./classes-templates/Barbarian";
+import { BARD } from "./classes-templates/Bard";
+import { CLERIC } from "./classes-templates/Cleric";
+import { FIGHTER } from "./classes-templates/Fighter";
+import { DRUID } from "./classes-templates/Druid";
+import { MONK } from "./classes-templates/Monk";
+import { PALADIN } from "./classes-templates/Paladin";
+import { RANGER } from "./classes-templates/Ranger";
+import { ROGUE } from "./classes-templates/Rogue";
+import { SORCERER } from "./classes-templates/Sorcerer";
+import { WARLOCK } from "./classes-templates/Warlock";
+import { WIZARD } from "./classes-templates/Wizard";
 
 export const CLASSES: Record<string, ClassTemplate> = {
   artificer: ARTIFICER,

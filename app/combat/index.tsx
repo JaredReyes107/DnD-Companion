@@ -12,7 +12,7 @@ import { Text, View, TouchableOpacity, Modal, Button } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
-import { Character } from "@/game/types/instances/character";
+import { Character } from "@/game/types/instances/Character";
 
 import { loadCharacterFromStorage } from "../../lib/utilities/system-storage";
 
