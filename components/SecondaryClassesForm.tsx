@@ -29,19 +29,27 @@ export const SecondaryClassesForm = ({
   return (
     <View style={[styles.subfieldContainer]}>
       <View style={styles.fieldClassContainer}>
-        <View style={styles.pickerClassContainer}>
-          <View style={styles.pickerContainer}>
-            <ClassPicker
-              classTemplates={classTemplates}
-              selectedClassId={value.classTemplateId}
-              onChange={(id) => onChange({ ...value, classTemplateId: id })}
-            />
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <View style={styles.pickerClassContainer}>
+            <View style={styles.pickerContainer}>
+              <ClassPicker
+                classTemplates={classTemplates}
+                selectedClassId={value.classTemplateId}
+                onChange={(id) => onChange({ ...value, classTemplateId: id })}
+              />
+            </View>
           </View>
-        </View>
 
-        <TouchableOpacity style={styles.removeClassButton} onPress={onRemove}>
-          <MaterialIcons name="close" style={styles.removeClassButtonText} />
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.removeClassButton} onPress={onRemove}>
+            <MaterialIcons name="close" style={styles.removeClassButtonText} />
+          </TouchableOpacity>
+        </View>
 
         <View style={styles.counterContainer}>
           <Text style={styles.counterInput}>{value.level}</Text>

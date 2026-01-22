@@ -1,5 +1,15 @@
 export type CombatRole = "active" | "passive" | "none" | "special";
-export type ActionSlot = "action" | "bonusAction" | "reaction" | "passive";
+//TODO: Relocate ActivationType into action-template
+export type ActivationType =
+  | "action"
+  | "bonusAction"
+  | "reaction"
+  | "onAttack"
+  | "onHit"
+  | "onSpellCast"
+  | "onDamageReceived"
+  | "lastStand"
+  | "passive";
 
 export type ModifierTag =
   | "ac"
@@ -25,10 +35,10 @@ export type FeatureTemplate = {
   classId?: string;
   level?: number;
 
-  combatRole: CombatRole;
-  actionSlot?: ActionSlot;
+  combatRole?: CombatRole;
+  activationType?: ActivationType;
 
   tags?: string[]; // "combat", "passive", "resource", "movement", etc.
 
-  resources?: string[]; // ids of ResourceDefinitions
+  resources?: string[]; // ids of ResourceTemplate
 };

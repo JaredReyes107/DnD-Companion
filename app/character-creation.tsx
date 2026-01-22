@@ -1,21 +1,21 @@
 // Libraries
 import React, { useEffect, useState } from "react";
 import {
-  ScrollView,
   View,
   TextInput,
   TouchableOpacity,
   Text,
   Alert,
   KeyboardAvoidingView,
-  Platform,
   FlatList,
+  SectionList,
 } from "react-native";
 import { useRouter } from "expo-router";
+import * as Crypto from "expo-crypto";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Custom Classes and Constants
-import { Character } from "@/game/types/instances/character"; // Import custom types
+import { Character } from "@/game/types/instances/Character"; // Import custom types
 import { Alignment, ALIGNMENTS } from "@/game/base-data/alignments";
 import {
   ABILITY_ORDER,
@@ -23,15 +23,19 @@ import {
   CharacterSavingThrows,
 } from "@/game/types/templates/abilities-scores";
 
+// Functions and Helpers
 import { buildAbilityScores } from "@/lib/helpers/ability-scores-helper";
 import { buildSavingThrows } from "@/lib/helpers/saving-throws-helper";
 import { SKILL_ORDER } from "@/game/base-data/skills";
 import { CharacterSkills } from "@/game/types/templates/character-skills";
 import { buildCharacterSkills } from "@/lib/helpers/skills-helper";
 import { getAllClassTemplates } from "@/game/registries/classes.registry";
+import { buildCharacterResources } from "@/lib/helpers/resources-helper";
 
 import { MaterialIcons } from "@expo/vector-icons";
 
+// Components
+import { ThemedView } from "@/components/ThemedView";
 import CustomPicker from "@/components/CustomPicker";
 import { MainClassForm } from "@/components/MainClassForm";
 import { SecondaryClassesForm } from "@/components/SecondaryClassesForm";
@@ -39,10 +43,8 @@ import AbilityScoreInput from "@/components/AbilityScoresInput";
 import SavingThrowProficiencyInput from "@/components/SavingThrowProficiencyInput";
 import SkillProficiencyInput from "@/components/SkillProficiencyInput";
 
-import styles from "@/stylesheets/character-creation.styles";
 import genericStyles from "@/stylesheets/generic.styles";
-import { buildSpellSlots } from "@/game/rules/spellcasting";
-import { buildCharacterClassResources } from "@/lib/helpers/resources-helper";
+import styles from "@/stylesheets/character-creation.styles";
 
 const CharacterCreationScreen = () => {
   const router = useRouter();
@@ -55,12 +57,12 @@ const CharacterCreationScreen = () => {
     useState<Alignment | null>(null);
 
   type ClassDraft = {
-    id: string; // instance id (uuid)
+    id: string;
     classTemplateId: string | null;
     level: number;
   };
   const [mainClass, setMainClass] = useState<ClassDraft>({
-    id: crypto.randomUUID(),
+    id: Crypto.randomUUID(),
     classTemplateId: null,
     level: 1,
   });
@@ -111,7 +113,6 @@ const CharacterCreationScreen = () => {
         {
           classId: c.classTemplateId!,
           level: c.level,
-          activeFeatures: [],
         },
       ]),
     );
@@ -122,7 +123,7 @@ const CharacterCreationScreen = () => {
     }
 
     const newCharacter: Character = {
-      id: crypto.randomUUID(),
+      id: Crypto.randomUUID(),
       icon: "face",
 
       name: CharacterName,
@@ -148,7 +149,6 @@ const CharacterCreationScreen = () => {
 
       speed: CharacterSpeed || 30,
 
-      spellSlots: {},
       features: {},
       resources: {},
 
@@ -161,9 +161,7 @@ const CharacterCreationScreen = () => {
       },
     };
 
-    newCharacter.spellSlots = buildSpellSlots(newCharacter);
-    newCharacter.resources = buildCharacterClassResources(newCharacter);
-
+    newCharacter.resources = buildCharacterResources(newCharacter);
     console.log(newCharacter.resources);
 
     setCharacters([...characters, newCharacter]);
@@ -173,99 +171,146 @@ const CharacterCreationScreen = () => {
 
   // Save in local storage whenever a character is added, modified or deleted
   useEffect(() => {
-    console.log("Saving characters to storage:", characters);
     AsyncStorage.setItem("characters", JSON.stringify(characters));
   }, [characters]);
 
+  const sections = [
+    {
+      key: "identity",
+      title: "Identidad",
+      data: ["name", "race", "alignment", "xp"],
+    },
+    {
+      key: "classes",
+      title: "Clases",
+      data: ["mainClass", ...secondaryClasses],
+    },
+    {
+      key: "addClass",
+      title: "Añadir nueva clase",
+      data: ["addClass"],
+    },
+    {
+      key: "stats",
+      title: "Estadísticas",
+      data: ["stats"],
+    },
+    {
+      key: "savingThrows",
+      title: "Tiradas de Salvación",
+      data: ["savingThrows"],
+    },
+    {
+      key: "skills",
+      title: "Habilidades",
+      data: ["skills"],
+    },
+    {
+      key: "submit",
+      title: "",
+      data: ["submit"],
+    },
+  ];
+
   const classTemplates = getAllClassTemplates();
 
-  return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
-    >
-      <ScrollView style={genericStyles.rootContainer}>
-        <View style={genericStyles.customFieldContainer}>
-          {/* Nombre */}
-          <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>Nombre del personaje</Text>
-            <TextInput
-              placeholder=""
-              onChangeText={setCharacterName}
-              style={styles.input}
-            />
-          </View>
-
-          {/* Race */}
-          <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>Raza</Text>
-            <TextInput
-              placeholder=""
-              onChangeText={setCharacterRace}
-              style={styles.input}
-            />
-          </View>
-
-          {/* Alignment */}
-          <View style={[styles.fieldContainer, { zIndex: 100 }]}>
-            <Text style={styles.fieldHeader}>Alineamiento</Text>
-            <View style={styles.pickerContainer}>
-              <CustomPicker
-                items={ALIGNMENTS}
-                selectedValue={CharacterAlignment}
-                onChange={(val) => setCharacterAlignment(val)}
-                placeholder="Selecciona un alineamiento"
-              ></CustomPicker>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const renderItem = ({ item, section }: any) => {
+    switch (section.key) {
+      case "identity":
+        if (item === "name") {
+          return (
+            <View style={styles.fieldContainer}>
+              <Text style={styles.fieldHeader}>Nombre del personaje</Text>
+              <TextInput
+                placeholder=""
+                onChangeText={setCharacterName}
+                style={styles.input}
+              />
             </View>
-          </View>
-
-          {/* XP */}
-          <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>Puntos de Experiencia</Text>
-            <TextInput
-              placeholder=""
-              onChangeText={(val) => setCharacterXP(+val)}
-              style={styles.input}
-            />
-          </View>
-
-          {/* Main Class */}
-          <MainClassForm
-            classTemplates={classTemplates}
-            value={mainClass}
-            onChange={setMainClass}
-          />
-
-          {/* Secondary Classes */}
-          <FlatList
-            data={secondaryClasses}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <View>
-                <SecondaryClassesForm
-                  value={item}
-                  classTemplates={classTemplates}
-                  onChange={(updated) =>
-                    setSecondaryClasses((prev) =>
-                      prev.map((c) => (c.id === item.id ? updated : c)),
-                    )
-                  }
-                  onRemove={() =>
-                    setSecondaryClasses((prev) =>
-                      prev.filter((c) => c.id !== item.id),
-                    )
-                  }
-                />
+          );
+        }
+        if (item === "race") {
+          return (
+            <View style={styles.fieldContainer}>
+              <Text style={styles.fieldHeader}>Raza</Text>
+              <TextInput
+                placeholder=""
+                onChangeText={setCharacterRace}
+                style={styles.input}
+              />
+            </View>
+          );
+        }
+        if (item === "alignment") {
+          return (
+            <View style={[styles.fieldContainer, { zIndex: 100 }]}>
+              <Text style={styles.fieldHeader}>Alineamiento</Text>
+              <View style={styles.pickerContainer}>
+                <CustomPicker
+                  items={ALIGNMENTS}
+                  selectedValue={CharacterAlignment}
+                  onChange={(val) => setCharacterAlignment(val)}
+                  placeholder="Selecciona un alineamiento"
+                ></CustomPicker>
               </View>
-            )}
-          />
+            </View>
+          );
+        }
+        if (item === "xp") {
+          return (
+            <View style={styles.fieldContainer}>
+              <Text style={styles.fieldHeader}>Puntos de Experiencia</Text>
+              <TextInput
+                placeholder=""
+                onChangeText={(val) => setCharacterXP(+val)}
+                style={styles.input}
+              />
+            </View>
+          );
+        }
+        return null;
+
+      case "classes":
+        if (item === "mainClass") {
+          return (
+            <MainClassForm
+              classTemplates={classTemplates}
+              value={mainClass}
+              onChange={setMainClass}
+            />
+          );
+        }
+
+        // secondary class
+        return (
+          <>
+            <SecondaryClassesForm
+              value={item}
+              classTemplates={classTemplates}
+              onChange={(updated) =>
+                setSecondaryClasses((prev) =>
+                  prev.map((c) => (c.id === item.id ? updated : c)),
+                )
+              }
+              onRemove={() =>
+                setSecondaryClasses((prev) =>
+                  prev.filter((c) => c.id !== item.id),
+                )
+              }
+            />
+          </>
+        );
+
+      case "addClass":
+        return (
           <TouchableOpacity
             style={styles.addClassButtonContainer}
             onPress={() =>
               setSecondaryClasses((prev) => [
                 ...prev,
                 {
-                  id: crypto.randomUUID(),
+                  id: Crypto.randomUUID(),
                   classTemplateId: null,
                   level: 1,
                 },
@@ -274,8 +319,10 @@ const CharacterCreationScreen = () => {
           >
             <Text style={styles.addClassButton}>+ Añadir clase</Text>
           </TouchableOpacity>
+        );
 
-          {/* Speed */}
+      case "speed":
+        return (
           <View style={styles.fieldContainer}>
             <Text style={styles.fieldHeader}>Velocidad</Text>
             <View style={styles.counterContainer}>
@@ -310,8 +357,10 @@ const CharacterCreationScreen = () => {
               </View>
             </View>
           </View>
+        );
 
-          {/* HP */}
+      case "hp":
+        return (
           <View style={styles.fieldContainer}>
             <Text style={styles.fieldHeader}>Puntos de Golpe</Text>
             <TextInput
@@ -324,8 +373,10 @@ const CharacterCreationScreen = () => {
               style={styles.input}
             />
           </View>
+        );
 
-          {/* Stats */}
+      case "stats":
+        return (
           <View style={styles.fieldContainer}>
             <Text style={styles.fieldHeader}>Estadísticas</Text>
             <View style={styles.statsContainer}>
@@ -350,8 +401,10 @@ const CharacterCreationScreen = () => {
               />
             </View>
           </View>
+        );
 
-          {/* ST Proficiencies */}
+      case "savingThrows":
+        return (
           <View style={styles.fieldContainer}>
             <Text style={styles.fieldHeader}>Tiradas de salvación</Text>
             <View style={styles.statsContainer}>
@@ -378,8 +431,10 @@ const CharacterCreationScreen = () => {
               />
             </View>
           </View>
+        );
 
-          {/* Skills*/}
+      case "skills":
+        return (
           <View style={styles.fieldContainer}>
             <Text style={styles.fieldHeader}>Competencias y Pericia</Text>
             <View style={styles.statsContainer}>
@@ -422,8 +477,10 @@ const CharacterCreationScreen = () => {
               />
             </View>
           </View>
+        );
 
-          {/* Submit Button */}
+      case "submit":
+        return (
           <View style={styles.submitButtonContainer}>
             <TouchableOpacity
               onPress={addCharacter}
@@ -432,8 +489,26 @@ const CharacterCreationScreen = () => {
               <Text style={styles.submitButtonText}>Añadir Personaje</Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </ScrollView>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <KeyboardAvoidingView
+      style={[genericStyles.rootContainer, { paddingHorizontal: 20 }]}
+    >
+      <ThemedView>
+        <SectionList
+          sections={sections}
+          keyExtractor={(item, index) =>
+            typeof item === "string" ? item + index : item.id
+          }
+          renderItem={renderItem}
+        />
+      </ThemedView>
     </KeyboardAvoidingView>
   );
 };

@@ -4,7 +4,8 @@ const styles = StyleSheet.create({
   //#region Generic
   rootContainer: {
     flex: 1,
-    padding: 20,
+
+    paddingVertical: 30,
     backgroundColor: "#1e2021",
   },
   container: {

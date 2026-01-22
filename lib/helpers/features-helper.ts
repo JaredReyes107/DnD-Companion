@@ -26,7 +26,7 @@ export function getActiveFeatures(
     */
   }
 
-  // Feats, race, background… mismo patrón
+  // TODO: Same pattern for Feats, race, background, etc
 
   return features;
 }

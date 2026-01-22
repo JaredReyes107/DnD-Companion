@@ -1,12 +1,6 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-
-    paddingTop: 20,
-    backgroundColor: "#1e2021",
-  },
   tabsMenu: {
     display: "flex",
     flexDirection: "row",
@@ -36,6 +30,8 @@ const styles = StyleSheet.create({
   //#region Character Skills and Stats
   detailsBody: {
     display: "flex",
+
+    marginBottom: 10,
 
     padding: 20,
     paddingTop: 15,

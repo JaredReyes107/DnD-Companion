@@ -6,28 +6,28 @@ import styles from "@/stylesheets/combat/tab-resource";
 
 type Props = {
   level: number;
-  used: number;
   max: number;
+  current: number;
   onChange: (newUsed: number) => void;
 };
 
-export const SpellSlotElement = ({ level, used, max, onChange }: Props) => {
+export const SpellSlotElement = ({ level, max, current, onChange }: Props) => {
   return (
     <View style={styles.resourceElementContainer}>
-      <ThemedText style={[styles.resourceElementName, { width: 80 }]}>
-        Lv {level}
+      <ThemedText style={styles.resourceElementName}>Lv {level}</ThemedText>
+
+      <ThemedText style={styles.resourceElementValues}>
+        {current} / {max}
       </ThemedText>
 
-      <ThemedText>
-        {max - used} / {max}
-      </ThemedText>
-
-      <View style={{ flexDirection: "row", gap: 12 }}>
-        <TouchableOpacity onPress={() => used < max && onChange(used + 1)}>
+      <View style={styles.resourceElementButtonsContainer}>
+        <TouchableOpacity onPress={() => current > 0 && onChange(current - 1)}>
           <MaterialIcons name="remove" size={18} color="white" />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => used > 0 && onChange(used - 1)}>
+        <TouchableOpacity
+          onPress={() => current < max && onChange(current + 1)}
+        >
           <MaterialIcons name="add" size={18} color="white" />
         </TouchableOpacity>
       </View>

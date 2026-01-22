@@ -24,7 +24,7 @@ import genericStyles from "@/stylesheets/generic.styles";
 import styles from "@/stylesheets/character-sheet.styles";
 
 // Character Functions
-import { getInitiativeBonus } from "@/game/rules/initiative";
+import { getInitiativeBonus } from "@/game/rules/initiative-roll";
 import { getArmorClass } from "@/game/rules/armor-class";
 import {
   getAbilityModifier,
@@ -55,12 +55,11 @@ const CharacterSheetScreen = () => {
     fetchCharacter();
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_fontsLoaded] = useFonts({
     Montserrat: Montserrat_500Medium,
   });
 
-  if (!character) {
+  if (!character || !_fontsLoaded) {
     return (
       <View>
         <Text>Cargando personaje…</Text>
@@ -68,7 +67,7 @@ const CharacterSheetScreen = () => {
     );
   } else {
     return (
-      <ScrollView style={styles.rootContainer}>
+      <ScrollView style={genericStyles.rootContainer}>
         {/* 
         <View style={styles.tabsMenu}>
           <View style={styles.tabSectionContainer_Active}>

@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     display: "flex",
     gap: 10,
 
-    marginBottom: 10,
+    marginVertical: 10,
   },
   fieldHeader: {
     color: "#d8d4cf",
@@ -61,12 +61,13 @@ const styles = StyleSheet.create({
   fieldClassContainer: {
     display: "flex",
     flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "flex-start",
     alignItems: "center",
     gap: 10,
   },
   pickerClassContainer: {
-    flex: 1,
+    flexShrink: 1,
   },
   addClassButtonContainer: {
     marginLeft: 25,
@@ -95,7 +96,6 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     backgroundColor: "#35393b",
-    padding: 10,
     margin: 5,
     borderRadius: 50,
 
@@ -105,6 +105,8 @@ const styles = StyleSheet.create({
   removeClassButtonText: {
     color: "white",
     fontSize: 18,
+    textAlign: "center",
+    textAlignVertical: "center",
   },
   //#endregion
 
@@ -145,8 +147,10 @@ const styles = StyleSheet.create({
   },
   //#endregion
 
+  //#region Stat Styles
   statsContainer: {
     display: "flex",
+    flexDirection: "column",
     paddingRight: 10,
     paddingLeft: 10,
 
@@ -199,10 +203,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  //#endregion
 
   proficienciesList: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
 
     gap: 5,
   },
@@ -218,6 +223,7 @@ const styles = StyleSheet.create({
 
   },
 
+  //#region Submit Button Styles
   submitButtonContainer: {
     display: "flex",
     alignItems: "center",

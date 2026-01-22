@@ -1,13 +1,12 @@
-import { Character } from "@/game/types/instances/character";
+import { Character } from "@/game/types/instances/Character";
 import { CharacterClasses } from "@/game/types/instances/character-classes";
+import { SpellSlotLevel } from "../types/instances/spell-slot-instance";
 import {
-  SpellSlots,
-  SpellSlotLevel,
-} from "../types/instances/spell-slot-instance";
-import {
+  getClassInstanceByTemplateId,
   getClassTemplateById,
   getClassTemplatesFromCharacter,
 } from "../registries/classes.registry";
+import { CharacterResources } from "../types/instances/character-resources";
 
 export function getTotalCasterLevel(
   characterClasses: CharacterClasses,
@@ -62,18 +61,19 @@ const STANDARD_SPELL_SLOTS: number[][] = [
   [4, 3, 3, 3, 3, 2, 2, 1, 1],
 ];
 
-export function buildStandardSpellSlots(casterLevel: number): SpellSlots {
+function buildStandardSpellSlots(casterLevel: number): CharacterResources {
   const row = STANDARD_SPELL_SLOTS[casterLevel - 1];
   if (!row) return {};
 
-  const slots: SpellSlots = {};
+  const slots: CharacterResources = {};
 
   row.forEach((max, index) => {
-    const level = (index + 1) as SpellSlotLevel;
+    const resourceId = "spell_slot_" + (index + 1);
 
-    slots[level] = {
+    slots[resourceId] = {
+      resourceId,
       max,
-      used: 0,
+      current: max,
     };
   });
 
@@ -93,39 +93,86 @@ const PACT_MAGIC_TABLE: Record<
   7: { level: 4, slots: 2 },
   8: { level: 4, slots: 2 },
   9: { level: 5, slots: 2 },
-  // etc si quieres
+  10: { level: 5, slots: 2 },
+  11: { level: 5, slots: 3 },
+  12: { level: 5, slots: 3 },
+  13: { level: 5, slots: 3 },
+  14: { level: 5, slots: 3 },
+  15: { level: 5, slots: 3 },
+  16: { level: 5, slots: 3 },
+  17: { level: 5, slots: 4 },
+  18: { level: 5, slots: 4 },
+  19: { level: 5, slots: 4 },
+  20: { level: 5, slots: 4 },
 };
 
-export function buildPactMagicSlots(warlockLevel: number): SpellSlots {
+function buildPactMagicSlots(warlockLevel: number): CharacterResources {
   const row = PACT_MAGIC_TABLE[warlockLevel];
   if (!row) return {};
 
   return {
-    [row.level]: {
+    ["pact_slots"]: {
+      resourceId: "pact_slots",
       max: row.slots,
-      used: 0,
+      current: row.slots,
     },
   };
 }
 
-export function buildSpellSlots(character: Character): SpellSlots {
-  let slots: SpellSlots = {};
+function buildMysticArcanum(warlockLevel: number): CharacterResources {
+  const mysticArcanum: CharacterResources = {};
+
+  let leftoverLevels = warlockLevel - 10;
+  let counter = 6;
+
+  while (leftoverLevels > 0 && counter <= 9) {
+    const resourceId = "mystic_arcanum_" + counter;
+
+    mysticArcanum[resourceId] = {
+      resourceId,
+      max: 1,
+      current: 1,
+    };
+
+    leftoverLevels -= 2;
+    counter++;
+  }
+
+  return mysticArcanum;
+}
+
+export function buildSpellSlots(character: Character): CharacterResources {
+  let characterSpellSlots: CharacterResources = {};
 
   const spellcastingTemplates = getClassTemplatesFromCharacter(
     character.classes,
   )
-    .map((cls) => cls.spellcastingTemplate)
+    .map((cls) => cls.spellcastingTemplate && cls.id != "warlock_spellcasting")
     .filter(Boolean);
 
   if (spellcastingTemplates.length > 0) {
-    slots = buildStandardSpellSlots(getTotalCasterLevel(character.classes));
+    characterSpellSlots = {
+      ...buildStandardSpellSlots(getTotalCasterLevel(character.classes)),
+    };
   }
 
-  /*
-  if (template.kind === "pact") {
-    slots = buildPactMagicSlots(classLevel);
-  }
-  */
+  const warlockSpellcastingTemplate = getClassTemplatesFromCharacter(
+    character.classes,
+  )
+    .map((cls) => cls.id == "warlock_spellcasting")
+    .filter(Boolean);
+  const warlockClassInstance = getClassInstanceByTemplateId(
+    character.classes,
+    "warlock",
+  );
 
-  return slots;
+  if (warlockSpellcastingTemplate && warlockClassInstance) {
+    characterSpellSlots = {
+      ...characterSpellSlots,
+      ...buildPactMagicSlots(warlockClassInstance.level),
+      ...buildMysticArcanum(warlockClassInstance.level),
+    };
+  }
+
+  return characterSpellSlots;
 }

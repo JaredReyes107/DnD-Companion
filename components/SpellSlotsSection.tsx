@@ -1,4 +1,6 @@
 import { ThemedView } from "@/components/ThemedView";
+import { ThemedText } from "./ThemedText";
+
 import { SpellSlots } from "@/game/types/instances/spell-slot-instance";
 import { SpellSlotElement } from "./SpellSlotElement";
 
@@ -6,7 +8,7 @@ import styles from "@/stylesheets/combat/tab-resource";
 
 type Props = {
   spellSlots: SpellSlots;
-  onChange: (level: number, used: number) => void;
+  onChange: (level: number, current: number) => void;
 };
 
 export const SpellSlotsSection = ({ spellSlots, onChange }: Props) => {
@@ -17,15 +19,16 @@ export const SpellSlotsSection = ({ spellSlots, onChange }: Props) => {
   if (levels.length === 0) return null;
 
   return (
-    <ThemedView style={{ marginTop: 10 }}>
-      <ThemedView style={styles.resourceCategoryContainer}>
+    <ThemedView style={styles.resourceCategoryContainer}>
+      <ThemedText style={styles.resourceCategoryTitle}>Spell Slots</ThemedText>
+      <ThemedView style={styles.resourceElementsList}>
         {levels.map((level) => {
           const slot = spellSlots[level as keyof SpellSlots]!;
           return (
             <SpellSlotElement
               key={level}
               level={level}
-              used={slot.used}
+              current={slot.current}
               max={slot.max}
               onChange={(v) => onChange(level, v)}
             />
