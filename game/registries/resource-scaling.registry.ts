@@ -1,4 +1,4 @@
-import { Character } from "@/game/types/instances/Character";
+import { Character } from "@/game/types/instances/character";
 
 export type ScalerContext = {
   character: Character;

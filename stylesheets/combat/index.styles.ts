@@ -22,12 +22,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   mainBody: {
-    width: "90%",
+    width: "100%",
   },
 
   //#region Generic Window Overlay
   overlay: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: "center",
     backgroundColor: "rgba(0,0,0,0.4)",
   },
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   damageTaken_Input: {
-    flex: 1,
+    flexGrow: 1,
 
     borderWidth: 1,
     borderColor: "#3e4446",
@@ -103,61 +103,91 @@ const styles = StyleSheet.create({
 
   //#region HP Blocks
   mainSection: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 15,
+
     width: "100%",
   },
   blockContainer: {
+    display: "flex",
     flexDirection: "row",
+    flexWrap: "wrap",
     alignItems: "center",
-    justifyContent: "space-between",
-    gap: 20,
 
     borderRadius: 12,
-    paddingVertical: 10,
+  },
+  blockHeader: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+
+    width: "100%",
+    paddingVertical: 8,
     paddingHorizontal: 30,
-    marginVertical: 10,
+    borderRadius: 12,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
   },
   blockTitle: {
-    fontSize: 24,
     color: "#fff",
-    marginBottom: 10,
+    fontSize: 24,
+    fontWeight: "bold",
     textAlign: "center",
   },
-  blockCenter: {
-    flex: 1,
-
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  blockButton: {
-    fontSize: 50,
-    fontWeight: "regular",
-    color: "#fff",
-  },
-  blockValue: {
+  blockBody: {
     width: "100%",
 
-    fontSize: 64,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  blockButtonContainer: {
+    flexGrow: 1,
+  },
+  blockButtonIcon: {
     color: "#fff",
+    fontSize: 32,
+    fontWeight: "regular",
+    textAlignVertical: "center",
+  },
+  blockButtonIconLeft: {
+    textAlign: "left",
+    paddingLeft: 15,
+  },
+  blockButtonIconRight: {
+    textAlign: "right",
+    paddingRight: 15,
+  },
+  blockValueContainer: {
+    width: 90,
+    height: "100%",
+  },
+  blockValueText: {
+    color: "#fff",
+    fontSize: 36,
     textAlign: "center",
   },
   //#endregion
 
   //#region Rests and Death Saving Throws
   extraSection: {
+    flexGrow: 1,
+
     display: "flex",
     flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    gap: 15,
-
-    width: "100%",
-
-    marginTop: 10,
+    gap: 10,
   },
   restSection: {
+    flexGrow: 1,
+    maxWidth: "60%",
+
     display: "flex",
     flexDirection: "column",
-    flex: 1,
     gap: 15,
   },
   restButton: {
@@ -165,7 +195,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    gap: 15,
+    gap: 10,
 
     paddingHorizontal: 10,
     paddingVertical: 10,
@@ -173,18 +203,23 @@ const styles = StyleSheet.create({
 
     borderRadius: 7,
   },
+  restIcon: {
+    color: "#ffffff",
+    fontSize: 24,
+  },
   restText: {
-    fontSize: 28,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontWeight: 600,
   },
   deathThrowsSection: {
+    maxWidth: "40%",
+    height: "100%",
+
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "center",
-    gap: 5,
-
-    height: "100%",
+    gap: 10,
 
     paddingVertical: 5,
     paddingHorizontal: 15,
@@ -193,19 +228,15 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   deathThrowsTitle: {
-    maxWidth: 180,
-
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
   },
   deathThrowsBody: {
     display: "flex",
-    justifyContent: "space-evenly",
+    //justifyContent: "space-evenly",
     flexShrink: 1,
     gap: 5,
-
-    height: "100%",
   },
   deathThrowsSubsection: {
     display: "flex",
@@ -213,12 +244,14 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   deathThrowsText: {
-    fontSize: 16,
-    fontWeight: "regular",
+    fontSize: 14,
+    fontWeight: 400,
+    textAlignVertical: "center",
   },
   deathThrowsTally: {
     display: "flex",
     flexDirection: "row",
+    alignItems: "center",
     gap: 5,
   },
   //#endregion

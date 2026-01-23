@@ -22,7 +22,7 @@ type SavingThrowProficienciesView = {
   state: SavingThrowInstance;
 };
 
-export function getCharacterSavingThrowsToArray(
+export function getCharacterSavingThrowsAsArray(
   character: Character,
 ): SavingThrowProficienciesView[] {
   const savingThrowsList: SavingThrowProficienciesView[] = Object.entries(

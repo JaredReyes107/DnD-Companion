@@ -6,21 +6,20 @@ import {
 } from "@expo/vector-icons";
 //import { Image } from "expo-image";
 import { router } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Text, View, TouchableOpacity, Modal, Button } from "react-native";
 
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
-import { Character } from "@/game/types/instances/Character";
-
-import { loadCharacterFromStorage } from "../../lib/utilities/system-storage";
+import { useCharacter } from "@/hooks/useCharacter";
+import { takeLongRest, takeShortRest } from "@/game/rules/resting";
 
 import styles from "../../stylesheets/combat/index.styles";
 import genericStyles from "../../stylesheets/generic.styles";
 
 const App = () => {
-  const [character, setCharacter] = useState<Character>();
+  const { character, saveCharacter } = useCharacter();
 
   const totalHP =
     (character?.hitPoints.temporalHP ?? 0) +
@@ -33,69 +32,67 @@ const App = () => {
 
   //#endregion
 
-  const updateCharacter = (changes: Partial<typeof character>) => {
-    setCharacter((prev) => {
-      if (!prev) return prev; // or maybe throw if character is required
-      return { ...prev, ...changes };
-    });
-  };
-
-  //Load details of the selected character whenever this view is loaded
-  useEffect(() => {
-    const fetchCharacter = async () => {
-      const selectedCharacter = await loadCharacterFromStorage();
-      if (selectedCharacter) {
-        setCharacter(selectedCharacter);
-
-        //CombatEngine.startCombat(selectedCharacter);
-      }
-    };
-
-    fetchCharacter();
-  }, []);
-
-  return (
-    <ThemedView style={[genericStyles.rootContainer, { alignItems: "center" }]}>
-      <View style={styles.headerContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            router.replace("./");
-          }}
-        >
-          <Entypo name="arrow-with-circle-left" size={36} color={"#FFFFFF"} />
-        </TouchableOpacity>
+  if (!character) {
+    return (
+      <View>
+        <Text>Cargando personaje…</Text>
       </View>
+    );
+  } else {
+    return (
+      <ThemedView
+        style={[
+          genericStyles.rootContainer,
+          { paddingHorizontal: "5%", alignItems: "center" },
+        ]}
+      >
+        <View style={styles.headerContainer}>
+          {/* Button: Go back */}
+          <TouchableOpacity
+            onPress={() => {
+              router.replace("./");
+            }}
+          >
+            <Entypo name="arrow-with-circle-left" size={36} color={"#FFFFFF"} />
+          </TouchableOpacity>
+        </View>
 
-      <View style={styles.mainBody}>
-        {/* Window: Total Damage Taken Window */}
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={dmgTakenWindow}
-          onRequestClose={() => setDmgTakenWindow(false)}
-        >
-          <ThemedView style={styles.overlay}>
-            <ThemedView style={styles.window}>
-              <ThemedText style={styles.window_title}>Daño recibido</ThemedText>
+        <View style={styles.mainBody}>
+          {/* Window: Total Damage Taken Window */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={dmgTakenWindow}
+            onRequestClose={() => setDmgTakenWindow(false)}
+          >
+            <ThemedView style={styles.overlay}>
+              <ThemedView style={styles.window}>
+                <ThemedText style={styles.window_title}>
+                  Daño recibido
+                </ThemedText>
 
-              {/* Window Body */}
-              <View style={styles.window_body}>
-                {/* Damage Taken Input Field */}
-                <View style={styles.damageTaken_Container}>
-                  <TouchableOpacity
-                    onPress={() =>
-                      setDmgTakenValue(
-                        dmgTakenValue > 0 ? dmgTakenValue - 1 : 0,
-                      )
-                    }
-                  >
-                    <Text style={[styles.blockButton, { marginTop: -10 }]}>
-                      −
+                {/* Window Body */}
+                <View style={styles.window_body}>
+                  {/* Damage Taken Input Field */}
+                  <View style={styles.damageTaken_Container}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        setDmgTakenValue(
+                          dmgTakenValue > 0 ? dmgTakenValue - 1 : 0,
+                        )
+                      }
+                    >
+                      <Text
+                        style={[styles.blockButtonIcon, { marginTop: -10 }]}
+                      >
+                        −
+                      </Text>
+                    </TouchableOpacity>
+
+                    <Text style={styles.damageTaken_Input}>
+                      {dmgTakenValue}
                     </Text>
-                  </TouchableOpacity>
-
-                  <Text style={styles.damageTaken_Input}>{dmgTakenValue}</Text>
-                  {/*
+                    {/*
                   <TextInput
                     keyboardType='numeric'
                     placeholder={dmgTakenValue.toString()}
@@ -107,18 +104,20 @@ const App = () => {
                   />
                   */}
 
-                  <TouchableOpacity
-                    onPress={() => setDmgTakenValue(dmgTakenValue + 1)}
-                  >
-                    <Text style={[styles.blockButton, { marginTop: -10 }]}>
-                      +
-                    </Text>
-                  </TouchableOpacity>
-                </View>
+                    <TouchableOpacity
+                      onPress={() => setDmgTakenValue(dmgTakenValue + 1)}
+                    >
+                      <Text
+                        style={[styles.blockButtonIcon, { marginTop: -10 }]}
+                      >
+                        +
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
 
-                {/* Damage Types Board */}
-                <View style={styles.damageTypes_Grid}>
-                  {/*
+                  {/* Damage Types Board */}
+                  <View style={styles.damageTypes_Grid}>
+                    {/*
                   <TouchableOpacity style={styles.damageTypes_Button}>
                     <Image
                       source={require("@/assets/images/damageTypes/Icon_Bludgeoning.png")}
@@ -198,194 +197,232 @@ const App = () => {
                     />
                   </TouchableOpacity>
                   */}
+                  </View>
                 </View>
-              </View>
 
-              {/* Confirm Damage */}
-              <View>
-                <Button
-                  title="Confirmar"
-                  onPress={() => setDmgTakenWindow(false)}
-                />
-              </View>
+                {/* Confirm Damage */}
+                <View>
+                  <Button
+                    title="Confirmar"
+                    onPress={() => setDmgTakenWindow(false)}
+                  />
+                </View>
+              </ThemedView>
             </ThemedView>
-          </ThemedView>
-        </Modal>
+          </Modal>
 
-        {/* Main Body: HP Blocks */}
-        <View style={styles.mainSection}>
-          {/* Total HP */}
-          <View style={[styles.blockContainer, { backgroundColor: "#466BC2" }]}>
-            <Text style={styles.blockButton} />
-            <TouchableOpacity
-              style={styles.blockCenter}
-              onPress={() => setDmgTakenWindow(true)}
+          {/* Main Body: HP Blocks */}
+          <View style={styles.mainSection}>
+            {/* Total HP */}
+            <View
+              style={[styles.blockContainer, { backgroundColor: "#466BC2" }]}
             >
-              <Text style={styles.blockTitle}>HP Total</Text>
-              <Text style={styles.blockValue}>{totalHP}</Text>
-            </TouchableOpacity>
-            <Text style={styles.blockButton} />
-          </View>
-          {/* Temporal HP */}
-          <View
-            style={[
-              styles.blockContainer,
-              { backgroundColor: "#27B086" /*'#9c27b0'*/ },
-            ]}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                if (character?.hitPoints.temporalHP != undefined) {
-                  const modifiedCharacter = {
-                    ...character,
-                    hitPoints: {
-                      ...character.hitPoints,
-                      temporalHP: Math.max(
-                        0,
-                        character?.hitPoints.temporalHP - 1,
-                      ),
-                    },
-                  };
-
-                  updateCharacter(modifiedCharacter);
-                }
-              }}
-            >
-              <Text style={styles.blockButton}>−</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.blockCenter}>
-              <Text style={styles.blockTitle}>HP Temporal</Text>
-              <Text style={styles.blockValue}>
-                {character?.hitPoints.temporalHP
-                  ? character?.hitPoints.temporalHP
-                  : 0}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                if (character?.hitPoints.temporalHP != undefined) {
-                  const modifiedCharacter = {
-                    ...character,
-                    hitPoints: {
-                      ...character.hitPoints,
-                      temporalHP: character?.hitPoints.temporalHP + 1,
-                    },
-                  };
-
-                  updateCharacter(modifiedCharacter);
-                }
-              }}
-            >
-              <Text style={styles.blockButton}>+</Text>
-            </TouchableOpacity>
-          </View>
-          {/* Current HP */}
-          <View style={[styles.blockContainer, { backgroundColor: "#d32f2f" }]}>
-            <TouchableOpacity
-              onPress={() => {
-                if (character?.hitPoints.currentHP != undefined) {
-                  const modifiedCharacter = {
-                    ...character,
-                    hitPoints: {
-                      ...character.hitPoints,
-                      currentHP: Math.max(
-                        0,
-                        character?.hitPoints.currentHP - 1,
-                      ),
-                    },
-                  };
-
-                  updateCharacter(modifiedCharacter);
-                }
-              }}
-            >
-              <Text style={styles.blockButton}>−</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.blockCenter}>
-              <Text style={styles.blockTitle}>HP</Text>
-              <Text style={styles.blockValue}>
-                {character?.hitPoints.currentHP
-                  ? character.hitPoints.currentHP
-                  : 0}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                if (character?.hitPoints.currentHP != undefined) {
-                  const modifiedCharacter = {
-                    ...character,
-                    hitPoints: {
-                      ...character.hitPoints,
-                      currentHP: Math.min(
-                        character.hitPoints.baseMaximumHP,
-                        character?.hitPoints.currentHP + 1,
-                      ),
-                    },
-                  };
-
-                  updateCharacter(modifiedCharacter);
-                }
-              }}
-            >
-              <Text style={styles.blockButton}>+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Extra Section: Rests and Death Saving Throws */}
-        <View style={styles.extraSection}>
-          <View style={styles.restSection}>
-            <TouchableOpacity
-              onPress={() =>
-                character
-                  ? {} //updateCharacter(CombatEngine.takeLongRest(character))
-                  : {}
-              }
-              style={styles.restButton}
-            >
-              <FontAwesome6 name="campground" size={48} color="#FFFFFF" />
-              <ThemedText style={styles.restText}>Descanso largo</ThemedText>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                character
-                  ? {} //updateCharacter(CombatEngine.takeShortRest(character))
-                  : {}
-              }
-              style={styles.restButton}
-            >
-              <Ionicons name="bonfire" size={48} color="#FFFFFF" />
-              <ThemedText style={styles.restText}>Descanso corto</ThemedText>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.deathThrowsSection}>
-            <ThemedText style={styles.deathThrowsTitle}>
-              Tiradas de Salvación de Muerte
-            </ThemedText>
-            <View style={styles.deathThrowsBody}>
-              <View style={styles.deathThrowsSubsection}>
-                <ThemedText style={styles.deathThrowsText}>Éxitos</ThemedText>
-                <View style={styles.deathThrowsTally}>
-                  <FontAwesome name="check-circle" size={20} color="#FFFFFF" />
-                  <FontAwesome name="check-circle" size={20} color="#FFFFFF" />
-                  <FontAwesome name="circle-o" size={20} color="#FFFFFF" />
-                </View>
+              <View
+                style={[styles.blockHeader, { backgroundColor: "#2d52a8" }]}
+              >
+                <Text style={styles.blockTitle}>HP Total</Text>
               </View>
-              <View style={styles.deathThrowsSubsection}>
-                <ThemedText style={styles.deathThrowsText}>Fallos</ThemedText>
-                <View style={styles.deathThrowsTally}>
-                  <FontAwesome name="times-circle" size={20} color="#FFFFFF" />
-                  <FontAwesome name="circle-o" size={20} color="#FFFFFF" />
-                  <FontAwesome name="circle-o" size={20} color="#FFFFFF" />
+              <View style={styles.blockBody}>
+                <TouchableOpacity
+                  style={styles.blockValueContainer}
+                  onPress={() => setDmgTakenWindow(true)}
+                >
+                  <Text style={styles.blockValueText}>{totalHP}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            {/* Temporal HP */}
+            <View
+              style={[
+                styles.blockContainer,
+                { backgroundColor: "#27B086" /*'#9c27b0'*/ },
+              ]}
+            >
+              <View
+                style={[
+                  styles.blockHeader,
+                  { backgroundColor: "#348b71" /*'#9c27b0'*/ },
+                ]}
+              >
+                <Text style={styles.blockTitle}>HP Temporal</Text>
+              </View>
+              <View style={styles.blockBody}>
+                <TouchableOpacity
+                  style={styles.blockButtonContainer}
+                  onPress={() => {
+                    saveCharacter({
+                      ...character,
+                      hitPoints: {
+                        ...character.hitPoints,
+                        temporalHP: Math.max(
+                          0,
+                          character.hitPoints.temporalHP - 1,
+                        ),
+                      },
+                    });
+                  }}
+                >
+                  <FontAwesome6
+                    name="minus"
+                    style={[styles.blockButtonIcon, styles.blockButtonIconLeft]}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.blockValueContainer}>
+                  <Text style={styles.blockValueText}>
+                    {character?.hitPoints.temporalHP}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.blockButtonContainer}
+                  onPress={() => {
+                    saveCharacter({
+                      ...character,
+                      hitPoints: {
+                        ...character.hitPoints,
+                        temporalHP: character.hitPoints.temporalHP + 1,
+                      },
+                    });
+                  }}
+                >
+                  <FontAwesome6
+                    name="add"
+                    style={[
+                      styles.blockButtonIcon,
+                      styles.blockButtonIconRight,
+                    ]}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+            {/* Current HP */}
+            <View
+              style={[styles.blockContainer, { backgroundColor: "#d32f2f" }]}
+            >
+              <View
+                style={[styles.blockHeader, { backgroundColor: "#bb3131" }]}
+              >
+                <Text style={styles.blockTitle}>HP</Text>
+              </View>
+              <View style={styles.blockBody}>
+                <TouchableOpacity
+                  style={styles.blockButtonContainer}
+                  onPress={() => {
+                    {
+                      saveCharacter({
+                        ...character,
+                        hitPoints: {
+                          ...character.hitPoints,
+                          currentHP: Math.max(
+                            0,
+                            character.hitPoints.currentHP - 1,
+                          ),
+                        },
+                      });
+                    }
+                  }}
+                >
+                  <FontAwesome6
+                    name="minus"
+                    style={[styles.blockButtonIcon, styles.blockButtonIconLeft]}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.blockValueContainer}>
+                  <Text style={styles.blockValueText}>
+                    {character.hitPoints.currentHP}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.blockButtonContainer}
+                  onPress={() => {
+                    saveCharacter({
+                      ...character,
+                      hitPoints: {
+                        ...character.hitPoints,
+                        currentHP: Math.min(
+                          character.hitPoints.currentMaximumHP,
+                          character.hitPoints.currentHP + 1,
+                        ),
+                      },
+                    });
+                  }}
+                >
+                  <FontAwesome6
+                    name="add"
+                    style={[
+                      styles.blockButtonIcon,
+                      styles.blockButtonIconRight,
+                    ]}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Extra Section: Rests and Death Saving Throws */}
+            <View style={styles.extraSection}>
+              <View style={styles.restSection}>
+                <TouchableOpacity
+                  onPress={() => saveCharacter(takeLongRest(character))}
+                  style={styles.restButton}
+                >
+                  <FontAwesome6 name="campground" style={styles.restIcon} />
+                  <ThemedText style={styles.restText}>
+                    Descanso largo
+                  </ThemedText>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => saveCharacter(takeShortRest(character))}
+                  style={styles.restButton}
+                >
+                  <Ionicons name="bonfire" style={styles.restIcon} />
+                  <ThemedText style={styles.restText}>
+                    Descanso corto
+                  </ThemedText>
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.deathThrowsSection}>
+                <ThemedText style={styles.deathThrowsTitle}>TSM</ThemedText>
+                <View style={styles.deathThrowsBody}>
+                  <View style={styles.deathThrowsSubsection}>
+                    <ThemedText style={styles.deathThrowsText}>
+                      Éxitos
+                    </ThemedText>
+                    <View style={styles.deathThrowsTally}>
+                      <FontAwesome
+                        name="check-circle"
+                        size={20}
+                        color="#FFFFFF"
+                      />
+                      <FontAwesome
+                        name="check-circle"
+                        size={20}
+                        color="#FFFFFF"
+                      />
+                      <FontAwesome name="circle-o" size={20} color="#FFFFFF" />
+                    </View>
+                  </View>
+                  <View style={styles.deathThrowsSubsection}>
+                    <ThemedText style={styles.deathThrowsText}>
+                      Fallos
+                    </ThemedText>
+                    <View style={styles.deathThrowsTally}>
+                      <FontAwesome
+                        name="times-circle"
+                        size={20}
+                        color="#FFFFFF"
+                      />
+                      <FontAwesome name="circle-o" size={20} color="#FFFFFF" />
+                      <FontAwesome name="circle-o" size={20} color="#FFFFFF" />
+                    </View>
+                  </View>
                 </View>
               </View>
             </View>
           </View>
         </View>
-      </View>
-    </ThemedView>
-  );
+      </ThemedView>
+    );
+  }
 };
 
 export default App;

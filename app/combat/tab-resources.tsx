@@ -3,20 +3,20 @@ import { FlatList } from "react-native";
 import { ResourceSection } from "@/components/ResourceSection";
 
 import { groupResourcesByCategory } from "@/game/registries/resources.registry";
-import { groupedResourcesToArray } from "@/lib/helpers/resources-helper";
+import { groupedResourcesAsArray } from "@/lib/helpers/resources-helper";
 
 import { useCharacter } from "@/hooks/useCharacter";
 
 import genericStyles from "@/stylesheets/generic.styles";
 //import styles from "@/stylesheets/combat/tab-resource";
 
-const ProfileScreen = () => {
+const ResourcesDashboard = () => {
   const { character, saveCharacter } = useCharacter();
 
   if (!character) return null;
 
   const grouped = groupResourcesByCategory(character.resources);
-  const sections = groupedResourcesToArray(grouped);
+  const sections = groupedResourcesAsArray(grouped);
 
   return (
     <ThemedView
@@ -41,4 +41,4 @@ const ProfileScreen = () => {
   );
 };
 
-export default ProfileScreen;
+export default ResourcesDashboard;
