@@ -10,7 +10,7 @@ import { useCharacter } from "@/hooks/useCharacter";
 import genericStyles from "@/stylesheets/generic.styles";
 //import styles from "@/stylesheets/combat/tab-resource";
 
-const ProfileScreen = () => {
+const ResourcesDashboard = () => {
   const { character, saveCharacter } = useCharacter();
 
   if (!character) return null;
@@ -41,4 +41,4 @@ const ProfileScreen = () => {
   );
 };
 
-export default ProfileScreen;
+export default ResourcesDashboard;

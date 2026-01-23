@@ -6,22 +6,20 @@ import {
 } from "@expo/vector-icons";
 //import { Image } from "expo-image";
 import { router } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Text, View, TouchableOpacity, Modal, Button } from "react-native";
 
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
-import { Character } from "@/game/types/instances/character";
-
-import { loadCharacterFromStorage } from "../../lib/utilities/system-storage";
+import { useCharacter } from "@/hooks/useCharacter";
+import { takeLongRest, takeShortRest } from "@/game/rules/resting";
 
 import styles from "../../stylesheets/combat/index.styles";
 import genericStyles from "../../stylesheets/generic.styles";
-import { takeLongRest } from "@/game/rules/resting";
 
 const App = () => {
-  const [character, setCharacter] = useState<Character>();
+  const { character, saveCharacter } = useCharacter();
 
   const totalHP =
     (character?.hitPoints.temporalHP ?? 0) +
@@ -33,25 +31,6 @@ const App = () => {
   //const [dmgTakenField, setDmgTakenField] = useState(0);
 
   //#endregion
-
-  const updateCharacter = (changes: Partial<typeof character>) => {
-    setCharacter((prev) => {
-      if (!prev) return prev; // or maybe throw if character is required
-      return { ...prev, ...changes };
-    });
-  };
-
-  //Load details of the selected character whenever this view is loaded
-  useEffect(() => {
-    const fetchCharacter = async () => {
-      const result = await loadCharacterFromStorage();
-      if (result) {
-        setCharacter(result);
-      }
-    };
-
-    fetchCharacter();
-  }, []);
 
   if (!character) {
     return (
@@ -271,20 +250,16 @@ const App = () => {
                 <TouchableOpacity
                   style={styles.blockButtonContainer}
                   onPress={() => {
-                    if (character?.hitPoints.temporalHP != undefined) {
-                      const modifiedCharacter = {
-                        ...character,
-                        hitPoints: {
-                          ...character.hitPoints,
-                          temporalHP: Math.max(
-                            0,
-                            character?.hitPoints.temporalHP - 1,
-                          ),
-                        },
-                      };
-
-                      updateCharacter(modifiedCharacter);
-                    }
+                    saveCharacter({
+                      ...character,
+                      hitPoints: {
+                        ...character.hitPoints,
+                        temporalHP: Math.max(
+                          0,
+                          character.hitPoints.temporalHP - 1,
+                        ),
+                      },
+                    });
                   }}
                 >
                   <FontAwesome6
@@ -300,17 +275,13 @@ const App = () => {
                 <TouchableOpacity
                   style={styles.blockButtonContainer}
                   onPress={() => {
-                    if (character?.hitPoints.temporalHP != undefined) {
-                      const modifiedCharacter = {
-                        ...character,
-                        hitPoints: {
-                          ...character.hitPoints,
-                          temporalHP: character?.hitPoints.temporalHP + 1,
-                        },
-                      };
-
-                      updateCharacter(modifiedCharacter);
-                    }
+                    saveCharacter({
+                      ...character,
+                      hitPoints: {
+                        ...character.hitPoints,
+                        temporalHP: character.hitPoints.temporalHP + 1,
+                      },
+                    });
                   }}
                 >
                   <FontAwesome6
@@ -337,18 +308,16 @@ const App = () => {
                   style={styles.blockButtonContainer}
                   onPress={() => {
                     {
-                      const modifiedCharacter = {
+                      saveCharacter({
                         ...character,
                         hitPoints: {
                           ...character.hitPoints,
                           currentHP: Math.max(
                             0,
-                            character?.hitPoints.currentHP - 1,
+                            character.hitPoints.currentHP - 1,
                           ),
                         },
-                      };
-
-                      updateCharacter(modifiedCharacter);
+                      });
                     }
                   }}
                 >
@@ -365,20 +334,16 @@ const App = () => {
                 <TouchableOpacity
                   style={styles.blockButtonContainer}
                   onPress={() => {
-                    if (character?.hitPoints.currentHP != undefined) {
-                      const modifiedCharacter = {
-                        ...character,
-                        hitPoints: {
-                          ...character.hitPoints,
-                          currentHP: Math.min(
-                            character.hitPoints.baseMaximumHP,
-                            character?.hitPoints.currentHP + 1,
-                          ),
-                        },
-                      };
-
-                      updateCharacter(modifiedCharacter);
-                    }
+                    saveCharacter({
+                      ...character,
+                      hitPoints: {
+                        ...character.hitPoints,
+                        currentHP: Math.min(
+                          character.hitPoints.currentMaximumHP,
+                          character.hitPoints.currentHP + 1,
+                        ),
+                      },
+                    });
                   }}
                 >
                   <FontAwesome6
@@ -396,7 +361,7 @@ const App = () => {
             <View style={styles.extraSection}>
               <View style={styles.restSection}>
                 <TouchableOpacity
-                  onPress={() => setCharacter(takeLongRest(character))}
+                  onPress={() => saveCharacter(takeLongRest(character))}
                   style={styles.restButton}
                 >
                   <FontAwesome6 name="campground" style={styles.restIcon} />
@@ -405,7 +370,7 @@ const App = () => {
                   </ThemedText>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => setCharacter(takeLongRest(character))}
+                  onPress={() => saveCharacter(takeShortRest(character))}
                   style={styles.restButton}
                 >
                   <Ionicons name="bonfire" style={styles.restIcon} />

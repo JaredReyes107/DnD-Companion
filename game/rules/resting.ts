@@ -32,7 +32,7 @@ function restoreResources(
 export function takeLongRest(character: Character): Character {
   return {
     ...character,
-    resources: restoreResources(character.resources, ["longRest"]),
+    resources: restoreResources(character.resources, ["longRest", "shortRest"]),
   };
 }
 
