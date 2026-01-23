@@ -35,8 +35,8 @@ import { getSkillModifier } from "@/game/rules/skills-modifiers";
 
 // Helper Functions
 import { PrintNumberWithSign } from "@/lib/utilities/formater-numbers";
-import { getCharacterSkillsToArray } from "@/lib/helpers/skills-helper";
-import { getCharacterSavingThrowsToArray } from "@/lib/helpers/saving-throws-helper";
+import { getCharacterSkillsAsArray } from "@/lib/helpers/skills-helper";
+import { getCharacterSavingThrowsAsArray } from "@/lib/helpers/saving-throws-helper";
 
 const CharacterSheetScreen = () => {
   const router = useRouter();
@@ -67,7 +67,9 @@ const CharacterSheetScreen = () => {
     );
   } else {
     return (
-      <ScrollView style={genericStyles.rootContainer}>
+      <ScrollView
+        style={[genericStyles.rootContainer, { paddingHorizontal: "0%" }]}
+      >
         {/* 
         <View style={styles.tabsMenu}>
           <View style={styles.tabSectionContainer_Active}>
@@ -334,7 +336,7 @@ const CharacterSheetScreen = () => {
           <View style={styles.detailsSection}>
             <FlatList
               style={[{ marginHorizontal: -20 }]}
-              data={getCharacterSavingThrowsToArray(character)}
+              data={getCharacterSavingThrowsAsArray(character)}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
                 <View
@@ -370,7 +372,7 @@ const CharacterSheetScreen = () => {
             </View>
 
             <FlatList
-              data={getCharacterSkillsToArray(character)}
+              data={getCharacterSkillsAsArray(character)}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
                 <View style={styles.proficienciesContainer}>

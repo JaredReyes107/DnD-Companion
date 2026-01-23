@@ -1,4 +1,4 @@
-import { CLASSES } from "@/game//base-data/classes";
+import { CLASSES } from "@/game/base-data/CLASSES";
 import { ClassTemplate } from "@/game/types/templates/class-template";
 import { ClassInstance } from "@/game/types/instances/class-instance";
 import { CharacterClasses } from "@/game/types/instances/character-classes";

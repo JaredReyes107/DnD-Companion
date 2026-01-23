@@ -3,7 +3,7 @@ import { FlatList } from "react-native";
 import { ResourceSection } from "@/components/ResourceSection";
 
 import { groupResourcesByCategory } from "@/game/registries/resources.registry";
-import { groupedResourcesToArray } from "@/lib/helpers/resources-helper";
+import { groupedResourcesAsArray } from "@/lib/helpers/resources-helper";
 
 import { useCharacter } from "@/hooks/useCharacter";
 
@@ -16,7 +16,7 @@ const ProfileScreen = () => {
   if (!character) return null;
 
   const grouped = groupResourcesByCategory(character.resources);
-  const sections = groupedResourcesToArray(grouped);
+  const sections = groupedResourcesAsArray(grouped);
 
   return (
     <ThemedView

@@ -23,7 +23,7 @@ type SkillView = {
   state: SkillInstance;
 };
 
-export function getCharacterSkillsToArray(character: Character): SkillView[] {
+export function getCharacterSkillsAsArray(character: Character): SkillView[] {
   const skillList: SkillView[] = Object.entries(SKILLS).map(([id, def]) => ({
     id,
     definition: def,

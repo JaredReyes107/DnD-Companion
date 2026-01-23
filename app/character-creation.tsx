@@ -15,7 +15,7 @@ import * as Crypto from "expo-crypto";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Custom Classes and Constants
-import { Character } from "@/game/types/instances/Character"; // Import custom types
+import { Character } from "@/game/types/instances/character"; // Import custom types
 import { Alignment, ALIGNMENTS } from "@/game/base-data/alignments";
 import {
   ABILITY_ORDER,
@@ -162,7 +162,6 @@ const CharacterCreationScreen = () => {
     };
 
     newCharacter.resources = buildCharacterResources(newCharacter);
-    console.log(newCharacter.resources);
 
     setCharacters([...characters, newCharacter]);
 
@@ -497,9 +496,7 @@ const CharacterCreationScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={[genericStyles.rootContainer, { paddingHorizontal: 20 }]}
-    >
+    <KeyboardAvoidingView style={genericStyles.rootContainer}>
       <ThemedView>
         <SectionList
           sections={sections}
