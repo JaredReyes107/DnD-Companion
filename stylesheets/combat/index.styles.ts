@@ -43,14 +43,15 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   window_title: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
   },
   window_body: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-evenly",
+    justifyContent: "center",
     alignItems: "center",
+    gap: 20,
   },
   closeButton: {
     marginTop: 10,
@@ -66,38 +67,53 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   damageTaken_Input: {
-    flexGrow: 1,
+    minWidth: "40%",
+    backgroundColor: "#212027",
 
-    borderWidth: 1,
+    paddingVertical: 2,
+    paddingHorizontal: 15,
+
+    borderWidth: 2,
     borderColor: "#3e4446",
-    padding: 10,
     borderRadius: 5,
 
     color: "#d8d4cf",
+    fontSize: 40,
     textAlign: "center",
   },
-  damageTypes_Grid: {
+  damageTaken_Grid: {
     display: "flex",
     flexDirection: "row",
-    flexWrap: "wrap",
     justifyContent: "center",
-    gap: 20,
-
-    width: "80%",
   },
-  damageTypes_Button: {
+  damageTaken_Grid_Button: {
     display: "flex",
+    flexDirection: "row",
     justifyContent: "center",
+    alignItems: "center",
 
-    width: 35,
-    height: 35,
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    backgroundColor: "#212027",
 
-    backgroundColor: "gray",
+    borderColor: "#42414d",
+    borderWidth: 3,
+    borderRadius: 15,
   },
-  damageTypes_Icon: {
-    height: 32,
-
-    textAlign: "center",
+  damageTaken_Grid_ButtonLeft: {
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+    borderRightWidth: 1,
+  },
+  damageTaken_Grid_ButtonRight: {
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+    borderLeftWidth: 1,
+  },
+  damageTaken_Grid_Button_Text: {
+    color: "#ffffff",
+    fontSize: 28,
+    fontWeight: "600",
   },
   //#endregion
 
@@ -209,7 +225,7 @@ const styles = StyleSheet.create({
   },
   restText: {
     fontSize: 18,
-    fontWeight: 600,
+    fontWeight: "600",
   },
   deathThrowsSection: {
     maxWidth: "40%",
@@ -245,7 +261,7 @@ const styles = StyleSheet.create({
   },
   deathThrowsText: {
     fontSize: 14,
-    fontWeight: 400,
+    fontWeight: "400",
     textAlignVertical: "center",
   },
   deathThrowsTally: {

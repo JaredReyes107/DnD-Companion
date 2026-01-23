@@ -32,6 +32,11 @@ function restoreResources(
 export function takeLongRest(character: Character): Character {
   return {
     ...character,
+    hitPoints: {
+      ...character.hitPoints,
+      temporalHP: 0,
+      currentHP: character.hitPoints.currentMaximumHP,
+    },
     resources: restoreResources(character.resources, ["longRest", "shortRest"]),
   };
 }

@@ -23,6 +23,7 @@ export function evaluateFormula(
       return 0;
     }
 
+    // modified scaling: "character-level:*5", "CHA:+1"
     switch (operator) {
       case "+":
         return scaler({ character, sourceId: resource.sourceId }) + value;

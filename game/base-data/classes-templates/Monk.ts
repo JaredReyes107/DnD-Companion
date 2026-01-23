@@ -110,7 +110,6 @@ export const MONK: ClassTemplate = {
         level: 5,
         description:
           "You can interfere with the flow of ki in an opponent's body.",
-        resources: ["ki"],
         tags: ["combat", "debuff"],
         // TODO: combat-hook
         // TODO: resource
@@ -231,7 +230,6 @@ export const MONK: ClassTemplate = {
         source: "class",
         level: 18,
         description: "You can use ki to become invisible or astral.",
-        resources: ["ki"],
         tags: ["resource", "transformation"],
         // TODO: action
         // TODO: resource

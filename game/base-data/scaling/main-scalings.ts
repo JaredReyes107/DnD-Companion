@@ -25,32 +25,29 @@ export function registerMainScalings() {
   });
 
   //#region Ability Score Scalers
-  registerScaling("STR:", ({ character }) =>
-    getAbilityModifier(character.abilityScores.STR.value),
-  );
 
   registerScaling("STR", ({ character }) =>
-    getAbilityModifier(character.abilityScores.STR.value),
+    Math.max(getAbilityModifier(character.abilityScores.STR.value), 1),
   );
 
   registerScaling("DEX", ({ character }) =>
-    getAbilityModifier(character.abilityScores.DEX.value),
+    Math.max(getAbilityModifier(character.abilityScores.DEX.value), 1),
   );
 
   registerScaling("CON", ({ character }) =>
-    getAbilityModifier(character.abilityScores.CON.value),
+    Math.max(getAbilityModifier(character.abilityScores.CON.value), 1),
   );
 
   registerScaling("INT", ({ character }) =>
-    getAbilityModifier(character.abilityScores.INT.value),
+    Math.max(getAbilityModifier(character.abilityScores.INT.value), 1),
   );
 
   registerScaling("WIS", ({ character }) =>
-    getAbilityModifier(character.abilityScores.WIS.value),
+    Math.max(getAbilityModifier(character.abilityScores.WIS.value), 1),
   );
 
   registerScaling("CHA", ({ character }) =>
-    getAbilityModifier(character.abilityScores.CHA.value),
+    Math.max(getAbilityModifier(character.abilityScores.CHA.value), 1),
   );
 
   registerScaling("spellcasting", ({ character }) =>

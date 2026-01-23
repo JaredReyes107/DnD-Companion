@@ -7,7 +7,14 @@ import {
 //import { Image } from "expo-image";
 import { router } from "expo-router";
 import React, { useState } from "react";
-import { Text, View, TouchableOpacity, Modal, Button } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Modal,
+  Button,
+  TextInput,
+} from "react-native";
 
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
@@ -17,6 +24,7 @@ import { takeLongRest, takeShortRest } from "@/game/rules/resting";
 
 import styles from "../../stylesheets/combat/index.styles";
 import genericStyles from "../../stylesheets/generic.styles";
+import { takeDamage } from "@/game/rules/damage";
 
 const App = () => {
   const { character, saveCharacter } = useCharacter();
@@ -28,7 +36,6 @@ const App = () => {
   //#region DMG Taken Window
   const [dmgTakenWindow, setDmgTakenWindow] = useState(false);
   const [dmgTakenValue, setDmgTakenValue] = useState(0);
-  //const [dmgTakenField, setDmgTakenField] = useState(0);
 
   //#endregion
 
@@ -75,128 +82,53 @@ const App = () => {
                 <View style={styles.window_body}>
                   {/* Damage Taken Input Field */}
                   <View style={styles.damageTaken_Container}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        setDmgTakenValue(
-                          dmgTakenValue > 0 ? dmgTakenValue - 1 : 0,
-                        )
-                      }
-                    >
-                      <Text
-                        style={[styles.blockButtonIcon, { marginTop: -10 }]}
-                      >
-                        −
-                      </Text>
-                    </TouchableOpacity>
+                    <TextInput
+                      style={styles.damageTaken_Input}
+                      keyboardType="numeric"
+                      placeholder="0"
+                      placeholderTextColor="#d8d4cf"
+                      value={dmgTakenValue === 0 ? "" : String(dmgTakenValue)}
+                      onChangeText={(text: string) => {
+                        // keep only digits
+                        const sanitized = text.replace(/[^0-9]/g, "");
 
-                    <Text style={styles.damageTaken_Input}>
-                      {dmgTakenValue}
-                    </Text>
-                    {/*
-                  <TextInput
-                    keyboardType='numeric'
-                    placeholder={dmgTakenValue.toString()}
-                    onChangeText={(text) => {
-                      const parsedValue = parseInt(text);
-                      setDmgTakenValue(isNaN(parsedValue) ? 0 : parsedValue);
-                    }}
-                    style={styles.damageTaken_Input}
-                  />
-                  */}
+                        // prevent negatives, decimals, etc
+                        const value =
+                          sanitized === "" ? 0 : parseInt(sanitized, 10);
 
-                    <TouchableOpacity
-                      onPress={() => setDmgTakenValue(dmgTakenValue + 1)}
-                    >
-                      <Text
-                        style={[styles.blockButtonIcon, { marginTop: -10 }]}
-                      >
-                        +
-                      </Text>
-                    </TouchableOpacity>
+                        setDmgTakenValue(value);
+                      }}
+                    />
                   </View>
 
-                  {/* Damage Types Board */}
-                  <View style={styles.damageTypes_Grid}>
-                    {/*
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Bludgeoning.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Piercing.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Slashing.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Acid.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Cold.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Fire.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Force.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Lightning.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Necrotic.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Radiant.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Thunder.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Poison.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Psychic.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  */}
+                  {/* Damage Multipliers */}
+                  <View style={styles.damageTaken_Grid}>
+                    <TouchableOpacity
+                      style={[
+                        styles.damageTaken_Grid_Button,
+                        styles.damageTaken_Grid_ButtonLeft,
+                      ]}
+                      onPress={() => {
+                        setDmgTakenValue((value) => Math.floor(value / 2));
+                      }}
+                    >
+                      <Text style={styles.damageTaken_Grid_Button_Text}>
+                        / 2
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[
+                        styles.damageTaken_Grid_Button,
+                        styles.damageTaken_Grid_ButtonRight,
+                      ]}
+                      onPress={() => {
+                        setDmgTakenValue((value) => value * 2);
+                      }}
+                    >
+                      <Text style={styles.damageTaken_Grid_Button_Text}>
+                        x 2
+                      </Text>
+                    </TouchableOpacity>
                   </View>
                 </View>
 
@@ -204,7 +136,11 @@ const App = () => {
                 <View>
                   <Button
                     title="Confirmar"
-                    onPress={() => setDmgTakenWindow(false)}
+                    onPress={() => {
+                      saveCharacter(takeDamage(dmgTakenValue, character));
+                      setDmgTakenValue(0);
+                      setDmgTakenWindow(false);
+                    }}
                   />
                 </View>
               </ThemedView>
