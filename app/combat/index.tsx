@@ -4,16 +4,28 @@ import {
   FontAwesome6,
   Ionicons,
 } from "@expo/vector-icons";
-//import { Image } from "expo-image";
 import { router } from "expo-router";
 import React, { useState } from "react";
-import { Text, View, TouchableOpacity, Modal, Button } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Modal,
+  Button,
+  TextInput,
+} from "react-native";
 
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
+import { returnNaturalNumber } from "@/lib/utilities/input-handler";
 import { useCharacter } from "@/hooks/useCharacter";
 import { takeLongRest, takeShortRest } from "@/game/rules/resting";
+import {
+  gainTempHp,
+  receiveHealing,
+  takeDamage,
+} from "@/game/rules/damage-and-healing";
 
 import styles from "../../stylesheets/combat/index.styles";
 import genericStyles from "../../stylesheets/generic.styles";
@@ -25,11 +37,15 @@ const App = () => {
     (character?.hitPoints.temporalHP ?? 0) +
     (character?.hitPoints.currentHP ?? 0);
 
-  //#region DMG Taken Window
+  //#region UI variables
   const [dmgTakenWindow, setDmgTakenWindow] = useState(false);
   const [dmgTakenValue, setDmgTakenValue] = useState(0);
-  //const [dmgTakenField, setDmgTakenField] = useState(0);
 
+  const [changeTempHpWindow, setChangeTempHpWindow] = useState(false);
+  const [changeTempHpValue, setChangeTempHpValue] = useState(0);
+
+  const [recoverHpWindow, setRecoverHpWindow] = useState(false);
+  const [recoverHpValue, setRecoverHpValue] = useState(0);
   //#endregion
 
   if (!character) {
@@ -58,7 +74,7 @@ const App = () => {
         </View>
 
         <View style={styles.mainBody}>
-          {/* Window: Total Damage Taken Window */}
+          {/* Window: Damage Taken Window */}
           <Modal
             animationType="slide"
             transparent={true}
@@ -74,129 +90,43 @@ const App = () => {
                 {/* Window Body */}
                 <View style={styles.window_body}>
                   {/* Damage Taken Input Field */}
-                  <View style={styles.damageTaken_Container}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        setDmgTakenValue(
-                          dmgTakenValue > 0 ? dmgTakenValue - 1 : 0,
-                        )
-                      }
-                    >
-                      <Text
-                        style={[styles.blockButtonIcon, { marginTop: -10 }]}
-                      >
-                        −
-                      </Text>
-                    </TouchableOpacity>
-
-                    <Text style={styles.damageTaken_Input}>
-                      {dmgTakenValue}
-                    </Text>
-                    {/*
-                  <TextInput
-                    keyboardType='numeric'
-                    placeholder={dmgTakenValue.toString()}
-                    onChangeText={(text) => {
-                      const parsedValue = parseInt(text);
-                      setDmgTakenValue(isNaN(parsedValue) ? 0 : parsedValue);
-                    }}
-                    style={styles.damageTaken_Input}
-                  />
-                  */}
-
-                    <TouchableOpacity
-                      onPress={() => setDmgTakenValue(dmgTakenValue + 1)}
-                    >
-                      <Text
-                        style={[styles.blockButtonIcon, { marginTop: -10 }]}
-                      >
-                        +
-                      </Text>
-                    </TouchableOpacity>
+                  <View style={styles.window_container}>
+                    <TextInput
+                      style={styles.window_inputField}
+                      keyboardType="numeric"
+                      placeholder="0"
+                      placeholderTextColor="#d8d4cf"
+                      value={dmgTakenValue === 0 ? "" : String(dmgTakenValue)}
+                      onChangeText={(text: string) => {
+                        setDmgTakenValue(returnNaturalNumber(text));
+                      }}
+                    />
                   </View>
 
-                  {/* Damage Types Board */}
-                  <View style={styles.damageTypes_Grid}>
-                    {/*
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Bludgeoning.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Piercing.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Slashing.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Acid.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Cold.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Fire.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Force.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Lightning.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Necrotic.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Radiant.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Thunder.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Poison.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.damageTypes_Button}>
-                    <Image
-                      source={require("@/assets/images/damageTypes/Icon_Psychic.png")}
-                      style={styles.damageTypes_Icon}
-                    />
-                  </TouchableOpacity>
-                  */}
+                  {/* Damage Multipliers */}
+                  <View style={styles.window_grid}>
+                    <TouchableOpacity
+                      style={[
+                        styles.window_grid_button,
+                        styles.window_grid_buttonLeft,
+                      ]}
+                      onPress={() => {
+                        setDmgTakenValue((value) => Math.floor(value / 2));
+                      }}
+                    >
+                      <Text style={styles.window_grid_button_text}>/ 2</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[
+                        styles.window_grid_button,
+                        styles.window_grid_buttonRight,
+                      ]}
+                      onPress={() => {
+                        setDmgTakenValue((value) => value * 2);
+                      }}
+                    >
+                      <Text style={styles.window_grid_button_text}>x 2</Text>
+                    </TouchableOpacity>
                   </View>
                 </View>
 
@@ -204,7 +134,103 @@ const App = () => {
                 <View>
                   <Button
                     title="Confirmar"
-                    onPress={() => setDmgTakenWindow(false)}
+                    onPress={() => {
+                      saveCharacter(takeDamage(dmgTakenValue, character));
+                      setDmgTakenValue(0);
+                      setDmgTakenWindow(false);
+                    }}
+                  />
+                </View>
+              </ThemedView>
+            </ThemedView>
+          </Modal>
+
+          {/* Window: Change TempHP Window */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={changeTempHpWindow}
+            onRequestClose={() => setChangeTempHpWindow(false)}
+          >
+            <ThemedView style={styles.overlay}>
+              <ThemedView style={styles.window}>
+                <ThemedText style={styles.window_title}>
+                  Vida temporal nueva
+                </ThemedText>
+
+                {/* Window Body */}
+                <View style={styles.window_body}>
+                  {/* TempHp Input Field */}
+                  <View style={styles.window_container}>
+                    <TextInput
+                      style={styles.window_inputField}
+                      keyboardType="numeric"
+                      placeholder="0"
+                      placeholderTextColor="#d8d4cf"
+                      value={
+                        changeTempHpValue === 0 ? "" : String(changeTempHpValue)
+                      }
+                      onChangeText={(text: string) => {
+                        setChangeTempHpValue(returnNaturalNumber(text));
+                      }}
+                    />
+                  </View>
+                </View>
+
+                {/* Confirm TempHp Value */}
+                <View>
+                  <Button
+                    title="Confirmar"
+                    onPress={() => {
+                      saveCharacter(gainTempHp(changeTempHpValue, character));
+                      setChangeTempHpValue(0);
+                      setChangeTempHpWindow(false);
+                    }}
+                  />
+                </View>
+              </ThemedView>
+            </ThemedView>
+          </Modal>
+
+          {/* Window: Change TempHP Window */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={recoverHpWindow}
+            onRequestClose={() => setRecoverHpWindow(false)}
+          >
+            <ThemedView style={styles.overlay}>
+              <ThemedView style={styles.window}>
+                <ThemedText style={styles.window_title}>
+                  Curación recibida
+                </ThemedText>
+
+                {/* Window Body */}
+                <View style={styles.window_body}>
+                  {/* RecoverHp Input Field */}
+                  <View style={styles.window_container}>
+                    <TextInput
+                      style={styles.window_inputField}
+                      keyboardType="numeric"
+                      placeholder="0"
+                      placeholderTextColor="#d8d4cf"
+                      value={recoverHpValue === 0 ? "" : String(recoverHpValue)}
+                      onChangeText={(text: string) => {
+                        setRecoverHpValue(returnNaturalNumber(text));
+                      }}
+                    />
+                  </View>
+                </View>
+
+                {/* Confirm RecoverHp Value */}
+                <View>
+                  <Button
+                    title="Confirmar"
+                    onPress={() => {
+                      saveCharacter(receiveHealing(recoverHpValue, character));
+                      setRecoverHpValue(0);
+                      setRecoverHpWindow(false);
+                    }}
                   />
                 </View>
               </ThemedView>
@@ -267,7 +293,10 @@ const App = () => {
                     style={[styles.blockButtonIcon, styles.blockButtonIconLeft]}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.blockValueContainer}>
+                <TouchableOpacity
+                  style={styles.blockValueContainer}
+                  onPress={() => setChangeTempHpWindow(true)}
+                >
                   <Text style={styles.blockValueText}>
                     {character?.hitPoints.temporalHP}
                   </Text>
@@ -326,7 +355,10 @@ const App = () => {
                     style={[styles.blockButtonIcon, styles.blockButtonIconLeft]}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.blockValueContainer}>
+                <TouchableOpacity
+                  style={styles.blockValueContainer}
+                  onPress={() => setRecoverHpWindow(true)}
+                >
                   <Text style={styles.blockValueText}>
                     {character.hitPoints.currentHP}
                   </Text>
