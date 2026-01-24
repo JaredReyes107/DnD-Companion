@@ -60,13 +60,13 @@ const styles = StyleSheet.create({
   //#endregion
 
   //#region Damage Taken Window
-  damageTaken_Container: {
+  window_container: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
   },
-  damageTaken_Input: {
+  window_inputField: {
     minWidth: "40%",
     backgroundColor: "#212027",
 
@@ -81,12 +81,12 @@ const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: "center",
   },
-  damageTaken_Grid: {
+  window_grid: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
   },
-  damageTaken_Grid_Button: {
+  window_grid_button: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
@@ -100,17 +100,17 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 15,
   },
-  damageTaken_Grid_ButtonLeft: {
+  window_grid_buttonLeft: {
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
     borderRightWidth: 1,
   },
-  damageTaken_Grid_ButtonRight: {
+  window_grid_buttonRight: {
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
     borderLeftWidth: 1,
   },
-  damageTaken_Grid_Button_Text: {
+  window_grid_button_text: {
     color: "#ffffff",
     fontSize: 28,
     fontWeight: "600",

@@ -4,7 +4,6 @@ import {
   FontAwesome6,
   Ionicons,
 } from "@expo/vector-icons";
-//import { Image } from "expo-image";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -19,12 +18,17 @@ import {
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
+import { returnNaturalNumber } from "@/lib/utilities/input-handler";
 import { useCharacter } from "@/hooks/useCharacter";
 import { takeLongRest, takeShortRest } from "@/game/rules/resting";
+import {
+  gainTempHp,
+  receiveHealing,
+  takeDamage,
+} from "@/game/rules/damage-and-healing";
 
 import styles from "../../stylesheets/combat/index.styles";
 import genericStyles from "../../stylesheets/generic.styles";
-import { takeDamage } from "@/game/rules/damage";
 
 const App = () => {
   const { character, saveCharacter } = useCharacter();
@@ -33,10 +37,15 @@ const App = () => {
     (character?.hitPoints.temporalHP ?? 0) +
     (character?.hitPoints.currentHP ?? 0);
 
-  //#region DMG Taken Window
+  //#region UI variables
   const [dmgTakenWindow, setDmgTakenWindow] = useState(false);
   const [dmgTakenValue, setDmgTakenValue] = useState(0);
 
+  const [changeTempHpWindow, setChangeTempHpWindow] = useState(false);
+  const [changeTempHpValue, setChangeTempHpValue] = useState(0);
+
+  const [recoverHpWindow, setRecoverHpWindow] = useState(false);
+  const [recoverHpValue, setRecoverHpValue] = useState(0);
   //#endregion
 
   if (!character) {
@@ -65,7 +74,7 @@ const App = () => {
         </View>
 
         <View style={styles.mainBody}>
-          {/* Window: Total Damage Taken Window */}
+          {/* Window: Damage Taken Window */}
           <Modal
             animationType="slide"
             transparent={true}
@@ -81,53 +90,42 @@ const App = () => {
                 {/* Window Body */}
                 <View style={styles.window_body}>
                   {/* Damage Taken Input Field */}
-                  <View style={styles.damageTaken_Container}>
+                  <View style={styles.window_container}>
                     <TextInput
-                      style={styles.damageTaken_Input}
+                      style={styles.window_inputField}
                       keyboardType="numeric"
                       placeholder="0"
                       placeholderTextColor="#d8d4cf"
                       value={dmgTakenValue === 0 ? "" : String(dmgTakenValue)}
                       onChangeText={(text: string) => {
-                        // keep only digits
-                        const sanitized = text.replace(/[^0-9]/g, "");
-
-                        // prevent negatives, decimals, etc
-                        const value =
-                          sanitized === "" ? 0 : parseInt(sanitized, 10);
-
-                        setDmgTakenValue(value);
+                        setDmgTakenValue(returnNaturalNumber(text));
                       }}
                     />
                   </View>
 
                   {/* Damage Multipliers */}
-                  <View style={styles.damageTaken_Grid}>
+                  <View style={styles.window_grid}>
                     <TouchableOpacity
                       style={[
-                        styles.damageTaken_Grid_Button,
-                        styles.damageTaken_Grid_ButtonLeft,
+                        styles.window_grid_button,
+                        styles.window_grid_buttonLeft,
                       ]}
                       onPress={() => {
                         setDmgTakenValue((value) => Math.floor(value / 2));
                       }}
                     >
-                      <Text style={styles.damageTaken_Grid_Button_Text}>
-                        / 2
-                      </Text>
+                      <Text style={styles.window_grid_button_text}>/ 2</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={[
-                        styles.damageTaken_Grid_Button,
-                        styles.damageTaken_Grid_ButtonRight,
+                        styles.window_grid_button,
+                        styles.window_grid_buttonRight,
                       ]}
                       onPress={() => {
                         setDmgTakenValue((value) => value * 2);
                       }}
                     >
-                      <Text style={styles.damageTaken_Grid_Button_Text}>
-                        x 2
-                      </Text>
+                      <Text style={styles.window_grid_button_text}>x 2</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -140,6 +138,98 @@ const App = () => {
                       saveCharacter(takeDamage(dmgTakenValue, character));
                       setDmgTakenValue(0);
                       setDmgTakenWindow(false);
+                    }}
+                  />
+                </View>
+              </ThemedView>
+            </ThemedView>
+          </Modal>
+
+          {/* Window: Change TempHP Window */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={changeTempHpWindow}
+            onRequestClose={() => setChangeTempHpWindow(false)}
+          >
+            <ThemedView style={styles.overlay}>
+              <ThemedView style={styles.window}>
+                <ThemedText style={styles.window_title}>
+                  Vida temporal nueva
+                </ThemedText>
+
+                {/* Window Body */}
+                <View style={styles.window_body}>
+                  {/* TempHp Input Field */}
+                  <View style={styles.window_container}>
+                    <TextInput
+                      style={styles.window_inputField}
+                      keyboardType="numeric"
+                      placeholder="0"
+                      placeholderTextColor="#d8d4cf"
+                      value={
+                        changeTempHpValue === 0 ? "" : String(changeTempHpValue)
+                      }
+                      onChangeText={(text: string) => {
+                        setChangeTempHpValue(returnNaturalNumber(text));
+                      }}
+                    />
+                  </View>
+                </View>
+
+                {/* Confirm TempHp Value */}
+                <View>
+                  <Button
+                    title="Confirmar"
+                    onPress={() => {
+                      saveCharacter(gainTempHp(changeTempHpValue, character));
+                      setChangeTempHpValue(0);
+                      setChangeTempHpWindow(false);
+                    }}
+                  />
+                </View>
+              </ThemedView>
+            </ThemedView>
+          </Modal>
+
+          {/* Window: Change TempHP Window */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={recoverHpWindow}
+            onRequestClose={() => setRecoverHpWindow(false)}
+          >
+            <ThemedView style={styles.overlay}>
+              <ThemedView style={styles.window}>
+                <ThemedText style={styles.window_title}>
+                  Curación recibida
+                </ThemedText>
+
+                {/* Window Body */}
+                <View style={styles.window_body}>
+                  {/* RecoverHp Input Field */}
+                  <View style={styles.window_container}>
+                    <TextInput
+                      style={styles.window_inputField}
+                      keyboardType="numeric"
+                      placeholder="0"
+                      placeholderTextColor="#d8d4cf"
+                      value={recoverHpValue === 0 ? "" : String(recoverHpValue)}
+                      onChangeText={(text: string) => {
+                        setRecoverHpValue(returnNaturalNumber(text));
+                      }}
+                    />
+                  </View>
+                </View>
+
+                {/* Confirm RecoverHp Value */}
+                <View>
+                  <Button
+                    title="Confirmar"
+                    onPress={() => {
+                      saveCharacter(receiveHealing(recoverHpValue, character));
+                      setRecoverHpValue(0);
+                      setRecoverHpWindow(false);
                     }}
                   />
                 </View>
@@ -203,7 +293,10 @@ const App = () => {
                     style={[styles.blockButtonIcon, styles.blockButtonIconLeft]}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.blockValueContainer}>
+                <TouchableOpacity
+                  style={styles.blockValueContainer}
+                  onPress={() => setChangeTempHpWindow(true)}
+                >
                   <Text style={styles.blockValueText}>
                     {character?.hitPoints.temporalHP}
                   </Text>
@@ -262,7 +355,10 @@ const App = () => {
                     style={[styles.blockButtonIcon, styles.blockButtonIconLeft]}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.blockValueContainer}>
+                <TouchableOpacity
+                  style={styles.blockValueContainer}
+                  onPress={() => setRecoverHpWindow(true)}
+                >
                   <Text style={styles.blockValueText}>
                     {character.hitPoints.currentHP}
                   </Text>
