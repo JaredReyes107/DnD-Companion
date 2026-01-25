@@ -24,14 +24,14 @@ import genericStyles from "@/stylesheets/generic.styles";
 import styles from "@/stylesheets/character-sheet.styles";
 
 // Character Functions
-import { getInitiativeBonus } from "@/game/rules/initiative-roll";
-import { getArmorClass } from "@/game/rules/armor-class";
+import { getInitiativeBonus } from "@/game/mechanics/initiative-roll";
+import { getArmorClass } from "@/game/mechanics/armor-class";
 import {
   getAbilityModifier,
   getProficiencyBonus,
-} from "@/game/rules/abilities-modifiers";
-import { getSavingThrowModifier } from "@/game/rules/saving-throws-modifiers";
-import { getSkillModifier } from "@/game/rules/skills-modifiers";
+} from "@/game/mechanics/abilities-modifiers";
+import { getSavingThrowModifier } from "@/game/mechanics/saving-throws-modifiers";
+import { getSkillModifier } from "@/game/mechanics/skills-modifiers";
 
 // Helper Functions
 import { PrintNumberWithSign } from "@/lib/utilities/formater-numbers";
@@ -151,16 +151,19 @@ const CharacterSheetScreen = () => {
                   <View style={styles.mainStatModifierContainer}>
                     <Text style={styles.mainStatText}>FUE</Text>
                     <Text style={styles.mainStatModifierValue}>
-                      {(getAbilityModifier(character.abilityScores.STR.value) >
-                      0
+                      {(getAbilityModifier(
+                        character.baseAbilityScores.STR.value,
+                      ) > 0
                         ? "+"
                         : "") +
-                        getAbilityModifier(character.abilityScores.STR.value)}
+                        getAbilityModifier(
+                          character.baseAbilityScores.STR.value,
+                        )}
                     </Text>
                   </View>
                   <View style={styles.mainStatValueContainer}>
                     <Text style={styles.mainStatValue}>
-                      {character.abilityScores.STR.value}
+                      {character.baseAbilityScores.STR.value}
                     </Text>
                   </View>
                 </View>
@@ -171,16 +174,19 @@ const CharacterSheetScreen = () => {
                   <View style={styles.mainStatModifierContainer}>
                     <Text style={styles.mainStatText}>DES</Text>
                     <Text style={styles.mainStatModifierValue}>
-                      {(getAbilityModifier(character.abilityScores.DEX.value) >
-                      0
+                      {(getAbilityModifier(
+                        character.baseAbilityScores.DEX.value,
+                      ) > 0
                         ? "+"
                         : "") +
-                        getAbilityModifier(character.abilityScores.DEX.value)}
+                        getAbilityModifier(
+                          character.baseAbilityScores.DEX.value,
+                        )}
                     </Text>
                   </View>
                   <View style={styles.mainStatValueContainer}>
                     <Text style={styles.mainStatValue}>
-                      {character.abilityScores.DEX.value}
+                      {character.baseAbilityScores.DEX.value}
                     </Text>
                   </View>
                 </View>
@@ -191,16 +197,19 @@ const CharacterSheetScreen = () => {
                   <View style={styles.mainStatModifierContainer}>
                     <Text style={styles.mainStatText}>CON</Text>
                     <Text style={styles.mainStatModifierValue}>
-                      {(getAbilityModifier(character.abilityScores.CON.value) >
-                      0
+                      {(getAbilityModifier(
+                        character.baseAbilityScores.CON.value,
+                      ) > 0
                         ? "+"
                         : "") +
-                        getAbilityModifier(character.abilityScores.CON.value)}
+                        getAbilityModifier(
+                          character.baseAbilityScores.CON.value,
+                        )}
                     </Text>
                   </View>
                   <View style={styles.mainStatValueContainer}>
                     <Text style={styles.mainStatValue}>
-                      {character.abilityScores.CON.value}
+                      {character.baseAbilityScores.CON.value}
                     </Text>
                   </View>
                 </View>
@@ -211,16 +220,19 @@ const CharacterSheetScreen = () => {
                   <View style={styles.mainStatModifierContainer}>
                     <Text style={styles.mainStatText}>INT</Text>
                     <Text style={styles.mainStatModifierValue}>
-                      {(getAbilityModifier(character.abilityScores.WIS.value) >
-                      0
+                      {(getAbilityModifier(
+                        character.baseAbilityScores.WIS.value,
+                      ) > 0
                         ? "+"
                         : "") +
-                        getAbilityModifier(character.abilityScores.WIS.value)}
+                        getAbilityModifier(
+                          character.baseAbilityScores.WIS.value,
+                        )}
                     </Text>
                   </View>
                   <View style={styles.mainStatValueContainer}>
                     <Text style={styles.mainStatValue}>
-                      {character?.abilityScores.WIS.value}
+                      {character?.baseAbilityScores.WIS.value}
                     </Text>
                   </View>
                 </View>
@@ -231,16 +243,19 @@ const CharacterSheetScreen = () => {
                   <View style={styles.mainStatModifierContainer}>
                     <Text style={styles.mainStatText}>SAB</Text>
                     <Text style={styles.mainStatModifierValue}>
-                      {(getAbilityModifier(character.abilityScores.INT.value) >
-                      0
+                      {(getAbilityModifier(
+                        character.baseAbilityScores.INT.value,
+                      ) > 0
                         ? "+"
                         : "") +
-                        getAbilityModifier(character.abilityScores.INT.value)}
+                        getAbilityModifier(
+                          character.baseAbilityScores.INT.value,
+                        )}
                     </Text>
                   </View>
                   <View style={styles.mainStatValueContainer}>
                     <Text style={styles.mainStatValue}>
-                      {character?.abilityScores.INT.value}
+                      {character?.baseAbilityScores.INT.value}
                     </Text>
                   </View>
                 </View>
@@ -251,16 +266,19 @@ const CharacterSheetScreen = () => {
                   <View style={styles.mainStatModifierContainer}>
                     <Text style={styles.mainStatText}>CAR</Text>
                     <Text style={styles.mainStatModifierValue}>
-                      {(getAbilityModifier(character.abilityScores.CHA.value) >
-                      0
+                      {(getAbilityModifier(
+                        character.baseAbilityScores.CHA.value,
+                      ) > 0
                         ? "+"
                         : "") +
-                        getAbilityModifier(character.abilityScores.CHA.value)}
+                        getAbilityModifier(
+                          character.baseAbilityScores.CHA.value,
+                        )}
                     </Text>
                   </View>
                   <View style={styles.mainStatValueContainer}>
                     <Text style={styles.mainStatValue}>
-                      {character?.abilityScores.CHA.value}
+                      {character?.baseAbilityScores.CHA.value}
                     </Text>
                   </View>
                 </View>
@@ -299,7 +317,7 @@ const CharacterSheetScreen = () => {
                   <View style={styles.secondaryStatModifier}>
                     <Text style={styles.secondaryStatText}>Velocidad</Text>
                     <Text style={styles.secondaryStatModifierValue}>
-                      {character.speed}
+                      {character.baseSpeed}
                     </Text>
                     <Text style={styles.secondaryStatText}>Pies</Text>
                   </View>

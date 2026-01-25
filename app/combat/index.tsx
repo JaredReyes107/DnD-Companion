@@ -20,12 +20,12 @@ import { ThemedView } from "@/components/ThemedView";
 
 import { returnNaturalNumber } from "@/lib/utilities/input-handler";
 import { useCharacter } from "@/hooks/useCharacter";
-import { takeLongRest, takeShortRest } from "@/game/rules/resting";
+import { takeLongRest, takeShortRest } from "@/game/mechanics/resting";
 import {
   gainTempHp,
   receiveHealing,
   takeDamage,
-} from "@/game/rules/damage-and-healing";
+} from "@/game/mechanics/damage-and-healing";
 
 import styles from "../../stylesheets/combat/index.styles";
 import genericStyles from "../../stylesheets/generic.styles";

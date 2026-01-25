@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { Character } from "@/game/types/templates/aracter";
+import { Character } from "@/game/types/instances/character";
 import { getAbilityModifier as getAbilityModifier } from "./abilities-modifiers";
 
 export function getArmorClass(character: Character): number {
-  const total = 10 + getAbilityModifier(character.abilityScores.DEX.value);
+  const total = 10 + getAbilityModifier(character.baseAbilityScores.DEX.value);
 
   //total += applyFeatureModifiers(character, "armorClass");
 

@@ -45,7 +45,6 @@ import SkillProficiencyInput from "@/components/SkillProficiencyInput";
 
 import genericStyles from "@/stylesheets/generic.styles";
 import styles from "@/stylesheets/character-creation.styles";
-
 const CharacterCreationScreen = () => {
   const router = useRouter();
 
@@ -136,29 +135,25 @@ const CharacterCreationScreen = () => {
         order: characterClasses.map((c) => c.id),
       },
 
-      abilityScores: characterAbilityScores,
-      savingThrows: characterSavingThrows,
-      skills: characterSkillProficiencies,
+      baseAbilityScores: characterAbilityScores,
+      baseMaximumHP: CharacterHP || 4 * 5,
+      baseSpeed: CharacterSpeed || 30,
 
       hitPoints: {
-        baseMaximumHP: CharacterHP || 4 * 5,
         currentMaximumHP: CharacterHP || 4 * 5,
         currentHP: CharacterHP || 4 * 5,
         temporalHP: 0,
       },
 
-      speed: CharacterSpeed || 30,
+      savingThrows: characterSavingThrows,
+      skills: characterSkillProficiencies,
 
       features: {},
       resources: {},
+      actions: {},
+      statModifiers: {},
 
-      combatState: {
-        actionUsed: false,
-        bonusActionUsed: false,
-        reactionUsed: false,
-
-        conditions: [],
-      },
+      combatState: null,
     };
 
     newCharacter.resources = buildCharacterResources(newCharacter);
