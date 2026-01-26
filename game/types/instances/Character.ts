@@ -40,5 +40,5 @@ export type Character = {
   actions: Record<string, Action>;
   statModifiers: Record<string, StatModifier>;
 
-  combatState?: CombatState | null;
+  combatState: CombatState | null;
 };

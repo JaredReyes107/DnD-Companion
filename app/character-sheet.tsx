@@ -1,5 +1,5 @@
 // Libraries
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   ScrollView,
   View,
@@ -10,8 +10,6 @@ import {
 import { useRouter } from "expo-router";
 
 // Custom Components
-import { loadCharacterFromStorage } from "@/lib/utilities/system-storage";
-import { Character } from "@/game/types/instances/character";
 import { ProficiencyIcon } from "@/components/ProficiencyIcon";
 
 // Styles
@@ -37,23 +35,13 @@ import { getSkillModifier } from "@/game/mechanics/skills-modifiers";
 import { PrintNumberWithSign } from "@/lib/utilities/formater-numbers";
 import { getCharacterSkillsAsArray } from "@/lib/helpers/skills-helper";
 import { getCharacterSavingThrowsAsArray } from "@/lib/helpers/saving-throws-helper";
+import { useCharacter } from "@/hooks/useCharacter";
+import { buildCombatState } from "@/lib/helpers/combat-helper";
 
 const CharacterSheetScreen = () => {
   const router = useRouter();
 
-  const [character, setCharacter] = useState<Character>();
-
-  const fetchCharacter = async () => {
-    const result = await loadCharacterFromStorage();
-    if (result) {
-      setCharacter(result);
-    }
-  };
-
-  //Load details of the selected character whenever this view is loaded
-  useEffect(() => {
-    fetchCharacter();
-  }, []);
+  const { character, saveCharacter } = useCharacter();
 
   const [_fontsLoaded] = useFonts({
     Montserrat: Montserrat_500Medium,
@@ -104,7 +92,10 @@ const CharacterSheetScreen = () => {
 
           <View style={genericStyles.characterCard_ButtonsContainer}>
             <TouchableOpacity
-              onPress={() => router.replace("../combat")}
+              onPress={() => {
+                saveCharacter(buildCombatState(character));
+                router.replace("../combat");
+              }}
               style={genericStyles.characterCard_ActionIcon}
             >
               <MaterialCommunityIcons
@@ -138,6 +129,7 @@ const CharacterSheetScreen = () => {
             </TouchableOpacity>
           </View>
         </View>
+
         <View style={styles.detailsBody}>
           {/* Main Statistics and Modifiers */}
           <View style={styles.detailsSection}>

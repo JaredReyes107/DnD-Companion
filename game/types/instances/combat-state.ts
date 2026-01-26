@@ -2,11 +2,12 @@ import { StatModifier } from "../templates/stats";
 
 export type CombatState = {
   initiativeOrder: number;
+  initiativeRoll?: number;
 
   actionEconomy: {
-    hasAction: boolean;
-    hasBonusAction: boolean;
-    hasReaction: boolean;
+    actions: { max: number; current: number };
+    bonusActions: { max: number; current: number };
+    reactions: { max: number; current: number };
   };
 
   deathSaves: {
