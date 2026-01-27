@@ -356,46 +356,6 @@ const App = () => {
                 </ThemedText>
               </TouchableOpacity>
 
-              <View style={styles.restSection}>
-                <TouchableOpacity
-                  onPress={() => saveCharacter(takeLongRest(character))}
-                  style={styles.restButton}
-                >
-                  <FontAwesome6 name="campground" style={styles.restIcon} />
-                  <ThemedText style={styles.restText}>
-                    Descanso largo
-                  </ThemedText>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => saveCharacter(takeShortRest(character))}
-                  style={styles.restButton}
-                >
-                  <Ionicons name="bonfire" style={styles.restIcon} />
-                  <ThemedText style={styles.restText}>
-                    Descanso corto
-                  </ThemedText>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            {/* HitDie and Death Saving Throws */}
-            <View style={styles.sharedSection}>
-              <TouchableOpacity style={styles.hitDieSection}>
-                <ThemedText style={styles.hitDieTitle}>
-                  Dados de Golpe
-                </ThemedText>
-                <View style={styles.hitDieBody}>
-                  {Object.values(character.classes.byId).map(
-                    (classInstance) => (
-                      <ThemedText style={styles.hitDieText}>
-                        {classInstance.level}d
-                        {resolveClassInstance(classInstance).hitDie}
-                      </ThemedText>
-                    ),
-                  )}
-                </View>
-              </TouchableOpacity>
-
               <View style={styles.deathThrowsSection}>
                 <ThemedText
                   style={
@@ -588,6 +548,46 @@ const App = () => {
                     </View>
                   </View>
                 </View>
+              </View>
+            </View>
+
+            {/* HitDie and Death Saving Throws */}
+            <View style={styles.sharedSection}>
+              <TouchableOpacity style={styles.hitDieSection}>
+                <ThemedText style={styles.hitDieTitle}>
+                  Dados de Golpe
+                </ThemedText>
+                <View style={styles.hitDieBody}>
+                  {Object.values(character.classes.byId).map(
+                    (classInstance) => (
+                      <ThemedText style={styles.hitDieText}>
+                        {classInstance.level}d
+                        {resolveClassInstance(classInstance).hitDie}
+                      </ThemedText>
+                    ),
+                  )}
+                </View>
+              </TouchableOpacity>
+
+              <View style={styles.restSection}>
+                <TouchableOpacity
+                  onPress={() => saveCharacter(takeLongRest(character))}
+                  style={styles.restButton}
+                >
+                  <FontAwesome6 name="campground" style={styles.restIcon} />
+                  <ThemedText style={styles.restText}>
+                    Descanso largo
+                  </ThemedText>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => saveCharacter(takeShortRest(character))}
+                  style={styles.restButton}
+                >
+                  <Ionicons name="bonfire" style={styles.restIcon} />
+                  <ThemedText style={styles.restText}>
+                    Descanso corto
+                  </ThemedText>
+                </TouchableOpacity>
               </View>
             </View>
           </View>

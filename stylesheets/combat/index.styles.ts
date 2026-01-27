@@ -188,7 +188,6 @@ const styles = StyleSheet.create({
   },
   //#endregion
 
-  //#region Rests and Initiative order
   sharedSection: {
     flexGrow: 1,
 
@@ -198,35 +197,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 10,
   },
-  restSection: {
-    flexGrow: 1,
-    maxWidth: "55%",
 
-    display: "flex",
-    flexDirection: "column",
-    gap: 15,
-  },
-  restButton: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 10,
-
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    backgroundColor: "#F4AE44",
-
-    borderRadius: 7,
-  },
-  restIcon: {
-    color: "#ffffff",
-    fontSize: 24,
-  },
-  restText: {
-    fontSize: 18,
-    fontWeight: "600",
-  },
+  //#region Initiative order and Death Saving Throws
   initiativeOrderSection: {
     flexGrow: 1,
 
@@ -252,51 +224,15 @@ const styles = StyleSheet.create({
     textAlignVertical: "center",
   },
   initiativeOrderText: {
+    height: 40,
+
     fontSize: 24,
     fontWeight: "800",
-  },
-  //#endregion
-
-  //#region HitDie Death Saving Throws
-  hitDieSection: {
-    flexGrow: 1,
-
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    gap: 10,
-
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    borderRadius: 7,
-
-    backgroundColor: "#6d5353",
-  },
-  hitDieTitle: {
-    fontSize: 16,
-    fontWeight: "600",
-    textAlign: "center",
-  },
-  hitDieText: {
-    fontSize: 16,
-    fontWeight: "400",
     textAlignVertical: "center",
-  },
-  hitDieBody: {
-    flexShrink: 1,
-
-    minHeight: 67,
-
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 5,
   },
   deathThrowsSection: {
     flexGrow: 1,
-    width: "55%",
+    maxWidth: "55%",
 
     display: "flex",
     flexDirection: "column",
@@ -346,6 +282,74 @@ const styles = StyleSheet.create({
   },
   deathThrowsDisabled: {
     color: "#c9bebe",
+  },
+  //#endregion
+
+  //#region HitDie and Rests
+  hitDieSection: {
+    flexGrow: 1,
+
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    gap: 10,
+
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    borderRadius: 7,
+
+    backgroundColor: "#6d5353",
+  },
+  hitDieTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  hitDieText: {
+    fontSize: 16,
+    fontWeight: "400",
+    textAlignVertical: "center",
+  },
+  hitDieBody: {
+    flexShrink: 1,
+
+    minHeight: 52.5,
+
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 5,
+  },
+  restSection: {
+    flexGrow: 1,
+    maxWidth: "55%",
+
+    display: "flex",
+    flexDirection: "column",
+    gap: 15,
+  },
+  restButton: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
+
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    backgroundColor: "#F4AE44",
+
+    borderRadius: 7,
+  },
+  restIcon: {
+    color: "#ffffff",
+    fontSize: 24,
+  },
+  restText: {
+    fontSize: 18,
+    fontWeight: "600",
   },
   //#endregion
 });
