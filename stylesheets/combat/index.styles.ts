@@ -117,6 +117,23 @@ const styles = StyleSheet.create({
   },
   //#endregion
 
+  //#region Spend HitDice Window
+  window_row: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
+  },
+  window_text: {
+    fontSize: 16,
+  },
+  window_smallIcon: {
+    color: "#ffffff",
+    fontSize: 18,
+  },
+  //#endregion
+
   //#region HP Blocks
   mainSection: {
     display: "flex",
@@ -327,8 +344,8 @@ const styles = StyleSheet.create({
   },
   hitDieText: {
     width: "45%",
-    fontSize: 16,
-    fontWeight: "300",
+    fontSize: 14,
+    fontWeight: "400",
     textAlign: "center",
     textAlignVertical: "center",
   },

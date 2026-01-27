@@ -24,7 +24,9 @@ import { takeLongRest, takeShortRest } from "@/game/mechanics/resting";
 import {
   gainTempHp,
   receiveHealing,
+  recoverHitDie,
   takeDamage,
+  spendHitDie,
 } from "@/game/mechanics/damage-and-healing";
 import { cycleInitiativeOrder } from "@/game/mechanics/initiative";
 import {
@@ -36,7 +38,10 @@ import {
 
 import styles from "../../stylesheets/combat/index.styles";
 import genericStyles from "../../stylesheets/generic.styles";
-import { getCurrentHitDiceAsArray } from "@/lib/helpers/hit-dice-helper";
+import {
+  getCurrentHitDiceAsArray,
+  getMaximumHitDice,
+} from "@/lib/helpers/hit-dice-helper";
 
 const App = () => {
   const { character, saveCharacter } = useCharacter();
@@ -268,15 +273,52 @@ const App = () => {
 
                 {/* Window Body */}
                 <View style={styles.window_body}>
-                  <View style={styles.window_container}>
-                    {getCurrentHitDiceAsArray(character).map(
-                      (hitDieInstance) => (
-                        <ThemedText style={styles.hitDieText}>
-                          {hitDieInstance.diceAmount}d{hitDieInstance.diceSize}
+                  {getCurrentHitDiceAsArray(character).map((hitDieInstance) => {
+                    const maximumDice =
+                      getMaximumHitDice(character)[
+                        parseInt(hitDieInstance.diceSize)
+                      ];
+                    return (
+                      <View style={styles.window_row}>
+                        <TouchableOpacity
+                          style={{ marginRight: 2.5 }}
+                          onPress={() =>
+                            saveCharacter(
+                              spendHitDie(
+                                parseInt(hitDieInstance.diceSize),
+                                character,
+                              ),
+                            )
+                          }
+                        >
+                          <FontAwesome6
+                            name="minus"
+                            style={styles.window_smallIcon}
+                          />
+                        </TouchableOpacity>
+                        <ThemedText style={styles.window_text}>
+                          {hitDieInstance.diceAmount}d{hitDieInstance.diceSize}{" "}
+                          / {maximumDice}d{hitDieInstance.diceSize}
                         </ThemedText>
-                      ),
-                    )}
-                  </View>
+                        <TouchableOpacity
+                          style={{ marginLeft: 2.5 }}
+                          onPress={() =>
+                            saveCharacter(
+                              recoverHitDie(
+                                parseInt(hitDieInstance.diceSize),
+                                character,
+                              ),
+                            )
+                          }
+                        >
+                          <FontAwesome6
+                            name="add"
+                            style={styles.window_smallIcon}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  })}
                 </View>
 
                 <View>
@@ -386,7 +428,7 @@ const App = () => {
               </View>
             </View>
 
-            {/* Rests and Initiative order */}
+            {/* Initiative order and Death Saving Throws */}
             <View style={styles.sharedSection}>
               <TouchableOpacity
                 style={[
@@ -605,7 +647,7 @@ const App = () => {
               </View>
             </View>
 
-            {/* HitDie and Death Saving Throws */}
+            {/* HitDie and Resting */}
             <View style={styles.sharedSection}>
               <TouchableOpacity
                 style={[styles.hitDieSection, styles.sharedSectionLeft]}
@@ -620,12 +662,6 @@ const App = () => {
                       {hitDieInstance.diceAmount}d{hitDieInstance.diceSize}
                     </ThemedText>
                   ))}
-                  <ThemedText style={styles.hitDieText}>
-                    {7}d{4}
-                  </ThemedText>
-                  <ThemedText style={styles.hitDieText}>
-                    {3}d{2}
-                  </ThemedText>
                 </View>
               </TouchableOpacity>
 

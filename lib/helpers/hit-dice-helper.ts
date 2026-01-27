@@ -1,7 +1,9 @@
 import { resolveClassInstance } from "@/game/registries/classes.registry";
 import { Character } from "@/game/types/instances/character";
 
-export function buildHitDice(character: Character): Record<number, number> {
+export function getMaximumHitDice(
+  character: Character,
+): Record<number, number> {
   const hitDiceInstance: Record<number, number> = {};
 
   Object.values(character.classes.byId).map((classInstance) => {
@@ -15,9 +17,18 @@ export function buildHitDice(character: Character): Record<number, number> {
     }
   });
 
-  console.log(hitDiceInstance);
-
   return hitDiceInstance;
+}
+
+export function getMaximumHitDiceAsArray(character: Character) {
+  const maximumHitDiceArray = Object.entries(character.currentHitDice).map(
+    ([diceSize, diceMaximum]) => ({
+      diceSize,
+      diceMaximum,
+    }),
+  );
+
+  return maximumHitDiceArray;
 }
 
 export function getCurrentHitDiceAsArray(character: Character) {
