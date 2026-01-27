@@ -5,6 +5,10 @@ export function removeSuccess(character: Character): Character {
     return character;
   }
 
+  if (character.hitPoints.currentHP != 0) {
+    return character;
+  }
+
   const updateCharacter = {
     ...character,
     combatState: {
@@ -21,6 +25,10 @@ export function removeSuccess(character: Character): Character {
 
 export function addSuccess(character: Character): Character {
   if (!character.combatState) {
+    return character;
+  }
+
+  if (character.hitPoints.currentHP != 0) {
     return character;
   }
 
@@ -43,6 +51,10 @@ export function removeFailure(character: Character): Character {
     return character;
   }
 
+  if (character.hitPoints.currentHP != 0) {
+    return character;
+  }
+
   const updateCharacter = {
     ...character,
     combatState: {
@@ -59,6 +71,10 @@ export function removeFailure(character: Character): Character {
 
 export function addFailure(character: Character): Character {
   if (!character.combatState) {
+    return character;
+  }
+
+  if (character.hitPoints.currentHP != 0) {
     return character;
   }
 

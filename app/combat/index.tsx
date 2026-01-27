@@ -287,52 +287,12 @@ const App = () => {
               </View>
               <View style={styles.blockBody}>
                 <TouchableOpacity
-                  style={styles.blockButtonContainer}
-                  onPress={() => {
-                    saveCharacter({
-                      ...character,
-                      hitPoints: {
-                        ...character.hitPoints,
-                        temporalHP: Math.max(
-                          0,
-                          character.hitPoints.temporalHP - 1,
-                        ),
-                      },
-                    });
-                  }}
-                >
-                  <FontAwesome6
-                    name="minus"
-                    style={[styles.blockButtonIcon, styles.blockButtonIconLeft]}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
                   style={styles.blockValueContainer}
                   onPress={() => setChangeTempHpWindow(true)}
                 >
                   <Text style={styles.blockValueText}>
                     {character?.hitPoints.temporalHP}
                   </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.blockButtonContainer}
-                  onPress={() => {
-                    saveCharacter({
-                      ...character,
-                      hitPoints: {
-                        ...character.hitPoints,
-                        temporalHP: character.hitPoints.temporalHP + 1,
-                      },
-                    });
-                  }}
-                >
-                  <FontAwesome6
-                    name="add"
-                    style={[
-                      styles.blockButtonIcon,
-                      styles.blockButtonIconRight,
-                    ]}
-                  />
                 </TouchableOpacity>
               </View>
             </View>
@@ -350,16 +310,7 @@ const App = () => {
                   style={styles.blockButtonContainer}
                   onPress={() => {
                     {
-                      saveCharacter({
-                        ...character,
-                        hitPoints: {
-                          ...character.hitPoints,
-                          currentHP: Math.max(
-                            0,
-                            character.hitPoints.currentHP - 1,
-                          ),
-                        },
-                      });
+                      saveCharacter(takeDamage(1, character));
                     }
                   }}
                 >
@@ -379,16 +330,7 @@ const App = () => {
                 <TouchableOpacity
                   style={styles.blockButtonContainer}
                   onPress={() => {
-                    saveCharacter({
-                      ...character,
-                      hitPoints: {
-                        ...character.hitPoints,
-                        currentHP: Math.min(
-                          character.hitPoints.currentMaximumHP,
-                          character.hitPoints.currentHP + 1,
-                        ),
-                      },
-                    });
+                    saveCharacter(receiveHealing(1, character));
                   }}
                 >
                   <FontAwesome6
@@ -455,12 +397,24 @@ const App = () => {
               </TouchableOpacity>
 
               <View style={styles.deathThrowsSection}>
-                <ThemedText style={styles.deathThrowsTitle}>
+                <ThemedText
+                  style={
+                    character.hitPoints.currentHP == 0
+                      ? styles.deathThrowsTitle
+                      : [styles.deathThrowsTitle, styles.deathThrowsDisabled]
+                  }
+                >
                   Tiradas de Salvación
                 </ThemedText>
                 <View style={styles.deathThrowsBody}>
                   <View style={styles.deathThrowsSubsection}>
-                    <ThemedText style={styles.deathThrowsText}>
+                    <ThemedText
+                      style={
+                        character.hitPoints.currentHP == 0
+                          ? styles.deathThrowsText
+                          : [styles.deathThrowsText, styles.deathThrowsDisabled]
+                      }
+                    >
                       Éxitos
                     </ThemedText>
                     <View style={styles.deathThrowsTally}>
@@ -470,7 +424,14 @@ const App = () => {
                       >
                         <FontAwesome6
                           name="minus"
-                          style={styles.deathThrowsTallyButton}
+                          style={
+                            character.hitPoints.currentHP == 0
+                              ? styles.deathThrowsTallyButton
+                              : [
+                                  styles.deathThrowsTallyButton,
+                                  styles.deathThrowsDisabled,
+                                ]
+                          }
                         />
                       </TouchableOpacity>
                       <FontAwesome
@@ -479,7 +440,14 @@ const App = () => {
                             ? "check-circle"
                             : "circle-o"
                         }
-                        style={styles.deathThrowsTallyIcon}
+                        style={
+                          character.hitPoints.currentHP == 0
+                            ? styles.deathThrowsTallyIcon
+                            : [
+                                styles.deathThrowsTallyIcon,
+                                styles.deathThrowsDisabled,
+                              ]
+                        }
                       />
                       <FontAwesome
                         name={
@@ -487,7 +455,14 @@ const App = () => {
                             ? "check-circle"
                             : "circle-o"
                         }
-                        style={styles.deathThrowsTallyIcon}
+                        style={
+                          character.hitPoints.currentHP == 0
+                            ? styles.deathThrowsTallyIcon
+                            : [
+                                styles.deathThrowsTallyIcon,
+                                styles.deathThrowsDisabled,
+                              ]
+                        }
                       />
                       <FontAwesome
                         name={
@@ -495,7 +470,14 @@ const App = () => {
                             ? "check-circle"
                             : "circle-o"
                         }
-                        style={styles.deathThrowsTallyIcon}
+                        style={
+                          character.hitPoints.currentHP == 0
+                            ? styles.deathThrowsTallyIcon
+                            : [
+                                styles.deathThrowsTallyIcon,
+                                styles.deathThrowsDisabled,
+                              ]
+                        }
                       />
                       <TouchableOpacity
                         style={{ marginLeft: 2.5 }}
@@ -503,13 +485,26 @@ const App = () => {
                       >
                         <FontAwesome6
                           name="add"
-                          style={styles.deathThrowsTallyButton}
+                          style={
+                            character.hitPoints.currentHP == 0
+                              ? styles.deathThrowsTallyButton
+                              : [
+                                  styles.deathThrowsTallyButton,
+                                  styles.deathThrowsDisabled,
+                                ]
+                          }
                         />
                       </TouchableOpacity>
                     </View>
                   </View>
                   <View style={styles.deathThrowsSubsection}>
-                    <ThemedText style={styles.deathThrowsText}>
+                    <ThemedText
+                      style={
+                        character.hitPoints.currentHP == 0
+                          ? styles.deathThrowsText
+                          : [styles.deathThrowsText, styles.deathThrowsDisabled]
+                      }
+                    >
                       Fallos
                     </ThemedText>
                     <View style={styles.deathThrowsTally}>
@@ -519,7 +514,14 @@ const App = () => {
                       >
                         <FontAwesome6
                           name="minus"
-                          style={styles.deathThrowsTallyButton}
+                          style={
+                            character.hitPoints.currentHP == 0
+                              ? styles.deathThrowsTallyButton
+                              : [
+                                  styles.deathThrowsTallyButton,
+                                  styles.deathThrowsDisabled,
+                                ]
+                          }
                         />
                       </TouchableOpacity>
                       <FontAwesome
@@ -528,7 +530,14 @@ const App = () => {
                             ? "times-circle"
                             : "circle-o"
                         }
-                        style={styles.deathThrowsTallyIcon}
+                        style={
+                          character.hitPoints.currentHP == 0
+                            ? styles.deathThrowsTallyIcon
+                            : [
+                                styles.deathThrowsTallyIcon,
+                                styles.deathThrowsDisabled,
+                              ]
+                        }
                       />
                       <FontAwesome
                         name={
@@ -536,7 +545,14 @@ const App = () => {
                             ? "times-circle"
                             : "circle-o"
                         }
-                        style={styles.deathThrowsTallyIcon}
+                        style={
+                          character.hitPoints.currentHP == 0
+                            ? styles.deathThrowsTallyIcon
+                            : [
+                                styles.deathThrowsTallyIcon,
+                                styles.deathThrowsDisabled,
+                              ]
+                        }
                       />
                       <FontAwesome
                         name={
@@ -544,7 +560,14 @@ const App = () => {
                             ? "times-circle"
                             : "circle-o"
                         }
-                        style={styles.deathThrowsTallyIcon}
+                        style={
+                          character.hitPoints.currentHP == 0
+                            ? styles.deathThrowsTallyIcon
+                            : [
+                                styles.deathThrowsTallyIcon,
+                                styles.deathThrowsDisabled,
+                              ]
+                        }
                       />
                       <TouchableOpacity
                         style={{ marginLeft: 2.5 }}
@@ -552,7 +575,14 @@ const App = () => {
                       >
                         <FontAwesome6
                           name="add"
-                          style={styles.deathThrowsTallyButton}
+                          style={
+                            character.hitPoints.currentHP == 0
+                              ? styles.deathThrowsTallyButton
+                              : [
+                                  styles.deathThrowsTallyButton,
+                                  styles.deathThrowsDisabled,
+                                ]
+                          }
                         />
                       </TouchableOpacity>
                     </View>

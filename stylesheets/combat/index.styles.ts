@@ -344,6 +344,9 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 20,
   },
+  deathThrowsDisabled: {
+    color: "#c9bebe",
+  },
   //#endregion
 });
 

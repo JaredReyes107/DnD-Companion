@@ -46,6 +46,27 @@ export function receiveHealing(
   HpRecovered: number,
   character: Character,
 ): Character {
+  if (character.combatState) {
+    return {
+      ...character,
+      hitPoints: {
+        ...character.hitPoints,
+        temporalHP: 0,
+        currentHP: Math.min(
+          character.hitPoints.currentHP + HpRecovered,
+          character.hitPoints.currentMaximumHP,
+        ),
+      },
+      combatState: {
+        ...character.combatState,
+        deathSaves: {
+          successes: 0,
+          failures: 0,
+        },
+      },
+    };
+  }
+
   return {
     ...character,
     hitPoints: {
