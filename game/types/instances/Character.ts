@@ -8,7 +8,9 @@ import { CharacterSkills } from "@/game/types/templates/character-skills";
 import { HitPoints } from "@/game/types/templates/hit-points";
 import { FeatureInstance } from "./feature-instance";
 import { ResourceInstance } from "./resource-instance";
-import { CombatState } from "@/game/types/templates/combat-state";
+import { Action } from "./action";
+import { StatModifier } from "../templates/stats";
+import { CombatState } from "@/game/types/instances/combat-state";
 
 export type Character = {
   // Internal Id
@@ -23,16 +25,21 @@ export type Character = {
 
   classes: CharacterClasses;
 
-  abilityScores: AbilityScores;
+  //Base Stats
+  baseAbilityScores: AbilityScores;
+  baseMaximumHP: number;
+  baseSpeed: number;
+
+  hitPoints: HitPoints;
+  currentHitDice: Record<number, number>;
+
   savingThrows: CharacterSavingThrows;
   skills: CharacterSkills;
 
-  hitPoints: HitPoints;
-  speed: number;
-
   features: Record<string, FeatureInstance>;
   resources: Record<string, ResourceInstance>;
-  //actions: Record<string, ActionInstance>;
+  actions: Record<string, Action>;
+  statModifiers: Record<string, StatModifier>;
 
-  combatState: CombatState;
+  combatState: CombatState | null;
 };

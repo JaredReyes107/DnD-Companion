@@ -117,6 +117,23 @@ const styles = StyleSheet.create({
   },
   //#endregion
 
+  //#region Spend HitDice Window
+  window_row: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
+  },
+  window_text: {
+    fontSize: 16,
+  },
+  window_smallIcon: {
+    color: "#ffffff",
+    fontSize: 18,
+  },
+  //#endregion
+
   //#region HP Blocks
   mainSection: {
     display: "flex",
@@ -188,8 +205,7 @@ const styles = StyleSheet.create({
   },
   //#endregion
 
-  //#region Rests and Death Saving Throws
-  extraSection: {
+  sharedSection: {
     flexGrow: 1,
 
     display: "flex",
@@ -198,9 +214,144 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 10,
   },
+  sharedSectionLeft: {
+    flex: 1,
+  },
+  sharedSectionRight: {
+    width: "40%",
+  },
+
+  //#region Initiative order and Death Saving Throws
+  initiativeOrderSection: {
+    flexGrow: 1,
+
+    maxWidth: "50%",
+    height: "100%",
+
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    gap: 10,
+
+    paddingVertical: 6.5,
+    paddingHorizontal: 15,
+    backgroundColor: "#525d7a",
+
+    borderRadius: 5,
+  },
+  initiativeOrderTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    textAlign: "center",
+    textAlignVertical: "center",
+  },
+  initiativeOrderText: {
+    height: 40,
+
+    fontSize: 24,
+    fontWeight: "800",
+    textAlignVertical: "center",
+  },
+  deathThrowsSection: {
+    flexGrow: 1,
+    maxWidth: "55%",
+
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
+
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    backgroundColor: "#f14269",
+
+    borderRadius: 5,
+  },
+  deathThrowsTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  deathThrowsBody: {
+    display: "flex",
+    gap: 5,
+  },
+  deathThrowsSubsection: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 10,
+  },
+  deathThrowsText: {
+    fontSize: 14,
+    fontWeight: "400",
+    textAlignVertical: "center",
+  },
+  deathThrowsTally: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+  },
+  deathThrowsTallyButton: {
+    color: "#ffffff",
+    fontSize: 20,
+  },
+  deathThrowsTallyIcon: {
+    color: "#ffffff",
+    fontSize: 20,
+  },
+  deathThrowsDisabled: {
+    color: "#c9bebe",
+  },
+  //#endregion
+
+  //#region HitDie and Rests
+  hitDieSection: {
+    flexGrow: 1,
+
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    gap: 5,
+
+    paddingHorizontal: 8,
+    paddingVertical: 10,
+    borderRadius: 7,
+
+    backgroundColor: "#6d5353",
+  },
+  hitDieTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  hitDieBody: {
+    width: "100%",
+    minHeight: 56,
+    maxHeight: 56,
+    overflow: "hidden",
+
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 10,
+  },
+  hitDieText: {
+    width: "45%",
+    fontSize: 14,
+    fontWeight: "400",
+    textAlign: "center",
+    textAlignVertical: "center",
+  },
   restSection: {
     flexGrow: 1,
-    maxWidth: "60%",
+    maxWidth: "55%",
 
     display: "flex",
     flexDirection: "column",
@@ -226,49 +377,6 @@ const styles = StyleSheet.create({
   restText: {
     fontSize: 18,
     fontWeight: "600",
-  },
-  deathThrowsSection: {
-    maxWidth: "40%",
-    height: "100%",
-
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    gap: 10,
-
-    paddingVertical: 5,
-    paddingHorizontal: 15,
-    backgroundColor: "#f14269",
-
-    borderRadius: 5,
-  },
-  deathThrowsTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  deathThrowsBody: {
-    display: "flex",
-    //justifyContent: "space-evenly",
-    flexShrink: 1,
-    gap: 5,
-  },
-  deathThrowsSubsection: {
-    display: "flex",
-    flexDirection: "row",
-    gap: 10,
-  },
-  deathThrowsText: {
-    fontSize: 14,
-    fontWeight: "400",
-    textAlignVertical: "center",
-  },
-  deathThrowsTally: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 5,
   },
   //#endregion
 });

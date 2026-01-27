@@ -8,7 +8,7 @@ import {
 } from "@/game/registries/resources.registry";
 import { evaluateFormula } from "./resource-scaling";
 import { ResourceCategory } from "@/game/types/templates/resource-template";
-import { buildSpellSlots } from "@/game/rules/spellcasting";
+import { buildSpellSlots } from "@/game/mechanics/spellcasting";
 
 export function getResourcesFromFeatures(
   features: FeatureTemplate[],

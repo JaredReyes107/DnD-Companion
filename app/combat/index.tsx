@@ -20,15 +20,28 @@ import { ThemedView } from "@/components/ThemedView";
 
 import { returnNaturalNumber } from "@/lib/utilities/input-handler";
 import { useCharacter } from "@/hooks/useCharacter";
-import { takeLongRest, takeShortRest } from "@/game/rules/resting";
+import { takeLongRest, takeShortRest } from "@/game/mechanics/resting";
 import {
   gainTempHp,
   receiveHealing,
+  recoverHitDie,
   takeDamage,
-} from "@/game/rules/damage-and-healing";
+  spendHitDie,
+} from "@/game/mechanics/damage-and-healing";
+import { cycleInitiativeOrder } from "@/game/mechanics/initiative";
+import {
+  addFailure,
+  addSuccess,
+  removeFailure,
+  removeSuccess,
+} from "@/game/mechanics/death-saving-throws";
 
 import styles from "../../stylesheets/combat/index.styles";
 import genericStyles from "../../stylesheets/generic.styles";
+import {
+  getCurrentHitDiceAsArray,
+  getMaximumHitDice,
+} from "@/lib/helpers/hit-dice-helper";
 
 const App = () => {
   const { character, saveCharacter } = useCharacter();
@@ -46,9 +59,17 @@ const App = () => {
 
   const [recoverHpWindow, setRecoverHpWindow] = useState(false);
   const [recoverHpValue, setRecoverHpValue] = useState(0);
+
+  const [spendHitDiceWindow, setSpendHitDiceWindow] = useState(false);
   //#endregion
 
   if (!character) {
+    return (
+      <View>
+        <Text>Cargando personaje…</Text>
+      </View>
+    );
+  } else if (!character.combatState) {
     return (
       <View>
         <Text>Cargando personaje…</Text>
@@ -192,7 +213,7 @@ const App = () => {
             </ThemedView>
           </Modal>
 
-          {/* Window: Change TempHP Window */}
+          {/* Window: Change CurrentHP Window */}
           <Modal
             animationType="slide"
             transparent={true}
@@ -237,7 +258,83 @@ const App = () => {
             </ThemedView>
           </Modal>
 
-          {/* Main Body: HP Blocks */}
+          {/* Window: Spend HitDice Window */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={spendHitDiceWindow}
+            onRequestClose={() => setSpendHitDiceWindow(false)}
+          >
+            <ThemedView style={styles.overlay}>
+              <ThemedView style={styles.window}>
+                <ThemedText style={styles.window_title}>
+                  Usar Dados de Golpe
+                </ThemedText>
+
+                {/* Window Body */}
+                <View style={styles.window_body}>
+                  {getCurrentHitDiceAsArray(character).map((hitDieInstance) => {
+                    const maximumDice =
+                      getMaximumHitDice(character)[
+                        parseInt(hitDieInstance.diceSize)
+                      ];
+                    return (
+                      <View style={styles.window_row}>
+                        <TouchableOpacity
+                          style={{ marginRight: 2.5 }}
+                          onPress={() =>
+                            saveCharacter(
+                              spendHitDie(
+                                parseInt(hitDieInstance.diceSize),
+                                character,
+                              ),
+                            )
+                          }
+                        >
+                          <FontAwesome6
+                            name="minus"
+                            style={styles.window_smallIcon}
+                          />
+                        </TouchableOpacity>
+                        <ThemedText style={styles.window_text}>
+                          {hitDieInstance.diceAmount}d{hitDieInstance.diceSize}{" "}
+                          / {maximumDice}d{hitDieInstance.diceSize}
+                        </ThemedText>
+                        <TouchableOpacity
+                          style={{ marginLeft: 2.5 }}
+                          onPress={() =>
+                            saveCharacter(
+                              recoverHitDie(
+                                parseInt(hitDieInstance.diceSize),
+                                character,
+                              ),
+                            )
+                          }
+                        >
+                          <FontAwesome6
+                            name="add"
+                            style={styles.window_smallIcon}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  })}
+                </View>
+
+                <View>
+                  <Button
+                    title="Aceptar"
+                    onPress={() => {
+                      setRecoverHpValue(0);
+                      setSpendHitDiceWindow(false);
+                    }}
+                  />
+                </View>
+              </ThemedView>
+            </ThemedView>
+          </Modal>
+
+          {/* Blocks and Buttons */}
           <View style={styles.mainSection}>
             {/* Total HP */}
             <View
@@ -274,52 +371,12 @@ const App = () => {
               </View>
               <View style={styles.blockBody}>
                 <TouchableOpacity
-                  style={styles.blockButtonContainer}
-                  onPress={() => {
-                    saveCharacter({
-                      ...character,
-                      hitPoints: {
-                        ...character.hitPoints,
-                        temporalHP: Math.max(
-                          0,
-                          character.hitPoints.temporalHP - 1,
-                        ),
-                      },
-                    });
-                  }}
-                >
-                  <FontAwesome6
-                    name="minus"
-                    style={[styles.blockButtonIcon, styles.blockButtonIconLeft]}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
                   style={styles.blockValueContainer}
                   onPress={() => setChangeTempHpWindow(true)}
                 >
                   <Text style={styles.blockValueText}>
                     {character?.hitPoints.temporalHP}
                   </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.blockButtonContainer}
-                  onPress={() => {
-                    saveCharacter({
-                      ...character,
-                      hitPoints: {
-                        ...character.hitPoints,
-                        temporalHP: character.hitPoints.temporalHP + 1,
-                      },
-                    });
-                  }}
-                >
-                  <FontAwesome6
-                    name="add"
-                    style={[
-                      styles.blockButtonIcon,
-                      styles.blockButtonIconRight,
-                    ]}
-                  />
                 </TouchableOpacity>
               </View>
             </View>
@@ -337,16 +394,7 @@ const App = () => {
                   style={styles.blockButtonContainer}
                   onPress={() => {
                     {
-                      saveCharacter({
-                        ...character,
-                        hitPoints: {
-                          ...character.hitPoints,
-                          currentHP: Math.max(
-                            0,
-                            character.hitPoints.currentHP - 1,
-                          ),
-                        },
-                      });
+                      saveCharacter(takeDamage(1, character));
                     }
                   }}
                 >
@@ -366,16 +414,7 @@ const App = () => {
                 <TouchableOpacity
                   style={styles.blockButtonContainer}
                   onPress={() => {
-                    saveCharacter({
-                      ...character,
-                      hitPoints: {
-                        ...character.hitPoints,
-                        currentHP: Math.min(
-                          character.hitPoints.currentMaximumHP,
-                          character.hitPoints.currentHP + 1,
-                        ),
-                      },
-                    });
+                    saveCharacter(receiveHealing(1, character));
                   }}
                 >
                   <FontAwesome6
@@ -389,9 +428,244 @@ const App = () => {
               </View>
             </View>
 
-            {/* Extra Section: Rests and Death Saving Throws */}
-            <View style={styles.extraSection}>
-              <View style={styles.restSection}>
+            {/* Initiative order and Death Saving Throws */}
+            <View style={styles.sharedSection}>
+              <TouchableOpacity
+                style={[
+                  styles.initiativeOrderSection,
+                  styles.sharedSectionLeft,
+                ]}
+                onPress={() => {
+                  saveCharacter(cycleInitiativeOrder(character));
+                }}
+              >
+                <ThemedText style={styles.initiativeOrderTitle}>
+                  Orden de
+                </ThemedText>
+                <ThemedText style={styles.initiativeOrderText}>
+                  {character.combatState.initiativeOrder}
+                </ThemedText>
+                <ThemedText style={styles.initiativeOrderTitle}>
+                  Iniciativa
+                </ThemedText>
+              </TouchableOpacity>
+
+              <View
+                style={[styles.deathThrowsSection, styles.sharedSectionRight]}
+              >
+                <ThemedText
+                  style={
+                    character.hitPoints.currentHP == 0
+                      ? styles.deathThrowsTitle
+                      : [styles.deathThrowsTitle, styles.deathThrowsDisabled]
+                  }
+                >
+                  Tiradas de Salvación
+                </ThemedText>
+                <View style={styles.deathThrowsBody}>
+                  <View style={styles.deathThrowsSubsection}>
+                    <ThemedText
+                      style={
+                        character.hitPoints.currentHP == 0
+                          ? styles.deathThrowsText
+                          : [styles.deathThrowsText, styles.deathThrowsDisabled]
+                      }
+                    >
+                      Éxitos
+                    </ThemedText>
+                    <View style={styles.deathThrowsTally}>
+                      <TouchableOpacity
+                        style={{ marginRight: 2.5 }}
+                        onPress={() => saveCharacter(removeSuccess(character))}
+                      >
+                        <FontAwesome6
+                          name="minus"
+                          style={
+                            character.hitPoints.currentHP == 0
+                              ? styles.deathThrowsTallyButton
+                              : [
+                                  styles.deathThrowsTallyButton,
+                                  styles.deathThrowsDisabled,
+                                ]
+                          }
+                        />
+                      </TouchableOpacity>
+                      <FontAwesome
+                        name={
+                          character.combatState?.deathSaves.successes >= 1
+                            ? "check-circle"
+                            : "circle-o"
+                        }
+                        style={
+                          character.hitPoints.currentHP == 0
+                            ? styles.deathThrowsTallyIcon
+                            : [
+                                styles.deathThrowsTallyIcon,
+                                styles.deathThrowsDisabled,
+                              ]
+                        }
+                      />
+                      <FontAwesome
+                        name={
+                          character.combatState?.deathSaves.successes >= 2
+                            ? "check-circle"
+                            : "circle-o"
+                        }
+                        style={
+                          character.hitPoints.currentHP == 0
+                            ? styles.deathThrowsTallyIcon
+                            : [
+                                styles.deathThrowsTallyIcon,
+                                styles.deathThrowsDisabled,
+                              ]
+                        }
+                      />
+                      <FontAwesome
+                        name={
+                          character.combatState?.deathSaves.successes >= 3
+                            ? "check-circle"
+                            : "circle-o"
+                        }
+                        style={
+                          character.hitPoints.currentHP == 0
+                            ? styles.deathThrowsTallyIcon
+                            : [
+                                styles.deathThrowsTallyIcon,
+                                styles.deathThrowsDisabled,
+                              ]
+                        }
+                      />
+                      <TouchableOpacity
+                        style={{ marginLeft: 2.5 }}
+                        onPress={() => saveCharacter(addSuccess(character))}
+                      >
+                        <FontAwesome6
+                          name="add"
+                          style={
+                            character.hitPoints.currentHP == 0
+                              ? styles.deathThrowsTallyButton
+                              : [
+                                  styles.deathThrowsTallyButton,
+                                  styles.deathThrowsDisabled,
+                                ]
+                          }
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                  <View style={styles.deathThrowsSubsection}>
+                    <ThemedText
+                      style={
+                        character.hitPoints.currentHP == 0
+                          ? styles.deathThrowsText
+                          : [styles.deathThrowsText, styles.deathThrowsDisabled]
+                      }
+                    >
+                      Fallos
+                    </ThemedText>
+                    <View style={styles.deathThrowsTally}>
+                      <TouchableOpacity
+                        style={{ marginRight: 2.5 }}
+                        onPress={() => saveCharacter(removeFailure(character))}
+                      >
+                        <FontAwesome6
+                          name="minus"
+                          style={
+                            character.hitPoints.currentHP == 0
+                              ? styles.deathThrowsTallyButton
+                              : [
+                                  styles.deathThrowsTallyButton,
+                                  styles.deathThrowsDisabled,
+                                ]
+                          }
+                        />
+                      </TouchableOpacity>
+                      <FontAwesome
+                        name={
+                          character.combatState?.deathSaves.failures >= 1
+                            ? "times-circle"
+                            : "circle-o"
+                        }
+                        style={
+                          character.hitPoints.currentHP == 0
+                            ? styles.deathThrowsTallyIcon
+                            : [
+                                styles.deathThrowsTallyIcon,
+                                styles.deathThrowsDisabled,
+                              ]
+                        }
+                      />
+                      <FontAwesome
+                        name={
+                          character.combatState?.deathSaves.failures >= 2
+                            ? "times-circle"
+                            : "circle-o"
+                        }
+                        style={
+                          character.hitPoints.currentHP == 0
+                            ? styles.deathThrowsTallyIcon
+                            : [
+                                styles.deathThrowsTallyIcon,
+                                styles.deathThrowsDisabled,
+                              ]
+                        }
+                      />
+                      <FontAwesome
+                        name={
+                          character.combatState?.deathSaves.failures >= 3
+                            ? "times-circle"
+                            : "circle-o"
+                        }
+                        style={
+                          character.hitPoints.currentHP == 0
+                            ? styles.deathThrowsTallyIcon
+                            : [
+                                styles.deathThrowsTallyIcon,
+                                styles.deathThrowsDisabled,
+                              ]
+                        }
+                      />
+                      <TouchableOpacity
+                        style={{ marginLeft: 2.5 }}
+                        onPress={() => saveCharacter(addFailure(character))}
+                      >
+                        <FontAwesome6
+                          name="add"
+                          style={
+                            character.hitPoints.currentHP == 0
+                              ? styles.deathThrowsTallyButton
+                              : [
+                                  styles.deathThrowsTallyButton,
+                                  styles.deathThrowsDisabled,
+                                ]
+                          }
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+
+            {/* HitDie and Resting */}
+            <View style={styles.sharedSection}>
+              <TouchableOpacity
+                style={[styles.hitDieSection, styles.sharedSectionLeft]}
+                onPress={() => setSpendHitDiceWindow(true)}
+              >
+                <ThemedText style={styles.hitDieTitle}>
+                  Dados de Golpe
+                </ThemedText>
+                <View style={styles.hitDieBody}>
+                  {getCurrentHitDiceAsArray(character).map((hitDieInstance) => (
+                    <ThemedText style={styles.hitDieText}>
+                      {hitDieInstance.diceAmount}d{hitDieInstance.diceSize}
+                    </ThemedText>
+                  ))}
+                </View>
+              </TouchableOpacity>
+
+              <View style={[styles.restSection, styles.sharedSectionRight]}>
                 <TouchableOpacity
                   onPress={() => saveCharacter(takeLongRest(character))}
                   style={styles.restButton}
@@ -410,44 +684,6 @@ const App = () => {
                     Descanso corto
                   </ThemedText>
                 </TouchableOpacity>
-              </View>
-
-              <View style={styles.deathThrowsSection}>
-                <ThemedText style={styles.deathThrowsTitle}>TSM</ThemedText>
-                <View style={styles.deathThrowsBody}>
-                  <View style={styles.deathThrowsSubsection}>
-                    <ThemedText style={styles.deathThrowsText}>
-                      Éxitos
-                    </ThemedText>
-                    <View style={styles.deathThrowsTally}>
-                      <FontAwesome
-                        name="check-circle"
-                        size={20}
-                        color="#FFFFFF"
-                      />
-                      <FontAwesome
-                        name="check-circle"
-                        size={20}
-                        color="#FFFFFF"
-                      />
-                      <FontAwesome name="circle-o" size={20} color="#FFFFFF" />
-                    </View>
-                  </View>
-                  <View style={styles.deathThrowsSubsection}>
-                    <ThemedText style={styles.deathThrowsText}>
-                      Fallos
-                    </ThemedText>
-                    <View style={styles.deathThrowsTally}>
-                      <FontAwesome
-                        name="times-circle"
-                        size={20}
-                        color="#FFFFFF"
-                      />
-                      <FontAwesome name="circle-o" size={20} color="#FFFFFF" />
-                      <FontAwesome name="circle-o" size={20} color="#FFFFFF" />
-                    </View>
-                  </View>
-                </View>
               </View>
             </View>
           </View>

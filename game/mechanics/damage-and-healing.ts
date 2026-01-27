@@ -1,3 +1,4 @@
+import { getMaximumHitDice } from "@/lib/helpers/hit-dice-helper";
 import { Character } from "../types/instances/character";
 
 export function takeDamage(
@@ -46,6 +47,27 @@ export function receiveHealing(
   HpRecovered: number,
   character: Character,
 ): Character {
+  if (character.combatState) {
+    return {
+      ...character,
+      hitPoints: {
+        ...character.hitPoints,
+        temporalHP: 0,
+        currentHP: Math.min(
+          character.hitPoints.currentHP + HpRecovered,
+          character.hitPoints.currentMaximumHP,
+        ),
+      },
+      combatState: {
+        ...character.combatState,
+        deathSaves: {
+          successes: 0,
+          failures: 0,
+        },
+      },
+    };
+  }
+
   return {
     ...character,
     hitPoints: {
@@ -65,5 +87,40 @@ export function setCurrentHp(HpValue: number, character: Character): Character {
       ...character.hitPoints,
       currentHP: HpValue,
     },
+  };
+}
+
+export function spendHitDie(
+  hitDieSize: number,
+  character: Character,
+): Character {
+  const newHitDiceAmount = character.currentHitDice;
+
+  newHitDiceAmount[hitDieSize] =
+    character.currentHitDice[hitDieSize] > 0
+      ? character.currentHitDice[hitDieSize] - 1
+      : 0;
+
+  return {
+    ...character,
+    currentHitDice: newHitDiceAmount,
+  };
+}
+
+export function recoverHitDie(
+  hitDieSize: number,
+  character: Character,
+): Character {
+  const maximumHitDiceAmount = getMaximumHitDice(character)[hitDieSize];
+  const newHitDiceAmount = character.currentHitDice;
+
+  newHitDiceAmount[hitDieSize] =
+    character.currentHitDice[hitDieSize] < maximumHitDiceAmount
+      ? character.currentHitDice[hitDieSize] + 1
+      : character.currentHitDice[hitDieSize];
+
+  return {
+    ...character,
+    currentHitDice: newHitDiceAmount,
   };
 }

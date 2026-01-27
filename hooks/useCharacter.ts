@@ -38,7 +38,7 @@ export function useCharacter() {
     return () => {
       mounted = false;
     };
-  }, [character]);
+  }, []);
 
   // Explicit save helper
   const saveCharacter = useCallback(async (updated: Character) => {

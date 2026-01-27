@@ -1,20 +1,23 @@
 /* eslint-disable prettier/prettier */  
 import { Character } from "@/game/types/instances/character";
+import { SKILLS } from "@/game/base-data/skills";
+import { SkillInstance } from "@/game/types/templates/character-skills";
 import { getAbilityModifier, getProficiencyBonus } from "./abilities-modifiers";
-import { SavingThrowInstance } from "@/game/types/templates/abilities-scores";
 
-export function getSavingThrowModifier(
+export function getSkillModifier(
   character: Character,
-  savingThrow: SavingThrowInstance
+  characterSkill: SkillInstance
 ): number {
   const modifiers: number[] = [];
 
-  const abilityScore = character.abilityScores[savingThrow.ability].value;
+  const abilityScore = character.baseAbilityScores[SKILLS[characterSkill.skill].ability].value;
   modifiers.push(getAbilityModifier(abilityScore));
 
   const pb = getProficiencyBonus(character);
 
-  if (savingThrow.hasProficiency) {
+  if (characterSkill.hasExpertise) {
+    modifiers.push(pb * 2);
+  } else if (characterSkill.hasProficiency) {
     modifiers.push(pb);
   }
 
