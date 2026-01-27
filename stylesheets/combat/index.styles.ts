@@ -197,6 +197,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 10,
   },
+  sharedSectionLeft: {
+    flex: 1,
+  },
+  sharedSectionRight: {
+    width: "40%",
+  },
 
   //#region Initiative order and Death Saving Throws
   initiativeOrderSection: {
@@ -295,7 +301,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 5,
 
-    paddingHorizontal: 10,
+    paddingHorizontal: 8,
     paddingVertical: 10,
     borderRadius: 7,
 
@@ -307,19 +313,23 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   hitDieBody: {
-    flexShrink: 1,
-
+    width: "100%",
     minHeight: 56,
+    maxHeight: 56,
+    overflow: "hidden",
 
     display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
     alignItems: "center",
-    gap: 0,
+    gap: 10,
   },
   hitDieText: {
-    fontSize: 15,
-    fontWeight: "400",
+    width: "45%",
+    fontSize: 16,
+    fontWeight: "300",
+    textAlign: "center",
     textAlignVertical: "center",
   },
   restSection: {

@@ -18,7 +18,6 @@ import {
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
-import { resolveClassInstance } from "@/game/registries/classes.registry";
 import { returnNaturalNumber } from "@/lib/utilities/input-handler";
 import { useCharacter } from "@/hooks/useCharacter";
 import { takeLongRest, takeShortRest } from "@/game/mechanics/resting";
@@ -55,6 +54,8 @@ const App = () => {
 
   const [recoverHpWindow, setRecoverHpWindow] = useState(false);
   const [recoverHpValue, setRecoverHpValue] = useState(0);
+
+  const [spendHitDiceWindow, setSpendHitDiceWindow] = useState(false);
   //#endregion
 
   if (!character) {
@@ -252,6 +253,45 @@ const App = () => {
             </ThemedView>
           </Modal>
 
+          {/* Window: Spend HitDice Window */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={spendHitDiceWindow}
+            onRequestClose={() => setSpendHitDiceWindow(false)}
+          >
+            <ThemedView style={styles.overlay}>
+              <ThemedView style={styles.window}>
+                <ThemedText style={styles.window_title}>
+                  Usar Dados de Golpe
+                </ThemedText>
+
+                {/* Window Body */}
+                <View style={styles.window_body}>
+                  <View style={styles.window_container}>
+                    {getCurrentHitDiceAsArray(character).map(
+                      (hitDieInstance) => (
+                        <ThemedText style={styles.hitDieText}>
+                          {hitDieInstance.diceAmount}d{hitDieInstance.diceSize}
+                        </ThemedText>
+                      ),
+                    )}
+                  </View>
+                </View>
+
+                <View>
+                  <Button
+                    title="Aceptar"
+                    onPress={() => {
+                      setRecoverHpValue(0);
+                      setSpendHitDiceWindow(false);
+                    }}
+                  />
+                </View>
+              </ThemedView>
+            </ThemedView>
+          </Modal>
+
           {/* Blocks and Buttons */}
           <View style={styles.mainSection}>
             {/* Total HP */}
@@ -349,7 +389,10 @@ const App = () => {
             {/* Rests and Initiative order */}
             <View style={styles.sharedSection}>
               <TouchableOpacity
-                style={styles.initiativeOrderSection}
+                style={[
+                  styles.initiativeOrderSection,
+                  styles.sharedSectionLeft,
+                ]}
                 onPress={() => {
                   saveCharacter(cycleInitiativeOrder(character));
                 }}
@@ -365,7 +408,9 @@ const App = () => {
                 </ThemedText>
               </TouchableOpacity>
 
-              <View style={styles.deathThrowsSection}>
+              <View
+                style={[styles.deathThrowsSection, styles.sharedSectionRight]}
+              >
                 <ThemedText
                   style={
                     character.hitPoints.currentHP == 0
@@ -562,29 +607,29 @@ const App = () => {
 
             {/* HitDie and Death Saving Throws */}
             <View style={styles.sharedSection}>
-              <TouchableOpacity style={styles.hitDieSection}>
+              <TouchableOpacity
+                style={[styles.hitDieSection, styles.sharedSectionLeft]}
+                onPress={() => setSpendHitDiceWindow(true)}
+              >
                 <ThemedText style={styles.hitDieTitle}>
                   Dados de Golpe
                 </ThemedText>
                 <View style={styles.hitDieBody}>
-                  {Object.values(character.classes.byId).map(
-                    (classInstance) => (
-                      <ThemedText style={styles.hitDieText}>
-                        {classInstance.level}d
-                        {resolveClassInstance(classInstance).hitDie}
-                      </ThemedText>
-                    ),
-                  )}
-
                   {getCurrentHitDiceAsArray(character).map((hitDieInstance) => (
                     <ThemedText style={styles.hitDieText}>
                       {hitDieInstance.diceAmount}d{hitDieInstance.diceSize}
                     </ThemedText>
                   ))}
+                  <ThemedText style={styles.hitDieText}>
+                    {7}d{4}
+                  </ThemedText>
+                  <ThemedText style={styles.hitDieText}>
+                    {3}d{2}
+                  </ThemedText>
                 </View>
               </TouchableOpacity>
 
-              <View style={styles.restSection}>
+              <View style={[styles.restSection, styles.sharedSectionRight]}>
                 <TouchableOpacity
                   onPress={() => saveCharacter(takeLongRest(character))}
                   style={styles.restButton}
