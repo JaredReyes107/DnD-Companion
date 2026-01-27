@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "center",
-    gap: 10,
+    gap: 5,
 
     paddingHorizontal: 10,
     paddingVertical: 10,
@@ -306,21 +306,22 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     textAlign: "center",
   },
-  hitDieText: {
-    fontSize: 16,
-    fontWeight: "400",
-    textAlignVertical: "center",
-  },
   hitDieBody: {
     flexShrink: 1,
 
-    minHeight: 52.5,
+    minHeight: 56,
 
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    gap: 5,
+    gap: 0,
+    backgroundColor: "red",
+  },
+  hitDieText: {
+    fontSize: 15,
+    fontWeight: "400",
+    textAlignVertical: "center",
   },
   restSection: {
     flexGrow: 1,

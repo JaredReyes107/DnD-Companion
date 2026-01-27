@@ -27,6 +27,7 @@ import {
   receiveHealing,
   takeDamage,
 } from "@/game/mechanics/damage-and-healing";
+import { cycleInitiativeOrder } from "@/game/mechanics/initiative";
 import {
   addFailure,
   addSuccess,
@@ -346,11 +347,18 @@ const App = () => {
 
             {/* Rests and Initiative order */}
             <View style={styles.sharedSection}>
-              <TouchableOpacity style={styles.initiativeOrderSection}>
+              <TouchableOpacity
+                style={styles.initiativeOrderSection}
+                onPress={() => {
+                  saveCharacter(cycleInitiativeOrder(character));
+                }}
+              >
                 <ThemedText style={styles.initiativeOrderTitle}>
                   Orden de
                 </ThemedText>
-                <ThemedText style={styles.initiativeOrderText}>2</ThemedText>
+                <ThemedText style={styles.initiativeOrderText}>
+                  {character.combatState.initiativeOrder}
+                </ThemedText>
                 <ThemedText style={styles.initiativeOrderTitle}>
                   Iniciativa
                 </ThemedText>

@@ -1,7 +1,7 @@
 import { Character } from "@/game/types/instances/character";
 import { StatId, Stat, StatModifier } from "@/game/types/templates/stats";
 import { ABILITY_ORDER } from "../types/templates/abilities-scores";
-import { getInitiativeBonus } from "./initiative-roll";
+import { getInitiativeBonus } from "./initiative";
 import { getArmorClass } from "./armor-class";
 
 export type ResolvedStat = {

@@ -22,7 +22,7 @@ import genericStyles from "@/stylesheets/generic.styles";
 import styles from "@/stylesheets/character-sheet.styles";
 
 // Character Functions
-import { getInitiativeBonus } from "@/game/mechanics/initiative-roll";
+import { getInitiativeBonus } from "@/game/mechanics/initiative";
 import { getArmorClass } from "@/game/mechanics/armor-class";
 import {
   getAbilityModifier,
