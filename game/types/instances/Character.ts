@@ -31,6 +31,7 @@ export type Character = {
   baseSpeed: number;
 
   hitPoints: HitPoints;
+  currentHitDice: Record<number, number>;
 
   savingThrows: CharacterSavingThrows;
   skills: CharacterSkills;

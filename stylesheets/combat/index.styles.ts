@@ -316,7 +316,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 0,
-    backgroundColor: "red",
   },
   hitDieText: {
     fontSize: 15,

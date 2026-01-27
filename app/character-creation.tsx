@@ -45,6 +45,7 @@ import SkillProficiencyInput from "@/components/SkillProficiencyInput";
 
 import genericStyles from "@/stylesheets/generic.styles";
 import styles from "@/stylesheets/character-creation.styles";
+import { buildHitDice } from "@/lib/helpers/hit-dice-helper";
 const CharacterCreationScreen = () => {
   const router = useRouter();
 
@@ -144,6 +145,7 @@ const CharacterCreationScreen = () => {
         currentHP: CharacterHP || 4 * 5,
         temporalHP: 0,
       },
+      currentHitDice: {},
 
       savingThrows: characterSavingThrows,
       skills: characterSkillProficiencies,
@@ -156,6 +158,7 @@ const CharacterCreationScreen = () => {
       combatState: null,
     };
 
+    newCharacter.currentHitDice = buildHitDice(newCharacter);
     newCharacter.resources = buildCharacterResources(newCharacter);
 
     setCharacters([...characters, newCharacter]);

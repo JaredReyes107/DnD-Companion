@@ -37,6 +37,7 @@ import {
 
 import styles from "../../stylesheets/combat/index.styles";
 import genericStyles from "../../stylesheets/generic.styles";
+import { getCurrentHitDiceAsArray } from "@/lib/helpers/hit-dice-helper";
 
 const App = () => {
   const { character, saveCharacter } = useCharacter();
@@ -574,6 +575,12 @@ const App = () => {
                       </ThemedText>
                     ),
                   )}
+
+                  {getCurrentHitDiceAsArray(character).map((hitDieInstance) => (
+                    <ThemedText style={styles.hitDieText}>
+                      {hitDieInstance.diceAmount}d{hitDieInstance.diceSize}
+                    </ThemedText>
+                  ))}
                 </View>
               </TouchableOpacity>
 
