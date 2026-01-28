@@ -12,6 +12,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { ThemedView } from "@/components/ThemedView";
 
 import styles from "@/stylesheets/generic.styles";
+import { ui } from "@/localization/ui-resolver";
+import { getLocalizedName } from "@/lib/helpers/localization-helper";
 
 const IndexScreen = () => {
   const router = useRouter();
@@ -75,7 +77,10 @@ const IndexScreen = () => {
           <Text key="Clase" style={styles.characterCard_Text}>
             {character.classes.order.map(
               (characterClass) =>
-                character.classes.byId[characterClass].classId +
+                getLocalizedName(
+                  "classes",
+                  character.classes.byId[characterClass].classId,
+                ) +
                 " " +
                 character.classes.byId[characterClass].level +
                 " ",
@@ -95,7 +100,7 @@ const IndexScreen = () => {
   return (
     <ThemedView style={styles.rootContainer}>
       <View style={styles.headerContainer}>
-        <Text style={styles.header}>Personajes</Text>
+        <Text style={styles.header}>{ui("character.plural")}</Text>
         <TouchableOpacity onPress={() => router.push("../character-creation")}>
           <View style={styles.iconButton}>
             <MaterialIcons name="add" size={24} color="white"></MaterialIcons>
