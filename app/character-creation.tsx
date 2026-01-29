@@ -24,12 +24,12 @@ import {
 } from "@/game/types/templates/abilities-scores";
 
 // Functions and Helpers
+import { getMaximumHitDice } from "@/lib/helpers/hit-dice-helper";
 import { buildAbilityScores } from "@/lib/helpers/ability-scores-helper";
 import { buildSavingThrows } from "@/lib/helpers/saving-throws-helper";
 import { SKILL_ORDER } from "@/game/base-data/skills";
 import { CharacterSkills } from "@/game/types/templates/character-skills";
 import { buildCharacterSkills } from "@/lib/helpers/skills-helper";
-import { getAllClassTemplates } from "@/game/registries/classes.registry";
 import { buildCharacterResources } from "@/lib/helpers/resources-helper";
 
 import { MaterialIcons } from "@expo/vector-icons";
@@ -43,9 +43,10 @@ import AbilityScoreInput from "@/components/AbilityScoresInput";
 import SavingThrowProficiencyInput from "@/components/SavingThrowProficiencyInput";
 import SkillProficiencyInput from "@/components/SkillProficiencyInput";
 
+import { ui } from "@/localization/ui-resolver";
+
 import genericStyles from "@/stylesheets/generic.styles";
 import styles from "@/stylesheets/character-creation.styles";
-import { getMaximumHitDice } from "@/lib/helpers/hit-dice-helper";
 const CharacterCreationScreen = () => {
   const router = useRouter();
 
@@ -128,7 +129,7 @@ const CharacterCreationScreen = () => {
 
       name: CharacterName,
       race: CharacterRace || "Humano",
-      alignment: CharacterAlignment ?? "Lawful Good",
+      alignment: CharacterAlignment ?? "lawful_good",
       experiencePoints: CharacterXP,
 
       classes: {
@@ -209,8 +210,6 @@ const CharacterCreationScreen = () => {
     },
   ];
 
-  const classTemplates = getAllClassTemplates();
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderItem = ({ item, section }: any) => {
     switch (section.key) {
@@ -245,10 +244,11 @@ const CharacterCreationScreen = () => {
               <Text style={styles.fieldHeader}>Alineamiento</Text>
               <View style={styles.pickerContainer}>
                 <CustomPicker
+                  namespace="alignments"
                   items={ALIGNMENTS}
                   selectedValue={CharacterAlignment}
                   onChange={(val) => setCharacterAlignment(val)}
-                  placeholder="Selecciona un alineamiento"
+                  placeholder={ui("picker.selectAlignment")}
                 ></CustomPicker>
               </View>
             </View>
@@ -270,13 +270,7 @@ const CharacterCreationScreen = () => {
 
       case "classes":
         if (item === "mainClass") {
-          return (
-            <MainClassForm
-              classTemplates={classTemplates}
-              value={mainClass}
-              onChange={setMainClass}
-            />
-          );
+          return <MainClassForm value={mainClass} onChange={setMainClass} />;
         }
 
         // secondary class
@@ -284,7 +278,6 @@ const CharacterCreationScreen = () => {
           <>
             <SecondaryClassesForm
               value={item}
-              classTemplates={classTemplates}
               onChange={(updated) =>
                 setSecondaryClasses((prev) =>
                   prev.map((c) => (c.id === item.id ? updated : c)),

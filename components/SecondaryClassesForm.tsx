@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import ClassPicker from "@/components/ClassPicker";
-import { ClassTemplate } from "@/game/types/templates/class-template";
 
 import styles from "@/stylesheets/character-creation.styles";
 
@@ -15,17 +14,11 @@ type ClassDraft = {
 
 type Props = {
   value: ClassDraft;
-  classTemplates: ClassTemplate[];
   onChange: (value: ClassDraft) => void;
   onRemove: () => void;
 };
 
-export const SecondaryClassesForm = ({
-  value,
-  classTemplates,
-  onChange,
-  onRemove,
-}: Props) => {
+export const SecondaryClassesForm = ({ value, onChange, onRemove }: Props) => {
   return (
     <View style={[styles.subfieldContainer]}>
       <View style={styles.fieldClassContainer}>
@@ -39,8 +32,7 @@ export const SecondaryClassesForm = ({
           <View style={styles.pickerClassContainer}>
             <View style={styles.pickerContainer}>
               <ClassPicker
-                classTemplates={classTemplates}
-                selectedClassId={value.classTemplateId}
+                value={value.classTemplateId}
                 onChange={(id) => onChange({ ...value, classTemplateId: id })}
               />
             </View>

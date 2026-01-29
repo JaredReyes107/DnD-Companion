@@ -1,7 +1,8 @@
 import { GameLocale, GameLocalizedEntry } from "./game-localization.types";
 import { GAME_LOCALIZATION } from "./game-localization.registry";
 
-export type GameLocalizationCategoryKey =
+export type LocalizationNamespace =
+  | "alignments"
   | "classes"
   | "features"
   | "resources"
@@ -18,7 +19,7 @@ export type GameLocalizationCategoryKey =
  * resolveGameText("features", "bardic-inspiration", "name", "es")
  */
 export function resolveGameText(
-  category: GameLocalizationCategoryKey,
+  category: LocalizationNamespace,
   id: string,
   field: keyof GameLocalizedEntry,
   locale: GameLocale,

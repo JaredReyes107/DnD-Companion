@@ -23,11 +23,12 @@ export type GameLocalizationCategory = Record<
  * Full game localization for a language.
  */
 export type GameLocalization = {
+  alignments?: GameLocalizationCategory;
+  races?: GameLocalizationCategory;
   classes?: GameLocalizationCategory;
   features?: GameLocalizationCategory;
   resources?: GameLocalizationCategory;
   actions?: GameLocalizationCategory;
-  races?: GameLocalizationCategory;
   skills?: GameLocalizationCategory;
 
   // future-proofing

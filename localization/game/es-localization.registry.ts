@@ -1,8 +1,10 @@
 import { GameLocalization } from "../game-localization.types";
+import { alignments_es } from "./alignments/es-alignments";
 
 import { classes_es } from "./classes/es-classes";
 
 export const game_es: GameLocalization = {
+  ...alignments_es,
   ...classes_es,
 
   features: {

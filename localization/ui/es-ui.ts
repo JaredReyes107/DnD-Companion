@@ -9,19 +9,6 @@ export const es = {
     singular: "Raza",
     input: "Selecciona una raza",
   },
-  alignment: {
-    singular: "Alineamiento",
-    input: "Selecciona un alineamiento",
-    lg: "Legal Bueno",
-    ln: "Legal Neutral",
-    le: "Legal Malvado",
-    ng: "Neutral Bueno",
-    n: "Neutral",
-    ne: "Neutral Malvado",
-    cg: "Caótico Bueno",
-    cn: "Caótico Neutral",
-    ce: "Caótico Malvado",
-  },
   xp: {
     singular: "Puntos de experiencia",
   },
@@ -67,12 +54,19 @@ export const es = {
     long: "Descanso largo",
     short: "Descanso corto",
   },
-  action: {
+  button: {
     accept: "Aceptar",
     confirm: "Confirmar",
     cancel: "Cancelar",
     close: "Cerrar",
     exit: "Salir",
+  },
+  picker: {
+    selectOption: "Selecciona una opción",
+    selectAlignment: "Selecciona un alineamiento",
+    selectClass: "Selecciona una clase",
+  },
+  action: {
     takenDamage: "Daño recibido",
     newTempHP: "Vida temporal nueva",
     receivedHealing: "Curación recibida",
