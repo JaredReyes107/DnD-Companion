@@ -22,6 +22,10 @@ import { returnNaturalNumber } from "@/lib/utilities/input-handler";
 import { useCharacter } from "@/hooks/useCharacter";
 import { takeLongRest, takeShortRest } from "@/game/mechanics/resting";
 import {
+  getCurrentHitDiceAsArray,
+  getMaximumHitDice,
+} from "@/lib/helpers/hit-dice-helper";
+import {
   gainTempHp,
   receiveHealing,
   recoverHitDie,
@@ -36,12 +40,10 @@ import {
   removeSuccess,
 } from "@/game/mechanics/death-saving-throws";
 
+import { ui } from "@/localization/ui-localization-resolver";
+
 import styles from "../../stylesheets/combat/index.styles";
 import genericStyles from "../../stylesheets/generic.styles";
-import {
-  getCurrentHitDiceAsArray,
-  getMaximumHitDice,
-} from "@/lib/helpers/hit-dice-helper";
 
 const App = () => {
   const { character, saveCharacter } = useCharacter();
@@ -105,7 +107,7 @@ const App = () => {
             <ThemedView style={styles.overlay}>
               <ThemedView style={styles.window}>
                 <ThemedText style={styles.window_title}>
-                  Daño recibido
+                  {ui("action.takenDamage")}
                 </ThemedText>
 
                 {/* Window Body */}
@@ -154,7 +156,7 @@ const App = () => {
                 {/* Confirm Damage */}
                 <View>
                   <Button
-                    title="Confirmar"
+                    title={ui("button.confirm")}
                     onPress={() => {
                       saveCharacter(takeDamage(dmgTakenValue, character));
                       setDmgTakenValue(0);
@@ -176,7 +178,7 @@ const App = () => {
             <ThemedView style={styles.overlay}>
               <ThemedView style={styles.window}>
                 <ThemedText style={styles.window_title}>
-                  Vida temporal nueva
+                  {ui("action.newTempHp")}
                 </ThemedText>
 
                 {/* Window Body */}
@@ -201,7 +203,7 @@ const App = () => {
                 {/* Confirm TempHp Value */}
                 <View>
                   <Button
-                    title="Confirmar"
+                    title={ui("button.confirm")}
                     onPress={() => {
                       saveCharacter(gainTempHp(changeTempHpValue, character));
                       setChangeTempHpValue(0);
@@ -223,7 +225,7 @@ const App = () => {
             <ThemedView style={styles.overlay}>
               <ThemedView style={styles.window}>
                 <ThemedText style={styles.window_title}>
-                  Curación recibida
+                  {ui("action.receivedHealing")}
                 </ThemedText>
 
                 {/* Window Body */}
@@ -243,10 +245,10 @@ const App = () => {
                   </View>
                 </View>
 
-                {/* Confirm RecoverHp Value */}
+                {/* Confirm RecoveredHp Value */}
                 <View>
                   <Button
-                    title="Confirmar"
+                    title={ui("button.confirm")}
                     onPress={() => {
                       saveCharacter(receiveHealing(recoverHpValue, character));
                       setRecoverHpValue(0);
@@ -268,7 +270,7 @@ const App = () => {
             <ThemedView style={styles.overlay}>
               <ThemedView style={styles.window}>
                 <ThemedText style={styles.window_title}>
-                  Usar Dados de Golpe
+                  {ui("action.useHitDice")}
                 </ThemedText>
 
                 {/* Window Body */}
@@ -323,7 +325,7 @@ const App = () => {
 
                 <View>
                   <Button
-                    title="Aceptar"
+                    title={ui("button.confirm")}
                     onPress={() => {
                       setRecoverHpValue(0);
                       setSpendHitDiceWindow(false);
@@ -343,7 +345,7 @@ const App = () => {
               <View
                 style={[styles.blockHeader, { backgroundColor: "#2d52a8" }]}
               >
-                <Text style={styles.blockTitle}>HP Total</Text>
+                <Text style={styles.blockTitle}>{ui("hp.total")}</Text>
               </View>
               <View style={styles.blockBody}>
                 <TouchableOpacity
@@ -367,7 +369,7 @@ const App = () => {
                   { backgroundColor: "#348b71" /*'#9c27b0'*/ },
                 ]}
               >
-                <Text style={styles.blockTitle}>HP Temporal</Text>
+                <Text style={styles.blockTitle}>{ui("hp.temporal")}</Text>
               </View>
               <View style={styles.blockBody}>
                 <TouchableOpacity
@@ -387,7 +389,7 @@ const App = () => {
               <View
                 style={[styles.blockHeader, { backgroundColor: "#bb3131" }]}
               >
-                <Text style={styles.blockTitle}>HP</Text>
+                <Text style={styles.blockTitle}>{ui("hp.short")}</Text>
               </View>
               <View style={styles.blockBody}>
                 <TouchableOpacity
@@ -430,25 +432,33 @@ const App = () => {
 
             {/* Initiative order and Death Saving Throws */}
             <View style={styles.sharedSection}>
-              <TouchableOpacity
-                style={[
-                  styles.initiativeOrderSection,
-                  styles.sharedSectionLeft,
-                ]}
-                onPress={() => {
-                  saveCharacter(cycleInitiativeOrder(character));
-                }}
-              >
-                <ThemedText style={styles.initiativeOrderTitle}>
-                  Orden de
-                </ThemedText>
-                <ThemedText style={styles.initiativeOrderText}>
-                  {character.combatState.initiativeOrder}
-                </ThemedText>
-                <ThemedText style={styles.initiativeOrderTitle}>
-                  Iniciativa
-                </ThemedText>
-              </TouchableOpacity>
+              {(() => {
+                const value = `${character.combatState.initiativeOrder}`;
+                const [before, after] =
+                  ui("initiative.order").split(" {value} ");
+
+                return (
+                  <TouchableOpacity
+                    style={[
+                      styles.initiativeOrderSection,
+                      styles.sharedSectionLeft,
+                    ]}
+                    onPress={() => {
+                      saveCharacter(cycleInitiativeOrder(character));
+                    }}
+                  >
+                    <ThemedText style={styles.initiativeOrderTitle}>
+                      {before}
+                    </ThemedText>
+                    <ThemedText style={styles.initiativeOrderText}>
+                      {value}
+                    </ThemedText>
+                    <ThemedText style={styles.initiativeOrderTitle}>
+                      {after}
+                    </ThemedText>
+                  </TouchableOpacity>
+                );
+              })()}
 
               <View
                 style={[styles.deathThrowsSection, styles.sharedSectionRight]}
@@ -460,7 +470,7 @@ const App = () => {
                       : [styles.deathThrowsTitle, styles.deathThrowsDisabled]
                   }
                 >
-                  Tiradas de Salvación
+                  {ui("savingThrows.full")}
                 </ThemedText>
                 <View style={styles.deathThrowsBody}>
                   <View style={styles.deathThrowsSubsection}>
@@ -654,7 +664,7 @@ const App = () => {
                 onPress={() => setSpendHitDiceWindow(true)}
               >
                 <ThemedText style={styles.hitDieTitle}>
-                  Dados de Golpe
+                  {ui("hp.hitDice")}
                 </ThemedText>
                 <View style={styles.hitDieBody}>
                   {getCurrentHitDiceAsArray(character).map((hitDieInstance) => (
@@ -672,7 +682,7 @@ const App = () => {
                 >
                   <FontAwesome6 name="campground" style={styles.restIcon} />
                   <ThemedText style={styles.restText}>
-                    Descanso largo
+                    {ui("rest.long")}
                   </ThemedText>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -681,7 +691,7 @@ const App = () => {
                 >
                   <Ionicons name="bonfire" style={styles.restIcon} />
                   <ThemedText style={styles.restText}>
-                    Descanso corto
+                    {ui("rest.short")}
                   </ThemedText>
                 </TouchableOpacity>
               </View>

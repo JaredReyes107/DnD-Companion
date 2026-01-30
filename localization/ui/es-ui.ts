@@ -25,14 +25,14 @@ export const es = {
     speed: "Velocidad",
   },
   savingThrows: {
-    full: "Tiradas de salvación",
+    full: "Tiradas de Salvación",
     death: "Tiradas de salvación de muerte",
     successes: "Éxitos",
     failures: "Fallos",
   },
   pb: {
     full: "Bonificador de competencia",
-    segmented: "Bonificador de {value} competencia",
+    segmented: "Bonificador de {value} Competencia",
     short: "BC",
   },
   hp: {
@@ -41,19 +41,19 @@ export const es = {
     segmented: "Puntos de {value} golpe",
     total: "HP Total",
     temporal: "HP Temporal",
-    hitDie: "Dados de golpe",
+    hitDice: "Dados de golpe",
   },
   ac: {
     full: "Clase de armadura",
     short: "CA",
-    segmented: "Clase de {value} armadura",
+    segmented: "Clase de {value} Armadura",
   },
   initiative: {
     full: "Iniciativa",
     bonus: "Bonus de iniciativa",
-    order: "Orden de {value} iniciativa",
+    order: "Orden de {value} Iniciativa",
   },
-  rests: {
+  rest: {
     long: "Descanso largo",
     short: "Descanso corto",
   },
@@ -76,7 +76,7 @@ export const es = {
   },
   action: {
     takenDamage: "Daño recibido",
-    newTempHP: "Vida temporal nueva",
+    newTempHp: "Vida temporal nueva",
     receivedHealing: "Curación recibida",
     useHitDice: "Usar dados de golpe",
   },
