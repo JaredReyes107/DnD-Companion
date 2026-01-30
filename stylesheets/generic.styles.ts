@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   characterCard_Text: {
+    maxWidth: "70%",
     color: "#b2aca2",
   },
   characterCard_ButtonsContainer: {

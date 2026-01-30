@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import ClassPicker from "@/components/ClassPicker";
-import { ClassTemplate } from "@/game/types/templates/class-template";
 
 import styles from "@/stylesheets/character-creation.styles";
 
@@ -14,12 +13,11 @@ type ClassDraft = {
 };
 
 type Props = {
-  classTemplates: ClassTemplate[];
   value: ClassDraft;
   onChange: (value: ClassDraft) => void;
 };
 
-export const MainClassForm = ({ classTemplates, value, onChange }: Props) => {
+export const MainClassForm = ({ value, onChange }: Props) => {
   return (
     <View style={[styles.fieldContainer, { zIndex: 95 }]}>
       <Text style={styles.fieldHeader}>Clase principal</Text>
@@ -28,8 +26,7 @@ export const MainClassForm = ({ classTemplates, value, onChange }: Props) => {
         <View style={styles.pickerClassContainer}>
           <View style={styles.pickerContainer}>
             <ClassPicker
-              classTemplates={classTemplates}
-              selectedClassId={value.classTemplateId}
+              value={value.classTemplateId}
               onChange={(id) => onChange({ ...value, classTemplateId: id })}
             />
           </View>

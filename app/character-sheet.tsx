@@ -37,6 +37,11 @@ import { getCharacterSkillsAsArray } from "@/lib/helpers/skills-helper";
 import { getCharacterSavingThrowsAsArray } from "@/lib/helpers/saving-throws-helper";
 import { useCharacter } from "@/hooks/useCharacter";
 import { buildCombatState } from "@/lib/helpers/combat-helper";
+import {
+  getLocalizedName,
+  getLocalizedShortName,
+} from "@/lib/helpers/localization-helper";
+import { ui } from "@/localization/ui-localization-resolver";
 
 const CharacterSheetScreen = () => {
   const router = useRouter();
@@ -82,7 +87,10 @@ const CharacterSheetScreen = () => {
             <Text key="Clase" style={genericStyles.characterCard_Text}>
               {character.classes.order.map(
                 (characterClass) =>
-                  character.classes.byId[characterClass].classId +
+                  getLocalizedName(
+                    "classes",
+                    character.classes.byId[characterClass].classId,
+                  ) +
                   " " +
                   character.classes.byId[characterClass].level +
                   " ",
@@ -134,14 +142,18 @@ const CharacterSheetScreen = () => {
           {/* Main Statistics and Modifiers */}
           <View style={styles.detailsSection}>
             <View style={genericStyles.headerContainer}>
-              <Text style={genericStyles.header}>Características</Text>
+              <Text style={genericStyles.header}>
+                {ui("stats.abilityScores")}
+              </Text>
             </View>
 
             <View style={styles.mainStatsRow}>
               <View style={styles.mainStatContainer}>
                 <View style={styles.mainStatBox}>
                   <View style={styles.mainStatModifierContainer}>
-                    <Text style={styles.mainStatText}>FUE</Text>
+                    <Text style={styles.mainStatText}>
+                      {getLocalizedShortName("abilities", "STR")}
+                    </Text>
                     <Text style={styles.mainStatModifierValue}>
                       {(getAbilityModifier(
                         character.baseAbilityScores.STR.value,
@@ -164,7 +176,9 @@ const CharacterSheetScreen = () => {
               <View style={styles.mainStatContainer}>
                 <View style={styles.mainStatBox}>
                   <View style={styles.mainStatModifierContainer}>
-                    <Text style={styles.mainStatText}>DES</Text>
+                    <Text style={styles.mainStatText}>
+                      {getLocalizedShortName("abilities", "DEX")}
+                    </Text>
                     <Text style={styles.mainStatModifierValue}>
                       {(getAbilityModifier(
                         character.baseAbilityScores.DEX.value,
@@ -187,7 +201,9 @@ const CharacterSheetScreen = () => {
               <View style={styles.mainStatContainer}>
                 <View style={styles.mainStatBox}>
                   <View style={styles.mainStatModifierContainer}>
-                    <Text style={styles.mainStatText}>CON</Text>
+                    <Text style={styles.mainStatText}>
+                      {getLocalizedShortName("abilities", "CON")}
+                    </Text>
                     <Text style={styles.mainStatModifierValue}>
                       {(getAbilityModifier(
                         character.baseAbilityScores.CON.value,
@@ -210,7 +226,9 @@ const CharacterSheetScreen = () => {
               <View style={styles.mainStatContainer}>
                 <View style={styles.mainStatBox}>
                   <View style={styles.mainStatModifierContainer}>
-                    <Text style={styles.mainStatText}>INT</Text>
+                    <Text style={styles.mainStatText}>
+                      {getLocalizedShortName("abilities", "INT")}
+                    </Text>
                     <Text style={styles.mainStatModifierValue}>
                       {(getAbilityModifier(
                         character.baseAbilityScores.WIS.value,
@@ -233,7 +251,9 @@ const CharacterSheetScreen = () => {
               <View style={styles.mainStatContainer}>
                 <View style={styles.mainStatBox}>
                   <View style={styles.mainStatModifierContainer}>
-                    <Text style={styles.mainStatText}>SAB</Text>
+                    <Text style={styles.mainStatText}>
+                      {getLocalizedShortName("abilities", "INT")}
+                    </Text>
                     <Text style={styles.mainStatModifierValue}>
                       {(getAbilityModifier(
                         character.baseAbilityScores.INT.value,
@@ -256,7 +276,9 @@ const CharacterSheetScreen = () => {
               <View style={styles.mainStatContainer}>
                 <View style={styles.mainStatBox}>
                   <View style={styles.mainStatModifierContainer}>
-                    <Text style={styles.mainStatText}>CAR</Text>
+                    <Text style={styles.mainStatText}>
+                      {getLocalizedShortName("abilities", "CHA")}
+                    </Text>
                     <Text style={styles.mainStatModifierValue}>
                       {(getAbilityModifier(
                         character.baseAbilityScores.CHA.value,
@@ -283,20 +305,30 @@ const CharacterSheetScreen = () => {
             <View style={styles.secondaryStatsRow}>
               <View style={styles.secondaryStatContainer}>
                 <View style={styles.secondaryStatBox}>
-                  <View style={styles.secondaryStatModifier}>
-                    <Text style={styles.secondaryStatText}>Puntos</Text>
-                    <Text style={styles.secondaryStatModifierValue}>
-                      {character.hitPoints.currentMaximumHP}
-                    </Text>
-                    <Text style={styles.secondaryStatText}>de Golpe</Text>
-                  </View>
+                  {(() => {
+                    const value = `${character.hitPoints.currentMaximumHP}`;
+                    const [before, after] =
+                      ui("hp.segmented").split(" {value} ");
+
+                    return (
+                      <View style={styles.secondaryStatModifier}>
+                        <Text style={styles.secondaryStatText}>{before}</Text>
+                        <Text style={styles.secondaryStatModifierValue}>
+                          {value}
+                        </Text>
+                        <Text style={styles.secondaryStatText}>{after}</Text>
+                      </View>
+                    );
+                  })()}
                 </View>
               </View>
 
               <View style={styles.secondaryStatContainer}>
                 <View style={styles.secondaryStatBox}>
                   <View style={styles.secondaryStatModifier}>
-                    <Text style={styles.secondaryStatText}>Iniciativa</Text>
+                    <Text style={styles.secondaryStatText}>
+                      {ui("initiative.full")}
+                    </Text>
                     <Text style={styles.secondaryStatModifierValue}>
                       {PrintNumberWithSign(getInitiativeBonus(character))}
                     </Text>
@@ -307,36 +339,56 @@ const CharacterSheetScreen = () => {
               <View style={styles.secondaryStatContainer}>
                 <View style={styles.secondaryStatBox}>
                   <View style={styles.secondaryStatModifier}>
-                    <Text style={styles.secondaryStatText}>Velocidad</Text>
+                    <Text style={styles.secondaryStatText}>
+                      {ui("stats.speed")}
+                    </Text>
                     <Text style={styles.secondaryStatModifierValue}>
                       {character.baseSpeed}
                     </Text>
-                    <Text style={styles.secondaryStatText}>Pies</Text>
+                    <Text style={styles.secondaryStatText}>
+                      {ui("measurements.feet")}
+                    </Text>
                   </View>
                 </View>
               </View>
 
               <View style={styles.secondaryStatContainer}>
                 <View style={styles.secondaryStatBox}>
-                  <View style={styles.secondaryStatModifier}>
-                    <Text style={styles.secondaryStatText}>Clase De</Text>
-                    <Text style={styles.secondaryStatModifierValue}>
-                      {getArmorClass(character)}
-                    </Text>
-                    <Text style={styles.secondaryStatText}>Armadura</Text>
-                  </View>
+                  {(() => {
+                    const value = `${getArmorClass(character)}`;
+                    const [before, after] =
+                      ui("ac.segmented").split(" {value} ");
+
+                    return (
+                      <View style={styles.secondaryStatModifier}>
+                        <Text style={styles.secondaryStatText}>{before}</Text>
+                        <Text style={styles.secondaryStatModifierValue}>
+                          {value}
+                        </Text>
+                        <Text style={styles.secondaryStatText}>{after}</Text>
+                      </View>
+                    );
+                  })()}
                 </View>
               </View>
 
-              <View style={styles.secondaryStatContainer}>
+              <View style={[styles.secondaryStatContainer, { width: "100%" }]}>
                 <View style={styles.secondaryStatBox}>
-                  <View style={styles.secondaryStatModifier}>
-                    <Text style={styles.secondaryStatText}>Bon. De</Text>
-                    <Text style={styles.secondaryStatModifierValue}>
-                      +{getProficiencyBonus(character)}
-                    </Text>
-                    <Text style={styles.secondaryStatText}>Competencia</Text>
-                  </View>
+                  {(() => {
+                    const value = `+${getProficiencyBonus(character)}`;
+                    const [before, after] =
+                      ui("pb.segmented").split(" {value} ");
+
+                    return (
+                      <View style={styles.secondaryStatModifier}>
+                        <Text style={styles.secondaryStatText}>{before}</Text>
+                        <Text style={styles.secondaryStatModifierValue}>
+                          {value}
+                        </Text>
+                        <Text style={styles.secondaryStatText}>{after}</Text>
+                      </View>
+                    );
+                  })()}
                 </View>
               </View>
             </View>
@@ -344,6 +396,12 @@ const CharacterSheetScreen = () => {
 
           {/* Saving Throws */}
           <View style={styles.detailsSection}>
+            <View style={genericStyles.headerContainer}>
+              <Text style={genericStyles.header}>
+                {ui("savingThrows.full")}
+              </Text>
+            </View>
+
             <FlatList
               style={[{ marginHorizontal: -20 }]}
               data={getCharacterSavingThrowsAsArray(character)}
@@ -361,7 +419,7 @@ const CharacterSheetScreen = () => {
                         hasProficiency={item.state.hasProficiency}
                       />
                       <Text style={styles.proficiencyText}>
-                        {item.definition.toString()}
+                        {getLocalizedName("abilities", item.definition)}
                       </Text>
                     </View>
                     <Text style={styles.proficiencyModifierBold}>
@@ -392,7 +450,7 @@ const CharacterSheetScreen = () => {
                         hasProficiency={item.state.hasProficiency}
                       />
                       <Text style={styles.proficiencyText}>
-                        {item.definition.name}
+                        {getLocalizedName("skills", item.id)}
                       </Text>
                     </View>
                     <Text style={styles.proficiencyModifier}>

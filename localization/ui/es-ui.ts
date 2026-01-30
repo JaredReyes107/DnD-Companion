@@ -9,21 +9,8 @@ export const es = {
     singular: "Raza",
     input: "Selecciona una raza",
   },
-  alignment: {
-    singular: "Alineamiento",
-    input: "Selecciona un alineamiento",
-    lg: "Legal Bueno",
-    ln: "Legal Neutral",
-    le: "Legal Malvado",
-    ng: "Neutral Bueno",
-    n: "Neutral",
-    ne: "Neutral Malvado",
-    cg: "Caótico Bueno",
-    cn: "Caótico Neutral",
-    ce: "Caótico Malvado",
-  },
   xp: {
-    singular: "Puntos de experiencia",
+    full: "Puntos de experiencia",
   },
   class: {
     singular: "Clase",
@@ -38,44 +25,68 @@ export const es = {
     speed: "Velocidad",
   },
   savingThrows: {
-    full: "Tiradas de salvación",
+    full: "Tiradas de Salvación",
     death: "Tiradas de salvación de muerte",
     successes: "Éxitos",
-    faliures: "Fallos",
+    failures: "Fallos",
   },
   pb: {
     full: "Bonificador de competencia",
+    segmented: "Bonificador de {value} Competencia",
     short: "BC",
   },
   hp: {
     full: "Puntos de golpe",
     short: "HP",
+    segmented: "Puntos de {value} golpe",
     total: "HP Total",
     temporal: "HP Temporal",
-    hitDie: "Dados de golpe",
+    hitDice: "Dados de golpe",
   },
   ac: {
     full: "Clase de armadura",
     short: "CA",
+    segmented: "Clase de {value} Armadura",
   },
   initiative: {
     full: "Iniciativa",
     bonus: "Bonus de iniciativa",
-    order: "Orden de iniciativa",
+    order: "Orden de {value} Iniciativa",
   },
-  rests: {
+  rest: {
     long: "Descanso largo",
     short: "Descanso corto",
   },
-  action: {
+  measurements: {
+    feet: "Pies",
+    grid: "Casillas",
+    meters: "Metros",
+  },
+  button: {
     accept: "Aceptar",
     confirm: "Confirmar",
     cancel: "Cancelar",
     close: "Cerrar",
     exit: "Salir",
+  },
+  picker: {
+    selectOption: "Selecciona una opción",
+    selectAlignment: "Selecciona un alineamiento",
+    selectClass: "Selecciona una clase",
+  },
+  action: {
     takenDamage: "Daño recibido",
-    newTempHP: "Vida temporal nueva",
+    newTempHp: "Vida temporal nueva",
     receivedHealing: "Curación recibida",
     useHitDice: "Usar dados de golpe",
+  },
+  resourceSection: {
+    spell_slots: "Espacios de conjuro",
+    pact_slots: "Espacios de pacto",
+    class_features: "De clase",
+    subclass_features: "De subclase",
+    racial_features: "Raciales",
+    feats: "De dotes",
+    homebrew: "Homebrew",
   },
 } as const;

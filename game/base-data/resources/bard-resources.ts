@@ -5,7 +5,7 @@ export const RESOURCES_BARD: Record<string, ResourceTemplate> = {
     id: "bardic_inspiration",
     label: "Bardic Inspiration",
     sourceId: "bard",
-    category: "class-feature",
+    category: "class_features",
     scalingType: "CHA",
     recharge: "longRest",
     tags: [

@@ -24,12 +24,12 @@ import {
 } from "@/game/types/templates/abilities-scores";
 
 // Functions and Helpers
+import { getMaximumHitDice } from "@/lib/helpers/hit-dice-helper";
 import { buildAbilityScores } from "@/lib/helpers/ability-scores-helper";
 import { buildSavingThrows } from "@/lib/helpers/saving-throws-helper";
-import { SKILL_ORDER } from "@/game/base-data/skills";
+import { SKILL_KEYS } from "@/game/base-data/skills";
 import { CharacterSkills } from "@/game/types/templates/character-skills";
 import { buildCharacterSkills } from "@/lib/helpers/skills-helper";
-import { getAllClassTemplates } from "@/game/registries/classes.registry";
 import { buildCharacterResources } from "@/lib/helpers/resources-helper";
 
 import { MaterialIcons } from "@expo/vector-icons";
@@ -43,9 +43,11 @@ import AbilityScoreInput from "@/components/AbilityScoresInput";
 import SavingThrowProficiencyInput from "@/components/SavingThrowProficiencyInput";
 import SkillProficiencyInput from "@/components/SkillProficiencyInput";
 
+import { ui } from "@/localization/ui-localization-resolver";
+
 import genericStyles from "@/stylesheets/generic.styles";
 import styles from "@/stylesheets/character-creation.styles";
-import { getMaximumHitDice } from "@/lib/helpers/hit-dice-helper";
+import { getLocalizedName } from "@/lib/helpers/localization-helper";
 const CharacterCreationScreen = () => {
   const router = useRouter();
 
@@ -128,7 +130,7 @@ const CharacterCreationScreen = () => {
 
       name: CharacterName,
       race: CharacterRace || "Humano",
-      alignment: CharacterAlignment ?? "Lawful Good",
+      alignment: CharacterAlignment ?? "lawful_good",
       experiencePoints: CharacterXP,
 
       classes: {
@@ -178,6 +180,16 @@ const CharacterCreationScreen = () => {
       data: ["name", "race", "alignment", "xp"],
     },
     {
+      key: "hp",
+      title: "Hp",
+      data: ["hp"],
+    },
+    {
+      key: "speed",
+      title: "Velocidad",
+      data: ["speed"],
+    },
+    {
       key: "classes",
       title: "Clases",
       data: ["mainClass", ...secondaryClasses],
@@ -209,8 +221,6 @@ const CharacterCreationScreen = () => {
     },
   ];
 
-  const classTemplates = getAllClassTemplates();
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderItem = ({ item, section }: any) => {
     switch (section.key) {
@@ -218,7 +228,7 @@ const CharacterCreationScreen = () => {
         if (item === "name") {
           return (
             <View style={styles.fieldContainer}>
-              <Text style={styles.fieldHeader}>Nombre del personaje</Text>
+              <Text style={styles.fieldHeader}>{ui("character.input")}</Text>
               <TextInput
                 placeholder=""
                 onChangeText={setCharacterName}
@@ -230,7 +240,7 @@ const CharacterCreationScreen = () => {
         if (item === "race") {
           return (
             <View style={styles.fieldContainer}>
-              <Text style={styles.fieldHeader}>Raza</Text>
+              <Text style={styles.fieldHeader}>{ui("race.singular")}</Text>
               <TextInput
                 placeholder=""
                 onChangeText={setCharacterRace}
@@ -245,10 +255,11 @@ const CharacterCreationScreen = () => {
               <Text style={styles.fieldHeader}>Alineamiento</Text>
               <View style={styles.pickerContainer}>
                 <CustomPicker
+                  namespace="alignments"
                   items={ALIGNMENTS}
                   selectedValue={CharacterAlignment}
                   onChange={(val) => setCharacterAlignment(val)}
-                  placeholder="Selecciona un alineamiento"
+                  placeholder={ui("picker.selectAlignment")}
                 ></CustomPicker>
               </View>
             </View>
@@ -257,7 +268,7 @@ const CharacterCreationScreen = () => {
         if (item === "xp") {
           return (
             <View style={styles.fieldContainer}>
-              <Text style={styles.fieldHeader}>Puntos de Experiencia</Text>
+              <Text style={styles.fieldHeader}>{ui("xp.full")}</Text>
               <TextInput
                 placeholder=""
                 onChangeText={(val) => setCharacterXP(+val)}
@@ -268,60 +279,26 @@ const CharacterCreationScreen = () => {
         }
         return null;
 
-      case "classes":
-        if (item === "mainClass") {
-          return (
-            <MainClassForm
-              classTemplates={classTemplates}
-              value={mainClass}
-              onChange={setMainClass}
-            />
-          );
-        }
-
-        // secondary class
+      case "hp":
         return (
-          <>
-            <SecondaryClassesForm
-              value={item}
-              classTemplates={classTemplates}
-              onChange={(updated) =>
-                setSecondaryClasses((prev) =>
-                  prev.map((c) => (c.id === item.id ? updated : c)),
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldHeader}>{ui("hp.full")}</Text>
+            <TextInput
+              placeholder=""
+              onChangeText={(value) =>
+                setCharacterHP(
+                  isNaN(parseInt(value, 10)) ? 0 : parseInt(value, 10),
                 )
               }
-              onRemove={() =>
-                setSecondaryClasses((prev) =>
-                  prev.filter((c) => c.id !== item.id),
-                )
-              }
+              style={styles.input}
             />
-          </>
-        );
-
-      case "addClass":
-        return (
-          <TouchableOpacity
-            style={styles.addClassButtonContainer}
-            onPress={() =>
-              setSecondaryClasses((prev) => [
-                ...prev,
-                {
-                  id: Crypto.randomUUID(),
-                  classTemplateId: null,
-                  level: 1,
-                },
-              ])
-            }
-          >
-            <Text style={styles.addClassButton}>+ Añadir clase</Text>
-          </TouchableOpacity>
+          </View>
         );
 
       case "speed":
         return (
           <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>Velocidad</Text>
+            <Text style={styles.fieldHeader}>{ui("stats.speed")}</Text>
             <View style={styles.counterContainer}>
               <Text style={styles.counterInput}>{CharacterSpeed}</Text>
               <View style={styles.counterButtonsContainer}>
@@ -356,33 +333,60 @@ const CharacterCreationScreen = () => {
           </View>
         );
 
-      case "hp":
+      case "classes":
+        if (item === "mainClass") {
+          return <MainClassForm value={mainClass} onChange={setMainClass} />;
+        }
+
+        // Secondary classes
         return (
-          <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>Puntos de Golpe</Text>
-            <TextInput
-              placeholder=""
-              onChangeText={(value) =>
-                setCharacterHP(
-                  isNaN(parseInt(value, 10)) ? 0 : parseInt(value, 10),
+          <>
+            <SecondaryClassesForm
+              value={item}
+              onChange={(updated) =>
+                setSecondaryClasses((prev) =>
+                  prev.map((c) => (c.id === item.id ? updated : c)),
                 )
               }
-              style={styles.input}
+              onRemove={() =>
+                setSecondaryClasses((prev) =>
+                  prev.filter((c) => c.id !== item.id),
+                )
+              }
             />
-          </View>
+          </>
+        );
+
+      case "addClass":
+        return (
+          <TouchableOpacity
+            style={styles.addClassButtonContainer}
+            onPress={() =>
+              setSecondaryClasses((prev) => [
+                ...prev,
+                {
+                  id: Crypto.randomUUID(),
+                  classTemplateId: null,
+                  level: 1,
+                },
+              ])
+            }
+          >
+            <Text style={styles.addClassButton}>+ Añadir clase</Text>
+          </TouchableOpacity>
         );
 
       case "stats":
         return (
           <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>Estadísticas</Text>
+            <Text style={styles.fieldHeader}>{ui("stats.abilityScores")}</Text>
             <View style={styles.statsContainer}>
               <FlatList
                 data={ABILITY_ORDER}
                 keyExtractor={(ability) => ability}
                 renderItem={({ item: ability }) => (
                   <AbilityScoreInput
-                    label={ability}
+                    label={getLocalizedName("abilities", ability)}
                     score={characterAbilityScores[ability].value}
                     onChange={(delta) =>
                       setCharacterAbilityScores((prev) => ({
@@ -403,7 +407,7 @@ const CharacterCreationScreen = () => {
       case "savingThrows":
         return (
           <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>Tiradas de salvación</Text>
+            <Text style={styles.fieldHeader}>{ui("savingThrows.full")}</Text>
             <View style={styles.statsContainer}>
               <FlatList
                 style={styles.proficienciesList}
@@ -412,7 +416,7 @@ const CharacterCreationScreen = () => {
                 renderItem={({ item: ability }) => (
                   <SavingThrowProficiencyInput
                     ability={ability}
-                    label={ability}
+                    label={getLocalizedName("abilities", ability)}
                     savingThrow={characterSavingThrows[ability]}
                     onToggleProficiency={() =>
                       setCharacterSavingThrows((prev) => ({
@@ -433,11 +437,11 @@ const CharacterCreationScreen = () => {
       case "skills":
         return (
           <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>Competencias y Pericia</Text>
+            <Text style={styles.fieldHeader}>{ui("stats.skills")}</Text>
             <View style={styles.statsContainer}>
               <FlatList
                 style={styles.proficienciesList}
-                data={SKILL_ORDER}
+                data={SKILL_KEYS}
                 keyExtractor={(skillKey) => skillKey}
                 renderItem={({ item: skillKey }) => (
                   <SkillProficiencyInput

@@ -1,11 +1,11 @@
 export type ResourceCategory =
-  | "spell-slot"
-  | "pact-slot"
-  | "class-feature"
-  | "subclass-feature"
-  | "racial-feature"
-  | "background-feature"
-  | "feat"
+  | "spell_slots"
+  | "pact_slots"
+  | "class_features"
+  | "subclass_features"
+  | "racial_features"
+  | "background_features"
+  | "feats"
   | "homebrew";
 
 export type ResourceTemplate = {

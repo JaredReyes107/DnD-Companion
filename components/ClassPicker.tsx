@@ -1,32 +1,26 @@
-/* eslint-disable prettier/prettier */
 import React from "react";
 import CustomPicker from "@/components/CustomPicker";
-import { ClassTemplate } from "@/game/types/templates/class-template";
+import { CLASSES } from "@/game/base-data/CLASSES";
+import { sortGameIdsByName } from "@/lib/helpers/localization-helper";
+import { ui } from "@/localization/ui-localization-resolver";
 
-type Props = {
-  classTemplates: ClassTemplate[];
-  selectedClassId: string | null;
-  onChange: (classTemplateId: string) => void;
+type ClassId = keyof typeof CLASSES;
+
+type ClassPickerProps = {
+  value: ClassId | null;
+  onChange: (id: ClassId) => void;
 };
 
-const ClassPicker = ({
-  classTemplates,
-  selectedClassId,
-  onChange,
-}: Props) => {
-  const items = [...classTemplates]
-    .sort((a, b) => a.name.localeCompare(b.name, "es"))
-    .map((cls) => ({
-      value: cls.id,
-      label: cls.name,
-    }));
+const ClassPicker = ({ value, onChange }: ClassPickerProps) => {
+  const items = sortGameIdsByName(Object.keys(CLASSES) as ClassId[], "classes");
 
   return (
-    <CustomPicker<string>
+    <CustomPicker<ClassId>
+      namespace="classes"
       items={items}
-      selectedValue={selectedClassId}
+      selectedValue={value}
       onChange={onChange}
-      placeholder="Selecciona una clase"
+      placeholder={ui("picker.selectClass")}
     />
   );
 };

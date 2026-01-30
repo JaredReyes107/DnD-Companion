@@ -18,7 +18,7 @@ const FEATS: Record<string, ResourceTemplate> = {
     id: "luck-points",
     label: "Luck Points",
     sourceId: "sorcerer",
-    category: "feat",
+    category: "feats",
     scalingType: "fixed:3",
     recharge: "longRest",
     tags: ["utility"],

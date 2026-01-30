@@ -5,7 +5,7 @@ export const RESOURCES_ROGUE: Record<string, ResourceTemplate> = {
     id: "stroke_of_luck",
     label: "Stroke of Luck",
     sourceId: "rogue",
-    category: "class-feature",
+    category: "class_features",
     scalingType: "class-level",
     recharge: "shortRest",
     tags: ["combat", "utility"],

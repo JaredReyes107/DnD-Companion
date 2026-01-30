@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
+
+import { LocalizationNamespace } from "@/localization/game-localization-resolver";
+import { ui } from "@/localization/ui-localization-resolver";
+import { getLocalizedName } from "@/lib/helpers/localization-helper";
 
 import styles from "@/stylesheets/character-creation.styles";
 
-type Option<T> = {
-  label: string;
-  value: T;
-};
-
 type CustomPickerProps<T> = {
-  items: Option<T>[];
+  items: T[];
   selectedValue: T | null;
   onChange: (value: T) => void;
+  namespace: LocalizationNamespace;
   placeholder?: string;
 };
 
@@ -19,15 +19,25 @@ const CustomPicker = <T extends string>({
   items,
   selectedValue,
   onChange,
-  placeholder = "Selecciona una opción",
+  namespace,
+  placeholder = ui("acton.SelectOption"),
 }: CustomPickerProps<T>) => {
   const [open, setOpen] = useState(false);
+
+  const dropdownItems = useMemo(
+    () =>
+      items.map((id) => ({
+        value: id,
+        label: getLocalizedName(namespace, id),
+      })),
+    [items, namespace],
+  );
 
   return (
     <DropDownPicker
       open={open}
       value={selectedValue}
-      items={items}
+      items={dropdownItems}
       setOpen={setOpen}
       setValue={(cb) => {
         const next = typeof cb === "function" ? cb(selectedValue) : cb;

@@ -5,7 +5,7 @@ export const RESOURCES_MONK: Record<string, ResourceTemplate> = {
     id: "ki_points",
     label: "Ki Points",
     sourceId: "monk",
-    category: "class-feature",
+    category: "class_features",
     scalingType: "class-level",
     recharge: "shortRest",
     tags: ["combat", "mobility"],

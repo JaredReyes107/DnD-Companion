@@ -5,7 +5,7 @@ export const RESOURCES_CLERIC: Record<string, ResourceTemplate> = {
     id: "channel_divinity",
     label: "Channel Divinity",
     sourceId: "cleric",
-    category: "class-feature",
+    category: "class_features",
     scalingType: "channel-divinity",
     recharge: "longRest",
     tags: ["combat", "utility"],

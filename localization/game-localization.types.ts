@@ -1,5 +1,17 @@
 export type GameLocale = "en" | "es";
 
+export type LocalizationNamespace =
+  | "alignments"
+  | "races"
+  | "abilities"
+  | "classes"
+  | "features"
+  | "resources"
+  | "actions"
+  | "skills"
+  | "equipment"
+  | "spells";
+
 /**
  * What textual data can exist for any game entity.
  * Not all entities need all fields.
@@ -23,11 +35,13 @@ export type GameLocalizationCategory = Record<
  * Full game localization for a language.
  */
 export type GameLocalization = {
+  alignments?: GameLocalizationCategory;
+  abilities?: GameLocalizationCategory;
+  races?: GameLocalizationCategory;
   classes?: GameLocalizationCategory;
   features?: GameLocalizationCategory;
   resources?: GameLocalizationCategory;
   actions?: GameLocalizationCategory;
-  races?: GameLocalizationCategory;
   skills?: GameLocalizationCategory;
 
   // future-proofing

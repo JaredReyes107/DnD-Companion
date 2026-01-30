@@ -256,6 +256,7 @@ const styles = StyleSheet.create({
   deathThrowsSection: {
     flexGrow: 1,
     maxWidth: "55%",
+    minHeight: 121,
 
     display: "flex",
     flexDirection: "column",

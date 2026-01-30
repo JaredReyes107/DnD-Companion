@@ -3,8 +3,8 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import styles from "@/stylesheets/character-creation.styles";
-import { SKILLS } from "@/game/base-data/skills";
-import { SkillInstance } from "@/game/types/instances/character-skills";
+import { SkillInstance } from "@/game/types/templates/character-skills";
+import { getLocalizedName } from "@/lib/helpers/localization-helper";
 
 type Props = {
   skillId: string;
@@ -57,7 +57,7 @@ const SkillProficiencyInput = ({
           />
         </TouchableOpacity>
       )}
-      <Text style={styles.statTitle}>{SKILLS[skillId].name}</Text>
+      <Text style={styles.statTitle}>{getLocalizedName("skills", skillId)}</Text>
     </View>
   );
 };

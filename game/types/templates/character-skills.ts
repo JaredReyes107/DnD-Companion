@@ -1,7 +1,6 @@
 import { Ability } from "./abilities-scores";
 
 export type Skill = {
-  name: string;
   ability: Ability;
 };
 

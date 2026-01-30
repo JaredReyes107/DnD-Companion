@@ -6,7 +6,7 @@ export const RESOURCES_SORCERER: Record<string, ResourceTemplate> = {
     label: "Sorcery Points",
     //origin: "Players Handbook", //For distinguishing official rules and homebrew
     sourceId: "sorcerer",
-    category: "class-feature", //For UI
+    category: "class_features", //For UI
     scalingType: "class-level",
     recharge: "longRest",
     tags: ["combat", "support"],
