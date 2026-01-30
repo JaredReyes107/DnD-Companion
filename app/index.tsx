@@ -12,7 +12,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { ThemedView } from "@/components/ThemedView";
 
 import styles from "@/stylesheets/generic.styles";
-import { ui } from "@/localization/ui-resolver";
+import { ui } from "@/localization/ui-localization-resolver";
 import { getLocalizedName } from "@/lib/helpers/localization-helper";
 
 const IndexScreen = () => {

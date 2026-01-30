@@ -1,7 +1,8 @@
 import React from "react";
 import CustomPicker from "@/components/CustomPicker";
 import { CLASSES } from "@/game/base-data/CLASSES";
-import { ui } from "@/localization/ui-resolver";
+import { sortGameIdsByName } from "@/lib/helpers/localization-helper";
+import { ui } from "@/localization/ui-localization-resolver";
 
 type ClassId = keyof typeof CLASSES;
 
@@ -11,7 +12,7 @@ type ClassPickerProps = {
 };
 
 const ClassPicker = ({ value, onChange }: ClassPickerProps) => {
-  const items: ClassId[] = Object.keys(CLASSES) as ClassId[];
+  const items = sortGameIdsByName(Object.keys(CLASSES) as ClassId[], "classes");
 
   return (
     <CustomPicker<ClassId>

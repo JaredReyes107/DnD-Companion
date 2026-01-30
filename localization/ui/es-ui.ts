@@ -10,7 +10,7 @@ export const es = {
     input: "Selecciona una raza",
   },
   xp: {
-    singular: "Puntos de experiencia",
+    full: "Puntos de experiencia",
   },
   class: {
     singular: "Clase",

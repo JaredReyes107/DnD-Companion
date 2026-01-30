@@ -18,3 +18,16 @@ export function getLocalizedDescription(
 ): string | undefined {
   return resolveGameText(category, id, "description", locale);
 }
+
+export function sortGameIdsByName<T extends string>(
+  ids: readonly T[],
+  category: Parameters<typeof getLocalizedName>[0],
+  locale?: string, // reserved for future use
+): T[] {
+  return [...ids].sort((a, b) =>
+    getLocalizedName(category, a).localeCompare(
+      getLocalizedName(category, b),
+      locale,
+    ),
+  );
+}

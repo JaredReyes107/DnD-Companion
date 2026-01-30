@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 
 import { LocalizationNamespace } from "@/localization/game-localization-resolver";
-import { ui } from "@/localization/ui-resolver";
+import { ui } from "@/localization/ui-localization-resolver";
 import { getLocalizedName } from "@/lib/helpers/localization-helper";
 
 import styles from "@/stylesheets/character-creation.styles";

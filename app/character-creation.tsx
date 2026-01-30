@@ -27,7 +27,7 @@ import {
 import { getMaximumHitDice } from "@/lib/helpers/hit-dice-helper";
 import { buildAbilityScores } from "@/lib/helpers/ability-scores-helper";
 import { buildSavingThrows } from "@/lib/helpers/saving-throws-helper";
-import { SKILL_ORDER } from "@/game/base-data/skills";
+import { SKILL_KEYS } from "@/game/base-data/skills";
 import { CharacterSkills } from "@/game/types/templates/character-skills";
 import { buildCharacterSkills } from "@/lib/helpers/skills-helper";
 import { buildCharacterResources } from "@/lib/helpers/resources-helper";
@@ -43,10 +43,11 @@ import AbilityScoreInput from "@/components/AbilityScoresInput";
 import SavingThrowProficiencyInput from "@/components/SavingThrowProficiencyInput";
 import SkillProficiencyInput from "@/components/SkillProficiencyInput";
 
-import { ui } from "@/localization/ui-resolver";
+import { ui } from "@/localization/ui-localization-resolver";
 
 import genericStyles from "@/stylesheets/generic.styles";
 import styles from "@/stylesheets/character-creation.styles";
+import { getLocalizedName } from "@/lib/helpers/localization-helper";
 const CharacterCreationScreen = () => {
   const router = useRouter();
 
@@ -217,7 +218,7 @@ const CharacterCreationScreen = () => {
         if (item === "name") {
           return (
             <View style={styles.fieldContainer}>
-              <Text style={styles.fieldHeader}>Nombre del personaje</Text>
+              <Text style={styles.fieldHeader}>{ui("character.input")}</Text>
               <TextInput
                 placeholder=""
                 onChangeText={setCharacterName}
@@ -229,7 +230,7 @@ const CharacterCreationScreen = () => {
         if (item === "race") {
           return (
             <View style={styles.fieldContainer}>
-              <Text style={styles.fieldHeader}>Raza</Text>
+              <Text style={styles.fieldHeader}>{ui("race.singular")}</Text>
               <TextInput
                 placeholder=""
                 onChangeText={setCharacterRace}
@@ -257,7 +258,7 @@ const CharacterCreationScreen = () => {
         if (item === "xp") {
           return (
             <View style={styles.fieldContainer}>
-              <Text style={styles.fieldHeader}>Puntos de Experiencia</Text>
+              <Text style={styles.fieldHeader}>{ui("xp.full")}</Text>
               <TextInput
                 placeholder=""
                 onChangeText={(val) => setCharacterXP(+val)}
@@ -273,7 +274,7 @@ const CharacterCreationScreen = () => {
           return <MainClassForm value={mainClass} onChange={setMainClass} />;
         }
 
-        // secondary class
+        // Secondary classes
         return (
           <>
             <SecondaryClassesForm
@@ -314,7 +315,7 @@ const CharacterCreationScreen = () => {
       case "speed":
         return (
           <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>Velocidad</Text>
+            <Text style={styles.fieldHeader}>{ui("stats.speed")}</Text>
             <View style={styles.counterContainer}>
               <Text style={styles.counterInput}>{CharacterSpeed}</Text>
               <View style={styles.counterButtonsContainer}>
@@ -352,7 +353,7 @@ const CharacterCreationScreen = () => {
       case "hp":
         return (
           <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>Puntos de Golpe</Text>
+            <Text style={styles.fieldHeader}>{ui("hp.full")}</Text>
             <TextInput
               placeholder=""
               onChangeText={(value) =>
@@ -368,14 +369,14 @@ const CharacterCreationScreen = () => {
       case "stats":
         return (
           <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>Estadísticas</Text>
+            <Text style={styles.fieldHeader}>{ui("stats.abilityScores")}</Text>
             <View style={styles.statsContainer}>
               <FlatList
                 data={ABILITY_ORDER}
                 keyExtractor={(ability) => ability}
                 renderItem={({ item: ability }) => (
                   <AbilityScoreInput
-                    label={ability}
+                    label={getLocalizedName("abilities", ability)}
                     score={characterAbilityScores[ability].value}
                     onChange={(delta) =>
                       setCharacterAbilityScores((prev) => ({
@@ -396,7 +397,7 @@ const CharacterCreationScreen = () => {
       case "savingThrows":
         return (
           <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>Tiradas de salvación</Text>
+            <Text style={styles.fieldHeader}>{ui("savingThrows.full")}</Text>
             <View style={styles.statsContainer}>
               <FlatList
                 style={styles.proficienciesList}
@@ -405,7 +406,7 @@ const CharacterCreationScreen = () => {
                 renderItem={({ item: ability }) => (
                   <SavingThrowProficiencyInput
                     ability={ability}
-                    label={ability}
+                    label={getLocalizedName("abilities", ability)}
                     savingThrow={characterSavingThrows[ability]}
                     onToggleProficiency={() =>
                       setCharacterSavingThrows((prev) => ({
@@ -426,11 +427,11 @@ const CharacterCreationScreen = () => {
       case "skills":
         return (
           <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>Competencias y Pericia</Text>
+            <Text style={styles.fieldHeader}>{ui("stats.skills")}</Text>
             <View style={styles.statsContainer}>
               <FlatList
                 style={styles.proficienciesList}
-                data={SKILL_ORDER}
+                data={SKILL_KEYS}
                 keyExtractor={(skillKey) => skillKey}
                 renderItem={({ item: skillKey }) => (
                   <SkillProficiencyInput
