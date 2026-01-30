@@ -5,32 +5,36 @@ export const abilities_es: GameLocalization = {
     STR: {
       name: "Fuerza",
       shortName: "FUE",
-      description: "",
+      description:
+        "Mide tu potencia física, fuerza bruta y capacidad atlética.",
     },
     DEX: {
       name: "Destreza",
       shortName: "DES",
-      description: "",
+      description: "Refleja tu agilidad, coordinación y reflejos.",
     },
     CON: {
       name: "Constitución",
       shortName: "CON",
-      description: "",
+      description: "Representa tu resistencia, salud y aguante físico.",
     },
     INT: {
       name: "Inteligencia",
       shortName: "INT",
-      description: "",
+      description:
+        "Describe tu razonamiento, memoria y capacidad para aprender.",
     },
     WIS: {
       name: "Sabiduría",
       shortName: "SAB",
-      description: "",
+      description:
+        "Indica tu percepción, intuición y entendimiento del entorno.",
     },
     CHA: {
       name: "Carisma",
       shortName: "CAR",
-      description: "",
+      description:
+        "Mide tu fuerza de personalidad, presencia e influencia social.",
     },
   },
 };

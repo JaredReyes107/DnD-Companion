@@ -8,7 +8,6 @@ import { groupedResourcesAsArray } from "@/lib/helpers/resources-helper";
 import { useCharacter } from "@/hooks/useCharacter";
 
 import genericStyles from "@/stylesheets/generic.styles";
-//import styles from "@/stylesheets/combat/tab-resource";
 
 const ResourcesDashboard = () => {
   const { character, saveCharacter } = useCharacter();

@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   secondaryStatContainer: {
     flexGrow: 1,
 
-    maxWidth: "100%",
+    width: "24%",
     minHeight: 70,
 
     borderWidth: 2,

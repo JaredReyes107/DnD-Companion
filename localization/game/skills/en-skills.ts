@@ -3,76 +3,78 @@ import { GameLocalization } from "@/localization/game-localization.types";
 export const skills_en: GameLocalization = {
   skills: {
     acrobatics: {
-      name: "Acrobacias",
-      description: "DEX",
+      name: "Acrobatics",
+      description: "Performing flips, jumps, balance, and agile maneuvers.",
     },
     animal_handling: {
-      name: "Trato con animales",
-      description: "WIS",
+      name: "Animal Handling",
+      description: "Calming, training, or understanding animal behavior.",
     },
     arcana: {
-      name: "Arcanos",
-      description: "INT",
+      name: "Arcana",
+      description: "Knowledge about magic, spells, and arcane traditions.",
     },
     athletics: {
-      name: "Atletismo",
-      description: "STR",
+      name: "Athletics",
+      description:
+        "Climbing, swimming, jumping, and feats of physical strength.",
     },
     deception: {
-      name: "Engaño",
-      description: "CHA",
+      name: "Deception",
+      description: "Lying, misleading, or concealing the truth convincingly.",
     },
     history: {
-      name: "Historia",
-      description: "INT",
+      name: "History",
+      description: "Recalling lore about past events and ancient cultures.",
     },
     insight: {
-      name: "Perspicacia",
-      description: "WIS",
+      name: "Insight",
+      description: "Reading intentions, emotions, or detecting lies.",
     },
     intimidation: {
-      name: "Intimidación",
-      description: "CHA",
+      name: "Intimidation",
+      description: "Influencing others through threats or forceful presence.",
     },
     investigation: {
-      name: "Investigación",
-      description: "INT",
+      name: "Investigation",
+      description:
+        "Searching for clues, analyzing details, and deducing facts.",
     },
     medicine: {
-      name: "Medicina",
-      description: "WIS",
+      name: "Medicine",
+      description: "Stabilizing the wounded and diagnosing illnesses.",
     },
     nature: {
-      name: "Naturaleza",
-      description: "INT",
+      name: "Nature",
+      description: "Knowledge of terrain, plants, animals, and natural cycles.",
     },
     perception: {
-      name: "Percepción",
-      description: "CHA",
+      name: "Perception",
+      description: "Noticing details, dangers, or hidden objects.",
     },
     performance: {
-      name: "Interpretación",
-      description: "CHA",
+      name: "Performance",
+      description: "Entertaining through music, acting, dance, or speech.",
     },
     persuasion: {
-      name: "Persuasión",
-      description: "CHA",
+      name: "Persuasion",
+      description: "Influencing others through tact and reasoned arguments.",
     },
     religion: {
-      name: "Religión",
-      description: "INT",
+      name: "Religion",
+      description: "Knowledge of gods, rites, and religious traditions.",
     },
     sleight_of_hand: {
-      name: "Juego de manos",
-      description: "DEX",
+      name: "Sleight of Hand",
+      description: "Picking pockets or performing subtle tricks unnoticed.",
     },
     stealth: {
-      name: "Sigilo",
-      description: "DEX",
+      name: "Stealth",
+      description: "Moving silently and remaining unseen.",
     },
     survival: {
-      name: "Supervivencia",
-      description: "WIS",
+      name: "Survival",
+      description: "Tracking, hunting, and surviving in the wild.",
     },
   },
 };

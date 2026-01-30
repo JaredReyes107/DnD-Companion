@@ -372,7 +372,7 @@ const CharacterSheetScreen = () => {
                 </View>
               </View>
 
-              <View style={styles.secondaryStatContainer}>
+              <View style={[styles.secondaryStatContainer, { width: "100%" }]}>
                 <View style={styles.secondaryStatBox}>
                   {(() => {
                     const value = `+${getProficiencyBonus(character)}`;
