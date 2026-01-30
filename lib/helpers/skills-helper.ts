@@ -5,6 +5,7 @@ import {
 } from "@/game/types/templates/character-skills";
 import { SKILLS } from "@/game/base-data/skills";
 import { Character } from "@/game/types/instances/character";
+import { sortGameIdsByName } from "./localization-helper";
 
 export function buildCharacterSkills(): CharacterSkills {
   return Object.keys(SKILLS).reduce((acc, skillId) => {
@@ -24,13 +25,13 @@ type SkillView = {
 };
 
 export function getCharacterSkillsAsArray(character: Character): SkillView[] {
-  const skillList: SkillView[] = Object.entries(SKILLS).map(([id, def]) => ({
+  const sortedSkillIds = sortGameIdsByName(Object.keys(SKILLS), "skills");
+
+  return sortedSkillIds.map((id) => ({
     id,
-    definition: def,
+    definition: SKILLS[id],
     state: character.skills[id],
   }));
-
-  return skillList;
 }
 
 export function getCharacterSkillsFromState(

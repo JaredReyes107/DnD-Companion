@@ -12,6 +12,13 @@ export function getLocalizedName(
   return resolveGameText(category, id, "name", locale) ?? fallback;
 }
 
+export function getLocalizedShortName(
+  category: Parameters<typeof resolveGameText>[0],
+  id: string,
+): string | undefined {
+  return resolveGameText(category, id, "shortName", locale);
+}
+
 export function getLocalizedDescription(
   category: Parameters<typeof resolveGameText>[0],
   id: string,

@@ -35,7 +35,7 @@ export const alignments_es: GameLocalization = {
       description: "",
     },
     chaotic_evil: {
-      name: "Caótico Evil",
+      name: "Caótico Malvado",
       description: "",
     },
   },

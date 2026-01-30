@@ -28,15 +28,17 @@ export const es = {
     full: "Tiradas de salvación",
     death: "Tiradas de salvación de muerte",
     successes: "Éxitos",
-    faliures: "Fallos",
+    failures: "Fallos",
   },
   pb: {
     full: "Bonificador de competencia",
+    segmented: "Bonificador de {value} competencia",
     short: "BC",
   },
   hp: {
     full: "Puntos de golpe",
     short: "HP",
+    segmented: "Puntos de {value} golpe",
     total: "HP Total",
     temporal: "HP Temporal",
     hitDie: "Dados de golpe",
@@ -44,15 +46,21 @@ export const es = {
   ac: {
     full: "Clase de armadura",
     short: "CA",
+    segmented: "Clase de {value} armadura",
   },
   initiative: {
     full: "Iniciativa",
     bonus: "Bonus de iniciativa",
-    order: "Orden de iniciativa",
+    order: "Orden de {value} iniciativa",
   },
   rests: {
     long: "Descanso largo",
     short: "Descanso corto",
+  },
+  measurements: {
+    feet: "Pies",
+    grid: "Casillas",
+    meters: "Metros",
   },
   button: {
     accept: "Aceptar",
