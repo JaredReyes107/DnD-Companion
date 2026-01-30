@@ -481,7 +481,7 @@ const App = () => {
                           : [styles.deathThrowsText, styles.deathThrowsDisabled]
                       }
                     >
-                      Éxitos
+                      {ui("savingThrows.successes")}
                     </ThemedText>
                     <View style={styles.deathThrowsTally}>
                       <TouchableOpacity
@@ -571,7 +571,7 @@ const App = () => {
                           : [styles.deathThrowsText, styles.deathThrowsDisabled]
                       }
                     >
-                      Fallos
+                      {ui("savingThrows.failures")}
                     </ThemedText>
                     <View style={styles.deathThrowsTally}>
                       <TouchableOpacity

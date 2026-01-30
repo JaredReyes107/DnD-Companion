@@ -180,6 +180,16 @@ const CharacterCreationScreen = () => {
       data: ["name", "race", "alignment", "xp"],
     },
     {
+      key: "hp",
+      title: "Hp",
+      data: ["hp"],
+    },
+    {
+      key: "speed",
+      title: "Velocidad",
+      data: ["speed"],
+    },
+    {
       key: "classes",
       title: "Clases",
       data: ["mainClass", ...secondaryClasses],
@@ -269,6 +279,60 @@ const CharacterCreationScreen = () => {
         }
         return null;
 
+      case "hp":
+        return (
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldHeader}>{ui("hp.full")}</Text>
+            <TextInput
+              placeholder=""
+              onChangeText={(value) =>
+                setCharacterHP(
+                  isNaN(parseInt(value, 10)) ? 0 : parseInt(value, 10),
+                )
+              }
+              style={styles.input}
+            />
+          </View>
+        );
+
+      case "speed":
+        return (
+          <View style={styles.fieldContainer}>
+            <Text style={styles.fieldHeader}>{ui("stats.speed")}</Text>
+            <View style={styles.counterContainer}>
+              <Text style={styles.counterInput}>{CharacterSpeed}</Text>
+              <View style={styles.counterButtonsContainer}>
+                <TouchableOpacity
+                  style={styles.counterButton}
+                  onPress={() =>
+                    setCharacterSpeed(
+                      CharacterSpeed > 0 ? CharacterSpeed - 5 : 0,
+                    )
+                  }
+                >
+                  <MaterialIcons
+                    name="remove"
+                    style={styles.counterButtonIcon}
+                  ></MaterialIcons>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.counterButton}
+                  onPress={() =>
+                    setCharacterSpeed(
+                      CharacterSpeed < 40 ? CharacterSpeed + 5 : 75,
+                    )
+                  }
+                >
+                  <MaterialIcons
+                    name="add"
+                    style={styles.counterButtonIcon}
+                  ></MaterialIcons>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        );
+
       case "classes":
         if (item === "mainClass") {
           return <MainClassForm value={mainClass} onChange={setMainClass} />;
@@ -310,60 +374,6 @@ const CharacterCreationScreen = () => {
           >
             <Text style={styles.addClassButton}>+ Añadir clase</Text>
           </TouchableOpacity>
-        );
-
-      case "speed":
-        return (
-          <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>{ui("stats.speed")}</Text>
-            <View style={styles.counterContainer}>
-              <Text style={styles.counterInput}>{CharacterSpeed}</Text>
-              <View style={styles.counterButtonsContainer}>
-                <TouchableOpacity
-                  style={styles.counterButton}
-                  onPress={() =>
-                    setCharacterSpeed(
-                      CharacterSpeed > 0 ? CharacterSpeed - 5 : 0,
-                    )
-                  }
-                >
-                  <MaterialIcons
-                    name="remove"
-                    style={styles.counterButtonIcon}
-                  ></MaterialIcons>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.counterButton}
-                  onPress={() =>
-                    setCharacterSpeed(
-                      CharacterSpeed < 40 ? CharacterSpeed + 5 : 75,
-                    )
-                  }
-                >
-                  <MaterialIcons
-                    name="add"
-                    style={styles.counterButtonIcon}
-                  ></MaterialIcons>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        );
-
-      case "hp":
-        return (
-          <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>{ui("hp.full")}</Text>
-            <TextInput
-              placeholder=""
-              onChangeText={(value) =>
-                setCharacterHP(
-                  isNaN(parseInt(value, 10)) ? 0 : parseInt(value, 10),
-                )
-              }
-              style={styles.input}
-            />
-          </View>
         );
 
       case "stats":

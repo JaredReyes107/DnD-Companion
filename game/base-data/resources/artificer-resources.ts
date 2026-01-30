@@ -6,7 +6,7 @@ export const RESOURCES_ARTIFICER: Record<string, ResourceTemplate> = {
     label: "Flash of Genius",
     //origin: "Tasha's Cauldron of Everything", //For distinguishing official rules and homebrew
     sourceId: "artificer",
-    category: "class-feature", //For UI
+    category: "class_features", //For UI
     scalingType: "class-level",
     recharge: "longRest",
     tags: ["utility", "ability-checks", "saving-throws"],

@@ -3,6 +3,10 @@ import { ThemedText } from "@/components/ThemedText";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import styles from "@/stylesheets/combat/tab-resource";
+import {
+  getLocalizedName,
+  getLocalizedShortName,
+} from "@/lib/helpers/localization-helper";
 
 type Props = {
   label: string;
@@ -14,7 +18,11 @@ type Props = {
 export const ResourceElement = ({ label, current, max, onChange }: Props) => {
   return (
     <View style={styles.resourceElementContainer}>
-      <ThemedText style={styles.resourceElementName}>{label}</ThemedText>
+      <ThemedText style={styles.resourceElementName}>
+        {getLocalizedShortName("resources", label)
+          ? getLocalizedShortName("resources", label)
+          : getLocalizedName("resources", label)}
+      </ThemedText>
 
       <ThemedText style={styles.resourceElementValues}>
         {current} / {max}

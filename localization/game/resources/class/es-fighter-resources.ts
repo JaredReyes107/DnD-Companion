@@ -1,6 +1,6 @@
 import { GameLocalizationCategory } from "@/localization/game-localization.types";
 
-export const resources_cleric_es: GameLocalizationCategory = {
+export const resources_fighter_es: GameLocalizationCategory = {
   second_wind: {
     name: "Tomar aliento",
     description: "",

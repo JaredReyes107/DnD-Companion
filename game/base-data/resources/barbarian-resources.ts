@@ -5,7 +5,7 @@ export const RESOURCES_BARBARIAN: Record<string, ResourceTemplate> = {
     id: "rage",
     label: "Rage",
     sourceId: "barbarian",
-    category: "class-feature",
+    category: "class_features",
     scalingType: "rage",
     recharge: "longRest",
     tags: ["combat", "damage", "resistance"],

@@ -9,6 +9,7 @@ import { ResourceInstance } from "@/game/types/instances/resource-instance";
 import { ResourceTemplate } from "@/game/types/templates/resource-template";
 
 import styles from "@/stylesheets/combat/tab-resource";
+import { ui } from "@/localization/ui-localization-resolver";
 
 type ResourceItem = {
   template: ResourceTemplate;
@@ -48,14 +49,14 @@ export const ResourceSection = ({
   return (
     <ThemedView style={styles.resourceCategoryContainer}>
       <ThemedText style={styles.resourceCategoryTitle}>
-        {category.toString()}
+        {ui("resourceSection." + category.toString())}
       </ThemedText>
 
       <ThemedView style={styles.resourceElementsList}>
         {resources.map(({ template, instance }) => (
           <ResourceElement
             key={template.id}
-            label={template.label}
+            label={template.id}
             current={instance.current}
             max={instance.max}
             onChange={(value) => handleChange(template.id, value)}

@@ -80,4 +80,13 @@ export const es = {
     receivedHealing: "Curación recibida",
     useHitDice: "Usar dados de golpe",
   },
+  resourceSection: {
+    spell_slots: "Espacios de conjuro",
+    pact_slots: "Espacios de pacto",
+    class_features: "De clase",
+    subclass_features: "De subclase",
+    racial_features: "Raciales",
+    feats: "De dotes",
+    homebrew: "Homebrew",
+  },
 } as const;

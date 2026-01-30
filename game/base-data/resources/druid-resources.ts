@@ -5,7 +5,7 @@ export const RESOURCES_DRUID: Record<string, ResourceTemplate> = {
     id: "wild_shape",
     label: "Wild Shape",
     sourceId: "druid",
-    category: "class-feature",
+    category: "class_features",
     scalingType: "fixed:2",
     recharge: "longRest",
     tags: ["combat", "utility"],
