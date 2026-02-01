@@ -68,13 +68,13 @@ const App = () => {
   if (!character) {
     return (
       <View>
-        <Text>Cargando personaje…</Text>
+        <ThemedText>Cargando personaje…</ThemedText>
       </View>
     );
   } else if (!character.combatState) {
     return (
       <View>
-        <Text>Cargando personaje…</Text>
+        <ThemedText>Cargando personaje…</ThemedText>
       </View>
     );
   } else {

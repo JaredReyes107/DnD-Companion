@@ -7,6 +7,9 @@ import {
   getClassTemplatesFromCharacter,
 } from "../registries/classes.registry";
 import { CharacterResources } from "../types/instances/character-resources";
+//import { ClassInstance } from "../types/instances/class-instance";
+import { getSpellcastingTemplateByClassTemplateId } from "@/lib/helpers/spellcasting-helper";
+import { getAbilityModifier, getProficiencyBonus } from "./abilities-modifiers";
 
 export function getTotalCasterLevel(
   characterClasses: CharacterClasses,
@@ -35,6 +38,63 @@ export function getTotalCasterLevel(
   }
 
   return total;
+}
+
+export function getSpellAttackModifier(
+  character: Character,
+  //classInstance: ClassInstance,
+): number {
+  /*
+  if (!classInstance.spellcastingInstance) {
+    return 0;
+  }
+  */
+
+  //Replace the function's argument for classInstance.id
+  const spellcastingTemplate = getSpellcastingTemplateByClassTemplateId(
+    character.classes.byId[character.classes.order[0]].classId,
+  );
+
+  const spellcastingAbility = spellcastingTemplate.ability;
+  //TODO: [Modifiers] Replace attribute with derived data
+  const spellcastingAbilityScore =
+    character.baseAbilityScores[spellcastingAbility].value;
+
+  //TODO: [Modifiers] Replace with derived data resolver
+  const baseSpellAttackModifier =
+    getAbilityModifier(spellcastingAbilityScore) +
+    getProficiencyBonus(character);
+
+  return baseSpellAttackModifier;
+}
+
+export function getSpellSaveDC(
+  character: Character,
+  //classInstance: ClassInstance,
+): number {
+  /*
+  if (!classInstance.spellcastingInstance) {
+    return 0;
+  }
+  */
+
+  //Replace the function's argument for classInstance.id
+  const spellcastingTemplate = getSpellcastingTemplateByClassTemplateId(
+    character.classes.byId[character.classes.order[0]].classId,
+  );
+
+  const spellcastingAbility = spellcastingTemplate.ability;
+  //TODO: [Modifiers] Replace attribute with derived data
+  const spellcastingAbilityScore =
+    character.baseAbilityScores[spellcastingAbility].value;
+
+  //TODO: [Modifiers] Replace with derived data resolver
+  const baseSpellAttackModifier =
+    getAbilityModifier(spellcastingAbilityScore) +
+    getProficiencyBonus(character) +
+    8;
+
+  return baseSpellAttackModifier;
 }
 
 const STANDARD_SPELL_SLOTS: number[][] = [

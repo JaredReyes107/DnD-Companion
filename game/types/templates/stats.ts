@@ -1,6 +1,14 @@
 import { Ability } from "./abilities-scores";
 
-export type StatId = Ability | "maxHp" | "speed" | "initiative" | "ac" | string;
+export type StatId =
+  | Ability
+  | "maxHp"
+  | "speed"
+  | "initiative"
+  | "ac"
+  | "spellAttackModifier"
+  | "spellSaveDC"
+  | string;
 
 export type Stat = {
   statId: StatId;

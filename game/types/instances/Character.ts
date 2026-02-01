@@ -1,4 +1,4 @@
-import { Alignment } from "@/game/base-data/alignments";
+import { Alignment } from "@/game/base-data/Alignments";
 import { CharacterClasses } from "../instances/character-classes";
 import {
   AbilityScores,
