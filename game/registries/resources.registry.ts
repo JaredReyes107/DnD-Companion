@@ -35,6 +35,7 @@ export function resolveClassInstance(
   return getResourceById(instance.resourceId);
 }
 
+// ? Currently not in use
 export function getResourcesByCategory(category: string) {
   return Object.values(getResourceRegistry()).filter(
     (r) => r.category === category,

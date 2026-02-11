@@ -15,7 +15,7 @@ import * as Crypto from "expo-crypto";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Custom Classes and Constants
-import { Character } from "@/game/types/instances/character"; // Import custom types
+import { Character } from "@/game/types/instances/Character";
 import { Alignment, ALIGNMENTS } from "@/game/base-data/Alignments";
 import {
   ABILITY_ORDER,
@@ -48,6 +48,7 @@ import { getLocalizedName } from "@/lib/helpers/localization-helper";
 
 import genericStyles from "@/stylesheets/generic.styles";
 import styles from "@/stylesheets/character-creation.styles";
+import { buildCharacterActions } from "@/lib/helpers/actions-helper";
 
 const CharacterCreationScreen = () => {
   const router = useRouter();
@@ -163,6 +164,8 @@ const CharacterCreationScreen = () => {
 
     newCharacter.currentHitDice = getMaximumHitDice(newCharacter);
     newCharacter.resources = buildCharacterResources(newCharacter);
+    newCharacter.actions = buildCharacterActions(newCharacter);
+    console.log(newCharacter.actions);
 
     setCharacters([...characters, newCharacter]);
 

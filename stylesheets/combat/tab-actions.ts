@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
   actionBoardRowContent: {
     display: "flex",
     flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
     gap: 5,

@@ -46,6 +46,11 @@ export const SORCERER: ClassTemplate = {
           "You gain sorcery points that you can use to create spell slots.",
         combatRole: "active",
         resources: ["sorcery_points"],
+        //TODO: Add actions
+        actions: [
+          "font_of_magic_to_spellslots",
+          "font_of_magic_from_spellslots",
+        ],
         tags: ["resource"],
       },
     ],

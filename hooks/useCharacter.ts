@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Character } from "@/game/types/instances/character";
+import { Character } from "@/game/types/instances/Character";
 
 export function useCharacter() {
   const [character, setCharacter] = useState<Character | null>(null);
@@ -43,6 +43,8 @@ export function useCharacter() {
   // Explicit save helper
   const saveCharacter = useCallback(async (updated: Character) => {
     setCharacter(updated);
+
+    console.log("Updating character");
 
     const raw = await AsyncStorage.getItem("characters");
     if (!raw) return;

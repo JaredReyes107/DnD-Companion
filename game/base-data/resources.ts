@@ -15,7 +15,7 @@ import { RESOURCES_WIZARD } from "./resources/wizard-resources";
 
 const FEATS: Record<string, ResourceTemplate> = {
   luck_points: {
-    id: "luck-points",
+    id: "luck_points",
     label: "Luck Points",
     sourceId: "sorcerer",
     category: "feats",

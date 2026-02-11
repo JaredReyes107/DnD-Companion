@@ -1,20 +1,24 @@
-import { Button, TouchableOpacity, View } from "react-native";
+import { Button, FlatList, TouchableOpacity, View } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { useCharacter } from "@/hooks/useCharacter";
+
+import { ActionSection } from "@/components/ActionSection";
 
 import {
   getSpellAttackModifier,
   getSpellSaveDC,
 } from "@/game/mechanics/spellcasting";
-import { PrintNumberWithSign } from "@/lib/utilities/formater-numbers";
+import { getArmorClass } from "@/game/mechanics/armor-class";
+import { cycleActionResource } from "@/game/mechanics/action-economy";
+import { groupActionsBySlot } from "@/game/registries/actions.registry";
+import { groupedActionsAsArray } from "@/lib/helpers/actions-helper";
 
+import { PrintNumberWithSign } from "@/lib/utilities/formater-numbers";
 import { ui } from "@/localization/ui-localization-resolver";
 
 import genericStyles from "@/stylesheets/generic.styles";
 import styles from "@/stylesheets/combat/tab-actions";
-import { getArmorClass } from "@/game/mechanics/armor-class";
-import { cycleActionResource } from "@/game/mechanics/action-economy";
 
 const HomeScreen = () => {
   const { character, saveCharacter } = useCharacter();
@@ -32,6 +36,9 @@ const HomeScreen = () => {
       </View>
     );
   } else {
+    const grouped = groupActionsBySlot(character.actions);
+    const sections = groupedActionsAsArray(grouped);
+
     return (
       <ThemedView style={genericStyles.rootContainer}>
         <View style={styles.headerSection}>
@@ -109,7 +116,7 @@ const HomeScreen = () => {
             <TouchableOpacity
               style={styles.actionSlotCell}
               onPress={() => {
-                saveCharacter(cycleActionResource(character, "bonus"));
+                saveCharacter(cycleActionResource(character, "bonusAction"));
               }}
             >
               <View style={styles.actionSlotContent}>
@@ -137,57 +144,20 @@ const HomeScreen = () => {
           </View>
         </View>
 
-        <View style={styles.actionBoard}>
-          <View style={styles.actionBoardRow}>
-            <ThemedText style={styles.actionBoardRowHeader}>
-              Acciones
-            </ThemedText>
-            <View style={styles.actionBoardRowContent}>
-              <TouchableOpacity>
-                <View style={styles.actionBoardCell}>
-                  <ThemedText style={styles.actionBoardCellTitle}>
-                    Acción Uno
-                  </ThemedText>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.actionBoardRow}>
-            <ThemedText style={styles.actionBoardRowHeader}>
-              Acciones adicionales
-            </ThemedText>
-            <View style={styles.actionBoardRowContent}>
-              <TouchableOpacity>
-                <View style={styles.actionBoardCell}>
-                  <ThemedText style={styles.actionBoardCellTitle}>
-                    Acción Extra
-                  </ThemedText>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.actionBoardRow}>
-            <ThemedText style={styles.actionBoardRowHeader}>
-              Reacciones
-            </ThemedText>
-            <View style={styles.actionBoardRowContent}>
-              <TouchableOpacity>
-                <View style={styles.actionBoardCell}>
-                  <ThemedText style={styles.actionBoardCellTitle}>
-                    Esquivar
-                  </ThemedText>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <View style={styles.actionBoardCell}>
-                  <ThemedText style={styles.actionBoardCellTitle}>
-                    Absorber Elementos
-                  </ThemedText>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
+        {/* Action Board */}
+        <FlatList
+          contentContainerStyle={styles.actionBoard}
+          data={sections}
+          keyExtractor={(action) => action.slot}
+          renderItem={(action) => (
+            <ActionSection
+              slot={action.item.slot}
+              actions={action.item.actions}
+              character={character}
+              onUpdate={saveCharacter}
+            />
+          )}
+        />
 
         <View style={styles.footerSection}>
           <Button title={"Terminar turno"} onPress={() => {}} />

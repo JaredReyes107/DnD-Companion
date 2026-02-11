@@ -1,6 +1,6 @@
-import { Character } from "../types/instances/character";
+import { Character } from "../types/instances/Character";
 
-type ActionResourceType = "action" | "bonus" | "reaction";
+export type ActionResourceType = "action" | "bonusAction" | "reaction" | "free";
 
 export function decreaseActionResource(
   character: Character,
@@ -31,7 +31,7 @@ export function decreaseActionResource(
         },
       };
       break;
-    case "bonus":
+    case "bonusAction":
       updatedCharacter = {
         ...character,
         combatState: {
@@ -67,6 +67,8 @@ export function decreaseActionResource(
         },
       };
       break;
+    default:
+      break;
   }
 
   return updatedCharacter;
@@ -101,7 +103,7 @@ export function increaseActionResource(
         },
       };
       break;
-    case "bonus":
+    case "bonusAction":
       updatedCharacter = {
         ...character,
         combatState: {
@@ -168,7 +170,7 @@ export function rechargeActionResources(
         },
       };
       break;
-    case "bonus":
+    case "bonusAction":
       updatedCharacter = {
         ...character,
         combatState: {
@@ -227,7 +229,7 @@ export function cycleActionResource(
         );
       }
       break;
-    case "bonus":
+    case "bonusAction":
       if (character.combatState.actionEconomy.bonusActions.current > 0) {
         updatedCharacter = decreaseActionResource(
           character,
