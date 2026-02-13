@@ -165,7 +165,6 @@ const CharacterCreationScreen = () => {
     newCharacter.currentHitDice = getMaximumHitDice(newCharacter);
     newCharacter.resources = buildCharacterResources(newCharacter);
     newCharacter.actions = buildCharacterActions(newCharacter);
-    console.log(newCharacter.actions);
 
     setCharacters([...characters, newCharacter]);
 

@@ -78,12 +78,10 @@ const styles = StyleSheet.create({
     flex: 1,
 
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     gap: 7.5,
 
     marginVertical: 7.5,
-
-    backgroundColor: "green",
   },
   actionBoardRow: {
     display: "flex",
@@ -91,8 +89,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 5,
-
-    backgroundColor: "black",
   },
   actionBoardRowHeader: {
     fontSize: 14,
@@ -115,6 +111,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
 
     backgroundColor: "#3066b1",
+
+    borderRadius: 8,
+  },
+  actionBoardCellDisabled: {
+    opacity: 0.35,
   },
   actionBoardCellTitle: {
     fontSize: 12,

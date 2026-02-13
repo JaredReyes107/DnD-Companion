@@ -19,7 +19,7 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
 import { returnNaturalNumber } from "@/lib/utilities/input-handler";
-import { useCharacter } from "@/hooks/useCharacter";
+import { useCharacter } from "@/lib/utilities/character-provider";
 import { takeLongRest, takeShortRest } from "@/game/mechanics/resting";
 import {
   getCurrentHitDiceAsArray,
@@ -46,7 +46,7 @@ import styles from "../../stylesheets/combat/index.styles";
 import genericStyles from "../../stylesheets/generic.styles";
 
 const App = () => {
-  const { character, saveCharacter } = useCharacter();
+  const { character, saveCharacter, loading } = useCharacter();
 
   const totalHP =
     (character?.hitPoints.temporalHP ?? 0) +
@@ -65,7 +65,7 @@ const App = () => {
   const [spendHitDiceWindow, setSpendHitDiceWindow] = useState(false);
   //#endregion
 
-  if (!character) {
+  if (loading || !character) {
     return (
       <View>
         <ThemedText>Cargando personaje…</ThemedText>

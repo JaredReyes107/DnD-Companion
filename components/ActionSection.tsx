@@ -11,7 +11,7 @@ import {
   ActionResourceType,
   decreaseActionResource,
 } from "@/game/mechanics/action-economy";
-import { executeAction } from "@/game/mechanics/take-action";
+import { executeAction, isActionAvailable } from "@/game/mechanics/take-action";
 
 type Props = {
   slot: ActionResourceType;
@@ -42,6 +42,7 @@ export const ActionSection = ({
           <ActionElement
             key={action.id}
             label={action.id}
+            isAvailable={isActionAvailable(character, action)}
             onUse={() => handleAction(action)}
           />
         ))}

@@ -1,28 +1,39 @@
-import { useCallback, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Character } from "@/game/types/instances/Character";
 
-export function useCharacter() {
+type CharacterContextType = {
+  character: Character | null;
+  loading: boolean;
+  saveCharacter: (updated: Character) => Promise<void>;
+};
+
+const CharacterContext = createContext<CharacterContextType | null>(null);
+
+export const CharacterProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [character, setCharacter] = useState<Character | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Load once on mount
   useEffect(() => {
     let mounted = true;
 
     async function loadCharacter() {
       try {
         const selectedId = await AsyncStorage.getItem("selectedCharacterId");
-        if (!selectedId) {
-          if (mounted) setCharacter(null);
-          return;
-        }
+        if (!selectedId) return;
 
         const raw = await AsyncStorage.getItem("characters");
-        if (!raw) {
-          if (mounted) setCharacter(null);
-          return;
-        }
+        if (!raw) return;
 
         const characters: Character[] = JSON.parse(raw);
         const found = characters.find((c) => c.id === selectedId) ?? null;
@@ -40,7 +51,6 @@ export function useCharacter() {
     };
   }, []);
 
-  // Explicit save helper
   const saveCharacter = useCallback(async (updated: Character) => {
     setCharacter(updated);
 
@@ -53,9 +63,17 @@ export function useCharacter() {
     await AsyncStorage.setItem("characters", JSON.stringify(next));
   }, []);
 
-  return {
-    character,
-    loading,
-    saveCharacter,
-  };
+  return (
+    <CharacterContext.Provider value={{ character, loading, saveCharacter }}>
+      {children}
+    </CharacterContext.Provider>
+  );
+};
+
+export function useCharacter() {
+  const ctx = useContext(CharacterContext);
+  if (!ctx) {
+    throw new Error("useCharacter must be used inside CharacterProvider");
+  }
+  return ctx;
 }

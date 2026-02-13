@@ -1,6 +1,7 @@
 import { Action, ConvertResourceEffect } from "../types/instances/action";
 import { Character } from "../types/instances/Character";
 import { StatModifier } from "../types/templates/stats";
+import { decreaseActionResource } from "./action-economy";
 
 export function applyResourceDelta(
   character: Character,
@@ -77,6 +78,55 @@ export function applyModifier(
   };
 }
 
+export function isActionAvailable(
+  character: Character,
+  action: Action,
+): boolean {
+  if (!character.combatState) return false;
+
+  let hasActionEconomy = false;
+
+  switch (action.actionSlot) {
+    case "action":
+      hasActionEconomy =
+        character.combatState.actionEconomy.actions.current > 0;
+      break;
+    case "bonusAction":
+      hasActionEconomy =
+        character.combatState.actionEconomy.bonusActions.current > 0;
+      break;
+    case "reaction":
+      hasActionEconomy =
+        character.combatState.actionEconomy.reactions.current > 0;
+      break;
+  }
+
+  let hasResource = false;
+  if (
+    action.effects.some((effect) => effect.type === "modifyResource") ||
+    action.effects.some((effect) => effect.type === "convertResource")
+  ) {
+    for (const effect of action.effects) {
+      switch (effect.type) {
+        case "modifyResource":
+          hasResource =
+            character.resources[effect.resourceId].current >= effect.amount;
+          break;
+
+        case "convertResource":
+          hasResource =
+            character.resources[effect.from.resourceId].current >=
+            effect.from.amount;
+          break;
+      }
+    }
+  }
+
+  const isAvailable = hasActionEconomy && hasResource;
+
+  return isAvailable;
+}
+
 export function executeAction(
   action: Action,
   ctx: {
@@ -109,6 +159,11 @@ export function executeAction(
         break;
     }
   }
+
+  updatedCharacter = decreaseActionResource(
+    updatedCharacter,
+    action.actionSlot,
+  );
 
   ctx.dispatch(updatedCharacter);
 }

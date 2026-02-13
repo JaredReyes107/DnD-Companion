@@ -1,7 +1,7 @@
 import { Button, FlatList, TouchableOpacity, View } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
-import { useCharacter } from "@/hooks/useCharacter";
+import { useCharacter } from "@/lib/utilities/character-provider";
 
 import { ActionSection } from "@/components/ActionSection";
 
@@ -21,9 +21,9 @@ import genericStyles from "@/stylesheets/generic.styles";
 import styles from "@/stylesheets/combat/tab-actions";
 
 const HomeScreen = () => {
-  const { character, saveCharacter } = useCharacter();
+  const { character, saveCharacter, loading } = useCharacter();
 
-  if (!character) {
+  if (loading || !character) {
     return (
       <View>
         <ThemedText>Cargando personaje…</ThemedText>
