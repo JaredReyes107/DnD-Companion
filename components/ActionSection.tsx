@@ -12,6 +12,7 @@ import {
   decreaseActionResource,
 } from "@/game/mechanics/action-economy";
 import { executeAction, isActionAvailable } from "@/game/mechanics/take-action";
+import { getLocalizedName } from "@/lib/helpers/localization-helper";
 
 type Props = {
   slot: ActionResourceType;
@@ -41,7 +42,7 @@ export const ActionSection = ({
         {actions.map((action) => (
           <ActionElement
             key={action.id}
-            label={action.id}
+            label={getLocalizedName("actions", action.id)}
             isAvailable={isActionAvailable(character, action)}
             onUse={() => handleAction(action)}
           />

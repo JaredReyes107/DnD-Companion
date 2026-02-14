@@ -101,7 +101,7 @@ export function isActionAvailable(
       break;
   }
 
-  let hasResource = false;
+  let hasResource = true;
   if (
     action.effects.some((effect) => effect.type === "modifyResource") ||
     action.effects.some((effect) => effect.type === "convertResource")

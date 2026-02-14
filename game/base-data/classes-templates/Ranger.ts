@@ -25,7 +25,6 @@ export const RANGER: ClassTemplate = {
         level: 1,
         description: "You gain benefits against a chosen type of enemy.",
         tags: ["passive"],
-        // TODO: creature-tag system
       },
       {
         id: "natural_explorer",
@@ -35,7 +34,6 @@ export const RANGER: ClassTemplate = {
         description:
           "You are particularly familiar with one type of natural environment.",
         tags: ["exploration"],
-        // TODO: exploration system
       },
     ],
 
@@ -74,8 +72,8 @@ export const RANGER: ClassTemplate = {
         source: "class",
         level: 3,
         description: "You can sense certain creature types nearby.",
+        actions: ["primeval_awareness"],
         tags: ["utility"],
-        // TODO: spell-slot consumption
         // TODO: detection hook
       },
     ],
@@ -130,8 +128,8 @@ export const RANGER: ClassTemplate = {
         source: "class",
         level: 10,
         description: "You can create camouflage for yourself.",
+        actions: ["vanish"],
         tags: ["stealth"],
-        // TODO: action
         // TODO: stealth system
       },
     ],
@@ -150,7 +148,6 @@ export const RANGER: ClassTemplate = {
         level: 14,
         description: "You can hide as a bonus action.",
         tags: ["stealth"],
-        // TODO: bonus-action
       },
     ],
 

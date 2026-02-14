@@ -24,8 +24,8 @@ export const BARD: ClassTemplate = {
         source: "class",
         level: 1,
         description: "You can inspire others through stirring words or music.",
-        //TODO: Add property with Id's "actions: [],"
         resources: ["bardic_inspiration"],
+        actions: ["bardic_inspiration"],
         tags: ["resource", "support"],
       },
       {

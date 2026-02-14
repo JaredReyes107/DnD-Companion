@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
   actionBoardCellTitle: {
     fontSize: 12,
     textAlign: "center",
+    lineHeight: 15,
   },
 
   footerSection: {

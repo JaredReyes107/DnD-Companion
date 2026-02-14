@@ -1,6 +1,6 @@
 import { Action } from "@/game/types/instances/action";
 
-export const ACTIONS_SORCERER: Record<string, Action> = {
+export const SORCERER_ACTIONS: Record<string, Action> = {
   font_of_magic_to_spellslots: {
     id: "font_of_magic_to_spellslots",
     sourceId: "sorcerer",

@@ -26,10 +26,8 @@ export const PALADIN: ClassTemplate = {
         description:
           "You can sense the presence of strong evil and powerful good.",
         resources: ["divine_sense"],
+        actions: ["divine_sense"],
         tags: ["resource", "utility"],
-        // TODO: action
-        // TODO: condition-detection hook
-        // TODO: rest-hook
       },
       {
         id: "lay_on_hands",
@@ -39,9 +37,8 @@ export const PALADIN: ClassTemplate = {
         description:
           "You have a pool of healing power that replenishes when you take a long rest.",
         resources: ["lay_on_hands"],
+        actions: ["lay_on_hands"],
         tags: ["resource", "healing"],
-        // TODO: action
-        // TODO: healing-hook
         // TODO: rest-hook
       },
     ],
@@ -70,9 +67,8 @@ export const PALADIN: ClassTemplate = {
         source: "class",
         level: 2,
         description: "You can expend a spell slot to deal radiant damage.",
+        actions: ["divine_smite"],
         tags: ["combat"],
-        // TODO: combat-hook
-        // TODO: spell-slot consumption
       },
     ],
 
