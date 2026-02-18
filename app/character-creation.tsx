@@ -15,8 +15,8 @@ import * as Crypto from "expo-crypto";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Custom Classes and Constants
-import { Character } from "@/game/types/instances/character"; // Import custom types
-import { Alignment, ALIGNMENTS } from "@/game/base-data/alignments";
+import { Character } from "@/game/types/instances/Character";
+import { Alignment, ALIGNMENTS } from "@/game/base-data/Alignments";
 import {
   ABILITY_ORDER,
   AbilityScores,
@@ -27,7 +27,7 @@ import {
 import { getMaximumHitDice } from "@/lib/helpers/hit-dice-helper";
 import { buildAbilityScores } from "@/lib/helpers/ability-scores-helper";
 import { buildSavingThrows } from "@/lib/helpers/saving-throws-helper";
-import { SKILL_KEYS } from "@/game/base-data/skills";
+import { SKILL_KEYS } from "@/game/base-data/SKILLS";
 import { CharacterSkills } from "@/game/types/templates/character-skills";
 import { buildCharacterSkills } from "@/lib/helpers/skills-helper";
 import { buildCharacterResources } from "@/lib/helpers/resources-helper";
@@ -44,10 +44,12 @@ import SavingThrowProficiencyInput from "@/components/SavingThrowProficiencyInpu
 import SkillProficiencyInput from "@/components/SkillProficiencyInput";
 
 import { ui } from "@/localization/ui-localization-resolver";
+import { getLocalizedName } from "@/lib/helpers/localization-helper";
 
 import genericStyles from "@/stylesheets/generic.styles";
 import styles from "@/stylesheets/character-creation.styles";
-import { getLocalizedName } from "@/lib/helpers/localization-helper";
+import { buildCharacterActions } from "@/lib/helpers/actions-helper";
+
 const CharacterCreationScreen = () => {
   const router = useRouter();
 
@@ -162,6 +164,7 @@ const CharacterCreationScreen = () => {
 
     newCharacter.currentHitDice = getMaximumHitDice(newCharacter);
     newCharacter.resources = buildCharacterResources(newCharacter);
+    newCharacter.actions = buildCharacterActions(newCharacter);
 
     setCharacters([...characters, newCharacter]);
 

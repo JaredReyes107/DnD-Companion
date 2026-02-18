@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */  
 import { Character } from "@/game/types/instances/character";
-import { SKILLS } from "@/game/base-data/skills";
+import { SKILLS } from "@/game/base-data/SKILLS";
 import { SkillInstance } from "@/game/types/templates/character-skills";
 import { getAbilityModifier, getProficiencyBonus } from "./abilities-modifiers";
 

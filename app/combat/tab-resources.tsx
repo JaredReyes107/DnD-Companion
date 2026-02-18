@@ -5,14 +5,14 @@ import { ResourceSection } from "@/components/ResourceSection";
 import { groupResourcesByCategory } from "@/game/registries/resources.registry";
 import { groupedResourcesAsArray } from "@/lib/helpers/resources-helper";
 
-import { useCharacter } from "@/hooks/useCharacter";
+import { useCharacter } from "@/lib/utilities/character-provider";
 
 import genericStyles from "@/stylesheets/generic.styles";
 
 const ResourcesDashboard = () => {
-  const { character, saveCharacter } = useCharacter();
+  const { character, saveCharacter, loading } = useCharacter();
 
-  if (!character) return null;
+  if (loading || !character) return null;
 
   const grouped = groupResourcesByCategory(character.resources);
   const sections = groupedResourcesAsArray(grouped);

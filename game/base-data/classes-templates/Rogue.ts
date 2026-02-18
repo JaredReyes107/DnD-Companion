@@ -50,8 +50,12 @@ export const ROGUE: ClassTemplate = {
         source: "class",
         level: 2,
         description: "You can take a bonus action on each of your turns.",
+        actions: [
+          "cunning_action_dash",
+          "cunning_action_disengage",
+          "cunning_action_hide",
+        ],
         tags: ["combat"],
-        // TODO: bonus-action
         // TODO: combat-hook
       },
     ],

@@ -42,8 +42,8 @@ export const MONK: ClassTemplate = {
         description:
           "Your training allows you to harness the mystic energy of ki.",
         resources: ["ki_points"],
+        actions: ["flurry_of_blows", "patient_defense", "step_of_the_wind"],
         tags: ["resource"],
-        // TODO: resource
         // TODO: rest-hook
       },
       {
@@ -73,8 +73,8 @@ export const MONK: ClassTemplate = {
         source: "class",
         level: 3,
         description: "You can use your reaction to deflect or catch a missile.",
+        actions: ["deflect_missiles"],
         tags: ["reaction", "combat"],
-        // TODO: reaction
         // TODO: combat-hook
       },
     ],
@@ -86,9 +86,9 @@ export const MONK: ClassTemplate = {
         source: "class",
         level: 4,
         description: "You can reduce falling damage when you fall.",
+        actions: ["slow_fall"],
         tags: ["reaction"],
         // TODO: reaction
-        // TODO: damage-hook
       },
     ],
 
@@ -110,9 +110,9 @@ export const MONK: ClassTemplate = {
         level: 5,
         description:
           "You can interfere with the flow of ki in an opponent's body.",
+        actions: ["stunning_strike"],
         tags: ["combat", "debuff"],
         // TODO: combat-hook
-        // TODO: resource
       },
     ],
 
@@ -145,9 +145,9 @@ export const MONK: ClassTemplate = {
         level: 7,
         description:
           "You can use your action to end certain effects on yourself.",
+        actions: ["stillness_of_mind"],
         tags: ["action"],
-        // TODO: action
-        // TODO: condition system
+        //? TODO: condition system
       },
     ],
 
@@ -201,8 +201,8 @@ export const MONK: ClassTemplate = {
         level: 14,
         description:
           "Your mastery of ki grants proficiency in all saving throws.",
+        actions: ["diamond_soul"],
         tags: ["defense"],
-        // TODO: saving-throw hook
         // NOTE: flat bonus logic ignored per constraints
       },
     ],
@@ -215,7 +215,6 @@ export const MONK: ClassTemplate = {
         level: 15,
         description: "You suffer none of the frailty of old age.",
         tags: ["passive"],
-        // TODO: narrative / condition immunity system
       },
     ],
 
@@ -230,10 +229,9 @@ export const MONK: ClassTemplate = {
         source: "class",
         level: 18,
         description: "You can use ki to become invisible or astral.",
-        tags: ["resource", "transformation"],
-        // TODO: action
-        // TODO: resource
+        actions: ["empty_body_invisibility", "empty_body_astral_projection"],
         // TODO: transformation
+        tags: ["resource", "transformation"],
       },
     ],
 

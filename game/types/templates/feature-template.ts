@@ -41,4 +41,5 @@ export type FeatureTemplate = {
   tags?: string[]; // "combat", "passive", "resource", "movement", etc.
 
   resources?: string[]; // ids of ResourceTemplate
+  actions?: string[]; // ids of ResourceTemplate
 };

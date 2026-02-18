@@ -1,4 +1,4 @@
-import { Character } from "@/game/types/instances/character";
+import { Character } from "@/game/types/instances/Character";
 import { getScaling } from "@/game/registries/resource-scaling.registry";
 import { ResourceTemplate } from "@/game/types/templates/resource-template";
 

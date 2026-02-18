@@ -3,7 +3,7 @@ import {
   CharacterSkills,
   SkillInstance,
 } from "@/game/types/templates/character-skills";
-import { SKILLS } from "@/game/base-data/skills";
+import { SKILLS } from "@/game/base-data/SKILLS";
 import { Character } from "@/game/types/instances/character";
 import { sortGameIdsByName } from "./localization-helper";
 

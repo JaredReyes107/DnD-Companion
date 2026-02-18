@@ -3,7 +3,7 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { ResourceElement } from "./ResourceElement";
 
-import { Character } from "@/game/types/instances/character";
+import { Character } from "@/game/types/instances/Character";
 import { ResourceCategory } from "@/game/types/templates/resource-template";
 import { ResourceInstance } from "@/game/types/instances/resource-instance";
 import { ResourceTemplate } from "@/game/types/templates/resource-template";

@@ -1,4 +1,4 @@
-import { Character } from "@/game/types/instances/character";
+import { Character } from "@/game/types/instances/Character";
 import { CharacterResources } from "@/game/types/instances/character-resources";
 import { FeatureTemplate } from "@/game/types/templates/feature-template";
 import { getActiveFeatures } from "./features-helper";
