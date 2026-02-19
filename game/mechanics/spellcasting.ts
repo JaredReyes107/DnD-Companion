@@ -1,4 +1,4 @@
-import { Character } from "@/game/types/instances/character";
+import { Character } from "@/game/types/instances/Character";
 import { CharacterClasses } from "@/game/types/instances/character-classes";
 import { SpellSlotLevel } from "../types/instances/spell-slot-instance";
 import {

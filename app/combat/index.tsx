@@ -89,7 +89,7 @@ const App = () => {
           {/* Button: Go back */}
           <TouchableOpacity
             onPress={() => {
-              router.replace("./");
+              router.replace("../character-sheet");
             }}
           >
             <Entypo name="arrow-with-circle-left" size={36} color={"#FFFFFF"} />

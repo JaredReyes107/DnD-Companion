@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Character } from "@/game/types/instances/character";
+import { Character } from "@/game/types/instances/Character";
 import { getTotalCharacterLevel } from "./character-multiclassing";
 
 export function getProficiencyBonus(character: Character): number {

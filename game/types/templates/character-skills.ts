@@ -5,7 +5,7 @@ export type Skill = {
 };
 
 export type SkillInstance = {
-  skill: string;
+  skillId: string;
   hasProficiency: boolean;
   hasExpertise: boolean;
 };
