@@ -26,6 +26,34 @@ const TabLayout = () => {
         }}
       >
         <Tabs.Screen
+          name="tab-character-sheet"
+          options={{
+            title: "Estadísticas",
+            tabBarIcon: ({ color, focused }) => (
+              <MaterialCommunityIcons
+                name={focused ? "chart-box" : "chart-box-outline"}
+                size={28}
+                style={{ marginBottom: -3 }}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="tab-stats"
+          options={{
+            title: "Estado",
+            tabBarIcon: ({ color, focused }) => (
+              <FontAwesome6
+                name={focused ? "heart-pulse" : "heart"}
+                size={28}
+                style={{ marginBottom: -3 }}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
           name="tab-actions"
           options={{
             title: "Acciones",
@@ -40,12 +68,12 @@ const TabLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="index"
+          name="tab-resources"
           options={{
-            title: "Vida",
+            title: "Recursos",
             tabBarIcon: ({ color, focused }) => (
-              <FontAwesome6
-                name={focused ? "heart-pulse" : "heart"}
+              <Ionicons
+                name={focused ? "book" : "book-outline"}
                 size={28}
                 style={{ marginBottom: -3 }}
                 color={color}
@@ -54,12 +82,12 @@ const TabLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="tab-resources"
+          name="tab-equipment"
           options={{
-            title: "Recursos",
+            title: "Equipamiento",
             tabBarIcon: ({ color, focused }) => (
-              <Ionicons
-                name={focused ? "book" : "book-outline"}
+              <MaterialCommunityIcons
+                name={focused ? "bag-personal" : "bag-personal-outline"}
                 size={28}
                 style={{ marginBottom: -3 }}
                 color={color}

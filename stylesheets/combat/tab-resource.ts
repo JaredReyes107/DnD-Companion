@@ -39,6 +39,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
 
     backgroundColor: "#D69F38",
+
+    borderRadius: 5,
   },
   resourceElementName: {
     width: "100%",

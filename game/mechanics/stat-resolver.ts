@@ -80,7 +80,7 @@ export type ResolvedCharacter = {
   stats: Map<string, ResolvedStat>;
 };
 
-function serializeStatTemplate(statTemplate: StatModel): string {
+export function serializeStatTemplate(statTemplate: StatModel): string {
   switch (statTemplate.type) {
     case "ability":
       return `ability:${statTemplate.ability}`;

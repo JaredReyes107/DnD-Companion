@@ -20,10 +20,6 @@ const RootLayout = () => {
           name="character-creation"
           options={{ title: "Nuevo Personaje" }}
         />
-        <Stack.Screen
-          name="character-sheet"
-          options={{ title: "Hoja de Personaje" }}
-        />
       </Stack>
     </CharacterProvider>
   );

@@ -2,6 +2,7 @@ import { Action, ConvertResourceEffect } from "../types/instances/action";
 import { Character } from "../types/instances/Character";
 import { StatModifier } from "../types/templates/stats";
 import { decreaseActionResource } from "./action-economy";
+import { serializeStatTemplate } from "./stat-resolver";
 
 export function applyResourceDelta(
   character: Character,
@@ -54,7 +55,8 @@ export function applyModifier(
   modifier: StatModifier,
   stacking: "refresh" | "override" | "ignore",
 ): Character {
-  const modifierExists = character.statModifiers[modifier.modifierId];
+  const modifierKey = serializeStatTemplate(modifier.statModel);
+  const modifierExists = character.statModifiers[modifierKey];
 
   if (!modifierExists) {
     return {
@@ -67,10 +69,10 @@ export function applyModifier(
 
   const modifiers = { ...character.statModifiers };
 
-  modifiers[modifierExists.modifierId] =
+  modifiers[modifierKey] =
     stacking === "refresh"
       ? { ...modifier }
-      : { ...modifiers[modifierExists.modifierId], ...modifier };
+      : { ...modifiers[modifierKey], ...modifier };
 
   return {
     ...character,
@@ -99,6 +101,9 @@ export function isActionAvailable(
       hasActionEconomy =
         character.combatState.actionEconomy.reactions.current > 0;
       break;
+    case "free":
+      hasActionEconomy = true;
+      break;
   }
 
   let hasResource = true;
@@ -109,10 +114,14 @@ export function isActionAvailable(
     for (const effect of action.effects) {
       switch (effect.type) {
         case "modifyResource":
-          hasResource =
-            character.resources[effect.resourceId].current >= effect.amount;
+          if (effect.amount < 0) {
+            hasResource =
+              character.resources[effect.resourceId].current >=
+              Math.abs(effect.amount);
+          } else {
+            hasResource = true;
+          }
           break;
-
         case "convertResource":
           hasResource =
             character.resources[effect.from.resourceId].current >=

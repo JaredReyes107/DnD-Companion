@@ -29,10 +29,10 @@ export function getTotalCasterLevel(
         total += classInstance.level;
         break;
       case "half":
-        total += Math.floor(classInstance.level / 2);
+        total += Math.ceil(classInstance.level / 2);
         break;
       case "third":
-        total += Math.floor(classInstance.level / 3);
+        total += Math.ceil(classInstance.level / 3);
         break;
     }
   }

@@ -33,7 +33,6 @@ import { PrintNumberWithSign } from "@/lib/utilities/formater-numbers";
 import { getCharacterSkillsAsArray } from "@/lib/helpers/skills-helper";
 import { getCharacterSavingThrowsAsArray } from "@/lib/helpers/saving-throws-helper";
 import { useCharacter } from "@/hooks/useCharacter";
-import { buildCombatState } from "@/lib/helpers/combat-helper";
 import {
   getLocalizedName,
   getLocalizedShortName,
@@ -63,15 +62,6 @@ const CharacterSheetScreen = () => {
       <ScrollView
         style={[genericStyles.rootContainer, { paddingHorizontal: "0%" }]}
       >
-        {/* 
-        <View style={styles.tabsMenu}>
-          <View style={styles.tabSectionContainer_Active}>
-            <Text style={styles.tabSectionName_Active}>
-              Detalles
-            </Text>
-          </View>
-        </View>    
-        */}
         <View>
           <TouchableOpacity
             onPress={() => {
@@ -148,33 +138,8 @@ const CharacterSheetScreen = () => {
 
           <View style={genericStyles.characterCard_ButtonsContainer}>
             <TouchableOpacity
-              onPress={() => {
-                saveCharacter(buildCombatState(character));
-                router.replace("../combat");
-              }}
-              style={genericStyles.characterCard_ActionIcon}
-            >
-              <MaterialCommunityIcons
-                name="sword-cross"
-                size={24}
-                color="#da8466"
-              />
-            </TouchableOpacity>
-
-            <TouchableOpacity
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              onPress={() => router.push("/character-equipment" as any)}
-              style={genericStyles.characterCard_ActionIcon}
-            >
-              <MaterialCommunityIcons
-                name="bag-personal"
-                size={24}
-                color="#da8466"
-              />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => 0}
+              onPress={() => router.replace("../character-edition" as any)}
               style={genericStyles.characterCard_ActionIcon}
             >
               <MaterialCommunityIcons

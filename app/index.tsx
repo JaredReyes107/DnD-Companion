@@ -55,7 +55,7 @@ const IndexScreen = () => {
       console.error("Error saving string:", error);
     }
 
-    router.push("../character-sheet");
+    router.push("../combat/tab-character-sheet");
   };
 
   const renderListItem = ({ item: character }: { item: Character }) => (

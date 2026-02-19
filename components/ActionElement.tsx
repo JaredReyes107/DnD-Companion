@@ -11,7 +11,7 @@ type Props = {
 
 export const ActionElement = ({ label, isAvailable, onUse }: Props) => {
   return (
-    <TouchableOpacity onPress={onUse}>
+    <TouchableOpacity onPress={isAvailable ? onUse : () => {}}>
       <View
         style={
           isAvailable

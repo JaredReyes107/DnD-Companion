@@ -1,10 +1,4 @@
-import {
-  Entypo,
-  FontAwesome,
-  FontAwesome6,
-  Ionicons,
-} from "@expo/vector-icons";
-import { router } from "expo-router";
+import { FontAwesome, FontAwesome6, Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import {
   Text,
@@ -85,16 +79,7 @@ const App = () => {
           { paddingHorizontal: "5%", alignItems: "center" },
         ]}
       >
-        <View style={styles.headerContainer}>
-          {/* Button: Go back */}
-          <TouchableOpacity
-            onPress={() => {
-              router.replace("../character-sheet");
-            }}
-          >
-            <Entypo name="arrow-with-circle-left" size={36} color={"#FFFFFF"} />
-          </TouchableOpacity>
-        </View>
+        <View style={styles.headerContainer}></View>
 
         <View style={styles.mainBody}>
           {/* Window: Damage Taken Window */}

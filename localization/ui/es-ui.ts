@@ -9,6 +9,10 @@ export const es = {
     singular: "Raza",
     input: "Selecciona una raza",
   },
+  alignment: {
+    singular: "Alineamiento",
+    input: "Selecciona un alineamiento",
+  },
   xp: {
     full: "Puntos de experiencia",
   },

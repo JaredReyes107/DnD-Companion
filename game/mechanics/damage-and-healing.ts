@@ -1,5 +1,5 @@
 import { getMaximumHitDice } from "@/lib/helpers/hit-dice-helper";
-import { Character } from "../types/instances/character";
+import { Character } from "../types/instances/Character";
 
 export function takeDamage(
   damageTaken: number,
@@ -52,7 +52,6 @@ export function receiveHealing(
       ...character,
       hitPoints: {
         ...character.hitPoints,
-        temporalHP: 0,
         currentHP: Math.min(
           character.hitPoints.currentHP + HpRecovered,
           character.hitPoints.currentMaximumHP,
