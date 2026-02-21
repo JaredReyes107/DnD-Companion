@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   characterCard_Text: {
-    maxWidth: "70%",
     color: "#b2aca2",
   },
   characterCard_ButtonsContainer: {
@@ -74,6 +73,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
     gap: 5,
+
+    marginLeft: 10,
   },
   characterCard_ActionIcon: {
     paddingVertical: 5,

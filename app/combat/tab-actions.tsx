@@ -5,14 +5,11 @@ import { useCharacter } from "@/lib/utilities/character-provider";
 
 import { ActionSection } from "@/components/ActionSection";
 
-import {
-  getSpellAttackModifier,
-  getSpellSaveDC,
-} from "@/game/mechanics/spellcasting";
 import { getArmorClass } from "@/game/mechanics/armor-class";
 import { cycleActionResource } from "@/game/mechanics/action-economy";
 import { groupActionsBySlot } from "@/game/registries/actions.registry";
 import { groupedActionsAsArray } from "@/lib/helpers/actions-helper";
+import { resolveInCombat } from "@/game/mechanics/stat-resolver";
 
 import { PrintNumberWithSign } from "@/lib/utilities/formater-numbers";
 import { ui } from "@/localization/ui-localization-resolver";
@@ -38,6 +35,8 @@ const HomeScreen = () => {
   } else {
     const grouped = groupActionsBySlot(character.actions);
     const sections = groupedActionsAsArray(grouped);
+
+    const resolvedStats = resolveInCombat(character);
 
     return (
       <ThemedView style={genericStyles.rootContainer}>
@@ -82,7 +81,10 @@ const HomeScreen = () => {
                 Bon. de Ataque
               </ThemedText>
               <ThemedText style={styles.spellcastingValue}>
-                {PrintNumberWithSign(getSpellAttackModifier(character))}
+                {PrintNumberWithSign(
+                  resolvedStats.stats.get("derived:spellAttackModifier")
+                    ?.finalValue ?? 0,
+                )}
               </ThemedText>
               <ThemedText style={styles.spellcastingText}>
                 De Conjuro
@@ -93,7 +95,10 @@ const HomeScreen = () => {
                 CD de Conjuro
               </ThemedText>
               <ThemedText style={styles.spellcastingValue}>
-                {getSpellSaveDC(character)}
+                {PrintNumberWithSign(
+                  resolvedStats.stats.get("derived:spellSaveDC")?.finalValue ??
+                    0,
+                )}
               </ThemedText>
             </View>
           </View>

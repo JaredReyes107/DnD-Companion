@@ -29,6 +29,7 @@ import { CharacterSkills } from "@/game/types/templates/character-skills";
 import { buildCharacterSkills } from "@/lib/helpers/skills-helper";
 import { buildCharacterResources } from "@/lib/helpers/resources-helper";
 import { buildCharacterActions } from "@/lib/helpers/actions-helper";
+import { buildCombatState } from "@/lib/helpers/combat-helper";
 
 // Components
 import { ThemedView } from "./ThemedView";
@@ -50,6 +51,7 @@ import {
 
 import styles from "@/stylesheets/character-creation.styles";
 import genericStyles from "@/stylesheets/generic.styles";
+import SmoothCounterButton from "./SmoothCounterButton";
 
 type Props = {
   initialCharacter?: Character | null;
@@ -141,7 +143,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       baseMaximumHP: baseHP,
       baseSpeed: baseSpeed,
 
-      hitPoints: initialCharacter?.hitPoints ?? {
+      hitPoints: {
         currentMaximumHP: baseHP,
         currentHP: baseHP,
         temporalHP: 0,
@@ -158,6 +160,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       combatState: initialCharacter?.combatState ?? null,
     };
 
+    character.combatState = buildCombatState(character);
     character.currentHitDice = getMaximumHitDice(character);
     character.resources = buildCharacterResources(character);
     character.actions = buildCharacterActions(character);
@@ -245,6 +248,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
           <View style={styles.fieldContainer}>
             <Text style={styles.fieldHeader}>{ui("hp.full")}</Text>
             <TextInput
+              keyboardType="numeric"
               value={formatNaturalNumber(baseHP)}
               onChangeText={(value: string) =>
                 formatNaturalNumber(baseHP) != value
@@ -263,28 +267,28 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
             <View style={styles.counterContainer}>
               <Text style={styles.counterInput}>{baseSpeed}</Text>
               <View style={styles.counterButtonsContainer}>
-                <TouchableOpacity
+                <SmoothCounterButton
                   style={styles.counterButton}
                   onPress={() =>
-                    setBaseSpeed(baseSpeed > 0 ? baseSpeed - 5 : 0)
+                    setBaseSpeed((prev) => (prev > 0 ? prev - 5 : 0))
                   }
                 >
                   <MaterialIcons
                     name="remove"
                     style={styles.counterButtonIcon}
                   ></MaterialIcons>
-                </TouchableOpacity>
-                <TouchableOpacity
+                </SmoothCounterButton>
+                <SmoothCounterButton
                   style={styles.counterButton}
                   onPress={() =>
-                    setBaseSpeed(baseSpeed < 40 ? baseSpeed + 5 : 75)
+                    setBaseSpeed((prev) => (prev < 75 ? prev + 5 : 75))
                   }
                 >
                   <MaterialIcons
                     name="add"
                     style={styles.counterButtonIcon}
                   ></MaterialIcons>
-                </TouchableOpacity>
+                </SmoothCounterButton>
               </View>
             </View>
           </View>

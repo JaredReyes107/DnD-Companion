@@ -40,3 +40,14 @@ export type StatModifier = {
 
   scope: "persistent" | "combat";
 };
+
+export type ActiveCombatModifier = {
+  id: string; // unique instance id
+  modifier: StatModifier;
+
+  appliedAtRound: number;
+  expiresAtRound?: number; // inclusive
+  expiresAtTurn?: number; // initiative index
+
+  concentration?: boolean;
+};

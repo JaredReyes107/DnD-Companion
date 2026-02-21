@@ -19,7 +19,7 @@ const SmoothCounterButton = ({
   onPress,
   disabled = false,
   delay = 300,
-  interval = 50,
+  interval = 35,
   ...props
 }: HoldButtonProps) => {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);

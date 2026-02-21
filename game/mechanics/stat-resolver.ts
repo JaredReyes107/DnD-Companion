@@ -7,6 +7,7 @@ import { getInitiativeBonus } from "./initiative";
 import { getArmorClass } from "./armor-class";
 import { getSavingThrowModifier } from "./saving-throws-modifiers";
 import { getSkillModifier } from "./skills-modifiers";
+import { getSpellAttackModifier, getSpellSaveDC } from "./spellcasting";
 
 export type ResolvedStat = {
   stat: Stat;
@@ -124,6 +125,8 @@ export function resolveOutOfCombat(character: Character): ResolvedCharacter {
     { type: "derived", key: "speed" },
     { type: "derived", key: "initiative" },
     { type: "derived", key: "ac" },
+    { type: "derived", key: "spellAttackModifier" },
+    { type: "derived", key: "spellSaveDC" },
   ];
 
   const allStats = [
@@ -148,7 +151,7 @@ export function resolveOutOfCombat(character: Character): ResolvedCharacter {
     } else if (stat.type === "derived") {
       switch (stat.key) {
         case "maxHp":
-          base = character.baseMaximumHP;
+          base = character.hitPoints.currentMaximumHP;
           break;
         case "speed":
           base = character.baseSpeed;
@@ -159,6 +162,13 @@ export function resolveOutOfCombat(character: Character): ResolvedCharacter {
         }
         case "ac":
           base = getArmorClass(character);
+          break;
+        case "spellAttackModifier": {
+          base = getSpellAttackModifier(character);
+          break;
+        }
+        case "spellSaveDC":
+          base = getSpellSaveDC(character);
           break;
       }
     }
@@ -177,25 +187,31 @@ export function resolveOutOfCombat(character: Character): ResolvedCharacter {
 }
 
 export function resolveInCombat(character: Character): ResolvedCharacter {
+  const stats = new Map<string, ResolvedStat>();
+
   const base = resolveOutOfCombat(character);
 
   if (!character.combatState) return base;
 
   const combatModifiers = Object.values(character.combatState.modifiers);
 
-  const stats = new Map<string, ResolvedStat>();
+  for (const [key, resolvedBase] of base.stats.entries()) {
+    const statTemplate = resolvedBase.stat.statModel;
 
-  for (const [key, resolved] of base.stats.entries()) {
-    const additionalModifiers = combatModifiers.filter((m) =>
-      isSameStat(m.statModel, resolved.stat.statModel),
+    const baseValue = resolvedBase.stat.base;
+
+    const persistentModifiers = resolvedBase.modifiers;
+
+    const combatRelevant = combatModifiers.filter((m) =>
+      isSameStat(m.statModel, statTemplate),
     );
 
     const finalResolved = resolveStat(
       {
-        statModel: resolved.stat.statModel,
-        base: resolved.finalValue,
+        statModel: statTemplate,
+        base: baseValue,
       },
-      [...resolved.modifiers, ...additionalModifiers],
+      [...persistentModifiers, ...combatRelevant],
     );
 
     stats.set(key, finalResolved);

@@ -12,33 +12,37 @@ import { useRouter } from "expo-router";
 // Custom Components
 import { ProficiencyIcon } from "@/components/ProficiencyIcon";
 
-// Styles
-import { useFonts } from "expo-font";
-import { Montserrat_500Medium } from "@expo-google-fonts/montserrat";
-import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
-
-// Custom Styles
-import genericStyles from "@/stylesheets/generic.styles";
-import styles from "@/stylesheets/character-sheet.styles";
-
 // Character Functions
 import {
   getAbilityModifier,
   getProficiencyBonus,
 } from "@/game/mechanics/abilities-modifiers";
 import { resolveOutOfCombat } from "@/game/mechanics/stat-resolver";
+import { ModifierType, StatModel } from "@/game/types/templates/stats";
+import { getTotalCharacterLevel } from "@/game/mechanics/character-multiclassing";
+import { getNextXPThreshold } from "@/game/mechanics/leveling";
+import { formatNaturalNumber } from "@/lib/utilities/input-handler";
 
 // Helper Functions
 import { PrintNumberWithSign } from "@/lib/utilities/formater-numbers";
 import { getCharacterSkillsAsArray } from "@/lib/helpers/skills-helper";
 import { getCharacterSavingThrowsAsArray } from "@/lib/helpers/saving-throws-helper";
-import { useCharacter } from "@/hooks/useCharacter";
+import { useCharacter } from "@/lib/utilities/character-provider";
 import {
   getLocalizedName,
   getLocalizedShortName,
 } from "@/lib/helpers/localization-helper";
+
+// Styles
+import { useFonts } from "expo-font";
+import { Montserrat_500Medium } from "@expo-google-fonts/montserrat";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+
+// Custom Styles
+import genericStyles from "@/stylesheets/generic.styles";
+import styles from "@/stylesheets/character-sheet.styles";
+
 import { ui } from "@/localization/ui-localization-resolver";
-import { ModifierType, StatModel } from "@/game/types/templates/stats";
 
 const CharacterSheetScreen = () => {
   const router = useRouter();
@@ -67,17 +71,16 @@ const CharacterSheetScreen = () => {
             onPress={() => {
               const newChar = {
                 ...character,
-                name: "Velmorn",
                 statModifiers: {
                   //...character.statModifiers,
                   mod1: {
                     statModel: {
-                      type: "ability",
-                      ability: "STR",
+                      type: "derived",
+                      key: "spellAttackModifier",
                     } as StatModel,
                     sourceId: "HB",
                     mode: "add" as ModifierType,
-                    value: 2,
+                    value: 0,
                     scope: "persistent" as "persistent" | "combat",
                   },
                   alert: {
@@ -114,13 +117,12 @@ const CharacterSheetScreen = () => {
           <View style={genericStyles.iconContainer}>
             <MaterialIcons name="face" size={24} color="white" />
           </View>
-
           <View style={genericStyles.characterCard_TextContainer}>
             <Text key="Nombre" style={genericStyles.characterCard_Title}>
-              {character?.name}
+              {character.name}
             </Text>
             <Text key="Raza" style={genericStyles.characterCard_Text}>
-              {character?.race}
+              {character.race}
             </Text>
             <Text key="Clase" style={genericStyles.characterCard_Text}>
               {character.classes.order.map(
@@ -134,12 +136,22 @@ const CharacterSheetScreen = () => {
                   " ",
               )}
             </Text>
+            <Text key="Xp" style={genericStyles.characterCard_Text}>
+              {formatNaturalNumber(character.experiencePoints) +
+                "/" +
+                formatNaturalNumber(
+                  getNextXPThreshold(
+                    getTotalCharacterLevel(character.classes),
+                  ) ?? 0,
+                )}
+            </Text>
           </View>
 
           <View style={genericStyles.characterCard_ButtonsContainer}>
             <TouchableOpacity
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              onPress={() => router.replace("../character-edition" as any)}
+              onPress={() => {
+                router.push("../character-edition");
+              }}
               style={genericStyles.characterCard_ActionIcon}
             >
               <MaterialCommunityIcons
