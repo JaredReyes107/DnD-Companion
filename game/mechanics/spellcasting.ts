@@ -1,4 +1,4 @@
-import { Character } from "@/game/types/instances/character";
+import { Character } from "@/game/types/instances/Character";
 import { CharacterClasses } from "@/game/types/instances/character-classes";
 import { SpellSlotLevel } from "../types/instances/spell-slot-instance";
 import {
@@ -29,10 +29,10 @@ export function getTotalCasterLevel(
         total += classInstance.level;
         break;
       case "half":
-        total += Math.floor(classInstance.level / 2);
+        total += Math.ceil(classInstance.level / 2);
         break;
       case "third":
-        total += Math.floor(classInstance.level / 3);
+        total += Math.ceil(classInstance.level / 3);
         break;
     }
   }

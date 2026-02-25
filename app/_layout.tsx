@@ -21,8 +21,8 @@ const RootLayout = () => {
           options={{ title: "Nuevo Personaje" }}
         />
         <Stack.Screen
-          name="character-sheet"
-          options={{ title: "Hoja de Personaje" }}
+          name="character-edition"
+          options={{ title: "Editar Personaje" }}
         />
       </Stack>
     </CharacterProvider>

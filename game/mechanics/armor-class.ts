@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Character } from "@/game/types/instances/character";
+import { Character } from "@/game/types/instances/Character";
 import { getAbilityModifier as getAbilityModifier } from "./abilities-modifiers";
 
 export function getArmorClass(character: Character): number {

@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 
-import { LocalizationNamespace } from "@/localization/game-localization-resolver";
+import { LocalizationNamespace } from "@/localization/game-localization.types";
 import { ui } from "@/localization/ui-localization-resolver";
 import { getLocalizedName } from "@/lib/helpers/localization-helper";
 

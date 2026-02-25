@@ -37,7 +37,7 @@ export const PALADIN_ACTIONS: Record<string, Action> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "divine_smite",
+        resourceId: "spell_slot_1",
         amount: -1,
       },
     ],

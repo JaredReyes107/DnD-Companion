@@ -12,6 +12,7 @@ type CharacterContextType = {
   character: Character | null;
   loading: boolean;
   saveCharacter: (updated: Character) => Promise<void>;
+  loadCharacterById: (id: string) => Promise<void>;
 };
 
 const CharacterContext = createContext<CharacterContextType | null>(null);
@@ -63,8 +64,27 @@ export const CharacterProvider = ({
     await AsyncStorage.setItem("characters", JSON.stringify(next));
   }, []);
 
+  const loadCharacterById = useCallback(async (id: string) => {
+    setLoading(true);
+
+    const raw = await AsyncStorage.getItem("characters");
+    if (!raw) {
+      setCharacter(null);
+      setLoading(false);
+      return;
+    }
+
+    const characters: Character[] = JSON.parse(raw);
+    const found = characters.find((c) => c.id === id) ?? null;
+
+    setCharacter(found);
+    setLoading(false);
+  }, []);
+
   return (
-    <CharacterContext.Provider value={{ character, loading, saveCharacter }}>
+    <CharacterContext.Provider
+      value={{ character, loading, saveCharacter, loadCharacterById }}
+    >
       {children}
     </CharacterContext.Provider>
   );

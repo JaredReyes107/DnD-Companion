@@ -4,13 +4,13 @@ import {
   SkillInstance,
 } from "@/game/types/templates/character-skills";
 import { SKILLS } from "@/game/base-data/SKILLS";
-import { Character } from "@/game/types/instances/character";
+import { Character } from "@/game/types/instances/Character";
 import { sortGameIdsByName } from "./localization-helper";
 
 export function buildCharacterSkills(): CharacterSkills {
   return Object.keys(SKILLS).reduce((acc, skillId) => {
     acc[skillId] = {
-      skill: skillId,
+      skillId: skillId,
       hasProficiency: false,
       hasExpertise: false,
     };
@@ -40,7 +40,7 @@ export function getCharacterSkillsFromState(
 ): CharacterSkills {
   return Object.keys(SKILLS).reduce((acc, skillId, index) => {
     acc[skillId] = {
-      skill: skillId,
+      skillId: skillId,
       hasProficiency: proficiencies[index] ?? false,
       hasExpertise: expertises[index] ?? false,
     };

@@ -38,6 +38,7 @@ export function takeLongRest(character: Character): Character {
       temporalHP: 0,
       currentHP: character.hitPoints.currentMaximumHP,
     },
+    combatState: buildCombatState(character),
     resources: restoreResources(character.resources, ["longRest", "shortRest"]),
   };
 }
@@ -45,7 +46,7 @@ export function takeLongRest(character: Character): Character {
 export function takeShortRest(character: Character): Character {
   return {
     ...character,
-    combatState: buildCombatState(character).combatState,
+    combatState: buildCombatState(character),
     resources: restoreResources(character.resources, ["shortRest"]),
   };
 }

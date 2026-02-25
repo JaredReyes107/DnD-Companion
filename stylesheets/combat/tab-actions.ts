@@ -20,6 +20,8 @@ const styles = StyleSheet.create({
     gap: 1,
 
     backgroundColor: "#3e21aa",
+
+    borderRadius: 5,
   },
   primaryStatText: {
     color: "#ecedee",
@@ -40,6 +42,8 @@ const styles = StyleSheet.create({
     gap: 1,
 
     backgroundColor: "#922551",
+
+    borderRadius: 5,
   },
   spellcastingText: {
     color: "#ecedee",
@@ -62,6 +66,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
 
     backgroundColor: "#ca6b2c",
+
+    borderRadius: 5,
   },
   actionSlotContent: {
     alignItems: "center",

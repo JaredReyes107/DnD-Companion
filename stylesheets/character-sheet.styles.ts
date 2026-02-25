@@ -1,32 +1,6 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  tabsMenu: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  tabSectionContainer_Active: {
-    paddingTop: 5,
-    paddingLeft: 7.5,
-    paddingRight: 7.5,
-    paddingBottom: 10,
-    backgroundColor: "#1a1a1a",
-
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: "#1a1a1a",
-
-    //Top Bar
-    //borderTopColor: '#da8466',
-
-    marginRight: 10,
-    marginLeft: 10,
-    marginBottom: -10,
-  },
-  tabSectionName_Active: {
-    color: "#cbcbcb", //#e8e6e3
-  },
-
   //#region Character Skills and Stats
   detailsBody: {
     display: "flex",

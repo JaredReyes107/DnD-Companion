@@ -8,12 +8,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Character } from "@/game/types/instances/Character";
 
 // Custom Components
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { ThemedView } from "@/components/ThemedView";
 
-import styles from "@/stylesheets/generic.styles";
-import { ui } from "@/localization/ui-localization-resolver";
 import { getLocalizedName } from "@/lib/helpers/localization-helper";
+import { getTotalCharacterLevel } from "@/game/mechanics/character-multiclassing";
+import { getNextXPThreshold } from "@/game/mechanics/leveling";
+
+import { ui } from "@/localization/ui-localization-resolver";
+
+import styles from "@/stylesheets/generic.styles";
+import { formatNaturalNumber } from "@/lib/utilities/input-handler";
 
 const IndexScreen = () => {
   const router = useRouter();
@@ -55,7 +60,7 @@ const IndexScreen = () => {
       console.error("Error saving string:", error);
     }
 
-    router.push("../character-sheet");
+    router.push("../combat/tab-character-sheet");
   };
 
   const renderListItem = ({ item: character }: { item: Character }) => (
@@ -86,13 +91,37 @@ const IndexScreen = () => {
                 " ",
             )}
           </Text>
+          <Text key="Xp" style={styles.characterCard_Text}>
+            {formatNaturalNumber(character.experiencePoints) +
+              "/" +
+              formatNaturalNumber(
+                getNextXPThreshold(getTotalCharacterLevel(character.classes)) ??
+                  0,
+              )}
+          </Text>
         </View>
-        <TouchableOpacity
-          onPress={() => deleteItem(character.id)}
-          style={styles.characterCard_ActionIcon}
-        >
-          <MaterialIcons name="delete" size={24} color="#da8466" />
-        </TouchableOpacity>
+
+        <View style={styles.characterCard_ButtonsContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              AsyncStorage.setItem("selectedCharacterId", character.id);
+              router.push("./character-edition");
+            }}
+            style={styles.characterCard_ActionIcon}
+          >
+            <MaterialCommunityIcons
+              name="square-edit-outline"
+              size={24}
+              color="#da8466"
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => deleteItem(character.id)}
+            style={styles.characterCard_ActionIcon}
+          >
+            <MaterialIcons name="delete" size={24} color="#da8466" />
+          </TouchableOpacity>
+        </View>
       </TouchableOpacity>
     </View>
   );

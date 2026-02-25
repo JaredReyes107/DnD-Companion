@@ -12,35 +12,36 @@ import { useRouter } from "expo-router";
 // Custom Components
 import { ProficiencyIcon } from "@/components/ProficiencyIcon";
 
-// Styles
-import { useFonts } from "expo-font";
-import { Montserrat_500Medium } from "@expo-google-fonts/montserrat";
-import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
-
-// Custom Styles
-import genericStyles from "@/stylesheets/generic.styles";
-import styles from "@/stylesheets/character-sheet.styles";
-
 // Character Functions
-import { getInitiativeBonus } from "@/game/mechanics/initiative";
-import { getArmorClass } from "@/game/mechanics/armor-class";
 import {
   getAbilityModifier,
   getProficiencyBonus,
 } from "@/game/mechanics/abilities-modifiers";
-import { getSavingThrowModifier } from "@/game/mechanics/saving-throws-modifiers";
-import { getSkillModifier } from "@/game/mechanics/skills-modifiers";
+import { resolveOutOfCombat } from "@/game/mechanics/stat-resolver";
+import { ModifierType, StatModel } from "@/game/types/templates/stats";
+import { getTotalCharacterLevel } from "@/game/mechanics/character-multiclassing";
+import { getNextXPThreshold } from "@/game/mechanics/leveling";
+import { formatNaturalNumber } from "@/lib/utilities/input-handler";
 
 // Helper Functions
 import { PrintNumberWithSign } from "@/lib/utilities/formater-numbers";
 import { getCharacterSkillsAsArray } from "@/lib/helpers/skills-helper";
 import { getCharacterSavingThrowsAsArray } from "@/lib/helpers/saving-throws-helper";
-import { useCharacter } from "@/hooks/useCharacter";
-import { buildCombatState } from "@/lib/helpers/combat-helper";
+import { useCharacter } from "@/lib/utilities/character-provider";
 import {
   getLocalizedName,
   getLocalizedShortName,
 } from "@/lib/helpers/localization-helper";
+
+// Styles
+import { useFonts } from "expo-font";
+import { Montserrat_500Medium } from "@expo-google-fonts/montserrat";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+
+// Custom Styles
+import genericStyles from "@/stylesheets/generic.styles";
+import styles from "@/stylesheets/character-sheet.styles";
+
 import { ui } from "@/localization/ui-localization-resolver";
 
 const CharacterSheetScreen = () => {
@@ -59,30 +60,69 @@ const CharacterSheetScreen = () => {
       </View>
     );
   } else {
+    const resolvedStats = resolveOutOfCombat(character);
+
     return (
       <ScrollView
         style={[genericStyles.rootContainer, { paddingHorizontal: "0%" }]}
       >
-        {/* 
-        <View style={styles.tabsMenu}>
-          <View style={styles.tabSectionContainer_Active}>
-            <Text style={styles.tabSectionName_Active}>
-              Detalles
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              const newChar = {
+                ...character,
+                statModifiers: {
+                  //...character.statModifiers,
+                  mod1: {
+                    statModel: {
+                      type: "derived",
+                      key: "spellAttackModifier",
+                    } as StatModel,
+                    sourceId: "HB",
+                    mode: "add" as ModifierType,
+                    value: 0,
+                    scope: "persistent" as "persistent" | "combat",
+                  },
+                  alert: {
+                    statModel: {
+                      type: "derived",
+                      key: "initiative",
+                    } as StatModel,
+                    sourceId: "alert",
+                    mode: "add" as ModifierType,
+                    value: 5,
+                    scope: "persistent" as "persistent" | "combat",
+                  },
+                },
+              };
+
+              saveCharacter(newChar);
+            }}
+          >
+            <Text
+              style={{
+                backgroundColor: "#249A0F",
+                color: "white",
+                textAlign: "center",
+                padding: 10,
+                marginHorizontal: "20%",
+              }}
+            >
+              Test action
             </Text>
-          </View>
-        </View>    
-        */}
+          </TouchableOpacity>
+        </View>
+
         <View style={[genericStyles.characterCard, { marginHorizontal: 20 }]}>
           <View style={genericStyles.iconContainer}>
             <MaterialIcons name="face" size={24} color="white" />
           </View>
-
           <View style={genericStyles.characterCard_TextContainer}>
             <Text key="Nombre" style={genericStyles.characterCard_Title}>
-              {character?.name}
+              {character.name}
             </Text>
             <Text key="Raza" style={genericStyles.characterCard_Text}>
-              {character?.race}
+              {character.race}
             </Text>
             <Text key="Clase" style={genericStyles.characterCard_Text}>
               {character.classes.order.map(
@@ -96,41 +136,26 @@ const CharacterSheetScreen = () => {
                   " ",
               )}
             </Text>
+            <Text key="Xp" style={genericStyles.characterCard_Text}>
+              {formatNaturalNumber(character.experiencePoints) +
+                "/" +
+                formatNaturalNumber(
+                  getNextXPThreshold(
+                    getTotalCharacterLevel(character.classes),
+                  ) ?? 0,
+                )}
+            </Text>
           </View>
 
           <View style={genericStyles.characterCard_ButtonsContainer}>
             <TouchableOpacity
               onPress={() => {
-                saveCharacter(buildCombatState(character));
-                router.replace("../combat");
+                router.push("../character-edition");
               }}
               style={genericStyles.characterCard_ActionIcon}
             >
               <MaterialCommunityIcons
-                name="sword-cross"
-                size={24}
-                color="#da8466"
-              />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              onPress={() => router.push("/character-equipment" as any)}
-              style={genericStyles.characterCard_ActionIcon}
-            >
-              <MaterialCommunityIcons
-                name="bag-personal"
-                size={24}
-                color="#da8466"
-              />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => 0}
-              style={genericStyles.characterCard_ActionIcon}
-            >
-              <MaterialCommunityIcons
-                name="lightning-bolt"
+                name="square-edit-outline"
                 size={24}
                 color="#da8466"
               />
@@ -155,19 +180,17 @@ const CharacterSheetScreen = () => {
                       {getLocalizedShortName("abilities", "STR")}
                     </Text>
                     <Text style={styles.mainStatModifierValue}>
-                      {(getAbilityModifier(
-                        character.baseAbilityScores.STR.value,
-                      ) > 0
-                        ? "+"
-                        : "") +
+                      {PrintNumberWithSign(
                         getAbilityModifier(
-                          character.baseAbilityScores.STR.value,
-                        )}
+                          resolvedStats.stats.get("ability:STR")?.finalValue ??
+                            0,
+                        ),
+                      )}
                     </Text>
                   </View>
                   <View style={styles.mainStatValueContainer}>
                     <Text style={styles.mainStatValue}>
-                      {character.baseAbilityScores.STR.value}
+                      {resolvedStats.stats.get("ability:STR")?.finalValue ?? 0}
                     </Text>
                   </View>
                 </View>
@@ -180,19 +203,17 @@ const CharacterSheetScreen = () => {
                       {getLocalizedShortName("abilities", "DEX")}
                     </Text>
                     <Text style={styles.mainStatModifierValue}>
-                      {(getAbilityModifier(
-                        character.baseAbilityScores.DEX.value,
-                      ) > 0
-                        ? "+"
-                        : "") +
+                      {PrintNumberWithSign(
                         getAbilityModifier(
-                          character.baseAbilityScores.DEX.value,
-                        )}
+                          resolvedStats.stats.get("ability:DEX")?.finalValue ??
+                            0,
+                        ),
+                      )}
                     </Text>
                   </View>
                   <View style={styles.mainStatValueContainer}>
                     <Text style={styles.mainStatValue}>
-                      {character.baseAbilityScores.DEX.value}
+                      {resolvedStats.stats.get("ability:DEX")?.finalValue ?? 0}
                     </Text>
                   </View>
                 </View>
@@ -205,19 +226,17 @@ const CharacterSheetScreen = () => {
                       {getLocalizedShortName("abilities", "CON")}
                     </Text>
                     <Text style={styles.mainStatModifierValue}>
-                      {(getAbilityModifier(
-                        character.baseAbilityScores.CON.value,
-                      ) > 0
-                        ? "+"
-                        : "") +
+                      {PrintNumberWithSign(
                         getAbilityModifier(
-                          character.baseAbilityScores.CON.value,
-                        )}
+                          resolvedStats.stats.get("ability:CON")?.finalValue ??
+                            0,
+                        ),
+                      )}
                     </Text>
                   </View>
                   <View style={styles.mainStatValueContainer}>
                     <Text style={styles.mainStatValue}>
-                      {character.baseAbilityScores.CON.value}
+                      {resolvedStats.stats.get("ability:CON")?.finalValue ?? 0}
                     </Text>
                   </View>
                 </View>
@@ -230,19 +249,17 @@ const CharacterSheetScreen = () => {
                       {getLocalizedShortName("abilities", "INT")}
                     </Text>
                     <Text style={styles.mainStatModifierValue}>
-                      {(getAbilityModifier(
-                        character.baseAbilityScores.WIS.value,
-                      ) > 0
-                        ? "+"
-                        : "") +
+                      {PrintNumberWithSign(
                         getAbilityModifier(
-                          character.baseAbilityScores.WIS.value,
-                        )}
+                          resolvedStats.stats.get("ability:INT")?.finalValue ??
+                            0,
+                        ),
+                      )}
                     </Text>
                   </View>
                   <View style={styles.mainStatValueContainer}>
                     <Text style={styles.mainStatValue}>
-                      {character?.baseAbilityScores.WIS.value}
+                      {resolvedStats.stats.get("ability:INT")?.finalValue ?? 0}
                     </Text>
                   </View>
                 </View>
@@ -252,22 +269,20 @@ const CharacterSheetScreen = () => {
                 <View style={styles.mainStatBox}>
                   <View style={styles.mainStatModifierContainer}>
                     <Text style={styles.mainStatText}>
-                      {getLocalizedShortName("abilities", "INT")}
+                      {getLocalizedShortName("abilities", "WIS")}
                     </Text>
                     <Text style={styles.mainStatModifierValue}>
-                      {(getAbilityModifier(
-                        character.baseAbilityScores.INT.value,
-                      ) > 0
-                        ? "+"
-                        : "") +
+                      {PrintNumberWithSign(
                         getAbilityModifier(
-                          character.baseAbilityScores.INT.value,
-                        )}
+                          resolvedStats.stats.get("ability:WIS")?.finalValue ??
+                            0,
+                        ),
+                      )}
                     </Text>
                   </View>
                   <View style={styles.mainStatValueContainer}>
                     <Text style={styles.mainStatValue}>
-                      {character?.baseAbilityScores.INT.value}
+                      {resolvedStats.stats.get("ability:WIS")?.finalValue ?? 0}
                     </Text>
                   </View>
                 </View>
@@ -280,19 +295,17 @@ const CharacterSheetScreen = () => {
                       {getLocalizedShortName("abilities", "CHA")}
                     </Text>
                     <Text style={styles.mainStatModifierValue}>
-                      {(getAbilityModifier(
-                        character.baseAbilityScores.CHA.value,
-                      ) > 0
-                        ? "+"
-                        : "") +
+                      {PrintNumberWithSign(
                         getAbilityModifier(
-                          character.baseAbilityScores.CHA.value,
-                        )}
+                          resolvedStats.stats.get("ability:CHA")?.finalValue ??
+                            0,
+                        ),
+                      )}
                     </Text>
                   </View>
                   <View style={styles.mainStatValueContainer}>
                     <Text style={styles.mainStatValue}>
-                      {character?.baseAbilityScores.CHA.value}
+                      {resolvedStats.stats.get("ability:CHA")?.finalValue ?? 0}
                     </Text>
                   </View>
                 </View>
@@ -306,7 +319,7 @@ const CharacterSheetScreen = () => {
               <View style={styles.secondaryStatContainer}>
                 <View style={styles.secondaryStatBox}>
                   {(() => {
-                    const value = `${character.hitPoints.currentMaximumHP}`;
+                    const value = `${resolvedStats.stats.get("derived:maxHp")?.finalValue ?? 0}`;
                     const [before, after] =
                       ui("hp.segmented").split(" {value} ");
 
@@ -330,7 +343,10 @@ const CharacterSheetScreen = () => {
                       {ui("initiative.full")}
                     </Text>
                     <Text style={styles.secondaryStatModifierValue}>
-                      {PrintNumberWithSign(getInitiativeBonus(character))}
+                      {PrintNumberWithSign(
+                        resolvedStats.stats.get("derived:initiative")
+                          ?.finalValue ?? 0,
+                      )}
                     </Text>
                   </View>
                 </View>
@@ -343,7 +359,8 @@ const CharacterSheetScreen = () => {
                       {ui("stats.speed")}
                     </Text>
                     <Text style={styles.secondaryStatModifierValue}>
-                      {character.baseSpeed}
+                      {resolvedStats.stats.get("derived:speed")?.finalValue ??
+                        0}
                     </Text>
                     <Text style={styles.secondaryStatText}>
                       {ui("measurements.feet")}
@@ -355,7 +372,7 @@ const CharacterSheetScreen = () => {
               <View style={styles.secondaryStatContainer}>
                 <View style={styles.secondaryStatBox}>
                   {(() => {
-                    const value = `${getArmorClass(character)}`;
+                    const value = `${resolvedStats.stats.get("derived:ac")?.finalValue ?? 0}`;
                     const [before, after] =
                       ui("ac.segmented").split(" {value} ");
 
@@ -424,7 +441,8 @@ const CharacterSheetScreen = () => {
                     </View>
                     <Text style={styles.proficiencyModifierBold}>
                       {PrintNumberWithSign(
-                        getSavingThrowModifier(character, item.state),
+                        resolvedStats.stats.get("save:" + item.definition)
+                          ?.finalValue ?? 0,
                       )}
                     </Text>
                   </View>
@@ -455,7 +473,8 @@ const CharacterSheetScreen = () => {
                     </View>
                     <Text style={styles.proficiencyModifier}>
                       {PrintNumberWithSign(
-                        getSkillModifier(character, item.state),
+                        resolvedStats.stats.get("skill:" + item.id)
+                          ?.finalValue ?? 0,
                       )}
                     </Text>
                   </View>

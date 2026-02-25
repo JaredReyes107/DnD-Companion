@@ -9,6 +9,10 @@ export const es = {
     singular: "Raza",
     input: "Selecciona una raza",
   },
+  alignment: {
+    singular: "Alineamiento",
+    input: "Selecciona un alineamiento",
+  },
   xp: {
     full: "Puntos de experiencia",
   },
@@ -38,7 +42,7 @@ export const es = {
   hp: {
     full: "Puntos de golpe",
     short: "HP",
-    segmented: "Puntos de {value} golpe",
+    segmented: "Puntos de {value} golpe base",
     total: "HP Total",
     temporal: "HP Temporal",
     hitDice: "Dados de golpe",

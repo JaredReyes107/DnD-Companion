@@ -1,6 +1,9 @@
-import { StatModifier } from "../templates/stats";
+import { ActiveCombatModifier } from "../templates/stats";
 
 export type CombatState = {
+  round: number;
+  currentTurnIndex: number;
+
   initiativeOrder: number;
   initiativeRoll?: number;
 
@@ -16,5 +19,5 @@ export type CombatState = {
   };
 
   conditions: string[];
-  modifiers: Record<string, StatModifier>;
+  modifiers: Record<string, ActiveCombatModifier>;
 };
