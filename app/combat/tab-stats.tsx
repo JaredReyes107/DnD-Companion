@@ -26,13 +26,13 @@ import {
   takeDamage,
   spendHitDie,
 } from "@/game/mechanics/damage-and-healing";
-import { cycleInitiativeOrder } from "@/game/mechanics/initiative";
+import { cycleInitiativeOrder } from "@/game/domain/combat/initiative";
 import {
   addFailure,
   addSuccess,
   removeFailure,
   removeSuccess,
-} from "@/game/mechanics/death-saving-throws";
+} from "@/game/domain/combat/death-saving-throws";
 
 import { ui } from "@/localization/ui-localization-resolver";
 

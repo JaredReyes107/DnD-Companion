@@ -3,20 +3,23 @@ import { View } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { ActionElement } from "./ActionElement";
 
-import { Character } from "@/game/types/instances/Character";
-import { Action } from "@/game/types/instances/action";
+import { Character } from "@/game/domain/character/Character";
+import { ActionInstance } from "@/game/domain/actions/action-instance";
 
 import styles from "@/stylesheets/combat/tab-actions";
 import {
   ActionResourceType,
   decreaseActionResource,
-} from "@/game/mechanics/action-economy";
-import { executeAction, isActionAvailable } from "@/game/mechanics/take-action";
+} from "@/game/domain/combat/action-economy";
+import {
+  executeAction,
+  isActionAvailable,
+} from "@/game/engine/action-execution/take-action";
 import { getLocalizedName } from "@/lib/helpers/localization-helper";
 
 type Props = {
   slot: ActionResourceType;
-  actions: Action[];
+  actions: ActionInstance[];
   character: Character;
   onUpdate: (updated: Character) => void;
 };
@@ -29,7 +32,7 @@ export const ActionSection = ({
 }: Props) => {
   if (actions.length === 0) return null;
 
-  const handleAction = (action: Action) => {
+  const handleAction = (action: ActionInstance) => {
     onUpdate(decreaseActionResource(character, action.actionSlot));
 
     executeAction(action, { character, dispatch: onUpdate });

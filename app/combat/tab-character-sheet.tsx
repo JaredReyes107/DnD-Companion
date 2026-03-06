@@ -17,10 +17,10 @@ import {
   getAbilityModifier,
   getProficiencyBonus,
 } from "@/game/mechanics/abilities-modifiers";
-import { resolveOutOfCombat } from "@/game/mechanics/stat-resolver";
-import { ModifierType, StatModel } from "@/game/types/templates/stats";
+import { resolveInCombat } from "@/game/engine/resolvers/stat-resolver";
+import { ModifierType, StatModel } from "@/game/data/templates/stats.types";
 import { getTotalCharacterLevel } from "@/game/mechanics/character-multiclassing";
-import { getNextXPThreshold } from "@/game/mechanics/leveling";
+import { getNextXPThreshold } from "@/game/domain/progression/leveling";
 import { formatNaturalNumber } from "@/lib/utilities/input-handler";
 
 // Helper Functions
@@ -60,7 +60,7 @@ const CharacterSheetScreen = () => {
       </View>
     );
   } else {
-    const resolvedStats = resolveOutOfCombat(character);
+    const resolvedStats = resolveInCombat(character);
 
     return (
       <ScrollView
@@ -74,16 +74,17 @@ const CharacterSheetScreen = () => {
                 statModifiers: {
                   //...character.statModifiers,
                   mod1: {
+                    templateId: "exampleId",
                     statModel: {
                       type: "derived",
                       key: "spellAttackModifier",
                     } as StatModel,
                     sourceId: "HB",
                     mode: "add" as ModifierType,
-                    value: 0,
-                    scope: "persistent" as "persistent" | "combat",
+                    value: 2,
                   },
                   alert: {
+                    templateId: "string",
                     statModel: {
                       type: "derived",
                       key: "initiative",
@@ -91,7 +92,6 @@ const CharacterSheetScreen = () => {
                     sourceId: "alert",
                     mode: "add" as ModifierType,
                     value: 5,
-                    scope: "persistent" as "persistent" | "combat",
                   },
                 },
               };

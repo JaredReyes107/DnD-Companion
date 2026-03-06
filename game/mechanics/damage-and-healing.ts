@@ -1,5 +1,5 @@
 import { getMaximumHitDice } from "@/lib/helpers/hit-dice-helper";
-import { Character } from "../types/instances/Character";
+import { Character } from "../domain/character/Character";
 
 export function takeDamage(
   damageTaken: number,

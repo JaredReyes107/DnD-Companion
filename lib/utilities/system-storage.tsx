@@ -3,7 +3,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
 
-import { Character } from "@/game/types/instances/Character";
+import { Character } from "@/game/domain/character/Character";
 
 export const loadCharacterFromStorage = async (): Promise<Character | null> => {
   try {

@@ -33,13 +33,9 @@ Its goal is to ensure **consistency, readability, maintainability, and scalabili
   /constants         # Static data, enums, config
   /docs              # Documentation
   /game              # Game types, rules, registries and official player options
-    /base-data
-    /instances
-    /registries
-    /rules
-    /types
-      /instances
-      /templates
+    /data            # Templates, constants
+    /domain          # Domain logic
+    /engine          # Engine execution
   /hooks             # Custom React hooks
   /lib               # APIs, storage, UI adapters, utilities
     /adapters        

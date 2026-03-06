@@ -1,13 +1,13 @@
-import { Character } from "@/game/types/instances/Character";
-import { Action } from "@/game/types/instances/action";
-import { ActionResourceType } from "@/game/mechanics/action-economy";
-import { FeatureTemplate } from "@/game/types/templates/feature-template";
+import { Character } from "@/game/domain/character/Character";
+import { ActionInstance } from "@/game/domain/actions/action-instance";
+import { ActionResourceType } from "@/game/domain/combat/action-economy";
+import { FeatureTemplate } from "@/game/data/templates/feature-template";
 import { getActiveFeatures } from "./features-helper";
 import {
   getActionById,
   GroupedActions,
-} from "@/game/registries/actions.registry";
-import { DEFAULT_ACTIONS } from "@/game/base-data/actions/default-actions";
+} from "@/game/data/registries/actions.registry";
+import { DEFAULT_ACTIONS } from "@/game/data/base/actions/default-actions";
 
 export function getActionsFromFeatures(
   features: FeatureTemplate[],
@@ -21,7 +21,7 @@ export function getActionsFromFeatures(
   return ids;
 }
 
-export function buildDefaultCharacterActions(): Record<string, Action> {
+export function buildDefaultCharacterActions(): Record<string, ActionInstance> {
   const defaultActions = DEFAULT_ACTIONS;
 
   return defaultActions;
@@ -29,7 +29,7 @@ export function buildDefaultCharacterActions(): Record<string, Action> {
 
 export function buildCharacterClassActions(
   character: Character,
-): Record<string, Action> {
+): Record<string, ActionInstance> {
   const characterFeatures = getActiveFeatures(character.classes);
 
   const actionIds = getActionsFromFeatures(characterFeatures);
@@ -59,7 +59,7 @@ export function buildCharacterClassActions(
 
 export function buildCharacterActions(
   character: Character,
-): Record<string, Action> {
+): Record<string, ActionInstance> {
   let allActions = {};
 
   const defaultActions = buildDefaultCharacterActions();

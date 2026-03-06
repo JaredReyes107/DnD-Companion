@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "expo-router";
 import CharacterForm from "@/components/CharacterForm";
 import { useCharacter } from "@/lib/utilities/character-provider";
-import { Character } from "@/game/types/instances/Character";
+import { Character } from "@/game/domain/character/Character";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EditCharacterScreen = () => {

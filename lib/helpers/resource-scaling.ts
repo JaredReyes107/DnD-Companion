@@ -1,6 +1,6 @@
-import { Character } from "@/game/types/instances/Character";
-import { getScaling } from "@/game/registries/resource-scaling.registry";
-import { ResourceTemplate } from "@/game/types/templates/resource-template";
+import { Character } from "@/game/domain/character/Character";
+import { getScaling } from "@/game/data/registries/resource-scaling.registry";
+import { ResourceTemplate } from "@/game/data/templates/resource-template";
 
 export function evaluateFormula(
   resource: ResourceTemplate,

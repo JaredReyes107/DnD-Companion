@@ -1,14 +1,17 @@
-import { Character } from "@/game/types/instances/Character";
-import { CharacterResources } from "@/game/types/instances/character-resources";
-import { FeatureTemplate } from "@/game/types/templates/feature-template";
+import { Character } from "@/game/domain/character/Character";
+import { CharacterResources } from "@/game/domain/resources/character-resources";
+import { FeatureTemplate } from "@/game/data/templates/feature-template";
 import { getActiveFeatures } from "./features-helper";
 import {
   getResourceById,
   GroupedResources,
-} from "@/game/registries/resources.registry";
+} from "@/game/data/registries/resources.registry";
 import { evaluateFormula } from "./resource-scaling";
-import { ResourceCategory } from "@/game/types/templates/resource-template";
-import { buildSpellSlots } from "@/game/mechanics/spellcasting";
+import { ResourceCategory } from "@/game/data/templates/resource-template";
+import {
+  buildSpellSlots,
+  hasSpellcasting,
+} from "@/game/domain/spellcasting/spellcasting";
 
 export function getResourcesFromFeatures(
   features: FeatureTemplate[],
@@ -60,12 +63,15 @@ export function buildCharacterClassResources(
 export function buildCharacterResources(
   character: Character,
 ): CharacterResources {
-  let allResources = {};
+  let allResources: CharacterResources = {};
 
-  const spellSlots = buildSpellSlots(character);
+  if (hasSpellcasting(character)) {
+    allResources = buildSpellSlots(character);
+  }
+
   const classResources = buildCharacterClassResources(character);
 
-  allResources = { ...allResources, ...spellSlots, ...classResources };
+  allResources = { ...allResources, ...classResources };
 
   return allResources;
 }

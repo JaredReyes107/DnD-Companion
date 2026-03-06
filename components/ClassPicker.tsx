@@ -1,6 +1,6 @@
 import React from "react";
 import CustomPicker from "@/components/CustomPicker";
-import { CLASSES } from "@/game/base-data/CLASSES";
+import { CLASSES } from "@/game/data/base/CLASSES";
 import { sortGameIdsByName } from "@/lib/helpers/localization-helper";
 import { ui } from "@/localization/ui-localization-resolver";
 

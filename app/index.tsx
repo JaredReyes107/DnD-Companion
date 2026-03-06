@@ -5,7 +5,7 @@ import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Import custom types
-import { Character } from "@/game/types/instances/Character";
+import { Character } from "@/game/domain/character/Character";
 
 // Custom Components
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
@@ -13,7 +13,7 @@ import { ThemedView } from "@/components/ThemedView";
 
 import { getLocalizedName } from "@/lib/helpers/localization-helper";
 import { getTotalCharacterLevel } from "@/game/mechanics/character-multiclassing";
-import { getNextXPThreshold } from "@/game/mechanics/leveling";
+import { getNextXPThreshold } from "@/game/domain/progression/leveling";
 
 import { ui } from "@/localization/ui-localization-resolver";
 

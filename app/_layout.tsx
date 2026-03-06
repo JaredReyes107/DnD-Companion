@@ -1,8 +1,8 @@
 import { Stack } from "expo-router";
 import { useEffect } from "react";
 
-import { registerMainScalings } from "@/game/base-data/scaling/main-scalings";
-import { registerClassScalings } from "@/game/base-data/scaling/class-scalings";
+import { registerMainScalings } from "@/game/data/base/scaling/main-scalings";
+import { registerClassScalings } from "@/game/data/base/scaling/class-scalings";
 import { CharacterProvider } from "@/lib/utilities/character-provider";
 
 const RootLayout = () => {

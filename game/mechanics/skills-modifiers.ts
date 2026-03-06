@@ -1,15 +1,15 @@
 /* eslint-disable prettier/prettier */  
-import { Character } from "@/game/types/instances/Character";
-import { SkillInstance } from "@/game/types/templates/character-skills";
+import { Character } from "@/game/domain/character/Character";
+import { SkillInstance } from "@/game/domain/character/skill-instance";
 import { getAbilityModifier, getProficiencyBonus } from "./abilities-modifiers";
-import { SKILLS } from "../base-data/SKILLS";
+import { SKILLS } from "../data/base/SKILLS";
 
 export function getSkillModifier(
   character: Character,
   characterSkill: SkillInstance
 ): number {
-  const ability = character.baseAbilityScores[SKILLS[characterSkill.skillId].ability].value;
-  let abilityModifier = getAbilityModifier(ability);
+  const abilityScore = character.baseAbilityScores[SKILLS[characterSkill.skillId].ability];
+  let abilityModifier = getAbilityModifier(abilityScore);
 
   const pb = getProficiencyBonus(character);
 

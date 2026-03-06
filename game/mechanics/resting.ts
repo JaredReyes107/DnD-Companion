@@ -1,6 +1,6 @@
-import { Character } from "../types/instances/Character";
-import { ResourceInstance } from "../types/instances/resource-instance";
-import { getResourceRegistry } from "../registries/resources.registry";
+import { Character } from "../domain/character/Character";
+import { ResourceInstance } from "../domain/resources/resource-instance";
+import { getResourceRegistry } from "../data/registries/resources.registry";
 import { buildCombatState } from "@/lib/helpers/combat-helper";
 
 function restoreResources(

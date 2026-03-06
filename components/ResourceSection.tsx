@@ -3,10 +3,10 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { ResourceElement } from "./ResourceElement";
 
-import { Character } from "@/game/types/instances/Character";
-import { ResourceCategory } from "@/game/types/templates/resource-template";
-import { ResourceInstance } from "@/game/types/instances/resource-instance";
-import { ResourceTemplate } from "@/game/types/templates/resource-template";
+import { Character } from "@/game/domain/character/Character";
+import { ResourceCategory } from "@/game/data/templates/resource-template";
+import { ResourceInstance } from "@/game/domain/resources/resource-instance";
+import { ResourceTemplate } from "@/game/data/templates/resource-template";
 
 import styles from "@/stylesheets/combat/tab-resource";
 import { ui } from "@/localization/ui-localization-resolver";

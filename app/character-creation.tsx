@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CharacterForm from "@/components/CharacterForm";
-import { Character } from "@/game/types/instances/Character";
+import { Character } from "@/game/domain/character/Character";
 
 const CreateCharacterScreen = () => {
   const router = useRouter();

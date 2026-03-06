@@ -5,11 +5,10 @@ import { useCharacter } from "@/lib/utilities/character-provider";
 
 import { ActionSection } from "@/components/ActionSection";
 
-import { getArmorClass } from "@/game/mechanics/armor-class";
-import { cycleActionResource } from "@/game/mechanics/action-economy";
-import { groupActionsBySlot } from "@/game/registries/actions.registry";
+import { cycleActionResource } from "@/game/domain/combat/action-economy";
+import { groupActionsBySlot } from "@/game/data/registries/actions.registry";
 import { groupedActionsAsArray } from "@/lib/helpers/actions-helper";
-import { resolveInCombat } from "@/game/mechanics/stat-resolver";
+import { resolveInCombat } from "@/game/engine/resolvers/stat-resolver";
 
 import { PrintNumberWithSign } from "@/lib/utilities/formater-numbers";
 import { ui } from "@/localization/ui-localization-resolver";
@@ -44,7 +43,7 @@ const HomeScreen = () => {
           {/* AC and Speed */}
           <View style={styles.statRow}>
             {(() => {
-              const value = `${getArmorClass(character)}`;
+              const value = `${resolvedStats.stats.get("derived:ac")?.finalValue}`;
               const [before, after] = ui("ac.segmented").split(" {value} ");
 
               return (
@@ -66,7 +65,7 @@ const HomeScreen = () => {
                 {ui("stats.speed")}
               </ThemedText>
               <ThemedText style={styles.primaryStatValue}>
-                {character.baseSpeed}
+                {resolvedStats.stats.get("derived:speed")?.finalValue}
               </ThemedText>
               <ThemedText style={styles.primaryStatText}>
                 {ui("measurements.feet")}
@@ -95,10 +94,7 @@ const HomeScreen = () => {
                 CD de Conjuro
               </ThemedText>
               <ThemedText style={styles.spellcastingValue}>
-                {PrintNumberWithSign(
-                  resolvedStats.stats.get("derived:spellSaveDC")?.finalValue ??
-                    0,
-                )}
+                {resolvedStats.stats.get("derived:spellSaveDC")?.finalValue}
               </ThemedText>
             </View>
           </View>

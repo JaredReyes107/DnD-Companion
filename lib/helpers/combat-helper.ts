@@ -1,5 +1,5 @@
-import { Character } from "@/game/types/instances/Character";
-import { CombatState } from "@/game/types/instances/combat-state";
+import { Character } from "@/game/domain/character/Character";
+import { CombatState } from "@/game/domain/combat/combat-state";
 
 export function buildCombatState(character: Character): CombatState {
   //This does literally nothing but get rid of the error about not using Character yet
@@ -8,6 +8,9 @@ export function buildCombatState(character: Character): CombatState {
   );
 
   const characterInstance = {
+    round: 1,
+    currentTurnIndex: 1,
+
     initiativeOrder: 1,
 
     //TODO: Replace with the actual amount of actions, bonus actions and reactions
@@ -23,7 +26,7 @@ export function buildCombatState(character: Character): CombatState {
     },
 
     conditions: [],
-    modifiers: {},
+    runtimeModifiers: {},
   };
 
   return characterInstance;
