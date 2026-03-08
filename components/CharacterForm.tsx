@@ -128,7 +128,6 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
     const character: Character = {
       id: initialCharacter?.id ?? Crypto.randomUUID(),
       icon: initialCharacter?.icon ?? "face",
-
       name,
       race,
       alignment: alignment ?? "lawful_good",
@@ -159,6 +158,8 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
         bonusActions: 1,
         reactions: 1,
       },
+
+      encounterId: "",
 
       features: initialCharacter?.features ?? {},
       resources: {},
