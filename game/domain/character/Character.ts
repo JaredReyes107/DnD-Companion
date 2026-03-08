@@ -8,7 +8,6 @@ import { FeatureInstance } from "../features/feature-instance";
 import { ResourceInstance } from "../resources/resource-instance";
 import { ActionInstance } from "@/game/domain/actions/action-instance";
 import { StatModifierInstance } from "../../data/templates/stats.types";
-import { CombatState } from "@/game/domain/combat/combat-state";
 
 export type Character = {
   // Internal Id
@@ -34,10 +33,16 @@ export type Character = {
   savingThrows: CharacterSavingThrows;
   skills: CharacterSkills;
 
+  actionLimits: {
+    actions: number;
+    bonusActions: number;
+    reactions: number;
+  };
+
+  encounterId: string;
+
   features: Record<string, FeatureInstance>;
   resources: Record<string, ResourceInstance>;
   actions: Record<string, ActionInstance>;
   statModifiers: Record<string, StatModifierInstance>;
-
-  combatState: CombatState | null;
 };

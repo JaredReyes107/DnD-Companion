@@ -59,7 +59,6 @@ export const DEFAULT_ACTIONS: Record<string, ActionInstance> = {
       {
         type: "applyModifier",
         modifiers: ["bladesong_ac_bonus", "bladesong_speed_bonus"],
-        //? Think about moving these (two under) to the effect template for homebrew
         durationRounds: 2,
         stacking: "refresh",
       },

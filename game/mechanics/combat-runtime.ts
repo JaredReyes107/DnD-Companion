@@ -5,9 +5,19 @@ import { CombatState } from "../domain/combat/combat-state";
 export function advanceRound(character: Character) {
   if (!character.combatState) return character;
 
+  const updatedCombatState = {
+    ...character.combatState,
+    actionEconomy: {
+      actions: 1,
+      bonusActions: 1,
+      reactions: 1,
+    },
+    round: character.combatState.round + 1,
+  };
+
   const updatedCharacter: Character = {
     ...character,
-    combatState: removeExpiredCombatModifiers(character.combatState),
+    combatState: removeExpiredCombatModifiers(updatedCombatState),
   };
 
   return updatedCharacter;

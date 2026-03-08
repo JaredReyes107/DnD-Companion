@@ -28,7 +28,7 @@ export type ApplyModifierEffect = {
 
   durationRounds?: number;
 
-  stacking?: "refresh" | "override" | "ignore";
+  stacking?: "overlap" | "refresh" | "override" | "ignore";
 };
 
 export type LogEffect = {

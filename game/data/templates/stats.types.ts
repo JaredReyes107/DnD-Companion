@@ -27,7 +27,8 @@ export type ModifierType =
 
 export type StatModifierTemplate = {
   id: string;
-  sourceId: string;
+  //?: Consider moving into "Instance" and apply dinamically for later reuse in items, features, etc
+  sourceId: string; // featureId, itemId, actionId or spellId
   statModel: StatModel;
   mode: ModifierType;
 
@@ -38,7 +39,6 @@ export type StatModifierTemplate = {
 
 export type StatModifierInstance = {
   templateId: string;
-  sourceId: string; // featureId, itemId, actionId or spellId
   statModel: StatModel;
   //origin: "Players Handbook", //For distinguishing official rules and homebrew
 
@@ -54,8 +54,4 @@ export type RuntimeModifierInstance = {
 
   appliedAtRound: number;
   expiresAtRound?: number; // inclusive
-
-  concentration?: boolean;
-
-  priority?: number;
 };

@@ -1,16 +1,13 @@
 import { RuntimeModifierInstance } from "../../data/templates/stats.types";
 
 export type CombatState = {
-  round: number;
-  currentTurnIndex: number;
-
   initiativeOrder: number;
   initiativeRoll?: number;
 
   actionEconomy: {
-    actions: { max: number; current: number };
-    bonusActions: { max: number; current: number };
-    reactions: { max: number; current: number };
+    actions: { current: number; max: number };
+    bonusActions: { current: number; max: number };
+    reactions: { current: number; max: number };
   };
 
   deathSaves: {

@@ -6,7 +6,6 @@ import { ActionElement } from "./ActionElement";
 import { Character } from "@/game/domain/character/Character";
 import { ActionInstance } from "@/game/domain/actions/action-instance";
 
-import styles from "@/stylesheets/combat/tab-actions";
 import {
   ActionResourceType,
   decreaseActionResource,
@@ -16,6 +15,8 @@ import {
   isActionAvailable,
 } from "@/game/engine/action-execution/take-action";
 import { getLocalizedName } from "@/lib/helpers/localization-helper";
+
+import styles from "@/stylesheets/combat/tab-actions";
 
 type Props = {
   slot: ActionResourceType;

@@ -29,12 +29,13 @@ import { CharacterSkills } from "@/game/domain/character/skill-instance";
 import { buildCharacterSkills } from "@/lib/helpers/skills-helper";
 import { buildCharacterResources } from "@/lib/helpers/resources-helper";
 import { buildCharacterActions } from "@/lib/helpers/actions-helper";
-import { buildCombatState } from "@/lib/helpers/combat-helper";
+import { startEncounter } from "@/game/domain/combat/encounter-helper";
 
 // Components
 import { ThemedView } from "./ThemedView";
 import { MaterialIcons } from "@expo/vector-icons";
 
+import SmoothCounterButton from "./SmoothCounterButton";
 import CustomPicker from "@/components/CustomPicker";
 import { MainClassForm } from "@/components/MainClassForm";
 import { SecondaryClassesForm } from "@/components/SecondaryClassesForm";
@@ -51,7 +52,6 @@ import {
 
 import styles from "@/stylesheets/character-creation.styles";
 import genericStyles from "@/stylesheets/generic.styles";
-import SmoothCounterButton from "./SmoothCounterButton";
 
 type Props = {
   initialCharacter?: Character | null;
@@ -153,17 +153,24 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       savingThrows,
       skills,
 
+      //TODO: Make this dynamic
+      actionLimits: {
+        actions: 1,
+        bonusActions: 1,
+        reactions: 1,
+      },
+
       features: initialCharacter?.features ?? {},
       resources: {},
       actions: {},
       statModifiers: initialCharacter?.statModifiers ?? {},
-      combatState: initialCharacter?.combatState ?? null,
     };
 
-    character.combatState = buildCombatState(character);
     character.currentHitDice = getMaximumHitDice(character);
     character.resources = buildCharacterResources(character);
     character.actions = buildCharacterActions(character);
+
+    startEncounter([character]);
 
     onSubmit(character);
   };

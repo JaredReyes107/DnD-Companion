@@ -1,261 +1,212 @@
-import { Character } from "../character/Character";
+import { EncounterState } from "./encounter-state";
 
 export type ActionResourceType = "action" | "bonusAction" | "reaction" | "free";
 
 export function decreaseActionResource(
-  character: Character,
-  actionResourceType: string,
-): Character {
-  if (!character.combatState) {
-    return character;
+  encounter: EncounterState,
+  characterId: string,
+  actionResourceType: ActionResourceType,
+): EncounterState {
+  const combatState = encounter.participants[characterId];
+
+  if (!combatState) {
+    return encounter;
   }
 
-  let updatedCharacter = character;
+  const updatedCombatState = { ...combatState };
 
   switch (actionResourceType) {
     case "action":
-      updatedCharacter = {
-        ...character,
-        combatState: {
-          ...character.combatState,
-          actionEconomy: {
-            ...character.combatState.actionEconomy,
-            actions: {
-              ...character.combatState.actionEconomy.actions,
-              current: Math.max(
-                character.combatState.actionEconomy.actions.current - 1,
-                0,
-              ),
-            },
-          },
-        },
+      updatedCombatState.actionEconomy.actions = {
+        ...combatState.actionEconomy.actions,
+        current: Math.max(combatState.actionEconomy.actions.current - 1, 0),
       };
       break;
     case "bonusAction":
-      updatedCharacter = {
-        ...character,
-        combatState: {
-          ...character.combatState,
-          actionEconomy: {
-            ...character.combatState.actionEconomy,
-            bonusActions: {
-              ...character.combatState.actionEconomy.bonusActions,
-              current: Math.max(
-                character.combatState.actionEconomy.bonusActions.current - 1,
-                0,
-              ),
-            },
-          },
-        },
+      updatedCombatState.actionEconomy.bonusActions = {
+        ...combatState.actionEconomy.bonusActions,
+        current: Math.max(
+          combatState.actionEconomy.bonusActions.current - 1,
+          0,
+        ),
       };
       break;
     case "reaction":
-      updatedCharacter = {
-        ...character,
-        combatState: {
-          ...character.combatState,
-          actionEconomy: {
-            ...character.combatState.actionEconomy,
-            reactions: {
-              ...character.combatState.actionEconomy.reactions,
-              current: Math.max(
-                character.combatState.actionEconomy.reactions.current - 1,
-                0,
-              ),
-            },
-          },
-        },
+      updatedCombatState.actionEconomy.reactions = {
+        ...combatState.actionEconomy.reactions,
+        current: Math.max(combatState.actionEconomy.reactions.current - 1, 0),
       };
       break;
     default:
       break;
   }
 
-  return updatedCharacter;
+  return {
+    ...encounter,
+    participants: {
+      ...encounter.participants,
+      [characterId]: updatedCombatState,
+    },
+  };
 }
 
 export function increaseActionResource(
-  character: Character,
+  encounter: EncounterState,
+  characterId: string,
   actionResourceType: ActionResourceType,
-): Character {
-  if (!character.combatState) {
-    return character;
+): EncounterState {
+  const combatState = encounter.participants[characterId];
+
+  if (!combatState) {
+    return encounter;
   }
 
-  let updatedCharacter = character;
+  const updatedCombatState = { ...combatState };
 
   switch (actionResourceType) {
     case "action":
-      updatedCharacter = {
-        ...character,
-        combatState: {
-          ...character.combatState,
-          actionEconomy: {
-            ...character.combatState.actionEconomy,
-            actions: {
-              ...character.combatState.actionEconomy.actions,
-              current: Math.min(
-                character.combatState.actionEconomy.actions.current + 1,
-                character.combatState.actionEconomy.actions.max,
-              ),
-            },
-          },
-        },
+      updatedCombatState.actionEconomy.actions = {
+        ...combatState.actionEconomy.actions,
+        current: Math.min(combatState.actionEconomy.actions.current + 1, 1),
       };
       break;
     case "bonusAction":
-      updatedCharacter = {
-        ...character,
-        combatState: {
-          ...character.combatState,
-          actionEconomy: {
-            ...character.combatState.actionEconomy,
-            bonusActions: {
-              ...character.combatState.actionEconomy.actions,
-              current: Math.min(
-                character.combatState.actionEconomy.actions.current + 1,
-                character.combatState.actionEconomy.actions.max,
-              ),
-            },
-          },
-        },
+      updatedCombatState.actionEconomy.bonusActions = {
+        ...combatState.actionEconomy.bonusActions,
+        current: Math.min(
+          combatState.actionEconomy.bonusActions.current + 1,
+          1,
+        ),
       };
       break;
     case "reaction":
-      updatedCharacter = {
-        ...character,
-        combatState: {
-          ...character.combatState,
-          actionEconomy: {
-            ...character.combatState.actionEconomy,
-            reactions: {
-              ...character.combatState.actionEconomy.actions,
-              current: Math.min(
-                character.combatState.actionEconomy.actions.current + 1,
-                character.combatState.actionEconomy.actions.max,
-              ),
-            },
-          },
-        },
+      updatedCombatState.actionEconomy.reactions = {
+        ...combatState.actionEconomy.reactions,
+        current: Math.min(combatState.actionEconomy.reactions.current + 1, 1),
       };
       break;
   }
 
-  return updatedCharacter;
+  return {
+    ...encounter,
+    participants: {
+      ...encounter.participants,
+      [characterId]: updatedCombatState,
+    },
+  };
 }
 
 export function rechargeActionResources(
-  character: Character,
+  encounter: EncounterState,
+  characterId: string,
   actionResourceType: ActionResourceType,
-): Character {
-  if (!character.combatState) {
-    return character;
+): EncounterState {
+  const combatState = encounter.participants[characterId];
+
+  if (!combatState) {
+    return encounter;
   }
 
-  let updatedCharacter = character;
+  const updatedCombatState = { ...combatState };
 
   switch (actionResourceType) {
     case "action":
-      updatedCharacter = {
-        ...character,
-        combatState: {
-          ...character.combatState,
-          actionEconomy: {
-            ...character.combatState.actionEconomy,
-            actions: {
-              ...character.combatState.actionEconomy.actions,
-              current: character.combatState.actionEconomy.actions.max,
-            },
-          },
-        },
+      updatedCombatState.actionEconomy.actions = {
+        ...combatState.actionEconomy.actions,
+        current: combatState.actionEconomy.actions.max,
       };
       break;
+
     case "bonusAction":
-      updatedCharacter = {
-        ...character,
-        combatState: {
-          ...character.combatState,
-          actionEconomy: {
-            ...character.combatState.actionEconomy,
-            bonusActions: {
-              ...character.combatState.actionEconomy.bonusActions,
-              current: character.combatState.actionEconomy.bonusActions.max,
-            },
-          },
-        },
+      updatedCombatState.actionEconomy.bonusActions = {
+        ...combatState.actionEconomy.bonusActions,
+        current: combatState.actionEconomy.bonusActions.max,
       };
       break;
+
     case "reaction":
-      updatedCharacter = {
-        ...character,
-        combatState: {
-          ...character.combatState,
-          actionEconomy: {
-            ...character.combatState.actionEconomy,
-            reactions: {
-              ...character.combatState.actionEconomy.reactions,
-              current: character.combatState.actionEconomy.reactions.max,
-            },
-          },
-        },
+      updatedCombatState.actionEconomy.reactions = {
+        ...combatState.actionEconomy.reactions,
+        current: combatState.actionEconomy.reactions.max,
       };
       break;
   }
 
-  return updatedCharacter;
+  return {
+    ...encounter,
+    participants: {
+      ...encounter.participants,
+      [characterId]: updatedCombatState,
+    },
+  };
 }
 
 export function cycleActionResource(
-  character: Character,
+  encounter: EncounterState,
+  characterId: string,
   actionResourceType: ActionResourceType,
-): Character {
-  if (!character.combatState) {
-    return character;
+): EncounterState {
+  const combatState = encounter.participants[characterId];
+
+  if (!combatState) {
+    return encounter;
   }
 
-  let updatedCharacter = character;
+  let updatedCombatState = { ...combatState };
 
   switch (actionResourceType) {
     case "action":
-      if (character.combatState.actionEconomy.actions.current > 0) {
-        updatedCharacter = decreaseActionResource(
-          character,
+      if (combatState.actionEconomy.actions.current > 0) {
+        updatedCombatState = decreaseActionResource(
+          encounter,
+          characterId,
           actionResourceType,
-        );
+        ).participants[characterId];
       } else {
-        updatedCharacter = rechargeActionResources(
-          character,
+        updatedCombatState = rechargeActionResources(
+          encounter,
+          characterId,
           actionResourceType,
-        );
+        ).participants[characterId];
       }
       break;
     case "bonusAction":
-      if (character.combatState.actionEconomy.bonusActions.current > 0) {
-        updatedCharacter = decreaseActionResource(
-          character,
+      if (combatState.actionEconomy.bonusActions.current > 0) {
+        updatedCombatState = decreaseActionResource(
+          encounter,
+          characterId,
           actionResourceType,
-        );
+        ).participants[characterId];
       } else {
-        updatedCharacter = rechargeActionResources(
-          character,
+        updatedCombatState = rechargeActionResources(
+          encounter,
+          characterId,
           actionResourceType,
-        );
+        ).participants[characterId];
       }
       break;
     case "reaction":
-      if (character.combatState.actionEconomy.reactions.current > 0) {
-        updatedCharacter = decreaseActionResource(
-          character,
+      if (combatState.actionEconomy.reactions.current > 0) {
+        updatedCombatState = decreaseActionResource(
+          encounter,
+          characterId,
           actionResourceType,
-        );
+        ).participants[characterId];
       } else {
-        updatedCharacter = rechargeActionResources(
-          character,
+        updatedCombatState = rechargeActionResources(
+          encounter,
+          characterId,
           actionResourceType,
-        );
+        ).participants[characterId];
       }
       break;
   }
 
-  return updatedCharacter;
+  return {
+    ...encounter,
+    participants: {
+      ...encounter.participants,
+      [characterId]: updatedCombatState,
+    },
+  };
 }

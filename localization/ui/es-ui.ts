@@ -57,6 +57,11 @@ export const es = {
     bonus: "Bonus de iniciativa",
     order: "Orden de {value} Iniciativa",
   },
+  actionEconomy: {
+    action: "Acción",
+    bonusAction: "Acción extra",
+    reaction: "Reacción",
+  },
   rest: {
     long: "Descanso largo",
     short: "Descanso corto",

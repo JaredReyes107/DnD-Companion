@@ -3,7 +3,7 @@ import { Character } from "@/game/domain/character/Character";
 export function applyStackingRule(
   character: Character,
   templateId: string,
-  stacking: "refresh" | "override" | "ignore" | undefined,
+  stacking: "overlap" | "refresh" | "override" | "ignore" | undefined,
 ): Character {
   if (!character.combatState) return character;
 
@@ -14,21 +14,20 @@ export function applyStackingRule(
   );
 
   if (existingEntries.length === 0) return character;
-
   switch (stacking) {
     case "ignore":
-      return character;
-
-    case "override":
-      for (const [id] of existingEntries) {
-        delete runtimeModifiers[id];
-      }
+      if (existingEntries.length > 0) return character;
       break;
 
     case "refresh":
       for (const [id] of existingEntries) {
         delete runtimeModifiers[id];
       }
+      break;
+
+    case "override":
+    case "overlap":
+      // allow multiple instances
       break;
   }
 

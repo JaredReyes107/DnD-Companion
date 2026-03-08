@@ -15,6 +15,7 @@ import {
   getSpellSaveDC,
   hasSpellcasting,
 } from "@/game/domain/spellcasting/spellcasting";
+import { EncounterState } from "@/game/domain/combat/encounter-state";
 
 export type ResolvedStat = {
   statModel: StatModel;
@@ -196,17 +197,24 @@ export function resolveOutOfCombat(character: Character): ResolvedCharacter {
   return { stats };
 }
 
-export function resolveInCombat(character: Character): ResolvedCharacter {
+export function resolveInCombat(
+  character: Character,
+  encounterState: EncounterState,
+): ResolvedCharacter {
   const stats = new Map<string, ResolvedStat>();
 
   const passiveModifiers = resolveOutOfCombat(character);
 
-  if (!character.combatState || !character.combatState.runtimeModifiers)
-    return passiveModifiers;
+  const combatState = encounterState.participants[character.id];
+  if (!combatState || !combatState.runtimeModifiers) return passiveModifiers;
 
-  const combatModifiers = Object.values(
-    character.combatState.runtimeModifiers,
-  ).map((m) => m.modifier);
+  const combatModifiers = Object.values(combatState.runtimeModifiers)
+    .filter(
+      (m) =>
+        m.expiresAtRound === undefined ||
+        m.expiresAtRound >= encounterState.currentRound,
+    )
+    .map((m) => m.modifier);
 
   for (const [key, resolvedBase] of passiveModifiers.stats.entries()) {
     const statTemplate = resolvedBase.statModel;

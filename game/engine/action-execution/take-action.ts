@@ -103,16 +103,13 @@ export function isActionAvailable(
 
   switch (action.actionSlot) {
     case "action":
-      hasActionEconomy =
-        character.combatState.actionEconomy.actions.current > 0;
+      hasActionEconomy = character.combatState.actionEconomy.actions > 0;
       break;
     case "bonusAction":
-      hasActionEconomy =
-        character.combatState.actionEconomy.bonusActions.current > 0;
+      hasActionEconomy = character.combatState.actionEconomy.bonusActions > 0;
       break;
     case "reaction":
-      hasActionEconomy =
-        character.combatState.actionEconomy.reactions.current > 0;
+      hasActionEconomy = character.combatState.actionEconomy.reactions > 0;
       break;
     case "free":
       hasActionEconomy = true;
