@@ -1,50 +1,128 @@
-# Welcome to your Expo app 👋
+# 🧙 D&D Companion
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)
+![Expo](https://img.shields.io/badge/Expo-React%20Native-black)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-## Get started
+A modular **Dungeons & Dragons companion app** built with Expo and TypeScript, designed to provide powerful tools for both **players and Dungeon Masters**.
 
-1. Install dependencies
+The project includes a **domain-driven game engine** capable of handling character sheets, combat resolution, and rule-based stat calculations.
 
-   ```bash
-   npm install
-   ```
+---
 
-2. Start the app
+## ✨ Features
 
-   ```bash
-    npx expo start
-   ```
+- 🧙 **Character Sheet** management
+- ⚔️ **Combat Tracker** for encounters
+- 📜 **D&D rules engine** (stats, modifiers, combat)
+- 🧰 **Dungeon Master tools**
+- 🧩 **Modular architecture** for extensibility
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🚀 Quick Start
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### 1. Install dependencies
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Start the development server
 
-## Learn more
+```bash
+npx expo start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### 3. Run on device
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- Press **i** for iOS simulator
+- Press **a** for Android emulator
+- Scan the QR code with **Expo Go**
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+## 🏗 Architecture Overview
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+The project follows a **modular, domain-driven architecture** separating the UI from the game engine.
+
+```text
+src/
+├── app/          # Navigation and screens
+├── features/     # Feature modules (character sheet, combat tracker)
+├── core/         # D&D rules engine
+├── services/     # Infrastructure (storage, localization)
+└── components/   # Shared UI components
+```
+
+---
+
+## 📚 Documentation
+
+Project documentation is available in the `docs/` folder.
+
+| Document                                          | Description                      |
+| ------------------------------------------------- | -------------------------------- |
+| [architecture.md](docs/architecture.md)           | High-level system architecture   |
+| [domain-model.md](docs/domain-model.md)           | Domain entities and UML diagrams |
+| [engine.md](docs/engine.md)                       | Game engine rules and systems    |
+| [project-structure.md](docs/project-structure.md) | Folder hierarchy reference       |
+| [contributing.md](docs/contributing.md)           | Development workflow             |
+
+---
+
+## 🧠 Core Concepts
+
+The project is organized around three main concepts:
+
+### Core Engine
+
+Located in `src/core`, this layer contains the **pure D&D rules engine**:
+
+- **Entities**: (`Character`, `CombatState`)
+- **Rules**: (stat calculations, HP, modifiers)
+- **Systems**: (combat engine, stat resolution)
+
+### Features
+
+Located in `src/features`, these modules implement user-facing functionality:
+
+- Character Sheet
+- Combat Tracker
+- DM Tools
+
+### Infrastructure
+
+Located in `src/services`, this layer manages external interactions such as storage and localization.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome. Please read [docs/contributing.md](docs/contributing.md) before opening a pull request.
+
+Key rules:
+
+- Use **Conventional Commits**
+- Follow the **feature branch workflow**
+- Keep the **core engine independent of UI**
+
+---
+
+## 📸 Previews
+
+![simulator_screenshot_488ECA42-263B-49E8-9C49-2A8AA9797A35](https://github.com/user-attachments/assets/9d63c1a7-54bb-4e67-889a-02b4d95b77c3)
+
+![simulator_screenshot_F5C12527-3850-4822-AD63-2284C2F2DECB](https://github.com/user-attachments/assets/58888b17-7429-4595-b6d8-94b12fe96ad4)
+
+![simulator_screenshot_08E8BCC8-A3BB-4FBF-82B5-17FD18809AA2](https://github.com/user-attachments/assets/386fe3be-904d-4449-af25-1a3b3ecef7eb)
+
+![simulator_screenshot_39B7C72A-E217-4DAB-BF3C-80A7718A9E66](https://github.com/user-attachments/assets/6391a0c4-bd15-4ba8-bb5c-15a0cbbd3ee1)
+
+![simulator_screenshot_B33F7D2B-EB3F-418E-A382-770A5BBFCC2A](https://github.com/user-attachments/assets/b8337cd2-0690-4809-b6b8-60ef25bfbc96)
+
+---
+
+## 📄 License
+
+MIT License
