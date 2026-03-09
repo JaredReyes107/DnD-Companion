@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import styles from "@/stylesheets/character-creation.styles";
-import { SkillInstance } from "@/game/types/templates/character-skills";
+import { SkillInstance } from "@/game/domain/rules/skill/skills.types";
 import { getLocalizedName } from "@/lib/helpers/localization-helper";
 
 type Props = {

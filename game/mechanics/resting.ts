@@ -1,7 +1,6 @@
-import { Character } from "../types/instances/Character";
-import { ResourceInstance } from "../types/instances/resource-instance";
-import { getResourceRegistry } from "../registries/resources.registry";
-import { buildCombatState } from "@/lib/helpers/combat-helper";
+import { Character } from "../domain/character/Character";
+import { ResourceInstance } from "../domain/resources/resource-instance";
+import { getResourceRegistry } from "../data/registries/resources.registry";
 
 function restoreResources(
   resources: Record<string, ResourceInstance>,
@@ -46,7 +45,10 @@ export function takeLongRest(character: Character): Character {
 export function takeShortRest(character: Character): Character {
   return {
     ...character,
+<<<<<<< HEAD
+=======
     combatState: buildCombatState(character),
+>>>>>>> main
     resources: restoreResources(character.resources, ["shortRest"]),
   };
 }

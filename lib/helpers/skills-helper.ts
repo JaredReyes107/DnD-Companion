@@ -2,9 +2,15 @@ import {
   Skill,
   CharacterSkills,
   SkillInstance,
+<<<<<<< HEAD
+} from "@/game/domain/rules/skill/skills.types";
+import { SKILLS } from "@/game/data/base/SKILLS";
+import { Character } from "@/game/domain/character/Character";
+=======
 } from "@/game/types/templates/character-skills";
 import { SKILLS } from "@/game/base-data/SKILLS";
 import { Character } from "@/game/types/instances/Character";
+>>>>>>> main
 import { sortGameIdsByName } from "./localization-helper";
 
 export function buildCharacterSkills(): CharacterSkills {

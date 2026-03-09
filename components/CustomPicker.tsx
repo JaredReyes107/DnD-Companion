@@ -8,7 +8,7 @@ import { getLocalizedName } from "@/lib/helpers/localization-helper";
 import styles from "@/stylesheets/character-creation.styles";
 
 type CustomPickerProps<T> = {
-  items: T[];
+  items: readonly T[];
   selectedValue: T | null;
   onChange: (value: T) => void;
   namespace: LocalizationNamespace;

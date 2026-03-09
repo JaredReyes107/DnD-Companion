@@ -6,7 +6,7 @@ import React, {
   useCallback,
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Character } from "@/game/types/instances/Character";
+import { Character } from "@/game/domain/character/Character";
 
 type CharacterContextType = {
   character: Character | null;

@@ -1,5 +1,5 @@
-import { getClassTemplateById } from "@/game/registries/classes.registry";
-import { SpellcastingTemplate } from "@/game/types/templates/spellcasting-template";
+import { getClassTemplateById } from "@/game/data/registries/classes.registry";
+import { SpellcastingTemplate } from "@/game/data/templates/spellcasting-template";
 
 export function getSpellcastingTemplateByClassTemplateId(
   id: string,

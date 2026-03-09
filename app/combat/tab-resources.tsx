@@ -2,7 +2,7 @@ import { ThemedView } from "@/components/ThemedView";
 import { FlatList } from "react-native";
 import { ResourceSection } from "@/components/ResourceSection";
 
-import { groupResourcesByCategory } from "@/game/registries/resources.registry";
+import { groupResourcesByCategory } from "@/game/data/registries/resources.registry";
 import { groupedResourcesAsArray } from "@/lib/helpers/resources-helper";
 
 import { useCharacter } from "@/lib/utilities/character-provider";

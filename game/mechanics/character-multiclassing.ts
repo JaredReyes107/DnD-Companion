@@ -1,5 +1,5 @@
-import { CharacterClasses } from "@/game/types/instances/character-classes";
-import { ClassInstance } from "@/game/types/instances/class-instance";
+import { CharacterClasses } from "@/game/domain/character/character-classes";
+import { ClassInstance } from "@/game/domain/character/class-instance";
 
 export function getTotalCharacterLevel(classes: CharacterClasses): number {
   return classes.order.reduce((sum, id) => sum + classes.byId[id].level, 0);

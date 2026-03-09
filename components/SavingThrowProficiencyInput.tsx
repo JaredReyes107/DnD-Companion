@@ -3,7 +3,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import {
   Ability,
   SavingThrowInstance,
-} from "@/game/types/templates/abilities-scores";
+} from "@/game/data/templates/abilities-scores";
 
 import styles from "@/stylesheets/character-creation.styles";
 

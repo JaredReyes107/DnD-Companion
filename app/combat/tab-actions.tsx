@@ -5,11 +5,20 @@ import { useCharacter } from "@/lib/utilities/character-provider";
 
 import { ActionSection } from "@/components/ActionSection";
 
+<<<<<<< HEAD
+import { buildEncounterState } from "@/game/domain/combat/encounter-helper";
+import { cycleActionResource } from "@/game/domain/combat/action-economy";
+import { groupActionsBySlot } from "@/game/data/registries/actions.registry";
+import { groupedActionsAsArray } from "@/lib/helpers/actions-helper";
+import { resolveInCombat } from "@/game/engine/resolvers/stat-resolver";
+import { advanceRound } from "@/game/mechanics/combat-runtime";
+=======
 import { getArmorClass } from "@/game/mechanics/armor-class";
 import { cycleActionResource } from "@/game/mechanics/action-economy";
 import { groupActionsBySlot } from "@/game/registries/actions.registry";
 import { groupedActionsAsArray } from "@/lib/helpers/actions-helper";
 import { resolveInCombat } from "@/game/mechanics/stat-resolver";
+>>>>>>> main
 
 import { PrintNumberWithSign } from "@/lib/utilities/formater-numbers";
 import { ui } from "@/localization/ui-localization-resolver";
@@ -26,54 +35,22 @@ const HomeScreen = () => {
         <ThemedText>Cargando personaje…</ThemedText>
       </View>
     );
-  } else if (!character.combatState) {
-    return (
-      <View>
-        <ThemedText>Cargando personaje…</ThemedText>
-      </View>
-    );
   } else {
+    const encounterState = buildEncounterState([character]);
+    const combatState = encounterState.participants[character.id];
+
     const grouped = groupActionsBySlot(character.actions);
     const sections = groupedActionsAsArray(grouped);
 
+<<<<<<< HEAD
+    const resolvedStats = resolveInCombat(character, encounterState);
+=======
     const resolvedStats = resolveInCombat(character);
+>>>>>>> main
 
     return (
       <ThemedView style={genericStyles.rootContainer}>
         <View style={styles.headerSection}>
-          {/* AC and Speed */}
-          <View style={styles.statRow}>
-            {(() => {
-              const value = `${getArmorClass(character)}`;
-              const [before, after] = ui("ac.segmented").split(" {value} ");
-
-              return (
-                <View style={styles.primaryStatCell}>
-                  <ThemedText style={styles.primaryStatText}>
-                    {before}
-                  </ThemedText>
-                  <ThemedText style={styles.primaryStatValue}>
-                    {value}
-                  </ThemedText>
-                  <ThemedText style={styles.primaryStatText}>
-                    {after}
-                  </ThemedText>
-                </View>
-              );
-            })()}
-            <View style={styles.primaryStatCell}>
-              <ThemedText style={styles.primaryStatText}>
-                {ui("stats.speed")}
-              </ThemedText>
-              <ThemedText style={styles.primaryStatValue}>
-                {character.baseSpeed}
-              </ThemedText>
-              <ThemedText style={styles.primaryStatText}>
-                {ui("measurements.feet")}
-              </ThemedText>
-            </View>
-          </View>
-
           {/* SpellAttackModifier and SpellDC */}
           <View style={styles.statRow}>
             <View style={styles.spellcastingStatCell}>
@@ -95,10 +72,14 @@ const HomeScreen = () => {
                 CD de Conjuro
               </ThemedText>
               <ThemedText style={styles.spellcastingValue}>
+<<<<<<< HEAD
+                {resolvedStats.stats.get("derived:spellSaveDC")?.finalValue}
+=======
                 {PrintNumberWithSign(
                   resolvedStats.stats.get("derived:spellSaveDC")?.finalValue ??
                     0,
                 )}
+>>>>>>> main
               </ThemedText>
             </View>
           </View>
@@ -108,41 +89,49 @@ const HomeScreen = () => {
             <TouchableOpacity
               style={styles.actionSlotCell}
               onPress={() => {
-                saveCharacter(cycleActionResource(character, "action"));
-              }}
-            >
-              <View style={styles.actionSlotContent}>
-                <ThemedText style={styles.actionSlotText}>Acción</ThemedText>
-                <ThemedText style={styles.actionSlotValue}>
-                  {character.combatState.actionEconomy.actions.current}
-                </ThemedText>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.actionSlotCell}
-              onPress={() => {
-                saveCharacter(cycleActionResource(character, "bonusAction"));
+                cycleActionResource(encounterState, character.id, "action");
               }}
             >
               <View style={styles.actionSlotContent}>
                 <ThemedText style={styles.actionSlotText}>
-                  Acción extra
+                  {ui("actionEconomy.action")}
                 </ThemedText>
                 <ThemedText style={styles.actionSlotValue}>
-                  {character.combatState.actionEconomy.bonusActions.current}
+                  {combatState.actionEconomy.actions.current}
                 </ThemedText>
               </View>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.actionSlotCell}
               onPress={() => {
-                saveCharacter(cycleActionResource(character, "reaction"));
+                cycleActionResource(
+                  encounterState,
+                  character.id,
+                  "bonusAction",
+                );
               }}
             >
               <View style={styles.actionSlotContent}>
-                <ThemedText style={styles.actionSlotText}>Reacción</ThemedText>
+                <ThemedText style={styles.actionSlotText}>
+                  {ui("actionEconomy.bonusAction")}
+                </ThemedText>
                 <ThemedText style={styles.actionSlotValue}>
-                  {character.combatState.actionEconomy.reactions.current}
+                  {combatState.actionEconomy.bonusActions.current}
+                </ThemedText>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.actionSlotCell}
+              onPress={() => {
+                cycleActionResource(encounterState, character.id, "reaction");
+              }}
+            >
+              <View style={styles.actionSlotContent}>
+                <ThemedText style={styles.actionSlotText}>
+                  {ui("actionEconomy.reaction")}
+                </ThemedText>
+                <ThemedText style={styles.actionSlotValue}>
+                  {combatState.actionEconomy.reactions.current}
                 </ThemedText>
               </View>
             </TouchableOpacity>
@@ -165,7 +154,12 @@ const HomeScreen = () => {
         />
 
         <View style={styles.footerSection}>
-          <Button title={"Terminar turno"} onPress={() => {}} />
+          <Button
+            title={"Comenzar nueva ronda"}
+            onPress={() => {
+              saveCharacter(advanceRound(character));
+            }}
+          />
         </View>
       </ThemedView>
     );

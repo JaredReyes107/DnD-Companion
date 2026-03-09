@@ -1,7 +1,9 @@
-import { getClassTemplateById } from "@/game/registries/classes.registry";
-import { CharacterClasses } from "@/game/types/instances/character-classes";
-import { FeatureTemplate } from "@/game/types/templates/feature-template";
+import { getClassTemplateById } from "@/game/data/registries/classes.registry";
+import { CharacterClasses } from "@/game/domain/character/character-classes";
+import { FeatureTemplate } from "@/game/data/templates/feature-template";
 
+//TODO: Migrate function to build the starting FeatureInstances
+//TODO: Change from CharacterClasses to FeatureInstances (Character.features)
 export function getActiveFeatures(
   characterClasses: CharacterClasses,
 ): FeatureTemplate[] {

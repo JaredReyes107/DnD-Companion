@@ -1,5 +1,10 @@
+<<<<<<< HEAD
+import { resolveClassInstance } from "@/game/data/registries/classes.registry";
+import { Character } from "@/game/domain/character/Character";
+=======
 import { resolveClassInstance } from "@/game/registries/classes.registry";
 import { Character } from "@/game/types/instances/Character";
+>>>>>>> main
 
 export function getMaximumHitDice(
   character: Character,
