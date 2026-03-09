@@ -13,7 +13,11 @@ import { ThemedView } from "@/components/ThemedView";
 
 import { getLocalizedName } from "@/lib/helpers/localization-helper";
 import { getTotalCharacterLevel } from "@/game/mechanics/character-multiclassing";
+<<<<<<< HEAD
 import { getNextXPThreshold } from "@/game/domain/progression/leveling";
+=======
+import { getNextXPThreshold } from "@/game/mechanics/leveling";
+>>>>>>> main
 
 import { ui } from "@/localization/ui-localization-resolver";
 

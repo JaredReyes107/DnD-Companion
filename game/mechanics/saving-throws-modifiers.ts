@@ -1,5 +1,9 @@
 /* eslint-disable prettier/prettier */  
+<<<<<<< HEAD
 import { Character } from "@/game/domain/character/Character";
+=======
+import { Character } from "@/game/types/instances/Character";
+>>>>>>> main
 import { getAbilityModifier, getProficiencyBonus } from "./abilities-modifiers";
 import { Ability } from "../domain/rules/ability/ability.types";
 

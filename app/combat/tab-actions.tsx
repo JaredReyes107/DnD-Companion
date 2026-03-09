@@ -5,12 +5,20 @@ import { useCharacter } from "@/lib/utilities/character-provider";
 
 import { ActionSection } from "@/components/ActionSection";
 
+<<<<<<< HEAD
 import { buildEncounterState } from "@/game/domain/combat/encounter-helper";
 import { cycleActionResource } from "@/game/domain/combat/action-economy";
 import { groupActionsBySlot } from "@/game/data/registries/actions.registry";
 import { groupedActionsAsArray } from "@/lib/helpers/actions-helper";
 import { resolveInCombat } from "@/game/engine/resolvers/stat-resolver";
 import { advanceRound } from "@/game/mechanics/combat-runtime";
+=======
+import { getArmorClass } from "@/game/mechanics/armor-class";
+import { cycleActionResource } from "@/game/mechanics/action-economy";
+import { groupActionsBySlot } from "@/game/registries/actions.registry";
+import { groupedActionsAsArray } from "@/lib/helpers/actions-helper";
+import { resolveInCombat } from "@/game/mechanics/stat-resolver";
+>>>>>>> main
 
 import { PrintNumberWithSign } from "@/lib/utilities/formater-numbers";
 import { ui } from "@/localization/ui-localization-resolver";
@@ -34,7 +42,11 @@ const HomeScreen = () => {
     const grouped = groupActionsBySlot(character.actions);
     const sections = groupedActionsAsArray(grouped);
 
+<<<<<<< HEAD
     const resolvedStats = resolveInCombat(character, encounterState);
+=======
+    const resolvedStats = resolveInCombat(character);
+>>>>>>> main
 
     return (
       <ThemedView style={genericStyles.rootContainer}>
@@ -60,7 +72,14 @@ const HomeScreen = () => {
                 CD de Conjuro
               </ThemedText>
               <ThemedText style={styles.spellcastingValue}>
+<<<<<<< HEAD
                 {resolvedStats.stats.get("derived:spellSaveDC")?.finalValue}
+=======
+                {PrintNumberWithSign(
+                  resolvedStats.stats.get("derived:spellSaveDC")?.finalValue ??
+                    0,
+                )}
+>>>>>>> main
               </ThemedText>
             </View>
           </View>

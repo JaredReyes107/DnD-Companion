@@ -1,6 +1,12 @@
+<<<<<<< HEAD:game/domain/spellcasting/spellcasting.ts
 import { Character } from "@/game/domain/character/Character";
 import { CharacterClasses } from "@/game/domain/character/character-classes";
 import { SpellSlotLevel } from "@/game/domain/spellcasting/spell-slot-instance";
+=======
+import { Character } from "@/game/types/instances/Character";
+import { CharacterClasses } from "@/game/types/instances/character-classes";
+import { SpellSlotLevel } from "../types/instances/spell-slot-instance";
+>>>>>>> main:game/mechanics/spellcasting.ts
 import {
   getClassInstanceByTemplateId,
   getClassTemplateById,
