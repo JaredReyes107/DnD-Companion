@@ -39,6 +39,7 @@ export type StatModifierTemplate = {
 
 export type StatModifierInstance = {
   templateId: string;
+  sourceId: string;
   statModel: StatModel;
   //origin: "Players Handbook", //For distinguishing official rules and homebrew
 

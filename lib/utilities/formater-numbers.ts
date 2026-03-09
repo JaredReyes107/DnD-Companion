@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 export function PrintNumberWithSign(value: number): string {
   let text = "";
 

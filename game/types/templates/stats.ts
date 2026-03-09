@@ -1,5 +1,5 @@
-import { Ability } from "./abilities-scores";
-import { SkillInstance } from "./character-skills";
+import { Ability } from "../../domain/rules/ability/ability.types";
+import { SkillInstance } from "../../domain/character/skill-instance";
 
 export type DerivedStatKey =
   | "maxHp"

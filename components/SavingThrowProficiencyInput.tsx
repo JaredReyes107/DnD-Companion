@@ -1,9 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import {
-  Ability,
-  SavingThrowInstance,
-} from "@/game/data/templates/abilities-scores";
+import { Ability } from "@/game/domain/rules/ability/ability.types";
+import { SavingThrowInstance } from "@/game/domain/rules/saving-throw/saving-throw-instance";
 
 import styles from "@/stylesheets/character-creation.styles";
 

@@ -1,0 +1,11 @@
+Warning: React version not specified in eslint-plugin-react settings. See https://github.com/jsx-eslint/eslint-plugin-react#configuration .
+
+C:\repositories\DnD-Companion\components\CharacterForm.tsx
+  317:34  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\repositories\DnD-Companion\game\domain\combat\action-economy.ts
+  298:49  error  Replace `combatState,┬╖actionResourceType` with `ΓÅÄ┬╖┬╖┬╖┬╖combatState,ΓÅÄ┬╖┬╖┬╖┬╖actionResourceType,ΓÅÄ┬╖┬╖`  prettier/prettier
+
+Γ£û 2 problems (2 errors, 0 warnings)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+

@@ -1,20 +1,26 @@
-import { Character } from "@/game/types/instances/Character";
+import { Character } from "@/game/domain/character/Character";
 import { CombatState } from "@/game/types/instances/combat-state";
 
 export function buildCombatState(character: Character): CombatState {
-  //This does literally nothing but get rid of the error about not using Character yet
-  console.log(
-    "Ignore this: " + character.combatState?.actionEconomy.actions.current,
-  );
-
-  const characterInstance = {
+  const characterInstance: CombatState = {
+    round: 1,
+    currentTurnIndex: 0,
     initiativeOrder: 1,
+    initiativeRoll: 10,
 
-    //TODO: Replace with the actual amount of actions, bonus actions and reactions
     actionEconomy: {
-      actions: { max: 1, current: 1 },
-      bonusActions: { max: 1, current: 1 },
-      reactions: { max: 1, current: 1 },
+      actions: {
+        max: character.actionLimits.actions,
+        current: character.actionLimits.actions,
+      },
+      bonusActions: {
+        max: character.actionLimits.bonusActions,
+        current: character.actionLimits.bonusActions,
+      },
+      reactions: {
+        max: character.actionLimits.reactions,
+        current: character.actionLimits.reactions,
+      },
     },
 
     deathSaves: {
@@ -24,6 +30,7 @@ export function buildCombatState(character: Character): CombatState {
 
     conditions: [],
     modifiers: {},
+    runtimeModifiers: {},
   };
 
   return characterInstance;

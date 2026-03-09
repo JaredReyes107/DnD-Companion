@@ -9,6 +9,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 .vscode
+package-lock.json
 web-build/
 
 # macOS

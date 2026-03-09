@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { ClassTemplate } from "@/game/data/templates/class-template";
 
 import { ARTIFICER } from "./classes-templates/Artificer";

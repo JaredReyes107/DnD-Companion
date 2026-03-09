@@ -2,11 +2,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "expo-router";
 import CharacterForm from "@/components/CharacterForm";
 import { useCharacter } from "@/lib/utilities/character-provider";
-<<<<<<< HEAD
 import { Character } from "@/game/domain/character/Character";
-=======
-import { Character } from "@/game/types/instances/Character";
->>>>>>> main
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EditCharacterScreen = () => {
@@ -23,7 +19,7 @@ const EditCharacterScreen = () => {
     };
 
     init();
-  }, []);
+  }, [loadCharacterById]);
 
   if (loading || !character) return null;
 

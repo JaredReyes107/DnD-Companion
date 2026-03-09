@@ -1,9 +1,8 @@
-/* eslint-disable prettier/prettier */
 import { Text, TouchableOpacity, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import styles from "@/stylesheets/character-creation.styles";
-import { SkillInstance } from "@/game/domain/rules/skill/skills.types";
+import { SkillInstance } from "@/game/domain/character/skill-instance";
 import { getLocalizedName } from "@/lib/helpers/localization-helper";
 
 type Props = {
@@ -20,7 +19,7 @@ const SkillProficiencyInput = ({
   onToggleExpertise,
 }: Props) => {
   const { hasProficiency, hasExpertise } = skillInstance;
-  
+
   return (
     <View style={styles.proficienciesContainer}>
       <TouchableOpacity
@@ -46,10 +45,7 @@ const SkillProficiencyInput = ({
         </TouchableOpacity>
       )}
       {!hasProficiency && (
-        <TouchableOpacity 
-          style={styles.proficiencyButton} 
-          onPress={() => null}
-        >
+        <TouchableOpacity style={styles.proficiencyButton} onPress={() => null}>
           <MaterialIcons
             name={hasExpertise ? "circle" : "radio-button-unchecked"}
             size={16}
@@ -57,7 +53,9 @@ const SkillProficiencyInput = ({
           />
         </TouchableOpacity>
       )}
-      <Text style={styles.statTitle}>{getLocalizedName("skills", skillId)}</Text>
+      <Text style={styles.statTitle}>
+        {getLocalizedName("skills", skillId)}
+      </Text>
     </View>
   );
 };

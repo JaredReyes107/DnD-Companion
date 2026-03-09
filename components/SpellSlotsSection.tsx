@@ -1,13 +1,13 @@
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "./ThemedText";
 
-import { SpellSlots } from "@/game/types/instances/spell-slot-instance";
+import { SpellSlotInstance } from "@/game/domain/spellcasting/spell-slot-instance";
 import { SpellSlotElement } from "./SpellSlotElement";
 
 import styles from "@/stylesheets/combat/tab-resource";
 
 type Props = {
-  spellSlots: SpellSlots;
+  spellSlots: Record<number, SpellSlotInstance>;
   onChange: (level: number, current: number) => void;
 };
 
@@ -23,7 +23,7 @@ export const SpellSlotsSection = ({ spellSlots, onChange }: Props) => {
       <ThemedText style={styles.resourceCategoryTitle}>Spell Slots</ThemedText>
       <ThemedView style={styles.resourceElementsList}>
         {levels.map((level) => {
-          const slot = spellSlots[level as keyof SpellSlots]!;
+          const slot = spellSlots[level];
           return (
             <SpellSlotElement
               key={level}

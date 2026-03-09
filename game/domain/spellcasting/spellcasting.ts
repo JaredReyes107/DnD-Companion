@@ -1,39 +1,30 @@
-<<<<<<< HEAD:game/domain/spellcasting/spellcasting.ts
 import { Character } from "@/game/domain/character/Character";
 import { CharacterClasses } from "@/game/domain/character/character-classes";
 import { SpellSlotLevel } from "@/game/domain/spellcasting/spell-slot-instance";
-=======
-import { Character } from "@/game/types/instances/Character";
-import { CharacterClasses } from "@/game/types/instances/character-classes";
-import { SpellSlotLevel } from "../types/instances/spell-slot-instance";
->>>>>>> main:game/mechanics/spellcasting.ts
 import {
   getClassInstanceByTemplateId,
   getClassTemplateById,
   getClassTemplatesFromCharacter,
 } from "@/game/data/registries/classes.registry";
 import { CharacterResources } from "@/game/domain/resources/character-resources";
-//import { ClassInstance } from "../types/instances/class-instance";
 import { getSpellcastingTemplateByClassTemplateId } from "@/lib/helpers/spellcasting-helper";
 import {
   getAbilityModifier,
   getProficiencyBonus,
 } from "@/game/mechanics/abilities-modifiers";
-
 export function hasSpellcasting(character: Character): boolean {
-  let isSpellcaster = false;
-
   const characterClasses = character.classes;
 
   for (const classId of characterClasses.order) {
     const classInstance = characterClasses.byId[classId];
     const classTemplate = getClassTemplateById(classInstance.classId);
 
-    if (!classTemplate?.spellcastingTemplate) continue;
-    else isSpellcaster = true;
+    if (classTemplate?.spellcastingTemplate) {
+      return true;
+    }
   }
 
-  return isSpellcaster;
+  return false;
 }
 
 export function getTotalCasterLevel(

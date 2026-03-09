@@ -1,4 +1,3 @@
-<<<<<<< HEAD:game/engine/action-execution/take-action.ts
 import * as Crypto from "expo-crypto";
 
 import {
@@ -14,13 +13,6 @@ import { decreaseActionResource } from "../../domain/combat/action-economy";
 import { getStatModifierTemplateById } from "@/game/data/registries/modifiers.registry";
 import { applyStackingRule } from "../resolvers/modifiers-stacking-helper";
 import { instantiateModifier } from "@/lib/helpers/stat-modifiers-helper";
-=======
-import { Action, ConvertResourceEffect } from "../types/instances/action";
-import { Character } from "../types/instances/Character";
-import { StatModifier } from "../types/templates/stats";
-import { decreaseActionResource } from "./action-economy";
-import { serializeStatTemplate } from "./stat-resolver";
->>>>>>> main:game/mechanics/take-action.ts
 
 export function applyResourceDelta(
   character: Character,
@@ -73,35 +65,21 @@ export function applyRuntimeModifier(
   modifier: StatModifierInstance,
   durationRounds?: number,
 ): Character {
-<<<<<<< HEAD:game/engine/action-execution/take-action.ts
   if (!character.combatState) return character;
-=======
-  const modifierKey = serializeStatTemplate(modifier.statModel);
-  const modifierExists = character.statModifiers[modifierKey];
->>>>>>> main:game/mechanics/take-action.ts
 
   const id = Crypto.randomUUID();
 
   const expiresAtRound =
-    durationRounds !== undefined
-      ? character.combatState.round + durationRounds
-      : undefined;
+    durationRounds === undefined
+      ? undefined
+      : character.combatState.round + durationRounds;
 
-<<<<<<< HEAD:game/engine/action-execution/take-action.ts
   const runtimeInstance: RuntimeModifierInstance = {
     id,
     modifier,
     expiresAtRound,
     appliedAtRound: character.combatState.round,
   };
-=======
-  const modifiers = { ...character.statModifiers };
-
-  modifiers[modifierKey] =
-    stacking === "refresh"
-      ? { ...modifier }
-      : { ...modifiers[modifierKey], ...modifier };
->>>>>>> main:game/mechanics/take-action.ts
 
   return {
     ...character,
@@ -125,16 +103,16 @@ export function isActionAvailable(
 
   switch (action.actionSlot) {
     case "action":
-      hasActionEconomy = character.combatState.actionEconomy.actions > 0;
+      hasActionEconomy =
+        character.combatState.actionEconomy.actions.current > 0;
       break;
     case "bonusAction":
-      hasActionEconomy = character.combatState.actionEconomy.bonusActions > 0;
+      hasActionEconomy =
+        character.combatState.actionEconomy.bonusActions.current > 0;
       break;
     case "reaction":
-      hasActionEconomy = character.combatState.actionEconomy.reactions > 0;
-      break;
-    case "free":
-      hasActionEconomy = true;
+      hasActionEconomy =
+        character.combatState.actionEconomy.reactions.current > 0;
       break;
     case "free":
       hasActionEconomy = true;

@@ -5,20 +5,12 @@ import { useCharacter } from "@/lib/utilities/character-provider";
 
 import { ActionSection } from "@/components/ActionSection";
 
-<<<<<<< HEAD
 import { buildEncounterState } from "@/game/domain/combat/encounter-helper";
 import { cycleActionResource } from "@/game/domain/combat/action-economy";
 import { groupActionsBySlot } from "@/game/data/registries/actions.registry";
 import { groupedActionsAsArray } from "@/lib/helpers/actions-helper";
 import { resolveInCombat } from "@/game/engine/resolvers/stat-resolver";
 import { advanceRound } from "@/game/mechanics/combat-runtime";
-=======
-import { getArmorClass } from "@/game/mechanics/armor-class";
-import { cycleActionResource } from "@/game/mechanics/action-economy";
-import { groupActionsBySlot } from "@/game/registries/actions.registry";
-import { groupedActionsAsArray } from "@/lib/helpers/actions-helper";
-import { resolveInCombat } from "@/game/mechanics/stat-resolver";
->>>>>>> main
 
 import { PrintNumberWithSign } from "@/lib/utilities/formater-numbers";
 import { ui } from "@/localization/ui-localization-resolver";
@@ -42,48 +34,34 @@ const HomeScreen = () => {
     const grouped = groupActionsBySlot(character.actions);
     const sections = groupedActionsAsArray(grouped);
 
-<<<<<<< HEAD
     const resolvedStats = resolveInCombat(character, encounterState);
-=======
-    const resolvedStats = resolveInCombat(character);
->>>>>>> main
 
     return (
       <ThemedView style={genericStyles.rootContainer}>
         <View style={styles.headerSection}>
-          {/* SpellAttackModifier and SpellDC */}
-          <View style={styles.statRow}>
-            <View style={styles.spellcastingStatCell}>
-              <ThemedText style={styles.spellcastingText}>
-                Bon. de Ataque
-              </ThemedText>
-              <ThemedText style={styles.spellcastingValue}>
-                {PrintNumberWithSign(
-                  resolvedStats.stats.get("derived:spellAttackModifier")
-                    ?.finalValue ?? 0,
-                )}
-              </ThemedText>
-              <ThemedText style={styles.spellcastingText}>
-                De Conjuro
-              </ThemedText>
-            </View>
-            <View style={styles.spellcastingStatCell}>
-              <ThemedText style={styles.spellcastingText}>
-                CD de Conjuro
-              </ThemedText>
-              <ThemedText style={styles.spellcastingValue}>
-<<<<<<< HEAD
-                {resolvedStats.stats.get("derived:spellSaveDC")?.finalValue}
-=======
-                {PrintNumberWithSign(
-                  resolvedStats.stats.get("derived:spellSaveDC")?.finalValue ??
-                    0,
-                )}
->>>>>>> main
-              </ThemedText>
-            </View>
+          <View style={styles.primaryStatCell}>
+            <ThemedText style={styles.primaryStatText}>
+              Bon. de Ataque
+            </ThemedText>
+            <ThemedText style={styles.primaryStatValue}>
+              {PrintNumberWithSign(
+                resolvedStats.stats.get("derived:spellAttackModifier")
+                  ?.finalValue ?? 0,
+              )}
+            </ThemedText>
+            <ThemedText style={styles.primaryStatText}>De Conjuro</ThemedText>
           </View>
+          <View style={styles.spellcastingStatCell}>
+            <ThemedText style={styles.spellcastingText}>
+              CD de Conjuro
+            </ThemedText>
+            <ThemedText style={styles.spellcastingValue}>
+              {resolvedStats.stats.get("derived:spellSaveDC")?.finalValue}
+            </ThemedText>
+          </View>
+        </View>
 
+        <View>
           {/* Action Economy tracker */}
           <View style={styles.statRow}>
             <TouchableOpacity

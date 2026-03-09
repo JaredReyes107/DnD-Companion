@@ -105,6 +105,37 @@ export function serializeStatTemplate(statTemplate: StatModel): string {
   }
 }
 
+function getBaseValue(stat: StatModel, character: Character): number {
+  if (stat.type === "ability") {
+    return character.baseAbilityScores[stat.ability];
+  }
+  if (stat.type === "save") {
+    return getSavingThrowModifier(character, stat.ability);
+  }
+  if (stat.type === "skill") {
+    return getSkillModifier(character, character.skills[stat.skill.skillId]);
+  }
+  if (stat.type === "derived") {
+    switch (stat.key) {
+      case "maxHp":
+        return character.hitPoints.currentMaximumHP;
+      case "speed":
+        return character.baseSpeed;
+      case "initiative":
+        return getInitiativeBonus(character);
+      case "ac":
+        return getArmorClass(character);
+      case "spellAttackModifier":
+        return hasSpellcasting(character)
+          ? getSpellAttackModifier(character)
+          : 0;
+      case "spellSaveDC":
+        return hasSpellcasting(character) ? getSpellSaveDC(character) : 0;
+    }
+  }
+  return 0;
+}
+
 export function resolveOutOfCombat(character: Character): ResolvedCharacter {
   const stats = new Map<string, ResolvedStat>();
 
@@ -146,44 +177,7 @@ export function resolveOutOfCombat(character: Character): ResolvedCharacter {
   ];
 
   for (const stat of allStats) {
-    let base = 0;
-
-    if (stat.type === "ability") {
-      base = character.baseAbilityScores[stat.ability];
-    } else if (stat.type === "save") {
-      base = getSavingThrowModifier(character, stat.ability);
-    } else if (stat.type === "skill") {
-      base = getSkillModifier(character, character.skills[stat.skill.skillId]);
-    } else if (stat.type === "derived") {
-      switch (stat.key) {
-        case "maxHp":
-          base = character.hitPoints.currentMaximumHP;
-          break;
-        case "speed":
-          base = character.baseSpeed;
-          break;
-        case "initiative":
-          base = getInitiativeBonus(character);
-          break;
-        case "ac":
-          base = getArmorClass(character);
-          break;
-        case "spellAttackModifier":
-          if (hasSpellcasting(character)) {
-            base = getSpellAttackModifier(character);
-          } else {
-            base = 0;
-          }
-          break;
-        case "spellSaveDC":
-          if (hasSpellcasting(character)) {
-            base = getSpellSaveDC(character);
-          } else {
-            base = 0;
-          }
-          break;
-      }
-    }
+    const base = getBaseValue(stat, character);
 
     const relevantModifiers = Object.values(character.statModifiers).filter(
       (modifier) => isSameStat(modifier.statModel, stat),
@@ -206,7 +200,7 @@ export function resolveInCombat(
   const passiveModifiers = resolveOutOfCombat(character);
 
   const combatState = encounterState.participants[character.id];
-  if (!combatState || !combatState.runtimeModifiers) return passiveModifiers;
+  if (!combatState?.runtimeModifiers) return passiveModifiers;
 
   const combatModifiers = Object.values(combatState.runtimeModifiers)
     .filter(

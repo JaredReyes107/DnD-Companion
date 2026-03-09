@@ -1,8 +1,8 @@
 export function returnNaturalNumber(text: string): number {
-  const sanitized = text.replace(/\D/g, "").replace(/^0+(?=\d)/, "");
+  const sanitized = text.replaceAll(/\D/g, "").replace(/^0+(?=\d)/, "");
 
   // prevent negatives, decimals, etc
-  const value = sanitized === "" ? 0 : parseInt(sanitized, 10);
+  const value = sanitized === "" ? 0 : Number.parseInt(sanitized, 10);
 
   return value;
 }

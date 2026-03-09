@@ -1,3 +1,4 @@
+import { RuntimeModifierInstance } from "../../data/templates/stats.types";
 import { ActiveCombatModifier } from "../templates/stats";
 
 export type CombatState = {
@@ -20,4 +21,5 @@ export type CombatState = {
 
   conditions: string[];
   modifiers: Record<string, ActiveCombatModifier>;
+  runtimeModifiers: Record<string, RuntimeModifierInstance>;
 };

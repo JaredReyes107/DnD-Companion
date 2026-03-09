@@ -189,293 +189,281 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
   const renderItem = ({ item, section }: any) => {
     switch (section.key) {
       case "identity":
-        if (item === "name") {
-          return (
-            <View style={styles.fieldContainer}>
-              <Text style={styles.fieldHeader}>{ui("character.input")}</Text>
-              <TextInput
-                placeholder={name ? name : ""}
-                value={name}
-                onChangeText={setName}
-                style={styles.input}
-              />
-            </View>
-          );
-        }
-        if (item === "race") {
-          return (
-            <View style={styles.fieldContainer}>
-              <Text style={styles.fieldHeader}>{ui("race.singular")}</Text>
-              <TextInput
-                value={race}
-                onChangeText={setRace}
-                style={styles.input}
-              />
-            </View>
-          );
-        }
-        if (item === "alignment") {
-          return (
-            <View style={[styles.fieldContainer, { zIndex: 100 }]}>
-              <Text style={styles.fieldHeader}>{ui("alignment.singular")}</Text>
-              <View style={styles.pickerContainer}>
-                <CustomPicker
-                  namespace="alignments"
-                  items={ALIGNMENTS}
-                  selectedValue={alignment}
-                  onChange={(val) => setAlignment(val)}
-                  placeholder={ui("picker.selectAlignment")}
-                ></CustomPicker>
-              </View>
-            </View>
-          );
-        }
-        if (item === "xp") {
-          return (
-            <View style={styles.fieldContainer}>
-              <Text style={styles.fieldHeader}>{ui("xp.full")}</Text>
-              <TextInput
-                keyboardType="numeric"
-                value={formatNaturalNumber(xp)}
-                onChangeText={(text: string) =>
-                  formatNaturalNumber(xp) != text
-                    ? setXp(returnNaturalNumber(text))
-                    : text
-                }
-                style={styles.input}
-              />
-            </View>
-          );
-        }
-        return null;
-
+        return renderIdentityField(item);
       case "hp":
-        return (
-          <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>{ui("hp.full")}</Text>
-            <TextInput
-              keyboardType="numeric"
-              value={formatNaturalNumber(baseHP)}
-              onChangeText={(value: string) =>
-                formatNaturalNumber(baseHP) != value
-                  ? setBaseHP(returnNaturalNumber(value))
-                  : value
-              }
-              style={styles.input}
-            />
-          </View>
-        );
-
+        return renderHPField();
       case "speed":
-        return (
-          <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>{ui("stats.speed")}</Text>
-            <View style={styles.counterContainer}>
-              <Text style={styles.counterInput}>{baseSpeed}</Text>
-              <View style={styles.counterButtonsContainer}>
-                <SmoothCounterButton
-                  style={styles.counterButton}
-                  onPress={() =>
-                    setBaseSpeed((prev) => (prev > 0 ? prev - 5 : 0))
-                  }
-                >
-                  <MaterialIcons
-                    name="remove"
-                    style={styles.counterButtonIcon}
-                  ></MaterialIcons>
-                </SmoothCounterButton>
-                <SmoothCounterButton
-                  style={styles.counterButton}
-                  onPress={() =>
-                    setBaseSpeed((prev) => (prev < 75 ? prev + 5 : 75))
-                  }
-                >
-                  <MaterialIcons
-                    name="add"
-                    style={styles.counterButtonIcon}
-                  ></MaterialIcons>
-                </SmoothCounterButton>
-              </View>
-            </View>
-          </View>
-        );
-
+        return renderSpeedField();
       case "classes":
-        if (item === "mainClass") {
-          return <MainClassForm value={mainClass} onChange={setMainClass} />;
-        }
-
-        // Secondary classes
-        return (
-          <>
-            <SecondaryClassesForm
-              value={item}
-              onChange={(updated) =>
-                setSecondaryClasses((prev) =>
-                  prev.map((c) => (c.id === item.id ? updated : c)),
-                )
-              }
-              onRemove={() =>
-                setSecondaryClasses((prev) =>
-                  prev.filter((c) => c.id !== item.id),
-                )
-              }
-            />
-          </>
-        );
-
+        return renderClassItem(item);
       case "addClass":
-        return (
-          <TouchableOpacity
-            style={styles.addClassButtonContainer}
-            onPress={() =>
-              setSecondaryClasses((prev) => [
-                ...prev,
-                {
-                  id: Crypto.randomUUID(),
-                  classTemplateId: null,
-                  level: 1,
-                },
-              ])
-            }
-          >
-            <Text style={styles.addClassButton}>+ Añadir clase</Text>
-          </TouchableOpacity>
-        );
-
+        return renderAddClassButton();
       case "stats":
-        return (
-          <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>{ui("stats.abilityScores")}</Text>
-            <View style={styles.statsContainer}>
-              <FlatList
-<<<<<<< HEAD
-                data={ABILITIES}
-=======
-                data={ABILITY_ORDER}
->>>>>>> main
-                keyExtractor={(ability) => ability}
-                renderItem={({ item: ability }) => (
-                  <AbilityScoreInput
-                    label={getLocalizedName("abilities", ability)}
-                    score={abilityScores[ability]}
-                    onChange={(delta) =>
-                      setAbilityScores((prev) => {
-                        const currentValue = prev[ability];
-
-                        const newValue = Math.max(
-                          0,
-                          Math.min(30, currentValue + delta),
-                        );
-
-                        return {
-                          ...prev,
-                          [ability]: newValue,
-                        };
-                      })
-                    }
-                  />
-                )}
-              />
-            </View>
-          </View>
-        );
-
+        return renderStatsSection();
       case "savingThrows":
-        return (
-          <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>{ui("savingThrows.full")}</Text>
-            <View style={styles.statsContainer}>
-              <FlatList
-                style={styles.proficienciesList}
-<<<<<<< HEAD
-                data={ABILITIES}
-=======
-                data={ABILITY_ORDER}
->>>>>>> main
-                keyExtractor={(ability) => ability}
-                renderItem={({ item: ability }) => (
-                  <SavingThrowProficiencyInput
-                    ability={ability}
-                    label={getLocalizedName("abilities", ability)}
-                    savingThrow={savingThrows[ability]}
-                    onToggleProficiency={() =>
-                      setSavingThrows((prev) => ({
-                        ...prev,
-                        [ability]: {
-                          ...prev[ability],
-                          hasProficiency: !prev[ability].hasProficiency,
-                        },
-                      }))
-                    }
-                  />
-                )}
-              />
-            </View>
-          </View>
-        );
-
+        return renderSavingThrowsSection();
       case "skills":
-        return (
-          <View style={styles.fieldContainer}>
-            <Text style={styles.fieldHeader}>{ui("stats.skills")}</Text>
-            <View style={styles.statsContainer}>
-              <FlatList
-                style={styles.proficienciesList}
-                data={SKILL_KEYS}
-                keyExtractor={(skillKey) => skillKey}
-                renderItem={({ item: skillKey }) => (
-                  <SkillProficiencyInput
-                    skillId={skillKey}
-                    skillInstance={skills[skillKey]}
-                    onToggleProficiency={() =>
-                      setSkills((prev) => {
-                        const current = prev[skillKey];
-                        return {
-                          ...prev,
-                          [skillKey]: {
-                            ...current,
-                            hasProficiency: !current.hasProficiency,
-                            hasExpertise: false,
-                          },
-                        };
-                      })
-                    }
-                    onToggleExpertise={() =>
-                      setSkills((prev) => {
-                        const current = prev[skillKey];
-                        if (!current.hasProficiency) return prev;
-                        return {
-                          ...prev,
-                          [skillKey]: {
-                            ...current,
-                            hasExpertise: !current.hasExpertise,
-                          },
-                        };
-                      })
-                    }
-                  />
-                )}
-              />
-            </View>
-          </View>
-        );
-
+        return renderSkillsSection();
       case "submit":
-        return (
-          <View style={styles.submitButtonContainer}>
-            <TouchableOpacity
-              style={styles.submitButton}
-              onPress={handleSubmit}
-            >
-              <Text style={styles.submitButtonText}>{submitLabel}</Text>
-            </TouchableOpacity>
-          </View>
-        );
+        return renderSubmitButton();
       default:
         return null;
     }
   };
+
+  const renderIdentityField = (item: string) => {
+    if (item === "name") {
+      return (
+        <View style={styles.fieldContainer}>
+          <Text style={styles.fieldHeader}>{ui("character.input")}</Text>
+          <TextInput
+            placeholder={name}
+            value={name}
+            onChangeText={setName}
+            style={styles.input}
+          />
+        </View>
+      );
+    }
+    if (item === "race") {
+      return (
+        <View style={styles.fieldContainer}>
+          <Text style={styles.fieldHeader}>{ui("race.singular")}</Text>
+          <TextInput value={race} onChangeText={setRace} style={styles.input} />
+        </View>
+      );
+    }
+    if (item === "alignment") {
+      return (
+        <View style={[styles.fieldContainer, { zIndex: 100 }]}>
+          <Text style={styles.fieldHeader}>{ui("alignment.singular")}</Text>
+          <View style={styles.pickerContainer}>
+            <CustomPicker
+              namespace="alignments"
+              items={ALIGNMENTS}
+              selectedValue={alignment}
+              onChange={(val) => setAlignment(val)}
+              placeholder={ui("picker.selectAlignment")}
+            ></CustomPicker>
+          </View>
+        </View>
+      );
+    }
+    if (item === "xp") {
+      return (
+        <View style={styles.fieldContainer}>
+          <Text style={styles.fieldHeader}>{ui("xp.full")}</Text>
+          <TextInput
+            keyboardType="numeric"
+            value={formatNaturalNumber(xp)}
+            onChangeText={(text: string) => {
+              if (formatNaturalNumber(xp) !== text) {
+                setXp(returnNaturalNumber(text));
+              }
+            }}
+            style={styles.input}
+          />
+        </View>
+      );
+    }
+    return null;
+  };
+
+  const renderHPField = () => (
+    <View style={styles.fieldContainer}>
+      <Text style={styles.fieldHeader}>{ui("hp.full")}</Text>
+      <TextInput
+        keyboardType="numeric"
+        value={formatNaturalNumber(baseHP)}
+        onChangeText={(value: string) => {
+          if (formatNaturalNumber(baseHP) !== value) {
+            setBaseHP(returnNaturalNumber(value));
+          }
+        }}
+        style={styles.input}
+      />
+    </View>
+  );
+
+  const renderSpeedField = () => (
+    <View style={styles.fieldContainer}>
+      <Text style={styles.fieldHeader}>{ui("stats.speed")}</Text>
+      <View style={styles.counterContainer}>
+        <Text style={styles.counterInput}>{baseSpeed}</Text>
+        <View style={styles.counterButtonsContainer}>
+          <SmoothCounterButton
+            style={styles.counterButton}
+            onPress={() => setBaseSpeed((prev) => (prev > 0 ? prev - 5 : 0))}
+          >
+            <MaterialIcons
+              name="remove"
+              style={styles.counterButtonIcon}
+            ></MaterialIcons>
+          </SmoothCounterButton>
+          <SmoothCounterButton
+            style={styles.counterButton}
+            onPress={() => setBaseSpeed((prev) => (prev < 75 ? prev + 5 : 75))}
+          >
+            <MaterialIcons
+              name="add"
+              style={styles.counterButtonIcon}
+            ></MaterialIcons>
+          </SmoothCounterButton>
+        </View>
+      </View>
+    </View>
+  );
+
+  const renderClassItem = (item: ClassDraft | "mainClass") => {
+    if (item === "mainClass") {
+      return <MainClassForm value={mainClass} onChange={setMainClass} />;
+    }
+
+    return (
+      <SecondaryClassesForm
+        value={item}
+        onChange={(updated) =>
+          setSecondaryClasses((prev) =>
+            prev.map((c) => (c.id === item.id ? updated : c)),
+          )
+        }
+        onRemove={() =>
+          setSecondaryClasses((prev) => prev.filter((c) => c.id !== item.id))
+        }
+      />
+    );
+  };
+
+  const renderAddClassButton = () => (
+    <TouchableOpacity
+      style={styles.addClassButtonContainer}
+      onPress={() =>
+        setSecondaryClasses((prev) => [
+          ...prev,
+          {
+            id: Crypto.randomUUID(),
+            classTemplateId: null,
+            level: 1,
+          },
+        ])
+      }
+    >
+      <Text style={styles.addClassButton}>+ Añadir clase</Text>
+    </TouchableOpacity>
+  );
+
+  const renderStatsSection = () => (
+    <View style={styles.fieldContainer}>
+      <Text style={styles.fieldHeader}>{ui("stats.abilityScores")}</Text>
+      <View style={styles.statsContainer}>
+        <FlatList
+          data={ABILITIES}
+          keyExtractor={(ability) => ability}
+          renderItem={({ item: ability }) => (
+            <AbilityScoreInput
+              label={getLocalizedName("abilities", ability)}
+              score={abilityScores[ability]}
+              onChange={(delta) =>
+                setAbilityScores((prev) => {
+                  const currentValue = prev[ability];
+                  const newValue = Math.max(
+                    0,
+                    Math.min(30, currentValue + delta),
+                  );
+                  return {
+                    ...prev,
+                    [ability]: newValue,
+                  };
+                })
+              }
+            />
+          )}
+        />
+      </View>
+    </View>
+  );
+
+  const renderSavingThrowsSection = () => (
+    <View style={styles.fieldContainer}>
+      <Text style={styles.fieldHeader}>{ui("savingThrows.full")}</Text>
+      <View style={styles.statsContainer}>
+        <FlatList
+          style={styles.proficienciesList}
+          data={ABILITIES}
+          keyExtractor={(ability) => ability}
+          renderItem={({ item: ability }) => (
+            <SavingThrowProficiencyInput
+              ability={ability}
+              label={getLocalizedName("abilities", ability)}
+              savingThrow={savingThrows[ability]}
+              onToggleProficiency={() =>
+                setSavingThrows((prev) => ({
+                  ...prev,
+                  [ability]: {
+                    ...prev[ability],
+                    hasProficiency: !prev[ability].hasProficiency,
+                  },
+                }))
+              }
+            />
+          )}
+        />
+      </View>
+    </View>
+  );
+
+  const renderSkillsSection = () => (
+    <View style={styles.fieldContainer}>
+      <Text style={styles.fieldHeader}>{ui("stats.skills")}</Text>
+      <View style={styles.statsContainer}>
+        <FlatList
+          style={styles.proficienciesList}
+          data={SKILL_KEYS}
+          keyExtractor={(skillKey) => skillKey}
+          renderItem={({ item: skillKey }) => (
+            <SkillProficiencyInput
+              skillId={skillKey}
+              skillInstance={skills[skillKey]}
+              onToggleProficiency={() =>
+                setSkills((prev) => {
+                  const current = prev[skillKey];
+                  return {
+                    ...prev,
+                    [skillKey]: {
+                      ...current,
+                      hasProficiency: !current.hasProficiency,
+                      hasExpertise: false,
+                    },
+                  };
+                })
+              }
+              onToggleExpertise={() =>
+                setSkills((prev) => {
+                  const current = prev[skillKey];
+                  if (!current.hasProficiency) return prev;
+                  return {
+                    ...prev,
+                    [skillKey]: {
+                      ...current,
+                      hasExpertise: !current.hasExpertise,
+                    },
+                  };
+                })
+              }
+            />
+          )}
+        />
+      </View>
+    </View>
+  );
+
+  const renderSubmitButton = () => (
+    <View style={styles.submitButtonContainer}>
+      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+        <Text style={styles.submitButtonText}>{submitLabel}</Text>
+      </TouchableOpacity>
+    </View>
+  );
 
   return (
     <KeyboardAvoidingView style={genericStyles.rootContainer}>

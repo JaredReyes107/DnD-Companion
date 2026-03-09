@@ -2,13 +2,8 @@ import { Ability, ABILITIES } from "@/game/domain/rules/ability/ability.types";
 import {
   CharacterSavingThrows,
   SavingThrowInstance,
-<<<<<<< HEAD
 } from "@/game/domain/rules/saving-throw/saving-throw-instance";
 import { Character } from "@/game/domain/character/Character";
-=======
-} from "@/game/types/templates/abilities-scores";
-import { Character } from "@/game/types/instances/Character";
->>>>>>> main
 
 export function buildSavingThrows(): CharacterSavingThrows {
   return ABILITIES.reduce((acc, ability) => {

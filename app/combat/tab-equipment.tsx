@@ -9,35 +9,29 @@ import styles from "../../stylesheets/combat/index.styles";
 import genericStyles from "../../stylesheets/generic.styles";
 
 const App = () => {
-  const { character, saveCharacter, loading } = useCharacter();
+  const { character, loading } = useCharacter();
   //#endregion
 
-  if (loading || !character) {
+  if (loading || !character?.combatState) {
     return (
       <View>
         <ThemedText>Cargando personaje…</ThemedText>
       </View>
-    );
-  } else if (!character.combatState) {
-    return (
-      <View>
-        <ThemedText>Cargando personaje…</ThemedText>
-      </View>
-    );
-  } else {
-    return (
-      <ThemedView
-        style={[
-          genericStyles.rootContainer,
-          { paddingHorizontal: "5%", alignItems: "center" },
-        ]}
-      >
-        <View style={styles.headerContainer}></View>
-
-        <View style={styles.mainBody}></View>
-      </ThemedView>
     );
   }
+
+  return (
+    <ThemedView
+      style={[
+        genericStyles.rootContainer,
+        { paddingHorizontal: "5%", alignItems: "center" },
+      ]}
+    >
+      <View style={styles.headerContainer}></View>
+
+      <View style={styles.mainBody}></View>
+    </ThemedView>
+  );
 };
 
 export default App;

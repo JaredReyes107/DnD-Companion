@@ -1,4 +1,4 @@
-import { Ability } from "@/game/data/templates/abilities-scores";
+import { Ability } from "@/game/domain/rules/ability/ability.types";
 import { SpellcastingTemplate } from "./spellcasting-template";
 import { FeatureTemplate } from "./feature-template";
 

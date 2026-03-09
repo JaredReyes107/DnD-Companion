@@ -2,10 +2,12 @@ import { Character } from "@/game/domain/character/Character";
 import { CombatState } from "@/game/domain/combat/combat-state";
 
 export function buildCombatState(character: Character): CombatState {
-  const characterInstance = {
+  const characterInstance: CombatState = {
+    round: 1,
+    currentTurnIndex: 0,
     initiativeOrder: 1,
+    initiativeRoll: 10,
 
-    //TODO: Replace with the actual amount of actions, bonus actions and reactions
     actionEconomy: {
       actions: {
         max: character.actionLimits.actions,
@@ -27,6 +29,7 @@ export function buildCombatState(character: Character): CombatState {
     },
 
     conditions: [],
+    modifiers: {},
     runtimeModifiers: {},
   };
 

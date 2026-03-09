@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
@@ -219,9 +218,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     gap: 5,
   },
-  proficiencyButton: {
-
-  },
+  proficiencyButton: {},
 
   //#region Submit Button Styles
   submitButtonContainer: {

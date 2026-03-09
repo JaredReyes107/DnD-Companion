@@ -54,11 +54,8 @@ export function buildEncounterState(participants: Character[]): EncounterState {
 
   console.log("Creating encounter");
 
-  const initiativeOrder: string[] = [];
-
   for (const character of participants) {
     combatStates[character.id] = buildCombatState(character);
-    initiativeOrder.push(character.id);
   }
 
   return {

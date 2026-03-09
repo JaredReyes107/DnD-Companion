@@ -1,15 +1,10 @@
-/* eslint-disable prettier/prettier */  
-<<<<<<< HEAD
 import { Character } from "@/game/domain/character/Character";
-=======
-import { Character } from "@/game/types/instances/Character";
->>>>>>> main
 import { getAbilityModifier, getProficiencyBonus } from "./abilities-modifiers";
 import { Ability } from "../domain/rules/ability/ability.types";
 
 export function getSavingThrowModifier(
   character: Character,
-  ability: Ability
+  ability: Ability,
 ): number {
   const modifiers: number[] = [];
 
@@ -24,7 +19,9 @@ export function getSavingThrowModifier(
   }
 
   let total = 0;
-  modifiers.map(modifier => {total += modifier}) 
+  modifiers.forEach((modifier) => {
+    total += modifier;
+  });
 
   return total;
 }

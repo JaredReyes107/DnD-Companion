@@ -1,4 +1,5 @@
 import { Character } from "../domain/character/Character";
+import { buildCombatState } from "../domain/combat/combat-helper";
 import { ResourceInstance } from "../domain/resources/resource-instance";
 import { getResourceRegistry } from "../data/registries/resources.registry";
 
@@ -45,10 +46,6 @@ export function takeLongRest(character: Character): Character {
 export function takeShortRest(character: Character): Character {
   return {
     ...character,
-<<<<<<< HEAD
-=======
-    combatState: buildCombatState(character),
->>>>>>> main
     resources: restoreResources(character.resources, ["shortRest"]),
   };
 }
