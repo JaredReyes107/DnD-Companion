@@ -12,7 +12,6 @@ import {
 import * as Crypto from "expo-crypto";
 
 // Custom Classes and Constants
-<<<<<<< HEAD
 import { Character } from "@/game/domain/character/Character";
 import { Alignment, ALIGNMENTS } from "@/game/data/base/Alignments";
 import {
@@ -20,44 +19,23 @@ import {
   ABILITIES,
 } from "@/game/domain/rules/ability/ability.types";
 import { CharacterSavingThrows } from "@/game/domain/rules/saving-throw/saving-throw-instance";
-=======
-import { Character } from "@/game/types/instances/Character";
-import { Alignment, ALIGNMENTS } from "@/game/base-data/Alignments";
-import {
-  ABILITY_ORDER,
-  AbilityScores,
-  CharacterSavingThrows,
-} from "@/game/types/templates/abilities-scores";
->>>>>>> main
 
 // Functions and Helpers
 import { getMaximumHitDice } from "@/lib/helpers/hit-dice-helper";
 import { buildAbilityScores } from "@/lib/helpers/ability-scores-helper";
 import { buildSavingThrows } from "@/lib/helpers/saving-throws-helper";
-<<<<<<< HEAD
 import { SKILL_KEYS } from "@/game/data/base/SKILLS";
 import { CharacterSkills } from "@/game/domain/character/skill-instance";
 import { buildCharacterSkills } from "@/lib/helpers/skills-helper";
 import { buildCharacterResources } from "@/lib/helpers/resources-helper";
 import { buildCharacterActions } from "@/lib/helpers/actions-helper";
 import { startEncounter } from "@/game/domain/combat/encounter-helper";
-=======
-import { SKILL_KEYS } from "@/game/base-data/SKILLS";
-import { CharacterSkills } from "@/game/types/templates/character-skills";
-import { buildCharacterSkills } from "@/lib/helpers/skills-helper";
-import { buildCharacterResources } from "@/lib/helpers/resources-helper";
-import { buildCharacterActions } from "@/lib/helpers/actions-helper";
-import { buildCombatState } from "@/lib/helpers/combat-helper";
->>>>>>> main
 
 // Components
 import { ThemedView } from "./ThemedView";
 import { MaterialIcons } from "@expo/vector-icons";
 
-<<<<<<< HEAD
 import SmoothCounterButton from "./SmoothCounterButton";
-=======
->>>>>>> main
 import CustomPicker from "@/components/CustomPicker";
 import { MainClassForm } from "@/components/MainClassForm";
 import { SecondaryClassesForm } from "@/components/SecondaryClassesForm";
@@ -74,10 +52,6 @@ import {
 
 import styles from "@/stylesheets/character-creation.styles";
 import genericStyles from "@/stylesheets/generic.styles";
-<<<<<<< HEAD
-=======
-import SmoothCounterButton from "./SmoothCounterButton";
->>>>>>> main
 
 type Props = {
   initialCharacter?: Character | null;
@@ -154,10 +128,6 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
     const character: Character = {
       id: initialCharacter?.id ?? Crypto.randomUUID(),
       icon: initialCharacter?.icon ?? "face",
-<<<<<<< HEAD
-=======
-
->>>>>>> main
       name,
       race,
       alignment: alignment ?? "lawful_good",
@@ -182,7 +152,6 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       savingThrows,
       skills,
 
-<<<<<<< HEAD
       //TODO: Make this dynamic
       actionLimits: {
         actions: 1,
@@ -191,31 +160,16 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       },
 
       encounterId: "",
-
-=======
->>>>>>> main
       features: initialCharacter?.features ?? {},
       resources: {},
       actions: {},
       statModifiers: initialCharacter?.statModifiers ?? {},
-<<<<<<< HEAD
     };
-
-=======
-      combatState: initialCharacter?.combatState ?? null,
-    };
-
-    character.combatState = buildCombatState(character);
->>>>>>> main
     character.currentHitDice = getMaximumHitDice(character);
     character.resources = buildCharacterResources(character);
     character.actions = buildCharacterActions(character);
 
-<<<<<<< HEAD
     startEncounter([character]);
-
-=======
->>>>>>> main
     onSubmit(character);
   };
 
@@ -224,10 +178,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
     { key: "hp", data: ["hp"] },
     { key: "speed", data: ["speed"] },
     { key: "classes", data: ["mainClass", ...secondaryClasses] },
-<<<<<<< HEAD
     { key: "addClass", data: ["addClass"] },
-=======
->>>>>>> main
     { key: "stats", data: ["stats"] },
     { key: "savingThrows", data: ["savingThrows"] },
     { key: "skills", data: ["skills"] },
@@ -407,17 +358,10 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
                 renderItem={({ item: ability }) => (
                   <AbilityScoreInput
                     label={getLocalizedName("abilities", ability)}
-<<<<<<< HEAD
                     score={abilityScores[ability]}
                     onChange={(delta) =>
                       setAbilityScores((prev) => {
                         const currentValue = prev[ability];
-=======
-                    score={abilityScores[ability].value}
-                    onChange={(delta) =>
-                      setAbilityScores((prev) => {
-                        const currentValue = prev[ability].value;
->>>>>>> main
 
                         const newValue = Math.max(
                           0,
@@ -426,14 +370,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
 
                         return {
                           ...prev,
-<<<<<<< HEAD
                           [ability]: newValue,
-=======
-                          [ability]: {
-                            ...prev[ability],
-                            value: newValue,
-                          },
->>>>>>> main
                         };
                       })
                     }
