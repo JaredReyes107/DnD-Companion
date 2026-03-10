@@ -15,7 +15,7 @@ export class ModifierEngine {
 
   private registerListeners() {
     this.bus.on(
-      GameEvent.TURN_END,
+      GameEvent.TURN_START,
       EventPhase.MAIN,
       () => {
         for (const [
@@ -24,7 +24,7 @@ export class ModifierEngine {
         ] of this.world.effects.entries()) {
           const newEffects = this.processEventDurations(
             effectComponent.effects,
-            GameEvent.TURN_END,
+            GameEvent.TURN_START,
           );
           this.world.effects.add(entityId, { effects: newEffects });
         }
@@ -41,7 +41,10 @@ export class ModifierEngine {
       .map((effect) => {
         if (!effect.duration) return effect;
 
-        if (effect.duration.type === "rounds" && event === GameEvent.TURN_END) {
+        if (
+          effect.duration.type === "rounds" &&
+          event === GameEvent.TURN_START
+        ) {
           if (effect.duration.remaining !== undefined) {
             return {
               ...effect,
