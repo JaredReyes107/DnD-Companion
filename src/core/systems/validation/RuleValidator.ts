@@ -3,7 +3,7 @@ import {
   ModifierInstance,
   ModifierType,
 } from "../../entities/modifiers/Modifier";
-import { CombatState } from "../../entities/combat/CombatState";
+import { EncounterState } from "../../entities/combat/EncounterState";
 import { AuraEffect } from "../../entities/modifiers/Aura";
 
 export interface ValidationIssue {
@@ -81,20 +81,20 @@ export class RuleValidator {
     return { valid: !issues.some((i) => i.level === "error"), issues };
   }
 
-  validateCombatState(state: CombatState): ValidationResult {
+  validateEncounterState(state: EncounterState): ValidationResult {
     const issues: ValidationIssue[] = [];
 
-    if (!state.participants || state.participants.length === 0) {
+    if (!state.participants || Object.keys(state.participants).length === 0) {
       issues.push({
         level: "error",
-        message: "CombatState must contain participants",
+        message: "EncounterState must contain participants",
       });
     }
 
-    if (state.turnIndex >= (state.participants?.length || 0)) {
+    if (state.activeTurn >= Object.keys(state.participants || {}).length) {
       issues.push({
         level: "error",
-        message: "turnIndex exceeds participants length",
+        message: "activeTurn exceeds participants length",
       });
     }
 

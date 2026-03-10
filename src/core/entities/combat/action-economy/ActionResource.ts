@@ -8,9 +8,9 @@ export enum ActionType {
 }
 
 export interface ActionResource {
-  actionAvailable: boolean;
-  bonusActionAvailable: boolean;
-  reactionAvailable: boolean;
+  actions: number;
+  bonusActions: number;
+  reactions: number;
   movementRemaining: number;
 }
 

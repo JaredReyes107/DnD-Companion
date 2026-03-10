@@ -60,12 +60,11 @@ export function resolveStat(
   };
 }
 
-// TODO: legacy bridge to keep the app compiling until Phase 5 Orchestration finishes.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function resolveOutOfCombat(character: any): any {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+export function resolveOutOfCombat(_character: any): any {
   return { stats: new Map() };
 }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function resolveInCombat(character: any, encounterState: any): any {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+export function resolveInCombat(_character: any, _encounterState: any): any {
   return { stats: new Map() };
 }

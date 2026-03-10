@@ -2,43 +2,43 @@ import { ActionResource } from "../../../entities/combat/action-economy/ActionRe
 
 export function resetTurnResources(movementSpeed: number): ActionResource {
   return {
-    actionAvailable: true,
-    bonusActionAvailable: true,
-    reactionAvailable: true,
+    actions: 1,
+    bonusActions: 1,
+    reactions: 1,
     movementRemaining: movementSpeed,
   };
 }
 
 export function consumeAction(resources: ActionResource): ActionResource {
-  if (!resources.actionAvailable) {
-    throw new Error("Action already used this turn");
+  if (resources.actions <= 0) {
+    throw new Error("No actions remaining this turn");
   }
 
   return {
     ...resources,
-    actionAvailable: false,
+    actions: resources.actions - 1,
   };
 }
 
 export function consumeBonusAction(resources: ActionResource): ActionResource {
-  if (!resources.bonusActionAvailable) {
-    throw new Error("Bonus Action already used this turn");
+  if (resources.bonusActions <= 0) {
+    throw new Error("No bonus actions remaining this turn");
   }
 
   return {
     ...resources,
-    bonusActionAvailable: false,
+    bonusActions: resources.bonusActions - 1,
   };
 }
 
 export function consumeReaction(resources: ActionResource): ActionResource {
-  if (!resources.reactionAvailable) {
-    throw new Error("Reaction already used");
+  if (resources.reactions <= 0) {
+    throw new Error("No reactions remaining");
   }
 
   return {
     ...resources,
-    reactionAvailable: false,
+    reactions: resources.reactions - 1,
   };
 }
 
@@ -67,5 +67,35 @@ export function addMovement(
   return {
     ...resources,
     movementRemaining: resources.movementRemaining + distance,
+  };
+}
+
+export function gainAction(
+  resources: ActionResource,
+  amount: number = 1,
+): ActionResource {
+  return {
+    ...resources,
+    actions: resources.actions + amount,
+  };
+}
+
+export function gainBonusAction(
+  resources: ActionResource,
+  amount: number = 1,
+): ActionResource {
+  return {
+    ...resources,
+    bonusActions: resources.bonusActions + amount,
+  };
+}
+
+export function gainReaction(
+  resources: ActionResource,
+  amount: number = 1,
+): ActionResource {
+  return {
+    ...resources,
+    reactions: resources.reactions + amount,
   };
 }
