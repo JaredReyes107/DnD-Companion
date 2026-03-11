@@ -60,9 +60,8 @@ export class ModifierEngine {
       })
       .filter(
         (effect) =>
-          !effect.duration ||
-          effect.duration.remaining === undefined ||
-          effect.duration.remaining > 0,
+          effect.duration?.remaining === undefined ||
+          (effect.duration?.remaining ?? 0) > 0,
       );
   }
 

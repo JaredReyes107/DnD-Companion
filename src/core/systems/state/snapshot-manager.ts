@@ -3,8 +3,8 @@ import { EncounterState } from "../../entities/combat/EncounterState";
 import { QueuedEvent } from "../events/event-queue";
 
 export class SnapshotManager {
-  private snapshots: EngineSnapshot[] = [];
-  private historyLimit: number;
+  private readonly snapshots: EngineSnapshot[] = [];
+  private readonly historyLimit: number;
 
   constructor(config?: EngineSnapshotConfig) {
     this.historyLimit = config?.historyLimit ?? 50;
@@ -39,7 +39,7 @@ export class SnapshotManager {
   }
 
   getLatestSnapshot(): EngineSnapshot | undefined {
-    return this.snapshots[this.snapshots.length - 1];
+    return this.snapshots.at(-1);
   }
 
   getAllSnapshots(): EngineSnapshot[] {

@@ -1,5 +1,5 @@
 export class ComponentStore<T> {
-  private components = new Map<string, T>();
+  private readonly components = new Map<string, T>();
 
   add(entityId: string, component: T) {
     this.components.set(entityId, component);

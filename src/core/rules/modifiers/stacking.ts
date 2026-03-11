@@ -20,7 +20,7 @@ export function resolveModifierValue(
   if (typeof modifier.value === "function") {
     return modifier.value(context);
   }
-  return modifier.value as number;
+  return modifier.value;
 }
 
 export function applyStackingRules(

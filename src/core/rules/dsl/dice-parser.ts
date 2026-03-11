@@ -5,10 +5,11 @@ export function parseDice(expr: string | number) {
     return () => expr;
   }
 
-  const match = expr.match(/(\d+)d(\d+)/);
+  const diceRegexp = /(\d+)d(\d+)/;
+  const match = diceRegexp.exec(expr);
   if (!match) {
     const num = Number(expr);
-    return () => (isNaN(num) ? 0 : num);
+    return () => (Number.isNaN(num) ? 0 : num);
   }
 
   const count = Number(match[1]);

@@ -5,8 +5,8 @@ import { EngineSnapshot } from "./snapshot-types";
 
 export class ReplayEngine {
   constructor(
-    private eventEngine: EventEngine,
-    private queue: EventQueue,
+    private readonly eventEngine: EventEngine,
+    private readonly queue: EventQueue,
   ) {}
 
   /**

@@ -1,7 +1,7 @@
 import { CombatIntent } from "./combat-intent";
 
 export class IntentQueue {
-  private queue: CombatIntent[] = [];
+  private readonly queue: CombatIntent[] = [];
 
   enqueue(intent: CombatIntent) {
     this.queue.push(intent);

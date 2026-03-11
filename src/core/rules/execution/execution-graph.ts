@@ -2,7 +2,7 @@ import { ExecutionNode } from "./execution-node";
 import { RuleHandler, RuleContext } from "./rule-handler";
 
 export class RuleExecutionGraph {
-  private graph = new Map<ExecutionNode, RuleHandler[]>();
+  private readonly graph = new Map<ExecutionNode, RuleHandler[]>();
 
   register(handler: RuleHandler) {
     const handlers = this.graph.get(handler.node) ?? [];

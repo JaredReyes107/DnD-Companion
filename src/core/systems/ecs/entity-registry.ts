@@ -1,13 +1,11 @@
-export type EntityId = string;
-
 export class EntityRegistry {
-  private entities = new Set<EntityId>();
+  private readonly entities = new Set<string>();
 
-  register(id: EntityId) {
+  register(id: string) {
     this.entities.add(id);
   }
 
-  remove(id: EntityId) {
+  remove(id: string) {
     this.entities.delete(id);
   }
 

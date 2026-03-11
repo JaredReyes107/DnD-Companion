@@ -5,8 +5,8 @@ import { RuleRegistry } from "../../rules/dsl/rule-registry";
 
 export class ReactionSystem {
   constructor(
-    private intentQueue: IntentQueue,
-    private ruleRegistry: RuleRegistry,
+    private readonly intentQueue: IntentQueue,
+    private readonly ruleRegistry: RuleRegistry,
   ) {}
 
   openReactionWindow(ctx: RuleContext) {
@@ -35,8 +35,8 @@ export class ReactionSystem {
 
   private matchesTrigger(ruleId: string, ctx: RuleContext): boolean {
     const rule = this.ruleRegistry.get(ruleId);
-    if (!rule || !rule.condition) return true;
+    if (!rule?.condition) return true;
 
-    return !!ctx?.[rule.condition];
+    return Boolean(ctx?.[rule.condition as keyof RuleContext]);
   }
 }
