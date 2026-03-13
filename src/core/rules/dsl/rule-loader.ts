@@ -3,6 +3,7 @@ import path from "node:path";
 import yaml from "yaml";
 import { RuleDSLLayout } from "./dsl-types";
 import { RuleRegistry } from "./rule-registry";
+import { ExecutionNode } from "../execution/execution-node";
 
 export function loadRules(directory: string, registry: RuleRegistry) {
   if (!fs.existsSync(directory)) return;
@@ -23,9 +24,29 @@ export function loadRules(directory: string, registry: RuleRegistry) {
     const rawData = yaml.parse(text);
 
     try {
-      // Validate schema strictly
       const validatedRule = RuleDSLLayout.parse(rawData);
-      registry.register(validatedRule);
+
+      const domain =
+        validatedRule.type === "feature"
+          ? ("class-feature" as const)
+          : validatedRule.type;
+
+      registry.register({
+        id: validatedRule.id,
+        domain,
+        triggers: validatedRule.trigger ? [validatedRule.trigger] : [],
+        tags: validatedRule.tags,
+        reaction: validatedRule.reaction,
+        condition: validatedRule.condition,
+        handler: {
+          id: `${validatedRule.id}-handler`,
+          node: validatedRule.trigger || ExecutionNode.PRE_ATTACK_ROLL,
+          priority: 10,
+          execute: () => {
+            /* Legacy rules are processed by ModifierEngine */
+          },
+        },
+      });
     } catch (e) {
       console.error(`Failed to load valid rule schema for ${file}`, e);
       throw e;

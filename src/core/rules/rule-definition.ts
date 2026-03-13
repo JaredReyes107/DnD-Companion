@@ -15,5 +15,7 @@ export interface RuleDefinition {
   triggers: ExecutionNode[];
   tags?: string[];
   priority?: number;
+  reaction?: boolean;
+  condition?: string;
   handler: RuleHandler;
 }

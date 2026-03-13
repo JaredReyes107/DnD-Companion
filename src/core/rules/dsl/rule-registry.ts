@@ -47,8 +47,16 @@ export class RuleRegistry {
     this.logStats();
   }
 
+  get(id: string): RuleDefinition | undefined {
+    return this.allRulesMap.get(id);
+  }
+
   getById(id: string): RuleDefinition | undefined {
     return this.allRulesMap.get(id);
+  }
+
+  getAllRules(): RuleDefinition[] {
+    return Array.from(this.allRulesMap.values());
   }
 
   getRulesForNode(node: ExecutionNode): RuleDefinition[] {

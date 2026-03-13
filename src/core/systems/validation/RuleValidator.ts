@@ -5,6 +5,8 @@ import {
 } from "../../entities/modifiers/Modifier";
 import { EncounterState } from "../../entities/combat/EncounterState";
 import { AuraEffect } from "../../entities/modifiers/Aura";
+import { RuleDefinition } from "../../rules/rule-definition";
+import { ExecutionNode } from "../../rules/execution/execution-node";
 
 export interface ValidationIssue {
   level: "error" | "warning";
@@ -132,5 +134,39 @@ export class RuleValidator {
       map.add(effect.effectId);
     }
     return issues;
+  }
+
+  validateRuleDefinition(rule: RuleDefinition): ValidationResult {
+    const issues: ValidationIssue[] = [];
+
+    if (!rule.id) {
+      issues.push({ level: "error", message: "Rule must have an ID" });
+    }
+
+    if (!rule.domain) {
+      issues.push({ level: "error", message: "Rule must have a domain" });
+    }
+
+    if (!rule.triggers || rule.triggers.length === 0) {
+      issues.push({
+        level: "error",
+        message: "Rule must have at least one trigger node",
+      });
+    }
+
+    for (const node of rule.triggers || []) {
+      if (!Object.values(ExecutionNode).includes(node)) {
+        issues.push({
+          level: "error",
+          message: `Invalid trigger node: ${node}`,
+        });
+      }
+    }
+
+    if (!rule.handler) {
+      issues.push({ level: "error", message: "Rule must have a handler" });
+    }
+
+    return { valid: !issues.some((i) => i.level === "error"), issues };
   }
 }
