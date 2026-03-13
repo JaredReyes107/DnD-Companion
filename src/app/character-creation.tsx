@@ -1,22 +1,16 @@
 import React from "react";
-import { useRouter } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import CharacterForm from "@/components/ui/CharacterForm";
 import { Character } from "@/core/entities/character/Character";
+import { CharacterRepository } from "@/repositories/CharacterRepository";
+import { useCharacterNavigator } from "@/navigation/navigators/characterNavigator";
 
 const CreateCharacterScreen = () => {
-  const router = useRouter();
+  const characterNavigator = useCharacterNavigator();
 
   const handleCreate = async (character: Character) => {
-    const raw = await AsyncStorage.getItem("characters");
-    const characters = raw ? JSON.parse(raw) : [];
-
-    await AsyncStorage.setItem(
-      "characters",
-      JSON.stringify([...characters, character]),
-    );
-
-    router.push("/");
+    const all = await CharacterRepository.getAll();
+    await CharacterRepository.saveAll([...all, character]);
+    characterNavigator.goBack();
   };
 
   return (
