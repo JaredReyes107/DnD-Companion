@@ -1,233 +1,70 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Character } from "@/core/entities/character/Character";
 import {
-  StatModel,
-  StatModifierInstance,
-} from "@/core/entities/rules/stats.types";
-import { ABILITIES } from "@/core/entities/rules/ability/ability.types";
-import { SKILL_KEYS } from "../../data/rules/SKILLS";
-import { getInitiativeBonus } from "@/core/entities/combat/initiative";
-import { getArmorClass } from "@/core/rules/character/armor-class";
-import { getSavingThrowModifier } from "@/core/rules/combat/saving-throws-modifiers";
-import { getSkillModifier } from "@/core/rules/combat/skills-modifiers";
+  ModifierInstance,
+  ModifierType,
+} from "../../entities/modifiers/Modifier";
 import {
-  getSpellAttackModifier,
-  getSpellSaveDC,
-  hasSpellcasting,
-} from "@/core/entities/spellcasting/spellcasting";
-import { EncounterState } from "@/core/entities/combat/encounter-state";
+  EvaluationContext,
+  evaluateCondition,
+} from "../../rules/modifiers/condition-evaluator";
+import {
+  applyStackingRules,
+  sortModifiersByPriority,
+  resolveModifierValue,
+} from "../../rules/modifiers/stacking";
 
-export type ResolvedStat = {
-  statModel: StatModel;
-  base: number;
+export interface ResolvedStat {
+  statId: string;
+  baseValue: number;
   finalValue: number;
-  modifiers: StatModifierInstance[];
-};
-
-function isSameStat(
-  a: StatModel | undefined,
-  b: StatModel | undefined,
-): boolean {
-  if (!a || !b) return false;
-
-  if (a.type !== b.type) return false;
-
-  switch (a.type) {
-    case "ability":
-    case "save":
-      return a.ability === (b as any).ability;
-    case "skill":
-      return a.skill.skillId === (b as any).skill.skillId;
-    case "derived":
-    case "custom":
-      return a.key === (b as any).key;
-  }
+  activeModifiers: ModifierInstance[];
 }
 
-function resolveStat(
-  statModel: StatModel,
-  base: number,
-  modifiers: StatModifierInstance[],
+export function resolveStat(
+  statId: string,
+  baseValue: number,
+  modifiers: ModifierInstance[],
+  context: EvaluationContext = {},
 ): ResolvedStat {
-  let value = base;
-
-  const sorted = [...modifiers].sort(
-    (a, b) => (a.priority ?? 0) - (b.priority ?? 0),
+  const activeModifiers = modifiers.filter((mod) =>
+    evaluateCondition(mod.condition, context),
   );
+  const stacked = applyStackingRules(activeModifiers, context);
+  const ordered = sortModifiersByPriority(stacked);
 
-  for (const mod of sorted) {
-    switch (mod.mode) {
-      case "add":
-        value += mod.value;
+  let finalValue = baseValue;
+
+  for (const mod of ordered) {
+    const modValue = resolveModifierValue(mod, context);
+    switch (mod.type) {
+      case ModifierType.SET:
+        finalValue = modValue;
         break;
-      case "subtract":
-        value -= mod.value;
+      case ModifierType.ADDITIVE:
+        finalValue += modValue;
         break;
-      case "multiply":
-        value *= mod.value;
+      case ModifierType.MULTIPLICATIVE:
+        finalValue *= modValue;
         break;
-      case "override":
-        value = mod.value;
-        break;
-      case "min":
-        value = Math.min(value, mod.value);
-        break;
-      case "max":
-        value = Math.max(value, mod.value);
+      case ModifierType.ADVANTAGE:
+      case ModifierType.DISADVANTAGE:
+      case ModifierType.REROLL:
         break;
     }
   }
 
   return {
-    statModel,
-    base,
-    finalValue: Math.floor(value),
-    modifiers: sorted,
+    statId,
+    baseValue,
+    finalValue: Math.floor(finalValue),
+    activeModifiers: ordered,
   };
 }
 
-export type ResolvedCharacter = {
-  stats: Map<string, ResolvedStat>;
-};
-
-export function serializeStatTemplate(statTemplate: StatModel): string {
-  switch (statTemplate.type) {
-    case "ability":
-      return `ability:${statTemplate.ability}`;
-    case "save":
-      return `save:${statTemplate.ability}`;
-    case "skill":
-      return `skill:${statTemplate.skill.skillId}`;
-    case "derived":
-      return `derived:${statTemplate.key}`;
-    case "custom":
-      return `custom:${statTemplate.key}`;
-  }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+export function resolveOutOfCombat(_character: any): any {
+  return { stats: new Map() };
 }
-
-function getBaseValue(stat: StatModel, character: Character): number {
-  if (stat.type === "ability") {
-    return character.baseAbilityScores[stat.ability];
-  }
-  if (stat.type === "save") {
-    return getSavingThrowModifier(character, stat.ability);
-  }
-  if (stat.type === "skill") {
-    return getSkillModifier(character, character.skills[stat.skill.skillId]);
-  }
-  if (stat.type === "derived") {
-    switch (stat.key) {
-      case "maxHp":
-        return character.hitPoints.currentMaximumHP;
-      case "speed":
-        return character.baseSpeed;
-      case "initiative":
-        return getInitiativeBonus(character);
-      case "ac":
-        return getArmorClass(character);
-      case "spellAttackModifier":
-        return hasSpellcasting(character)
-          ? getSpellAttackModifier(character)
-          : 0;
-      case "spellSaveDC":
-        return hasSpellcasting(character) ? getSpellSaveDC(character) : 0;
-    }
-  }
-  return 0;
-}
-
-export function resolveOutOfCombat(character: Character): ResolvedCharacter {
-  const stats = new Map<string, ResolvedStat>();
-
-  const abilityStats: StatModel[] = ABILITIES.map(
-    (item): StatModel => ({
-      type: "ability",
-      ability: item,
-    }),
-  );
-
-  const saveStats: StatModel[] = ABILITIES.map(
-    (item): StatModel => ({
-      type: "save",
-      ability: item,
-    }),
-  );
-
-  const skillStats: StatModel[] = SKILL_KEYS.map(
-    (item): StatModel => ({
-      type: "skill",
-      skill: character.skills[item],
-    }),
-  );
-
-  const derivedStats: StatModel[] = [
-    { type: "derived", key: "maxHp" },
-    { type: "derived", key: "speed" },
-    { type: "derived", key: "initiative" },
-    { type: "derived", key: "ac" },
-    { type: "derived", key: "spellAttackModifier" },
-    { type: "derived", key: "spellSaveDC" },
-  ];
-
-  const allStats = [
-    ...abilityStats,
-    ...saveStats,
-    ...skillStats,
-    ...derivedStats,
-  ];
-
-  for (const stat of allStats) {
-    const base = getBaseValue(stat, character);
-
-    const relevantModifiers = Object.values(character.statModifiers).filter(
-      (modifier) => isSameStat(modifier.statModel, stat),
-    );
-
-    const resolved = resolveStat(stat, base, relevantModifiers);
-
-    stats.set(serializeStatTemplate(stat), resolved);
-  }
-
-  return { stats };
-}
-
-export function resolveInCombat(
-  character: Character,
-  encounterState: EncounterState,
-): ResolvedCharacter {
-  const stats = new Map<string, ResolvedStat>();
-
-  const passiveModifiers = resolveOutOfCombat(character);
-
-  const combatState = encounterState.participants[character.id];
-  if (!combatState?.runtimeModifiers) return passiveModifiers;
-
-  const combatModifiers = Object.values(combatState.runtimeModifiers)
-    .filter(
-      (m) =>
-        m.expiresAtRound === undefined ||
-        m.expiresAtRound >= encounterState.currentRound,
-    )
-    .map((m) => m.modifier);
-
-  for (const [key, resolvedBase] of passiveModifiers.stats.entries()) {
-    const statTemplate = resolvedBase.statModel;
-
-    const baseValue = resolvedBase.base;
-
-    const persistentModifiers = resolvedBase.modifiers;
-
-    const combatRelevant = combatModifiers.filter((m) =>
-      isSameStat(m.statModel, statTemplate),
-    );
-
-    const finalResolved = resolveStat(statTemplate, baseValue, [
-      ...persistentModifiers,
-      ...combatRelevant,
-    ]);
-
-    stats.set(key, finalResolved);
-  }
-
-  return { stats };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+export function resolveInCombat(_character: any, _encounterState: any): any {
+  return { stats: new Map() };
 }

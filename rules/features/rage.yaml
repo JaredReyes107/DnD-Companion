@@ -1,0 +1,21 @@
+id: rage
+type: feature
+duration:
+  type: rounds
+  value: 10
+modifiers:
+  - stat: damage_roll
+    type: additive
+    value: 2
+    condition: "strength_melee"
+  - stat: strength_check
+    type: set
+    value: "advantage"
+  - stat: strength_saving_throw
+    type: set
+    value: "advantage"
+tags:
+  - buff
+conflicts:
+  - type: CANCEL_EFFECT
+    tag: spell

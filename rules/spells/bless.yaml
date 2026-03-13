@@ -1,0 +1,16 @@
+id: bless
+type: spell
+duration:
+  type: rounds
+  value: 10
+modifiers:
+  - stat: attack_roll
+    type: additive
+    value: "1d4"
+  - stat: saving_throw
+    type: additive
+    value: "1d4"
+tags:
+  - concentration
+  - buff
+stacking: highest

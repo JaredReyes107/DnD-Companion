@@ -4,7 +4,7 @@ import { FeatureTemplate } from "./feature-template";
 
 export type ClassTemplate = {
   id: string;
-  name: string; //TODO: Remove and use localization via i18n instead
+  name: string;
 
   hitDie: number;
 
