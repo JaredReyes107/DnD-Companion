@@ -1,3 +1,4 @@
+import { RollState } from "../modifiers/RollState";
 import { Effect } from "../modifiers/Effect";
 import { AuraEffect } from "../modifiers/Aura";
 import { ActionResource } from "./action-economy/ActionResource";
@@ -11,6 +12,7 @@ export interface CombatParticipant {
   statVersion: number;
   resources: ActionResource;
   statuses: StatusCondition[];
+  initiativeRollState?: RollState;
 }
 
 export interface EncounterState {

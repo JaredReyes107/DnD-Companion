@@ -1,16 +1,29 @@
+import { Ability } from "../../entities/rules/ability/ability.types";
+import { DiceProvider } from "../../systems/dice/DiceProvider";
 import { ExecutionNode } from "./execution-node";
 
 export interface RuleContext {
   attackerId?: string;
   targetId?: string;
+  dice?: DiceProvider;
 
-  attackRollTotal?: number;
-  isHit?: boolean;
-  isCriticalHit?: boolean;
+  attack?: {
+    roll?: number;
+    rollTotal?: number;
+    targetAC?: number;
+    isHit?: boolean;
+    isCritical?: boolean;
+    criticalThreshold?: number;
+  };
 
-  damageTotal?: number;
-  hasAdvantage?: boolean;
-  hasDisadvantage?: boolean;
+  savingThrow?: {
+    dc: number;
+    ability: Ability;
+    roll?: number;
+    rollTotal?: number;
+    isSuccess?: boolean;
+    effectOutcome?: "none" | "half" | "full";
+  };
 
   [key: string]: unknown;
 }

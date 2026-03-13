@@ -1,17 +1,22 @@
-import { EncounterState } from "../../entities/combat/EncounterState";
 import { InitiativeState } from "../../entities/combat/InitiativeState";
 import { DiceProvider } from "../../systems/dice/DiceProvider";
+import { RollState } from "../../entities/modifiers/RollState";
+import { rollD20WithRollState } from "../dice/roll-utils";
+
+export interface ParticipantRollingInfo {
+  id: string;
+  initiative: number;
+  dexModifier: number;
+  rollState?: RollState;
+}
 
 export function rollInitiative(
-  participants: Record<
-    string,
-    { id: string; initiative: number; dexModifier: number }
-  >,
+  participants: Record<string, ParticipantRollingInfo>,
   dice: DiceProvider,
 ): InitiativeState {
   const rolls = Object.values(participants).map((p) => ({
     id: p.id,
-    roll: dice.roll(20, 1)[0] + p.initiative,
+    roll: rollD20WithRollState(dice, p.rollState) + p.initiative,
     dexModifier: p.dexModifier,
   }));
 
@@ -54,16 +59,5 @@ export function insertParticipant(
       ...initiative.scores,
       [participantId]: score,
     },
-  };
-}
-
-export function nextTurn(state: EncounterState): EncounterState {
-  const next = state.activeTurn + 1;
-  const newRound = next >= state.initiative.order.length;
-
-  return {
-    ...state,
-    round: newRound ? state.round + 1 : state.round,
-    activeTurn: newRound ? 0 : next,
   };
 }

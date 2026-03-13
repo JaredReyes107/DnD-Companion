@@ -22,12 +22,28 @@ export class IntentResolver {
   }
 
   private resolveAttack(intent: CombatIntent, ctx: RuleContext) {
+    this.executionGraph.run(ExecutionNode.PRE_ATTACK_ROLL, ctx);
     this.executionGraph.run(ExecutionNode.ATTACK_ROLL, ctx);
+    this.executionGraph.run(ExecutionNode.POST_ATTACK_ROLL, ctx);
+
     this.reactionSystem.openReactionWindow(ctx);
+
     this.executionGraph.run(ExecutionNode.ATTACK_HIT_CHECK, ctx);
+
     this.executionGraph.run(ExecutionNode.DAMAGE_CALCULATION, ctx);
     this.executionGraph.run(ExecutionNode.DAMAGE_MODIFIERS, ctx);
     this.executionGraph.run(ExecutionNode.DAMAGE_FINAL, ctx);
+    this.executionGraph.run(ExecutionNode.POST_DAMAGE, ctx);
+  }
+
+  resolveSavingThrow(ctx: RuleContext) {
+    if (!ctx.savingThrow) return;
+
+    this.executionGraph.run(ExecutionNode.SAVING_THROW_PRE_ROLL, ctx);
+    this.executionGraph.run(ExecutionNode.SAVING_THROW_ROLL, ctx);
+    this.executionGraph.run(ExecutionNode.POST_SAVING_THROW_ROLL, ctx);
+    this.executionGraph.run(ExecutionNode.SAVING_THROW_CHECK, ctx);
+    this.executionGraph.run(ExecutionNode.POST_SAVING_THROW, ctx);
   }
 
   private resolveReaction(intent: CombatIntent, ctx: RuleContext) {
