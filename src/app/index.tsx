@@ -1,8 +1,8 @@
 // Libraries
-import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
-import { useRouter } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useEffect } from "react";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+// This import is no longer needed but was not explicitly removed in the instruction, so I'll keep it for now.
+// This import is no longer needed but was not explicitly removed in the instruction, so I'll keep it for now.
 
 // Import custom types
 import { Character } from "@/core/entities/character/Character";
@@ -20,53 +20,41 @@ import { ui } from "@/services/localization/ui-localization-resolver";
 import styles from "@/styles/generic.styles";
 import { formatNaturalNumber } from "@/utils/input-handler";
 
+import { CharacterRepository } from "@/repositories/CharacterRepository";
+import { useCharacterStore } from "@/store/characterStore";
+import { useCombatNavigator } from "@/navigation/navigators/combatNavigator";
+import { useCharacterNavigator } from "@/navigation/navigators/characterNavigator";
+
 const IndexScreen = () => {
-  const router = useRouter();
-  const [characters, setCharacters] = useState<Character[]>([]);
+  const characters = useCharacterStore((s) => s.characters);
+  const setCharacters = useCharacterStore((s) => s.setCharacters);
+  const selectCharacter = useCharacterStore((s) => s.selectCharacter);
+  const combatNavigator = useCombatNavigator();
+  const characterNavigator = useCharacterNavigator();
 
-  const loadItemsFromStorage = async () => {
-    try {
-      const storedItems = await AsyncStorage.getItem("characters");
-      if (storedItems) {
-        setCharacters(JSON.parse(storedItems));
-      }
-    } catch (error) {
-      Alert.alert("Error", "Failed to load items: " + error);
-    }
-  };
-
-  //Load characters whenever this view is loaded
   useEffect(() => {
-    (async () => {
-      await loadItemsFromStorage();
-    })();
-  }, []);
+    async function load() {
+      const stored = await CharacterRepository.getAll();
+      setCharacters(stored);
+    }
+    load();
+  }, [setCharacters]);
 
   const deleteItem = async (id: string) => {
-    const updatedItems = characters.filter((item) => item.id !== id);
-
-    setCharacters(updatedItems);
+    await CharacterRepository.deleteById(id);
+    const updated = await CharacterRepository.getAll();
+    setCharacters(updated);
   };
 
-  useEffect(() => {
-    // Save in local storage whenever an item is added, modified or deleted
-    AsyncStorage.setItem("characters", JSON.stringify(characters));
-  }, [characters]);
-
-  const loadCharacterDetails = async (id: string) => {
-    try {
-      await AsyncStorage.setItem("selectedCharacterId", id);
-    } catch (error) {
-      console.error("Error saving string:", error);
-    }
-
-    router.push("../combat/tab-character-sheet");
+  const handleSelectCharacter = (id: string) => {
+    selectCharacter(id);
+    combatNavigator.enterCombat(id);
   };
 
   const renderListItem = ({ item: character }: { item: Character }) => (
     <View>
       <TouchableOpacity
-        onPress={() => loadCharacterDetails(character.id)}
+        onPress={() => handleSelectCharacter(character.id)}
         style={styles.characterCard}
       >
         <View style={styles.iconContainer}>
@@ -104,8 +92,8 @@ const IndexScreen = () => {
         <View style={styles.characterCard_ButtonsContainer}>
           <TouchableOpacity
             onPress={() => {
-              AsyncStorage.setItem("selectedCharacterId", character.id);
-              router.push("./character-edition");
+              selectCharacter(character.id);
+              characterNavigator.goToEdition();
             }}
             style={styles.characterCard_ActionIcon}
           >
@@ -130,7 +118,7 @@ const IndexScreen = () => {
     <ThemedView style={styles.rootContainer}>
       <View style={styles.headerContainer}>
         <Text style={styles.header}>{ui("character.plural")}</Text>
-        <TouchableOpacity onPress={() => router.push("../character-creation")}>
+        <TouchableOpacity onPress={() => characterNavigator.goToCreation()}>
           <View style={styles.iconButton}>
             <MaterialIcons name="add" size={24} color="white"></MaterialIcons>
           </View>

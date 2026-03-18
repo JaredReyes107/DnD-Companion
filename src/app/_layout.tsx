@@ -1,15 +1,18 @@
 import { Stack } from "expo-router";
-import { useEffect } from "react";
 
-import { registerMainScalings } from "@/core/data/rules/scaling/main-scalings";
-import { registerClassScalings } from "@/core/data/rules/scaling/class-scalings";
 import { CharacterProvider } from "@/utils/character-provider";
+import { useCharacterStore } from "@/store/characterStore";
+import { initializeCoreSystems } from "@/core/init";
+import { View } from "react-native";
 
 const RootLayout = () => {
-  useEffect(() => {
-    registerMainScalings();
-    registerClassScalings();
-  }, []);
+  const hasHydrated = useCharacterStore((s) => s.hasHydrated);
+
+  initializeCoreSystems();
+
+  if (!hasHydrated) {
+    return <View style={{ flex: 1 }} />;
+  }
 
   return (
     <CharacterProvider>
