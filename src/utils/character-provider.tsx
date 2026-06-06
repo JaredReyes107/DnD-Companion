@@ -115,60 +115,53 @@ export const CharacterProvider = ({
    * If the character carries an updated combatState, that is synced back into
    * the encounter so both storage layers stay consistent.
    */
-  const saveCharacter = useCallback(
-    async (updated: Character) => {
-      setCharacter(updated);
+  const saveCharacter = useCallback(async (updated: Character) => {
+    setCharacter(updated);
 
-      // Persist character (without combatState to keep the Character record
-      // clean — combatState lives in the encounter).
-      const { combatState: _cs, ...characterToStore } = updated as Character & {
-        combatState?: CombatState;
-      };
-      const all = await CharacterRepository.getAll();
-      const next = all.map((c) =>
-        c.id === updated.id ? characterToStore : c,
-      );
-      await CharacterRepository.saveAll(next as Character[]);
+    // Persist character (without combatState to keep the Character record
+    // clean — combatState lives in the encounter).
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { combatState: _cs, ...characterToStore } = updated as Character & {
+      combatState?: CombatState;
+    };
+    const all = await CharacterRepository.getAll();
+    const next = all.map((c) => (c.id === updated.id ? characterToStore : c));
+    await CharacterRepository.saveAll(next as Character[]);
 
-      // Sync combatState back to the encounter.
-      if (updated.combatState) {
-        setEncounter((prev) => {
-          if (!prev) return prev;
-          const updatedEncounter: EncounterState = {
-            ...prev,
-            participants: {
-              ...prev.participants,
-              [updated.id]: updated.combatState!,
-            },
-          };
-          // Fire-and-forget persist.
-          EncounterRepository.save(updatedEncounter);
-          return updatedEncounter;
-        });
-      }
-    },
-    [],
-  );
+    // Sync combatState back to the encounter.
+    if (updated.combatState) {
+      setEncounter((prev) => {
+        if (!prev) return prev;
+        const updatedEncounter: EncounterState = {
+          ...prev,
+          participants: {
+            ...prev.participants,
+            [updated.id]: updated.combatState!,
+          },
+        };
+        // Fire-and-forget persist.
+        EncounterRepository.save(updatedEncounter);
+        return updatedEncounter;
+      });
+    }
+  }, []);
 
   /**
    * Saves an encounter mutation and syncs the active character's combatState
    * back into React state so the UI reflects it immediately.
    */
-  const saveEncounter = useCallback(
-    async (updated: EncounterState) => {
-      setEncounter(updated);
-      await EncounterRepository.save(updated);
+  const saveEncounter = useCallback(async (updated: EncounterState) => {
+    setEncounter(updated);
+    await EncounterRepository.save(updated);
 
-      // Keep the character's in-memory combatState in sync.
-      setCharacter((prev) => {
-        if (!prev) return prev;
-        const updatedCombatState = updated.participants[prev.id];
-        if (!updatedCombatState) return prev;
-        return { ...prev, combatState: updatedCombatState };
-      });
-    },
-    [],
-  );
+    // Keep the character's in-memory combatState in sync.
+    setCharacter((prev) => {
+      if (!prev) return prev;
+      const updatedCombatState = updated.participants[prev.id];
+      if (!updatedCombatState) return prev;
+      return { ...prev, combatState: updatedCombatState };
+    });
+  }, []);
 
   const value = React.useMemo(
     () => ({
@@ -179,7 +172,14 @@ export const CharacterProvider = ({
       saveEncounter,
       loadCharacterById,
     }),
-    [character, encounter, loading, saveCharacter, saveEncounter, loadCharacterById],
+    [
+      character,
+      encounter,
+      loading,
+      saveCharacter,
+      saveEncounter,
+      loadCharacterById,
+    ],
   );
 
   return (
