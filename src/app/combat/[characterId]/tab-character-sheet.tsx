@@ -17,7 +17,6 @@ import {
   getAbilityModifier,
   getProficiencyBonus,
 } from "@/core/rules/character/abilities-modifiers";
-import { buildEncounterState } from "@/core/entities/combat/encounter-helper";
 import { resolveInCombat } from "@/core/systems/stats/stat-resolver";
 import { ModifierType, StatModel } from "@/core/entities/rules/stats.types";
 import { getTotalCharacterLevel } from "@/core/rules/character/character-multiclassing";
@@ -47,447 +46,325 @@ import { ui } from "@/services/localization/ui-localization-resolver";
 
 const CharacterSheetScreen = () => {
   const router = useRouter();
-
-  const { character, saveCharacter } = useCharacter();
+  const { character, encounter, saveCharacter } = useCharacter();
 
   const [_fontsLoaded] = useFonts({
     Montserrat: Montserrat_500Medium,
   });
 
-  if (!character || !_fontsLoaded) {
+  if (!character || !encounter || !_fontsLoaded) {
     return (
       <View>
         <Text>Cargando personaje…</Text>
       </View>
     );
-  } else {
-    const encounterState = buildEncounterState([character]);
-    const resolvedStats = resolveInCombat(character, encounterState);
+  }
 
-    return (
-      <ScrollView
-        style={[genericStyles.rootContainer, { paddingHorizontal: "0%" }]}
-      >
-        <View>
-          <TouchableOpacity
-            onPress={() => {
-              const newChar = {
-                ...character,
-                statModifiers: {
-                  //...character.statModifiers,
-                  mod1: {
-                    templateId: "exampleId",
-                    statModel: {
-                      type: "derived",
-                      key: "spellAttackModifier",
-                    } as StatModel,
-                    sourceId: "HB",
-                    mode: "add" as ModifierType,
-                    value: 2,
-                  },
-                  alert: {
-                    templateId: "string",
-                    statModel: {
-                      type: "derived",
-                      key: "initiative",
-                    } as StatModel,
-                    sourceId: "alert",
-                    mode: "add" as ModifierType,
-                    value: 5,
-                  },
+  const resolvedStats = resolveInCombat(character, encounter);
+
+  return (
+    <ScrollView
+      style={[genericStyles.rootContainer, { paddingHorizontal: "0%" }]}
+    >
+      {/* Test button – remove before release */}
+      <View>
+        <TouchableOpacity
+          onPress={() => {
+            const newChar = {
+              ...character,
+              statModifiers: {
+                mod1: {
+                  templateId: "exampleId",
+                  statModel: {
+                    type: "derived",
+                    key: "spellAttackModifier",
+                  } as StatModel,
+                  sourceId: "HB",
+                  mode: "add" as ModifierType,
+                  value: 2,
                 },
-              };
-
-              saveCharacter(newChar);
+                alert: {
+                  templateId: "string",
+                  statModel: {
+                    type: "derived",
+                    key: "initiative",
+                  } as StatModel,
+                  sourceId: "alert",
+                  mode: "add" as ModifierType,
+                  value: 5,
+                },
+              },
+            };
+            saveCharacter(newChar);
+          }}
+        >
+          <Text
+            style={{
+              backgroundColor: "#249A0F",
+              color: "white",
+              textAlign: "center",
+              padding: 10,
+              marginHorizontal: "20%",
             }}
           >
-            <Text
-              style={{
-                backgroundColor: "#249A0F",
-                color: "white",
-                textAlign: "center",
-                padding: 10,
-                marginHorizontal: "20%",
-              }}
-            >
-              Test action
-            </Text>
+            Test action
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={[genericStyles.characterCard, { marginHorizontal: 20 }]}>
+        <View style={genericStyles.iconContainer}>
+          <MaterialIcons name="face" size={24} color="white" />
+        </View>
+        <View style={genericStyles.characterCard_TextContainer}>
+          <Text style={genericStyles.characterCard_Title}>
+            {character.name}
+          </Text>
+          <Text style={genericStyles.characterCard_Text}>{character.race}</Text>
+          <Text style={genericStyles.characterCard_Text}>
+            {character.classes.order.map(
+              (id) =>
+                getLocalizedName(
+                  "classes",
+                  character.classes.byId[id].classId,
+                ) +
+                " " +
+                character.classes.byId[id].level +
+                " ",
+            )}
+          </Text>
+          <Text style={genericStyles.characterCard_Text}>
+            {formatNaturalNumber(character.experiencePoints) +
+              "/" +
+              formatNaturalNumber(
+                getNextXPThreshold(getTotalCharacterLevel(character.classes)) ??
+                  0,
+              )}
+          </Text>
+        </View>
+
+        <View style={genericStyles.characterCard_ButtonsContainer}>
+          <TouchableOpacity
+            onPress={() => router.push("../character-edition")}
+            style={genericStyles.characterCard_ActionIcon}
+          >
+            <MaterialCommunityIcons
+              name="square-edit-outline"
+              size={24}
+              color="#da8466"
+            />
           </TouchableOpacity>
         </View>
+      </View>
 
-        <View style={[genericStyles.characterCard, { marginHorizontal: 20 }]}>
-          <View style={genericStyles.iconContainer}>
-            <MaterialIcons name="face" size={24} color="white" />
-          </View>
-          <View style={genericStyles.characterCard_TextContainer}>
-            <Text key="Nombre" style={genericStyles.characterCard_Title}>
-              {character.name}
-            </Text>
-            <Text key="Raza" style={genericStyles.characterCard_Text}>
-              {character.race}
-            </Text>
-            <Text key="Clase" style={genericStyles.characterCard_Text}>
-              {character.classes.order.map(
-                (characterClass) =>
-                  getLocalizedName(
-                    "classes",
-                    character.classes.byId[characterClass].classId,
-                  ) +
-                  " " +
-                  character.classes.byId[characterClass].level +
-                  " ",
-              )}
-            </Text>
-            <Text key="Xp" style={genericStyles.characterCard_Text}>
-              {formatNaturalNumber(character.experiencePoints) +
-                "/" +
-                formatNaturalNumber(
-                  getNextXPThreshold(
-                    getTotalCharacterLevel(character.classes),
-                  ) ?? 0,
-                )}
+      <View style={styles.detailsBody}>
+        {/* Ability Scores */}
+        <View style={styles.detailsSection}>
+          <View style={genericStyles.headerContainer}>
+            <Text style={genericStyles.header}>
+              {ui("stats.abilityScores")}
             </Text>
           </View>
 
-          <View style={genericStyles.characterCard_ButtonsContainer}>
-            <TouchableOpacity
-              onPress={() => {
-                router.push("../character-edition");
-              }}
-              style={genericStyles.characterCard_ActionIcon}
-            >
-              <MaterialCommunityIcons
-                name="square-edit-outline"
-                size={24}
-                color="#da8466"
-              />
-            </TouchableOpacity>
+          <View style={styles.mainStatsRow}>
+            {(["STR", "DEX", "CON", "INT", "WIS", "CHA"] as const).map(
+              (ability) => (
+                <View key={ability} style={styles.mainStatContainer}>
+                  <View style={styles.mainStatBox}>
+                    <View style={styles.mainStatModifierContainer}>
+                      <Text style={styles.mainStatText}>
+                        {getLocalizedShortName("abilities", ability)}
+                      </Text>
+                      <Text style={styles.mainStatModifierValue}>
+                        {PrintNumberWithSign(
+                          getAbilityModifier(
+                            resolvedStats.stats.get(`ability:${ability}`)
+                              ?.finalValue ?? 0,
+                          ),
+                        )}
+                      </Text>
+                    </View>
+                    <View style={styles.mainStatValueContainer}>
+                      <Text style={styles.mainStatValue}>
+                        {resolvedStats.stats.get(`ability:${ability}`)
+                          ?.finalValue ?? 0}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              ),
+            )}
           </View>
         </View>
 
-        <View style={styles.detailsBody}>
-          {/* Main Statistics and Modifiers */}
-          <View style={styles.detailsSection}>
-            <View style={genericStyles.headerContainer}>
-              <Text style={genericStyles.header}>
-                {ui("stats.abilityScores")}
-              </Text>
-            </View>
-
-            <View style={styles.mainStatsRow}>
-              <View style={styles.mainStatContainer}>
-                <View style={styles.mainStatBox}>
-                  <View style={styles.mainStatModifierContainer}>
-                    <Text style={styles.mainStatText}>
-                      {getLocalizedShortName("abilities", "STR")}
-                    </Text>
-                    <Text style={styles.mainStatModifierValue}>
-                      {PrintNumberWithSign(
-                        getAbilityModifier(
-                          resolvedStats.stats.get("ability:STR")?.finalValue ??
-                            0,
-                        ),
-                      )}
-                    </Text>
-                  </View>
-                  <View style={styles.mainStatValueContainer}>
-                    <Text style={styles.mainStatValue}>
-                      {resolvedStats.stats.get("ability:STR")?.finalValue ?? 0}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.mainStatContainer}>
-                <View style={styles.mainStatBox}>
-                  <View style={styles.mainStatModifierContainer}>
-                    <Text style={styles.mainStatText}>
-                      {getLocalizedShortName("abilities", "DEX")}
-                    </Text>
-                    <Text style={styles.mainStatModifierValue}>
-                      {PrintNumberWithSign(
-                        getAbilityModifier(
-                          resolvedStats.stats.get("ability:DEX")?.finalValue ??
-                            0,
-                        ),
-                      )}
-                    </Text>
-                  </View>
-                  <View style={styles.mainStatValueContainer}>
-                    <Text style={styles.mainStatValue}>
-                      {resolvedStats.stats.get("ability:DEX")?.finalValue ?? 0}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.mainStatContainer}>
-                <View style={styles.mainStatBox}>
-                  <View style={styles.mainStatModifierContainer}>
-                    <Text style={styles.mainStatText}>
-                      {getLocalizedShortName("abilities", "CON")}
-                    </Text>
-                    <Text style={styles.mainStatModifierValue}>
-                      {PrintNumberWithSign(
-                        getAbilityModifier(
-                          resolvedStats.stats.get("ability:CON")?.finalValue ??
-                            0,
-                        ),
-                      )}
-                    </Text>
-                  </View>
-                  <View style={styles.mainStatValueContainer}>
-                    <Text style={styles.mainStatValue}>
-                      {resolvedStats.stats.get("ability:CON")?.finalValue ?? 0}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.mainStatContainer}>
-                <View style={styles.mainStatBox}>
-                  <View style={styles.mainStatModifierContainer}>
-                    <Text style={styles.mainStatText}>
-                      {getLocalizedShortName("abilities", "INT")}
-                    </Text>
-                    <Text style={styles.mainStatModifierValue}>
-                      {PrintNumberWithSign(
-                        getAbilityModifier(
-                          resolvedStats.stats.get("ability:INT")?.finalValue ??
-                            0,
-                        ),
-                      )}
-                    </Text>
-                  </View>
-                  <View style={styles.mainStatValueContainer}>
-                    <Text style={styles.mainStatValue}>
-                      {resolvedStats.stats.get("ability:INT")?.finalValue ?? 0}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.mainStatContainer}>
-                <View style={styles.mainStatBox}>
-                  <View style={styles.mainStatModifierContainer}>
-                    <Text style={styles.mainStatText}>
-                      {getLocalizedShortName("abilities", "WIS")}
-                    </Text>
-                    <Text style={styles.mainStatModifierValue}>
-                      {PrintNumberWithSign(
-                        getAbilityModifier(
-                          resolvedStats.stats.get("ability:WIS")?.finalValue ??
-                            0,
-                        ),
-                      )}
-                    </Text>
-                  </View>
-                  <View style={styles.mainStatValueContainer}>
-                    <Text style={styles.mainStatValue}>
-                      {resolvedStats.stats.get("ability:WIS")?.finalValue ?? 0}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.mainStatContainer}>
-                <View style={styles.mainStatBox}>
-                  <View style={styles.mainStatModifierContainer}>
-                    <Text style={styles.mainStatText}>
-                      {getLocalizedShortName("abilities", "CHA")}
-                    </Text>
-                    <Text style={styles.mainStatModifierValue}>
-                      {PrintNumberWithSign(
-                        getAbilityModifier(
-                          resolvedStats.stats.get("ability:CHA")?.finalValue ??
-                            0,
-                        ),
-                      )}
-                    </Text>
-                  </View>
-                  <View style={styles.mainStatValueContainer}>
-                    <Text style={styles.mainStatValue}>
-                      {resolvedStats.stats.get("ability:CHA")?.finalValue ?? 0}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          {/* Other Stats, like HP, Initiative, Speed, AC and Proficiency Bonus */}
-          <View style={styles.detailsSection}>
-            <View style={styles.secondaryStatsRow}>
-              <View style={styles.secondaryStatContainer}>
-                <View style={styles.secondaryStatBox}>
-                  {(() => {
-                    const value = `${resolvedStats.stats.get("derived:maxHp")?.finalValue ?? 0}`;
-                    const [before, after] =
-                      ui("hp.segmented").split(" {value} ");
-
-                    return (
-                      <View style={styles.secondaryStatModifier}>
-                        <Text style={styles.secondaryStatText}>{before}</Text>
-                        <Text style={styles.secondaryStatModifierValue}>
-                          {value}
-                        </Text>
-                        <Text style={styles.secondaryStatText}>{after}</Text>
-                      </View>
-                    );
-                  })()}
-                </View>
-              </View>
-
-              <View style={styles.secondaryStatContainer}>
-                <View style={styles.secondaryStatBox}>
-                  <View style={styles.secondaryStatModifier}>
-                    <Text style={styles.secondaryStatText}>
-                      {ui("initiative.full")}
-                    </Text>
-                    <Text style={styles.secondaryStatModifierValue}>
-                      {PrintNumberWithSign(
-                        resolvedStats.stats.get("derived:initiative")
-                          ?.finalValue ?? 0,
-                      )}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.secondaryStatContainer}>
-                <View style={styles.secondaryStatBox}>
-                  <View style={styles.secondaryStatModifier}>
-                    <Text style={styles.secondaryStatText}>
-                      {ui("stats.speed")}
-                    </Text>
-                    <Text style={styles.secondaryStatModifierValue}>
-                      {resolvedStats.stats.get("derived:speed")?.finalValue ??
-                        0}
-                    </Text>
-                    <Text style={styles.secondaryStatText}>
-                      {ui("measurements.feet")}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.secondaryStatContainer}>
-                <View style={styles.secondaryStatBox}>
-                  {(() => {
-                    const value = `${resolvedStats.stats.get("derived:ac")?.finalValue ?? 0}`;
-                    const [before, after] =
-                      ui("ac.segmented").split(" {value} ");
-
-                    return (
-                      <View style={styles.secondaryStatModifier}>
-                        <Text style={styles.secondaryStatText}>{before}</Text>
-                        <Text style={styles.secondaryStatModifierValue}>
-                          {value}
-                        </Text>
-                        <Text style={styles.secondaryStatText}>{after}</Text>
-                      </View>
-                    );
-                  })()}
-                </View>
-              </View>
-
-              <View style={[styles.secondaryStatContainer, { width: "100%" }]}>
-                <View style={styles.secondaryStatBox}>
-                  {(() => {
-                    const value = `+${getProficiencyBonus(character)}`;
-                    const [before, after] =
-                      ui("pb.segmented").split(" {value} ");
-
-                    return (
-                      <View style={styles.secondaryStatModifier}>
-                        <Text style={styles.secondaryStatText}>{before}</Text>
-                        <Text style={styles.secondaryStatModifierValue}>
-                          {value}
-                        </Text>
-                        <Text style={styles.secondaryStatText}>{after}</Text>
-                      </View>
-                    );
-                  })()}
-                </View>
-              </View>
-            </View>
-          </View>
-
-          {/* Saving Throws */}
-          <View style={styles.detailsSection}>
-            <View style={genericStyles.headerContainer}>
-              <Text style={genericStyles.header}>
-                {ui("savingThrows.full")}
-              </Text>
-            </View>
-
-            <FlatList
-              style={[{ marginHorizontal: -20 }]}
-              data={getCharacterSavingThrowsAsArray(character)}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <View
-                  style={[
-                    styles.proficienciesContainer,
-                    { paddingHorizontal: 20 },
-                  ]}
-                >
-                  <View style={styles.proficiencyRow}>
-                    <View style={styles.proficiencyDetails}>
-                      <ProficiencyIcon
-                        hasProficiency={item.state.hasProficiency}
-                      />
-                      <Text style={styles.proficiencyText}>
-                        {getLocalizedName("abilities", item.definition)}
+        {/* Secondary Stats */}
+        <View style={styles.detailsSection}>
+          <View style={styles.secondaryStatsRow}>
+            {/* Max HP */}
+            <View style={styles.secondaryStatContainer}>
+              <View style={styles.secondaryStatBox}>
+                {(() => {
+                  const value = `${resolvedStats.stats.get("derived:maxHp")?.finalValue ?? 0}`;
+                  const [before, after] = ui("hp.segmented").split(" {value} ");
+                  return (
+                    <View style={styles.secondaryStatModifier}>
+                      <Text style={styles.secondaryStatText}>{before}</Text>
+                      <Text style={styles.secondaryStatModifierValue}>
+                        {value}
                       </Text>
+                      <Text style={styles.secondaryStatText}>{after}</Text>
                     </View>
-                    <Text style={styles.proficiencyModifierBold}>
-                      {PrintNumberWithSign(
-                        resolvedStats.stats.get("save:" + item.definition)
-                          ?.finalValue ?? 0,
-                      )}
-                    </Text>
-                  </View>
-                </View>
-              )}
-            />
-          </View>
-
-          {/* Skills */}
-          <View style={styles.detailsSection}>
-            <View style={genericStyles.headerContainer}>
-              <Text style={genericStyles.header}>Habilidades</Text>
+                  );
+                })()}
+              </View>
             </View>
 
-            <FlatList
-              data={getCharacterSkillsAsArray(character)}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <View style={styles.proficienciesContainer}>
-                  <View style={styles.proficiencyRow}>
-                    <View style={styles.proficiencyDetails}>
-                      <ProficiencyIcon
-                        hasProficiency={item.state.hasProficiency}
-                      />
-                      <Text style={styles.proficiencyText}>
-                        {getLocalizedName("skills", item.id)}
-                      </Text>
-                    </View>
-                    <Text style={styles.proficiencyModifier}>
-                      {PrintNumberWithSign(
-                        resolvedStats.stats.get("skill:" + item.id)
-                          ?.finalValue ?? 0,
-                      )}
-                    </Text>
-                  </View>
+            {/* Initiative */}
+            <View style={styles.secondaryStatContainer}>
+              <View style={styles.secondaryStatBox}>
+                <View style={styles.secondaryStatModifier}>
+                  <Text style={styles.secondaryStatText}>
+                    {ui("initiative.full")}
+                  </Text>
+                  <Text style={styles.secondaryStatModifierValue}>
+                    {PrintNumberWithSign(
+                      resolvedStats.stats.get("derived:initiative")
+                        ?.finalValue ?? 0,
+                    )}
+                  </Text>
                 </View>
-              )}
-            />
+              </View>
+            </View>
+
+            {/* Speed */}
+            <View style={styles.secondaryStatContainer}>
+              <View style={styles.secondaryStatBox}>
+                <View style={styles.secondaryStatModifier}>
+                  <Text style={styles.secondaryStatText}>
+                    {ui("stats.speed")}
+                  </Text>
+                  <Text style={styles.secondaryStatModifierValue}>
+                    {resolvedStats.stats.get("derived:speed")?.finalValue ?? 0}
+                  </Text>
+                  <Text style={styles.secondaryStatText}>
+                    {ui("measurements.feet")}
+                  </Text>
+                </View>
+              </View>
+            </View>
+
+            {/* AC */}
+            <View style={styles.secondaryStatContainer}>
+              <View style={styles.secondaryStatBox}>
+                {(() => {
+                  const value = `${resolvedStats.stats.get("derived:ac")?.finalValue ?? 0}`;
+                  const [before, after] = ui("ac.segmented").split(" {value} ");
+                  return (
+                    <View style={styles.secondaryStatModifier}>
+                      <Text style={styles.secondaryStatText}>{before}</Text>
+                      <Text style={styles.secondaryStatModifierValue}>
+                        {value}
+                      </Text>
+                      <Text style={styles.secondaryStatText}>{after}</Text>
+                    </View>
+                  );
+                })()}
+              </View>
+            </View>
+
+            {/* Proficiency Bonus */}
+            <View style={[styles.secondaryStatContainer, { width: "100%" }]}>
+              <View style={styles.secondaryStatBox}>
+                {(() => {
+                  const value = `+${getProficiencyBonus(character)}`;
+                  const [before, after] = ui("pb.segmented").split(" {value} ");
+                  return (
+                    <View style={styles.secondaryStatModifier}>
+                      <Text style={styles.secondaryStatText}>{before}</Text>
+                      <Text style={styles.secondaryStatModifierValue}>
+                        {value}
+                      </Text>
+                      <Text style={styles.secondaryStatText}>{after}</Text>
+                    </View>
+                  );
+                })()}
+              </View>
+            </View>
           </View>
         </View>
-      </ScrollView>
-    );
-  }
+
+        {/* Saving Throws */}
+        <View style={styles.detailsSection}>
+          <View style={genericStyles.headerContainer}>
+            <Text style={genericStyles.header}>{ui("savingThrows.full")}</Text>
+          </View>
+
+          <FlatList
+            style={{ marginHorizontal: -20 }}
+            data={getCharacterSavingThrowsAsArray(character)}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <View
+                style={[
+                  styles.proficienciesContainer,
+                  { paddingHorizontal: 20 },
+                ]}
+              >
+                <View style={styles.proficiencyRow}>
+                  <View style={styles.proficiencyDetails}>
+                    <ProficiencyIcon
+                      hasProficiency={item.state.hasProficiency}
+                    />
+                    <Text style={styles.proficiencyText}>
+                      {getLocalizedName("abilities", item.definition)}
+                    </Text>
+                  </View>
+                  <Text style={styles.proficiencyModifierBold}>
+                    {PrintNumberWithSign(
+                      resolvedStats.stats.get("save:" + item.definition)
+                        ?.finalValue ?? 0,
+                    )}
+                  </Text>
+                </View>
+              </View>
+            )}
+          />
+        </View>
+
+        {/* Skills */}
+        <View style={styles.detailsSection}>
+          <View style={genericStyles.headerContainer}>
+            <Text style={genericStyles.header}>Habilidades</Text>
+          </View>
+
+          <FlatList
+            data={getCharacterSkillsAsArray(character)}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <View style={styles.proficienciesContainer}>
+                <View style={styles.proficiencyRow}>
+                  <View style={styles.proficiencyDetails}>
+                    <ProficiencyIcon
+                      hasProficiency={item.state.hasProficiency}
+                    />
+                    <Text style={styles.proficiencyText}>
+                      {getLocalizedName("skills", item.id)}
+                    </Text>
+                  </View>
+                  <Text style={styles.proficiencyModifier}>
+                    {PrintNumberWithSign(
+                      resolvedStats.stats.get("skill:" + item.id)?.finalValue ??
+                        0,
+                    )}
+                  </Text>
+                </View>
+              </View>
+            )}
+          />
+        </View>
+      </View>
+    </ScrollView>
+  );
 };
 
 export default CharacterSheetScreen;
