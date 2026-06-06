@@ -5,8 +5,9 @@ import React, {
   useState,
   useCallback,
 } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Character } from "@/core/entities/character/Character";
+import { CharacterRepository } from "@/repositories/CharacterRepository";
+import { CharacterSelectionRepository } from "@/repositories/CharacterSelectionRepository";
 
 type CharacterContextType = {
   character: Character | null;
@@ -19,72 +20,54 @@ const CharacterContext = createContext<CharacterContextType | null>(null);
 
 export const CharacterProvider = ({
   children,
+  initialCharacterId,
 }: {
   children: React.ReactNode;
+  initialCharacterId?: string;
 }) => {
   const [character, setCharacter] = useState<Character | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const loadCharacterById = useCallback(async (id: string) => {
+    setLoading(true);
+    try {
+      const found = await CharacterRepository.getById(id);
+      setCharacter(found);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
-    let mounted = true;
-
-    async function loadCharacter() {
-      try {
-        const selectedId = await AsyncStorage.getItem("selectedCharacterId");
-        if (!selectedId) return;
-
-        const raw = await AsyncStorage.getItem("characters");
-        if (!raw) return;
-
-        const characters: Character[] = JSON.parse(raw);
-        const found = characters.find((c) => c.id === selectedId) ?? null;
-
-        if (mounted) setCharacter(found);
-      } finally {
-        if (mounted) setLoading(false);
+    async function init() {
+      if (initialCharacterId) {
+        await loadCharacterById(initialCharacterId);
+      } else {
+        const selectedId = await CharacterSelectionRepository.getSelectedId();
+        if (selectedId) {
+          await loadCharacterById(selectedId);
+        } else {
+          setLoading(false);
+        }
       }
     }
-
-    loadCharacter();
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
+    init();
+  }, [initialCharacterId, loadCharacterById]);
 
   const saveCharacter = useCallback(async (updated: Character) => {
     setCharacter(updated);
-
-    const raw = await AsyncStorage.getItem("characters");
-    if (!raw) return;
-
-    const characters: Character[] = JSON.parse(raw);
-    const next = characters.map((c) => (c.id === updated.id ? updated : c));
-
-    await AsyncStorage.setItem("characters", JSON.stringify(next));
+    const all = await CharacterRepository.getAll();
+    const next = all.map((c) => (c.id === updated.id ? updated : c));
+    await CharacterRepository.saveAll(next);
   }, []);
 
-  const loadCharacterById = useCallback(async (id: string) => {
-    setLoading(true);
-
-    const raw = await AsyncStorage.getItem("characters");
-    if (!raw) {
-      setCharacter(null);
-      setLoading(false);
-      return;
-    }
-
-    const characters: Character[] = JSON.parse(raw);
-    const found = characters.find((c) => c.id === id) ?? null;
-
-    setCharacter(found);
-    setLoading(false);
-  }, []);
+  const value = React.useMemo(
+    () => ({ character, loading, saveCharacter, loadCharacterById }),
+    [character, loading, saveCharacter, loadCharacterById],
+  );
 
   return (
-    <CharacterContext.Provider
-      value={{ character, loading, saveCharacter, loadCharacterById }}
-    >
+    <CharacterContext.Provider value={value}>
       {children}
     </CharacterContext.Provider>
   );
