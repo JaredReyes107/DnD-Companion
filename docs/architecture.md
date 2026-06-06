@@ -1,6 +1,6 @@
 # System Architecture
 
-The D&D Companion utilizes a modular, 4-layer clean architecture design. This separates the presentation layer (UI) from the infrastructure and isolated the core D&D game logic into an independent engine.
+The D&D Companion utilizes a modular, layered clean architecture design. This separates the presentation layer (UI) from the infrastructure and isolates the core D&D game logic into an independent engine.
 
 ## High-Level Dependency Graph
 
@@ -10,9 +10,16 @@ The following diagram illustrates how the architectural layers interact. Crucial
 graph TD
     %% Define Layers
     App[App / Navigation Layer]:::uiLayer
-    Features[Features Layer]:::featureLayer
-    Services[Services / Infrastructure]:::infraLayer
     Components[Components / UI]:::uiLayer
+    Provider[CharacterProvider]:::providerLayer
+
+    subgraph Repositories [Repository Layer]
+        CRepo[CharacterRepository]:::repoLayer
+        ERepo[EncounterRepository]:::repoLayer
+        SRepo[CharacterSelectionRepository]:::repoLayer
+    end
+
+    Services[Services / Infrastructure]:::infraLayer
 
     %% Core Subsystems
     subgraph Core [Core Engine]
@@ -28,16 +35,22 @@ graph TD
     end
 
     %% Dependencies
-    App --> Features
+    App --> Provider
+    App --> Repositories
     App --> Services
 
-    Features --> Core
-    Features --> Components
-    Features --> Services
+    Provider --> Repositories
+    Provider --> Core
+
+    App --> Components
+    Components --> Core
+
+    Repositories --> Services
 
     %% Styling
     classDef uiLayer fill:#f9f9f9,stroke:#333,stroke-width:2px;
-    classDef featureLayer fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
+    classDef providerLayer fill:#fce4ec,stroke:#c62828,stroke-width:2px;
+    classDef repoLayer fill:#e8eaf6,stroke:#3949ab,stroke-width:2px;
     classDef infraLayer fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
     classDef coreLayer fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
 ```
@@ -46,25 +59,52 @@ graph TD
 
 ### 1. App (`src/app`)
 
-Handles application routing, navigation stacks (using Expo Router), and global providers. It dictates _where_ a user goes.
+Handles application routing, navigation stacks (using Expo Router), and global providers. It dictates _where_ a user goes. Screens receive their data from the `CharacterProvider` context rather than reading from repositories directly.
 
-### 2. Features (`src/features`)
+### 2. CharacterProvider (`src/utils/character-provider.tsx`)
 
-Feature-driven modules (e.g., `character-sheet`, `combat-tracker`). These compose complex views using `Components`, interact with `Services`, and dispatch actions to the `Core` engine.
+The runtime join layer between the `Character` record and the `EncounterState`. Responsible for:
 
-### 3. Services (`src/services`)
+- Loading the character from `CharacterRepository` on mount.
+- Loading or bootstrapping the character's encounter from `EncounterRepository`.
+- Hydrating `character.combatState` from `encounter.participants[characterId]` before passing data to screens.
+- Exposing `saveCharacter` and `saveEncounter` so screens can persist mutations through the correct repository without direct storage access.
 
-External infrastructure integrations, such as local storage, localization (`i18n`), and potentially future cloud syncing protocols.
+All combat screens consume data exclusively through `useCharacter()`, which returns `{ character, encounter, saveCharacter, saveEncounter, loading }`.
 
-### 4. Components (`src/components/ui`)
+### 3. Repository Layer (`src/repositories`)
 
-Dumb, reusable, stateless UI atoms and molecules (Buttons, Text, Cards) built strictly according to the design system.
+Abstractions over AsyncStorage, one per domain entity. They are the only layer permitted to read from or write to persistent storage directly.
 
-### 5. Core Engine (`src/core`)
+| Repository | Responsibility |
+|---|---|
+| `CharacterRepository` | CRUD for the `Character[]` list |
+| `EncounterRepository` | CRUD for `EncounterState` records, keyed by encounter ID; lookup by participant character ID |
+| `CharacterSelectionRepository` | Persists the currently selected character ID |
 
-The isolated D&D Engine. Its architecture guarantees that the game mechanics can be tested, simulated, or even exported to a backend server without any React dependencies.
+Repositories are plain objects with async methods. They contain no business logic and no React dependencies.
 
-- **Data**: Static registries (Spell lists, Classes, Base Items).
-- **Entities**: TypeScript Types and Interfaces (`Character`, `CombatState`) that represent the state of the world.
-- **Rules**: Pure functions that compute D&D math (`calculateArmorClass`, `getProficiencyBonus`).
-- **Systems**: Complex orchestrators that modify state over time (`StatResolver`, `CombatEngine`).
+### 4. Services (`src/services`)
+
+External infrastructure integrations such as localization (`i18n`). Storage access goes through repositories, not directly through services.
+
+### 5. Components (`src/components/ui`)
+
+Reusable, stateless UI atoms and molecules (Buttons, Text, Cards). They receive data and callbacks as props and contain no storage or navigation logic.
+
+### 6. Core Engine (`src/core`)
+
+The isolated D&D Engine. Its architecture guarantees that the game mechanics can be tested, simulated, or exported to a backend server without any React dependencies.
+
+- **Data**: Static registries (Classes, Actions, Resources, Scaling rules).
+- **Entities**: TypeScript types representing domain state (`Character`, `EncounterState`, `CombatState`).
+- **Rules**: Pure functions that compute D&D math (`getArmorClass`, `getProficiencyBonus`, `resolveInCombat`).
+- **Systems**: Orchestrators that apply state transformations over time (`StatResolver`, `CombatEngine`, `ModifierEngine`).
+
+## Key Architectural Rule: State Ownership
+
+`CombatState` is owned by `EncounterState`, not by `Character`. The `Character` record stored in AsyncStorage does not contain `combatState`. It is injected at runtime by the `CharacterProvider` after loading the encounter. This means:
+
+- Screens read `character.combatState` freely — the provider guarantees it is populated by the time any screen renders.
+- Screens must **not** call `saveCharacter` to persist combat state changes (action economy, round tracking, runtime modifiers). Those go through `saveEncounter`.
+- Screens must **not** construct `EncounterState` inline (e.g. `buildEncounterState([character])`). The provider owns encounter construction and lifecycle.
