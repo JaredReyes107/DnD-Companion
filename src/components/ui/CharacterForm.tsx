@@ -63,6 +63,7 @@ type ClassDraft = {
   id: string;
   classTemplateId: string | null;
   level: number;
+  subclassId: string | null;
 };
 
 const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
@@ -84,6 +85,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
   const [skills, setSkills] = useState<CharacterSkills>(
     initialCharacter?.skills ?? buildCharacterSkills(),
   );
+
   const { mainClassInitial, secondaryInitial } = useMemo(() => {
     if (!initialCharacter) {
       return {
@@ -91,16 +93,21 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
           id: Crypto.randomUUID(),
           classTemplateId: null,
           level: 1,
+          subclassId: null,
         },
         secondaryInitial: [],
       };
     }
 
-    const drafts: ClassDraft[] = initialCharacter.classes.order.map((id) => ({
-      id,
-      classTemplateId: initialCharacter.classes.byId[id].classId,
-      level: initialCharacter.classes.byId[id].level,
-    }));
+    const drafts: ClassDraft[] = initialCharacter.classes.order.map((id) => {
+      const instance = initialCharacter.classes.byId[id];
+      return {
+        id,
+        classTemplateId: instance.classId,
+        level: instance.level,
+        subclassId: instance.subclassId ?? null,
+      };
+    });
 
     return {
       mainClassInitial: drafts[0],
@@ -121,6 +128,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
         {
           classId: c.classTemplateId!,
           level: c.level,
+          ...(c.subclassId !== null && { subclassId: c.subclassId }),
         },
       ]),
     );
@@ -344,6 +352,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
             id: Crypto.randomUUID(),
             classTemplateId: null,
             level: 1,
+            subclassId: null,
           },
         ])
       }
