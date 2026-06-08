@@ -1,4 +1,5 @@
 import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
+import { CHAMPION } from "../classes/subclasses/fighter/Champion";
 
 /**
  * Base subclass definitions imported from data files.
@@ -6,7 +7,7 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
  */
 const BASE_SUBCLASSES: Record<string, SubclassTemplate> = {
   // Fighter
-  // champion: CHAMPION,
+  champion: CHAMPION,
   // battle_master: BATTLE_MASTER,
   // eldritch_knight: ELDRITCH_KNIGHT,
 
