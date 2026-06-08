@@ -23,6 +23,10 @@ export const es = {
     add: "Añadir clase",
     input: "Selecciona una clase",
   },
+  subclass: {
+    singular: "Subclase",
+    input: "Selecciona una subclase",
+  },
   stats: {
     abilityScores: "Características",
     skills: "Habilidades",
@@ -82,6 +86,7 @@ export const es = {
     selectOption: "Selecciona una opción",
     selectAlignment: "Selecciona un alineamiento",
     selectClass: "Selecciona una clase",
+    selectSubclass: "Selecciona una subclase",
   },
   action: {
     takenDamage: "Daño recibido",

@@ -5,6 +5,7 @@ export type LocalizationNamespace =
   | "races"
   | "abilities"
   | "classes"
+  | "subclasses"
   | "features"
   | "resources"
   | "actions"
@@ -39,6 +40,7 @@ export type GameLocalization = {
   abilities?: GameLocalizationCategory;
   races?: GameLocalizationCategory;
   classes?: GameLocalizationCategory;
+  subclasses?: GameLocalizationCategory;
   features?: GameLocalizationCategory;
   resources?: GameLocalizationCategory;
   actions?: GameLocalizationCategory;
