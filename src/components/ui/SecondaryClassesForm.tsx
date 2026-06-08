@@ -3,13 +3,16 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import ClassPicker from "@/components/ui/ClassPicker";
+import SubclassPicker from "@/components/ui/SubclassPicker";
+import { getSubclassUnlockLevel } from "@/core/rules/character/subclass-helper";
 
 import styles from "@/styles/character-creation.styles";
 
 type ClassDraft = {
-  id: string; // UUID interno del slot
+  id: string;
   classTemplateId: string | null;
   level: number;
+  subclassId: string | null;
 };
 
 type Props = {
@@ -19,6 +22,16 @@ type Props = {
 };
 
 export const SecondaryClassesForm = ({ value, onChange, onRemove }: Props) => {
+  const unlockLevel =
+    value.classTemplateId !== null
+      ? getSubclassUnlockLevel(value.classTemplateId)
+      : null;
+
+  const showSubclassPicker =
+    value.classTemplateId !== null &&
+    unlockLevel !== null &&
+    value.level >= unlockLevel;
+
   return (
     <View style={[styles.subfieldContainer]}>
       <View style={styles.fieldClassContainer}>
@@ -33,7 +46,9 @@ export const SecondaryClassesForm = ({ value, onChange, onRemove }: Props) => {
             <View style={styles.pickerContainer}>
               <ClassPicker
                 value={value.classTemplateId}
-                onChange={(id) => onChange({ ...value, classTemplateId: id })}
+                onChange={(id) =>
+                  onChange({ ...value, classTemplateId: id, subclassId: null })
+                }
               />
             </View>
           </View>
@@ -65,6 +80,16 @@ export const SecondaryClassesForm = ({ value, onChange, onRemove }: Props) => {
           </View>
         </View>
       </View>
+
+      {showSubclassPicker && (
+        <View style={styles.pickerContainer}>
+          <SubclassPicker
+            classId={value.classTemplateId!}
+            value={value.subclassId}
+            onChange={(id) => onChange({ ...value, subclassId: id })}
+          />
+        </View>
+      )}
     </View>
   );
 };
