@@ -2,7 +2,7 @@ import { registerScaling } from "@/core/data/registries/resource-scaling.registr
 
 function registerSubclassScalings() {
   registerScaling("superiority-dice", ({ character }) => {
-  const fighter = Object.values(character.classes.byId).find(
+    const fighter = Object.values(character.classes.byId).find(
       (c) => c.classId === "fighter",
     );
 
@@ -14,7 +14,7 @@ function registerSubclassScalings() {
     if (level >= 7) return 5;
     return 4;
   });
-};
+}
 
 export function registerClassScalings() {
   registerScaling("rage", ({ character }) => {

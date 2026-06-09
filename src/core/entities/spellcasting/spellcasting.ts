@@ -4,7 +4,6 @@ import { SpellSlotLevel } from "@/core/entities/spellcasting/spell-slot-instance
 import {
   getClassInstanceByTemplateId,
   getClassTemplateById,
-  getClassTemplatesFromCharacter,
 } from "@/core/data/registries/classes.registry";
 import { getSubclassTemplateById } from "@/core/data/registries/subclasses.registry";
 import { CharacterResources } from "@/core/entities/resources/character-resources";
@@ -24,7 +23,9 @@ export function hasSpellcasting(character: Character): boolean {
     if (classTemplate?.spellcastingTemplate) return true;
 
     if (classInstance.subclassId) {
-      const subclassTemplate = getSubclassTemplateById(classInstance.subclassId);
+      const subclassTemplate = getSubclassTemplateById(
+        classInstance.subclassId,
+      );
       if (subclassTemplate?.spellcastingTemplate) return true;
     }
   }
@@ -32,7 +33,9 @@ export function hasSpellcasting(character: Character): boolean {
   return false;
 }
 
-export function getTotalCasterLevel(characterClasses: CharacterClasses): number {
+export function getTotalCasterLevel(
+  characterClasses: CharacterClasses,
+): number {
   let total = 0;
 
   for (const classId of characterClasses.order) {
@@ -97,7 +100,7 @@ export function getSpellSaveDC(character: Character): number {
   const classInstance = character.classes.byId[character.classes.order[0]];
   const spellcastingTemplate = getSpellcastingTemplateByClassTemplateId(
     classInstance.classId,
-    classInstance.subclassId,  // this line is likely missing here
+    classInstance.subclassId, // this line is likely missing here
   );
 
   const spellcastingAbility = spellcastingTemplate.ability;
@@ -250,7 +253,10 @@ export function buildSpellSlots(character: Character): CharacterResources {
   }
 
   if (hasWarlock) {
-    const warlockInstance = getClassInstanceByTemplateId(character.classes, "warlock");
+    const warlockInstance = getClassInstanceByTemplateId(
+      character.classes,
+      "warlock",
+    );
     if (warlockInstance) {
       characterSpellSlots = {
         ...characterSpellSlots,

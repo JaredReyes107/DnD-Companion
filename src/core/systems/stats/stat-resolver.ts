@@ -116,9 +116,8 @@ export function serializeStatModel(statModel: StatModel): string {
 export const serializeStatTemplate = serializeStatModel;
 
 function isSameStat(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   a: StatModel | undefined,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   b: StatModel | undefined,
 ): boolean {
   if (!a || !b) return false;

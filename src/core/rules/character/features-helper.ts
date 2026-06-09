@@ -34,7 +34,9 @@ export function getActiveFeatures(
     // so the loop is identical. Resources and actions referenced by subclass
     // features live in the same flat registries as class resources/actions.
     if (classInstance.subclassId) {
-      const subclassTemplate = getSubclassTemplateById(classInstance.subclassId);
+      const subclassTemplate = getSubclassTemplateById(
+        classInstance.subclassId,
+      );
 
       for (let lvl = 1; lvl <= classInstance.level; lvl++) {
         features.push(...(subclassTemplate.featuresByLevel[lvl] ?? []));

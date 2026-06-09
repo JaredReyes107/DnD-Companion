@@ -10,7 +10,9 @@ import { getClassTemplateById } from "@/core/data/registries/classes.registry";
 export function getSubclassUnlockLevel(classId: string): number | null {
   const classTemplate = getClassTemplateById(classId);
 
-  for (const [level, features] of Object.entries(classTemplate.featuresByLevel)) {
+  for (const [level, features] of Object.entries(
+    classTemplate.featuresByLevel,
+  )) {
     const hasSubclassFeature = features.some((f) =>
       f.tags?.includes("subclass"),
     );

@@ -50,7 +50,8 @@ export const CHAMPION: SubclassTemplate = {
         label: "Additional Fighting Style",
         source: "subclass",
         level: 10,
-        description: "You can choose a second option from the Fighting Style class feature.",
+        description:
+          "You can choose a second option from the Fighting Style class feature.",
         tags: ["passive", "build-choice"],
         // TODO: ASI / build-choice system
       },

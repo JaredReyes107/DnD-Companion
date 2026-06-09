@@ -3,7 +3,6 @@ import { CHAMPION } from "@/core/data/classes/subclasses/fighter/Champion";
 import { BATTLE_MASTER } from "@/core/data/classes/subclasses/fighter/Battle-Master";
 import { ELDRITCH_KNIGHT } from "@/core/data/classes/subclasses/fighter/Eldritch-Knight";
 
-
 const PHB_SUBCLASSES: Record<string, SubclassTemplate> = {
   // Fighter
   champion: CHAMPION,
@@ -18,5 +17,5 @@ const PHB_SUBCLASSES: Record<string, SubclassTemplate> = {
 };
 
 export const FIGHTER_SUBCLASSES: Record<string, SubclassTemplate> = {
-  ...PHB_SUBCLASSES
+  ...PHB_SUBCLASSES,
 };
