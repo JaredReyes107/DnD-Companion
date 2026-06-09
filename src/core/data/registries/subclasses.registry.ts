@@ -1,21 +1,12 @@
 import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
-import { CHAMPION } from "../classes/subclasses/fighter/Champion";
+import { FIGHTER_SUBCLASSES } from "../classes/subclasses/fighter/Fighter-Subclasses";
 
 /**
  * Base subclass definitions imported from data files.
  * Add new subclass imports here as they are implemented.
  */
 const BASE_SUBCLASSES: Record<string, SubclassTemplate> = {
-  // Fighter
-  champion: CHAMPION,
-  // battle_master: BATTLE_MASTER,
-  // eldritch_knight: ELDRITCH_KNIGHT,
-
-  // Barbarian
-  // berserker: BERSERKER,
-  // totem_warrior: TOTEM_WARRIOR,
-
-  // ... other subclasses added here as data files are created
+  ...FIGHTER_SUBCLASSES,
 };
 
 const homebrewSubclasses: Record<string, SubclassTemplate> = {};
