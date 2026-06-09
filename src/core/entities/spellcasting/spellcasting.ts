@@ -6,12 +6,14 @@ import {
   getClassTemplateById,
   getClassTemplatesFromCharacter,
 } from "@/core/data/registries/classes.registry";
+import { getSubclassTemplateById } from "@/core/data/registries/subclasses.registry";
 import { CharacterResources } from "@/core/entities/resources/character-resources";
 import { getSpellcastingTemplateByClassTemplateId } from "@/core/rules/spellcasting/spellcasting-helper";
 import {
   getAbilityModifier,
   getProficiencyBonus,
 } from "@/core/rules/character/abilities-modifiers";
+
 export function hasSpellcasting(character: Character): boolean {
   const characterClasses = character.classes;
 
@@ -19,37 +21,41 @@ export function hasSpellcasting(character: Character): boolean {
     const classInstance = characterClasses.byId[classId];
     const classTemplate = getClassTemplateById(classInstance.classId);
 
-    if (classTemplate?.spellcastingTemplate) {
-      return true;
+    if (classTemplate?.spellcastingTemplate) return true;
+
+    if (classInstance.subclassId) {
+      const subclassTemplate = getSubclassTemplateById(classInstance.subclassId);
+      if (subclassTemplate?.spellcastingTemplate) return true;
     }
   }
 
   return false;
 }
 
-export function getTotalCasterLevel(
-  characterClasses: CharacterClasses,
-): number {
+export function getTotalCasterLevel(characterClasses: CharacterClasses): number {
   let total = 0;
 
-  //TODO: Take into account all the character features. Not only classes.
   for (const classId of characterClasses.order) {
     const classInstance = characterClasses.byId[classId];
     const classTemplate = getClassTemplateById(classInstance.classId);
 
-    if (!classTemplate?.spellcastingTemplate) continue;
+    const spellcastingTemplate =
+      classTemplate.spellcastingTemplate ??
+      (classInstance.subclassId
+        ? getSubclassTemplateById(classInstance.subclassId).spellcastingTemplate
+        : undefined);
 
-    const progression = classTemplate.spellcastingTemplate.progression;
+    if (!spellcastingTemplate) continue;
 
-    switch (progression) {
+    switch (spellcastingTemplate.progression) {
       case "full":
         total += classInstance.level;
         break;
       case "half":
-        total += Math.ceil(classInstance.level / 2);
+        total += Math.floor(classInstance.level / 2);
         break;
       case "third":
-        total += Math.ceil(classInstance.level / 3);
+        total += Math.floor(classInstance.level / 3);
         break;
     }
   }
@@ -63,9 +69,10 @@ export function getSpellAttackModifier(character: Character): number {
     return 0;
   }
 
-  //Replace the function's argument for classInstance.id
+  const classInstance = character.classes.byId[character.classes.order[0]];
   const spellcastingTemplate = getSpellcastingTemplateByClassTemplateId(
-    character.classes.byId[character.classes.order[0]].classId,
+    classInstance.classId,
+    classInstance.subclassId,
   );
 
   const spellcastingAbility = spellcastingTemplate.ability;
@@ -87,9 +94,10 @@ export function getSpellSaveDC(character: Character): number {
     return 0;
   }
 
-  //Replace the function's argument for classInstance.id
+  const classInstance = character.classes.byId[character.classes.order[0]];
   const spellcastingTemplate = getSpellcastingTemplateByClassTemplateId(
-    character.classes.byId[character.classes.order[0]].classId,
+    classInstance.classId,
+    classInstance.subclassId,  // this line is likely missing here
   );
 
   const spellcastingAbility = spellcastingTemplate.ability;
@@ -213,34 +221,43 @@ function buildMysticArcanum(warlockLevel: number): CharacterResources {
 export function buildSpellSlots(character: Character): CharacterResources {
   let characterSpellSlots: CharacterResources = {};
 
-  const spellcastingTemplates = getClassTemplatesFromCharacter(
-    character.classes,
-  )
-    .map((cls) => cls.spellcastingTemplate && cls.id != "warlock_spellcasting")
-    .filter(Boolean);
+  let hasStandardCaster = false;
+  let hasWarlock = false;
 
-  if (spellcastingTemplates.length > 0) {
+  for (const instanceId of character.classes.order) {
+    const classInstance = character.classes.byId[instanceId];
+    const classTemplate = getClassTemplateById(classInstance.classId);
+
+    const spellcastingTemplate =
+      classTemplate.spellcastingTemplate ??
+      (classInstance.subclassId
+        ? getSubclassTemplateById(classInstance.subclassId).spellcastingTemplate
+        : undefined);
+
+    if (!spellcastingTemplate) continue;
+
+    if (spellcastingTemplate.kind === "pact") {
+      hasWarlock = true;
+    } else {
+      hasStandardCaster = true;
+    }
+  }
+
+  if (hasStandardCaster) {
     characterSpellSlots = {
       ...buildStandardSpellSlots(getTotalCasterLevel(character.classes)),
     };
   }
 
-  const warlockSpellcastingTemplate = getClassTemplatesFromCharacter(
-    character.classes,
-  )
-    .map((cls) => cls.id == "warlock_spellcasting")
-    .filter(Boolean);
-  const warlockClassInstance = getClassInstanceByTemplateId(
-    character.classes,
-    "warlock",
-  );
-
-  if (warlockSpellcastingTemplate && warlockClassInstance) {
-    characterSpellSlots = {
-      ...characterSpellSlots,
-      ...buildPactMagicSlots(warlockClassInstance.level),
-      ...buildMysticArcanum(warlockClassInstance.level),
-    };
+  if (hasWarlock) {
+    const warlockInstance = getClassInstanceByTemplateId(character.classes, "warlock");
+    if (warlockInstance) {
+      characterSpellSlots = {
+        ...characterSpellSlots,
+        ...buildPactMagicSlots(warlockInstance.level),
+        ...buildMysticArcanum(warlockInstance.level),
+      };
+    }
   }
 
   return characterSpellSlots;
