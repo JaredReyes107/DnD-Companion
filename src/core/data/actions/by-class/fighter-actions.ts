@@ -33,4 +33,6 @@ export const FIGHTER_ACTIONS: Record<string, ActionInstance> = {
       },
     ],
   },
+
+  ...SUBCLASSES_ACTIONS,
 };
