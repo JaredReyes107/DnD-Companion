@@ -1,5 +1,11 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 
+import { ELDRITCH_KNIGHT_ACTIONS } from "../by-subclass/fighter/eldritch-knight-actions";
+
+const SUBCLASSES_ACTIONS: Record<string, ActionInstance> = {
+  ...ELDRITCH_KNIGHT_ACTIONS,
+};
+
 export const FIGHTER_ACTIONS: Record<string, ActionInstance> = {
   second_wind: {
     id: "second_wind",
@@ -27,4 +33,6 @@ export const FIGHTER_ACTIONS: Record<string, ActionInstance> = {
       },
     ],
   },
+
+  ...SUBCLASSES_ACTIONS,
 };

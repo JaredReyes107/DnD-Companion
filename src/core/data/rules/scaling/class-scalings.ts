@@ -1,5 +1,21 @@
 import { registerScaling } from "@/core/data/registries/resource-scaling.registry";
 
+function registerSubclassScalings() {
+  registerScaling("superiority-dice", ({ character }) => {
+    const fighter = Object.values(character.classes.byId).find(
+      (c) => c.classId === "fighter",
+    );
+
+    if (!fighter) return 0;
+
+    const level = fighter.level;
+
+    if (level >= 15) return 6;
+    if (level >= 7) return 5;
+    return 4;
+  });
+}
+
 export function registerClassScalings() {
   registerScaling("rage", ({ character }) => {
     const barbarian = Object.values(character.classes.byId).find(
@@ -63,4 +79,6 @@ export function registerClassScalings() {
     if (level >= 13) return 2;
     return 1;
   });
+
+  registerSubclassScalings();
 }
