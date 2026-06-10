@@ -20,4 +20,6 @@ export const BARBARIAN_ACTIONS: Record<string, ActionInstance> = {
       },
     ],
   },
+
+  ...SUBCLASSES_ACTIONS,
 };

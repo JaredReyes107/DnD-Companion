@@ -55,6 +55,7 @@ export const BERSERKER: SubclassTemplate = {
         level: 14,
         description:
           "When you take damage from a creature that is within 5 feet of you, you can use your reaction to make a melee weapon attack against that creature.",
+        actions: ["retaliation"],
         tags: ["reaction", "combat"],
         // TODO: reaction hook (on damage received)
       },
