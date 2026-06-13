@@ -1,8 +1,8 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
-export const resources_barbarian_es: GameLocalizationCategory = {
-  rage: {
-    name: "Furia",
+export const ancestral_guardian_es: GameLocalizationCategory = {
+  ancestral_guardian: {
+    name: "Guardián Ancestral",
     description: "",
   },
 };

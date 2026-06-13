@@ -14,6 +14,9 @@ export function resolveGameText(
   const localization = GAME_LOCALIZATION[locale];
   const categoryTable = localization[category];
 
+  if (categoryTable != undefined && categoryTable.toString() == "subclass") {
+    console.log(categoryTable[id]?.[field]);
+  }
   if (!categoryTable) return undefined;
 
   return categoryTable[id]?.[field];

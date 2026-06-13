@@ -1,5 +1,7 @@
 import { GameLocalization } from "../../game-localization.types";
 
+import { barbarian_es } from "./barbarian/es-barbarian";
+
 export const classes_en: GameLocalization = {
   classes: {
     artificer: {
@@ -7,11 +9,7 @@ export const classes_en: GameLocalization = {
       description:
         "An expert inventor who blends magic and technology to create infusions, devices, and magical items.",
     },
-    barbarian: {
-      name: "Barbarian",
-      description:
-        "A warrior driven by rage, capable of unleashing incredible strength and resilience in battle.",
-    },
+    ...barbarian_es,
     bard: {
       name: "Bard",
       description:

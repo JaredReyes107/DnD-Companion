@@ -1,4 +1,6 @@
 import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
+
+import { BARBARIAN_SUBCLASSES } from "@/core/data/classes/subclasses/barbarian/Barbarian-Subclasses";
 import { FIGHTER_SUBCLASSES } from "../classes/subclasses/fighter/Fighter-Subclasses";
 
 /**
@@ -6,6 +8,7 @@ import { FIGHTER_SUBCLASSES } from "../classes/subclasses/fighter/Fighter-Subcla
  * Add new subclass imports here as they are implemented.
  */
 const BASE_SUBCLASSES: Record<string, SubclassTemplate> = {
+  ...BARBARIAN_SUBCLASSES,
   ...FIGHTER_SUBCLASSES,
 };
 
