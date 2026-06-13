@@ -19,11 +19,4 @@ export const game_es: GameLocalization = {
   ...features_es,
   ...resources_es,
   ...actions_es,
-
-  features: {
-    "bardic-inspiration": {
-      name: "Inspiración de bardo",
-      description: "Puedes inspirar a otros con palabras o música.",
-    },
-  },
 };

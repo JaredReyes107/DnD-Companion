@@ -1,7 +1,7 @@
 import { GameLocalization } from "@/services/localization/game-localization.types";
 
 import { es_artificer_actions } from "./by-class/es-artificer-actions";
-import { es_barbarian_actions } from "./by-class/es-barbarian-actions";
+import { barbarian_actions_es } from "../classes/barbarian/es-barbarian-actions";
 import { es_bard_actions } from "./by-class/es-bard-actions";
 import { es_cleric_actions } from "./by-class/es-cleric-actions";
 import { es_druid_actions } from "./by-class/es-druid-actions";
@@ -17,7 +17,7 @@ import { es_wizard_actions } from "./by-class/es-wizard-actions";
 export const actions_es: GameLocalization = {
   actions: {
     ...es_artificer_actions,
-    ...es_barbarian_actions,
+    ...barbarian_actions_es,
     ...es_bard_actions,
     ...es_cleric_actions,
     ...es_druid_actions,

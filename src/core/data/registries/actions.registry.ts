@@ -4,7 +4,7 @@ import { ActionResourceType } from "@/core/entities/combat/action-economy";
 import { DEFAULT_ACTIONS } from "../actions/default-actions";
 
 import { ARTIFICER_ACTIONS } from "../actions/by-class/artificer-actions";
-import { BARBARIAN_ACTIONS } from "../actions/by-class/barbarians-actions";
+import { BARBARIAN_ACTIONS } from "../actions/by-class/barbarian-actions";
 import { BARD_ACTIONS } from "../actions/by-class/bard-actions";
 import { CLERIC_ACTIONS } from "../actions/by-class/cleric-actions";
 import { DRUID_ACTIONS } from "../actions/by-class/druid-actions";

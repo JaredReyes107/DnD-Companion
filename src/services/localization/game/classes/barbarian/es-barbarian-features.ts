@@ -1,11 +1,17 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
-import { berserker_features_es } from "@/services/localization/game/classes/barbarian/subclasses/berserker/es-berserker-features"
-import { totem_warrior_features_es } from "@/services/localization/game/classes/barbarian/subclasses/totem-warrior/es-totem-warrior-features"
+import { berserker_features_es } from "@/services/localization/game/classes/barbarian/subclasses/berserker/es/es-berserker-features"
+import { totem_warrior_features_es } from "@/services/localization/game/classes/barbarian/subclasses/totem-warrior/es/es-totem-warrior-features"
+import { ancestral_guardian_features_es } from "./subclasses/ancestral-guardian/es/es-ancestral-guardian-features";
+import { storm_herald_features_es } from "./subclasses/storm-herald/es/es-storm-herald-features";
+import { zealot_features_es } from "./subclasses/zealot/es/es-zealot-features";
 
 const barbarian_subclass_features_es: GameLocalizationCategory = {
   ...berserker_features_es,
   ...totem_warrior_features_es,
+  ...ancestral_guardian_features_es,
+  ...storm_herald_features_es,
+  ...zealot_features_es,
 };
 
 export const barbarian_features_es: GameLocalizationCategory = {

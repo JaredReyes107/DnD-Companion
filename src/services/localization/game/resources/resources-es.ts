@@ -1,6 +1,6 @@
 import { GameLocalization } from "../../game-localization.types";
 import { resources_artificer_es } from "./class/es-artificer-resources";
-import { resources_barbarian_es } from "./class/es-barbarian-resources";
+import { resources_barbarian_es } from "../classes/barbarian/es-barbarian-resources";
 import { resources_bard_es } from "./class/es-bard-resources";
 import { resources_cleric_es } from "./class/es-cleric-resources";
 import { resources_druid_es } from "./class/es-druid-resources";
