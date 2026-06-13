@@ -1,9 +1,13 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 import { zealot_resources_en } from "./subclasses/zealot/en/en-zealot-resources";
+import { beast_resources_en } from "./subclasses/beast/en/en-beast-resources";
+import { wild_magic_resources_en } from "./subclasses/wild-magic/en/en-wild-magic-resources";
 
 const barbarian_subclass_resources_en: GameLocalizationCategory = {
   ...zealot_resources_en,
+  ...beast_resources_en,
+  ...wild_magic_resources_en,
 };
 
 export const barbarian_resources_en: GameLocalizationCategory = {

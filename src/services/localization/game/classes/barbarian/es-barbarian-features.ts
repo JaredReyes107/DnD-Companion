@@ -5,13 +5,19 @@ import { totem_warrior_features_es } from "@/services/localization/game/classes/
 import { ancestral_guardian_features_es } from "./subclasses/ancestral-guardian/es/es-ancestral-guardian-features";
 import { storm_herald_features_es } from "./subclasses/storm-herald/es/es-storm-herald-features";
 import { zealot_features_es } from "./subclasses/zealot/es/es-zealot-features";
+import { beast_features_es } from "./subclasses/beast/es/es-beast-features";
+import { wild_magic_features_es } from "./subclasses/wild-magic/es/es-wild-magic-features";
 
 const barbarian_subclass_features_es: GameLocalizationCategory = {
   ...berserker_features_es,
   ...totem_warrior_features_es,
+  
   ...ancestral_guardian_features_es,
   ...storm_herald_features_es,
   ...zealot_features_es,
+
+  ...beast_features_es,
+  ...wild_magic_features_es,
 };
 
 export const barbarian_features_es: GameLocalizationCategory = {
