@@ -11,7 +11,7 @@ const SUBCLASSES_ACTIONS: Record<string, ActionInstance> = {
   ...ANCESTRAL_GUARDIAN_ACTIONS,
   ...ZEALOT_ACTIONS,
   ...BEAST_ACTIONS,
-  ...WILD_MAGIC_ACTIONS
+  ...WILD_MAGIC_ACTIONS,
 };
 
 export const BARBARIAN_ACTIONS: Record<string, ActionInstance> = {

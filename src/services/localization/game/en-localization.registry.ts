@@ -13,7 +13,7 @@ export const game_en: GameLocalization = {
   ...abilities_en,
   ...skills_en,
   ...alignments_en,
-  
+
   ...classes_en,
   ...subclasses_en,
   ...features_en,

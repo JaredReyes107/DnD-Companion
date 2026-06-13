@@ -3,6 +3,6 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 export const barbarian_en: GameLocalizationCategory = {
   barbarian: {
     name: "Barbarian",
-    description:""  
+    description: "",
   },
-}
+};

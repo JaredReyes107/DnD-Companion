@@ -6,4 +6,4 @@ export const barbarian_es: GameLocalizationCategory = {
     description:
       "Un guerrero impulsado por la furia, capaz de una fuerza y resistencia sobrehumanas en combate.",
   },
-}
+};

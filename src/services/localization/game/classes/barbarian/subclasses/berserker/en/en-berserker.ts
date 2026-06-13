@@ -5,4 +5,4 @@ export const berserker_en: GameLocalizationCategory = {
     name: "Berserker",
     description: "",
   },
-}
+};

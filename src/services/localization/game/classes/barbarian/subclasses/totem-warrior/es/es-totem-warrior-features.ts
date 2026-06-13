@@ -26,4 +26,4 @@ export const totem_warrior_features_es: GameLocalization = {
       description: `Ganas un beneficio mágico basado en tu espíritu totémico (página 50).`,
     },
   },
-}
+};

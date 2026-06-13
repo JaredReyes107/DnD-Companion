@@ -11,11 +11,11 @@ import { wild_magic_es } from "./subclasses/wild-magic/es/es-wild-magic";
 export const barbarian_subclasses_es: GameLocalizationCategory = {
   ...berserker_es,
   ...totem_warrior_es,
-  
+
   ...ancestral_guardian_es,
   ...storm_herald_es,
   ...zealot_es,
 
   ...beast_es,
   ...wild_magic_es,
-}
+};

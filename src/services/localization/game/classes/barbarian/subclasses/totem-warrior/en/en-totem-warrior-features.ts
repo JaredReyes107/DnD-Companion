@@ -23,4 +23,4 @@ export const totem_warrior_features_en: GameLocalization = {
       description: ``,
     },
   },
-}
+};

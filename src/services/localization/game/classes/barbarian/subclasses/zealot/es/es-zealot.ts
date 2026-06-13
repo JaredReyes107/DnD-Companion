@@ -3,6 +3,6 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 export const zealot_es: GameLocalizationCategory = {
   zealot: {
     name: "Fanático",
-    description: "",  
+    description: "",
   },
 };

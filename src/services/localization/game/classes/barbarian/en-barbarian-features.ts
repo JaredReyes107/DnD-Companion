@@ -1,7 +1,7 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
-import { berserker_features_en } from "@/services/localization/game/classes/barbarian/subclasses/berserker/en/en-berserker-features"
-import { totem_warrior_features_en } from "@/services/localization/game/classes/barbarian/subclasses/totem-warrior/en/en-totem-warrior-features"
+import { berserker_features_en } from "@/services/localization/game/classes/barbarian/subclasses/berserker/en/en-berserker-features";
+import { totem_warrior_features_en } from "@/services/localization/game/classes/barbarian/subclasses/totem-warrior/en/en-totem-warrior-features";
 import { ancestral_guardian_features_en } from "./subclasses/ancestral-guardian/en/en-ancestral-guardian-features";
 import { storm_herald_features_en } from "./subclasses/storm-herald/en/en-storm-herald-features";
 import { zealot_features_en } from "./subclasses/zealot/en/en-zealot-features";

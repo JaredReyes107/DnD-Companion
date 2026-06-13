@@ -8,7 +8,7 @@ import { wild_magic_es } from "./subclasses/wild-magic/es/es-wild-magic";
 
 const barbarian_subclass_actions_es: GameLocalizationCategory = {
   ...berserker_actions_es,
-  
+
   ...ancestral_guardian_actions_es,
   ...zealot_actions_es,
 

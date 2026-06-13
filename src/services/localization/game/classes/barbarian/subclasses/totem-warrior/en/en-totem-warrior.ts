@@ -3,6 +3,7 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 export const totem_warrior_en: GameLocalizationCategory = {
   totem_warrior: {
     name: "Totem Warrior",
-    description: "The Path of the Totem Warrior is a spiritual journey, as the barbarian accepts a spirit animal as guide, protector, and inspiration.",
+    description:
+      "The Path of the Totem Warrior is a spiritual journey, as the barbarian accepts a spirit animal as guide, protector, and inspiration.",
   },
-}
+};

@@ -19,4 +19,4 @@ export const berserker_features_en: GameLocalization = {
       description: ``,
     },
   },
-}
+};
