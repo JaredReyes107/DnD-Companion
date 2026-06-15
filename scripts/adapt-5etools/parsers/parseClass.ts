@@ -1,8 +1,10 @@
+import { FiveEToolsFile, FiveEToolsClassFeature } from "../types/5etools.types";
 import {
-  FiveEToolsFile,
-  FiveEToolsClassFeature,
-} from "../types/5etools.types";
-import { toFeatureId, toClassId, toAbilityId, toCasterProgression } from "../config";
+  toFeatureId,
+  toClassId,
+  toAbilityId,
+  toCasterProgression,
+} from "../config";
 import { extractDescription } from "./parseClassFeature";
 
 // What we output — matches your FeatureTemplate and ClassTemplate shapes
@@ -80,9 +82,7 @@ export function parseClass(data: FiveEToolsFile): ParsedClass[] {
         id: featureId,
         label: parsed.name,
         level,
-        description: featureData
-          ? extractDescription(featureData.entries)
-          : "",
+        description: featureData ? extractDescription(featureData.entries) : "",
         gainSubclassFeature: isSubclassGate,
         // Left empty intentionally — behavioral authoring is yours
         tags: isSubclassGate ? ["subclass"] : [],

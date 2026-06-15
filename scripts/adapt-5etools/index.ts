@@ -9,20 +9,28 @@ import {
   writeSubclassLocalizationStub,
 } from "./writers/writeLocalization";
 
-const INPUT_DIR    = path.resolve(__dirname, "../../5etools-data");
-const CLASS_OUT    = path.resolve(__dirname, "../../src/core/data/classes");
-const SUBCLASS_OUT = path.resolve(__dirname, "../../src/core/data/classes/subclasses");
-const LOC_OUT      = path.resolve(__dirname, "../../src/services/localization/game/classes");
+const INPUT_DIR = path.resolve(__dirname, "../../5etools-data");
+const CLASS_OUT = path.resolve(__dirname, "../../src/core/data/classes");
+const SUBCLASS_OUT = path.resolve(
+  __dirname,
+  "../../src/core/data/classes/subclasses",
+);
+const LOC_OUT = path.resolve(
+  __dirname,
+  "../../src/services/localization/game/classes",
+);
 
 const inputFile = process.argv[2];
-const mode      = process.argv[3] ?? "all"; // "class" | "subclass" | "all"
+const mode = process.argv[3] ?? "all"; // "class" | "subclass" | "all"
 
 if (!inputFile) {
-  console.error("Usage: ts-node --project tsconfig.scripts.json scripts/adapt-5etools/index.ts <file.json> [class|subclass|all]");
+  console.error(
+    "Usage: ts-node --project tsconfig.scripts.json scripts/adapt-5etools/index.ts <file.json> [class|subclass|all]",
+  );
   process.exit(1);
 }
 
-const raw  = fs.readFileSync(path.join(INPUT_DIR, inputFile), "utf-8");
+const raw = fs.readFileSync(path.join(INPUT_DIR, inputFile), "utf-8");
 const data = JSON.parse(raw);
 
 if (mode === "class" || mode === "all") {
@@ -33,7 +41,11 @@ if (mode === "class" || mode === "all") {
     console.log(`✓ class      → ${classFile}`);
 
     for (const locale of ["en", "es"] as const) {
-      const locFile = path.join(LOC_OUT, cls.id, `${cls.id}-features_${locale}.generated.ts`);
+      const locFile = path.join(
+        LOC_OUT,
+        cls.id,
+        `${cls.id}-features_${locale}.generated.ts`,
+      );
       fs.mkdirSync(path.dirname(locFile), { recursive: true });
       fs.writeFileSync(locFile, writeLocalizationStub(cls, locale));
     }
@@ -55,9 +67,14 @@ if (mode === "subclass" || mode === "all") {
     for (const locale of ["en", "es"] as const) {
       const locDir = path.join(LOC_OUT, sub.classId, "subclasses", sub.id);
       fs.mkdirSync(locDir, { recursive: true });
-      const locFile = path.join(locDir, `${sub.id}-features_${locale}.generated.ts`);
+      const locFile = path.join(
+        locDir,
+        `${sub.id}-features_${locale}.generated.ts`,
+      );
       fs.writeFileSync(locFile, writeSubclassLocalizationStub(sub, locale));
     }
-    console.log(`✓ loc (en/es) → ${path.join(LOC_OUT, sub.classId, "subclasses", sub.id)}`);
+    console.log(
+      `✓ loc (en/es) → ${path.join(LOC_OUT, sub.classId, "subclasses", sub.id)}`,
+    );
   }
 }

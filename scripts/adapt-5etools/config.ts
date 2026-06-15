@@ -8,10 +8,10 @@ export function toFeatureId(name: string, className: string): string {
   // Disambiguate IDs that collide across classes
   // e.g. "evasion" exists on both Monk and Rogue
   const DISAMBIGUATE: Record<string, string> = {
-    "evasion_monk":   "evasion_monk",
-    "evasion_rogue":  "evasion_rogue",
-    "extra_attack_monk":   "extra_attack_monk",
-    "extra_attack_ranger": "extra_attack_ranger",
+    evasion_monk: "evasion_monk",
+    evasion_rogue: "evasion_rogue",
+    extra_attack_monk: "extra_attack_monk",
+    extra_attack_ranger: "extra_attack_ranger",
     // add as needed
   };
 
@@ -31,9 +31,9 @@ export function toCasterProgression(
   progression: string | undefined,
 ): "full" | "half" | "third" | undefined {
   const map: Record<string, "full" | "half" | "third"> = {
-    "full":  "full",
-    "1/2":   "half",
-    "1/3":   "third",
+    full: "full",
+    "1/2": "half",
+    "1/3": "third",
   };
   return progression ? map[progression] : undefined;
 }
@@ -42,7 +42,7 @@ export function toCasterProgression(
  * Converts a subclass shortName + className to your snake_case subclass ID.
  * 5etools shortNames are often display strings like "Champion" or "Battle Master".
  */
-export function toSubclassId(shortName: string, className: string): string {
+export function toSubclassId(shortName: string): string {
   return shortName
     .toLowerCase()
     .replace(/[^a-z0-9\s]/g, "")
@@ -56,12 +56,12 @@ export function toSubclassId(shortName: string, className: string): string {
  */
 export function sourceLabel(source: string): string {
   const MAP: Record<string, string> = {
-    PHB:  "Player's Handbook",
-    XGE:  "Xanathar's Guide to Everything",
-    TCE:  "Tasha's Cauldron of Everything",
+    PHB: "Player's Handbook",
+    XGE: "Xanathar's Guide to Everything",
+    TCE: "Tasha's Cauldron of Everything",
     SCAG: "Sword Coast Adventurer's Guide",
-    MOT:  "Mythic Odysseys of Theros",
-    UA:   "Unearthed Arcana",
+    MOT: "Mythic Odysseys of Theros",
+    UA: "Unearthed Arcana",
   };
   return MAP[source] ?? source;
 }

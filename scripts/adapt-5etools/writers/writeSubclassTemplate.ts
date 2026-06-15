@@ -26,7 +26,7 @@ export function writeSubclassTemplate(sub: ParsedSubclass): string {
         description: "${f.description.replace(/"/g, '\\"').replace(/\n/g, " ")}",
         tags: [],
         // TODO: resources, actions
-      }`
+      }`,
         )
         .join(",\n");
 

@@ -92,9 +92,7 @@ export function parseSubclasses(data: FiveEToolsFile): ParsedSubclass[] {
         id: toFeatureId(parsed.name, sub.className),
         label: parsed.name,
         level,
-        description: featureData
-          ? extractDescription(featureData.entries)
-          : "",
+        description: featureData ? extractDescription(featureData.entries) : "",
         gainSubclassFeature: false,
         tags: [],
         resources: [],

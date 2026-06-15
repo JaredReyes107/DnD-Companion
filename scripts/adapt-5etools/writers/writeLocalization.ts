@@ -28,7 +28,7 @@ function deduplicateById(features: FeatureRef[]): FeatureRef[] {
 function buildLocalizationFile(
   features: FeatureRef[],
   varName: string,
-  locale: "es" | "en"
+  locale: "es" | "en",
 ): string {
   const unique = deduplicateById(features);
 
@@ -37,7 +37,7 @@ function buildLocalizationFile(
       (f) => `  ${f.id}: {
     name: "${locale === "en" ? f.label : ""}",
     description: "",
-  },`
+  },`,
     )
     .join("\n");
 
@@ -51,16 +51,24 @@ ${entries}
 
 export function writeLocalizationStub(
   cls: ParsedClass,
-  locale: "es" | "en"
+  locale: "es" | "en",
 ): string {
   const allFeatures = Object.values(cls.featuresByLevel).flat();
-  return buildLocalizationFile(allFeatures, `features_${cls.id}_${locale}`, locale);
+  return buildLocalizationFile(
+    allFeatures,
+    `features_${cls.id}_${locale}`,
+    locale,
+  );
 }
 
 export function writeSubclassLocalizationStub(
   sub: ParsedSubclass,
-  locale: "es" | "en"
+  locale: "es" | "en",
 ): string {
   const allFeatures = Object.values(sub.featuresByLevel).flat();
-  return buildLocalizationFile(allFeatures, `features_${sub.id}_${locale}`, locale);
+  return buildLocalizationFile(
+    allFeatures,
+    `features_${sub.id}_${locale}`,
+    locale,
+  );
 }

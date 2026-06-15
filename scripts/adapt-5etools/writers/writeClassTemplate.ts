@@ -27,7 +27,7 @@ export function writeClassTemplate(cls: ParsedClass): string {
         description: "${f.description.replace(/"/g, '\\"')}",
         tags: [${f.tags.map((t) => `"${t}"`).join(", ")}],
         // TODO: resources, actions, combatRole
-      }`
+      }`,
         )
         .join(",\n");
 
