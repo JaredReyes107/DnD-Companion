@@ -1,39 +1,63 @@
-// scripts/adapt-5etools/index.ts
-
 import * as fs from "fs";
 import * as path from "path";
 import { parseClass } from "./parsers/parseClass";
+import { parseSubclasses } from "./parsers/parseSubclass";
 import { writeClassTemplate } from "./writers/writeClassTemplate";
-import { writeLocalizationStub } from "./writers/writeLocalization";
+import { writeSubclassTemplate } from "./writers/writeSubclassTemplate";
+import {
+  writeLocalizationStub,
+  writeSubclassLocalizationStub,
+} from "./writers/writeLocalization";
 
-const INPUT_DIR = path.resolve(__dirname, "../../5etools-data"); // you put the JSONs here
-const CLASS_OUT_DIR = path.resolve(__dirname, "../../src/core/data/classes");
-const LOC_OUT_DIR = path.resolve(__dirname, "../../src/services/localization/game/features/by-class");
+const INPUT_DIR    = path.resolve(__dirname, "../../5etools-data");
+const CLASS_OUT    = path.resolve(__dirname, "../../src/core/data/classes");
+const SUBCLASS_OUT = path.resolve(__dirname, "../../src/core/data/classes/subclasses");
+const LOC_OUT      = path.resolve(__dirname, "../../src/services/localization/game/classes");
 
-const inputFile = process.argv[2]; // e.g. "class-fighter.json"
+const inputFile = process.argv[2];
+const mode      = process.argv[3] ?? "all"; // "class" | "subclass" | "all"
+
 if (!inputFile) {
-  console.error("Usage: ts-node index.ts class-fighter.json");
+  console.error("Usage: ts-node --project tsconfig.scripts.json scripts/adapt-5etools/index.ts <file.json> [class|subclass|all]");
   process.exit(1);
 }
 
-const raw = fs.readFileSync(path.join(INPUT_DIR, inputFile), "utf-8");
+const raw  = fs.readFileSync(path.join(INPUT_DIR, inputFile), "utf-8");
 const data = JSON.parse(raw);
 
-const classes = parseClass(data);
+if (mode === "class" || mode === "all") {
+  const classes = parseClass(data);
+  for (const cls of classes) {
+    const classFile = path.join(CLASS_OUT, `${cls.id}.generated.ts`);
+    fs.writeFileSync(classFile, writeClassTemplate(cls));
+    console.log(`✓ class      → ${classFile}`);
 
-for (const cls of classes) {
-  // Write ClassTemplate
-  const classFile = path.join(CLASS_OUT_DIR, `${cls.name}.generated.ts`);
-  fs.writeFileSync(classFile, writeClassTemplate(cls));
-  console.log(`✓ Wrote ${classFile}`);
+    for (const locale of ["en", "es"] as const) {
+      const locFile = path.join(LOC_OUT, cls.id, `${cls.id}-features_${locale}.generated.ts`);
+      fs.mkdirSync(path.dirname(locFile), { recursive: true });
+      fs.writeFileSync(locFile, writeLocalizationStub(cls, locale));
+    }
+    console.log(`✓ loc (en/es) → ${path.join(LOC_OUT, cls.id)}`);
+  }
+}
 
-  // Write EN localization (names are already in English from 5etools)
-  const enFile = path.join(LOC_OUT_DIR, `en-${cls.id}-features.generated.ts`);
-  fs.writeFileSync(enFile, writeLocalizationStub(cls, "en"));
-  console.log(`✓ Wrote ${enFile}`);
+if (mode === "subclass" || mode === "all") {
+  const subclasses = parseSubclasses(data);
 
-  // Write ES stub (empty names — fill manually)
-  const esFile = path.join(LOC_OUT_DIR, `es-${cls.id}-features.generated.ts`);
-  fs.writeFileSync(esFile, writeLocalizationStub(cls, "es"));
-  console.log(`✓ Wrote ${esFile}`);
+  for (const sub of subclasses) {
+    const dir = path.join(SUBCLASS_OUT, sub.classId);
+    fs.mkdirSync(dir, { recursive: true });
+
+    const subFile = path.join(dir, `${sub.id}.generated.ts`);
+    fs.writeFileSync(subFile, writeSubclassTemplate(sub));
+    console.log(`✓ subclass   → ${subFile}`);
+
+    for (const locale of ["en", "es"] as const) {
+      const locDir = path.join(LOC_OUT, sub.classId, "subclasses", sub.id);
+      fs.mkdirSync(locDir, { recursive: true });
+      const locFile = path.join(locDir, `${sub.id}-features_${locale}.generated.ts`);
+      fs.writeFileSync(locFile, writeSubclassLocalizationStub(sub, locale));
+    }
+    console.log(`✓ loc (en/es) → ${path.join(LOC_OUT, sub.classId, "subclasses", sub.id)}`);
+  }
 }
