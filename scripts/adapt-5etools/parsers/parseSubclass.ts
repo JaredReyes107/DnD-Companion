@@ -73,7 +73,7 @@ export function parseSubclasses(data: FiveEToolsFile): ParsedSubclass[] {
 
   return subclasses.map((sub): ParsedSubclass => {
     const classId = toClassId(sub.className);
-    const subclassId = toSubclassId(sub.shortName, sub.className);
+    const subclassId = toSubclassId(sub.shortName);
     const featuresByLevel: Record<number, ParsedFeature[]> = {};
 
     for (const ref of sub.subclassFeatures) {
