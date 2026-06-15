@@ -65,6 +65,35 @@ export const BARD: ClassTemplate = {
         description: "Choose a bard college.",
         tags: ["subclass"],
       },
+      {
+        id: "expertise",
+        label: "Expertise",
+        source: "class",
+        level: 3,
+        description: "",
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
+    4: [
+      {
+        id: "ability_score_improvement",
+        label: "Ability Score Improvement",
+        source: "class",
+        level: 4,
+        description: "",
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+      {
+        id: "bardic_versatility",
+        label: "Bardic Versatility",
+        source: "class",
+        level: 4,
+        description: "",
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
     ],
     5: [
       {
@@ -87,6 +116,110 @@ export const BARD: ClassTemplate = {
           "You can use musical notes or words of power to disrupt mind-influencing effects.",
         actions: ["countercharm"],
         tags: ["action", "defense"],
+      },
+      {
+        id: "bard_college_feature",
+        label: "Bard College feature",
+        source: "class",
+        level: 6,
+        description: "",
+        tags: ["subclass"],
+        // TODO: resources, actions, combatRole
+      },
+    ],
+    8: [
+      {
+        id: "ability_score_improvement",
+        label: "Ability Score Improvement",
+        source: "class",
+        level: 8,
+        description: "",
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
+    10: [
+      {
+        id: "expertise",
+        label: "Expertise",
+        source: "class",
+        level: 10,
+        description: "",
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+      {
+        id: "magical_secrets",
+        label: "Magical Secrets",
+        source: "class",
+        level: 10,
+        description: "",
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
+    12: [
+      {
+        id: "ability_score_improvement",
+        label: "Ability Score Improvement",
+        source: "class",
+        level: 12,
+        description: "",
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
+    14: [
+      {
+        id: "magical_secrets",
+        label: "Magical Secrets",
+        source: "class",
+        level: 14,
+        description: "",
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+      {
+        id: "bard_college_feature",
+        label: "Bard College feature",
+        source: "class",
+        level: 14,
+        description: "",
+        tags: ["subclass"],
+        // TODO: resources, actions, combatRole
+      },
+    ],
+    16: [
+      {
+        id: "ability_score_improvement",
+        label: "Ability Score Improvement",
+        source: "class",
+        level: 16,
+        description: "",
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
+    18: [
+      {
+        id: "magical_secrets",
+        label: "Magical Secrets",
+        source: "class",
+        level: 18,
+        description: "",
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
+    19: [
+      {
+        id: "ability_score_improvement",
+        label: "Ability Score Improvement",
+        source: "class",
+        level: 19,
+        description: "",
+        tags: [],
+        // TODO: resources, actions, combatRole
       },
     ],
     20: [
