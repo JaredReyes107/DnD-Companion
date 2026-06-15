@@ -42,7 +42,8 @@ export function toCasterProgression(
  * Converts a subclass shortName + className to your snake_case subclass ID.
  * 5etools shortNames are often display strings like "Champion" or "Battle Master".
  */
-export function toSubclassId(shortName: string, _className: string): string {
+
+export function toSubclassId(shortName: string): string {
   return shortName
     .toLowerCase()
     .replace(/[^a-z0-9\s]/g, "")
