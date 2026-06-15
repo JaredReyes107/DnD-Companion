@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "simulate": "ts-node scripts/run-combat-simulation.ts"
+    "simulate": "ts-node scripts/run-combat-simulation.ts",
+    "adapt": "ts-node --project tsconfig.scripts.json scripts/adapt-5etools/index.ts"
   },
   "jest": {
     "preset": "jest-expo"
@@ -53,6 +54,7 @@
     "@babel/core": "^7.20.0",
     "@eslint/js": "^9.39.2",
     "@types/jest": "^29.5.12",
+    "@types/node": "^25.9.3",
     "@types/react": "~18.2.45",
     "@types/react-test-renderer": "^18.0.7",
     "@types/uuid": "^10.0.0",
