@@ -3,7 +3,7 @@ import { ActionInstance } from "@/core/entities/actions/action-instance";
 export const WILD_MAGIC_ACTIONS: Record<string, ActionInstance> = {
   magic_awareness: {
     id: "magic_awareness",
-    sourceId: "path_of_wild_magic",
+    sourceId: "wild_magic",
     actionSlot: "action",
     effects: [
       {
@@ -16,7 +16,7 @@ export const WILD_MAGIC_ACTIONS: Record<string, ActionInstance> = {
   },
   bolstering_magic: {
     id: "bolstering_magic",
-    sourceId: "path_of_wild_magic",
+    sourceId: "wild_magic",
     actionSlot: "action",
     effects: [
       {
@@ -29,7 +29,7 @@ export const WILD_MAGIC_ACTIONS: Record<string, ActionInstance> = {
   },
   unstable_backlash: {
     id: "unstable_backlash",
-    sourceId: "path_of_wild_magic",
+    sourceId: "wild_magic",
     actionSlot: "reaction",
     effects: [],
     // TODO: reroll wild magic table on damage taken or failed save while raging

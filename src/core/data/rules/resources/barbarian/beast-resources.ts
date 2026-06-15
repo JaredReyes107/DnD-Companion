@@ -4,7 +4,7 @@ export const BEAST_RESOURCES: Record<string, ResourceTemplate> = {
   infectious_fury: {
     id: "infectious_fury",
     label: "Infectious Fury",
-    sourceId: "path_of_the_beast",
+    sourceId: "beast",
     category: "subclass_features",
     scalingType: "PB",
     recharge: "longRest",
@@ -13,7 +13,7 @@ export const BEAST_RESOURCES: Record<string, ResourceTemplate> = {
   call_the_hunt: {
     id: "call_the_hunt",
     label: "Call the Hunt",
-    sourceId: "path_of_the_beast",
+    sourceId: "beast",
     category: "subclass_features",
     scalingType: "PB",
     recharge: "longRest",
