@@ -1,7 +1,7 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "types": ["node"],
+    "types": ["node", "jest"],
     "strict": true,
     "jsx": "react-jsx",
     "paths": {
@@ -14,5 +14,11 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "metro.config.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/__tests__/**"
   ]
 }
