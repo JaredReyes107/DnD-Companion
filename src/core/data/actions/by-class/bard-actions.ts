@@ -18,7 +18,7 @@ const SUBCLASS_ACTIONS: Record<string, ActionInstance> = {
 
   ...CREATION_ACTIONS,
   ...ELOQUENCE_ACTIONS,
-}
+};
 
 export const BARD_ACTIONS: Record<string, ActionInstance> = {
   bardic_inspiration: {

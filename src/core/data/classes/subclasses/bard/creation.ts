@@ -23,7 +23,7 @@ export const CREATION: SubclassTemplate = {
         source: "subclass" as const,
         level: 3,
         description: "",
-        resources:  ["performance_of_creation"],
+        resources: ["performance_of_creation"],
         actions: ["performance_of_creation"],
         tags: [],
         // TODO: Fallback resource (Spell Slot lv. > 1)

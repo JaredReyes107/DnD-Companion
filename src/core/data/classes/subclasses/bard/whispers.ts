@@ -35,8 +35,14 @@ export const WHISPERS: SubclassTemplate = {
         source: "subclass" as const,
         level: 6,
         description: "",
-        resources: ["mantle_of_whispers_capture_shadow", "mantle_of_whispers_disguise"],
-        actions: ["mantle_of_whispers_capture_shadow", "mantle_of_whispers_disguise"],
+        resources: [
+          "mantle_of_whispers_capture_shadow",
+          "mantle_of_whispers_disguise",
+        ],
+        actions: [
+          "mantle_of_whispers_capture_shadow",
+          "mantle_of_whispers_disguise",
+        ],
         tags: ["roleplay", "deception"],
       },
     ],

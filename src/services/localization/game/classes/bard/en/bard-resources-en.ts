@@ -13,7 +13,7 @@ const subclass_resources: GameLocalizationCategory = {
   // Tasha's
   ...creation_resources_en,
   ...eloquence_resources_en,
-}
+};
 
 export const resources_bard_en: GameLocalizationCategory = {
   bardic_inspiration: {

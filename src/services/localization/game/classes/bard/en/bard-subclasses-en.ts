@@ -17,7 +17,7 @@ export const bard_subclasses_en: GameLocalizationCategory = {
   ...glamour_en,
   ...swords_en,
   ...whispers_en,
-  
+
   // Tasha's
   ...creation_en,
   ...eloquence_en,

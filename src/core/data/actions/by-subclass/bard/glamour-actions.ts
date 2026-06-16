@@ -17,7 +17,7 @@ export const GLAMOUR_ACTIONS: Record<string, ActionInstance> = {
     id: "mantle_of_majesty",
     sourceId: "glamour",
     actionSlot: "bonusAction",
-    effects: [  
+    effects: [
       // TODO: Use concentration
       {
         type: "modifyResource",
