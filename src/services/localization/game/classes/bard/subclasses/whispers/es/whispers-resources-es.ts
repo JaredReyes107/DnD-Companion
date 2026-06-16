@@ -1,6 +1,6 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
-export const whispers_actions_es: GameLocalizationCategory = {
+export const whispers_resources_es: GameLocalizationCategory = {
   words_of_terror: {
     name: "Palabras de Terror",
     description: "",

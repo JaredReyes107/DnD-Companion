@@ -1,9 +1,16 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 import { GLAMOUR_RESOURCES } from "./bard/glamour-resources";
+import { WHISPERS_RESOURCES } from "./bard/whispers-resources";
+import { CREATION_RESOURCES } from "./bard/creation-resources";
+import { ELOQUENCE_RESOURCES } from "./bard/eloquence-resources";
 
 const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
   ...GLAMOUR_RESOURCES,
+  ...WHISPERS_RESOURCES,
+
+  ...CREATION_RESOURCES,
+  ...ELOQUENCE_RESOURCES,
 };
 
 export const RESOURCES_BARD: Record<string, ResourceTemplate> = {

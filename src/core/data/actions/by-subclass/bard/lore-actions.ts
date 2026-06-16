@@ -1,6 +1,6 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 
-export const VALOR_ACTIONS: Record<string, ActionInstance> = {
+export const LORE_ACTIONS: Record<string, ActionInstance> = {
   cutting_words: {
     id: "cutting_words",
     sourceId: "lore",

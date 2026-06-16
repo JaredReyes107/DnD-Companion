@@ -1,7 +1,7 @@
 import { GameLocalization } from "@/services/localization/game-localization.types";
 
 import { barbarian_subclasses_es } from "./barbarian/es-barbarian-subclasses";
-import { bard_subclasses_es } from "./bard/es/bard-subclasses-en";
+import { bard_subclasses_es } from "./bard/es/bard-subclasses-es";
 
 export const subclasses_es: GameLocalization = {
   subclasses: {

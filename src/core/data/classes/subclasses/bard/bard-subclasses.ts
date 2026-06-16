@@ -5,6 +5,8 @@ import { VALOR } from "./valor";
 import { GLAMOUR } from "./glamour";
 import { SWORDS } from "./swords";
 import { WHISPERS } from "./whispers";
+import { CREATION } from "./creation";
+import { ELOQUENCE } from "./eloquence";
 
 const PHB_SUBCLASSES: Record<string, SubclassTemplate> = {
   lore: LORE,
@@ -17,7 +19,10 @@ const XANATHAR_SUBCLASSES: Record<string, SubclassTemplate> = {
   whispers: WHISPERS,
 };
 
-const TASHA_SUBCLASSES: Record<string, SubclassTemplate> = {};
+const TASHA_SUBCLASSES: Record<string, SubclassTemplate> = {
+  creation: CREATION,
+  elocuence: ELOQUENCE,
+};
 
 export const BARD_SUBCLASSES: Record<string, SubclassTemplate> = {
   ...PHB_SUBCLASSES,

@@ -5,6 +5,8 @@ import { valor_features_en } from "../subclasses/valor/en/valor-features-en";
 import { glamour_features_en } from "../subclasses/glamour/en/glamour-features-en";
 import { swords_features_en } from "../subclasses/swords/en/swords-features-en";
 import { whispers_features_en } from "../subclasses/whispers/en/whispers-features-en";
+import { creation_features_en } from "../subclasses/creation/en/creation-features-en";
+import { eloquence_features_en } from "../subclasses/eloquence/en/eloquence-features-en";
 
 const bard_subclass_features: GameLocalizationCategory = {
   // PHB
@@ -15,6 +17,10 @@ const bard_subclass_features: GameLocalizationCategory = {
   ...glamour_features_en,
   ...swords_features_en,
   ...whispers_features_en,
+
+  // Tasha's
+  ...creation_features_en,
+  ...eloquence_features_en,
 };
 
 export const features_bard_en: GameLocalizationCategory = {
