@@ -5,23 +5,29 @@ import { parseSubclasses } from "./parsers/parseSubclass";
 import { writeClassTemplate } from "./writers/writeClassTemplate";
 import { writeSubclassTemplate } from "./writers/writeSubclassTemplate";
 import {
-  writeLocalizationStub,
-  writeSubclassLocalizationStub,
+  buildClassLocalizationFiles,
+  buildSubclassLocalizationFiles,
 } from "./writers/writeLocalization";
 
-const INPUT_DIR = path.resolve(__dirname, "../../5etools-data");
-const CLASS_OUT = path.resolve(__dirname, "../../src/core/data/classes");
-const SUBCLASS_OUT = path.resolve(
-  __dirname,
-  "../../src/core/data/classes/subclasses",
-);
-const LOC_OUT = path.resolve(
-  __dirname,
-  "../../src/services/localization/game/classes",
-);
+// ─────────────────────────────────────────────────────────────────────────────
+// Output paths
+//
+// Input:      5etools-data/{class}.json          (gitignored, downloaded manually)
+// Classes:    src/core/data/classes/
+// Subclasses: src/core/data/classes/subclasses/{classId}/
+// Loc:        src/services/localization/game/classes/{classId}/{locale}/
+//             src/services/localization/game/classes/{classId}/subclasses/{subclassId}/{locale}/
+// ─────────────────────────────────────────────────────────────────────────────
+
+const INPUT_DIR    = path.resolve(__dirname, "../../5etools-data");
+const CLASS_OUT    = path.resolve(__dirname, "../../src/core/data/classes");
+const SUBCLASS_OUT = path.resolve(__dirname, "../../src/core/data/classes/subclasses");
+const LOC_OUT      = path.resolve(__dirname, "../../src/services/localization/game/classes");
+
+const LOCALES = ["en", "es"] as const;
 
 const inputFile = process.argv[2];
-const mode = process.argv[3] ?? "all"; // "class" | "subclass" | "all"
+const mode      = process.argv[3] ?? "all"; // "class" | "subclass" | "all"
 
 if (!inputFile) {
   console.error(
@@ -30,48 +36,64 @@ if (!inputFile) {
   process.exit(1);
 }
 
-const raw = fs.readFileSync(path.join(INPUT_DIR, inputFile), "utf-8");
+const raw  = fs.readFileSync(path.join(INPUT_DIR, inputFile), "utf-8");
 const data = JSON.parse(raw);
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Class mode
+// ─────────────────────────────────────────────────────────────────────────────
 
 if (mode === "class" || mode === "all") {
   const classes = parseClass(data);
+
   for (const cls of classes) {
+    // ClassTemplate file
     const classFile = path.join(CLASS_OUT, `${cls.id}.generated.ts`);
+    fs.mkdirSync(path.dirname(classFile), { recursive: true });
     fs.writeFileSync(classFile, writeClassTemplate(cls));
     console.log(`✓ class      → ${classFile}`);
 
-    for (const locale of ["en", "es"] as const) {
-      const locFile = path.join(
-        LOC_OUT,
-        cls.id,
-        `${cls.id}-features_${locale}.generated.ts`,
-      );
-      fs.mkdirSync(path.dirname(locFile), { recursive: true });
-      fs.writeFileSync(locFile, writeLocalizationStub(cls, locale));
+    // Localization — 4 files × 2 locales, under {classId}/{locale}/
+    for (const locale of LOCALES) {
+      const locDir = path.join(LOC_OUT, cls.id, locale);
+      fs.mkdirSync(locDir, { recursive: true });
+
+      const files = buildClassLocalizationFiles(cls, locale);
+      for (const file of Object.values(files)) {
+        const outPath = path.join(locDir, file.fileName);
+        fs.writeFileSync(outPath, file.content);
+      }
     }
     console.log(`✓ loc (en/es) → ${path.join(LOC_OUT, cls.id)}`);
   }
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Subclass mode
+// ─────────────────────────────────────────────────────────────────────────────
+
 if (mode === "subclass" || mode === "all") {
   const subclasses = parseSubclasses(data);
 
   for (const sub of subclasses) {
-    const dir = path.join(SUBCLASS_OUT, sub.classId);
-    fs.mkdirSync(dir, { recursive: true });
+    // SubclassTemplate file
+    const subDir = path.join(SUBCLASS_OUT, sub.classId);
+    fs.mkdirSync(subDir, { recursive: true });
 
-    const subFile = path.join(dir, `${sub.id}.generated.ts`);
+    const subFile = path.join(subDir, `${sub.id}.generated.ts`);
     fs.writeFileSync(subFile, writeSubclassTemplate(sub));
     console.log(`✓ subclass   → ${subFile}`);
 
-    for (const locale of ["en", "es"] as const) {
-      const locDir = path.join(LOC_OUT, sub.classId, "subclasses", sub.id);
+    // Localization — 4 files × 2 locales, under {classId}/subclasses/{subclassId}/{locale}/
+    for (const locale of LOCALES) {
+      const locDir = path.join(LOC_OUT, sub.classId, "subclasses", sub.id, locale);
       fs.mkdirSync(locDir, { recursive: true });
-      const locFile = path.join(
-        locDir,
-        `${sub.id}-features_${locale}.generated.ts`,
-      );
-      fs.writeFileSync(locFile, writeSubclassLocalizationStub(sub, locale));
+
+      const files = buildSubclassLocalizationFiles(sub, locale);
+      for (const file of Object.values(files)) {
+        const outPath = path.join(locDir, file.fileName);
+        fs.writeFileSync(outPath, file.content);
+      }
     }
     console.log(
       `✓ loc (en/es) → ${path.join(LOC_OUT, sub.classId, "subclasses", sub.id)}`,
