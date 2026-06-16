@@ -1,8 +1,8 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
-export const resources_bard_es: GameLocalizationCategory = {
-  bardic_inspiration: {
-    name: "Inspiración bárdica",
+export const glamour_en: GameLocalizationCategory = {
+  glamour: {
+    name: "College of Glamour",
     description: "",
   },
 };

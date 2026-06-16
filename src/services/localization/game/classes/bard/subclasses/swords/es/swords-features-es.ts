@@ -1,20 +1,24 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
-export const valor_features_es: GameLocalizationCategory = {
+export const swords_features_es: GameLocalizationCategory = {
   bonus_proficiencies: {
     name: "Competencias Adicionales",
     description: "",
   },
-  cutting_words: {
-    name: "Palabras Hirientes",
+  fighting_style: {
+    name: "Estilo de Combate",
+    description: "",
+  },
+  blade_flourish: {
+    name: "Floritura con la Espada",
     description: "",
   },
   extra_attack: {
     name: "Ataque Adicional",
     description: "",
   },
-  battle_magic: {
-    name: "Magia de Batalla",
+  masters_flourish: {
+    name: "Floritua del Maestro",
     description: "",
   },
 };

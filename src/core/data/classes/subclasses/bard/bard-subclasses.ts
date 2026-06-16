@@ -2,13 +2,20 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 
 import { LORE } from "./lore";
 import { VALOR } from "./valor";
+import { GLAMOUR } from "./glamour";
+import { SWORDS } from "./swords";
+import { WHISPERS } from "./whispers";
 
 const PHB_SUBCLASSES: Record<string, SubclassTemplate> = {
   lore: LORE,
   valor: VALOR,
 };
 
-const XANATHAR_SUBCLASSES: Record<string, SubclassTemplate> = {};
+const XANATHAR_SUBCLASSES: Record<string, SubclassTemplate> = {
+  glamour: GLAMOUR,
+  swords: SWORDS,
+  whispers: WHISPERS,
+};
 
 const TASHA_SUBCLASSES: Record<string, SubclassTemplate> = {};
 

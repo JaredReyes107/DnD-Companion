@@ -2,11 +2,19 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 
 import { lore_features_en } from "../subclasses/lore/en/lore-features-en";
 import { valor_features_en } from "../subclasses/valor/en/valor-features-en";
+import { glamour_features_en } from "../subclasses/glamour/en/glamour-features-en";
+import { swords_features_en } from "../subclasses/swords/en/swords-features-en";
+import { whispers_features_en } from "../subclasses/whispers/en/whispers-features-en";
 
 const bard_subclass_features: GameLocalizationCategory = {
   // PHB
   ...lore_features_en,
   ...valor_features_en,
+
+  // Xanathar's
+  ...glamour_features_en,
+  ...swords_features_en,
+  ...whispers_features_en,
 };
 
 export const features_bard_en: GameLocalizationCategory = {

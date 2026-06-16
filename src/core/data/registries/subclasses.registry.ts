@@ -1,7 +1,7 @@
 import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 
 import { BARBARIAN_SUBCLASSES } from "@/core/data/classes/subclasses/barbarian/Barbarian-Subclasses";
-import { FIGHTER_SUBCLASSES } from "../classes/subclasses/fighter/Fighter-Subclasses";
+import { BARD_SUBCLASSES } from "../classes/subclasses/bard/bard-subclasses";
 
 /**
  * Base subclass definitions imported from data files.
@@ -9,7 +9,7 @@ import { FIGHTER_SUBCLASSES } from "../classes/subclasses/fighter/Fighter-Subcla
  */
 const BASE_SUBCLASSES: Record<string, SubclassTemplate> = {
   ...BARBARIAN_SUBCLASSES,
-  ...FIGHTER_SUBCLASSES,
+  ...BARD_SUBCLASSES,
 };
 
 const homebrewSubclasses: Record<string, SubclassTemplate> = {};
