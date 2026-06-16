@@ -4,7 +4,7 @@ export const WILD_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
   magic_awareness: {
     id: "magic_awareness",
     label: "Magic Awareness",
-    sourceId: "path_of_wild_magic",
+    sourceId: "wild_magic",
     category: "subclass_features",
     scalingType: "PB",
     recharge: "longRest",
@@ -13,7 +13,7 @@ export const WILD_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
   bolstering_magic: {
     id: "bolstering_magic",
     label: "Bolstering Magic",
-    sourceId: "path_of_wild_magic",
+    sourceId: "wild_magic",
     category: "subclass_features",
     scalingType: "PB",
     recharge: "longRest",

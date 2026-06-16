@@ -3,7 +3,7 @@ import { ActionInstance } from "@/core/entities/actions/action-instance";
 export const BEAST_ACTIONS: Record<string, ActionInstance> = {
   infectious_fury: {
     id: "infectious_fury",
-    sourceId: "path_of_the_beast",
+    sourceId: "beast",
     actionSlot: "free",
     effects: [
       {
@@ -16,7 +16,7 @@ export const BEAST_ACTIONS: Record<string, ActionInstance> = {
   },
   call_the_hunt: {
     id: "call_the_hunt",
-    sourceId: "path_of_the_beast",
+    sourceId: "beast",
     actionSlot: "free",
     effects: [
       {

@@ -14,7 +14,7 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "metro.config.js"
-  ],
+, "src/core/data/classes/subclasses/bard/eloquencets"  ],
   "exclude": [
     "node_modules",
     "**/*.test.ts",

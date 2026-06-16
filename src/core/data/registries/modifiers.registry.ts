@@ -1,9 +1,11 @@
+import { BARD_MODIFIERS } from "../rules/modifiers/by-class/bard-modifiers";
 import { WIZARD_MODIFIERS } from "../rules/modifiers/by-class/wizard-modifiers";
 import { StatModifierTemplate } from "@/core/entities/rules/stats.types";
 
 const homebrewModifiers: Record<string, StatModifierTemplate> = {};
 
 export const CLASS_MODIFIERS = {
+  ...BARD_MODIFIERS,
   ...WIZARD_MODIFIERS,
 };
 
