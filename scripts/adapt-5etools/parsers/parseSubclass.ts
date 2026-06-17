@@ -24,75 +24,72 @@ export type ParsedSubclass = {
 };
 
 /**
- * 5etools subclass feature refs are pipe-delimited strings.
+ * How 5etools actually structures subclass features (confirmed against
+ * real class-rogue.json data):
  *
- * Canonical 6-part format:
- *   "Feature Name|ClassName|SubclassShortName|ClassSource|SubclassSource|Level"
- *   e.g. "Improved Critical|Fighter|Champion|PHB|PHB|3"
+ * `subclass.subclassFeatures` is NOT a list of real features. It's a list
+ * of refs to "gate" entries — one per feature-granting level (3, 9, 13, 17)
+ * — whose `name` is literally the subclass's own name, e.g.:
  *
- * Older files use a 5-part format (one source omitted):
- *   "Feature Name|ClassName|SubclassShortName|Source|Level"
+ *   "Swashbuckler|Rogue||Swashbuckler|XGE|3"
  *
- * Level is always the last segment. SubclassShortName is always index 2.
+ * The gate entry's `entries` array contains flavor text plus
+ * `{ type: "refSubclassFeature", subclassFeature: "..." }` pointers to the
+ * REAL features, e.g. "Fancy Footwork" and "Rakish Audacity". Crucially,
+ * those real features ALREADY exist as their own independent objects in
+ * the top-level `subclassFeature` array — fully formed, with their own
+ * `entries` prose. There's nothing to resolve or graft together.
+ *
+ * So instead of following `subclass.subclassFeatures` refs (which only
+ * yields the 4 gate entries, never the real mechanics), we read
+ * `data.subclassFeature` directly, filtered to this subclass, and drop
+ * only the gate entries — identified by their name matching the subclass's
+ * own name. Every other entry is a real, standalone feature.
+ *
+ * This also naturally handles deeper nesting (e.g. Soulknife's "Psionic
+ * Power" feature internally references "Psi-Bolstered Knack" and
+ * "Psychic Whispers" inside a `type: "options"` block) without needing
+ * to walk the entries tree at all — those are independent top-level
+ * subclassFeature objects too, and "Psionic Power" itself has its own
+ * real prose, so it's correctly kept as a feature (it isn't a pure gate).
  */
-function parseSubclassFeatureRef(ref: string): {
-  name: string;
-  className: string;
-  subclassShortName: string;
-  level: number;
-} {
-  const parts = ref.split("|");
-  return {
-    name: parts[0],
-    className: parts[1],
-    subclassShortName: parts[2],
-    level: parseInt(parts[parts.length - 1], 10), // always last
-  };
-}
-
-/**
- * Builds the lookup key for a subclassFeature entry.
- * Must match the key used when indexing features below.
- */
-function featureKey(f: FiveEToolsSubclassFeature): string {
-  return `${f.name}|${f.className}|${f.subclassShortName}|${f.level}`;
-}
-
-function refKey(ref: ReturnType<typeof parseSubclassFeatureRef>): string {
-  return `${ref.name}|${ref.className}|${ref.subclassShortName}|${ref.level}`;
+function isSubclassGate(
+  feature: FiveEToolsSubclassFeature,
+  subclassName: string,
+): boolean {
+  return feature.name === subclassName;
 }
 
 export function parseSubclasses(data: FiveEToolsFile): ParsedSubclass[] {
   const subclasses = data.subclass ?? [];
   const allFeatures = data.subclassFeature ?? [];
 
-  const featureIndex = new Map<string, FiveEToolsSubclassFeature>();
-  for (const f of allFeatures) {
-    featureIndex.set(featureKey(f), f);
-  }
-
   return subclasses.map((sub): ParsedSubclass => {
     const classId = toClassId(sub.className);
     const subclassId = toSubclassId(sub.shortName);
     const featuresByLevel: Record<number, ParsedFeature[]> = {};
 
-    for (const ref of sub.subclassFeatures) {
-      // Skip UA variant refs — same guard as parseClass uses
-      if (ref.includes("UAClassFeatureVariants")) continue;
+    const ownFeatures = allFeatures.filter(
+      (f) =>
+        f.subclassShortName === sub.shortName && f.className === sub.className,
+    );
 
-      const parsed = parseSubclassFeatureRef(ref);
-      const featureData = featureIndex.get(refKey(parsed));
-      const level = parsed.level;
+    for (const feature of ownFeatures) {
+      // Skip the gate entry — its name matches the subclass's own name.
+      // It carries only flavor text, not mechanics; that text belongs in
+      // the subclass identity localization file, not in featuresByLevel.
+      if (isSubclassGate(feature, sub.name)) continue;
 
+      const level = feature.level;
       if (!featuresByLevel[level]) {
         featuresByLevel[level] = [];
       }
 
       featuresByLevel[level].push({
-        id: toFeatureId(parsed.name, sub.className),
-        label: parsed.name,
+        id: toFeatureId(feature.name, sub.className),
+        label: feature.name,
         level,
-        description: featureData ? extractDescription(featureData.entries) : "",
+        description: extractDescription(feature.entries),
         gainSubclassFeature: false,
         tags: [],
         resources: [],
