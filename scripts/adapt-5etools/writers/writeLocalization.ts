@@ -8,8 +8,8 @@ export type LocalizationCategory = "features" | "actions" | "resources" | "subcl
 // ─────────────────────────────────────────────────────────────────────────────
 // Naming conventions
 //
-// File:    {id}-{category}-{locale}.generated.ts   (dashes, general-to-specific)
-// VarName: {category}_{id}_{locale}                (underscores, all lowercase)
+// File:    {id}-{category}-{locale}.ts   (dashes, general-to-specific)
+// VarName: {id}_{category}_{locale}                (underscores, all lowercase)
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function localizationFileName(
@@ -17,7 +17,7 @@ export function localizationFileName(
   category: LocalizationCategory,
   locale: "en" | "es",
 ): string {
-  return `${id}-${category}-${locale}.generated.ts`;
+  return `${id.replace("-", "_")}-${category}-${locale}.ts`;
 }
 
 export function localizationVarName(
@@ -25,7 +25,7 @@ export function localizationVarName(
   category: LocalizationCategory,
   locale: "en" | "es",
 ): string {
-  return `${category}_${id}_${locale}`;
+  return `${id}_${category}_${locale}`;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

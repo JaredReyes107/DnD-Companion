@@ -48,7 +48,7 @@ if (mode === "class" || mode === "all") {
 
   for (const cls of classes) {
     // ClassTemplate file
-    const classFile = path.join(CLASS_OUT, `${cls.id}.generated.ts`);
+    const classFile = path.join(CLASS_OUT, `${cls.id}.ts`);
     fs.mkdirSync(path.dirname(classFile), { recursive: true });
     fs.writeFileSync(classFile, writeClassTemplate(cls));
     console.log(`✓ class      → ${classFile}`);
@@ -80,7 +80,7 @@ if (mode === "subclass" || mode === "all") {
     const subDir = path.join(SUBCLASS_OUT, sub.classId);
     fs.mkdirSync(subDir, { recursive: true });
 
-    const subFile = path.join(subDir, `${sub.id}.generated.ts`);
+    const subFile = path.join(subDir, `${sub.id}.ts`);
     fs.writeFileSync(subFile, writeSubclassTemplate(sub));
     console.log(`✓ subclass   → ${subFile}`);
 
