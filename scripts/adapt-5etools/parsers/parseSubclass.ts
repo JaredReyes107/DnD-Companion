@@ -1,4 +1,7 @@
-import { FiveEToolsFile, FiveEToolsSubclassFeature } from "../types/5etools.types";
+import {
+  FiveEToolsFile,
+  FiveEToolsSubclassFeature,
+} from "../types/5etools.types";
 import {
   toFeatureId,
   toClassId,
@@ -50,7 +53,10 @@ export type ParsedSubclass = {
  * subclassFeature objects too, and "Psionic Power" itself has its own
  * real prose, so it's correctly kept as a feature (it isn't a pure gate).
  */
-function isSubclassGate(feature: FiveEToolsSubclassFeature, subclassName: string): boolean {
+function isSubclassGate(
+  feature: FiveEToolsSubclassFeature,
+  subclassName: string,
+): boolean {
   return feature.name === subclassName;
 }
 
@@ -64,7 +70,8 @@ export function parseSubclasses(data: FiveEToolsFile): ParsedSubclass[] {
     const featuresByLevel: Record<number, ParsedFeature[]> = {};
 
     const ownFeatures = allFeatures.filter(
-      (f) => f.subclassShortName === sub.shortName && f.className === sub.className,
+      (f) =>
+        f.subclassShortName === sub.shortName && f.className === sub.className,
     );
 
     for (const feature of ownFeatures) {

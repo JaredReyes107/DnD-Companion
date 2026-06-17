@@ -82,10 +82,7 @@ function featuresFileContent(
  *
  * EN: name pre-filled from 5etools data. ES: empty, fill manually.
  */
-function identityFileContent(
-  sub: ParsedSubclass,
-  locale: "en" | "es",
-): string {
+function identityFileContent(sub: ParsedSubclass, locale: "en" | "es"): string {
   const entries = `  ${sub.id}: {
     name: "${locale === "en" ? sub.name : ""}",
     description: "",
@@ -141,9 +138,9 @@ export function writeSubclassLocalizationFiles(
   const allFeatures = Object.values(sub.featuresByLevel).flat();
 
   return {
-    identity:  identityFileContent(sub, locale),
-    features:  featuresFileContent(allFeatures, id, locale),
-    actions:   emptyFileContent(`${id}_actions_${locale}`),
+    identity: identityFileContent(sub, locale),
+    features: featuresFileContent(allFeatures, id, locale),
+    actions: emptyFileContent(`${id}_actions_${locale}`),
     resources: emptyFileContent(`${id}_resources_${locale}`),
   };
 }
@@ -159,9 +156,9 @@ export function subclassFileNames(
 ): Record<keyof SubclassFileSet, string> {
   const id = toFileNameSegment(subclassId);
   return {
-    identity:  `${id}-${locale}.ts`,
-    features:  `${id}-features-${locale}.ts`,
-    actions:   `${id}-actions-${locale}.ts`,
+    identity: `${id}-${locale}.ts`,
+    features: `${id}-features-${locale}.ts`,
+    actions: `${id}-actions-${locale}.ts`,
     resources: `${id}-resources-${locale}.ts`,
   };
 }
