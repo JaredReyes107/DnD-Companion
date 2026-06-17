@@ -17,6 +17,11 @@ export function localizationFileName(
   category: LocalizationCategory,
   locale: "en" | "es",
 ): string {
+  if(category == "subclass")
+  {
+    return `${id}-${locale}.ts`;
+  }
+
   return `${id.replace("-", "_")}-${category}-${locale}.ts`;
 }
 
@@ -25,6 +30,11 @@ export function localizationVarName(
   category: LocalizationCategory,
   locale: "en" | "es",
 ): string {
+  if(category == "subclass")
+  {
+    return `${id}_${locale}`;
+  }
+
   return `${id}_${category}_${locale}`;
 }
 
