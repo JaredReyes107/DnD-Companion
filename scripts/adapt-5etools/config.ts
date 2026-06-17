@@ -42,7 +42,6 @@ export function toCasterProgression(
  * Converts a subclass shortName + className to your snake_case subclass ID.
  * 5etools shortNames are often display strings like "Champion" or "Battle Master".
  */
-
 export function toSubclassId(shortName: string): string {
   return shortName
     .toLowerCase()
@@ -65,4 +64,21 @@ export function sourceLabel(source: string): string {
     UA: "Unearthed Arcana",
   };
   return MAP[source] ?? source;
+}
+
+/**
+ * Converts a snake_case logic ID into kebab-case, for file names only.
+ *
+ * Every ID in this codebase (ClassTemplate.id, FeatureTemplate.id,
+ * SubclassTemplate.id, etc.) is snake_case — that's the established
+ * convention and this function does not change it. It exists solely
+ * because generated FILE names use dashes while generated VARIABLE
+ * names use underscores, and both are derived from the same id.
+ *
+ * Use this only when building a file name. Never use it for an id
+ * that ends up written into a TypeScript object body or a variable
+ * name — those stay snake_case, unchanged.
+ */
+export function toFileNameSegment(id: string): string {
+  return id.replace(/_/g, "-");
 }
