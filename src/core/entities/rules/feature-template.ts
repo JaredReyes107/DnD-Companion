@@ -13,8 +13,6 @@ export type ActivationType =
 
 export type FeatureTemplate = {
   id: string;
-  label: string;
-  description: string;
 
   source: "class" | "subclass" | "race" | "feat" | "background" | "other";
   // if source = 'class'

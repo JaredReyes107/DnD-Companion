@@ -10,18 +10,14 @@ export const VALOR: SubclassTemplate = {
     3: [
       {
         id: "combat_inspiration",
-        label: "Combat Inspiration",
         source: "subclass" as const,
         level: 3,
-        description: "",
         tags: ["subclass"],
       },
       {
         id: "extra_proficiencies",
-        label: "Extra Proficiencies",
         source: "subclass" as const,
         level: 3,
-        description: "",
         tags: ["subclass", "skills", "proficiency"],
         // TODO: Add the handler for proficiency
       },
@@ -30,10 +26,8 @@ export const VALOR: SubclassTemplate = {
     6: [
       {
         id: "extra_attack",
-        label: "Extra Attack",
         source: "subclass" as const,
         level: 6,
-        description: "",
         tags: [],
         // TODO: Replace regular 'Attack' action
       },
@@ -42,10 +36,8 @@ export const VALOR: SubclassTemplate = {
     14: [
       {
         id: "battle_magic",
-        label: "Battle Magic",
         source: "subclass" as const,
         level: 14,
-        description: "",
         actions: ["battle_magic"],
         tags: [],
       },

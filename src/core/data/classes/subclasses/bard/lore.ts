@@ -10,19 +10,15 @@ export const LORE: SubclassTemplate = {
     3: [
       {
         id: "cutting_words",
-        label: "Cutting Words",
         source: "subclass" as const,
         level: 3,
-        description: "",
         actions: ["cutting_words"],
         tags: [],
       },
       {
         id: "extra_proficiencies",
-        label: "Extra Proficiencies",
         source: "subclass" as const,
         level: 3,
-        description: "",
         tags: ["subclass", "skills", "proficiency"],
         // TODO: Add the handler for proficiency
       },
@@ -31,10 +27,8 @@ export const LORE: SubclassTemplate = {
     6: [
       {
         id: "additional_magical_secrets",
-        label: "Additional Magical Secrets",
         source: "subclass" as const,
         level: 6,
-        description: "",
         tags: [],
         // TODO: spell list
       },
@@ -43,10 +37,8 @@ export const LORE: SubclassTemplate = {
     14: [
       {
         id: "peerless_skill",
-        label: "Peerless Skill",
         source: "subclass" as const,
         level: 14,
-        description: "",
         tags: [],
         // TODO: actions
       },
