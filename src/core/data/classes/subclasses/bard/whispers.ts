@@ -3,7 +3,6 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const WHISPERS: SubclassTemplate = {
   id: "whispers",
   classId: "bard",
-  name: "College of Whispers",
   source: "Xanathar's Guide to Everything",
 
   featuresByLevel: {

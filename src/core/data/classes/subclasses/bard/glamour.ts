@@ -3,7 +3,6 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const GLAMOUR: SubclassTemplate = {
   id: "glamour",
   classId: "bard",
-  name: "College of Glamour",
   source: "Xanathar's Guide to Everything",
 
   featuresByLevel: {

@@ -3,7 +3,6 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const VALOR: SubclassTemplate = {
   id: "valor",
   classId: "bard",
-  name: "College of Valor",
   source: "Player's Handbook",
 
   featuresByLevel: {

@@ -3,7 +3,6 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const TOTEM_WARRIOR: SubclassTemplate = {
   id: "totem_warrior",
   classId: "barbarian",
-  name: "Totem Warrior",
   source: "Players Handbook",
 
   featuresByLevel: {

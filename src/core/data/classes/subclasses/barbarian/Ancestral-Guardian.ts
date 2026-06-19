@@ -3,7 +3,6 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const ANCESTRAL_GUARDIAN: SubclassTemplate = {
   id: "ancestral_guardian",
   classId: "barbarian",
-  name: "Ancestral Guardian",
   source: "Xanathar's Guide to Everything",
 
   featuresByLevel: {

@@ -3,7 +3,6 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const ZEALOT: SubclassTemplate = {
   id: "zealot",
   classId: "barbarian",
-  name: "Zealot",
   source: "Xanathar's Guide to Everything",
 
   featuresByLevel: {

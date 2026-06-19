@@ -3,7 +3,6 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const STORM_HERALD: SubclassTemplate = {
   id: "storm_herald",
   classId: "barbarian",
-  name: "Storm Herald",
   source: "Xanathar's Guide to Everything",
 
   featuresByLevel: {

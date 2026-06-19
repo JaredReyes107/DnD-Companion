@@ -3,7 +3,6 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const ELOQUENCE: SubclassTemplate = {
   id: "eloquence",
   classId: "bard",
-  name: "College of Eloquence",
   source: "Tasha's Cauldron of Everything",
 
   featuresByLevel: {

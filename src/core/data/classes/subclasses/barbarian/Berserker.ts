@@ -3,7 +3,6 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const BERSERKER: SubclassTemplate = {
   id: "berserker",
   classId: "barbarian",
-  name: "Berserker",
   source: "Players Handbook",
 
   featuresByLevel: {

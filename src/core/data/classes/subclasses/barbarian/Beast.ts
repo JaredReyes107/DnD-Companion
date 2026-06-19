@@ -3,7 +3,6 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const BEAST: SubclassTemplate = {
   id: "beast",
   classId: "barbarian",
-  name: "Path of the Beast",
   source: "Tasha's Cauldron of Everything",
 
   featuresByLevel: {

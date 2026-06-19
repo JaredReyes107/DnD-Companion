@@ -3,7 +3,6 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const WILD_MAGIC: SubclassTemplate = {
   id: "wild_magic",
   classId: "barbarian",
-  name: "Path of Wild Magic",
   source: "Tasha's Cauldron of Everything",
 
   featuresByLevel: {

@@ -6,7 +6,6 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const ELDRITCH_KNIGHT: SubclassTemplate = {
   id: "eldritch_knight",
   classId: "fighter",
-  name: "Eldritch Knight",
   source: "Players Handbook",
 
   spellcastingTemplate: {

@@ -6,7 +6,6 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const BATTLE_MASTER: SubclassTemplate = {
   id: "battle_master",
   classId: "fighter",
-  name: "B Master",
   source: "Players Handbook",
 
   featuresByLevel: {
