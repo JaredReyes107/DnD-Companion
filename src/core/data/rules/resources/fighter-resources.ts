@@ -9,7 +9,6 @@ const RESOURCES_SUBCLASSES: Record<string, ResourceTemplate> = {
 export const RESOURCES_FIGHTER: Record<string, ResourceTemplate> = {
   second_wind: {
     id: "second_wind",
-    label: "Second Wind",
     sourceId: "fighter",
     category: "class_features",
     scalingType: "fixed:1",
@@ -18,7 +17,6 @@ export const RESOURCES_FIGHTER: Record<string, ResourceTemplate> = {
   },
   action_surge: {
     id: "action_surge",
-    label: "Action Surge",
     sourceId: "fighter",
     category: "class_features",
     scalingType: "action-surge",
@@ -27,7 +25,6 @@ export const RESOURCES_FIGHTER: Record<string, ResourceTemplate> = {
   },
   indomitable: {
     id: "indomitable",
-    label: "Indomitable",
     sourceId: "fighter",
     category: "class_features",
     scalingType: "indomitable",

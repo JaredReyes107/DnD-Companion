@@ -13,7 +13,6 @@ const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
 export const RESOURCES_BARBARIAN: Record<string, ResourceTemplate> = {
   rage: {
     id: "rage",
-    label: "Rage",
     sourceId: "barbarian",
     category: "class_features",
     scalingType: "rage",
