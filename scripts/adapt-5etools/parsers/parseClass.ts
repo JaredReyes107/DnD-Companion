@@ -116,7 +116,9 @@ export function parseClass(data: FiveEToolsFile): ParsedClassResult[] {
       if (!text[featureId]) {
         text[featureId] = {
           name: parsed.name,
-          description: featureData ? extractDescription(featureData.entries) : "",
+          description: featureData
+            ? extractDescription(featureData.entries)
+            : "",
         };
       }
     }

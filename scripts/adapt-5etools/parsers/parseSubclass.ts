@@ -1,11 +1,13 @@
-import { FiveEToolsFile, FiveEToolsSubclassFeature } from "../types/5etools.types";
+import {
+  FiveEToolsFile,
+  FiveEToolsSubclassFeature,
+} from "../types/5etools.types";
 import {
   toFeatureId,
   toClassId,
   toSubclassId,
   toAbilityId,
   toCasterProgression,
-  sourceLabel,
 } from "../config";
 import { extractDescription } from "./parseClassFeature";
 import { ParsedFeature, ParsedFeatureText } from "./parseClass";
@@ -58,7 +60,10 @@ export type ParsedSubclassResult = {
  * identity description (the `__self` text entry); every other entry is
  * a real, standalone feature.
  */
-function isSubclassGate(feature: FiveEToolsSubclassFeature, subclassName: string): boolean {
+function isSubclassGate(
+  feature: FiveEToolsSubclassFeature,
+  subclassName: string,
+): boolean {
   return feature.name === subclassName;
 }
 
@@ -75,7 +80,8 @@ export function parseSubclasses(data: FiveEToolsFile): ParsedSubclassResult[] {
     };
 
     const ownFeatures = allFeatures.filter(
-      (f) => f.subclassShortName === sub.shortName && f.className === sub.className,
+      (f) =>
+        f.subclassShortName === sub.shortName && f.className === sub.className,
     );
 
     for (const feature of ownFeatures) {
