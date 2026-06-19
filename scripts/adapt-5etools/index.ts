@@ -26,21 +26,15 @@ import { toFileNameSegment } from "./config";
 // point a file or directory name is built — never anywhere else.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const INPUT_DIR = path.resolve(__dirname, "../../5etools-data");
-const CLASS_OUT = path.resolve(__dirname, "../../src/core/data/classes");
-const SUBCLASS_OUT = path.resolve(
-  __dirname,
-  "../../src/core/data/classes/subclasses",
-);
-const LOC_OUT = path.resolve(
-  __dirname,
-  "../../src/services/localization/game/classes",
-);
+const INPUT_DIR    = path.resolve(__dirname, "../../5etools-data");
+const CLASS_OUT    = path.resolve(__dirname, "../../src/core/data/classes");
+const SUBCLASS_OUT = path.resolve(__dirname, "../../src/core/data/classes/subclasses");
+const LOC_OUT      = path.resolve(__dirname, "../../src/services/localization/game/classes");
 
 const LOCALES = ["en", "es"] as const;
 
 const inputFile = process.argv[2];
-const mode = process.argv[3] ?? "all"; // "class" | "subclass" | "all"
+const mode      = process.argv[3] ?? "all"; // "class" | "subclass" | "all"
 
 if (!inputFile) {
   console.error(
@@ -49,7 +43,7 @@ if (!inputFile) {
   process.exit(1);
 }
 
-const raw = fs.readFileSync(path.join(INPUT_DIR, inputFile), "utf-8");
+const raw  = fs.readFileSync(path.join(INPUT_DIR, inputFile), "utf-8");
 const data = JSON.parse(raw);
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -57,9 +51,9 @@ const data = JSON.parse(raw);
 // ─────────────────────────────────────────────────────────────────────────────
 
 if (mode === "class" || mode === "all") {
-  const classes = parseClass(data);
+  const results = parseClass(data);
 
-  for (const cls of classes) {
+  for (const { logic: cls, text } of results) {
     const classFileName = `${toFileNameSegment(cls.id)}.ts`;
     const classFile = path.join(CLASS_OUT, classFileName);
     fs.mkdirSync(path.dirname(classFile), { recursive: true });
@@ -67,13 +61,12 @@ if (mode === "class" || mode === "all") {
     console.log(`✓ class      → ${classFile}`);
 
     // One features localization file per locale, under {classId}/{locale}/
-    // (directory segment also uses dashes — same rule)
     const classDirName = toFileNameSegment(cls.id);
     for (const locale of LOCALES) {
       const locDir = path.join(LOC_OUT, classDirName, locale);
       fs.mkdirSync(locDir, { recursive: true });
 
-      const { fileName, content } = writeClassLocalizationFile(cls, locale);
+      const { fileName, content } = writeClassLocalizationFile(cls, text, locale);
       fs.writeFileSync(path.join(locDir, fileName), content);
     }
     console.log(`✓ loc (en/es) → ${path.join(LOC_OUT, classDirName)}`);
@@ -85,13 +78,12 @@ if (mode === "class" || mode === "all") {
 // ─────────────────────────────────────────────────────────────────────────────
 
 if (mode === "subclass" || mode === "all") {
-  const subclasses = parseSubclasses(data);
+  const results = parseSubclasses(data);
 
-  for (const sub of subclasses) {
-    const classDirName = toFileNameSegment(sub.classId);
+  for (const { logic: sub, text } of results) {
+    const classDirName    = toFileNameSegment(sub.classId);
     const subclassDirName = toFileNameSegment(sub.id);
 
-    // SubclassTemplate file
     const subDir = path.join(SUBCLASS_OUT, classDirName);
     fs.mkdirSync(subDir, { recursive: true });
 
@@ -100,21 +92,13 @@ if (mode === "subclass" || mode === "all") {
     fs.writeFileSync(subFile, writeSubclassTemplate(sub));
     console.log(`✓ subclass   → ${subFile}`);
 
-    // Four localization files per locale, under {classId}/subclasses/{subclassId}/{locale}/
     for (const locale of LOCALES) {
-      const locDir = path.join(
-        LOC_OUT,
-        classDirName,
-        "subclasses",
-        subclassDirName,
-        locale,
-      );
+      const locDir = path.join(LOC_OUT, classDirName, "subclasses", subclassDirName, locale);
       fs.mkdirSync(locDir, { recursive: true });
 
-      const files = writeSubclassLocalizationFiles(sub, locale);
+      const files = writeSubclassLocalizationFiles(sub, text, locale);
       const names = subclassFileNames(sub.id, locale);
 
-      // Write all four — even empty ones. Missing files break registry imports.
       for (const key of Object.keys(files) as Array<keyof typeof files>) {
         fs.writeFileSync(path.join(locDir, names[key]), files[key]);
       }

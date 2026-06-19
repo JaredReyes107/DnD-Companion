@@ -1,5 +1,3 @@
-// scripts/adapt-5etools/writers/writeClassTemplate.ts
-
 import { ParsedClass } from "../parsers/parseClass";
 
 export function writeClassTemplate(cls: ParsedClass): string {
@@ -21,10 +19,8 @@ export function writeClassTemplate(cls: ParsedClass): string {
         .map(
           (f) => `      {
         id: "${f.id}",
-        label: "${f.label}",
         source: "${f.gainSubclassFeature ? "class" : "class"}",
         level: ${f.level},
-        description: "${f.description.replace(/"/g, '\\"')}",
         tags: [${f.tags.map((t) => `"${t}"`).join(", ")}],
         // TODO: resources, actions, combatRole
       }`,
@@ -37,9 +33,8 @@ export function writeClassTemplate(cls: ParsedClass): string {
 
   return `import { ClassTemplate } from "@/core/entities/rules/class-template";
 
-export const ${cls.name.toUpperCase()}: ClassTemplate = {
+export const ${cls.id.toUpperCase()}: ClassTemplate = {
   id: "${cls.id}",
-  name: "${cls.name}",
 
   hitDie: ${cls.hitDie},
 
