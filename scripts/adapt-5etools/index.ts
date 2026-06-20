@@ -30,17 +30,29 @@ import { toFileNameSegment } from "./config";
 // point a file or directory name is built — never anywhere else.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const INPUT_DIR       = path.resolve(__dirname, "../../5etools-data");
-const CLASS_OUT       = path.resolve(__dirname, "../../src/core/data/classes");
-const SUBCLASS_OUT    = path.resolve(__dirname, "../../src/core/data/classes/subclasses");
-const SUB_ACTIONS_OUT = path.resolve(__dirname, "../../src/core/data/actions/by-subclass");
-const SUB_RESOURCES_OUT = path.resolve(__dirname, "../../src/core/data/rules/resources");
-const LOC_OUT         = path.resolve(__dirname, "../../src/services/localization/game/classes");
+const INPUT_DIR = path.resolve(__dirname, "../../5etools-data");
+const CLASS_OUT = path.resolve(__dirname, "../../src/core/data/classes");
+const SUBCLASS_OUT = path.resolve(
+  __dirname,
+  "../../src/core/data/classes/subclasses",
+);
+const SUB_ACTIONS_OUT = path.resolve(
+  __dirname,
+  "../../src/core/data/actions/by-subclass",
+);
+const SUB_RESOURCES_OUT = path.resolve(
+  __dirname,
+  "../../src/core/data/rules/resources",
+);
+const LOC_OUT = path.resolve(
+  __dirname,
+  "../../src/services/localization/game/classes",
+);
 
 const LOCALES = ["en", "es"] as const;
 
 const inputFile = process.argv[2];
-const mode      = process.argv[3] ?? "all"; // "class" | "subclass" | "all"
+const mode = process.argv[3] ?? "all"; // "class" | "subclass" | "all"
 
 if (!inputFile) {
   console.error(
@@ -49,7 +61,7 @@ if (!inputFile) {
   process.exit(1);
 }
 
-const raw  = fs.readFileSync(path.join(INPUT_DIR, inputFile), "utf-8");
+const raw = fs.readFileSync(path.join(INPUT_DIR, inputFile), "utf-8");
 const data = JSON.parse(raw);
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -72,7 +84,11 @@ if (mode === "class" || mode === "all") {
       const locDir = path.join(LOC_OUT, classDirName, locale);
       fs.mkdirSync(locDir, { recursive: true });
 
-      const { fileName, content } = writeClassLocalizationFile(cls, text, locale);
+      const { fileName, content } = writeClassLocalizationFile(
+        cls,
+        text,
+        locale,
+      );
       fs.writeFileSync(path.join(locDir, fileName), content);
     }
     console.log(`✓ loc (en/es) → ${path.join(LOC_OUT, classDirName)}`);
@@ -87,7 +103,7 @@ if (mode === "subclass" || mode === "all") {
   const results = parseSubclasses(data);
 
   for (const { logic: sub, text } of results) {
-    const classDirName    = toFileNameSegment(sub.classId);
+    const classDirName = toFileNameSegment(sub.classId);
     const subclassDirName = toFileNameSegment(sub.id);
 
     const subDir = path.join(SUBCLASS_OUT, classDirName);
@@ -108,12 +124,21 @@ if (mode === "subclass" || mode === "all") {
     // Resources — always emitted, even empty, same rationale.
     const resourcesDir = path.join(SUB_RESOURCES_OUT, classDirName);
     fs.mkdirSync(resourcesDir, { recursive: true });
-    const resourcesFile = path.join(resourcesDir, `${subclassDirName}-resources.ts`);
+    const resourcesFile = path.join(
+      resourcesDir,
+      `${subclassDirName}-resources.ts`,
+    );
     fs.writeFileSync(resourcesFile, writeResourcesFile(sub));
     console.log(`✓ resources  → ${resourcesFile}`);
 
     for (const locale of LOCALES) {
-      const locDir = path.join(LOC_OUT, classDirName, "subclasses", subclassDirName, locale);
+      const locDir = path.join(
+        LOC_OUT,
+        classDirName,
+        "subclasses",
+        subclassDirName,
+        locale,
+      );
       fs.mkdirSync(locDir, { recursive: true });
 
       const files = writeSubclassLocalizationFiles(sub, text, locale);
