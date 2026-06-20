@@ -4,6 +4,8 @@ import { parseClass } from "./parsers/parseClass";
 import { parseSubclasses } from "./parsers/parseSubclass";
 import { writeClassTemplate } from "./writers/writeClassTemplate";
 import { writeSubclassTemplate } from "./writers/writeSubclassTemplate";
+import { writeActionsFile } from "./writers/writeActionsFile";
+import { writeResourcesFile } from "./writers/writeResourcesFile";
 import {
   writeClassLocalizationFile,
   writeSubclassLocalizationFiles,
@@ -14,11 +16,13 @@ import { toFileNameSegment } from "./config";
 // ─────────────────────────────────────────────────────────────────────────────
 // Output paths
 //
-// Input:       5etools-data/{class}.json                     (gitignored)
-// Classes:     src/core/data/classes/
-// Subclasses:  src/core/data/classes/subclasses/{classId}/
-// Class loc:   src/services/localization/game/classes/{classId}/{locale}/
-// Subclass loc:src/services/localization/game/classes/{classId}/subclasses/{subclassId}/{locale}/
+// Input:        5etools-data/{class}.json                     (gitignored)
+// Classes:      src/core/data/classes/
+// Subclasses:   src/core/data/classes/subclasses/{classId}/
+// Sub. actions: src/core/data/actions/by-subclass/{classId}/
+// Sub. resources: src/core/data/rules/resources/{classId}/
+// Class loc:    src/services/localization/game/classes/{classId}/{locale}/
+// Subclass loc: src/services/localization/game/classes/{classId}/subclasses/{subclassId}/{locale}/
 //
 // Naming convention: file names use dashes only. Variable names (inside
 // generated .ts files) use underscores only. Both are derived from the
@@ -31,6 +35,14 @@ const CLASS_OUT = path.resolve(__dirname, "../../src/core/data/classes");
 const SUBCLASS_OUT = path.resolve(
   __dirname,
   "../../src/core/data/classes/subclasses",
+);
+const SUB_ACTIONS_OUT = path.resolve(
+  __dirname,
+  "../../src/core/data/actions/by-subclass",
+);
+const SUB_RESOURCES_OUT = path.resolve(
+  __dirname,
+  "../../src/core/data/rules/resources",
 );
 const LOC_OUT = path.resolve(
   __dirname,
@@ -57,9 +69,9 @@ const data = JSON.parse(raw);
 // ─────────────────────────────────────────────────────────────────────────────
 
 if (mode === "class" || mode === "all") {
-  const classes = parseClass(data);
+  const results = parseClass(data);
 
-  for (const cls of classes) {
+  for (const { logic: cls, text } of results) {
     const classFileName = `${toFileNameSegment(cls.id)}.ts`;
     const classFile = path.join(CLASS_OUT, classFileName);
     fs.mkdirSync(path.dirname(classFile), { recursive: true });
@@ -67,13 +79,16 @@ if (mode === "class" || mode === "all") {
     console.log(`✓ class      → ${classFile}`);
 
     // One features localization file per locale, under {classId}/{locale}/
-    // (directory segment also uses dashes — same rule)
     const classDirName = toFileNameSegment(cls.id);
     for (const locale of LOCALES) {
       const locDir = path.join(LOC_OUT, classDirName, locale);
       fs.mkdirSync(locDir, { recursive: true });
 
-      const { fileName, content } = writeClassLocalizationFile(cls, locale);
+      const { fileName, content } = writeClassLocalizationFile(
+        cls,
+        text,
+        locale,
+      );
       fs.writeFileSync(path.join(locDir, fileName), content);
     }
     console.log(`✓ loc (en/es) → ${path.join(LOC_OUT, classDirName)}`);
@@ -85,13 +100,12 @@ if (mode === "class" || mode === "all") {
 // ─────────────────────────────────────────────────────────────────────────────
 
 if (mode === "subclass" || mode === "all") {
-  const subclasses = parseSubclasses(data);
+  const results = parseSubclasses(data);
 
-  for (const sub of subclasses) {
+  for (const { logic: sub, text } of results) {
     const classDirName = toFileNameSegment(sub.classId);
     const subclassDirName = toFileNameSegment(sub.id);
 
-    // SubclassTemplate file
     const subDir = path.join(SUBCLASS_OUT, classDirName);
     fs.mkdirSync(subDir, { recursive: true });
 
@@ -100,7 +114,23 @@ if (mode === "subclass" || mode === "all") {
     fs.writeFileSync(subFile, writeSubclassTemplate(sub));
     console.log(`✓ subclass   → ${subFile}`);
 
-    // Four localization files per locale, under {classId}/subclasses/{subclassId}/{locale}/
+    // Actions — always emitted, even empty, so registry imports never break.
+    const actionsDir = path.join(SUB_ACTIONS_OUT, classDirName);
+    fs.mkdirSync(actionsDir, { recursive: true });
+    const actionsFile = path.join(actionsDir, `${subclassDirName}-actions.ts`);
+    fs.writeFileSync(actionsFile, writeActionsFile(sub));
+    console.log(`✓ actions    → ${actionsFile}`);
+
+    // Resources — always emitted, even empty, same rationale.
+    const resourcesDir = path.join(SUB_RESOURCES_OUT, classDirName);
+    fs.mkdirSync(resourcesDir, { recursive: true });
+    const resourcesFile = path.join(
+      resourcesDir,
+      `${subclassDirName}-resources.ts`,
+    );
+    fs.writeFileSync(resourcesFile, writeResourcesFile(sub));
+    console.log(`✓ resources  → ${resourcesFile}`);
+
     for (const locale of LOCALES) {
       const locDir = path.join(
         LOC_OUT,
@@ -111,10 +141,9 @@ if (mode === "subclass" || mode === "all") {
       );
       fs.mkdirSync(locDir, { recursive: true });
 
-      const files = writeSubclassLocalizationFiles(sub, locale);
+      const files = writeSubclassLocalizationFiles(sub, text, locale);
       const names = subclassFileNames(sub.id, locale);
 
-      // Write all four — even empty ones. Missing files break registry imports.
       for (const key of Object.keys(files) as Array<keyof typeof files>) {
         fs.writeFileSync(path.join(locDir, names[key]), files[key]);
       }

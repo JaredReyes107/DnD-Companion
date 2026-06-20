@@ -20,10 +20,8 @@ export function writeSubclassTemplate(sub: ParsedSubclass): string {
         .map(
           (f) => `      {
         id: "${f.id}",
-        label: "${f.label}",
         source: "subclass" as const,
         level: ${f.level},
-        description: "${f.description.replace(/"/g, '\\"').replace(/\n/g, " ")}",
         tags: [],
         // TODO: resources, actions
       }`,
@@ -39,8 +37,6 @@ export function writeSubclassTemplate(sub: ParsedSubclass): string {
 export const ${constName}: SubclassTemplate = {
   id: "${sub.id}",
   classId: "${sub.classId}",
-  name: "${sub.name}",
-  source: "${sub.source}",
 ${spellcasting}
   featuresByLevel: {
 ${featureLevels}

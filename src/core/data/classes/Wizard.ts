@@ -20,18 +20,14 @@ export const WIZARD: ClassTemplate = {
     1: [
       {
         id: "spellcasting_wizard",
-        label: "Spellcasting",
         source: "class",
         level: 1,
-        description: "You can cast wizard spells.",
         tags: ["spellcasting"],
       },
       {
         id: "arcane_recovery",
-        label: "Arcane Recovery",
         source: "class",
         level: 1,
-        description: "You can recover spell slots during a short rest.",
         tags: ["spellcasting"],
         // TODO: rest-hook
         // TODO: spell-slot recovery
@@ -73,10 +69,8 @@ export const WIZARD: ClassTemplate = {
     18: [
       {
         id: "spell_mastery",
-        label: "Spell Mastery",
         source: "class",
         level: 18,
-        description: "You can cast certain spells at will.",
         tags: ["spellcasting"],
         // TODO: at-will spell system
       },
@@ -87,10 +81,8 @@ export const WIZARD: ClassTemplate = {
     20: [
       {
         id: "signature_spells",
-        label: "Signature Spells",
         source: "class",
         level: 20,
-        description: "You always have certain spells prepared.",
         tags: ["spellcasting"],
         // TODO: preparation override
       },

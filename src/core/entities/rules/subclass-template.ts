@@ -16,7 +16,6 @@ import { FeatureTemplate } from "./feature-template";
 export type SubclassTemplate = {
   id: string; // e.g. "champion", "battle_master", "eldritch_knight"
   classId: string; // e.g. "fighter" — the owning class
-  name: string; // TODO: remove once i18n covers subclasses
 
   source?: string; // e.g. "Players Handbook", "Tasha's Cauldron" — for homebrew distinction
 

@@ -3,7 +3,6 @@ import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 export const WILD_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
   magic_awareness: {
     id: "magic_awareness",
-    label: "Magic Awareness",
     sourceId: "wild_magic",
     category: "subclass_features",
     scalingType: "PB",
@@ -12,7 +11,6 @@ export const WILD_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
   },
   bolstering_magic: {
     id: "bolstering_magic",
-    label: "Bolstering Magic",
     sourceId: "wild_magic",
     category: "subclass_features",
     scalingType: "PB",

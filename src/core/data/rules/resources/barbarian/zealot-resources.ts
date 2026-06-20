@@ -3,7 +3,6 @@ import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 export const ZEALOT_RESOURCES: Record<string, ResourceTemplate> = {
   zealous_presence: {
     id: "zealous_presence",
-    label: "Zealous Presence",
     sourceId: "zealot",
     category: "subclass_features",
     scalingType: "fixed:1",
@@ -12,7 +11,6 @@ export const ZEALOT_RESOURCES: Record<string, ResourceTemplate> = {
   },
   fanatical_focus: {
     id: "fanatical_focus",
-    label: "Fanatical Focus",
     sourceId: "zealot",
     category: "subclass_features",
     scalingType: "fixed:1",

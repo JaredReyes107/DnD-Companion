@@ -3,7 +3,6 @@ import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 export const RESOURCES_PALADIN: Record<string, ResourceTemplate> = {
   divine_sense: {
     id: "divine_sense",
-    label: "Divine Sense",
     sourceId: "paladin",
     category: "class_features",
     scalingType: "CHA:+1",
@@ -12,7 +11,6 @@ export const RESOURCES_PALADIN: Record<string, ResourceTemplate> = {
   },
   lay_on_hands: {
     id: "lay_on_hands",
-    label: "Lay on Hands",
     sourceId: "paladin",
     category: "class_features",
     scalingType: "class-level:*5",
@@ -21,7 +19,6 @@ export const RESOURCES_PALADIN: Record<string, ResourceTemplate> = {
   },
   cleansing_touch: {
     id: "cleansing_touch",
-    label: "Cleansing Touch",
     sourceId: "paladin",
     category: "class_features",
     scalingType: "CHA",
