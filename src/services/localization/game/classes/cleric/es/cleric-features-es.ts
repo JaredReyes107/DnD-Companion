@@ -8,6 +8,9 @@ import { tempest_features_es } from "../subclasses/tempest/es/tempest-features-e
 import { trickery_features_es } from "../subclasses/trickery/es/trickery-features-es";
 import { war_features_es } from "../subclasses/war/es/war-features-es";
 
+import { forge_features_es } from "../subclasses/forge/es/forge-features-es";
+import { grave_features_es } from "../subclasses/grave/es/grave-features-es";
+
 const subclass_features: GameLocalizationCategory = {
   // PHB
   ...knowledge_features_es,
@@ -19,6 +22,8 @@ const subclass_features: GameLocalizationCategory = {
   ...war_features_es,
 
   // Xanathar's
+    ...forge_features_es,
+    ...grave_features_es,
 
   // Tasha's
 };

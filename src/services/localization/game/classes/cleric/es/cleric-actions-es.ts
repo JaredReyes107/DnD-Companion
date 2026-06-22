@@ -6,6 +6,8 @@ import { light_actions_es } from "../subclasses/light/es/light-actions-es";
 import { nature_actions_es } from "../subclasses/nature/es/nature-actions-es";
 import { tempest_actions_es } from "../subclasses/tempest/es/tempest-actions-es";
 import { war_actions_es } from "../subclasses/war/es/war-actions-es";
+import { forge_actions_es } from "../subclasses/forge/es/forge-actions-es";
+import { grave_actions_es } from "../subclasses/grave/es/grave-actions-es";
 
 const subclass_actions: GameLocalizationCategory = {
   // PHB
@@ -18,6 +20,8 @@ const subclass_actions: GameLocalizationCategory = {
   ...war_actions_es,
 
   // Xanathar's
+  ...forge_actions_es,
+  ...grave_actions_es,
 
   // Tasha's
 };

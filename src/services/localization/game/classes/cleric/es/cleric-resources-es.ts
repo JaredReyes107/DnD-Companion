@@ -8,6 +8,9 @@ import { tempest_resources_es } from "../subclasses/tempest/es/tempest-resources
 import { trickery_resources_es } from "../subclasses/trickery/es/trickery-resources-es";
 import { war_resources_es } from "../subclasses/war/es/war-resources-es";
 
+import { forge_resources_es } from "../subclasses/forge/es/forge-resources-es";
+import { grave_resources_es } from "../subclasses/grave/es/grave-resources-es";
+
 const subclass_resources: GameLocalizationCategory = {
   //PHB
   ...knowledge_resources_es,
@@ -19,6 +22,8 @@ const subclass_resources: GameLocalizationCategory = {
   ...war_resources_es,
   
   // Xanathar's
+  ...forge_resources_es,
+  ...grave_resources_es,
 
   // Tasha's
 };

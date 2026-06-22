@@ -1,6 +1,6 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
-export const RESOURCES_TEMPEST: Record<string, ResourceTemplate> = {
+export const TEMPEST_RESOURCES: Record<string, ResourceTemplate> = {
   wrath_of_the_storm: {
     id: "wrath_of_the_storm",
     sourceId: "tempest",

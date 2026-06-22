@@ -8,6 +8,9 @@ import { tempest_en } from "../subclasses/tempest/en/tempest-en";
 import { trickery_en } from "../subclasses/trickery/en/trickery-en";
 import { war_en } from "../subclasses/war/en/war-en";
 
+import { forge_en } from "../subclasses/forge/en/forge-en";
+import { grave_en } from "../subclasses/grave/en/grave-en";
+
 export const cleric_subclasses_en: GameLocalizationCategory = {
   // PHB
   ...knowledge_en,
@@ -19,6 +22,8 @@ export const cleric_subclasses_en: GameLocalizationCategory = {
   ...war_en,
 
   // Xanathar's
+  ...forge_en,
+  ...grave_en,
 
   // Tasha's
 };
