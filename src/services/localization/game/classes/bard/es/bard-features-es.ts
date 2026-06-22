@@ -17,7 +17,7 @@ const bard_subclass_features: GameLocalizationCategory = {
   ...whispers_features_es,
 };
 
-export const features_bard_es: GameLocalizationCategory = {
+export const bard_features_es: GameLocalizationCategory = {
   bardic_inspiration: {
     name: "Inspiración Bárdica",
     description: "",

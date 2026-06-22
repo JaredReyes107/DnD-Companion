@@ -2,7 +2,7 @@ import { GameLocalization } from "../../game-localization.types";
 import { resources_artificer_es } from "./class/es-artificer-resources";
 import { resources_barbarian_es } from "../classes/barbarian/es-barbarian-resources";
 import { resources_bard_es } from "../classes/bard/es/bard-resources-es";
-import { resources_cleric_es } from "./class/es-cleric-resources";
+import { cleric_resources_es } from "./class/es-cleric-resources";
 import { resources_druid_es } from "./class/es-druid-resources";
 import { resources_fighter_es } from "./class/es-fighter-resources";
 import { resources_monk_es } from "./class/es-monk-resources";
@@ -19,7 +19,7 @@ export const resources_es: GameLocalization = {
     ...resources_artificer_es,
     ...resources_bard_es,
     ...resources_barbarian_es,
-    ...resources_cleric_es,
+    ...cleric_resources_es,
     ...resources_druid_es,
     ...resources_fighter_es,
     ...resources_monk_es,

@@ -1,5 +1,21 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 
+import { KNOWLEDGE_ACTIONS } from "../by-subclass/cleric/knowledge-actions";
+import { LIFE_ACTIONS } from "../by-subclass/cleric/life-actions";
+import { LIGHT_ACTIONS } from "../by-subclass/cleric/light-actions";
+import { NATURE_ACTIONS } from "../by-subclass/cleric/nature-actions";
+import { TEMPEST_ACTIONS } from "../by-subclass/cleric/tempest-actions";
+import { TRICKERY_ACTIONS } from "../by-subclass/cleric/trickery-actions";
+
+export const subclass_actions: Record<string, ActionInstance> = {
+  ...KNOWLEDGE_ACTIONS,
+  ...LIFE_ACTIONS,
+  ...LIGHT_ACTIONS,
+  ...NATURE_ACTIONS,
+  ...TEMPEST_ACTIONS,
+  ...TRICKERY_ACTIONS,
+}
+
 export const CLERIC_ACTIONS: Record<string, ActionInstance> = {
   channel_divinity_turn_undead: {
     id: "channel_divinity_turn_undead",
@@ -14,6 +30,20 @@ export const CLERIC_ACTIONS: Record<string, ActionInstance> = {
       },
     ],
   },
+  channel_divinity_harness_divine_power: {
+    id: "channel_divinity_harness_divine_power",
+    sourceId: "cleric",
+    //origin: "Players Handbook", //For distinguishing official rules and homebrew
+    actionSlot: "bonusAction",
+    effects: [
+      {
+        type: "modifyResource",
+        resourceId: "channel_divinity",
+        amount: -1,
+      },
+      // Añadir panel de elección para recuperar conjuros.
+    ],
+  },
   divine_intervention: {
     id: "divine_intervention",
     sourceId: "cleric",
@@ -21,4 +51,6 @@ export const CLERIC_ACTIONS: Record<string, ActionInstance> = {
     actionSlot: "action",
     effects: [],
   },
+
+  ...subclass_actions,
 };

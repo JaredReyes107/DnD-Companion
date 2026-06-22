@@ -1,9 +1,13 @@
 import { GameLocalization } from "@/services/localization/game-localization.types";
 
 import { barbarian_features_en } from "@/services/localization/game/classes/barbarian/en-barbarian-features";
+import { bard_features_en } from "../classes/bard/en/bard-features-en";
+import { cleric_features_en } from "../classes/cleric/en/cleric-features-en";
 
 export const features_en: GameLocalization = {
   features: {
     ...barbarian_features_en,
+    ...bard_features_en,
+    ...cleric_features_en,
   },
 };

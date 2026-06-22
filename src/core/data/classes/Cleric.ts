@@ -44,15 +44,33 @@ export const CLERIC: ClassTemplate = {
         id: "channel_divinity_turn_undead",
         source: "class",
         level: 2,
+        actions: ["channel_divinity_turn_undead"],
         tags: ["action", "control"],
-        // TODO: requires action definition
-        // TODO: consumes Channel Divinity resource
+      },
+      {
+        id: "channel_divinity_harness_divine_power",
+        source: "class",
+        level: 2,
+        actions: ["channel_divinity_harness_divine_power"],
+        tags: ["spell-slots"],
+      },
+      {
+        id: "divine_domain_feature",
+        source: "class",
+        level: 2,
+        tags: ["subclass"],
       },
     ],
 
     3: [],
 
     4: [
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 4,
+        tags: ["choice", "ASI"],
+      },
       {
         id: "cantrip_versatility",
         source: "class",
@@ -64,12 +82,18 @@ export const CLERIC: ClassTemplate = {
 
     5: [
       {
-        id: "destroy_undead_1_2",
+        id: "destroy_undead",
         source: "class",
         level: 5,
         tags: ["control"],
         // TODO: hook into Turn Undead resolution
         // TODO: scaling by cleric level ignored for now
+      },
+      {
+        id: "divine_domain_feature",
+        source: "class",
+        level: 6,
+        tags: ["subclass"],
       },
     ],
 
@@ -77,15 +101,7 @@ export const CLERIC: ClassTemplate = {
 
     7: [],
 
-    8: [
-      {
-        id: "destroy_undead_2",
-        source: "class",
-        level: 8,
-        tags: ["control"],
-        // TODO: part of Destroy Undead scaling – ignored mechanically for now
-      },
-    ],
+    8: [],
 
     9: [],
 
@@ -106,50 +122,26 @@ export const CLERIC: ClassTemplate = {
 
     13: [],
 
-    14: [
-      {
-        id: "destroy_undead_3",
-        source: "class",
-        level: 14,
-        tags: ["control"],
-        // TODO: part of Destroy Undead scaling
-      },
-    ],
+    14: [],
 
     15: [],
 
-    16: [],
-
-    17: [
+    16: [
       {
-        id: "destroy_undead_4",
+        id: "ability_score_improvement",
         source: "class",
-        level: 17,
-        tags: ["control"],
-        // TODO: part of Destroy Undead scaling
+        level: 16,
+        tags: [],
+        // TODO: resources, actions, combatRole
       },
     ],
 
-    18: [
-      {
-        id: "channel_divinity_uses_3",
-        source: "class",
-        level: 18,
-        tags: ["resource"],
-        // TODO: modify Channel Divinity resource max
-      },
-    ],
+    17: [],
+
+    18: [],
 
     19: [],
 
-    20: [
-      {
-        id: "improved_divine_intervention",
-        source: "class",
-        level: 20,
-        tags: ["special"],
-        // TODO: override Divine Intervention resolution
-      },
-    ],
+    20: [],
   },
 };
