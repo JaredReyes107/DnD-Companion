@@ -8,6 +8,8 @@ import { tempest_es } from "../subclasses/tempest/es/tempest-es";
 import { trickery_es } from "../subclasses/trickery/es/trickery-es";
 import { war_es } from "../subclasses/war/es/war-es";
 
+import { death_es } from "../subclasses/death/es/death-es";
+
 import { forge_es } from "../subclasses/forge/es/forge-es";
 import { grave_es } from "../subclasses/grave/es/grave-es";
 
@@ -24,6 +26,9 @@ export const cleric_subclasses_es: GameLocalizationCategory = {
   ...tempest_es,
   ...trickery_es,
   ...war_es,
+
+  // DMG
+  ...death_es,
 
   // Xanathar's
   ...forge_es,

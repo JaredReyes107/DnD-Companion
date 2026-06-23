@@ -7,6 +7,9 @@ import { nature_features_en } from "../subclasses/nature/en/nature-features-en";
 import { tempest_features_en } from "../subclasses/tempest/en/tempest-features-en";
 import { trickery_features_en } from "../subclasses/trickery/en/trickery-features-en";
 import { war_features_en } from "../subclasses/war/en/war-features-en";
+
+import { death_features_en } from "../subclasses/death/en/death-features-en";
+
 import { forge_features_en } from "../subclasses/forge/en/forge-features-en";
 import { grave_features_en } from "../subclasses/grave/en/grave-features-en";
 
@@ -23,6 +26,9 @@ const subclass_features: GameLocalizationCategory = {
   ...tempest_features_en,
   ...trickery_features_en,
   ...war_features_en,
+
+  // DMG
+  ...death_features_en,
 
   // Xanathar's
   ...forge_features_en,

@@ -1,0 +1,9 @@
+import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
+
+export const death_en: GameLocalizationCategory = {
+  death: {
+    name: "Death Domain",
+    description:
+      "The Death domain is concerned with the forces that cause death, as well as the negative energy that gives rise to undead creatures. Deities such as Chemosh, Myrkul, and Wee Jas are patrons of necromancers, death knights, liches, mummy lords, and vampires. Gods of the Death domain also embody murder (Anubis, Bhaal, and Pyremius), pain (Iuz or Loviatar), disease or poison (Incabulos, Talona, or Morgion), and the underworld (Hades and Hel). At each indicated cleric level, add the listed spells to your spells prepared. They do not count towards your limit.",
+  },
+};

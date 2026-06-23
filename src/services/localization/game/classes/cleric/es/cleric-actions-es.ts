@@ -7,6 +7,8 @@ import { nature_actions_es } from "../subclasses/nature/es/nature-actions-es";
 import { tempest_actions_es } from "../subclasses/tempest/es/tempest-actions-es";
 import { war_actions_es } from "../subclasses/war/es/war-actions-es";
 
+import { death_actions_es } from "../subclasses/death/es/death-actions-es";
+
 import { forge_actions_es } from "../subclasses/forge/es/forge-actions-es";
 import { grave_actions_es } from "../subclasses/grave/es/grave-actions-es";
 
@@ -24,14 +26,17 @@ const subclass_actions: GameLocalizationCategory = {
   ...tempest_actions_es,
   ...war_actions_es,
 
+  // DMG
+  ...death_actions_es,
+
   // Xanathar's
   ...forge_actions_es,
   ...grave_actions_es,
 
   // Tasha's
-    ...order_actions_en
-    ...peace_actions_es,
-    ...twilight_actions_es,
+  ...order_actions_en,
+  ...peace_actions_es,
+  ...twilight_actions_es,
 };
 
 export const cleric_actions_es: GameLocalizationCategory = {

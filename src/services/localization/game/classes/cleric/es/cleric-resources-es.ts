@@ -8,6 +8,8 @@ import { tempest_resources_es } from "../subclasses/tempest/es/tempest-resources
 import { trickery_resources_es } from "../subclasses/trickery/es/trickery-resources-es";
 import { war_resources_es } from "../subclasses/war/es/war-resources-es";
 
+import { death_resources_en } from "../subclasses/death/en/death-resources-en";
+
 import { forge_resources_es } from "../subclasses/forge/es/forge-resources-es";
 import { grave_resources_es } from "../subclasses/grave/es/grave-resources-es";
 
@@ -24,6 +26,9 @@ const subclass_resources: GameLocalizationCategory = {
   ...tempest_resources_es,
   ...trickery_resources_es,
   ...war_resources_es,
+
+  // DMG
+  ...death_resources_en,
 
   // Xanathar's
   ...forge_resources_es,

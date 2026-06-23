@@ -8,6 +8,8 @@ import { TEMPEST } from "./tempest";
 import { TRICKERY } from "./trickery";
 import { WAR } from "./war";
 
+import { DEATH } from "./death";
+
 import { FORGE } from "./forge";
 import { GRAVE } from "./grave";
 
@@ -38,6 +40,7 @@ const TASHA_SUBCLASSES: Record<string, SubclassTemplate> = {
 
 export const CLERIC_SUBCLASSES: Record<string, SubclassTemplate> = {
   ...PHB_SUBCLASSES,
+  death: DEATH, // DMG
   ...XANATHAR_SUBCLASSES,
   ...TASHA_SUBCLASSES,
 };
