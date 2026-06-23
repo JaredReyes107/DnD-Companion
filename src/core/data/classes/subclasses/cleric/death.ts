@@ -18,7 +18,6 @@ export const DEATH: SubclassTemplate = {
         source: "subclass" as const,
         level: 1,
         tags: [],
-        // TODO: resources, actions
       },
     ],
 
@@ -27,8 +26,8 @@ export const DEATH: SubclassTemplate = {
         id: "channel_divinity_touch_of_death",
         source: "subclass" as const,
         level: 2,
+        actions: ["channel_divinity_touch_of_death"],
         tags: [],
-        // TODO: resources, actions
       },
     ],
 
@@ -38,24 +37,15 @@ export const DEATH: SubclassTemplate = {
         source: "subclass" as const,
         level: 6,
         tags: [],
-        // TODO: resources, actions
       },
     ],
 
     8: [
       {
-        id: "blessed_strikes",
-        source: "subclass" as const,
-        level: 8,
-        tags: [],
-        // TODO: resources, actions
-      },
-      {
         id: "divine_strike",
         source: "subclass" as const,
         level: 8,
         tags: [],
-        // TODO: resources, actions
       },
     ],
 
@@ -65,7 +55,6 @@ export const DEATH: SubclassTemplate = {
         source: "subclass" as const,
         level: 17,
         tags: [],
-        // TODO: resources, actions
       },
     ],
   },
