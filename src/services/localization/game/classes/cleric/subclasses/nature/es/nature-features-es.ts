@@ -8,7 +8,8 @@ export const nature_features_es: GameLocalizationCategory = {
   },
   acolyte_of_nature: {
     name: "Acólito de la Naturaleza",
-    description: "Aprendes un truco de druida de tu elección. También ganas competencia en una de las siguientes habilidades, a tu elección: Trato con Animales, Naturaleza, o Supervivencia.",
+    description:
+      "Aprendes un truco de druida de tu elección. También ganas competencia en una de las siguientes habilidades, a tu elección: Trato con Animales, Naturaleza, o Supervivencia.",
   },
   bonus_proficiencies: {
     name: "Competencias Adicionales",
@@ -20,14 +21,17 @@ export const nature_features_es: GameLocalizationCategory = {
   },
   dampen_elements: {
     name: "Amortiguar Elementos",
-    description: "Cuando tú o una criatura en un rango de 30 pies de ti reciba daño de ácido, frío, fuego, relámpago o trueno, puedes usar tu reacción para darle a esa criatura resistencia contra ese tipo de daño.",
+    description:
+      "Cuando tú o una criatura en un rango de 30 pies de ti reciba daño de ácido, frío, fuego, relámpago o trueno, puedes usar tu reacción para darle a esa criatura resistencia contra ese tipo de daño.",
   },
   divine_strike: {
     name: "Golpe Divino",
-    description: "Ganas la habilidad de infundir de energía divina tus golpes con arma. Una vez por turno, cuando golpees a una criatura con un ataque con arma, puedes hacer que el ataque cause daño adicional de frío, fuego o eléctrico (a tu elección) al objetivo.",
+    description:
+      "Ganas la habilidad de infundir de energía divina tus golpes con arma. Una vez por turno, cuando golpees a una criatura con un ataque con arma, puedes hacer que el ataque cause daño adicional de frío, fuego o eléctrico (a tu elección) al objetivo.",
   },
   master_of_nature: {
     name: "Maestro de la Naturaleza",
-    description: "Ganas la habilidad de comandar plantas y animales. Mientras las criaturas estén encantadas por tu rasgo Hechizar Animales y Plantas, puedes usar una acción adicional en tu turno para ordenar verbalmente a cada una de esas criaturas qué hacer en el turno siguiente.",
+    description:
+      "Ganas la habilidad de comandar plantas y animales. Mientras las criaturas estén encantadas por tu rasgo Hechizar Animales y Plantas, puedes usar una acción adicional en tu turno para ordenar verbalmente a cada una de esas criaturas qué hacer en el turno siguiente.",
   },
 };

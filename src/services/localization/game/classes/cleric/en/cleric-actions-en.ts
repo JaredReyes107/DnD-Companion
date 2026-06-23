@@ -23,7 +23,7 @@ const subclass_actions: GameLocalizationCategory = {
   ...tempest_actions_en,
   ...tempest_actions_en,
   ...war_actions_en,
-  
+
   // Xanathar's
   ...forge_actions_en,
   ...grave_actions_en,

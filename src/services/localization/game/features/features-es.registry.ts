@@ -8,6 +8,6 @@ export const features_es: GameLocalization = {
   features: {
     ...barbarian_features_es,
     ...bard_features_es,
-    ...cleric_features_es
+    ...cleric_features_es,
   },
 };

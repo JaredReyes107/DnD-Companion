@@ -26,11 +26,11 @@ export const cleric_subclasses_es: GameLocalizationCategory = {
   ...war_es,
 
   // Xanathar's
-    ...forge_es,
-    ...grave_es,
+  ...forge_es,
+  ...grave_es,
 
   // Tasha's
-    ...order_es,
-    ...peace_es,
-    ...twilight_es,
+  ...order_es,
+  ...peace_es,
+  ...twilight_es,
 };

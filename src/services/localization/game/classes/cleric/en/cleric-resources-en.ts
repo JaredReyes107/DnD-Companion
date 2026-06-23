@@ -24,7 +24,7 @@ const subclass_resources: GameLocalizationCategory = {
   ...tempest_resources_en,
   ...trickery_resources_en,
   ...war_resources_en,
-  
+
   // Xanathar's
   ...forge_resources_en,
   ...grave_resources_en,

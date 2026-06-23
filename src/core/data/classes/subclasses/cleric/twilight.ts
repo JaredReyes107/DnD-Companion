@@ -66,7 +66,7 @@ export const TWILIGHT: SubclassTemplate = {
         source: "subclass" as const,
         level: 8,
         tags: ["damage"],
-        // TODO: Extra Damage 
+        // TODO: Extra Damage
       },
     ],
 

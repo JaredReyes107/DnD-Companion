@@ -24,15 +24,15 @@ const subclass_resources: GameLocalizationCategory = {
   ...tempest_resources_es,
   ...trickery_resources_es,
   ...war_resources_es,
-  
+
   // Xanathar's
   ...forge_resources_es,
   ...grave_resources_es,
 
   // Tasha's
-    ...order_resources_es,
-    ...peace_resources_es,
-    ...twilight_resources_es,
+  ...order_resources_es,
+  ...peace_resources_es,
+  ...twilight_resources_es,
 };
 
 export const cleric_resources_es: GameLocalizationCategory = {

@@ -1,9 +1,10 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const trickery_actions_es: GameLocalizationCategory = {
-blessing_of_the_trickster: {
+  blessing_of_the_trickster: {
     name: "Bendición del Embaucador",
-    description: "Puedes tocar a una criatura voluntaria que no seas tú, que tendrá ventaja en sus pruebas de Destreza (Sigilo). Esta bendición dura 1 hora o hasta que emplees este rasgo de nuevo.",
+    description:
+      "Puedes tocar a una criatura voluntaria que no seas tú, que tendrá ventaja en sus pruebas de Destreza (Sigilo). Esta bendición dura 1 hora o hasta que emplees este rasgo de nuevo.",
   },
   channel_divinity_invoke_duplicity: {
     name: "Invocar Duplicidad",
@@ -17,6 +18,7 @@ blessing_of_the_trickster: {
   },
   channel_divinity_cloak_of_shadows: {
     name: "Canalizar Divinidad: Capa de Sombras",
-    description: "Puedes usar tu Canalizar Divinidad para desaparecer. Como una acción, te vuelves invisible hasta el final de tu siguiente turno. Te vuelves visible si atacas o lanzas un conjuro",
+    description:
+      "Puedes usar tu Canalizar Divinidad para desaparecer. Como una acción, te vuelves invisible hasta el final de tu siguiente turno. Te vuelves visible si atacas o lanzas un conjuro",
   },
 };

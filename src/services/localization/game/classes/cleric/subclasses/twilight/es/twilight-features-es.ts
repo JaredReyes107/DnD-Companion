@@ -17,7 +17,8 @@ export const twilight_features_es: GameLocalizationCategory = {
   },
   vigilant_blessing: {
     name: "Bendición Vigilante",
-    description: "La noche te ha enseñado a estar alerta. Como acción, proporcionas ventaja a una criatura que toques (incluido tú) en la siguiente tirada de iniciativa que haga. Este beneficio finaliza inmediatamente después de la tirada o si vuelves a usar este rasgo.",
+    description:
+      "La noche te ha enseñado a estar alerta. Como acción, proporcionas ventaja a una criatura que toques (incluido tú) en la siguiente tirada de iniciativa que haga. Este beneficio finaliza inmediatamente después de la tirada o si vuelves a usar este rasgo.",
   },
   channel_divinity_twilight_sanctuary: {
     name: "Canalizar Divinidad: Santuario del Crepúsculo",
@@ -26,14 +27,17 @@ export const twilight_features_es: GameLocalizationCategory = {
   },
   steps_of_night: {
     name: "Pasos Nocturnos",
-    description: "Puedes aprovechar el poder místico de la noche para elevarte por el aire. Como acción adicional si hay luz tenue u oscuridad, puedes concederte mágicamente una velocidad volando igual a tu velocidad caminando durante 1 minuto. Puedes usar esta acción adicional una cantidad de veces igual a tu bonificador por competencia y recuperas todos los usos tras finalizar un descanso largo.",
+    description:
+      "Puedes aprovechar el poder místico de la noche para elevarte por el aire. Como acción adicional si hay luz tenue u oscuridad, puedes concederte mágicamente una velocidad volando igual a tu velocidad caminando durante 1 minuto. Puedes usar esta acción adicional una cantidad de veces igual a tu bonificador por competencia y recuperas todos los usos tras finalizar un descanso largo.",
   },
   divine_strike: {
     name: "Golpe Divino",
-    description: "Obtienes la capacidad de insuflar energía divina a los golpes de tu arma. Una vez en cada uno de tus turnos, cuando impactes a una criatura con un ataque con arma, podrás hacer que el ataque inflija 1d8 de daño radiante adicional. Cuando alcanzas el nivel 14, el daño adicional aumenta a 2d8.",
+    description:
+      "Obtienes la capacidad de insuflar energía divina a los golpes de tu arma. Una vez en cada uno de tus turnos, cuando impactes a una criatura con un ataque con arma, podrás hacer que el ataque inflija 1d8 de daño radiante adicional. Cuando alcanzas el nivel 14, el daño adicional aumenta a 2d8.",
   },
   twilight_shroud: {
     name: "Velo Crepuscular",
-    description: "El crepúsculo que invocas proporciona un manto protector: tú y tus aliados tienen cobertura media mientras estén en la esfera creada por tu Santuario Crepuscular.",
+    description:
+      "El crepúsculo que invocas proporciona un manto protector: tú y tus aliados tienen cobertura media mientras estén en la esfera creada por tu Santuario Crepuscular.",
   },
 };

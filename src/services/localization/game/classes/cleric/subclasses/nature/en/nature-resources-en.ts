@@ -1,5 +1,3 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
-export const nature_resources_en: GameLocalizationCategory = {
-
-};
+export const nature_resources_en: GameLocalizationCategory = {};

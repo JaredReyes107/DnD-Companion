@@ -8,7 +8,8 @@ export const order_features_es: GameLocalizationCategory = {
   },
   bonus_proficiencies: {
     name: "Competencias Adicionales",
-    description: "Obtienes competencia con armaduras pesadas. También adquieres competencia en la habilidad Intimidación o Persuasión (a tu elección).",
+    description:
+      "Obtienes competencia con armaduras pesadas. También adquieres competencia en la habilidad Intimidación o Persuasión (a tu elección).",
   },
   voice_of_authority: {
     name: "Voz de la Autoridad",
@@ -28,10 +29,12 @@ export const order_features_es: GameLocalizationCategory = {
   },
   divine_strike: {
     name: "Golpe Divino",
-    description: "Obtienes la capacidad de insuflar energía divina a los golpes de tu arma. Una vez en cada uno de tus turnos, cuando impactes a una criatura con un ataque con arma, podrás hacer que el ataque inflija 1d8 de daño psíquico adicional al objetivo. Cuando alcanzas el nivel 14, el daño adicional aumenta a 2d8.",
+    description:
+      "Obtienes la capacidad de insuflar energía divina a los golpes de tu arma. Una vez en cada uno de tus turnos, cuando impactes a una criatura con un ataque con arma, podrás hacer que el ataque inflija 1d8 de daño psíquico adicional al objetivo. Cuando alcanzas el nivel 14, el daño adicional aumenta a 2d8.",
   },
   orders_wrath: {
     name: "Ira del Orden",
-    description: "Los enemigos a los que decides destruir sucumben ante tus esfuerzos y los de tus aliados. Si causas daño con tu Golpe Divino a una criatura en tu turno, podrás maldecir a dicha criatura hasta el principio de tu siguiente turno. La próxima vez que uno de tus aliados impacte a la criatura maldita con un ataque, el objetivo también recibirá 2d8 de daño psíquico y se acabará la maldición. Puedes maldecir a una criatura de esta forma solo una vez por turno.",
+    description:
+      "Los enemigos a los que decides destruir sucumben ante tus esfuerzos y los de tus aliados. Si causas daño con tu Golpe Divino a una criatura en tu turno, podrás maldecir a dicha criatura hasta el principio de tu siguiente turno. La próxima vez que uno de tus aliados impacte a la criatura maldita con un ataque, el objetivo también recibirá 2d8 de daño psíquico y se acabará la maldición. Puedes maldecir a una criatura de esta forma solo una vez por turno.",
   },
 };

@@ -8,7 +8,8 @@ export const trickery_features_es: GameLocalizationCategory = {
   },
   blessing_of_the_trickster: {
     name: "Bendición del Embaucador",
-    description: "Puedes usar tu acción para tocar a una criatura voluntaria que no seas tú, que tendrá ventaja en sus pruebas de Destreza (Sigilo). Esta bendición dura 1 hora o hasta que emplees este rasgo de nuevo.",
+    description:
+      "Puedes usar tu acción para tocar a una criatura voluntaria que no seas tú, que tendrá ventaja en sus pruebas de Destreza (Sigilo). Esta bendición dura 1 hora o hasta que emplees este rasgo de nuevo.",
   },
   channel_divinity_invoke_duplicity: {
     name: "Canalizar Divinidad: Invocar Duplicidad",
@@ -17,14 +18,17 @@ export const trickery_features_es: GameLocalizationCategory = {
   },
   channel_divinity_cloak_of_shadows: {
     name: "Canalizar Divinidad: Capa de Sombras",
-    description: "Puedes usar tu Canalizar Divinidad para desaparecer. Como una acción, te vuelves invisible hasta el final de tu siguiente turno. Te vuelves visible si atacas o lanzas un conjuro",
+    description:
+      "Puedes usar tu Canalizar Divinidad para desaparecer. Como una acción, te vuelves invisible hasta el final de tu siguiente turno. Te vuelves visible si atacas o lanzas un conjuro",
   },
   divine_strike: {
     name: "Golpe Divino",
-    description: "Ganas la habilidad de infundir de energía divina tus golpes con arma. Una vez por turno, cuando golpees a una criatura con un ataque con arma, puedes hacer que el ataque cause daño adicional de veneno al objetivo.",
+    description:
+      "Ganas la habilidad de infundir de energía divina tus golpes con arma. Una vez por turno, cuando golpees a una criatura con un ataque con arma, puedes hacer que el ataque cause daño adicional de veneno al objetivo.",
   },
   improved_duplicity: {
     name: "Duplicidad Mejorada",
-    description: "Puedes crear hasta 4 duplicados de ti mismo, en lugar de uno, cuando usas Invocar Duplicidad. Como una acción adicional en tu turno, puedes mover cualquier número de ellas hasta 30 pies, con un rango máximo de 120 pies de ti.",
+    description:
+      "Puedes crear hasta 4 duplicados de ti mismo, en lugar de uno, cuando usas Invocar Duplicidad. Como una acción adicional en tu turno, puedes mover cualquier número de ellas hasta 30 pies, con un rango máximo de 120 pies de ti.",
   },
 };

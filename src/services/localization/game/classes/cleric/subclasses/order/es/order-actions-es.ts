@@ -1,7 +1,7 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const order_actions_es: GameLocalizationCategory = {
-voice_of_authority: {
+  voice_of_authority: {
     name: "Voz de la Autoridad",
     description: `Si lanzas un conjuro con un espacio de conjuro de nivel 1 o superior y el objetivo de ese conjuro es un aliado, este podrá usar su reacción inmediatamente después del conjuro para realizar un ataque con arma contra una criatura de tu elección que puedas ver.
       Si el conjuro tiene como objetivo a más de un aliado, tú eliges quién quieres que haga el ataque.`,

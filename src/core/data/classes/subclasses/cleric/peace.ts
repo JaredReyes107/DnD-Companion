@@ -18,7 +18,13 @@ export const PEACE: SubclassTemplate = {
         level: 1,
         resources: ["emboldening_bond"],
         actions: ["emboldening_bond"],
-        tags: ["support", "throw-bonus", "attack-throw", "skill-check", "saving-throw"],
+        tags: [
+          "support",
+          "throw-bonus",
+          "attack-throw",
+          "skill-check",
+          "saving-throw",
+        ],
       },
       {
         id: "implement_of_peace",

@@ -33,7 +33,7 @@ export const subclass_actions: Record<string, ActionInstance> = {
   ...ORDER_ACTIONS,
   ...PEACE_ACTIONS,
   ...TWILIGHT_ACTIONS,
-}
+};
 
 export const CLERIC_ACTIONS: Record<string, ActionInstance> = {
   channel_divinity_turn_undead: {

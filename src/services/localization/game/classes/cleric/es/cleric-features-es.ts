@@ -26,13 +26,13 @@ const subclass_features: GameLocalizationCategory = {
   ...war_features_es,
 
   // Xanathar's
-    ...forge_features_es,
-    ...grave_features_es,
+  ...forge_features_es,
+  ...grave_features_es,
 
   // Tasha's
-    ...order_features_es,
-    ...peace_features_es,
-    ...twilight_features_es,
+  ...order_features_es,
+  ...peace_features_es,
+  ...twilight_features_es,
 };
 
 export const cleric_features_es: GameLocalizationCategory = {
@@ -51,15 +51,16 @@ export const cleric_features_es: GameLocalizationCategory = {
   },
   divine_domain: {
     name: "Dominio Divino",
-    description: "Sigues uno de los dominios de tu elección entre el dominio de la vida, el del descubrimiento, el de la conquista, el de lo salvaje, el del sol, el de la oscuridad y el de la prosperidad (detallados al final de la descripción de esta clase), que te otorga conjuros de dominio y otros rasgos a partir del nivel 1. También te otorga otras formas de usar Canalizar divinidad cuando consigas dicho rasgo en el nivel 2, así como beneficios adicionales en los niveles 6, 8 y 17.",
+    description:
+      "Sigues uno de los dominios de tu elección entre el dominio de la vida, el del descubrimiento, el de la conquista, el de lo salvaje, el del sol, el de la oscuridad y el de la prosperidad (detallados al final de la descripción de esta clase), que te otorga conjuros de dominio y otros rasgos a partir del nivel 1. También te otorga otras formas de usar Canalizar divinidad cuando consigas dicho rasgo en el nivel 2, así como beneficios adicionales en los niveles 6, 8 y 17.",
   },
   channel_divinity: {
     name: "Canalizar Divinidad",
     description: `A partir del nivel 2, ganas la habilidad de canalizar energía divina directamente desde tu deidad, usando esa energía para alimentar efectos mágicos. Comienzas con dos efectos: Expulsar Muertos Vivientes y un efecto determinado por tu dominio. Algunos dominios te otorgan efectos adicionales conforme consigues más niveles, como lo detalla la descrupción del dominio.
       Cuando usas tu Canalizar Divinidad, tú elgies que efecto creat. Debes terminar un descanso corto o largo para usar tu Canalizar Divinidad de nuevo.
       Algunos efectos de Canalizar Divindad requieren tiradas de salvación. Cuando usas tal efecto de esta clase, el CD es igual a tu CD de salvación de conjuros de clérigo.
-      A partir del nivel 6, puedes usar tu Canalizar Divinidad dos veces entre descansos y tres veces a partir de nivel 18.`
-  },      
+      A partir del nivel 6, puedes usar tu Canalizar Divinidad dos veces entre descansos y tres veces a partir de nivel 18.`,
+  },
   channel_divinity_turn_undead: {
     name: "Canalizar Divinidad: Expulsar Muertos Vivientes",
     description: `Como acción, presentas tu símbolo sagrado y dices una oración para expulsar a los muertos vivientes. Cada muerto que te vea o te escuche en un radio de 30 pies debe hacer una tirada de salvación de Sabiduría. Si falla, es expulsado durante un minuto o hasta que reciba daño.
@@ -67,7 +68,8 @@ export const cleric_features_es: GameLocalizationCategory = {
   },
   channel_divinity_harness_divine_power: {
     name: "Canalizar Divinidad: ",
-    description: "A partir de nivel 2, puedes usar una carga de tu Canalizar Divinidad para alimentar tus conjuros. Como acción adicional, tocas tu símbolo sagrado, dices una oración y recuperas un espacio de conjuro gastado cuyo nivel no sea mayor a la mitdad de tu bonificador de competencia (redondeado hacia arriba). ",
+    description:
+      "A partir de nivel 2, puedes usar una carga de tu Canalizar Divinidad para alimentar tus conjuros. Como acción adicional, tocas tu símbolo sagrado, dices una oración y recuperas un espacio de conjuro gastado cuyo nivel no sea mayor a la mitdad de tu bonificador de competencia (redondeado hacia arriba). ",
   },
   divine_domain_feature: {
     name: "Característica de Dominio Divino",
@@ -75,7 +77,8 @@ export const cleric_features_es: GameLocalizationCategory = {
   },
   ability_score_improvement: {
     name: "Mejora de Característica",
-    description: "Cuando  alcanzas nivel 4, 8, 12, 16 y 19, puedes incrementar una puntuación de características de tu elección en 2 o incrementar dos puntuaciones de características de tu elección en 1. No puedes incrementar una puntuación de característica por encima de 20 usando esta característica.",
+    description:
+      "Cuando  alcanzas nivel 4, 8, 12, 16 y 19, puedes incrementar una puntuación de características de tu elección en 2 o incrementar dos puntuaciones de características de tu elección en 1. No puedes incrementar una puntuación de característica por encima de 20 usando esta característica.",
   },
   cantrip_versatility: {
     name: "",
@@ -83,7 +86,8 @@ export const cleric_features_es: GameLocalizationCategory = {
   },
   destroy_undead: {
     name: "",
-    description: "A partir del nivel 5, cuando un muerto viviente falle su tirada de salvación contra tu rasgo de Expulsar muertos vivientes, la criatura se destruirá instantáneamente si su valor de desafío es igual o inferior al umbral siguiente:",
+    description:
+      "A partir del nivel 5, cuando un muerto viviente falle su tirada de salvación contra tu rasgo de Expulsar muertos vivientes, la criatura se destruirá instantáneamente si su valor de desafío es igual o inferior al umbral siguiente:",
   },
   divine_intervention: {
     name: "Intervención Divina",

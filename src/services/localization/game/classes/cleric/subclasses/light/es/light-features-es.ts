@@ -8,7 +8,8 @@ export const light_features_es: GameLocalizationCategory = {
   },
   bonus_cantrip: {
     name: "Truco Adicional",
-    description: "Cuando seleccionas este dominio en el nivel 1, ganas el truco luz si es que aún no lo conocías.",
+    description:
+      "Cuando seleccionas este dominio en el nivel 1, ganas el truco luz si es que aún no lo conocías.",
   },
   warding_flare: {
     name: "Fulgor Protector",
@@ -22,14 +23,17 @@ export const light_features_es: GameLocalizationCategory = {
   },
   improved_flare: {
     name: "Fulgor Mejorado",
-    description: "A partir del nivel 6 también puedes usar tu Fulgor Protector cuando una criatura en un rango de 30 pies de ti ataque a otra criatura.",
+    description:
+      "A partir del nivel 6 también puedes usar tu Fulgor Protector cuando una criatura en un rango de 30 pies de ti ataque a otra criatura.",
   },
   potent_spellcasting: {
     name: "Lanzamiento de Conjuros Potente",
-    description: "Agregas tu modificador de Sabiduría al daño que haces con cualquier truco de clérigo.",
+    description:
+      "Agregas tu modificador de Sabiduría al daño que haces con cualquier truco de clérigo.",
   },
   corona_of_light: {
     name: "Corona de Luz",
-    description: "Puedes usar tu acción para activar un aura de luz solar que dura un minuto o hasta que la desactives, usando otra acción. Emites luz brillante en un radio de 60 pies y luz tenue en un radio de 30 pies más allá. Tus enemigos en la luz brillante tienen desventaja en las tiradas de salvación contra cualquier conjuro que haga daño radiante o de fuego.",
+    description:
+      "Puedes usar tu acción para activar un aura de luz solar que dura un minuto o hasta que la desactives, usando otra acción. Emites luz brillante en un radio de 60 pies y luz tenue en un radio de 30 pies más allá. Tus enemigos en la luz brillante tienen desventaja en las tiradas de salvación contra cualquier conjuro que haga daño radiante o de fuego.",
   },
 };

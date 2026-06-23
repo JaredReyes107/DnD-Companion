@@ -7,6 +7,6 @@ export const ORDER_RESOURCES: Record<string, ResourceTemplate> = {
     category: "subclass_features",
     scalingType: "WIS",
     recharge: "longRest",
-     tags: [],
+    tags: [],
   },
 };

@@ -13,7 +13,8 @@ export const knowledge_features_es: GameLocalizationCategory = {
   },
   channel_divinity_knowledge_of_the_ages: {
     name: "Canalizar Divinidad: Conocimiento de las Edades",
-    description: "Comenzando en el nivel 2 puedes usar tu Canalizar Divinidad para hurgar en un pozo divino de conocimiento. Como una acción, eliges una habilidad o herramienta. Durante 10 minutos tienes competencia con la habilidad o herramienta elegida.",
+    description:
+      "Comenzando en el nivel 2 puedes usar tu Canalizar Divinidad para hurgar en un pozo divino de conocimiento. Como una acción, eliges una habilidad o herramienta. Durante 10 minutos tienes competencia con la habilidad o herramienta elegida.",
   },
   channel_divinity_read_thoughts: {
     name: "Canalizar Divinidad: Leer Pensamientos",
@@ -22,7 +23,8 @@ export const knowledge_features_es: GameLocalizationCategory = {
   },
   potent_spellcasting: {
     name: "Lanzamiento de Conjuros Potentes",
-    description: "Comenzando al nivel 8 añades tu modificador de Sabiduría al daño que haces con cualquier truco de clérigo.",
+    description:
+      "Comenzando al nivel 8 añades tu modificador de Sabiduría al daño que haces con cualquier truco de clérigo.",
   },
   visions_of_the_past: {
     name: "Visiones del Pasado",

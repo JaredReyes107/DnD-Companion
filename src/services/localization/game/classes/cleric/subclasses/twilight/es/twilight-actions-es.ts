@@ -1,13 +1,14 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const twilight_actions_es: GameLocalizationCategory = {
-    eyes_of_night: {
+  eyes_of_night: {
     name: "Ojos Nocturnos",
     description: `Puedes compartir mágicamente la visión en la oscuridad de este rasgo con una cantidad de criaturas voluntarias que puedas ver hasta 10 pies o menos de ti igual a tu modificador por Sabiduría o menos (mínimo una criatura). La visión en la oscuridad compartida dura 1 hora. Una vez que la compartas, no podrás volver a hacerlo hasta que finalices un descanso largo, a menos que gastes un espacio de conjuro de cualquier nivel para compartirla otra vez.`,
   },
   vigilant_blessing: {
     name: "Bendición Vigilante",
-    description: "Proporcionas ventaja a una criatura que toques (incluido tú) en la siguiente tirada de iniciativa que haga. Este beneficio finaliza inmediatamente después de la tirada o si vuelves a usar este rasgo.",
+    description:
+      "Proporcionas ventaja a una criatura que toques (incluido tú) en la siguiente tirada de iniciativa que haga. Este beneficio finaliza inmediatamente después de la tirada o si vuelves a usar este rasgo.",
   },
   channel_divinity_twilight_sanctuary: {
     name: "Canalizar Divinidad: Santuario del Crepúsculo",
@@ -15,6 +16,7 @@ export const twilight_actions_es: GameLocalizationCategory = {
   },
   steps_of_night: {
     name: "Pasos Nocturnos",
-    description: "Si estás en luz tenue u oscuridad, puedes concederte mágicamente una velocidad volando igual a tu velocidad caminando durante 1 minuto. Puedes usar esta acción adicional una cantidad de veces igual a tu bonificador por competencia y recuperas todos los usos tras finalizar un descanso largo.",
+    description:
+      "Si estás en luz tenue u oscuridad, puedes concederte mágicamente una velocidad volando igual a tu velocidad caminando durante 1 minuto. Puedes usar esta acción adicional una cantidad de veces igual a tu bonificador por competencia y recuperas todos los usos tras finalizar un descanso largo.",
   },
 };
