@@ -2,7 +2,12 @@ import { Character } from "../character/Character";
 import { CombatState } from "./combat-state";
 import { EncounterState } from "./encounter-state";
 
-export type ActionResourceType = "action" | "bonusAction" | "reaction" | "free";
+export type ActionResourceType =
+  | "action"
+  | "bonusAction"
+  | "reaction"
+  | "free"
+  | "duration";
 
 export function decreaseActionResource(
   character: Character,

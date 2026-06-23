@@ -23,7 +23,7 @@ const bard_subclass_features: GameLocalizationCategory = {
   ...eloquence_features_en,
 };
 
-export const features_bard_en: GameLocalizationCategory = {
+export const bard_features_en: GameLocalizationCategory = {
   bardic_inspiration: {
     name: "Bardic Inspiration",
     description: "",
