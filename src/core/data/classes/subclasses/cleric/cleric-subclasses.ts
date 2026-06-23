@@ -7,8 +7,13 @@ import { NATURE } from "./nature";
 import { TEMPEST } from "./tempest";
 import { TRICKERY } from "./trickery";
 import { WAR } from "./war";
+
 import { FORGE } from "./forge";
 import { GRAVE } from "./grave";
+
+import { ORDER } from "./order";
+import { PEACE } from "./peace";
+import { TWILIGHT } from "./twilight";
 
 const PHB_SUBCLASSES: Record<string, SubclassTemplate> = {
   knowledge: KNOWLEDGE,
@@ -26,7 +31,9 @@ const XANATHAR_SUBCLASSES: Record<string, SubclassTemplate> = {
 };
 
 const TASHA_SUBCLASSES: Record<string, SubclassTemplate> = {
-  
+  order: ORDER,
+  peace: PEACE,
+  twilight: TWILIGHT,
 };
 
 export const CLERIC_SUBCLASSES: Record<string, SubclassTemplate> = {

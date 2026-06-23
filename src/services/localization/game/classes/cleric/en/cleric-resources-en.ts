@@ -11,6 +11,10 @@ import { war_resources_en } from "../subclasses/war/en/war-resources-en";
 import { forge_resources_en } from "../subclasses/forge/en/forge-resources-en";
 import { grave_resources_en } from "../subclasses/grave/en/grave-resources-en";
 
+import { order_resources_en } from "../subclasses/order/en/order-resources-en";
+import { peace_resources_en } from "../subclasses/peace/en/peace-resources-en";
+import { twilight_resources_en } from "../subclasses/twilight/en/twilight-resources-en";
+
 const subclass_resources: GameLocalizationCategory = {
   //PHB
   ...knowledge_resources_en,
@@ -26,6 +30,9 @@ const subclass_resources: GameLocalizationCategory = {
   ...grave_resources_en,
 
   // Tasha's
+  ...order_resources_en,
+  ...peace_resources_en,
+  ...twilight_resources_en,
 };
 
 export const cleric_resources_en: GameLocalizationCategory = {

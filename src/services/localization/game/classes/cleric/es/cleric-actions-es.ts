@@ -6,8 +6,13 @@ import { light_actions_es } from "../subclasses/light/es/light-actions-es";
 import { nature_actions_es } from "../subclasses/nature/es/nature-actions-es";
 import { tempest_actions_es } from "../subclasses/tempest/es/tempest-actions-es";
 import { war_actions_es } from "../subclasses/war/es/war-actions-es";
+
 import { forge_actions_es } from "../subclasses/forge/es/forge-actions-es";
 import { grave_actions_es } from "../subclasses/grave/es/grave-actions-es";
+
+import { order_actions_en } from "../subclasses/order/en/order-actions-en";
+import { peace_actions_es } from "../subclasses/peace/es/peace-actions-es";
+import { twilight_actions_es } from "../subclasses/twilight/es/twilight-actions-es";
 
 const subclass_actions: GameLocalizationCategory = {
   // PHB
@@ -24,6 +29,9 @@ const subclass_actions: GameLocalizationCategory = {
   ...grave_actions_es,
 
   // Tasha's
+    ...order_actions_en
+    ...peace_actions_es,
+    ...twilight_actions_es,
 };
 
 export const cleric_actions_es: GameLocalizationCategory = {

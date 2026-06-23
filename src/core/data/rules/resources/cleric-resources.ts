@@ -11,6 +11,10 @@ import { WAR_RESOURCES } from "./cleric/war-resources";
 import { FORGE_RESOURCES } from "./cleric/forge-resources";
 import { GRAVE_RESOURCES } from "./cleric/grave-resources";
 
+import { ORDER_RESOURCES } from "./cleric/order-resources";
+import { PEACE_RESOURCES } from "./cleric/peace-resources";
+import { TWILIGHT_RESOURCES } from "./cleric/twilight-resources";
+
 export const subclass_resources: Record<string, ResourceTemplate> = {
   // PHB
   ...KNOWLEDGE_RESOURCES,
@@ -23,9 +27,12 @@ export const subclass_resources: Record<string, ResourceTemplate> = {
 
   // Xanathar's
   ...FORGE_RESOURCES,
-  ...GRAVE_RESOURCES
+  ...GRAVE_RESOURCES,
 
   // Tasha's
+  ...ORDER_RESOURCES,
+  ...PEACE_RESOURCES,
+  ...TWILIGHT_RESOURCES,
 };
 
 export const RESOURCES_CLERIC: Record<string, ResourceTemplate> = {

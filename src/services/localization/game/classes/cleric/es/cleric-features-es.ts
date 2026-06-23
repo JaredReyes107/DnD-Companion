@@ -11,6 +11,10 @@ import { war_features_es } from "../subclasses/war/es/war-features-es";
 import { forge_features_es } from "../subclasses/forge/es/forge-features-es";
 import { grave_features_es } from "../subclasses/grave/es/grave-features-es";
 
+import { order_features_es } from "../subclasses/order/es/order-features-es";
+import { peace_features_es } from "../subclasses/peace/es/peace-features-es";
+import { twilight_features_es } from "../subclasses/twilight/es/twilight-features-es";
+
 const subclass_features: GameLocalizationCategory = {
   // PHB
   ...knowledge_features_es,
@@ -26,6 +30,9 @@ const subclass_features: GameLocalizationCategory = {
     ...grave_features_es,
 
   // Tasha's
+    ...order_features_es,
+    ...peace_features_es,
+    ...twilight_features_es,
 };
 
 export const cleric_features_es: GameLocalizationCategory = {

@@ -11,6 +11,10 @@ import { war_en } from "../subclasses/war/en/war-en";
 import { forge_en } from "../subclasses/forge/en/forge-en";
 import { grave_en } from "../subclasses/grave/en/grave-en";
 
+import { order_en } from "../subclasses/order/en/order-en";
+import { peace_en } from "../subclasses/peace/en/peace-en";
+import { twilight_en } from "../subclasses/twilight/en/twilight-en";
+
 export const cleric_subclasses_en: GameLocalizationCategory = {
   // PHB
   ...knowledge_en,
@@ -26,4 +30,7 @@ export const cleric_subclasses_en: GameLocalizationCategory = {
   ...grave_en,
 
   // Tasha's
+  ...order_en,
+  ...peace_en,
+  ...twilight_en,
 };
