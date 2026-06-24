@@ -1,13 +1,20 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const SHEPHERD_RESOURCES: Record<string, ResourceTemplate> = {
-  // TODO: add unique resources for this subclass, e.g.:
-  // some_resource: {
-  //   id: "some_resource",
-  //   sourceId: "shepherd",
-  //   category: "subclass_features",
-  //   scalingType: "fixed:1",
-  //   recharge: "longRest",
-  //   tags: [],
-  // },
+  spirit_totem: {
+    id: "spirit_totem",
+    sourceId: "shepherd",
+    category: "subclass_features",
+    scalingType: "fixed:1",
+    recharge: "longRest",
+    tags: [],
+  },
+  faithful_summons: {
+    id: "faithful_summons",
+    sourceId: "shepherd",
+    category: "subclass_features",
+    scalingType: "fixed:1",
+    recharge: "shortRest",
+    tags: [],
+  },
 };

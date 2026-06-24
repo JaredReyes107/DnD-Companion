@@ -11,7 +11,7 @@ export const MOON: SubclassTemplate = {
         id: "combat_wild_shape",
         source: "subclass" as const,
         level: 2,
-        actions: ["combat_wild_shape_heal"],
+        actions: ["combat_wild_shape_heal", "combat_wild_shape_transform"],
         tags: ["combat", "transformation"],
         // TODO: Healing hook (1d8 per spell slot level, bonus action while shifted)
       },
