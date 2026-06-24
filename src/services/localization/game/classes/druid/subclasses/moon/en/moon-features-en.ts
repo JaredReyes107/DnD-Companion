@@ -11,14 +11,14 @@ export const moon_features_en: GameLocalizationCategory = {
   },
   primal_strike: {
     name: "Primal Strike",
-    description: "Starting at 6th level, your attacks in beast form count as magical for the purpose of overcoming resistance and immunity to nonmagical attacks and damage.",
+    description: "Your attacks in beast form count as magical for the purpose of overcoming resistance and immunity to nonmagical attacks and damage.",
   },
   elemental_wild_shape: {
     name: "Elemental Wild Shape",
-    description: "At 10th level, you can expend two uses of Wild Shape at the same time to transform into an air elemental, an earth elemental, a fire elemental, or a water elemental.",
+    description: "You can expend two uses of Wild Shape at the same time to transform into an air elemental, an earth elemental, a fire elemental, or a water elemental.",
   },
   thousand_forms: {
     name: "Thousand Forms",
-    description: "By 14th level, you have learned to use magic to alter your physical form in more subtle ways. You can cast the alter self spell at will.",
+    description: "You have learned to use magic to alter your physical form in more subtle ways. You can cast the alter self spell at will.",
   },
 };
