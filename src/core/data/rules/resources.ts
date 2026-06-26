@@ -3,7 +3,7 @@ import { RESOURCES_ARTIFICER } from "./resources/artificer-resources";
 import { RESOURCES_BARBARIAN } from "./resources/barbarian-resources";
 import { RESOURCES_BARD } from "./resources/bard-resources";
 import { RESOURCES_CLERIC } from "./resources/cleric-resources";
-import { RESOURCES_DRUID } from "./resources/druid-resources";
+import { DRUID_RESOURCES } from "./resources/druid-resources";
 import { RESOURCES_FIGHTER } from "./resources/fighter-resources";
 import { RESOURCES_MONK } from "./resources/monk-resources";
 import { RESOURCES_PALADIN } from "./resources/paladin-resources";
@@ -30,7 +30,7 @@ export const BASE_RESOURCES: Record<string, ResourceTemplate> = {
   ...RESOURCES_BARBARIAN,
   ...RESOURCES_BARD,
   ...RESOURCES_CLERIC,
-  ...RESOURCES_DRUID,
+  ...DRUID_RESOURCES,
   ...RESOURCES_FIGHTER,
   ...RESOURCES_MONK,
   ...RESOURCES_PALADIN,

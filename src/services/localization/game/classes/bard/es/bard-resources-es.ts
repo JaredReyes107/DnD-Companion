@@ -15,7 +15,7 @@ const subclass_resources: GameLocalizationCategory = {
   ...eloquence_resources_es,
 };
 
-export const resources_bard_es: GameLocalizationCategory = {
+export const bard_resources_es: GameLocalizationCategory = {
   bardic_inspiration: {
     name: "Inspiración bárdica",
     description: "",

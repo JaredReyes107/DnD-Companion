@@ -19,7 +19,7 @@ export const DRUID: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "spellcasting-druid",
+        id: "spellcasting_druid",
         source: "class",
         level: 1,
         tags: ["spellcasting"],
@@ -39,8 +39,8 @@ export const DRUID: ClassTemplate = {
         source: "class",
         level: 2,
         resources: ["wild_shape"],
+        actions: ["wild_shape"],
         tags: ["resource", "transformation"],
-        // TODO: action
         // TODO: transformation
         // TODO: scaling (CR, movement, duration)
       },
@@ -49,6 +49,13 @@ export const DRUID: ClassTemplate = {
         source: "class",
         level: 2,
         tags: ["subclass"],
+      },
+      {
+        id: "wild_companion",
+        source: "class",
+        level: 2,
+        tags: [],
+        // TODO: resources, actions, combatRole
       },
     ],
 
@@ -63,49 +70,100 @@ export const DRUID: ClassTemplate = {
         // TODO: scaling
         // NOTE: no duplicate feature, this only modifies Wild Shape
       },
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 4,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+      {
+        id: "cantrip_versatility",
+        source: "class",
+        level: 4,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
     ],
 
     5: [],
 
-    6: [],
+    6: [
+      {
+        id: "druid_circle_feature",
+        source: "class",
+        level: 6,
+        tags: ["subclass"],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
     7: [],
 
     8: [
       {
-        id: "wild_shape_flying",
+        id: "wild_shape_improvement",
         source: "class",
         level: 8,
-        tags: ["transformation"],
-        // TODO: scaling
-        // NOTE: modifies Wild Shape, no new feature instance
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 8,
+        tags: [],
+        // TODO: resources, actions, combatRole
       },
     ],
 
     9: [],
 
-    10: [],
+    10: [
+      {
+        id: "druid_circle_feature",
+        source: "class",
+        level: 10,
+        tags: ["subclass"],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
     11: [],
 
-    12: [],
+    12: [
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 12,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
     13: [],
 
     14: [
       {
-        id: "wild_shape_swimming",
+        id: "druid_circle_feature",
         source: "class",
         level: 14,
-        tags: ["transformation"],
-        // TODO: scaling
-        // NOTE: modifies Wild Shape
+        tags: ["subclass"],
+        // TODO: resources, actions, combatRole
       },
     ],
 
     15: [],
 
-    16: [],
+    16: [
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 16,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
     17: [],
 
@@ -114,29 +172,35 @@ export const DRUID: ClassTemplate = {
         id: "timeless_body",
         source: "class",
         level: 18,
-        tags: ["passive"],
-        // TODO: narrative / condition immunity system
+        tags: [],
+        // TODO: resources, actions, combatRole
       },
       {
         id: "beast_spells",
         source: "class",
         level: 18,
-        tags: ["spellcasting", "transformation"],
-        // TODO: combat-hook
-        // TODO: transformation interaction
+        tags: [],
+        // TODO: resources, actions, combatRole
       },
     ],
 
-    19: [],
+    19: [
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 19,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
     20: [
       {
         id: "archdruid",
         source: "class",
         level: 20,
-        tags: ["resource"],
-        // TODO: resource override (infinite uses)
-        // NOTE: does not duplicate Wild Shape
+        tags: [],
+        // TODO: resources, actions, combatRole
       },
     ],
   },

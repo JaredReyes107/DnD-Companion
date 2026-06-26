@@ -11,7 +11,7 @@ const barbarian_subclass_resources_es: GameLocalizationCategory = {
   ...wild_magic_resources_es,
 };
 
-export const resources_barbarian_es: GameLocalizationCategory = {
+export const barbarian_resources_es: GameLocalizationCategory = {
   rage: {
     name: "Furia",
     description: "",
