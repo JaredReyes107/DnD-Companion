@@ -53,5 +53,5 @@ export const WILDFIRE: SubclassTemplate = {
         tags: ["healing", "defense"],
       },
     ],
-  }
+  },
 };

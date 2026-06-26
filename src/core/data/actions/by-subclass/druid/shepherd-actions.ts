@@ -32,7 +32,7 @@ export const SHEPHERD_ACTIONS: Record<string, ActionInstance> = {
         resourceId: "faithful_summons",
         amount: -1,
       },
-      // TODO: Apply modifier/duration. 
+      // TODO: Apply modifier/duration.
       // TODO: Trigger Spell effect
     ],
   },

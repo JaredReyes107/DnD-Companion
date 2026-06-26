@@ -7,7 +7,8 @@ export const spores_features_es: GameLocalizationCategory = {
   },
   halo_of_spores: {
     name: "Halo de Esporas",
-    description: "Estás rodeado de esporas necróticas invisibles, que resultan inofensivas hasta que las lanzas contra una criatura cercana. Cuando una criatura que puedas ver se mueva a un espacio a 10 pies o menos de ti o comience su turno allí, puedes usar tu reacción para infligir 1d4 de daño necrótico a esa criatura, a menos que tenga éxito en una tirada de salvación de Constitución contra tu CD de salvación de conjuros. El daño necrótico aumenta a 1d6 en el nivel 6, a 1d8 en el nivel 10 y a 1d10 en el nivel 14.",
+    description:
+      "Estás rodeado de esporas necróticas invisibles, que resultan inofensivas hasta que las lanzas contra una criatura cercana. Cuando una criatura que puedas ver se mueva a un espacio a 10 pies o menos de ti o comience su turno allí, puedes usar tu reacción para infligir 1d4 de daño necrótico a esa criatura, a menos que tenga éxito en una tirada de salvación de Constitución contra tu CD de salvación de conjuros. El daño necrótico aumenta a 1d6 en el nivel 6, a 1d8 en el nivel 10 y a 1d10 en el nivel 14.",
   },
   symbiotic_entity: {
     name: "Entidad Simbiótica",
@@ -30,6 +31,7 @@ export const spores_features_es: GameLocalizationCategory = {
   },
   fungal_body: {
     name: "Cuerpo Fúngico",
-    description: "Las esporas fúngicas de tu cuerpo te alteran: no puedes resultar cegado, ensordecido, asustado ni envenenado, y cualquier golpe crítico que te impacte cuenta como un golpe normal, a menos que estés incapacitado.",
+    description:
+      "Las esporas fúngicas de tu cuerpo te alteran: no puedes resultar cegado, ensordecido, asustado ni envenenado, y cualquier golpe crítico que te impacte cuenta como un golpe normal, a menos que estés incapacitado.",
   },
 };

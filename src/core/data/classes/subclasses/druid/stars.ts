@@ -43,7 +43,7 @@ export const STARS: SubclassTemplate = {
         source: "subclass" as const,
         level: 10,
         tags: ["transformation", "passive"],
-        // TODO: Extends starry_form 
+        // TODO: Extends starry_form
       },
     ],
 

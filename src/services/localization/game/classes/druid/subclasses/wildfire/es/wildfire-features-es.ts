@@ -3,7 +3,8 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 export const wildfire_features_es: GameLocalizationCategory = {
   circle_spells_wildfire: {
     name: "Conjuros de Círculo",
-    description: "Has formado un vínculo con un espíritu del fuego salvaje, un ser primordial de creación y destrucción. Tu vínculo con este espíritu te permite acceder a conjuros adicionales cuando alcanzas determinados niveles en esta clase. Una vez obtenidos, estos conjuros siempre se considerarán preparados y no contarán para el total de conjuros que puedes preparar cada día. Aunque recibas un conjuro que no aparezca en la lista de conjuros de druida, para ti sí que se considerará un conjuro de druida.",
+    description:
+      "Has formado un vínculo con un espíritu del fuego salvaje, un ser primordial de creación y destrucción. Tu vínculo con este espíritu te permite acceder a conjuros adicionales cuando alcanzas determinados niveles en esta clase. Una vez obtenidos, estos conjuros siempre se considerarán preparados y no contarán para el total de conjuros que puedes preparar cada día. Aunque recibas un conjuro que no aparezca en la lista de conjuros de druida, para ti sí que se considerará un conjuro de druida.",
   },
   summon_wildfire_spirit: {
     name: "Invocar Espíritu del Fuego Salvaje",
@@ -16,14 +17,17 @@ export const wildfire_features_es: GameLocalizationCategory = {
   },
   enhanced_bond: {
     name: "Vínculo Mejorado",
-    description: "El vínculo con tu espíritu del fuego salvaje mejora tus conjuros destructores y sanadores. Siempre que lances un conjuro que inflija daño de fuego o haga recuperar puntos de golpe mientras tu espíritu del fuego salvaje esté invocado, tira 1d8 y obtendrás un bonificador igual al resultado para una tirada de daño o de curación del conjuro. Además, cuando lances un conjuro cuyo alcance no seas tú, este conjuro podrá originarse en ti o en tu espíritu del fuego salvaje.",
+    description:
+      "El vínculo con tu espíritu del fuego salvaje mejora tus conjuros destructores y sanadores. Siempre que lances un conjuro que inflija daño de fuego o haga recuperar puntos de golpe mientras tu espíritu del fuego salvaje esté invocado, tira 1d8 y obtendrás un bonificador igual al resultado para una tirada de daño o de curación del conjuro. Además, cuando lances un conjuro cuyo alcance no seas tú, este conjuro podrá originarse en ti o en tu espíritu del fuego salvaje.",
   },
   cauterizing_flames: {
     name: "Llamas Cauterizadoras",
-    description: "Obtienes la capacidad de convertir la muerte en llamas mágicas que pueden curar o incinerar. Cuando una criatura Pequeña o mayor muera a 30 pies o menos de ti o de tu espíritu del fuego salvaje, aparecerá una llama espectral inofensiva en el espacio de la criatura muerta y arderá allí durante 1 minuto. Cuando una criatura que puedas ver entre en ese espacio, podrás usar tu reacción para extinguir la llama espectral y curar a la criatura o infligirle daño de fuego. La curación o el daño es igual a 2d10 + tu modificador por Sabiduría. Puedes usar esta reacción una cantidad de veces igual a tu bonificador por competencia y recuperas todos los usos tras finalizar un descanso largo.",
+    description:
+      "Obtienes la capacidad de convertir la muerte en llamas mágicas que pueden curar o incinerar. Cuando una criatura Pequeña o mayor muera a 30 pies o menos de ti o de tu espíritu del fuego salvaje, aparecerá una llama espectral inofensiva en el espacio de la criatura muerta y arderá allí durante 1 minuto. Cuando una criatura que puedas ver entre en ese espacio, podrás usar tu reacción para extinguir la llama espectral y curar a la criatura o infligirle daño de fuego. La curación o el daño es igual a 2d10 + tu modificador por Sabiduría. Puedes usar esta reacción una cantidad de veces igual a tu bonificador por competencia y recuperas todos los usos tras finalizar un descanso largo.",
   },
   blazing_revival: {
     name: "Renacer Ardiente",
-    description: "El vínculo con tu espíritu del fuego salvaje puede salvarte de la muerte. Si el espíritu está a 120 pies o menos de ti y tus puntos de golpe se reducen a 0, por lo que caes inconsciente, podrás hacer que el espíritu se quede con 0 puntos de golpe. En ese caso, recuperarás inmediatamente la mitad de tus puntos de golpe y te pondrás en pie. Cuando uses este rasgo, no podrás volver a hacerlo hasta que finalices un descanso largo.",
+    description:
+      "El vínculo con tu espíritu del fuego salvaje puede salvarte de la muerte. Si el espíritu está a 120 pies o menos de ti y tus puntos de golpe se reducen a 0, por lo que caes inconsciente, podrás hacer que el espíritu se quede con 0 puntos de golpe. En ese caso, recuperarás inmediatamente la mitad de tus puntos de golpe y te pondrás en pie. Cuando uses este rasgo, no podrás volver a hacerlo hasta que finalices un descanso largo.",
   },
 };

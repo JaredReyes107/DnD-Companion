@@ -3,7 +3,8 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 export const druid_features_es: GameLocalizationCategory = {
   druidic: {
     name: "Druídico",
-    description: "Conoces el druídico, el idioma secreto de los druidas. Puedes hablarlo y usarlo para dejar mensajes ocultos. Tanto tú como cualquiera que conozca este idioma advertiréis inmediatamente la presencia de estos mensajes. Los demás deberán superar una prueba de Sabiduría (Percepción) CD 15 para detectarlos, pero no podrán descifrarlos sin recurrir a la magia.",
+    description:
+      "Conoces el druídico, el idioma secreto de los druidas. Puedes hablarlo y usarlo para dejar mensajes ocultos. Tanto tú como cualquiera que conozca este idioma advertiréis inmediatamente la presencia de estos mensajes. Los demás deberán superar una prueba de Sabiduría (Percepción) CD 15 para detectarlos, pero no podrán descifrarlos sin recurrir a la magia.",
   },
   spellcasting_druid: {
     name: "Lanzamiento de Conjuros",
@@ -27,18 +28,22 @@ export const druid_features_es: GameLocalizationCategory = {
   },
   ability_score_improvement: {
     name: "Mejora de Característica",
-    description: "Puedes aumentar una puntuación de característica de tu elección en 2 o dos puntuaciones de característica en 1. Como siempre, no puedes aumentar una puntuación de característica por encima de 20 usando este rasgo.",
+    description:
+      "Puedes aumentar una puntuación de característica de tu elección en 2 o dos puntuaciones de característica en 1. Como siempre, no puedes aumentar una puntuación de característica por encima de 20 usando este rasgo.",
   },
   timeless_body: {
     name: "Cuerpo Eterno",
-    description: "La magia primaria que usas hace que envejezcas más despacio. Por cada 10 años que pasan, tu cuerpo solo envejece 1.",
+    description:
+      "La magia primaria que usas hace que envejezcas más despacio. Por cada 10 años que pasan, tu cuerpo solo envejece 1.",
   },
   beast_spells: {
     name: "Conjuros de Bestia",
-    description: "Puedes lanzar muchos de tus conjuros de druida en cualquier forma que asumas usando Forma salvaje. Puedes utilizar los componentes somáticos y verbales de un conjuro de druida mientras estás en forma de bestia, pero no puedes prescindir de los componentes materiales.",
+    description:
+      "Puedes lanzar muchos de tus conjuros de druida en cualquier forma que asumas usando Forma salvaje. Puedes utilizar los componentes somáticos y verbales de un conjuro de druida mientras estás en forma de bestia, pero no puedes prescindir de los componentes materiales.",
   },
   archdruid: {
     name: "Archidruida",
-    description: "puedes usar Forma salvaje un número ilimitado de veces. Además, puedes ignorar los componentes verbales y somáticos de tus conjuros de druida, así como cualquier componente material que carezca de coste y que no se consuman al lanzar el conjuro. Tienes este beneficio tanto en tu forma normal como en tu forma de bestia de Forma salvaje.",
+    description:
+      "puedes usar Forma salvaje un número ilimitado de veces. Además, puedes ignorar los componentes verbales y somáticos de tus conjuros de druida, así como cualquier componente material que carezca de coste y que no se consuman al lanzar el conjuro. Tienes este beneficio tanto en tu forma normal como en tu forma de bestia de Forma salvaje.",
   },
 };

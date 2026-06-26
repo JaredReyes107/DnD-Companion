@@ -50,7 +50,7 @@ export const MOON: SubclassTemplate = {
         source: "subclass" as const,
         level: 14,
         actions: ["thousand_forms"],
-        tags: ["spellcasting", "utility"]
+        tags: ["spellcasting", "utility"],
       },
     ],
   },

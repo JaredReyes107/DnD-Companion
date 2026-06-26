@@ -33,7 +33,7 @@ export const WILDFIRE_ACTIONS: Record<string, ActionInstance> = {
         amount: -1,
       },
     ],
-  },  
+  },
   blazing_revival: {
     id: "blazing_revival",
     sourceId: "wildfire",
@@ -46,5 +46,5 @@ export const WILDFIRE_ACTIONS: Record<string, ActionInstance> = {
       },
       // TODO: Only available when at 0 HP.
     ],
-  }
+  },
 };
