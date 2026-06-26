@@ -26,7 +26,7 @@ export const LAND: SubclassTemplate = {
 
     3: [
       {
-        id: "circle_spells",
+        id: "circle_spells_land",
         source: "subclass" as const,
         level: 3,
         tags: ["spells", "build-choice"],

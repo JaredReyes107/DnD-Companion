@@ -9,18 +9,6 @@ export const stars_features_en: GameLocalizationCategory = {
     name: "Starry Form",
     description: "2nd-level Circle of the Stars feature As a bonus action, you can expend a use of your Wild Shape feature to take on a starry form, rather than transforming into a beast. While in your starry form, you retain your game statistics, but your body becomes luminous; your joints glimmer like stars, and glowing lines connect them as on a star chart. This form sheds bright light in a 10-foot radius and dim light for an additional 10 feet. The form lasts for 10 minutes. It ends early if you dismiss it (no action required), are incapacitated, die, or use this feature again. Whenever you assume your starry form, choose which of the following constellations glimmers on your body; your choice gives you certain benefits while in the form:",
   },
-  archer: {
-    name: "Archer",
-    description: "A constellation of an archer appears on you. When you activate this form, and as a bonus action on your subsequent turns while it lasts, you can make a ranged spell attack, hurling a luminous arrow that targets one creature within 60 feet of you. On a hit, the attack deals radiant damage equal to 1d8 + your Wisdom modifier.",
-  },
-  chalice: {
-    name: "Chalice",
-    description: "A constellation of a life-giving goblet appears on you. Whenever you cast a spell using a spell slot that restores hit points to a creature, you or another creature within 30 feet of you can regain hit points equal to 1d8 + your Wisdom modifier.",
-  },
-  dragon: {
-    name: "Dragon",
-    description: "A constellation of a wise dragon appears on you. When you make an Intelligence or a Wisdom check or a Constitution saving throw to maintain concentration on a spell, you can treat a roll of 9 or lower on the d20 as a 10.",
-  },
   cosmic_omen: {
     name: "Cosmic Omen",
     description: "6th-level Circle of the Stars feature Whenever you finish a long rest, you can consult your Star Map for omens. When you do so, roll a die. Until you finish your next long rest, you gain access to a special reaction based on whether you rolled an even or an odd number on the die: You can use this reaction a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a long rest.",

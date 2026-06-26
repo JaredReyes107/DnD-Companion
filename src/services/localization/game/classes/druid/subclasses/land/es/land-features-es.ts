@@ -5,7 +5,7 @@ export const land_features_es: GameLocalizationCategory = {
     name: "Truco Adicional",
     description: "Aprendes un truco de druida adicional de tu elección.",
   },
-  circle_spells: {
+  circle_spells_land: {
     name: "Conjuros del Círculo",
     description: "Tu conexión mística con la tierra te concede la capacidad de lanzar ciertos conjuros. En los niveles 3, 5, 7 y 9 consigues acceder a los conjuros del círculo conectados con la tierra en la que te convertiste en druida. Elige qué tipo de tierra es (ártico, costa, desierto, bosque, pradera, montaña o pantano) y consulta su lista de conjuros correspondiente. Una vez accedes a un conjuro del círculo, siempre lo tienes preparado y no se tiene en cuenta para el número de conjuros que puedes preparar cada día. Si accedes a un conjuro que no aparece en la lista de conjuros de druida, para ti cuenta como un conjuro de druida.",
   },

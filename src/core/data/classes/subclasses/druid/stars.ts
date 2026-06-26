@@ -3,6 +3,7 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const STARS: SubclassTemplate = {
   id: "stars",
   classId: "druid",
+  source: "tce",
 
   featuresByLevel: {
     2: [
@@ -10,36 +11,17 @@ export const STARS: SubclassTemplate = {
         id: "star_map",
         source: "subclass" as const,
         level: 2,
-        tags: [],
-        // TODO: resources, actions
+        resources: ["star_map_guiding_bolt"],
+        actions: ["star_map_guiding_bolt"],
+        tags: ["utility", "spellcasting", "spells"],
       },
       {
         id: "starry_form",
         source: "subclass" as const,
         level: 2,
-        tags: [],
-        // TODO: resources, actions
-      },
-      {
-        id: "archer",
-        source: "subclass" as const,
-        level: 2,
-        tags: [],
-        // TODO: resources, actions
-      },
-      {
-        id: "chalice",
-        source: "subclass" as const,
-        level: 2,
-        tags: [],
-        // TODO: resources, actions
-      },
-      {
-        id: "dragon",
-        source: "subclass" as const,
-        level: 2,
-        tags: [],
-        // TODO: resources, actions
+        actions: ["starry_form"],
+        tags: ["transformation", "build-choice"],
+        // TODO: Form choice system (Archer/Chalice/Dragon)
       },
     ],
 
@@ -48,8 +30,10 @@ export const STARS: SubclassTemplate = {
         id: "cosmic_omen",
         source: "subclass" as const,
         level: 6,
-        tags: [],
-        // TODO: resources, actions
+        resources: ["cosmic_omen"],
+        actions: ["cosmic_omen"],
+        tags: ["reaction", "support", "debuff"],
+        // TODO: Choose wheter it is Weal/Woe after long rest
       },
     ],
 
@@ -58,8 +42,8 @@ export const STARS: SubclassTemplate = {
         id: "twinkling_constellations",
         source: "subclass" as const,
         level: 10,
-        tags: [],
-        // TODO: resources, actions
+        tags: ["transformation", "passive"],
+        // TODO: Extends starry_form 
       },
     ],
 
@@ -68,8 +52,8 @@ export const STARS: SubclassTemplate = {
         id: "full_of_stars",
         source: "subclass" as const,
         level: 14,
-        tags: [],
-        // TODO: resources, actions
+        tags: ["defense", "passive"],
+        // TODO: Extends starry_form —  now applies modifier: resistance to nonmagical B/P/S while transformed
       },
     ],
   },

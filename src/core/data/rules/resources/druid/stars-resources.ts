@@ -1,13 +1,20 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
-export const STARS_RESOURCES: Record<string, ResourceTemplate> = {
-  // TODO: add unique resources for this subclass, e.g.:
-  // some_resource: {
-  //   id: "some_resource",
-  //   sourceId: "stars",
-  //   category: "subclass_features",
-  //   scalingType: "fixed:1",
-  //   recharge: "longRest",
-  //   tags: [],
-  // },
+export const RESOURCES_STARS: Record<string, ResourceTemplate> = {
+  star_map_guiding_bolt: {
+    id: "star_map_guiding_bolt",
+    sourceId: "stars",
+    category: "subclass_features",
+    scalingType: "PB",
+    recharge: "longRest",
+    tags: ["spellcasting"],
+  },
+  cosmic_omen: {
+    id: "cosmic_omen",
+    sourceId: "stars",
+    category: "subclass_features",
+    scalingType: "WIS",
+    recharge: "longRest",
+    tags: ["reaction", "support"],
+  },
 };

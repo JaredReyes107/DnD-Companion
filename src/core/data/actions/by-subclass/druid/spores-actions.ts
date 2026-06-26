@@ -1,11 +1,53 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 
 export const SPORES_ACTIONS: Record<string, ActionInstance> = {
-  // TODO: add unique actions for this subclass, e.g.:
-  // some_action: {
-  //   id: "some_action",
-  //   sourceId: "spores",
-  //   actionSlot: "action",
-  //   effects: [],
-  // },
+  halo_of_spores: {
+    id: "halo_of_spores",
+    sourceId: "spores",
+    actionSlot: "reaction",
+    effects: [
+      // TODO: Damage and scaling
+    ],
+  },
+  symbiotic_entity: {
+    id: "symbiotic_entity",
+    sourceId: "spores",
+    actionSlot: "action",
+    effects: [
+      {
+        type: "modifyResource",
+        resourceId: "wild_shape",
+        amount: -1,
+      },
+    ],
+  },
+  fungal_infestation: {
+    id: "fungal_infestation",
+    sourceId: "spores",
+    actionSlot: "reaction",
+    effects: [
+      {
+        type: "modifyResource",
+        resourceId: "fungal_infestation",
+        amount: -1,
+      },
+    ],
+  },
+  spreading_spores_activate: {
+    id: "spreading_spores_activate",
+    sourceId: "spores",
+    actionSlot: "bonusAction",
+    effects: [
+      // TODO: Damage and scaling
+      // TODO: Apply modifiers. Blocks halo of spores reaction
+    ],
+  },
+  spreading_spores_deactivate: {
+    id: "spreading_spores_deactivate",
+    sourceId: "spores",
+    actionSlot: "bonusAction",
+    effects: [
+      // TODO: Stops modifiers
+    ],
+  },
 };
