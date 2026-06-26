@@ -1,6 +1,6 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
-export const RESOURCES_STARS: Record<string, ResourceTemplate> = {
+export const STARS_RESOURCES: Record<string, ResourceTemplate> = {
   star_map_guiding_bolt: {
     id: "star_map_guiding_bolt",
     sourceId: "stars",

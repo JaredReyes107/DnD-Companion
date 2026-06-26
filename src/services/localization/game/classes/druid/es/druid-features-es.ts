@@ -1,5 +1,27 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { land_features_es } from "../subclasses/land/es/land-features-es";
+import { moon_features_es } from "../subclasses/moon/es/moon-features-es";
+
+import { dreams_features_es } from "../subclasses/dreams/es/dreams-features-es";
+import { shepherd_features_es } from "../subclasses/shepherd/es/shepherd-features-es";
+
+import { stars_features_es } from "../subclasses/stars/es/stars-features-es";
+import { spores_features_es } from "../subclasses/spores/es/spores-features-es";
+import { wildfire_features_es } from "../subclasses/wildfire/es/wildfire-features-es";
+
+export const subclass_features: GameLocalizationCategory = {
+  land: land_features_es,
+  moon: moon_features_es,
+
+  dreams: dreams_features_es,
+  shepherd: shepherd_features_es,
+
+  stars: stars_features_es,
+  spores: spores_features_es,
+  wildfire: wildfire_features_es,
+};
+
 export const druid_features_es: GameLocalizationCategory = {
   druidic: {
     name: "Druídico",
@@ -44,6 +66,8 @@ export const druid_features_es: GameLocalizationCategory = {
   archdruid: {
     name: "Archidruida",
     description:
-      "puedes usar Forma salvaje un número ilimitado de veces. Además, puedes ignorar los componentes verbales y somáticos de tus conjuros de druida, así como cualquier componente material que carezca de coste y que no se consuman al lanzar el conjuro. Tienes este beneficio tanto en tu forma normal como en tu forma de bestia de Forma salvaje.",
+      "Puedes usar Forma salvaje un número ilimitado de veces. Además, puedes ignorar los componentes verbales y somáticos de tus conjuros de druida, así como cualquier componente material que carezca de coste y que no se consuman al lanzar el conjuro. Tienes este beneficio tanto en tu forma normal como en tu forma de bestia de Forma salvaje.",
   },
+
+  ...subclass_features,
 };

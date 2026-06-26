@@ -1,12 +1,34 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { land_features_en } from "../subclasses/land/en/land-features-en";
+import { moon_features_en } from "../subclasses/moon/en/moon-features-en";
+
+import { dreams_features_en } from "../subclasses/dreams/en/dreams-features-en";
+import { shepherd_features_en } from "../subclasses/shepherd/en/shepherd-features-en";
+
+import { stars_features_en } from "../subclasses/stars/en/stars-features-en";
+import { spores_features_en } from "../subclasses/spores/en/spores-features-en";
+import { wildfire_features_en } from "../subclasses/wildfire/en/wildfire-features-en";
+
+export const subclass_features: GameLocalizationCategory = {
+  land: land_features_en,
+  moon: moon_features_en,
+
+  dreams: dreams_features_en,
+  shepherd: shepherd_features_en,
+
+  stars: stars_features_en,
+  spores: spores_features_en,
+  wildfire: wildfire_features_en,
+};
+
 export const druid_features_en: GameLocalizationCategory = {
   druidic: {
     name: "Druidic",
     description:
       "You know Druidic, the secret language of druids. You can speak the language and use it to leave hidden messages. You and others who know this language automatically spot such a message. Others spot the message's presence with a successful DC 15 Wisdom (Perception) check but can't decipher it without magic.",
   },
-  spellcasting: {
+  spellcasting_druid: {
     name: "Spellcasting",
     description: "",
   },
@@ -40,4 +62,6 @@ export const druid_features_en: GameLocalizationCategory = {
     description:
       "You can use your Wild Shape an unlimited number of times. Additionally, you can ignore the verbal and somatic components of your druid spells, as well as any material components that lack a cost and aren't consumed by a spell. You gain this benefit in both your normal shape and your beast shape from Wild Shape.",
   },
+
+  ...subclass_features,
 };

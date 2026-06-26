@@ -1,6 +1,6 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
-export const RESOURCES_LAND: Record<string, ResourceTemplate> = {
+export const LAND_RESOURCES: Record<string, ResourceTemplate> = {
   natural_recovery: {
     id: "natural_recovery",
     sourceId: "land",
