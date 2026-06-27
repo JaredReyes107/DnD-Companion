@@ -1,5 +1,7 @@
 import { Character } from "@/core/entities/character/Character";
-import { ActionResourceType } from "@/core/entities/combat/action-economy";
+import { ActionDuration } from "./action-duration";
+import { ActionBoard } from "./action-board";
+import { ActionTrigger } from "./action-trigger";
 
 export type ModifyResourceEffect = {
   type: "modifyResource";
@@ -45,12 +47,14 @@ export type ActionEffect =
 export type ActionInstance = {
   id: string;
   sourceId: string;
-  //origin: "Players Handbook", //For distinguishing official rules and homebrew
-  actionSlot: ActionResourceType;
-  //TODO: Replace this with the description in localization
-  description?: string;
+
+  // REPLACES actionSlot. Old call sites that only cared about economy
+  // pool can do: action.duration.kind === "economy" ? action.duration.slot : undefined
+  duration: ActionDuration;
+  trigger?: ActionTrigger; // when omitted: board-initiated only, the common case
+
+  boards: ActionBoard[]; // where it renders today; ignored by economy logic entirely
 
   effects: ActionEffect[];
-
   canExecute?: (character: Character) => boolean;
 };

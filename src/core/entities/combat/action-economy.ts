@@ -2,31 +2,29 @@ import { Character } from "../character/Character";
 import { CombatState } from "./combat-state";
 import { EncounterState } from "./encounter-state";
 
-export type ActionResourceType =
+export type ActionSlot =
   | "action"
   | "bonusAction"
-  | "reaction"
-  | "free"
-  | "duration";
+  | "reaction";
 
 export function decreaseActionResource(
   character: Character,
-  actionResourceType: ActionResourceType,
+  actionResourceType: ActionSlot,
 ): Character;
 export function decreaseActionResource(
   encounter: EncounterState,
   characterId: string,
-  actionResourceType: ActionResourceType,
+  actionResourceType: ActionSlot,
 ): EncounterState;
 export function decreaseActionResource(
   state: EncounterState | Character,
-  arg1: string | ActionResourceType,
-  arg2?: ActionResourceType,
+  arg1: string | ActionSlot,
+  arg2?: ActionSlot,
 ): EncounterState | Character {
   if ("participants" in state) {
     // EncounterState branch
     const characterId = arg1 as string;
-    const actionResourceType = arg2 as ActionResourceType;
+    const actionResourceType = arg2 as ActionSlot;
     const combatState = state.participants[characterId];
 
     if (!combatState) {
@@ -48,7 +46,7 @@ export function decreaseActionResource(
   } else {
     // Character branch
     const character = state;
-    const actionResourceType = arg1 as ActionResourceType;
+    const actionResourceType = arg1 as ActionSlot;
 
     if (!character.combatState) {
       return character;
@@ -68,7 +66,7 @@ export function decreaseActionResource(
 
 function decreaseCombatStateActionResource(
   combatState: CombatState,
-  actionResourceType: ActionResourceType,
+  actionResourceType: ActionSlot,
 ): CombatState {
   const updatedCombatState = { ...combatState };
 
@@ -103,17 +101,17 @@ function decreaseCombatStateActionResource(
 
 export function increaseActionResource(
   character: Character,
-  actionResourceType: ActionResourceType,
+  actionResourceType: ActionSlot,
 ): Character;
 export function increaseActionResource(
   encounter: EncounterState,
   characterId: string,
-  actionResourceType: ActionResourceType,
+  actionResourceType: ActionSlot,
 ): EncounterState;
 export function increaseActionResource(
   state: EncounterState | Character,
-  arg1: string | ActionResourceType,
-  arg2?: ActionResourceType,
+  arg1: string | ActionSlot,
+  arg2?: ActionSlot,
 ): EncounterState | Character {
   if ("participants" in state) {
     // EncounterState branch
@@ -140,7 +138,7 @@ export function increaseActionResource(
   } else {
     // Character branch
     const character = state;
-    const actionResourceType = arg1 as ActionResourceType;
+    const actionResourceType = arg1 as ActionSlot;
 
     if (!character.combatState) {
       return character;
@@ -160,7 +158,7 @@ export function increaseActionResource(
 
 function increaseCombatStateActionResource(
   combatState: CombatState,
-  actionResourceType: ActionResourceType,
+  actionResourceType: ActionSlot,
 ): CombatState {
   const updatedCombatState = { ...combatState };
 
@@ -193,17 +191,17 @@ function increaseCombatStateActionResource(
 
 export function rechargeActionResources(
   character: Character,
-  actionResourceType: ActionResourceType,
+  actionResourceType: ActionSlot,
 ): Character;
 export function rechargeActionResources(
   encounter: EncounterState,
   characterId: string,
-  actionResourceType: ActionResourceType,
+  actionResourceType: ActionSlot,
 ): EncounterState;
 export function rechargeActionResources(
   state: EncounterState | Character,
-  arg1: string | ActionResourceType,
-  arg2?: ActionResourceType,
+  arg1: string | ActionSlot,
+  arg2?: ActionSlot,
 ): EncounterState | Character {
   if ("participants" in state) {
     // EncounterState branch
@@ -230,7 +228,7 @@ export function rechargeActionResources(
   } else {
     // Character branch
     const character = state;
-    const actionResourceType = arg1 as ActionResourceType;
+    const actionResourceType = arg1 as ActionSlot;
 
     if (!character.combatState) {
       return character;
@@ -250,7 +248,7 @@ export function rechargeActionResources(
 
 function rechargeCombatStateActionResource(
   combatState: CombatState,
-  actionResourceType: ActionResourceType,
+  actionResourceType: ActionSlot,
 ): CombatState {
   const updatedCombatState = { ...combatState };
 
@@ -282,7 +280,7 @@ function rechargeCombatStateActionResource(
 
 function getActionResourceCurrent(
   combatState: CombatState,
-  actionResourceType: ActionResourceType,
+  actionResourceType: ActionSlot,
 ): number {
   switch (actionResourceType) {
     case "action":
@@ -298,7 +296,7 @@ function getActionResourceCurrent(
 
 function cycleCombatStateActionResource(
   combatState: CombatState,
-  actionResourceType: ActionResourceType,
+  actionResourceType: ActionSlot,
 ): CombatState {
   const currentLevel = getActionResourceCurrent(
     combatState,
@@ -314,17 +312,17 @@ function cycleCombatStateActionResource(
 
 export function cycleActionResource(
   character: Character,
-  actionResourceType: ActionResourceType,
+  actionResourceType: ActionSlot,
 ): Character;
 export function cycleActionResource(
   encounter: EncounterState,
   characterId: string,
-  actionResourceType: ActionResourceType,
+  actionResourceType: ActionSlot,
 ): EncounterState;
 export function cycleActionResource(
   state: EncounterState | Character,
-  arg1: string | ActionResourceType,
-  arg2?: ActionResourceType,
+  arg1: string | ActionSlot,
+  arg2?: ActionSlot,
 ): EncounterState | Character {
   if ("participants" in state) {
     // EncounterState branch
@@ -351,7 +349,7 @@ export function cycleActionResource(
   } else {
     // Character branch
     const character = state;
-    const actionResourceType = arg1 as ActionResourceType;
+    const actionResourceType = arg1 as ActionSlot;
 
     if (!character.combatState) {
       return character;
