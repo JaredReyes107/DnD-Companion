@@ -51,7 +51,7 @@ export type ActionInstance = {
   // REPLACES actionSlot. Old call sites that only cared about economy
   // pool can do: action.duration.kind === "economy" ? action.duration.slot : undefined
   duration: ActionDuration;
-  trigger?: ActionTrigger; // when omitted: board-initiated only, the common case
+  trigger?: ActionTrigger[]; // when omitted: board-initiated only, the common case
 
   boards: ActionBoard[]; // where it renders today; ignored by economy logic entirely
 
