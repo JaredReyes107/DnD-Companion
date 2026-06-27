@@ -7,7 +7,7 @@ import { Character } from "@/core/entities/character/Character";
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 
 import {
-  ActionResourceType,
+  ActionSlot,
   decreaseActionResource,
 } from "@/core/entities/combat/action-economy";
 import {
@@ -19,7 +19,7 @@ import { getLocalizedName } from "@/services/localization/localization-helper";
 import styles from "@/styles/combat/tab-actions";
 
 type Props = {
-  slot: ActionResourceType;
+  slot: ActionSlot;
   actions: ActionInstance[];
   character: Character;
   onUpdate: (updated: Character) => void;
@@ -34,7 +34,12 @@ export const ActionSection = ({
   if (actions.length === 0) return null;
 
   const handleAction = (action: ActionInstance) => {
-    onUpdate(decreaseActionResource(character, action.actionSlot));
+    const actionSlot = action.duration.kind === "economy" ? action.duration.slot : undefined
+
+    if (actionSlot)
+    {
+      onUpdate(decreaseActionResource(character, actionSlot));
+    }
 
     executeAction(action, { character, dispatch: onUpdate });
   };
