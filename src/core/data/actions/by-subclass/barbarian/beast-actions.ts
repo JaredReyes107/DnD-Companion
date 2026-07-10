@@ -4,7 +4,9 @@ export const BEAST_ACTIONS: Record<string, ActionInstance> = {
   infectious_fury: {
     id: "infectious_fury",
     sourceId: "beast",
-    actionSlot: "free",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
+    trigger: ["onAttackHit"],
     effects: [
       {
         type: "modifyResource",
@@ -17,7 +19,8 @@ export const BEAST_ACTIONS: Record<string, ActionInstance> = {
   call_the_hunt: {
     id: "call_the_hunt",
     sourceId: "beast",
-    actionSlot: "free",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
     effects: [
       {
         type: "modifyResource",

@@ -44,9 +44,7 @@ export const STORM_HERALD: SubclassTemplate = {
         id: "raging_storm",
         source: "subclass",
         level: 14,
-        // TODO: reaction/bonus action hooks per environment choice
         tags: ["combat", "build-choice"],
-        // TODO: saving throw system
       },
     ],
   },

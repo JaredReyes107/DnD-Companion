@@ -4,7 +4,8 @@ export const ZEALOT_ACTIONS: Record<string, ActionInstance> = {
   zealous_presence: {
     id: "zealous_presence",
     sourceId: "zealot",
-    actionSlot: "bonusAction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "bonusAction" },
     effects: [
       {
         type: "modifyResource",
@@ -17,7 +18,8 @@ export const ZEALOT_ACTIONS: Record<string, ActionInstance> = {
   fanatical_focus: {
     id: "fanatical_focus",
     sourceId: "zealot",
-    actionSlot: "free",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
     effects: [
       {
         type: "modifyResource",

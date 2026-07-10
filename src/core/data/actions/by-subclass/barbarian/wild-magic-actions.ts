@@ -4,7 +4,10 @@ export const WILD_MAGIC_ACTIONS: Record<string, ActionInstance> = {
   magic_awareness: {
     id: "magic_awareness",
     sourceId: "wild_magic",
-    actionSlot: "action",
+    // RAW lets you sense magic within 60ft as an out-of-combat detection
+    // tool (e.g. scouting a room before entering), not just a combat option.
+    boards: ["combat", "exploration"],
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",
@@ -17,7 +20,8 @@ export const WILD_MAGIC_ACTIONS: Record<string, ActionInstance> = {
   bolstering_magic: {
     id: "bolstering_magic",
     sourceId: "wild_magic",
-    actionSlot: "action",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
     effects: [
       {
         type: "modifyResource",
@@ -30,7 +34,12 @@ export const WILD_MAGIC_ACTIONS: Record<string, ActionInstance> = {
   unstable_backlash: {
     id: "unstable_backlash",
     sourceId: "wild_magic",
-    actionSlot: "reaction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "reaction" },
+    // RAW also triggers on a failed saving throw while raging — no matching
+    // ActionTrigger value exists yet (same gap as diamond_soul). Recording
+    // only the half that's currently representable rather than guessing.
+    trigger: ["onDamageTaken"],
     effects: [],
     // TODO: reroll wild magic table on damage taken or failed save while raging
   },
