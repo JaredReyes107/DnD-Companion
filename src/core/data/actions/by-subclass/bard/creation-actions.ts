@@ -4,7 +4,8 @@ export const CREATION_ACTIONS: Record<string, ActionInstance> = {
   performance_of_creation: {
     id: "performance_of_creation",
     sourceId: "creation",
-    actionSlot: "action",
+    boards: ["combat", "roleplay", "exploration", "downtime"],
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",
@@ -16,7 +17,8 @@ export const CREATION_ACTIONS: Record<string, ActionInstance> = {
   animating_performance: {
     id: "animating_performance",
     sourceId: "creation",
-    actionSlot: "action",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",

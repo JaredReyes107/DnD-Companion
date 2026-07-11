@@ -18,6 +18,7 @@ export const GLAMOUR: SubclassTemplate = {
         id: "enthralling_performance",
         source: "subclass" as const,
         level: 3,
+        actions: ["enthralling_performance"],
         resources: ["enthralling_performance"],
         tags: [],
       },

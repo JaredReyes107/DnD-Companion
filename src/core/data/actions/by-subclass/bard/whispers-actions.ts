@@ -4,7 +4,9 @@ export const WHISPERS_ACTIONS: Record<string, ActionInstance> = {
   psychic_blades: {
     id: "psychic_blades",
     sourceId: "whispers",
-    actionSlot: "free",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
+    trigger: ["onAttackHit"],
     effects: [
       {
         type: "modifyResource",
@@ -16,32 +18,43 @@ export const WHISPERS_ACTIONS: Record<string, ActionInstance> = {
   mantle_of_whispers_capture_shadow: {
     id: "mantle_of_whispers_capture_shadow",
     sourceId: "whispers",
-    actionSlot: "reaction",
+    // Prerequisite step for the disguise below — same social-deception use case.
+    boards: ["combat", "roleplay"],
+    duration: { kind: "economy", slot: "reaction" },
     effects: [
       {
         type: "modifyResource",
         resourceId: "mantle_of_whispers_capture_shadow",
         amount: -1,
       },
+      {
+        type: "modifyResource",
+        resourceId: "mantle_of_whispers_disguise",
+        amount: +1,
+      },
     ],
   },
   mantle_of_whispers_disguise: {
     id: "mantle_of_whispers_disguise",
     sourceId: "whispers",
-    actionSlot: "action",
+    // Impersonating the captured shadow is a social-encounter tool, not combat.
+    boards: ["roleplay"],
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",
         resourceId: "mantle_of_whispers_disguise",
         amount: -1,
       },
-      // TODO: Apply duration. Only enabled after a mantle_of_whispers_capture_shadow
+      // TODO: Apply duration. 
     ],
   },
   shadow_lore: {
     id: "shadow_lore",
     sourceId: "whispers",
-    actionSlot: "action",
+    // Pure social/information tool (learn a secret about a creature) — no combat use.
+    boards: ["roleplay"],
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",

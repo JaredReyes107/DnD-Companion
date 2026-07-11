@@ -4,7 +4,21 @@ export const GLAMOUR_ACTIONS: Record<string, ActionInstance> = {
   mantle_of_inspiration: {
     id: "mantle_of_inspiration",
     sourceId: "glamour",
-    actionSlot: "bonusAction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "bonusAction" },
+    effects: [
+      {
+        type: "modifyResource",
+        resourceId: "bardic_inspiration",
+        amount: -1,
+      },
+    ],
+  },
+  enthralling_performance: {
+    id: "enthralling_performance",
+    sourceId: "glamour",
+    boards: ["combat"],
+    duration: { kind: "timed", minutes: 1 },
     effects: [
       {
         type: "modifyResource",
@@ -16,9 +30,9 @@ export const GLAMOUR_ACTIONS: Record<string, ActionInstance> = {
   mantle_of_majesty: {
     id: "mantle_of_majesty",
     sourceId: "glamour",
-    actionSlot: "bonusAction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "bonusAction" },
     effects: [
-      // TODO: Use concentration
       {
         type: "modifyResource",
         resourceId: "mantle_of_majesty",
@@ -28,21 +42,25 @@ export const GLAMOUR_ACTIONS: Record<string, ActionInstance> = {
         type: "applyModifier",
         modifiers: ["mantle_of_majesty_active"],
         durationRounds: 10,
+        concentration: true,
       },
     ],
   },
   mantle_of_majesty_command: {
     id: "mantle_of_majesty_command",
     sourceId: "glamour",
-    actionSlot: "bonusAction",
-    effects: [],
-    // TODO: Enable only if the character has the modifier 'mantle_of_majesty_active'
-    // TODO: Replicate the effect of "command" but with autofail
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "bonusAction" },
+    effects: [], // TODO: Replicate the effect of "command" but with autofail
+    canExecute: (character) =>
+      Object.values(character.combatState?.runtimeModifiers ?? {})
+        .some(m => m.modifier.templateId === "mantle_of_majesty"),
   },
   unbreakable_majesty: {
     id: "unbreakable_majesty",
     sourceId: "glamour",
-    actionSlot: "bonusAction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "bonusAction" },
     effects: [
       // Autoeffect: Save to attack at disadvantage, fail to change targets
       {
