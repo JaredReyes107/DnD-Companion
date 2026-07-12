@@ -4,7 +4,9 @@ export const LIGHT_ACTIONS: Record<string, ActionInstance> = {
   warding_flare: {
     id: "warding_flare",
     sourceId: "light",
-    actionSlot: "reaction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "reaction" },
+    // TODO: trigger
     effects: [
       {
         type: "modifyResource",
@@ -17,7 +19,8 @@ export const LIGHT_ACTIONS: Record<string, ActionInstance> = {
   channel_divinity_radiance_of_the_dawn: {
     id: "channel_divinity_radiance_of_the_dawn",
     sourceId: "light",
-    actionSlot: "action",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",
@@ -29,9 +32,16 @@ export const LIGHT_ACTIONS: Record<string, ActionInstance> = {
   corona_of_light: {
     id: "corona_of_light",
     sourceId: "light",
-    actionSlot: "action",
+    // 1-minute bright light source has standalone exploration utility
+    // (lighting a dark area) independent of its combat-shaped save bonus.
+    boards: ["combat", "exploration"],
+    duration: { kind: "economy", slot: "action" },
     effects: [
-      // TODO: Apply modifier (1 min or until action-dispel)
+      {
+        type: "applyModifier",
+        modifiers: ["corona_of_light"],
+        durationRounds: 10,
+      },
     ],
   },
 };

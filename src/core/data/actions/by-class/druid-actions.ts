@@ -26,8 +26,9 @@ export const DRUID_ACTIONS: Record<string, ActionInstance> = {
   wild_shape: {
     id: "wild_shape",
     sourceId: "druid",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "action",
+
+    duration: { kind: "economy", slot: "action" },
+    boards: ["combat", "roleplay"],
     effects: [
       {
         type: "modifyResource",

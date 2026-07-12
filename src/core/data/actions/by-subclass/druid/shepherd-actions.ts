@@ -4,7 +4,8 @@ export const SHEPHERD_ACTIONS: Record<string, ActionInstance> = {
   spirit_totem_summon: {
     id: "spirit_totem_summon",
     sourceId: "shepherd",
-    actionSlot: "bonusAction",
+    duration: { kind: "economy", slot: "bonusAction" },
+    boards: ["combat", "exploration"],
     effects: [
       {
         type: "modifyResource",
@@ -12,12 +13,14 @@ export const SHEPHERD_ACTIONS: Record<string, ActionInstance> = {
         amount: -1,
       },
       // TODO: Apply modifier/duration
+      // TODO: Apply creature's aura
     ],
   },
   spirit_totem_move: {
     id: "spirit_totem_move",
     sourceId: "shepherd",
-    actionSlot: "action",
+    duration: { kind: "economy", slot: "bonusAction" },
+    boards: ["combat", "exploration"],
     effects: [
       // Move Creature
     ],
@@ -25,7 +28,8 @@ export const SHEPHERD_ACTIONS: Record<string, ActionInstance> = {
   faithful_summons: {
     id: "faithful_summons",
     sourceId: "shepherd",
-    actionSlot: "free", //TODO: Replace with the appropiate auto-trigger
+    duration: { kind: "instantaneous" },
+    boards: ["combat", "exploration"],
     effects: [
       {
         type: "modifyResource",
@@ -33,7 +37,7 @@ export const SHEPHERD_ACTIONS: Record<string, ActionInstance> = {
         amount: -1,
       },
       // TODO: Apply modifier/duration.
-      // TODO: Trigger Spell effect
+      // TODO: Auto-Trigger Spell effect
     ],
   },
 };

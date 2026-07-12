@@ -4,8 +4,8 @@ export const SORCERER_ACTIONS: Record<string, ActionInstance> = {
   font_of_magic_to_spellslots: {
     id: "font_of_magic_to_spellslots",
     sourceId: "sorcerer",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "bonusAction",
+    boards: ["combat", "exploration", "roleplay"],
+    duration: { kind: "economy", slot: "bonusAction" },
     //TODO: Add argument for deciding what spellslot level to recover
     effects: [
       {
@@ -18,8 +18,8 @@ export const SORCERER_ACTIONS: Record<string, ActionInstance> = {
   font_of_magic_from_spellslots: {
     id: "font_of_magic_from_spellslots",
     sourceId: "sorcerer",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "bonusAction",
+    boards: ["combat", "exploration", "roleplay"],
+    duration: { kind: "economy", slot: "bonusAction" },
     //TODO: Add argument for deciding what spellslot level to spend
     effects: [
       {

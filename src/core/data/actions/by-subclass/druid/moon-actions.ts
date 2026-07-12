@@ -4,7 +4,8 @@ export const MOON_ACTIONS: Record<string, ActionInstance> = {
   combat_wild_shape_transform: {
     id: "combat_wild_shape_transform",
     sourceId: "moon",
-    actionSlot: "bonusAction",
+    duration: { kind: "economy", slot: "bonusAction" },
+    boards: ["combat", "roleplay"],
     effects: [
       {
         type: "modifyResource",
@@ -16,7 +17,8 @@ export const MOON_ACTIONS: Record<string, ActionInstance> = {
   combat_wild_shape_heal: {
     id: "combat_wild_shape_heal",
     sourceId: "moon",
-    actionSlot: "bonusAction",
+    duration: { kind: "economy", slot: "bonusAction" },
+    boards: ["combat"],
     effects: [],
     // TODO: heal effect per slot
     // TODO: spell slot choice to expend
@@ -25,7 +27,8 @@ export const MOON_ACTIONS: Record<string, ActionInstance> = {
   elemental_wild_shape: {
     id: "elemental_wild_shape",
     sourceId: "moon",
-    actionSlot: "free",
+    duration: { kind: "economy", slot: "bonusAction" },
+    boards: ["combat"],
     effects: [
       {
         type: "modifyResource",
@@ -38,9 +41,10 @@ export const MOON_ACTIONS: Record<string, ActionInstance> = {
   thousand_forms: {
     id: "thousand_forms",
     sourceId: "moon",
-    actionSlot: "action",
+    duration: { kind: "economy", slot: "action" },
+    boards: ["roleplay"],
     effects: [
-      // TODO: Apply Alter-Slef status
+      // TODO: Apply Alter-Self spell status
     ],
   },
 };

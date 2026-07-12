@@ -24,8 +24,8 @@ export const BARD_ACTIONS: Record<string, ActionInstance> = {
   bardic_inspiration: {
     id: "bardic_inspiration",
     sourceId: "sorcerer",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "bonusAction",
+
+    duration: { kind: "economy", slot: "bonusAction" },
     effects: [
       {
         type: "modifyResource",
@@ -33,13 +33,15 @@ export const BARD_ACTIONS: Record<string, ActionInstance> = {
         amount: -1,
       },
     ],
+    boards: [],
   },
   countercharm: {
     id: "countercharm",
     sourceId: "bard",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "action",
+
+    duration: { kind: "economy", slot: "action" },
     effects: [],
+    boards: [],
   },
 
   ...SUBCLASS_ACTIONS,

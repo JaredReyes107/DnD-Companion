@@ -69,7 +69,7 @@ export const CLERIC: ClassTemplate = {
         id: "ability_score_improvement",
         source: "class",
         level: 4,
-        tags: ["choice", "ASI"],
+        tags: ["build-choice", "ASI"],
       },
       {
         id: "cantrip_versatility",

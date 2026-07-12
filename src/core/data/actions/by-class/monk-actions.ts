@@ -4,8 +4,8 @@ export const MONK_ACTIONS: Record<string, ActionInstance> = {
   flurry_of_blows: {
     id: "flurry_of_blows",
     sourceId: "monk",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "bonusAction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "bonusAction" },
     effects: [
       {
         type: "modifyResource",
@@ -17,8 +17,8 @@ export const MONK_ACTIONS: Record<string, ActionInstance> = {
   patient_defense: {
     id: "patient_defense",
     sourceId: "monk",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "bonusAction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "bonusAction" },
     effects: [
       {
         type: "modifyResource",
@@ -30,8 +30,8 @@ export const MONK_ACTIONS: Record<string, ActionInstance> = {
   step_of_the_wind: {
     id: "step_of_the_wind",
     sourceId: "monk",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "bonusAction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "bonusAction" },
     effects: [
       {
         type: "modifyResource",
@@ -43,8 +43,8 @@ export const MONK_ACTIONS: Record<string, ActionInstance> = {
   deflect_missiles: {
     id: "deflect_missiles",
     sourceId: "monk",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "reaction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "reaction" },
     effects: [
       {
         type: "modifyResource",
@@ -56,16 +56,15 @@ export const MONK_ACTIONS: Record<string, ActionInstance> = {
   slow_fall: {
     id: "slow_fall",
     sourceId: "monk",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "reaction",
-    //TODO: This should be an option when taking damage
+    boards: ["combat", "exploration"],
+    duration: { kind: "economy", slot: "reaction" },
     effects: [],
   },
   stunning_strike: {
     id: "stunning_strike",
     sourceId: "monk",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "free",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
     effects: [
       {
         type: "modifyResource",
@@ -77,16 +76,16 @@ export const MONK_ACTIONS: Record<string, ActionInstance> = {
   stillness_of_mind: {
     id: "stillness_of_mind",
     sourceId: "monk",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "action",
+    boards: ["combat", "roleplay", "exploration"],
+    duration: { kind: "economy", slot: "action" },
     effects: [],
   },
   diamond_soul: {
     id: "diamond_soul",
     sourceId: "monk",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "free",
-    //? TODO: This should be an option when making a saving throw
+    boards: ["combat", "roleplay", "exploration"],
+    duration: { kind: "instantaneous" },
+    // TODO: Option when making a saving throw
     effects: [
       {
         type: "modifyResource",
@@ -98,21 +97,26 @@ export const MONK_ACTIONS: Record<string, ActionInstance> = {
   empty_body_invisibility: {
     id: "empty_body_invisibility",
     sourceId: "monk",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "action",
+    boards: ["combat", "exploration", "downtime"],
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",
         resourceId: "ki_points",
         amount: -4,
       },
+      {
+        type: "applyModifier",
+        modifiers: ["empty_body_invisibility"],
+        durationRounds: 10,
+      },
     ],
   },
   empty_body_astral_projection: {
     id: "empty_body_astral_projection",
     sourceId: "monk",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "action",
+    boards: ["roleplay", "exploration", "downtime"],
+    duration: { kind: "timed", minutes: 60 },
     effects: [
       {
         type: "modifyResource",

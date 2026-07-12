@@ -17,13 +17,13 @@ export function writeActionsFile(sub: ParsedSubclass): string {
   return `import { ActionInstance } from "@/core/entities/actions/action-instance";
 
 export const ${constName}: Record<string, ActionInstance> = {
-  // TODO: add unique actions for this subclass, e.g.:
-  // some_action: {
-  //   id: "some_action",
-  //   sourceId: "${sub.id}",
-  //   actionSlot: "action",
-  //   effects: [],
-  // },
+  some_action: {
+    id: "some_action",
+    sourceId: "${sub.id}",
+    boards: [],
+    duration: { kind: "economy", slot: "action" },
+    effects: [],
+  },
 };
 `;
 }

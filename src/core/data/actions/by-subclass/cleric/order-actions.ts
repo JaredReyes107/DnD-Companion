@@ -4,27 +4,31 @@ export const ORDER_ACTIONS: Record<string, ActionInstance> = {
   voice_of_authority: {
     id: "voice_of_authority",
     sourceId: "order",
-    actionSlot: "free",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
     effects: [
-      // TODO: Only active if you casted a Lv. > 0 spell that targets an ally
+      // TODO: Only enable if you casted a Lv. > 0 spell that targets an ally
     ],
   },
   channel_divinity_orders_demand: {
     id: "channel_divinity_orders_demand",
     sourceId: "order",
-    actionSlot: "action",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",
         resourceId: "channel_divinity",
         amount: -1,
       },
+      // TODO: Pass save or apply status
     ],
   },
   embodiment_of_the_law: {
     id: "embodiment_of_the_law",
     sourceId: "order",
-    actionSlot: "bonusAction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "bonusAction" },
     effects: [
       {
         type: "modifyResource",

@@ -4,7 +4,11 @@ export const VALOR_ACTIONS: Record<string, ActionInstance> = {
   battle_magic: {
     id: "battle_magic",
     sourceId: "valor",
-    actionSlot: "bonusAction",
-    effects: [],
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "bonusAction" },
+    trigger: ["onSpellCast"],
+    effects: [
+      // TODO: ¿melee? weapon attack
+    ],
   },
 };

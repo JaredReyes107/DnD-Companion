@@ -4,14 +4,16 @@ export const DREAMS_ACTIONS: Record<string, ActionInstance> = {
   balm_of_the_summer_court: {
     id: "balm_of_the_summer_court",
     sourceId: "dreams",
-    actionSlot: "bonusAction",
+    duration: { kind: "economy", slot: "bonusAction" },
+    boards: ["combat"],
     effects: [],
     // TODO: spend any number of dice from balm_of_the_summer_court — needs partial-resource-spend support, not a flat -1, the player chooses how many dice to use per cast
   },
   hidden_paths_self: {
     id: "hidden_paths_self",
     sourceId: "dreams",
-    actionSlot: "bonusAction",
+    duration: { kind: "economy", slot: "bonusAction" },
+    boards: ["combat", "exploration"],
     effects: [
       {
         type: "modifyResource",
@@ -19,12 +21,12 @@ export const DREAMS_ACTIONS: Record<string, ActionInstance> = {
         amount: -1,
       },
     ],
-    // TODO: teleportation hook
   },
   hidden_paths_other: {
     id: "hidden_paths_other",
     sourceId: "dreams",
-    actionSlot: "action",
+    duration: { kind: "economy", slot: "bonusAction" },
+    boards: ["combat", "exploration"],
     effects: [
       {
         type: "modifyResource",
@@ -32,12 +34,12 @@ export const DREAMS_ACTIONS: Record<string, ActionInstance> = {
         amount: -1,
       },
     ],
-    // TODO: teleportation hook
   },
   walker_in_dreams: {
     id: "walker_in_dreams",
     sourceId: "dreams",
-    actionSlot: "free",
+    duration: { kind: "instantaneous" },
+    boards: ["combat", "exploration"],
     effects: [
       {
         type: "modifyResource",
@@ -45,6 +47,6 @@ export const DREAMS_ACTIONS: Record<string, ActionInstance> = {
         amount: -1,
       },
     ],
-    // TODO: spellcasting hook (Dream / Scrying / Teleportation Circle)
+    // TODO: spellcasting mechanic (Dream / Scrying / Teleportation Circle)
   },
 };

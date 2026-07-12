@@ -4,7 +4,8 @@ export const SWORDS_ACTIONS: Record<string, ActionInstance> = {
   defensive_flourish: {
     id: "defensive_flourish",
     sourceId: "swords",
-    actionSlot: "free",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
     effects: [
       {
         type: "modifyResource",
@@ -17,7 +18,8 @@ export const SWORDS_ACTIONS: Record<string, ActionInstance> = {
   slashing_flourish: {
     id: "defensive_flourish",
     sourceId: "swords",
-    actionSlot: "free",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
     effects: [
       {
         type: "modifyResource",
@@ -29,7 +31,8 @@ export const SWORDS_ACTIONS: Record<string, ActionInstance> = {
   mobile_flourish: {
     id: "defensive_flourish",
     sourceId: "swords",
-    actionSlot: "free",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
     effects: [
       {
         type: "modifyResource",

@@ -11,21 +11,21 @@ export const SWORDS: SubclassTemplate = {
         id: "bonus_proficiencies",
         source: "subclass" as const,
         level: 3,
-        tags: ["choice"],
+        tags: ["build-choice"],
         // TODO: add proficiencies
       },
       {
         id: "fighting_style",
         source: "subclass" as const,
         level: 3,
-        tags: ["choice"],
+        tags: ["build-choice"],
         // TODO: add fighting styles selection
       },
       {
         id: "blade_flourish",
         source: "subclass" as const,
         level: 3,
-        tags: ["choice"],
+        tags: ["build-choice"],
         // TODO: Attack hook. +10 speed after Attack action, + enable flourish if weapon attack
       },
     ],

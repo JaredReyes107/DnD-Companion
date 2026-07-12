@@ -4,8 +4,8 @@ export const RANGER_ACTIONS: Record<string, ActionInstance> = {
   primeval_awareness: {
     id: "primeval_awareness",
     sourceId: "ranger",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "action",
+    boards: ["combat", "exploration", "roleplay"],
+    duration: { kind: "economy", slot: "action" },
     //TODO: Make the spell_slot level an argument
     effects: [
       {
@@ -18,8 +18,8 @@ export const RANGER_ACTIONS: Record<string, ActionInstance> = {
   vanish: {
     id: "vanish",
     sourceId: "ranger",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "bonusAction",
+    boards: ["combat", "exploration"],
+    duration: { kind: "economy", slot: "bonusAction" },
     //TODO: Make the spell_slot level an argument
     effects: [],
   },

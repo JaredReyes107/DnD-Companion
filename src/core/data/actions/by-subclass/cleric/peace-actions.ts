@@ -4,20 +4,27 @@ export const PEACE_ACTIONS: Record<string, ActionInstance> = {
   emboldening_bond: {
     id: "emboldening_bond",
     sourceId: "peace",
-    actionSlot: "action",
+    boards: ["combat", "roleplay", "exploration"],
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",
         resourceId: "emboldening_bond",
         amount: -1,
       },
-      // TODO: Apply the status (duration + choice to add the bonus to a roll)
+      {
+        type: "applyModifier",
+        modifiers: ["emboldening_bond_active"],
+        durationRounds: 100,
+        concentration: true,
+      },
     ],
   },
   channel_divinity_balm_of_peace: {
     id: "channel_divinity_balm_of_peace",
     sourceId: "peace",
-    actionSlot: "action",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",
@@ -30,9 +37,10 @@ export const PEACE_ACTIONS: Record<string, ActionInstance> = {
   protective_bond: {
     id: "protective_bond",
     sourceId: "peace",
-    actionSlot: "reaction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "reaction" },
     effects: [
-      //TODO: Redirect damage
+      //TODO: Grant reaction to people with effect: Redirect damage
     ],
   },
 };

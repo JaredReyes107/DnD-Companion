@@ -5,6 +5,10 @@ export const glamour_actions_es: GameLocalizationCategory = {
     name: "Manto de Inspiración",
     description: "",
   },
+  enthralling_performance: {
+    name: "Interpretación Cautivadora",
+    description: "",
+  },
   mantle_of_majesty: {
     name: "Manto de Majestad",
     description: "",

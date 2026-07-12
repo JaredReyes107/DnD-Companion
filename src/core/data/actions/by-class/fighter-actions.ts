@@ -10,8 +10,8 @@ export const FIGHTER_ACTIONS: Record<string, ActionInstance> = {
   second_wind: {
     id: "second_wind",
     sourceId: "fighter",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "bonusAction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "bonusAction" },
     effects: [
       {
         type: "modifyResource",
@@ -23,8 +23,8 @@ export const FIGHTER_ACTIONS: Record<string, ActionInstance> = {
   action_surge: {
     id: "action_surge",
     sourceId: "fighter",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "free",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
     effects: [
       {
         type: "modifyResource",

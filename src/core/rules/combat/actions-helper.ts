@@ -1,6 +1,6 @@
 import { Character } from "@/core/entities/character/Character";
 import { ActionInstance } from "@/core/entities/actions/action-instance";
-import { ActionResourceType } from "@/core/entities/combat/action-economy";
+import { ActionSlot } from "@/core/entities/combat/action-economy";
 import { FeatureTemplate } from "@/core/entities/rules/feature-template";
 import { getActiveFeatures } from "../character/features-helper";
 import {
@@ -71,15 +71,15 @@ export function buildCharacterActions(
 }
 
 export type ActionSectionData = {
-  slot: ActionResourceType;
-  actions: GroupedActions[ActionResourceType];
+  slot: ActionSlot;
+  actions: GroupedActions[ActionSlot];
 };
 
 export function groupedActionsAsArray(
   grouped: GroupedActions,
 ): ActionSectionData[] {
   return Object.entries(grouped).map(([slot, actions]) => ({
-    slot: slot as ActionResourceType,
+    slot: slot as ActionSlot,
     actions,
   }));
 }

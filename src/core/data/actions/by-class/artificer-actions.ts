@@ -4,8 +4,8 @@ export const ARTIFICER_ACTIONS: Record<string, ActionInstance> = {
   flash_of_genius: {
     id: "flash_of_genius",
     sourceId: "artificer",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "reaction",
+    duration: { kind: "economy", slot: "reaction" },
+    boards: ["combat", "exploration", "roleplay"],
     effects: [
       {
         type: "modifyResource",
