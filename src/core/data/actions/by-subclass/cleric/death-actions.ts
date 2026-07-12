@@ -4,7 +4,8 @@ export const DEATH_ACTIONS: Record<string, ActionInstance> = {
   channel_divinity_touch_of_death: {
     id: "channel_divinity_touch_of_death",
     sourceId: "death",
-    actionSlot: "action",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",

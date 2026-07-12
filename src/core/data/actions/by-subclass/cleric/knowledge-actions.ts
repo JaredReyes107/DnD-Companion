@@ -4,7 +4,8 @@ export const KNOWLEDGE_ACTIONS: Record<string, ActionInstance> = {
   channel_divinity_knowledge_of_the_ages: {
     id: "channel_divinity_knowledge_of_the_ages",
     sourceId: "knowledge",
-    actionSlot: "action",
+    boards: ["combat", "roleplay", "exploration"],
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",
@@ -16,7 +17,8 @@ export const KNOWLEDGE_ACTIONS: Record<string, ActionInstance> = {
   channel_divinity_read_thoughts: {
     id: "channel_divinity_read_thoughts",
     sourceId: "knowledge",
-    actionSlot: "action",
+    boards: ["combat", "roleplay"],
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",

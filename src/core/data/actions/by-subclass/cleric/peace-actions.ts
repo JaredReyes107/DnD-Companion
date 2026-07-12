@@ -4,7 +4,7 @@ export const PEACE_ACTIONS: Record<string, ActionInstance> = {
   emboldening_bond: {
     id: "emboldening_bond",
     sourceId: "peace",
-    actionSlot: "action",
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",
@@ -17,7 +17,7 @@ export const PEACE_ACTIONS: Record<string, ActionInstance> = {
   channel_divinity_balm_of_peace: {
     id: "channel_divinity_balm_of_peace",
     sourceId: "peace",
-    actionSlot: "action",
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",
@@ -30,7 +30,7 @@ export const PEACE_ACTIONS: Record<string, ActionInstance> = {
   protective_bond: {
     id: "protective_bond",
     sourceId: "peace",
-    actionSlot: "reaction",
+    duration: { kind: "economy", slot: "reaction" },
     effects: [
       //TODO: Redirect damage
     ],

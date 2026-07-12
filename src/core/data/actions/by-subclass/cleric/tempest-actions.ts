@@ -4,7 +4,9 @@ export const TEMPEST_ACTIONS: Record<string, ActionInstance> = {
   wrath_of_the_storm: {
     id: "wrath_of_the_storm",
     sourceId: "tempest",
-    actionSlot: "reaction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "reaction" },
+    trigger: ["onAttackHit"],
     effects: [
       {
         type: "modifyResource",
@@ -16,7 +18,8 @@ export const TEMPEST_ACTIONS: Record<string, ActionInstance> = {
   channel_divinity_destructive_wrath: {
     id: "channel_divinity_destructive_wrath",
     sourceId: "tempest",
-    actionSlot: "free",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
     effects: [
       {
         type: "modifyResource",

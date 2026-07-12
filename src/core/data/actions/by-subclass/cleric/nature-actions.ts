@@ -4,7 +4,8 @@ export const NATURE_ACTIONS: Record<string, ActionInstance> = {
   channel_divinity_charm_animals_and_plants: {
     id: "channel_divinity_charm_animals_and_plants",
     sourceId: "nature",
-    actionSlot: "action",
+    boards: ["combat", "roleplay", "exploration"],
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",
@@ -16,7 +17,9 @@ export const NATURE_ACTIONS: Record<string, ActionInstance> = {
   dampen_elements: {
     id: "dampen_elements",
     sourceId: "nature",
-    actionSlot: "reaction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "reaction" },
+    trigger: ["onDamageTaken"], // Structural gap: specific damage type
     effects: [
       //TODO: On-Damage hook: Resistance
     ],
@@ -24,7 +27,8 @@ export const NATURE_ACTIONS: Record<string, ActionInstance> = {
   master_of_nature: {
     id: "master_of_nature",
     sourceId: "nature",
-    actionSlot: "bonusAction",
+    boards: ["combat", "exploration"],
+    duration: { kind: "economy", slot: "bonusAction" },
     effects: [],
   },
 };

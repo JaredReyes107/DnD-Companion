@@ -1,11 +1,12 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 
 export const WAR_ACTIONS: Record<string, ActionInstance> = {
-  // TODO: Only enable after using the 'Attack' action
+  // TODO: Only enable after using the 'Attack' action. Not supported yet (Action log)
   war_priest: {
     id: "war_priest",
     sourceId: "war",
-    actionSlot: "bonusAction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "bonusAction" },
     effects: [
       {
         type: "modifyResource",
@@ -17,7 +18,8 @@ export const WAR_ACTIONS: Record<string, ActionInstance> = {
   channel_divinity_guided_strike: {
     id: "channel_divinity_guided_strike",
     sourceId: "war",
-    actionSlot: "free",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
     effects: [
       {
         type: "modifyResource",
@@ -29,7 +31,9 @@ export const WAR_ACTIONS: Record<string, ActionInstance> = {
   channel_divinity_war_gods_blessing: {
     id: "channel_divinity_war_gods_blessing",
     sourceId: "war",
-    actionSlot: "reaction",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "reaction" },
+    // TODO: // "self vs. other actor" structural gap. Trigger details
     effects: [
       {
         type: "modifyResource",
