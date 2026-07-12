@@ -31,6 +31,8 @@ export type ApplyModifierEffect = {
   durationRounds?: number;
 
   stacking?: "overlap" | "refresh" | "override" | "ignore";
+
+  concentration?: boolean; 
 };
 
 export type LogEffect = {
