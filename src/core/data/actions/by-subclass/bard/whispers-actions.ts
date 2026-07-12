@@ -46,7 +46,7 @@ export const WHISPERS_ACTIONS: Record<string, ActionInstance> = {
         resourceId: "mantle_of_whispers_disguise",
         amount: -1,
       },
-      // TODO: Apply duration. 
+      // TODO: Apply duration.
     ],
   },
   shadow_lore: {

@@ -34,10 +34,10 @@ export const ActionSection = ({
   if (actions.length === 0) return null;
 
   const handleAction = (action: ActionInstance) => {
-    const actionSlot = action.duration.kind === "economy" ? action.duration.slot : undefined
+    const actionSlot =
+      action.duration.kind === "economy" ? action.duration.slot : undefined;
 
-    if (actionSlot)
-    {
+    if (actionSlot) {
       onUpdate(decreaseActionResource(character, actionSlot));
     }
 

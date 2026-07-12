@@ -1,5 +1,4 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
-import { ActionSlot } from "@/core/entities/combat/action-economy";
 
 import { DEFAULT_ACTIONS } from "../actions/default-actions";
 
@@ -69,17 +68,14 @@ export function groupActionsBySlot(
 
   for (const resourceId in actions) {
     const action = actions[resourceId];
-    
+
     let actionSlot = "";
 
     if (action.duration.kind == "instantaneous") {
       actionSlot = "instantaneous";
-    }
-    else if (action.duration.kind == "economy") {
+    } else if (action.duration.kind == "economy") {
       actionSlot = action.duration.slot;
-    }
-    else
-    {
+    } else {
       actionSlot = "timed";
     }
 

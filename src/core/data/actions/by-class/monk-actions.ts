@@ -64,7 +64,7 @@ export const MONK_ACTIONS: Record<string, ActionInstance> = {
     id: "stunning_strike",
     sourceId: "monk",
     boards: ["combat"],
-    duration: { kind: "instantaneous"},
+    duration: { kind: "instantaneous" },
     effects: [
       {
         type: "modifyResource",

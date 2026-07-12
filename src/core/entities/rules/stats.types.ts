@@ -41,7 +41,6 @@ export type StatModifierInstance = {
   templateId: string;
   sourceId: string;
   statModel: StatModel;
-  
 
   mode: ModifierType;
   value: number;

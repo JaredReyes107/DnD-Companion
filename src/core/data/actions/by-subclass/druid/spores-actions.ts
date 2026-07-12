@@ -4,7 +4,7 @@ export const SPORES_ACTIONS: Record<string, ActionInstance> = {
   halo_of_spores: {
     id: "halo_of_spores",
     sourceId: "spores",
-    duration: { kind: "economy", slot: "reaction"},
+    duration: { kind: "economy", slot: "reaction" },
     boards: ["combat"],
     effects: [
       // TODO: Damage and scaling
@@ -13,7 +13,7 @@ export const SPORES_ACTIONS: Record<string, ActionInstance> = {
   symbiotic_entity: {
     id: "symbiotic_entity",
     sourceId: "spores",
-    duration: { kind: "economy", slot: "action"},
+    duration: { kind: "economy", slot: "action" },
     boards: ["combat"],
     effects: [
       {
@@ -26,7 +26,7 @@ export const SPORES_ACTIONS: Record<string, ActionInstance> = {
   fungal_infestation: {
     id: "fungal_infestation",
     sourceId: "spores",
-    duration: { kind: "economy", slot: "reaction"},
+    duration: { kind: "economy", slot: "reaction" },
     boards: ["combat"],
     effects: [
       {
@@ -39,7 +39,7 @@ export const SPORES_ACTIONS: Record<string, ActionInstance> = {
   spreading_spores_activate: {
     id: "spreading_spores_activate",
     sourceId: "spores",
-    duration: { kind: "economy", slot: "bonusAction"},
+    duration: { kind: "economy", slot: "bonusAction" },
     boards: ["combat"],
     effects: [
       // TODO: Damage and scaling
@@ -49,7 +49,7 @@ export const SPORES_ACTIONS: Record<string, ActionInstance> = {
   spreading_spores_deactivate: {
     id: "spreading_spores_deactivate",
     sourceId: "spores",
-    duration: { kind: "economy", slot: "bonusAction"},
+    duration: { kind: "economy", slot: "bonusAction" },
     boards: ["combat"],
     effects: [
       // TODO: Stops modifiers

@@ -53,8 +53,9 @@ export const GLAMOUR_ACTIONS: Record<string, ActionInstance> = {
     duration: { kind: "economy", slot: "bonusAction" },
     effects: [], // TODO: Replicate the effect of "command" but with autofail
     canExecute: (character) =>
-      Object.values(character.combatState?.runtimeModifiers ?? {})
-        .some(m => m.modifier.templateId === "mantle_of_majesty"),
+      Object.values(character.combatState?.runtimeModifiers ?? {}).some(
+        (m) => m.modifier.templateId === "mantle_of_majesty",
+      ),
   },
   unbreakable_majesty: {
     id: "unbreakable_majesty",

@@ -23,8 +23,8 @@ export type CombatState = {
 
   // CombatState addition
   concentrationSlots: {
-    max: number;           // default 1 per RAW, homebrew-overridable
-    active: string[];      // ids of RuntimeModifierInstance currently held under concentration
+    max: number; // default 1 per RAW, homebrew-overridable
+    active: string[]; // ids of RuntimeModifierInstance currently held under concentration
   };
 
   conditions: string[];

@@ -26,8 +26,8 @@ export const DRUID_ACTIONS: Record<string, ActionInstance> = {
   wild_shape: {
     id: "wild_shape",
     sourceId: "druid",
-    
-    duration: { kind: "economy", slot: "action"},
+
+    duration: { kind: "economy", slot: "action" },
     boards: ["combat", "roleplay"],
     effects: [
       {

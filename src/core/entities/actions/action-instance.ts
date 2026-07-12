@@ -32,7 +32,7 @@ export type ApplyModifierEffect = {
 
   stacking?: "overlap" | "refresh" | "override" | "ignore";
 
-  concentration?: boolean; 
+  concentration?: boolean;
 };
 
 export type LogEffect = {

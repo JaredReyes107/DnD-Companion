@@ -14,4 +14,4 @@ export type ActionTrigger =
   | "onSpellCast"
   | "onTurnStart"
   | "onTurnEnd";
-  // grow this union as real cases arrive — don't pre-populate speculatively
+// grow this union as real cases arrive — don't pre-populate speculatively

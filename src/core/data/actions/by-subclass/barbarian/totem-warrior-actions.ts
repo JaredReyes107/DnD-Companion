@@ -19,9 +19,9 @@ export const TOTEM_WARRIOR_ACTIONS: Record<string, ActionInstance> = {
     duration: { kind: "economy", slot: "bonusAction" },
     trigger: ["onAttackHit"], // TODO: MELEE WEAPON attack
     effects: [
-      //TODO: 
+      //TODO:
       // While raging
-      // Additional melee weapon attack 
+      // Additional melee weapon attack
     ],
   },
   totemic_attunement_wolf: {

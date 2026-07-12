@@ -4,7 +4,7 @@ export const SHEPHERD_ACTIONS: Record<string, ActionInstance> = {
   spirit_totem_summon: {
     id: "spirit_totem_summon",
     sourceId: "shepherd",
-    duration: { kind: "economy", slot: "bonusAction"},
+    duration: { kind: "economy", slot: "bonusAction" },
     boards: ["combat", "exploration"],
     effects: [
       {
@@ -19,7 +19,7 @@ export const SHEPHERD_ACTIONS: Record<string, ActionInstance> = {
   spirit_totem_move: {
     id: "spirit_totem_move",
     sourceId: "shepherd",
-    duration: { kind: "economy", slot: "bonusAction"},
+    duration: { kind: "economy", slot: "bonusAction" },
     boards: ["combat", "exploration"],
     effects: [
       // Move Creature
@@ -28,7 +28,7 @@ export const SHEPHERD_ACTIONS: Record<string, ActionInstance> = {
   faithful_summons: {
     id: "faithful_summons",
     sourceId: "shepherd",
-    duration: { kind: "instantaneous"},
+    duration: { kind: "instantaneous" },
     boards: ["combat", "exploration"],
     effects: [
       {

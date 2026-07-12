@@ -4,7 +4,7 @@ export const STARS_ACTIONS: Record<string, ActionInstance> = {
   star_map_guiding_bolt: {
     id: "star_map_guiding_bolt",
     sourceId: "stars",
-    duration: { kind: "economy", slot: "action"},
+    duration: { kind: "economy", slot: "action" },
     boards: ["combat"],
     effects: [
       {
@@ -17,7 +17,7 @@ export const STARS_ACTIONS: Record<string, ActionInstance> = {
   starry_form: {
     id: "starry_form",
     sourceId: "stars",
-    duration: { kind: "economy", slot: "bonusAction"},
+    duration: { kind: "economy", slot: "bonusAction" },
     boards: ["combat", "exploration", "roleplay"],
     effects: [
       {
@@ -31,7 +31,7 @@ export const STARS_ACTIONS: Record<string, ActionInstance> = {
   cosmic_omen: {
     id: "cosmic_omen",
     sourceId: "stars",
-    duration: { kind: "economy", slot: "bonusAction"},
+    duration: { kind: "economy", slot: "bonusAction" },
     boards: ["combat", "exploration", "roleplay"],
     effects: [
       {

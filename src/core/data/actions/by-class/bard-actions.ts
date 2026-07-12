@@ -33,7 +33,7 @@ export const BARD_ACTIONS: Record<string, ActionInstance> = {
         amount: -1,
       },
     ],
-    boards: []
+    boards: [],
   },
   countercharm: {
     id: "countercharm",
@@ -41,7 +41,7 @@ export const BARD_ACTIONS: Record<string, ActionInstance> = {
 
     duration: { kind: "economy", slot: "action" },
     effects: [],
-    boards: []
+    boards: [],
   },
 
   ...SUBCLASS_ACTIONS,

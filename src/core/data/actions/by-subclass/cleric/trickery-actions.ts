@@ -12,7 +12,7 @@ export const TRICKERY_ACTIONS: Record<string, ActionInstance> = {
         modifiers: ["blessing_of_the_trickster"],
         durationRounds: 600,
         concentration: true,
-        // Advantage on Stealth checks for 1hr 
+        // Advantage on Stealth checks for 1hr
       },
     ],
   },
@@ -40,8 +40,7 @@ export const TRICKERY_ACTIONS: Record<string, ActionInstance> = {
     sourceId: "trickery",
     boards: ["combat", "roleplay", "exploration"],
     duration: { kind: "economy", slot: "bonusAction" },
-    effects: [
-    ],
+    effects: [],
   },
   channel_divinity_cloak_of_shadows: {
     id: "channel_divinity_cloak_of_shadows",
