@@ -101,8 +101,7 @@ export function isActionAvailable(
 
   let hasActionEconomy = false;
 
-  if (action.duration.kind === "economy")
-  {
+  if (action.duration.kind === "economy") {
     switch (action.duration.slot) {
       case "action":
         hasActionEconomy =
@@ -117,9 +116,7 @@ export function isActionAvailable(
           character.combatState.actionEconomy.reactions.current > 0;
         break;
     }
-  }
-  else
-  {
+  } else {
     hasActionEconomy = true;
   }
 
@@ -205,8 +202,7 @@ export function executeAction(
     }
   }
 
-  if (action.duration.kind === "economy")
-  {
+  if (action.duration.kind === "economy") {
     updatedCharacter = decreaseActionResource(
       updatedCharacter,
       action.duration.slot,
