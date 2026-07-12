@@ -4,7 +4,8 @@ export const WILDFIRE_ACTIONS: Record<string, ActionInstance> = {
   summon_wildfire_spirit: {
     id: "summon_wildfire_spirit",
     sourceId: "wildfire",
-    actionSlot: "action",
+    duration: { kind: "economy", slot: "action"},
+    boards: ["combat", "exploration"],
     effects: [
       {
         type: "modifyResource",
@@ -17,7 +18,8 @@ export const WILDFIRE_ACTIONS: Record<string, ActionInstance> = {
   command_wildfire_spirit: {
     id: "command_wildfire_spirit",
     sourceId: "wildfire",
-    actionSlot: "bonusAction",
+    duration: { kind: "economy", slot: "bonusAction"},
+    boards: ["combat", "exploration"],
     effects: [
       // TODO: Apply modifier/duration
     ],
@@ -25,7 +27,8 @@ export const WILDFIRE_ACTIONS: Record<string, ActionInstance> = {
   cauterizing_flames: {
     id: "cauterizing_flames",
     sourceId: "wildfire",
-    actionSlot: "action",
+    duration: { kind: "economy", slot: "reaction"},
+    boards: ["combat"],
     effects: [
       {
         type: "modifyResource",
@@ -37,14 +40,15 @@ export const WILDFIRE_ACTIONS: Record<string, ActionInstance> = {
   blazing_revival: {
     id: "blazing_revival",
     sourceId: "wildfire",
-    actionSlot: "free",
+    duration: { kind: "instantaneous"},
+    boards: ["combat"],
+    trigger: ["onZeroHp"],
     effects: [
       {
         type: "modifyResource",
         resourceId: "blazing_revival",
         amount: -1,
       },
-      // TODO: Only available when at 0 HP.
     ],
   },
 };

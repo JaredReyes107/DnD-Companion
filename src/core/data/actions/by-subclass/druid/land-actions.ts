@@ -4,7 +4,9 @@ export const LAND_ACTIONS: Record<string, ActionInstance> = {
   natural_recovery: {
     id: "natural_recovery",
     sourceId: "land",
-    actionSlot: "free",
+    boards: ["exploration", "downtime"],
+    duration: { kind: "instantaneous" },
+    trigger: ["onShortRest"],
     effects: [
       {
         type: "modifyResource",
