@@ -52,7 +52,7 @@ export const SORCERER: ClassTemplate = {
         id: "metamagic",
         source: "class",
         level: 3,
-        tags: ["choice"],
+        tags: ["build-choice"],
         // TODO: metamagic system
         // TODO: spell-hook
       },

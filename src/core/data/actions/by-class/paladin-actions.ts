@@ -4,8 +4,8 @@ export const PALADIN_ACTIONS: Record<string, ActionInstance> = {
   divine_sense: {
     id: "divine_sense",
     sourceId: "paladin",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "action",
+    boards: ["combat", "roleplay", "exploration"],
+    duration: { kind: "economy", slot: "action" },
     effects: [
       {
         type: "modifyResource",
@@ -17,8 +17,8 @@ export const PALADIN_ACTIONS: Record<string, ActionInstance> = {
   lay_on_hands: {
     id: "lay_on_hands",
     sourceId: "paladin",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "action",
+    boards: ["combat", "roleplay"],
+    duration: { kind: "economy", slot: "action" },
     //TODO: Make the amount an argument
     effects: [
       {
@@ -31,8 +31,8 @@ export const PALADIN_ACTIONS: Record<string, ActionInstance> = {
   divine_smite: {
     id: "divine_smite",
     sourceId: "paladin",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "free",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
     //TODO: Make the spell_slot level an argument
     effects: [
       {
@@ -45,8 +45,8 @@ export const PALADIN_ACTIONS: Record<string, ActionInstance> = {
   cleansing_touch: {
     id: "cleansing_touch",
     sourceId: "paladin",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "action",
+    boards: ["combat", "roleplay", "exploration"],
+    duration: { kind: "economy", slot: "action" },
     effects: [],
   },
 };

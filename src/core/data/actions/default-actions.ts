@@ -4,57 +4,57 @@ export const DEFAULT_ACTIONS: Record<string, ActionInstance> = {
   attack: {
     id: "attack",
     sourceId: "default",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "action",
+    duration: { kind: "economy", slot: "action" },
+    boards: ["combat"],
     effects: [],
   },
   dash: {
     id: "dash",
     sourceId: "default",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "action",
+    duration: { kind: "economy", slot: "action" },
+    boards: ["combat"],
     effects: [],
   },
   disengage: {
     id: "disengage",
     sourceId: "default",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "action",
+    duration: { kind: "economy", slot: "action" },
+    boards: ["combat"],
     effects: [],
   },
   dodge: {
     id: "dodge",
     sourceId: "default",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "action",
+    duration: { kind: "economy", slot: "action" },
+    boards: ["combat"],
     effects: [],
   },
   help: {
     id: "help",
     sourceId: "default",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "action",
+    duration: { kind: "economy", slot: "action" },
+    boards: ["combat", "exploration", "roleplay"],
     effects: [],
   },
   hide: {
     id: "hide",
     sourceId: "default",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "action",
+    duration: { kind: "economy", slot: "action" },
+    boards: ["combat", "exploration"],
     effects: [],
   },
   ready: {
     id: "ready",
     sourceId: "default",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "action",
+    duration: { kind: "economy", slot: "action" },
+    boards: ["combat", "exploration"],
     effects: [],
   },
   testBladesong: {
     id: "testBladesong",
     sourceId: "wizard_bladesinger",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    actionSlot: "bonusAction",
+    duration: { kind: "economy", slot: "bonusAction" },
+    boards: ["combat"],
     effects: [
       {
         type: "applyModifier",
