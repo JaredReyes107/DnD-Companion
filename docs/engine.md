@@ -45,6 +45,14 @@ flowchart TD
     CheckExpirations -. "If Enemies Defeated" .-> EndCombat
 ```
 
+> **Action shape:** `ActionInstance` uses
+> `board: ActionBoard[]`, `duration: ActionDuration`, and
+> `trigger?: ActionTrigger[]` instead of the legacy `actionSlot` field.
+> Concentration on `ApplyModifierEffect` and `RuntimeModifierInstance`
+> is tracked via `concentration?: boolean` but cap enforcement and
+> out-of-combat concentration handling are not yet implemented.
+> See `src/core/entities/actions/action-instance.ts` for the current shape.
+
 ## 2. Character Stat Resolution Diagram
 
 The `StatResolver` (`src/core/systems/stats`) is responsible for calculating a character's final numbers by combining their base stats with active modifiers.
