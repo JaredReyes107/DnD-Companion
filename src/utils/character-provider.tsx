@@ -11,7 +11,7 @@ import { CombatState } from "@/core/entities/combat/combat-state";
 import { CharacterRepository } from "@/repositories/CharacterRepository";
 import { CharacterSelectionRepository } from "@/repositories/CharacterSelectionRepository";
 import { EncounterRepository } from "@/repositories/EncounterRepository";
-import { buildCombatState } from "@/core/entities/combat/combat-helper";
+import { buildCombatState } from "@/core/rules/combat/combat-helper";
 import { buildEncounterState } from "@/core/entities/combat/encounter-helper";
 
 // ---------------------------------------------------------------------------

@@ -101,22 +101,26 @@ export function isActionAvailable(
 
   let hasActionEconomy = false;
 
-  switch (action.actionSlot) {
-    case "action":
-      hasActionEconomy =
-        character.combatState.actionEconomy.actions.current > 0;
-      break;
-    case "bonusAction":
-      hasActionEconomy =
-        character.combatState.actionEconomy.bonusActions.current > 0;
-      break;
-    case "reaction":
-      hasActionEconomy =
-        character.combatState.actionEconomy.reactions.current > 0;
-      break;
-    case "free":
-      hasActionEconomy = true;
-      break;
+  if (action.duration.kind === "economy")
+  {
+    switch (action.duration.slot) {
+      case "action":
+        hasActionEconomy =
+          character.combatState.actionEconomy.actions.current > 0;
+        break;
+      case "bonusAction":
+        hasActionEconomy =
+          character.combatState.actionEconomy.bonusActions.current > 0;
+        break;
+      case "reaction":
+        hasActionEconomy =
+          character.combatState.actionEconomy.reactions.current > 0;
+        break;
+    }
+  }
+  else
+  {
+    hasActionEconomy = true;
   }
 
   let hasResource = true;
@@ -144,7 +148,7 @@ export function isActionAvailable(
     }
   }
 
-  const isAvailable = hasActionEconomy && hasResource;
+  const isAvailable = hasActionEconomy && hasResource; //&& canExecute
 
   return isAvailable;
 }
@@ -201,10 +205,13 @@ export function executeAction(
     }
   }
 
-  updatedCharacter = decreaseActionResource(
-    updatedCharacter,
-    action.actionSlot,
-  );
+  if (action.duration.kind === "economy")
+  {
+    updatedCharacter = decreaseActionResource(
+      updatedCharacter,
+      action.duration.slot,
+    );
+  }
 
   ctx.dispatch(updatedCharacter);
 }

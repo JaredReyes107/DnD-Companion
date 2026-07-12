@@ -1,7 +1,7 @@
 import * as Crypto from "expo-crypto";
 
 import { Character } from "../character/Character";
-import { buildCombatState } from "./combat-helper";
+import { buildCombatState } from "@/core/rules/combat/combat-helper";
 import { EncounterState } from "@/core/entities/combat/encounter-state";
 import { EncounterRepository } from "@/repositories/EncounterRepository";
 

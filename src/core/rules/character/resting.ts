@@ -1,5 +1,5 @@
 import { Character } from "@/core/entities/character/Character";
-import { buildCombatState } from "@/core/entities/combat/combat-helper";
+import { buildCombatState } from "@/core/rules/combat/combat-helper";
 import { ResourceInstance } from "@/core/entities/resources/resource-instance";
 import { getResourceRegistry } from "../../data/registries/resources.registry";
 
