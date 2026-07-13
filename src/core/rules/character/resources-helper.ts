@@ -17,11 +17,11 @@ export function getResourcesFromFeatures(
   features: FeatureTemplate[],
 ): Set<string> {
   const ids = new Set<string>();
-
   for (const feature of features) {
-    feature.resources?.forEach((id) => ids.add(id));
+    feature.grants
+      ?.filter((g) => g.type === "resource")
+      .forEach((g) => ids.add(g.id));
   }
-
   return ids;
 }
 

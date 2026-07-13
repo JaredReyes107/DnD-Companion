@@ -13,11 +13,11 @@ export function getActionsFromFeatures(
   features: FeatureTemplate[],
 ): Set<string> {
   const ids = new Set<string>();
-
   for (const feature of features) {
-    feature.actions?.forEach((id) => ids.add(id));
+    feature.grants
+      ?.filter((g) => g.type === "action")
+      .forEach((g) => ids.add(g.id));
   }
-
   return ids;
 }
 
