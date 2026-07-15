@@ -41,10 +41,10 @@ export const ROGUE: ClassTemplate = {
         id: "cunning_action",
         source: "class",
         level: 2,
-        actions: [
-          "cunning_action_dash",
-          "cunning_action_disengage",
-          "cunning_action_hide",
+        grants: [
+          { type: "action", id: "cunning_action_dash" },
+          { type: "action", id: "cunning_action_disengage" },
+          { type: "action", id: "cunning_action_hide" },
         ],
         tags: ["combat"],
         // TODO: combat-hook

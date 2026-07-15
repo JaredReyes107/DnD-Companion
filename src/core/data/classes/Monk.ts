@@ -33,8 +33,7 @@ export const MONK: ClassTemplate = {
         id: "ki",
         source: "class",
         level: 2,
-        resources: ["ki_points"],
-        actions: ["flurry_of_blows", "patient_defense", "step_of_the_wind"],
+        grants: [{ type: "resource", id: "ki_points" }, { type: "action", id: "flurry_of_blows" }, { type: "action", id: "patient_defense" }, { type: "action", id: "step_of_the_wind" }],
         tags: ["resource"],
         // TODO: rest-hook
       },
@@ -59,7 +58,7 @@ export const MONK: ClassTemplate = {
         id: "deflect_missiles",
         source: "class",
         level: 3,
-        actions: ["deflect_missiles"],
+        grants: [{ type: "action", id: "deflect_missiles" }],
         tags: ["reaction", "combat"],
         // TODO: combat-hook
       },
@@ -70,7 +69,7 @@ export const MONK: ClassTemplate = {
         id: "slow_fall",
         source: "class",
         level: 4,
-        actions: ["slow_fall"],
+        grants: [{ type: "action", id: "slow_fall" }],
         tags: ["reaction"],
         // TODO: reaction
       },
@@ -88,7 +87,7 @@ export const MONK: ClassTemplate = {
         id: "stunning_strike",
         source: "class",
         level: 5,
-        actions: ["stunning_strike"],
+        grants: [{ type: "action", id: "stunning_strike" }],
         tags: ["combat", "debuff"],
         // TODO: combat-hook
       },
@@ -116,7 +115,7 @@ export const MONK: ClassTemplate = {
         id: "stillness_of_mind",
         source: "class",
         level: 7,
-        actions: ["stillness_of_mind"],
+        grants: [{ type: "action", id: "stillness_of_the_mind" }],
         tags: ["action"],
         //? TODO: condition system
       },
@@ -163,9 +162,9 @@ export const MONK: ClassTemplate = {
         id: "diamond_soul",
         source: "class",
         level: 14,
-        actions: ["diamond_soul"],
+        grants: [{ type: "action", id: "diamond_soul" }],
         tags: ["defense"],
-        // NOTE: flat bonus logic ignored per constraints
+        // NOTE: ST proficiencies logic ignored per constraints
       },
     ],
 
@@ -187,9 +186,8 @@ export const MONK: ClassTemplate = {
         id: "empty_body",
         source: "class",
         level: 18,
-        actions: ["empty_body_invisibility", "empty_body_astral_projection"],
-        // TODO: transformation
-        tags: ["resource", "transformation"],
+        grants: [{ type: "action", id: "empty_body_invisibility" }, { type: "action", id: "empty_body_astral_projection" }],
+        tags: ["resource"],
       },
     ],
 

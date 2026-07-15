@@ -22,8 +22,7 @@ export const BARD: ClassTemplate = {
         id: "bardic_inspiration",
         source: "class",
         level: 1,
-        resources: ["bardic_inspiration"],
-        actions: ["bardic_inspiration"],
+        grants: [{ type: "resource", id: "bardic_inspiration" }, { type: "action", id: "bardic_inspiration" }],
         tags: ["resource", "support"],
       },
       {
@@ -90,7 +89,7 @@ export const BARD: ClassTemplate = {
         id: "countercharm",
         source: "class",
         level: 6,
-        actions: ["countercharm"],
+        grants: [{ type: "action", id: "countercharm" }],
         tags: ["action", "defense"],
       },
       {

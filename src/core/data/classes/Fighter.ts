@@ -22,7 +22,7 @@ export const FIGHTER: ClassTemplate = {
         id: "second_wind",
         source: "class",
         level: 1,
-        resources: ["second_wind"],
+        grants: [{ type: "resource", id: "second_wind" }],
         tags: ["resource", "healing"],
         // TODO: action
         // TODO: rest-hook
@@ -34,10 +34,8 @@ export const FIGHTER: ClassTemplate = {
         id: "action_surge",
         source: "class",
         level: 2,
-        resources: ["action_surge"],
+        grants: [{ type: "resource", id: "action_surge" }, { type: "action", id: "action_surge" }],
         tags: ["resource", "combat"],
-        // TODO: combat-hook
-        // TODO: rest-hook
       },
     ],
 
@@ -74,7 +72,7 @@ export const FIGHTER: ClassTemplate = {
         id: "indomitable",
         source: "class",
         level: 9,
-        resources: ["indomitable"],
+        grants: [{ type: "resource", id: "indomitable" }],
         tags: ["resource", "defense"],
         // TODO: reaction
         // TODO: rest-hook

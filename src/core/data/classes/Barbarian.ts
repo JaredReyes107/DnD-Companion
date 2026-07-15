@@ -15,17 +15,14 @@ export const BARBARIAN: ClassTemplate = {
         id: "rage",
         source: "class",
         level: 1,
-        //TODO: Add property with Id's "actions: [],"
-        resources: ["rage"],
-        combatRole: "active",
-        tags: ["combat"],
+        grants: [{ type: "resource", id: "rage" }, { type: "action", id: "rage" }],
+                tags: ["combat"],
       },
       {
         id: "unarmored_defense",
         source: "class",
         level: 1,
-        combatRole: "passive",
-        tags: ["combat", "ac"],
+                tags: ["combat", "ac"],
       },
     ],
     2: [
@@ -33,17 +30,12 @@ export const BARBARIAN: ClassTemplate = {
         id: "reckless_attack",
         source: "class",
         level: 2,
-        //TODO: Add property with Id's "actions: [],"
-        resources: ["rage"],
-        combatRole: "active",
-        tags: ["combat", "advantage"],
       },
       {
         id: "danger_sense",
         source: "class",
         level: 2,
-        combatRole: "passive",
-        tags: ["combat", "advantage"],
+                tags: ["combat", "advantage"],
       },
     ],
     3: [
@@ -66,7 +58,6 @@ export const BARBARIAN: ClassTemplate = {
         id: "fast_movement",
         source: "class",
         level: 5,
-        resources: ["rage"],
         tags: ["movement"],
       },
     ],

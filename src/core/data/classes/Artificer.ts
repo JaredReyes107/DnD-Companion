@@ -79,7 +79,7 @@ export const ARTIFICER: ClassTemplate = {
         id: "flash_of_genius",
         source: "class",
         level: 7,
-        resources: ["flash_of_genius"],
+        grants: [{ type: "resource", id: "flash_of_genius" }],
         tags: ["reaction", "resource"],
         // TODO: reaction
         // TODO: roll-hook

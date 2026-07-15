@@ -22,16 +22,14 @@ export const PALADIN: ClassTemplate = {
         id: "divine_sense",
         source: "class",
         level: 1,
-        resources: ["divine_sense"],
-        actions: ["divine_sense"],
+        grants: [{ type: "resource", id: "divine_sense" }, { type: "action", id: "divine_sense" }],
         tags: ["resource", "utility"],
       },
       {
         id: "lay_on_hands",
         source: "class",
         level: 1,
-        resources: ["lay_on_hands"],
-        actions: ["lay_on_hands"],
+        grants: [{ type: "resource", id: "lay_on_hands" }, { type: "action", id: "lay_on_hands" }],
         tags: ["resource", "healing"],
         // TODO: rest-hook
       },
@@ -55,7 +53,7 @@ export const PALADIN: ClassTemplate = {
         id: "divine_smite",
         source: "class",
         level: 2,
-        actions: ["divine_smite"],
+        grants: [{ type: "action", id: "divine_smite" }],
         tags: ["combat"],
       },
     ],
@@ -72,7 +70,7 @@ export const PALADIN: ClassTemplate = {
         id: "sacred_oath",
         source: "class",
         level: 3,
-        resources: ["channel_divinity"],
+        grants: [{ type: "resource", id: "channel_divinity" }],
         tags: ["subclass"],
       },
     ],
@@ -136,9 +134,8 @@ export const PALADIN: ClassTemplate = {
         id: "cleansing_touch",
         source: "class",
         level: 14,
-        resources: ["cleansing_touch"],
+        grants: [{ type: "resource", id: "cleansing_touch" }, { type: "action", id: "cleansing_touch" }],
         tags: ["resource", "utility"],
-        // TODO: action
         // TODO: spell-effect hook
         // TODO: rest-hook
       },

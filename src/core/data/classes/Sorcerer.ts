@@ -23,8 +23,7 @@ export const SORCERER: ClassTemplate = {
         source: "class",
         level: 1,
         tags: ["subclass"],
-        combatRole: "none",
-      },
+              },
       {
         id: "spellcasting_sorcerer",
         source: "class",
@@ -37,12 +36,7 @@ export const SORCERER: ClassTemplate = {
         id: "font_of_magic",
         source: "class",
         level: 2,
-        combatRole: "active",
-        resources: ["sorcery_points"],
-        actions: [
-          "font_of_magic_to_spellslots",
-          "font_of_magic_from_spellslots",
-        ],
+        grants: [{ type: "resource", id: "sorcery_points" }, { type: "action", id: "font_of_magic_to_spellslots" }, { type: "action", id: "font_of_magic_from_spellslots" }, { type: "action", id: "font_of_magic_to_spellslots" }],
         tags: ["resource"],
       },
     ],
