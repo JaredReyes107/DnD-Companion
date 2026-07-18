@@ -18,8 +18,11 @@ export const SHEPHERD: SubclassTemplate = {
         id: "spirit_totem",
         source: "subclass" as const,
         level: 2,
-        grants: [{ type: "resource", id: "spirit_totem"}],
-        actions: ["spirit_totem_summon", "spirit_totem_move"],
+        grants: [
+          { type: "resource", id: "spirit_totem" },
+          { type: "resource", id: "spirit_totem_summon" },
+          { type: "resource", id: "spirit_totem_move" },
+        ],
         tags: ["support", "build-choice"],
         // TODO: Totem choice system (Bear/Hawk/Unicorn)
         // TODO: Aura hook per totem (temp HP / advantage / healing)
@@ -51,7 +54,10 @@ export const SHEPHERD: SubclassTemplate = {
         id: "faithful_summons",
         source: "subclass" as const,
         level: 14,
-        grants: [{ type: "action", id: "faithful_summons"}, { type: "resource", id: "faithful_summons"}],
+        grants: [
+          { type: "action", id: "faithful_summons" },
+          { type: "resource", id: "faithful_summons" },
+        ],
         tags: ["summoning", "defense"],
         // TODO: Trigger hook to auto-trigger (0 HP or incapacitated, no allies within 30ft)
         // TODO: Summon 2 CR 2 beasts

@@ -11,14 +11,17 @@ export const STARS: SubclassTemplate = {
         id: "star_map",
         source: "subclass" as const,
         level: 2,
-        grants: [{ type: "action", id: "star_map_guiding_bolt"}, { type: "resource", id: "star_map_guiding_bolt"}],
+        grants: [
+          { type: "action", id: "star_map_guiding_bolt" },
+          { type: "resource", id: "star_map_guiding_bolt" },
+        ],
         tags: ["utility", "spellcasting", "spells"],
       },
       {
         id: "starry_form",
         source: "subclass" as const,
         level: 2,
-        grants: [{ type: "action", id: "starry_form"}],
+        grants: [{ type: "action", id: "starry_form" }],
         tags: ["transformation", "build-choice"],
         // TODO: Form choice system (Archer/Chalice/Dragon)
       },
@@ -29,7 +32,10 @@ export const STARS: SubclassTemplate = {
         id: "cosmic_omen",
         source: "subclass" as const,
         level: 6,
-        grants: [{ type: "action", id: "cosmic_omen"}, { type: "resource", id: "cosmic_omen"}],
+        grants: [
+          { type: "action", id: "cosmic_omen" },
+          { type: "resource", id: "cosmic_omen" },
+        ],
         tags: ["reaction", "support", "debuff"],
         // TODO: Choose wheter it is Weal/Woe after long rest
       },

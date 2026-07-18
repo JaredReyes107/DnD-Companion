@@ -33,7 +33,12 @@ export const MONK: ClassTemplate = {
         id: "ki",
         source: "class",
         level: 2,
-        grants: [{ type: "resource", id: "ki_points" }, { type: "action", id: "flurry_of_blows" }, { type: "action", id: "patient_defense" }, { type: "action", id: "step_of_the_wind" }],
+        grants: [
+          { type: "resource", id: "ki_points" },
+          { type: "action", id: "flurry_of_blows" },
+          { type: "action", id: "patient_defense" },
+          { type: "action", id: "step_of_the_wind" },
+        ],
         tags: ["resource"],
         // TODO: rest-hook
       },
@@ -186,7 +191,10 @@ export const MONK: ClassTemplate = {
         id: "empty_body",
         source: "class",
         level: 18,
-        grants: [{ type: "action", id: "empty_body_invisibility" }, { type: "action", id: "empty_body_astral_projection" }],
+        grants: [
+          { type: "action", id: "empty_body_invisibility" },
+          { type: "action", id: "empty_body_astral_projection" },
+        ],
         tags: ["resource"],
       },
     ],

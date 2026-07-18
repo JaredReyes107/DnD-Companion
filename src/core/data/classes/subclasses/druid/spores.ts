@@ -17,7 +17,7 @@ export const SPORES: SubclassTemplate = {
         id: "halo_of_spores",
         source: "subclass" as const,
         level: 2,
-        grants: [{ type: "action", id: "halo_of_spores"}],
+        grants: [{ type: "action", id: "halo_of_spores" }],
         tags: ["damage", "reaction"],
         // TODO: Trigger hook (damage dealt by you, or creature ends turn within 10ft)
         // TODO: Damage scaling (1d4 → 1d6 at lv6 → 1d8 at lv10 → 1d10 at lv14)
@@ -26,7 +26,7 @@ export const SPORES: SubclassTemplate = {
         id: "symbiotic_entity",
         source: "subclass" as const,
         level: 2,
-        grants: [{ type: "action", id: "symbiotic_entity"}],
+        grants: [{ type: "action", id: "symbiotic_entity" }],
         tags: ["combat", "transformation"],
         // TODO: Apply status and Temp HP (4x druid level)
         // TODO: status ends after 10 min, wild shape use or ful temp hp loss
@@ -39,7 +39,10 @@ export const SPORES: SubclassTemplate = {
         id: "fungal_infestation",
         source: "subclass" as const,
         level: 6,
-        grants: [{ type: "action", id: "fungal_infestation"}, { type: "resource", id: "fungal_infestation"}],
+        grants: [
+          { type: "action", id: "fungal_infestation" },
+          { type: "resource", id: "fungal_infestation" },
+        ],
         tags: ["reaction", "summoning"],
         // TODO: Trigger hook (creature death within 10ft)
       },
@@ -50,7 +53,10 @@ export const SPORES: SubclassTemplate = {
         id: "spreading_spores",
         source: "subclass" as const,
         level: 10,
-        actions: ["spreading_spores_activate", "spreading_spores_deactivate"],
+        grants: [
+          { type: "action", id: "spreading_spores_activate" },
+          { type: "action", id: "spreading_spores_deactivate" },
+        ],
         tags: ["damage", "build-choice"],
         // TODO: Area damage hook (10ft cube within 30ft, requires symbiotic_entity active)
       },

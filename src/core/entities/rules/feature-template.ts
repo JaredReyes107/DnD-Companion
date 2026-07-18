@@ -10,6 +10,6 @@ export type FeatureTemplate = {
   classId?: string;
   level?: number;
   tags?: string[];
-  
+
   grants?: FeatureGrant[];
 };

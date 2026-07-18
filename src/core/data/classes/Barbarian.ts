@@ -15,14 +15,17 @@ export const BARBARIAN: ClassTemplate = {
         id: "rage",
         source: "class",
         level: 1,
-        grants: [{ type: "action", id: "rage"}, { type: "resource", id: "rage"}],
-                tags: ["combat"],
+        grants: [
+          { type: "action", id: "rage" },
+          { type: "resource", id: "rage" },
+        ],
+        tags: ["combat"],
       },
       {
         id: "unarmored_defense",
         source: "class",
         level: 1,
-                tags: ["combat", "ac"],
+        tags: ["combat", "ac"],
       },
     ],
     2: [
@@ -35,7 +38,7 @@ export const BARBARIAN: ClassTemplate = {
         id: "danger_sense",
         source: "class",
         level: 2,
-                tags: ["combat", "advantage"],
+        tags: ["combat", "advantage"],
       },
     ],
     3: [

@@ -23,7 +23,10 @@ export const TWILIGHT: SubclassTemplate = {
         id: "eyes_of_night",
         source: "subclass" as const,
         level: 1,
-        grants: [{ type: "action", id: "eyes_of_night"}, { type: "resource", id: "eyes_of_night"}],
+        grants: [
+          { type: "action", id: "eyes_of_night" },
+          { type: "resource", id: "eyes_of_night" },
+        ],
         tags: ["utility", "support"],
         // TODO: Apply modifier for Darkvision (300ft, allies within 10ft)
       },
@@ -31,7 +34,7 @@ export const TWILIGHT: SubclassTemplate = {
         id: "vigilant_blessing",
         source: "subclass" as const,
         level: 1,
-        grants: [{ type: "action", id: "vigilant_blessing"}],
+        grants: [{ type: "action", id: "vigilant_blessing" }],
         tags: ["support"],
         // TODO: Advantage on initiative hook. Ends when used again or after initiative is rolled.
       },
@@ -42,7 +45,7 @@ export const TWILIGHT: SubclassTemplate = {
         id: "channel_divinity_twilight_sanctuary",
         source: "subclass" as const,
         level: 2,
-        grants: [{ type: "action", id: "channel_divinity_twilight_sanctuary"}],
+        grants: [{ type: "action", id: "channel_divinity_twilight_sanctuary" }],
         tags: ["support", "defense"],
         // TODO: Sanctuary hook (Aura-like effect) (temp HP or end fear/charm within 30ft)
       },
@@ -53,7 +56,10 @@ export const TWILIGHT: SubclassTemplate = {
         id: "steps_of_night",
         source: "subclass" as const,
         level: 6,
-        grants: [{ type: "action", id: "steps_of_night"}, { type: "resource", id: "steps_of_night"}],
+        grants: [
+          { type: "action", id: "steps_of_night" },
+          { type: "resource", id: "steps_of_night" },
+        ],
         tags: ["movement"],
       },
     ],

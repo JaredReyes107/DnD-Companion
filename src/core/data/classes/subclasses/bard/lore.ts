@@ -11,7 +11,7 @@ export const LORE: SubclassTemplate = {
         id: "cutting_words",
         source: "subclass" as const,
         level: 3,
-        grants: [{ type: "action", id: "cutting_words"}],
+        grants: [{ type: "action", id: "cutting_words" }],
         tags: [],
       },
       {

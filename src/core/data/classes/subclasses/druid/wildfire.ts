@@ -17,7 +17,10 @@ export const WILDFIRE: SubclassTemplate = {
         id: "summon_wildfire_spirit",
         source: "subclass" as const,
         level: 2,
-        actions: ["summon_wildfire_spirit", "command_wildfire_spirit"],
+        grants: [
+          { type: "action", id: "summon_wildfire_spirit" },
+          { type: "action", id: "command_wildfire_spirit" },
+        ],
         tags: ["summoning", "build-choice"],
         // TODO: Summon system
       },
@@ -37,7 +40,10 @@ export const WILDFIRE: SubclassTemplate = {
         id: "cauterizing_flames",
         source: "subclass" as const,
         level: 10,
-        grants: [{ type: "action", id: "cauterizing_flames"}, { type: "resource", id: "cauterizing_flames"}],
+        grants: [
+          { type: "action", id: "cauterizing_flames" },
+          { type: "resource", id: "cauterizing_flames" },
+        ],
         tags: ["healing", "damage", "reaction"],
       },
     ],
@@ -47,7 +53,10 @@ export const WILDFIRE: SubclassTemplate = {
         id: "blazing_revival",
         source: "subclass" as const,
         level: 14,
-        grants: [{ type: "action", id: "blazing_revival"}, { type: "resource", id: "blazing_revival"}],
+        grants: [
+          { type: "action", id: "blazing_revival" },
+          { type: "resource", id: "blazing_revival" },
+        ],
         tags: ["healing", "defense"],
       },
     ],

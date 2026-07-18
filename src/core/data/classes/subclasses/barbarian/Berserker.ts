@@ -32,7 +32,7 @@ export const BERSERKER: SubclassTemplate = {
         id: "intimidating_presence",
         source: "subclass",
         level: 10,
-        grants: [{ type: "action", id: "intimidating_presence"}],
+        grants: [{ type: "action", id: "intimidating_presence" }],
         tags: ["action", "debuff"],
       },
     ],
@@ -42,7 +42,7 @@ export const BERSERKER: SubclassTemplate = {
         id: "retaliation",
         source: "subclass",
         level: 14,
-        grants: [{ type: "action", id: "retaliation"}],
+        grants: [{ type: "action", id: "retaliation" }],
         tags: ["reaction", "combat"],
         // TODO: reaction hook (on damage received)
       },

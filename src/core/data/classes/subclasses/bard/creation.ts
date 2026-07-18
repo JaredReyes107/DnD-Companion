@@ -18,7 +18,10 @@ export const CREATION: SubclassTemplate = {
         id: "performance_of_creation",
         source: "subclass" as const,
         level: 3,
-        grants: [{ type: "action", id: "performance_of_creation"}, { type: "resource", id: "performance_of_creation"}],
+        grants: [
+          { type: "action", id: "performance_of_creation" },
+          { type: "resource", id: "performance_of_creation" },
+        ],
         tags: [],
         // TODO: Fallback resource (Spell Slot lv. > 1)
       },
@@ -29,7 +32,10 @@ export const CREATION: SubclassTemplate = {
         id: "animating_performance",
         source: "subclass" as const,
         level: 6,
-        grants: [{ type: "action", id: "animating_performance"}, { type: "resource", id: "animating_performance"}],
+        grants: [
+          { type: "action", id: "animating_performance" },
+          { type: "resource", id: "animating_performance" },
+        ],
         tags: [],
         // TODO: Fallback resource (Spell Slot lv. > 2)
         // TODO: Summon support (BA to act, on your initiative, etc)

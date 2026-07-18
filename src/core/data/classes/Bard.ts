@@ -22,7 +22,10 @@ export const BARD: ClassTemplate = {
         id: "bardic_inspiration",
         source: "class",
         level: 1,
-        grants: [{ type: "action", id: "bardic_inspiration"}, { type: "resource", id: "bardic_inspiration"}],
+        grants: [
+          { type: "action", id: "bardic_inspiration" },
+          { type: "resource", id: "bardic_inspiration" },
+        ],
         tags: ["resource", "support"],
       },
       {

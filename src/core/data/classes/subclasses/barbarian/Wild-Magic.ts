@@ -11,7 +11,10 @@ export const WILD_MAGIC: SubclassTemplate = {
         id: "magic_awareness",
         source: "subclass",
         level: 3,
-        grants: [{ type: "action", id: "magic_awareness"}, { type: "resource", id: "magic_awareness"}],
+        grants: [
+          { type: "action", id: "magic_awareness" },
+          { type: "resource", id: "magic_awareness" },
+        ],
         tags: ["utility"],
       },
       {
@@ -29,7 +32,10 @@ export const WILD_MAGIC: SubclassTemplate = {
         id: "bolstering_magic",
         source: "subclass",
         level: 6,
-        grants: [{ type: "action", id: "bolstering_magic"}, { type: "resource", id: "bolstering_magic"}],
+        grants: [
+          { type: "action", id: "bolstering_magic" },
+          { type: "resource", id: "bolstering_magic" },
+        ],
         tags: ["support", "utility"],
         // TODO: buff application + spell slot recovery hook
       },

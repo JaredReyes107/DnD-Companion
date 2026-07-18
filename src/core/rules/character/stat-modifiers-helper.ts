@@ -37,13 +37,13 @@ export function buildCharacterPassiveModifiers(
     const featureTemplate = getFeatureTemplateById(feature.id);
 
     featureTemplate.grants
-    ?.filter((g) => g.type === "modifier")
-    .forEach((g) => {
-      const template = getStatModifierTemplateById(g.id);
-      const instance = instantiateModifier(template, character, feature.id);
-      const instanceKey = `${feature.id}:${g.id}`;
-      nextModifiers[instanceKey] = instance;
-    });
+      ?.filter((g) => g.type === "modifier")
+      .forEach((g) => {
+        const template = getStatModifierTemplateById(g.id);
+        const instance = instantiateModifier(template, character, feature.id);
+        const instanceKey = `${feature.id}:${g.id}`;
+        nextModifiers[instanceKey] = instance;
+      });
   }
 
   return nextModifiers;

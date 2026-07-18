@@ -33,7 +33,10 @@ export const BEAST: SubclassTemplate = {
         id: "infectious_fury",
         source: "subclass",
         level: 10,
-        grants: [{ type: "action", id: "infectious_fury"}, { type: "resource", id: "infectious_fury"}],
+        grants: [
+          { type: "action", id: "infectious_fury" },
+          { type: "resource", id: "infectious_fury" },
+        ],
         tags: ["combat", "debuff"],
         // TODO: on-hit saving throw hook
         // TODO: condition / reaction redirect system
@@ -46,7 +49,10 @@ export const BEAST: SubclassTemplate = {
         source: "subclass",
         level: 14,
         // TODO: trigger "onRage"
-        grants: [{ type: "action", id: "call_the_hunt"}, { type: "resource", id: "call_the_hunt"}],
+        grants: [
+          { type: "action", id: "call_the_hunt" },
+          { type: "resource", id: "call_the_hunt" },
+        ],
         tags: ["support", "combat"],
       },
     ],

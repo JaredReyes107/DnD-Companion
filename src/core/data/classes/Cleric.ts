@@ -51,7 +51,9 @@ export const CLERIC: ClassTemplate = {
         id: "channel_divinity_harness_divine_power",
         source: "class",
         level: 2,
-        grants: [{ type: "action", id: "channel_divinity_harness_divine_power" }],
+        grants: [
+          { type: "action", id: "channel_divinity_harness_divine_power" },
+        ],
         tags: ["spell-slots"],
       },
       {

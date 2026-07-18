@@ -34,7 +34,10 @@ export const FIGHTER: ClassTemplate = {
         id: "action_surge",
         source: "class",
         level: 2,
-        grants: [{ type: "action", id: "action_surge"}, { type: "resource", id: "action_surge"}],
+        grants: [
+          { type: "action", id: "action_surge" },
+          { type: "resource", id: "action_surge" },
+        ],
         tags: ["resource", "combat"],
       },
     ],

@@ -33,7 +33,7 @@ export const LIFE: SubclassTemplate = {
         id: "channel_divinity_preserve_life",
         source: "subclass" as const,
         level: 2,
-        grants: [{ type: "action", id: "channel_divinity_preserve_life"}],
+        grants: [{ type: "action", id: "channel_divinity_preserve_life" }],
         tags: ["healing"],
       },
     ],
