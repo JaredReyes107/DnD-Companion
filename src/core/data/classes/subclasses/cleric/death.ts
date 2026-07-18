@@ -26,7 +26,7 @@ export const DEATH: SubclassTemplate = {
         id: "channel_divinity_touch_of_death",
         source: "subclass" as const,
         level: 2,
-        actions: ["channel_divinity_touch_of_death"],
+        grants: [{ type: "action", id: "channel_divinity_touch_of_death"}],
         tags: [],
       },
     ],

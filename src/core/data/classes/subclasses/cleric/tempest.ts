@@ -17,8 +17,7 @@ export const TEMPEST: SubclassTemplate = {
         id: "wrath_of_the_storm",
         source: "subclass" as const,
         level: 1,
-        resources: ["wrath_of_the_storm"],
-        actions: ["wrath_of_the_storm"],
+        grants: [{ type: "action", id: "wrath_of_the_storm"}, { type: "resource", id: "wrath_of_the_storm"}],
         tags: ["reaction", "damage"],
         // TODO: Damage hook (2d8 lightning or thunder, DEX save halves)
       },
@@ -35,7 +34,7 @@ export const TEMPEST: SubclassTemplate = {
         id: "channel_divinity_destructive_wrath",
         source: "subclass" as const,
         level: 2,
-        actions: ["channel_divinity_destructive_wrath"],
+        grants: [{ type: "action", id: "channel_divinity_destructive_wrath"}],
         tags: ["damage"],
         // TODO: Damage hook (max lightning/thunder damage roll)
       },

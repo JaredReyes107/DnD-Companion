@@ -38,7 +38,7 @@ export const DRUID: ClassTemplate = {
         id: "wild_shape",
         source: "class",
         level: 2,
-        grants: [{ type: "resource", id: "wild_shape" }, { type: "action", id: "wild_shape" }],
+        grants: [{ type: "action", id: "wild_shape"}, { type: "resource", id: "wild_shape"}],
         tags: ["resource", "transformation"],
         // TODO: transformation
         // TODO: scaling (CR, movement, duration)

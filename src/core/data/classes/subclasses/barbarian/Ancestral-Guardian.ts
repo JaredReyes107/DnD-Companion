@@ -21,7 +21,7 @@ export const ANCESTRAL_GUARDIAN: SubclassTemplate = {
         id: "spirit_shield",
         source: "subclass",
         level: 6,
-        actions: ["spirit_shield"],
+        grants: [{ type: "action", id: "spirit_shield" }],
         tags: ["reaction", "defense"],
         // TODO: reaction hook + damage reduction
         // TODO: scaling (2d6 → 3d6 → 4d6)

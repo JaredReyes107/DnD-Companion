@@ -15,7 +15,7 @@ export const BARBARIAN: ClassTemplate = {
         id: "rage",
         source: "class",
         level: 1,
-        grants: [{ type: "resource", id: "rage" }, { type: "action", id: "rage" }],
+        grants: [{ type: "action", id: "rage"}, { type: "resource", id: "rage"}],
                 tags: ["combat"],
       },
       {

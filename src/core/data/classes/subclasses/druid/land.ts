@@ -17,8 +17,7 @@ export const LAND: SubclassTemplate = {
         id: "natural_recovery",
         source: "subclass" as const,
         level: 2,
-        resources: ["natural_recovery"],
-        actions: ["natural_recovery"],
+        grants: [{ type: "action", id: "natural_recovery"}, { type: "resource", id: "natural_recovery"}],
         tags: ["spellcasting", "resource"],
         // TODO: Spell slot recovery hook, on short rest (total levels up to half druid level, rounded up)
       },

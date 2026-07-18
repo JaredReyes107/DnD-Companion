@@ -22,14 +22,14 @@ export const PALADIN: ClassTemplate = {
         id: "divine_sense",
         source: "class",
         level: 1,
-        grants: [{ type: "resource", id: "divine_sense" }, { type: "action", id: "divine_sense" }],
+        grants: [{ type: "action", id: "divine_sense"}, { type: "resource", id: "divine_sense"}],
         tags: ["resource", "utility"],
       },
       {
         id: "lay_on_hands",
         source: "class",
         level: 1,
-        grants: [{ type: "resource", id: "lay_on_hands" }, { type: "action", id: "lay_on_hands" }],
+        grants: [{ type: "action", id: "lay_on_hands"}, { type: "resource", id: "lay_on_hands"}],
         tags: ["resource", "healing"],
         // TODO: rest-hook
       },
@@ -134,7 +134,7 @@ export const PALADIN: ClassTemplate = {
         id: "cleansing_touch",
         source: "class",
         level: 14,
-        grants: [{ type: "resource", id: "cleansing_touch" }, { type: "action", id: "cleansing_touch" }],
+        grants: [{ type: "action", id: "cleansing_touch"}, { type: "resource", id: "cleansing_touch"}],
         tags: ["resource", "utility"],
         // TODO: spell-effect hook
         // TODO: rest-hook
