@@ -11,9 +11,8 @@ export const BEAST: SubclassTemplate = {
         id: "form_of_the_beast",
         source: "subclass",
         level: 3,
-        tags: ["combat", "build-choice"],
-        // TODO: rage hook + natural weapon system
-        // TODO: build-choice (bite / claws / tail per rage)
+        grants: [{ type: "choice", id: "form_of_the_beast_weapon" }],
+        tags: ["combat"],
       },
     ],
 
@@ -22,9 +21,8 @@ export const BEAST: SubclassTemplate = {
         id: "bestial_soul",
         source: "subclass",
         level: 6,
-        tags: ["passive", "combat", "build-choice"],
-        // TODO: movement hook
-        // TODO: damage type override (magical)
+        grants: [{ type: "choice", id: "bestial_soul_movement" }],
+        tags: ["passive", "combat"],
       },
     ],
 
