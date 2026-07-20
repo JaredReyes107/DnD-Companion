@@ -9,21 +9,22 @@ import { ResourceInstance } from "../resources/resource-instance";
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 import { StatModifierInstance } from "@/core/entities/rules/stats.types";
 import { CombatState } from "@/core/entities/combat/combat-state";
+import { ChoiceInstance } from "./choice-instance";
 
 export type Character = {
   // Internal Id
   id: string;
-  icon: string;
 
   // Identity
+  icon: string;
   name: string;
-  race: string; //TODO: Use raceTemplateId (raceInstance) rather than directly storing the name
+  race: string;
   alignment: Alignment;
-  experiencePoints: number;
 
+  experiencePoints: number;
   classes: CharacterClasses;
 
-  //Base Stats
+  // Base Stats
   baseAbilityScores: AbilityScores;
   baseMaximumHP: number;
   baseSpeed: number;
@@ -43,6 +44,9 @@ export type Character = {
   encounterId: string;
 
   features: Record<string, FeatureInstance>;
+  featureChoices: Record<string, ChoiceInstance>;
+
+  // Runtime State
   resources: Record<string, ResourceInstance>;
   actions: Record<string, ActionInstance>;
   statModifiers: Record<string, StatModifierInstance>;

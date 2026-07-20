@@ -169,6 +169,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
 
       encounterId: "",
       features: initialCharacter?.features ?? {},
+      featureChoices: {},
       resources: {},
       actions: {},
       statModifiers: initialCharacter?.statModifiers ?? {},

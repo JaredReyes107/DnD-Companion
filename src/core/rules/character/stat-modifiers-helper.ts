@@ -6,6 +6,7 @@ import {
 import { getActiveFeatures } from "./features-helper";
 import { getFeatureTemplateById } from "@/core/data/registries/features.registry";
 import { getStatModifierTemplateById } from "@/core/data/registries/modifiers.registry";
+import { getModifiersFromChoices } from "./choices-helper";
 
 export function instantiateModifier(
   template: StatModifierTemplate,
@@ -29,8 +30,7 @@ export function instantiateModifier(
 export function buildCharacterPassiveModifiers(
   character: Character,
 ): Record<string, StatModifierInstance> {
-  const features = getActiveFeatures(character.classes);
-
+  const features = getActiveFeatures(character);
   const nextModifiers: Record<string, StatModifierInstance> = {};
 
   for (const feature of features) {
@@ -44,6 +44,19 @@ export function buildCharacterPassiveModifiers(
         const instanceKey = `${feature.id}:${g.id}`;
         nextModifiers[instanceKey] = instance;
       });
+  }
+
+  const choiceModifierIds = getModifiersFromChoices(character);
+
+  for (const modifierId of choiceModifierIds) {
+    const template = getStatModifierTemplateById(modifierId);
+    const instance = instantiateModifier(
+      template,
+      character,
+      modifierId, // TODO: Verify data inegrity (correct feature source)
+    );
+    const instanceKey = `choice:${modifierId}`;
+    nextModifiers[instanceKey] = instance;
   }
 
   return nextModifiers;

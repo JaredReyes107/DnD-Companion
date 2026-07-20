@@ -1,10 +1,13 @@
-// src/core/entities/rules/option-template.ts
 import { FeatureGrant } from "./feature-template";
 
-export type OptionTemplate = {
-  id: string; // e.g. "maneuver_trip_attack", "invocation_agonizing_blast"
-  poolId: string; // e.g. "battle_master_maneuvers" — which pool this belongs to
+// Options cannot grant further choice pools — prevents circular resolution
+// and keeps the selection model simple. Revisit if Pact of the Tome
+// or similar cross-pool unlocks need modeling.
+export type OptionGrant = Exclude<FeatureGrant, { type: "choice" }>;
 
-  grants?: FeatureGrant[]; // reuses the same union: resource | action | modifier
+export type OptionTemplate = {
+  id: string;
+  poolId: string;
+  grants?: OptionGrant[];
   tags?: string[];
 };

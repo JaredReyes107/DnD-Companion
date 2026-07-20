@@ -4,15 +4,17 @@ export type ChoiceSelectionTrigger =
   | "onShortRest" // nothing common, but exists in some homebrew
   | "onActivation"; // Starry Form constellation — chosen at the moment of use
 
-// src/core/entities/rules/choice-pool-template.ts
 export type ChoicePoolTemplate = {
-  id: string; // "battle_master_maneuvers"
-  sourceId: string; // "battle_master" — feature/subclass that owns this pool
+  id: string;
+  sourceId: string;
+  classId: string; // For class-level driven picks
 
-  // level -> total number of picks known at that level (not delta — total)
+  selectionTrigger: ChoiceSelectionTrigger;
+
+  optionIds: string[];
+
+  // level -> cumulative total picks at that level
   picksAtLevel: Record<number, number>;
 
-  // does picking replace previous picks 1:1 (Metamagic-style "learn N more")
-  // or can the same option be picked multiple times (rare, but exists)
   allowDuplicates?: boolean;
 };

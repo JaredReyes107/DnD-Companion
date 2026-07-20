@@ -1,21 +1,15 @@
-import { getClassTemplateById } from "@/core/data/registries/classes.registry";
-import { getSubclassTemplateById } from "@/core/data/registries/subclasses.registry";
-import { CharacterClasses } from "@/core/entities/character/character-classes";
-import { FeatureTemplate } from "@/core/entities/rules/feature-template";
+// src/core/rules/character/features-helper.ts
 
-/**
- * Collects all active FeatureTemplates for a character's current classes
- * and subclasses, up to each class's current level.
- *
- * Features from classes and subclasses feed the same pipeline — resources,
- * actions and modifiers referenced by features are resolved from their
- * respective flat registries. No special subclass handling is required
- * downstream.
- *
- * TODO: Extend this with the same pattern for Race, Background, and Feats
- * once those systems are implemented.
- */
-export function getActiveFeatures(
+import { getFeatureTemplateById } from "@/core/data/registries/features.registry";
+import { getSubclassTemplateById } from "@/core/data/registries/subclasses.registry";
+import { getClassTemplateById } from "@/core/data/registries/classes.registry";
+import { CharacterClasses } from "@/core/entities/character/character-classes";
+import { FeatureInstance } from "@/core/entities/features/feature-instance";
+import { FeatureTemplate } from "@/core/entities/rules/feature-template";
+import { Character } from "@/core/entities/character/Character";
+
+// Unchanged — derives features from class levels
+export function getFeaturesFromClasses(
   characterClasses: CharacterClasses,
 ): FeatureTemplate[] {
   const features: FeatureTemplate[] = [];
@@ -24,27 +18,40 @@ export function getActiveFeatures(
     const classInstance = characterClasses.byId[classId];
     const classTemplate = getClassTemplateById(classInstance.classId);
 
-    // Class features
     for (let lvl = 1; lvl <= classInstance.level; lvl++) {
       features.push(...(classTemplate.featuresByLevel[lvl] ?? []));
     }
 
-    // Subclass features — collected from the same level range as class features.
-    // The subclass template owns its own featuresByLevel keyed by character level,
-    // so the loop is identical. Resources and actions referenced by subclass
-    // features live in the same flat registries as class resources/actions.
     if (classInstance.subclassId) {
       const subclassTemplate = getSubclassTemplateById(
         classInstance.subclassId,
       );
-
       for (let lvl = 1; lvl <= classInstance.level; lvl++) {
         features.push(...(subclassTemplate.featuresByLevel[lvl] ?? []));
       }
     }
-
-    // TODO: Same pattern for Race, Background, Feats
   }
 
   return features;
+}
+
+// Resolves character.features into FeatureTemplate[]
+// These are explicit grants — homebrew feats, racial features,
+// training features, anything outside the class level pipeline
+export function getFeaturesFromCharacter(
+  characterFeatures: Record<string, FeatureInstance>,
+): FeatureTemplate[] {
+  return Object.values(characterFeatures).map((instance) =>
+    getFeatureTemplateById(instance.featureId),
+  );
+}
+
+// Single entry point for all consumers — merges both sources.
+// Everything downstream (resources, actions, modifiers build functions)
+// calls this and gets the full picture regardless of grant source.
+export function getActiveFeatures(character: Character): FeatureTemplate[] {
+  return [
+    ...getFeaturesFromClasses(character.classes),
+    ...getFeaturesFromCharacter(character.features),
+  ];
 }

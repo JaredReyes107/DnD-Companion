@@ -7,6 +7,7 @@ import {
   getActionById,
   GroupedActions,
 } from "@/core/data/registries/actions.registry";
+import { getActionsFromChoices } from "@/core/rules/character/choices-helper";
 import { DEFAULT_ACTIONS } from "@/core/data/actions/default-actions";
 
 export function getActionsFromFeatures(
@@ -30,29 +31,20 @@ export function buildDefaultCharacterActions(): Record<string, ActionInstance> {
 export function buildCharacterClassActions(
   character: Character,
 ): Record<string, ActionInstance> {
-  const characterFeatures = getActiveFeatures(character.classes);
+  const characterFeatures = getActiveFeatures(character);
+  const featureActionIds = getActionsFromFeatures(characterFeatures);
 
-  const actionIds = getActionsFromFeatures(characterFeatures);
+  const choiceActionIds = getActionsFromChoices(character);
+  const actionIds = new Set([...featureActionIds, ...choiceActionIds]);
 
   const nextActions = { ...character.actions };
 
-  // Añadir acciones faltantes
   for (const id of actionIds) {
     if (!nextActions[id]) {
       const action = getActionById(id);
-
       nextActions[id] = action;
     }
   }
-
-  // Eliminar recursos que ya no deberían existir
-  /*
-  for (const id of Object.keys(nextResources)) {
-    if (!resourceIds.has(id)) {
-      delete nextResources[id];
-    }
-  }
-  */
 
   return nextActions;
 }
