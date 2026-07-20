@@ -23,7 +23,7 @@ export function getOptionById(id: string): OptionTemplate {
 }
 
 export function getOptionsForPool(poolId: string): OptionTemplate[] {
-  return Object.values(getOptionRegistry()).filter(
-    (o) => o.poolIds.includes(poolId),
+  return Object.values(getOptionRegistry()).filter((o) =>
+    o.poolIds.includes(poolId),
   );
 }
