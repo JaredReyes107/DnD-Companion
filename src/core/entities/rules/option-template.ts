@@ -7,7 +7,7 @@ export type OptionGrant = Exclude<FeatureGrant, { type: "choice" }>;
 
 export type OptionTemplate = {
   id: string;
-  poolId: string;
+  poolIds: string[];
   grants?: OptionGrant[];
   tags?: string[];
 };
