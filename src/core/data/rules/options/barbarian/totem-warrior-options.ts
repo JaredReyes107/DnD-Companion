@@ -6,14 +6,14 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
 
   totem_spirit_bear: {
     id: "totem_spirit_bear",
-    poolId: "totem_spirit",
+    poolIds: ["totem_spirit"],
     tags: ["passive", "defense", "rage"],
     grants: [{ type: "modifier", id: "totem_bear_resistance" }],
   },
 
   totem_spirit_eagle: {
     id: "totem_spirit_eagle",
-    poolId: "totem_spirit",
+    poolIds: ["totem_spirit"],
     tags: ["passive", "combat", "rage"],
     // Opportunity attacks against you have disadvantage while raging —
     // condition-gated, deferred. No grants until condition system exists.
@@ -22,7 +22,7 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
 
   totem_spirit_wolf: {
     id: "totem_spirit_wolf",
-    poolId: "totem_spirit",
+    poolIds: ["totem_spirit"],
     tags: ["passive", "support", "rage"],
     // Allies have advantage on melee attacks vs. enemies adjacent to you —
     // affects other actors, not self. Deferred.
@@ -31,14 +31,14 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
 
   totem_spirit_elk: {
     id: "totem_spirit_elk",
-    poolId: "totem_spirit",
+    poolIds: ["totem_spirit"],
     tags: ["passive", "movement", "rage"],
     grants: [{ type: "modifier", id: "totem_elk_speed" }],
   },
 
   totem_spirit_tiger: {
     id: "totem_spirit_tiger",
-    poolId: "totem_spirit",
+    poolIds: ["totem_spirit"],
     tags: ["passive", "movement", "rage"],
     // 10ft extra movement before melee attack — action-sequencing concern,
     // deferred.
@@ -51,7 +51,7 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
 
   aspect_bear: {
     id: "aspect_bear",
-    poolId: "aspect_of_the_beast",
+    poolIds: ["aspect_of_the_beast"],
     tags: ["passive", "utility"],
     grants: [],
     // Carry capacity doubled, advantage on Str checks for pushing/etc.
@@ -60,7 +60,7 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
 
   aspect_eagle: {
     id: "aspect_eagle",
-    poolId: "aspect_of_the_beast",
+    poolIds: ["aspect_of_the_beast"],
     tags: ["passive", "perception"],
     grants: [],
     // See clearly at long range, no disadvantage in dim light.
@@ -68,7 +68,7 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
 
   aspect_wolf: {
     id: "aspect_wolf",
-    poolId: "aspect_of_the_beast",
+    poolIds: ["aspect_of_the_beast"],
     tags: ["passive", "utility"],
     grants: [],
     // Track at fast pace, stealthy at normal pace.
@@ -76,7 +76,7 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
 
   aspect_elk: {
     id: "aspect_elk",
-    poolId: "aspect_of_the_beast",
+    poolIds: ["aspect_of_the_beast"],
     tags: ["passive", "movement"],
     grants: [
       { type: "modifier", id: "aspect_elk_speed" },
@@ -86,7 +86,7 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
 
   aspect_tiger: {
     id: "aspect_tiger",
-    poolId: "aspect_of_the_beast",
+    poolIds: ["aspect_of_the_beast"],
     tags: ["passive", "utility"],
     grants: [],
     // Proficiency in two skills from a list.
@@ -97,7 +97,7 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
 
   attunement_bear: {
     id: "attunement_bear",
-    poolId: "totemic_attunement",
+    poolIds: ["totemic_attunement"],
     tags: ["passive", "support", "rage"],
     grants: [],
     // Enemies adjacent to you have disadvantage attacking others — affects
@@ -106,7 +106,7 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
 
   attunement_eagle: {
     id: "attunement_eagle",
-    poolId: "totemic_attunement",
+    poolIds: ["totemic_attunement"],
     tags: ["passive", "movement", "rage"],
     grants: [],
     // Fly speed while raging — condition-gated movement, deferred.
@@ -114,7 +114,7 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
 
   attunement_wolf: {
     id: "attunement_wolf",
-    poolId: "totemic_attunement",
+    poolIds: ["totemic_attunement"],
     tags: ["passive", "combat", "rage"],
     grants: [],
     // Knock prone as bonus action after hitting — action-sequencing, deferred.
@@ -122,7 +122,7 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
 
   attunement_elk: {
     id: "attunement_elk",
-    poolId: "totemic_attunement",
+    poolIds: ["totemic_attunement"],
     tags: ["passive", "combat", "rage"],
     grants: [],
     // Charge knockdown — action-sequencing, deferred.
@@ -130,7 +130,7 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
 
   attunement_tiger: {
     id: "attunement_tiger",
-    poolId: "totemic_attunement",
+    poolIds: ["totemic_attunement"],
     tags: ["passive", "combat", "rage"],
     grants: [],
     // Attack up to 3 creatures adjacent to you when you use Dash —
