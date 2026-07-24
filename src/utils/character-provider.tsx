@@ -11,12 +11,14 @@ import { CombatState } from "@/core/entities/combat/combat-state";
 import { CharacterRepository } from "@/repositories/CharacterRepository";
 import { CharacterSelectionRepository } from "@/repositories/CharacterSelectionRepository";
 import { EncounterRepository } from "@/repositories/EncounterRepository";
+
 import { buildCombatState } from "@/core/rules/combat/combat-helper";
 import { buildEncounterState } from "@/core/entities/combat/encounter-helper";
+import { buildCharacterResources } from "@/core/rules/character/resources-helper";
+import { buildCharacterActions } from "@/core/rules/combat/actions-helper";
+import { buildCharacterPassiveModifiers } from "@/core/rules/character/stat-modifiers-helper";
 
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
+import { bootstrapFeatureChoices } from "@/core/rules/character/choices-helper";
 
 /**
  * Returns the character with its CombatState merged in from the encounter.
@@ -115,31 +117,45 @@ export const CharacterProvider = ({
    * If the character carries an updated combatState, that is synced back into
    * the encounter so both storage layers stay consistent.
    */
-  const saveCharacter = useCallback(async (updated: Character) => {
-    setCharacter(updated);
 
-    // Persist character (without combatState to keep the Character record
-    // clean — combatState lives in the encounter).
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { combatState: _cs, ...characterToStore } = updated as Character & {
+  const saveCharacter = useCallback(async (updated: Character) => {
+    // Re-bootstrap choices whenever the character is saved —
+    // covers level-ups unlocking new pools and feature changes.
+    // Never overwrites existing selections.
+    const featureChoices = bootstrapFeatureChoices(updated);
+
+    // Rebuild all derived state against the re-bootstrapped character
+    const withChoices: Character = { ...updated, featureChoices };
+
+    const rebuilt: Character = {
+      ...withChoices,
+      resources: buildCharacterResources(withChoices),
+      actions: buildCharacterActions(withChoices),
+      statModifiers: buildCharacterPassiveModifiers(withChoices),
+    };
+
+    setCharacter(rebuilt);
+
+    // Persist without combatState — it lives in the encounter
+    const { combatState: _cs, ...characterToStore } = rebuilt as Character & {
       combatState?: CombatState;
     };
+
     const all = await CharacterRepository.getAll();
-    const next = all.map((c) => (c.id === updated.id ? characterToStore : c));
+    const next = all.map((c) => (c.id === rebuilt.id ? characterToStore : c));
     await CharacterRepository.saveAll(next as Character[]);
 
-    // Sync combatState back to the encounter.
-    if (updated.combatState) {
+    // Sync combatState back to encounter if present
+    if (rebuilt.combatState) {
       setEncounter((prev) => {
         if (!prev) return prev;
         const updatedEncounter: EncounterState = {
           ...prev,
           participants: {
             ...prev.participants,
-            [updated.id]: updated.combatState!,
+            [rebuilt.id]: rebuilt.combatState!,
           },
         };
-        // Fire-and-forget persist.
         EncounterRepository.save(updatedEncounter);
         return updatedEncounter;
       });
