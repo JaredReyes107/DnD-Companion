@@ -4,7 +4,6 @@ import {
   StatModifierTemplate,
 } from "@/core/entities/rules/stats.types";
 import { getActiveFeatures } from "./features-helper";
-import { getFeatureTemplateById } from "@/core/data/registries/features.registry";
 import { getStatModifierTemplateById } from "@/core/data/registries/modifiers.registry";
 import { getModifiersFromChoices } from "./choices-helper";
 
@@ -33,10 +32,10 @@ export function buildCharacterPassiveModifiers(
   const features = getActiveFeatures(character);
   const nextModifiers: Record<string, StatModifierInstance> = {};
 
+  // Feature-granted modifiers — read grants directly off the template,
+  // no registry lookup needed since getActiveFeatures already resolved them
   for (const feature of features) {
-    const featureTemplate = getFeatureTemplateById(feature.id);
-
-    featureTemplate.grants
+    feature.grants
       ?.filter((g) => g.type === "modifier")
       .forEach((g) => {
         const template = getStatModifierTemplateById(g.id);
@@ -46,15 +45,13 @@ export function buildCharacterPassiveModifiers(
       });
   }
 
+  // Choice-granted modifiers — these come from selected options,
+  // resolved by id since OptionTemplate is registry-backed
   const choiceModifierIds = getModifiersFromChoices(character);
 
   for (const modifierId of choiceModifierIds) {
     const template = getStatModifierTemplateById(modifierId);
-    const instance = instantiateModifier(
-      template,
-      character,
-      modifierId, // TODO: Verify data inegrity (correct feature source)
-    );
+    const instance = instantiateModifier(template, character, modifierId);
     const instanceKey = `choice:${modifierId}`;
     nextModifiers[instanceKey] = instance;
   }
