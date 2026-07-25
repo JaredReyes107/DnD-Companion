@@ -12,6 +12,8 @@ npm-debug.*
 package-lock.json
 web-build/
 
+graphify-out/
+
 # macOS
 .DS_Store
 
