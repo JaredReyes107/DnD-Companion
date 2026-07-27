@@ -137,7 +137,7 @@ export const CharacterProvider = ({
     setCharacter(rebuilt);
 
     // Persist without combatState — it lives in the encounter
-    const { combatState: _cs, ...characterToStore } = rebuilt as Character & {
+    const { combatState: characterToStore } = rebuilt as Character & {
       combatState?: CombatState;
     };
 
