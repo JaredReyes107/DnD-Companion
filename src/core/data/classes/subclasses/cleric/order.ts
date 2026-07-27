@@ -13,7 +13,7 @@ export const ORDER: SubclassTemplate = {
         tags: ["spells"],
       },
       {
-        id: "bonus_proficiencies",
+        id: "bonus_proficiencies_order",
         source: "subclass" as const,
         level: 1,
         tags: ["skill-proficiencies", "armor-proficiencies"],

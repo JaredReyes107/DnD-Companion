@@ -1,7 +1,7 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const death_features_en: GameLocalizationCategory = {
-  bonus_proficiencies: {
+  bonus_proficiencies_death: {
     name: "Bonus Proficiencies",
     description: "You proficiency with martial weapons.",
   },

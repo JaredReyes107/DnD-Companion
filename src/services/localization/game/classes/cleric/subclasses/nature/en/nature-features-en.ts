@@ -11,7 +11,7 @@ export const nature_features_en: GameLocalizationCategory = {
     description:
       "You learn one druid cantrip of your choice. This cantrip doesn't count against the number of cleric cantrips you know. You also gain proficiency in one of the following skills of your choice: Animal Handling, Nature, or Survival.",
   },
-  bonus_proficiencies: {
+  bonus_proficiencies_nature: {
     name: "Bonus Proficiency",
     description: "You gain proficiency with heavy armor.",
   },

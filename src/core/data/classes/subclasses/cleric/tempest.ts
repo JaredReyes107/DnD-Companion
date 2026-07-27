@@ -8,7 +8,7 @@ export const TEMPEST: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "bonus_proficiencies",
+        id: "bonus_proficiencies_tempest",
         source: "subclass" as const,
         level: 1,
         tags: ["armor-proficiencies", "weapon-proficiencies"],

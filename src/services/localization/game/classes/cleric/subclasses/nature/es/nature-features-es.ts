@@ -11,7 +11,7 @@ export const nature_features_es: GameLocalizationCategory = {
     description:
       "Aprendes un truco de druida de tu elección. También ganas competencia en una de las siguientes habilidades, a tu elección: Trato con Animales, Naturaleza, o Supervivencia.",
   },
-  bonus_proficiencies: {
+  bonus_proficiencies_nature: {
     name: "Competencias Adicionales",
     description: "Obtienes competencia con armadura pesada.",
   },

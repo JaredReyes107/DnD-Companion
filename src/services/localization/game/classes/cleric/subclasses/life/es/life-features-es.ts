@@ -1,7 +1,7 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const life_features_es: GameLocalizationCategory = {
-  bonus_proficiencies: {
+  bonus_proficiencies_life: {
     name: "Competencias Adicionales",
     description: "Ganas competencia con armaduras pesadas.",
   },

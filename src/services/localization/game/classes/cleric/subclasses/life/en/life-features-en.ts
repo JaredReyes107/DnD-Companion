@@ -6,7 +6,7 @@ export const life_features_en: GameLocalizationCategory = {
     description: `Domain spells are always prepared and they don't count againts the number of spells you can prepare each day.
       If you have a domain spell that's not from the cleric spell list, that spell becomes a cleric spell for you`,
   },
-  bonus_proficiencies: {
+  bonus_proficiencies_life: {
     name: "Bonus Proficiency",
     description: "Also at 1st level, you gain proficiency with heavy armor.",
   },
