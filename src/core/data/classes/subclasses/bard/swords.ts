@@ -8,7 +8,7 @@ export const SWORDS: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "bonus_proficiencies",
+        id: "bonus_proficiencies_swords",
         source: "subclass" as const,
         level: 3,
         tags: ["build-choice"],

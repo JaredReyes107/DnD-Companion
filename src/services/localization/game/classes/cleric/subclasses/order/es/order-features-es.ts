@@ -6,7 +6,7 @@ export const order_features_es: GameLocalizationCategory = {
     description: `Los conjuros de dominio siempre se consideran preparados y no se contarán dentro del número de conjuros que puedes preparar cada día.
       Si tienes un conjuro de dominio que no aparece en la lista de conjuros de clérigo, para ti ese conjuro es de clérigo.`,
   },
-  bonus_proficiencies: {
+  bonus_proficiencies_order: {
     name: "Competencias Adicionales",
     description:
       "Obtienes competencia con armaduras pesadas. También adquieres competencia en la habilidad Intimidación o Persuasión (a tu elección).",

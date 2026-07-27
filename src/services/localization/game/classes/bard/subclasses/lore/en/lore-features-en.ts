@@ -1,7 +1,7 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const lore_features_en: GameLocalizationCategory = {
-  bonus_proficiencies: {
+  bonus_proficiencies_lore: {
     name: "Bonus Proficiencies",
     description: "",
   },

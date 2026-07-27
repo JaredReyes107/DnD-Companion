@@ -6,7 +6,7 @@ export const twilight_features_es: GameLocalizationCategory = {
     description: `Los conjuros de dominio siempre se consideran preparados y no se contarán dentro del número de conjuros que puedes preparar cada día.
       Si tienes un conjuro de dominio que no aparece en la lista de conjuros de clérigo, para ti ese conjuro es de clérigo.`,
   },
-  bonus_proficiencies: {
+  bonus_proficiencies_twilight: {
     name: "Competencias Adicionales",
     description: "Ganas competencia con armas marciales y armaduras pesadas.",
   },

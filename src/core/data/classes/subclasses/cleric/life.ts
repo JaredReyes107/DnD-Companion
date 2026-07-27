@@ -8,7 +8,7 @@ export const LIFE: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "bonus_proficiencies",
+        id: "bonus_proficiencies_life",
         source: "subclass" as const,
         level: 1,
         tags: ["armor-proficiencies"],

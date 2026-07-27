@@ -6,7 +6,7 @@ export const forge_features_es: GameLocalizationCategory = {
     description:
       "Obtienes la habilidad de imbuir un arma o armadura con magia. Al final de un descanso largo, puedes tocar un objeto no mágico que sea una armadura o un arma marcial o sencilla. hasta el final de tu próximo descanso largo, este objeto se convierte en mágico, otorgando un bonificador de +1 a la CA si es una armadura o de +1 a las tiradas de ataque y daño si es un arma. Una vez utilizado este rasgo, deberás terminar un descanso largo para poder volver a emplearlo.",
   },
-  bonus_proficiencies: {
+  bonus_proficiencies_forge: {
     name: "Competencias Adicionales",
     description:
       "Ganas competencia con armaduras pesadas y Herramientas de herrero.",

@@ -7,7 +7,7 @@ export const DEATH: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "bonus_proficiencies",
+        id: "bonus_proficiencies_death",
         source: "subclass" as const,
         level: 1,
         tags: [],
