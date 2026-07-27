@@ -59,7 +59,7 @@ export const RANGER: ClassTemplate = {
         id: "primeval_awareness",
         source: "class",
         level: 3,
-        actions: ["primeval_awareness"],
+        grants: [{ type: "action", id: "primeval_awareness" }],
         tags: ["utility"],
         // TODO: detection hook
       },
@@ -122,7 +122,7 @@ export const RANGER: ClassTemplate = {
         id: "vanish",
         source: "class",
         level: 14,
-        actions: ["vanish"],
+        grants: [{ type: "action", id: "vanish" }],
         tags: ["stealth"],
       },
     ],

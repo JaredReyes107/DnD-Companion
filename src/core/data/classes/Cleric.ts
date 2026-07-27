@@ -37,21 +37,23 @@ export const CLERIC: ClassTemplate = {
         id: "channel_divinity",
         source: "class",
         level: 2,
-        resources: ["channel_divinity"],
+        grants: [{ type: "resource", id: "channel_divinity" }],
         tags: ["resource"],
       },
       {
         id: "channel_divinity_turn_undead",
         source: "class",
         level: 2,
-        actions: ["channel_divinity_turn_undead"],
+        grants: [{ type: "action", id: "channel_divinity_turn_undead" }],
         tags: ["action", "control"],
       },
       {
         id: "channel_divinity_harness_divine_power",
         source: "class",
         level: 2,
-        actions: ["channel_divinity_harness_divine_power"],
+        grants: [
+          { type: "action", id: "channel_divinity_harness_divine_power" },
+        ],
         tags: ["spell-slots"],
       },
       {

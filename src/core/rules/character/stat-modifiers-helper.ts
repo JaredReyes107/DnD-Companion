@@ -4,8 +4,8 @@ import {
   StatModifierTemplate,
 } from "@/core/entities/rules/stats.types";
 import { getActiveFeatures } from "./features-helper";
-import { getFeatureTemplateById } from "@/core/data/registries/features.registry";
 import { getStatModifierTemplateById } from "@/core/data/registries/modifiers.registry";
+import { getModifiersFromChoices } from "./choices-helper";
 
 export function instantiateModifier(
   template: StatModifierTemplate,
@@ -29,26 +29,31 @@ export function instantiateModifier(
 export function buildCharacterPassiveModifiers(
   character: Character,
 ): Record<string, StatModifierInstance> {
-  const features = getActiveFeatures(character.classes);
-
+  const features = getActiveFeatures(character);
   const nextModifiers: Record<string, StatModifierInstance> = {};
 
+  // Feature-granted modifiers — read grants directly off the template,
+  // no registry lookup needed since getActiveFeatures already resolved them
   for (const feature of features) {
-    const featureTemplate = getFeatureTemplateById(feature.id);
+    feature.grants
+      ?.filter((g) => g.type === "modifier")
+      .forEach((g) => {
+        const template = getStatModifierTemplateById(g.id);
+        const instance = instantiateModifier(template, character, feature.id);
+        const instanceKey = `${feature.id}:${g.id}`;
+        nextModifiers[instanceKey] = instance;
+      });
+  }
 
-    featureTemplate.modifiers?.forEach((modifierId) => {
-      const template = getStatModifierTemplateById(modifierId);
+  // Choice-granted modifiers — these come from selected options,
+  // resolved by id since OptionTemplate is registry-backed
+  const choiceModifierIds = getModifiersFromChoices(character);
 
-      const instance = instantiateModifier(
-        template,
-        character,
-        feature.id, // source is feature
-      );
-
-      const instanceKey = `${feature.id}:${modifierId}`;
-
-      nextModifiers[instanceKey] = instance;
-    });
+  for (const modifierId of choiceModifierIds) {
+    const template = getStatModifierTemplateById(modifierId);
+    const instance = instantiateModifier(template, character, modifierId);
+    const instanceKey = `choice:${modifierId}`;
+    nextModifiers[instanceKey] = instance;
   }
 
   return nextModifiers;

@@ -14,7 +14,7 @@ export const BATTLE_MASTER: SubclassTemplate = {
         id: "combat_superiority",
         source: "subclass",
         level: 3,
-        resources: ["superiority_dice"],
+        grants: [{ type: "resource", id: "superiority_dice" }],
         tags: ["choice", "resource"],
         // TODO: dice-roll hook (crit threshold override)
       },

@@ -24,8 +24,10 @@ export const LIGHT: SubclassTemplate = {
         id: "warding_flare",
         source: "subclass" as const,
         level: 1,
-        resources: ["warding_flare"],
-        actions: ["warding_flare"],
+        grants: [
+          { type: "action", id: "warding_flare" },
+          { type: "resource", id: "warding_flare" },
+        ],
         tags: ["reaction", "defense"],
       },
     ],
@@ -35,7 +37,9 @@ export const LIGHT: SubclassTemplate = {
         id: "channel_divinity_radiance_of_the_dawn",
         source: "subclass" as const,
         level: 2,
-        actions: ["channel_divinity_radiance_of_the_dawn"],
+        grants: [
+          { type: "action", id: "channel_divinity_radiance_of_the_dawn" },
+        ],
         tags: ["action"],
         // TODO: resources, actions
       },
@@ -66,7 +70,7 @@ export const LIGHT: SubclassTemplate = {
         id: "corona_of_light",
         source: "subclass" as const,
         level: 17,
-        actions: ["corona_of_light"],
+        grants: [{ type: "action", id: "corona_of_light" }],
         tags: [],
       },
     ],

@@ -37,7 +37,7 @@ export const VALOR: SubclassTemplate = {
         id: "battle_magic",
         source: "subclass" as const,
         level: 14,
-        actions: ["battle_magic"],
+        grants: [{ type: "action", id: "battle_magic" }],
         tags: [],
       },
     ],

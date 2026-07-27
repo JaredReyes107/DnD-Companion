@@ -33,7 +33,7 @@ export const FORGE: SubclassTemplate = {
         id: "channel_divinity_artisans_blessing",
         source: "subclass" as const,
         level: 2,
-        actions: ["channel_divinity_artisans_blessing"],
+        grants: [{ type: "action", id: "channel_divinity_artisans_blessing" }],
         tags: ["utility"],
         // TODO: Item creation hook (1-minute ritual)
       },

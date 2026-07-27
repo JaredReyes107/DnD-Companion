@@ -31,6 +31,9 @@ import { buildCharacterResources } from "@/core/rules/character/resources-helper
 import { buildCharacterActions } from "@/core/rules/combat/actions-helper";
 import { startEncounter } from "@/core/entities/combat/encounter-helper";
 
+import { bootstrapFeatureChoices } from "@/core/rules/character/choices-helper";
+import { buildCharacterPassiveModifiers } from "@/core/rules/character/stat-modifiers-helper";
+
 // Components
 import { ThemedView } from "./ThemedView";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -133,7 +136,9 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       ]),
     );
 
-    const character: Character = {
+    // Build the base character first — bootstrapFeatureChoices needs
+    // classes and features to be populated before it can run
+    const base: Character = {
       id: initialCharacter?.id ?? Crypto.randomUUID(),
       icon: initialCharacter?.icon ?? "face",
       name,
@@ -160,7 +165,6 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       savingThrows,
       skills,
 
-      //TODO: Make this dynamic
       actionLimits: {
         actions: 1,
         bonusActions: 1,
@@ -169,13 +173,29 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
 
       encounterId: "",
       features: initialCharacter?.features ?? {},
+
+      // Placeholder — will be replaced below
+      featureChoices: initialCharacter?.featureChoices ?? {},
       resources: {},
       actions: {},
       statModifiers: initialCharacter?.statModifiers ?? {},
     };
-    character.currentHitDice = getMaximumHitDice(character);
-    character.resources = buildCharacterResources(character);
-    character.actions = buildCharacterActions(character);
+
+    // Derive hit dice from the now-populated classes
+    base.currentHitDice = getMaximumHitDice(base);
+
+    // Bootstrap choices first — resources and actions may depend on
+    // what options are selected (choice-granted resources/actions)
+    const featureChoices = bootstrapFeatureChoices(base);
+    const withChoices: Character = { ...base, featureChoices };
+
+    // Now build derived state against the fully seeded character
+    const character: Character = {
+      ...withChoices,
+      resources: buildCharacterResources(withChoices),
+      actions: buildCharacterActions(withChoices),
+      statModifiers: buildCharacterPassiveModifiers(withChoices),
+    };
 
     startEncounter([character]);
     onSubmit(character);

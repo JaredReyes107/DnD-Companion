@@ -18,8 +18,8 @@ export const TOTEM_WARRIOR: SubclassTemplate = {
         id: "totem_spirit",
         source: "subclass",
         level: 3,
-        tags: ["passive", "combat", "build-choice"],
-        // TODO: rage hook (conditional modifiers per totem choice)
+        tags: ["passive", "combat"],
+        grants: [{ type: "choice", id: "totem_spirit" }],
       },
     ],
 
@@ -28,8 +28,8 @@ export const TOTEM_WARRIOR: SubclassTemplate = {
         id: "aspect_of_the_beast",
         source: "subclass",
         level: 6,
-        tags: ["passive", "exploration", "build-choice"],
-        // TODO: build-choice system
+        grants: [{ type: "choice", id: "aspect_of_the_beast" }],
+        tags: ["passive", "exploration"],
       },
     ],
 
@@ -48,8 +48,8 @@ export const TOTEM_WARRIOR: SubclassTemplate = {
         id: "totemic_attunement",
         source: "subclass",
         level: 14,
-        tags: ["passive", "combat", "build-choice"],
-        // TODO: rage hook (conditional per totem choice)
+        grants: [{ type: "choice", id: "totemic_attunement" }],
+        tags: ["passive", "combat"],
       },
     ],
   },

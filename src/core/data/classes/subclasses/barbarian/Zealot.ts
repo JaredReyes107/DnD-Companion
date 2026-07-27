@@ -30,8 +30,10 @@ export const ZEALOT: SubclassTemplate = {
         id: "fanatical_focus",
         source: "subclass",
         level: 6,
-        actions: ["fanatical_focus"],
-        resources: ["fanatical_focus"],
+        grants: [
+          { type: "action", id: "fanatical_focus" },
+          { type: "resource", id: "fanatical_focus" },
+        ],
         tags: ["defense"],
         // TODO: rage hook + saving throw reroll (once per rage tracker)
       },
@@ -42,8 +44,10 @@ export const ZEALOT: SubclassTemplate = {
         id: "zealous_presence",
         source: "subclass",
         level: 10,
-        actions: ["zealous_presence"],
-        resources: ["zealous_presence"],
+        grants: [
+          { type: "action", id: "zealous_presence" },
+          { type: "resource", id: "zealous_presence" },
+        ],
         tags: ["support", "combat"],
         // TODO: action + advantage application to multiple targets
       },

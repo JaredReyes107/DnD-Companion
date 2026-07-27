@@ -23,8 +23,10 @@ export const WAR: SubclassTemplate = {
         id: "war_priest",
         source: "subclass" as const,
         level: 1,
-        resources: ["war_priest"],
-        actions: ["war_priest"],
+        grants: [
+          { type: "action", id: "war_priest" },
+          { type: "resource", id: "war_priest" },
+        ],
         tags: ["combat"],
         // TODO: Bonus action weapon attack hook (on Attack action use)
       },
@@ -35,7 +37,7 @@ export const WAR: SubclassTemplate = {
         id: "channel_divinity_guided_strike",
         source: "subclass" as const,
         level: 2,
-        actions: ["channel_divinity_guided_strike"],
+        grants: [{ type: "action", id: "channel_divinity_guided_strike" }],
         tags: ["combat"],
         // TODO: +10 to attack roll hook
       },
@@ -46,7 +48,7 @@ export const WAR: SubclassTemplate = {
         id: "channel_divinity_war_gods_blessing",
         source: "subclass" as const,
         level: 6,
-        actions: ["channel_divinity_war_gods_blessing"],
+        grants: [{ type: "action", id: "channel_divinity_war_gods_blessing" }],
         tags: ["reaction", "support"],
         // TODO: +10 to ally's attack roll hook
       },

@@ -6,6 +6,7 @@ import {
   getResourceById,
   GroupedResources,
 } from "@/core/data/registries/resources.registry";
+import { getResourcesFromChoices } from "./choices-helper";
 import { evaluateFormula } from "./resource-scaling";
 import { ResourceCategory } from "@/core/entities/rules/resource-template";
 import {
@@ -17,29 +18,30 @@ export function getResourcesFromFeatures(
   features: FeatureTemplate[],
 ): Set<string> {
   const ids = new Set<string>();
-
   for (const feature of features) {
-    feature.resources?.forEach((id) => ids.add(id));
+    feature.grants
+      ?.filter((g) => g.type === "resource")
+      .forEach((g) => ids.add(g.id));
   }
-
   return ids;
 }
 
 export function buildCharacterClassResources(
   character: Character,
 ): CharacterResources {
-  const characterFeatures = getActiveFeatures(character.classes);
+  const characterFeatures = getActiveFeatures(character);
+  const featureResourceIds = getResourcesFromFeatures(characterFeatures);
 
-  const resourceIds = getResourcesFromFeatures(characterFeatures);
+  // NEW — merge choice-granted resource IDs
+  const choiceResourceIds = getResourcesFromChoices(character);
+  const resourceIds = new Set([...featureResourceIds, ...choiceResourceIds]);
 
   const nextResources = { ...character.resources };
 
-  // Añadir recursos faltantes
   for (const id of resourceIds) {
     if (!nextResources[id]) {
       const template = getResourceById(id);
       const charges = evaluateFormula(template, character);
-
       nextResources[id] = {
         resourceId: id,
         max: charges,
@@ -47,15 +49,6 @@ export function buildCharacterClassResources(
       };
     }
   }
-
-  // Eliminar recursos que ya no deberían existir
-  /*
-  for (const id of Object.keys(nextResources)) {
-    if (!resourceIds.has(id)) {
-      delete nextResources[id];
-    }
-  }
-  */
 
   return nextResources;
 }
