@@ -1,22 +1,20 @@
 import { FiveEToolsFile, FiveEToolsClassFeature } from "../types/5etools.types";
 import {
-  toFeatureId,
+  toBaseId,
   toClassId,
   toAbilityId,
   toCasterProgression,
+  deduplicateFeatureIds,
 } from "../config";
 import { extractDescription } from "./parseClassFeature";
 
-// What we output — matches your FeatureTemplate and ClassTemplate shapes.
-// Logic only — no display text. Consumed by writeClassTemplate.
 export type ParsedFeature = {
   id: string;
   level: number;
   gainSubclassFeature: boolean;
-  // Intentionally left empty — you fill these in after generation:
   tags: string[];
-  resources: string[];
-  actions: string[];
+  // resources and actions removed — generated files use grants[] per
+  // current FeatureTemplate shape. Fill grants manually after generation.
 };
 
 export type ParsedClass = {
@@ -28,21 +26,11 @@ export type ParsedClass = {
   featuresByLevel: Record<number, ParsedFeature[]>;
 };
 
-/**
- * Display text for a single feature — name and description, sourced from
- * 5etools `entries`. This is the ONLY place these strings live; they are
- * deliberately absent from ParsedFeature/ClassTemplate. Consumed solely
- * by writeLocalization.ts.
- */
 export type ParsedFeatureText = {
   name: string;
   description: string;
 };
 
-/**
- * Text map for a class — keyed by feature id, parallel to featuresByLevel.
- * Returned alongside ParsedClass by parseClass(), never merged into it.
- */
 export type ParsedClassText = Record<string, ParsedFeatureText>;
 
 export type ParsedClassResult = {
@@ -69,7 +57,6 @@ export function parseClass(data: FiveEToolsFile): ParsedClassResult[] {
   const classes = data.class ?? [];
   const allFeatures = data.classFeature ?? [];
 
-  // Index features by "Name|ClassName|Source|Level" for fast lookup
   const featureIndex = new Map<string, FiveEToolsClassFeature>();
   for (const f of allFeatures) {
     const key = `${f.name}|${f.className}|${f.source}|${f.level}`;
@@ -78,41 +65,71 @@ export function parseClass(data: FiveEToolsFile): ParsedClassResult[] {
 
   return classes.map((cls) => {
     const classId = toClassId(cls.name);
-    const featuresByLevel: Record<number, ParsedFeature[]> = {};
     const text: ParsedClassText = {};
 
-    for (let lvl = 1; lvl <= 20; lvl++) {
-      featuresByLevel[lvl] = [];
-    }
+    // -------------------------------------------------------------------------
+    // Pass 1 — collect all feature refs with their base id and class suffix.
+    // Skip UA variants and subclass gates (objects) at this stage.
+    // -------------------------------------------------------------------------
+
+    type RefEntry = {
+      refString: string;
+      parsed: ReturnType<typeof parseFeatureRef>;
+      isSubclassGate: boolean;
+      baseId: string;
+    };
+
+    const refEntries: RefEntry[] = [];
 
     for (const ref of cls.classFeatures) {
       const isSubclassGate = typeof ref === "object";
       const refString = isSubclassGate ? ref.classFeature : ref;
 
-      // Skip UA variants
       if (refString.includes("UAClassFeatureVariants")) continue;
 
       const parsed = parseFeatureRef(refString);
-      const featureKey = `${parsed.name}|${parsed.className}|${parsed.source}|${parsed.level}`;
+      refEntries.push({
+        refString,
+        parsed,
+        isSubclassGate,
+        baseId: toBaseId(parsed.name),
+      });
+    }
+
+    // -------------------------------------------------------------------------
+    // Pass 2 — resolve collisions across all features of this class.
+    // -------------------------------------------------------------------------
+
+    const idMap = deduplicateFeatureIds(
+      refEntries.map((e) => ({
+        baseId: e.baseId,
+        namespaceSuffix: classId,
+      })),
+    );
+
+    // -------------------------------------------------------------------------
+    // Pass 3 — build featuresByLevel using resolved ids.
+    // -------------------------------------------------------------------------
+
+    const featuresByLevel: Record<number, ParsedFeature[]> = {};
+    for (let lvl = 1; lvl <= 20; lvl++) {
+      featuresByLevel[lvl] = [];
+    }
+
+    for (const entry of refEntries) {
+      const { parsed, isSubclassGate, baseId } = entry;
+      const featureId = idMap.get(`${baseId}::${classId}`) ?? baseId;
+      const level = parsed.level;
+      const featureKey = `${parsed.name}|${parsed.className}|${parsed.source}|${level}`;
       const featureData = featureIndex.get(featureKey);
 
-      const featureId = toFeatureId(parsed.name, cls.name);
-      const level = parsed.level;
-
-      const parsedFeature: ParsedFeature = {
+      featuresByLevel[level].push({
         id: featureId,
         level,
         gainSubclassFeature: isSubclassGate,
-        // Left empty intentionally — behavioral authoring is yours
         tags: isSubclassGate ? ["subclass"] : [],
-        resources: [],
-        actions: [],
-      };
+      });
 
-      featuresByLevel[level].push(parsedFeature);
-
-      // Text side channel — real name and description from 5etools entries.
-      // First occurrence wins if an id repeats (e.g. ASI at multiple levels).
       if (!text[featureId]) {
         text[featureId] = {
           name: parsed.name,

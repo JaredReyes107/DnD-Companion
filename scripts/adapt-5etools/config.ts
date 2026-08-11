@@ -1,22 +1,27 @@
-export function toFeatureId(name: string, className: string): string {
-  const base = name
+/**
+ * Features that are mechanically identical wherever they appear.
+ * These keep a bare id regardless of how many classes or subclasses grant them.
+ * Everything else that collides gets namespaced automatically by the parser.
+ */
+export const SHARED_FEATURE_IDS = new Set([
+  "evasion",
+  "extra_attack",
+  "ability_score_improvement",
+  "timeless_body",
+  // Add only features that are genuinely identical across all sources.
+  // When in doubt, leave it out — namespacing is safe, collisions are not.
+]);
+
+// -----------------------------------------------------------------------------
+// Id builders
+// -----------------------------------------------------------------------------
+
+export function toBaseId(name: string): string {
+  return name
     .toLowerCase()
     .replace(/[^a-z0-9\s]/g, "")
     .trim()
     .replace(/\s+/g, "_");
-
-  // Disambiguate IDs that collide across classes
-  // e.g. "evasion" exists on both Monk and Rogue
-  const DISAMBIGUATE: Record<string, string> = {
-    evasion_monk: "evasion_monk",
-    evasion_rogue: "evasion_rogue",
-    extra_attack_monk: "extra_attack_monk",
-    extra_attack_ranger: "extra_attack_ranger",
-    // add as needed
-  };
-
-  const candidate = `${base}_${className.toLowerCase()}`;
-  return DISAMBIGUATE[candidate] ?? base;
 }
 
 export function toClassId(name: string): string {
@@ -38,10 +43,6 @@ export function toCasterProgression(
   return progression ? map[progression] : undefined;
 }
 
-/**
- * Converts a subclass shortName + className to your snake_case subclass ID.
- * 5etools shortNames are often display strings like "Champion" or "Battle Master".
- */
 export function toSubclassId(shortName: string): string {
   return shortName
     .toLowerCase()
@@ -50,10 +51,6 @@ export function toSubclassId(shortName: string): string {
     .replace(/\s+/g, "_");
 }
 
-/**
- * Maps 5etools source abbreviations to your source strings.
- * Matches the `source` field on SubclassTemplate.
- */
 export function sourceLabel(source: string): string {
   const MAP: Record<string, string> = {
     PHB: "Player's Handbook",
@@ -66,19 +63,57 @@ export function sourceLabel(source: string): string {
   return MAP[source] ?? source;
 }
 
-/**
- * Converts a snake_case logic ID into kebab-case, for file names only.
- *
- * Every ID in this codebase (ClassTemplate.id, FeatureTemplate.id,
- * SubclassTemplate.id, etc.) is snake_case — that's the established
- * convention and this function does not change it. It exists solely
- * because generated FILE names use dashes while generated VARIABLE
- * names use underscores, and both are derived from the same id.
- *
- * Use this only when building a file name. Never use it for an id
- * that ends up written into a TypeScript object body or a variable
- * name — those stay snake_case, unchanged.
- */
 export function toFileNameSegment(id: string): string {
   return id.replace(/_/g, "-");
+}
+
+// -----------------------------------------------------------------------------
+// Collision detection and resolution
+// -----------------------------------------------------------------------------
+
+/**
+ * Resolves feature id collisions across a set of features from a single
+ * parse run (either all class features or all subclass features).
+ *
+ * Rules:
+ * - If a base id is in SHARED_FEATURE_IDS → always bare id, no namespacing.
+ * - If a base id appears only once → bare id, no collision.
+ * - If a base id appears more than once → namespace each with its suffix
+ *   (classId for class-level features, subclassId for subclass-level features).
+ *
+ * The composite key `${baseId}::${namespaceSuffix}` is used internally to
+ * handle the edge case of two different features in the same source producing
+ * the same base id.
+ *
+ * @param features - flat list of all features in the run with their base id
+ *   and the suffix to use if namespacing is needed
+ * @returns map of `${baseId}::${namespaceSuffix}` → final resolved id
+ */
+export function deduplicateFeatureIds(
+  features: Array<{ baseId: string; namespaceSuffix: string }>,
+): Map<string, string> {
+  // Count how many distinct sources each base id appears across
+  const countPerBaseId = new Map<string, number>();
+  for (const { baseId } of features) {
+    countPerBaseId.set(baseId, (countPerBaseId.get(baseId) ?? 0) + 1);
+  }
+
+  const result = new Map<string, string>();
+
+  for (const { baseId, namespaceSuffix } of features) {
+    const compositeKey = `${baseId}::${namespaceSuffix}`;
+
+    if (result.has(compositeKey)) {
+      // Already resolved for this baseId+suffix combination
+      continue;
+    }
+
+    if (SHARED_FEATURE_IDS.has(baseId) || countPerBaseId.get(baseId) === 1) {
+      result.set(compositeKey, baseId);
+    } else {
+      result.set(compositeKey, `${baseId}_${namespaceSuffix}`);
+    }
+  }
+
+  return result;
 }
