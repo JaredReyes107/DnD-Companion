@@ -23,7 +23,7 @@ export function writeSubclassTemplate(sub: ParsedSubclass): string {
         source: "subclass" as const,
         level: ${f.level},
         tags: [],
-        // TODO: resources, actions
+        // TODO: grants — add resource/action/modifier/choice grants manually
       }`,
         )
         .join(",\n");

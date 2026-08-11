@@ -14,6 +14,23 @@ import {
 import { toFileNameSegment } from "./config";
 
 // ─────────────────────────────────────────────────────────────────────────────
+// What this adapter does NOT generate (manual authoring required):
+//
+// - FeatureTemplate.grants — resource/action/modifier/choice grants cannot
+//   be reliably derived from 5etools entries and must be filled in manually
+//   after generation. Generated files emit empty `grants` with a TODO comment.
+//
+// - options/ and choice-pools/ — pick mechanics (maneuvers, invocations,
+//   fighting styles, metamagic, etc.) require domain interpretation that
+//   5etools data does not express in a structured way. Author these manually
+//   following the patterns in src/core/data/rules/options/ and choice-pools/.
+//
+// - ActionInstance effects — boards, duration, and resource costs require
+//   domain knowledge. Generated action files are empty records.
+//
+// - Localization translations — generated files contain EN text from 5etools
+//   entries. ES translations must be filled in manually.
+// ─────────────────────────────────────────────────────────────────────────────
 // Output paths
 //
 // Input:        5etools-data/{class}.json                     (gitignored)

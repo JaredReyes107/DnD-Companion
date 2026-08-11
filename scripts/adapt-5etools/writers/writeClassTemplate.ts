@@ -19,10 +19,10 @@ export function writeClassTemplate(cls: ParsedClass): string {
         .map(
           (f) => `      {
         id: "${f.id}",
-        source: "${f.gainSubclassFeature ? "class" : "class"}",
+        source: "class" as const,
         level: ${f.level},
         tags: [${f.tags.map((t) => `"${t}"`).join(", ")}],
-        // TODO: resources, actions, combatRole
+        // TODO: grants — add resource/action/modifier/choice grants manually
       }`,
         )
         .join(",\n");

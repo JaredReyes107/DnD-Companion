@@ -3,16 +3,16 @@ import {
   FiveEToolsSubclassFeature,
 } from "../types/5etools.types";
 import {
-  toFeatureId,
+  toBaseId,
   toClassId,
   toSubclassId,
   toAbilityId,
   toCasterProgression,
+  deduplicateFeatureIds,
 } from "../config";
 import { extractDescription } from "./parseClassFeature";
 import { ParsedFeature, ParsedFeatureText } from "./parseClass";
 
-// Logic only — no display text. Consumed by writeSubclassTemplate.
 export type ParsedSubclass = {
   id: string;
   classId: string;
@@ -21,12 +21,6 @@ export type ParsedSubclass = {
   casterProgression?: "full" | "half" | "third";
 };
 
-/**
- * Text map for a subclass — keyed by feature id, plus a reserved `__self`
- * entry for the subclass's own identity (name/description). Parallel to
- * ParsedSubclass, never merged into it. Consumed solely by
- * writeLocalization.ts.
- */
 export type ParsedSubclassText = Record<string, ParsedFeatureText> & {
   __self: ParsedFeatureText;
 };
@@ -36,30 +30,6 @@ export type ParsedSubclassResult = {
   text: ParsedSubclassText;
 };
 
-/**
- * How 5etools actually structures subclass features (confirmed against
- * real class-rogue.json data):
- *
- * `subclass.subclassFeatures` is NOT a list of real features. It's a list
- * of refs to "gate" entries — one per feature-granting level (3, 9, 13, 17)
- * — whose `name` is literally the subclass's own name, e.g.:
- *
- *   "Swashbuckler|Rogue||Swashbuckler|XGE|3"
- *
- * The gate entry's `entries` array contains flavor text plus
- * `{ type: "refSubclassFeature", subclassFeature: "..." }` pointers to the
- * REAL features, e.g. "Fancy Footwork" and "Rakish Audacity". Those real
- * features already exist as their own independent objects in the
- * top-level `subclassFeature` array — fully formed, with their own
- * `entries` prose. There's nothing to resolve or graft together.
- *
- * So instead of following `subclass.subclassFeatures` refs, we read
- * `data.subclassFeature` directly, filtered to this subclass, and drop
- * only the gate entries — identified by their name matching the
- * subclass's own name. The gate's flavor text becomes the subclass
- * identity description (the `__self` text entry); every other entry is
- * a real, standalone feature.
- */
 function isSubclassGate(
   feature: FiveEToolsSubclassFeature,
   subclassName: string,
@@ -74,7 +44,6 @@ export function parseSubclasses(data: FiveEToolsFile): ParsedSubclassResult[] {
   return subclasses.map((sub): ParsedSubclassResult => {
     const classId = toClassId(sub.className);
     const subclassId = toSubclassId(sub.shortName);
-    const featuresByLevel: Record<number, ParsedFeature[]> = {};
     const text: ParsedSubclassText = {
       __self: { name: sub.name, description: "" },
     };
@@ -84,34 +53,70 @@ export function parseSubclasses(data: FiveEToolsFile): ParsedSubclassResult[] {
         f.subclassShortName === sub.shortName && f.className === sub.className,
     );
 
+    // -------------------------------------------------------------------------
+    // Pass 1 — collect all real features (skip gate entries) with their
+    // base id and subclass suffix.
+    // -------------------------------------------------------------------------
+
+    type FeatureEntry = {
+      feature: FiveEToolsSubclassFeature;
+      baseId: string;
+    };
+
+    const featureEntries: FeatureEntry[] = [];
+
     for (const feature of ownFeatures) {
       if (isSubclassGate(feature, sub.name)) {
-        // The gate's own prose is the subclass's flavor text — use it as
-        // the identity description rather than discarding it entirely.
+        // Gate prose becomes the subclass identity description
         text.__self.description = extractDescription(feature.entries);
         continue;
       }
 
+      featureEntries.push({
+        feature,
+        baseId: toBaseId(feature.name),
+      });
+    }
+
+    // -------------------------------------------------------------------------
+    // Pass 2 — resolve collisions across all features of this subclass.
+    // Namespace suffix is the subclass id (e.g. "tempest", "life", "swords").
+    // -------------------------------------------------------------------------
+
+    const idMap = deduplicateFeatureIds(
+      featureEntries.map((e) => ({
+        baseId: e.baseId,
+        namespaceSuffix: subclassId,
+      })),
+    );
+
+    // -------------------------------------------------------------------------
+    // Pass 3 — build featuresByLevel using resolved ids.
+    // -------------------------------------------------------------------------
+
+    const featuresByLevel: Record<number, ParsedFeature[]> = {};
+
+    for (const { feature, baseId } of featureEntries) {
       const level = feature.level;
+      const featureId = idMap.get(`${baseId}::${subclassId}`) ?? baseId;
+
       if (!featuresByLevel[level]) {
         featuresByLevel[level] = [];
       }
-
-      const featureId = toFeatureId(feature.name, sub.className);
 
       featuresByLevel[level].push({
         id: featureId,
         level,
         gainSubclassFeature: false,
         tags: [],
-        resources: [],
-        actions: [],
       });
 
-      text[featureId] = {
-        name: feature.name,
-        description: extractDescription(feature.entries),
-      };
+      if (!text[featureId]) {
+        text[featureId] = {
+          name: feature.name,
+          description: extractDescription(feature.entries),
+        };
+      }
     }
 
     return {
