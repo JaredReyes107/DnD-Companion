@@ -108,10 +108,7 @@ export function deduplicateFeatureIds(
       continue;
     }
 
-    if (
-      SHARED_FEATURE_IDS.has(baseId) ||
-      countPerBaseId.get(baseId) === 1
-    ) {
+    if (SHARED_FEATURE_IDS.has(baseId) || countPerBaseId.get(baseId) === 1) {
       result.set(compositeKey, baseId);
     } else {
       result.set(compositeKey, `${baseId}_${namespaceSuffix}`);
