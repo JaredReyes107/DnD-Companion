@@ -2,11 +2,10 @@ import { ClassTemplate } from "@/core/entities/rules/class-template";
 
 export const FIGHTER: ClassTemplate = {
   id: "fighter",
-  name: "Fighter",
 
   hitDie: 10,
 
-  primaryAbilities: ["STR", "DEX"],
+  primaryAbilities: [], // TODO: fill in
   savingThrows: ["STR", "CON"],
 
   featuresByLevel: {
@@ -15,17 +14,15 @@ export const FIGHTER: ClassTemplate = {
         id: "fighting_style",
         source: "class",
         level: 1,
-        tags: ["passive", "build-choice"],
-        // TODO: subclass-extension (inject passive modifiers later)
+        tags: [],
+        // TODO: resources, actions, combatRole
       },
       {
         id: "second_wind",
         source: "class",
         level: 1,
-        grants: [{ type: "resource", id: "second_wind" }],
-        tags: ["resource", "healing"],
-        // TODO: action
-        // TODO: rest-hook
+        tags: [],
+        // TODO: resources, actions, combatRole
       },
     ],
 
@@ -34,11 +31,8 @@ export const FIGHTER: ClassTemplate = {
         id: "action_surge",
         source: "class",
         level: 2,
-        grants: [
-          { type: "action", id: "action_surge" },
-          { type: "resource", id: "action_surge" },
-        ],
-        tags: ["resource", "combat"],
+        tags: [],
+        // TODO: resources, actions, combatRole
       },
     ],
 
@@ -48,68 +42,191 @@ export const FIGHTER: ClassTemplate = {
         source: "class",
         level: 3,
         tags: ["subclass"],
+        // TODO: resources, actions, combatRole
       },
     ],
 
-    4: [],
+    4: [
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 4,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+      {
+        id: "martial_versatility",
+        source: "class",
+        level: 4,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
     5: [
       {
         id: "extra_attack",
         source: "class",
         level: 5,
-        tags: ["combat"],
-        // TODO: combat-hook
-        // NOTE: scaling extra attacks handled elsewhere
+        tags: [],
+        // TODO: resources, actions, combatRole
       },
     ],
 
-    6: [],
+    6: [
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 6,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
-    7: [],
+    7: [
+      {
+        id: "martial_archetype_feature",
+        source: "class",
+        level: 7,
+        tags: ["subclass"],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
-    8: [],
+    8: [
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 8,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
     9: [
       {
         id: "indomitable",
         source: "class",
         level: 9,
-        grants: [{ type: "resource", id: "indomitable" }],
-        tags: ["resource", "defense"],
-        // TODO: reaction
-        // TODO: rest-hook
+        tags: [],
+        // TODO: resources, actions, combatRole
       },
     ],
 
-    10: [],
+    10: [
+      {
+        id: "martial_archetype_feature",
+        source: "class",
+        level: 10,
+        tags: ["subclass"],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
-    11: [],
+    11: [
+      {
+        id: "extra_attack_2",
+        source: "class",
+        level: 11,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
-    12: [],
+    12: [
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 12,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
-    13: [],
+    13: [
+      {
+        id: "indomitable_two_uses",
+        source: "class",
+        level: 13,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
-    14: [],
+    14: [
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 14,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
-    15: [],
+    15: [
+      {
+        id: "martial_archetype_feature",
+        source: "class",
+        level: 15,
+        tags: ["subclass"],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
-    16: [],
+    16: [
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 16,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
-    17: [],
+    17: [
+      {
+        id: "action_surge_two_uses",
+        source: "class",
+        level: 17,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+      {
+        id: "indomitable_three_uses",
+        source: "class",
+        level: 17,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
-    18: [],
+    18: [
+      {
+        id: "martial_archetype_feature",
+        source: "class",
+        level: 18,
+        tags: ["subclass"],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
-    19: [],
+    19: [
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 19,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
 
     20: [
       {
         id: "extra_attack_3",
         source: "class",
         level: 20,
-        tags: ["combat"],
-        // TODO: combat-hook
-        // NOTE: modifies Extra Attack, no duplication
+        tags: [],
+        // TODO: resources, actions, combatRole
       },
     ],
   },

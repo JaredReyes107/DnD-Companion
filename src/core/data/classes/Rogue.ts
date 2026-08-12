@@ -2,8 +2,6 @@ import { ClassTemplate } from "@/core/entities/rules/class-template";
 
 export const ROGUE: ClassTemplate = {
   id: "rogue",
-  name: "Rogue",
-
   hitDie: 8,
 
   primaryAbilities: ["DEX"],
