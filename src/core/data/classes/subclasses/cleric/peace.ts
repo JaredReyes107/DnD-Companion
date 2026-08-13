@@ -32,7 +32,7 @@ export const PEACE: SubclassTemplate = {
         id: "implement_of_peace",
         source: "subclass" as const,
         level: 1,
-        tags: ["skill-proficiencies"],
+        tags: ["skill", "proficiency"],
       },
     ],
 

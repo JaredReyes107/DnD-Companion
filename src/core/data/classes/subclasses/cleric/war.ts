@@ -11,7 +11,7 @@ export const WAR: SubclassTemplate = {
         id: "bonus_proficiencies_war",
         source: "subclass" as const,
         level: 1,
-        tags: ["armor-proficiencies", "weapon-proficiencies"],
+        tags: ["armor", "proficiency", "weapon"],
       },
       {
         id: "war_domain_spells",

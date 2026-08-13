@@ -17,7 +17,7 @@ export const KNOWLEDGE: SubclassTemplate = {
         id: "blessings_of_knowledge",
         source: "subclass" as const,
         level: 1,
-        tags: ["languages", "skill_proficiencies"],
+        tags: ["languages", "skill", "proficiency"],
       },
     ],
 
@@ -29,7 +29,7 @@ export const KNOWLEDGE: SubclassTemplate = {
         grants: [
           { type: "action", id: "channel_divinity_knowledge_of_the_ages" },
         ],
-        tags: ["skill_proficiencies", "tool_proficiencies"],
+        tags: ["skill", "proficiency", "tool"],
       },
     ],
 

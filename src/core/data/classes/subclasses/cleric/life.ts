@@ -11,7 +11,7 @@ export const LIFE: SubclassTemplate = {
         id: "bonus_proficiencies_life",
         source: "subclass" as const,
         level: 1,
-        tags: ["armor-proficiencies"],
+        tags: ["armor", "proficiency"],
       },
       {
         id: "life_domain_spells",
@@ -23,7 +23,7 @@ export const LIFE: SubclassTemplate = {
         id: "disciple_of_life",
         source: "subclass" as const,
         level: 1,
-        tags: ["healing", "skills", "proficiency"],
+        tags: ["healing", "skill", "proficiency"],
         // TODO: Healing hook
       },
     ],
