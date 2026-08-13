@@ -10,7 +10,7 @@ const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
   ...WILD_MAGIC_RESOURCES,
 };
 
-export const RESOURCES_BARBARIAN: Record<string, ResourceTemplate> = {
+export const BARBARIAN_RESOURCES: Record<string, ResourceTemplate> = {
   rage: {
     id: "rage",
     sourceId: "barbarian",

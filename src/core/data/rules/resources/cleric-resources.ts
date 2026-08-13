@@ -35,7 +35,7 @@ export const subclass_resources: Record<string, ResourceTemplate> = {
   ...TWILIGHT_RESOURCES,
 };
 
-export const RESOURCES_CLERIC: Record<string, ResourceTemplate> = {
+export const CLERIC_RESOURCES: Record<string, ResourceTemplate> = {
   channel_divinity: {
     id: "channel_divinity",
     sourceId: "cleric",

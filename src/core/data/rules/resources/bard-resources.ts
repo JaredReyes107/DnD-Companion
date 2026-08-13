@@ -13,7 +13,7 @@ const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
   ...ELOQUENCE_RESOURCES,
 };
 
-export const RESOURCES_BARD: Record<string, ResourceTemplate> = {
+export const BARD_RESOURCES: Record<string, ResourceTemplate> = {
   bardic_inspiration: {
     id: "bardic_inspiration",
     sourceId: "bard",
