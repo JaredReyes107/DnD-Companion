@@ -34,7 +34,7 @@ export function registerClassScalings() {
     return 2;
   });
 
-  //Adapt to resolve conflicts with paladin
+  //TODO: Check if there are conflicts with cleric/paladin multiclass
   registerScaling("channel-divinity", ({ character }) => {
     const clericClass = Object.values(character.classes.byId).find(
       (c) => c.classId === "cleric",
@@ -65,7 +65,6 @@ export function registerClassScalings() {
     if (level >= 17) return 2;
     return 1;
   });
-
   registerScaling("indomitable", ({ character }) => {
     const fighter = Object.values(character.classes.byId).find(
       (c) => c.classId === "fighter",

@@ -1,0 +1,36 @@
+import { ChoicePoolTemplate } from "@/core/entities/rules/choice-pool-template";
+
+export const BATTLE_MASTER_POOLS: Record<string, ChoicePoolTemplate> = {
+  battle_master_maneuvers: {
+    id: "battle_master_maneuvers",
+    sourceId: "battle_master",
+    classId: "fighter",
+    selectionTrigger: "onLevelUp",
+    optionIds: [
+      "maneuver_ambush",
+      "maneuver_bait_and_switch",
+      "maneuver_commander_strike",
+      "maneuver_commanding_presence",
+      "maneuver_disarming_attack",
+      "maneuver_distracting_strike",
+      "maneuver_evasive_footwork",
+      "maneuver_feinting_attack",
+      "maneuver_goading_attack",
+      "maneuver_grappling_strike",
+      "maneuver_lunging_attack",
+      "maneuver_maneuvering_attack",
+      "maneuver_menacing_attack",
+      "maneuver_parry",
+      "maneuver_precision_attack",
+      "maneuver_pushing_attack",
+      "maneuver_quick_toss",
+      "maneuver_rally",
+      "maneuver_riposte",
+      "maneuver_sweeping_attack",
+      "maneuver_tactical_assessment",
+      "maneuver_trip_attack",
+    ],
+    picksAtLevel: { 3: 3, 7: 5, 10: 7, 15: 9 },
+    allowDuplicates: false,
+  },
+};

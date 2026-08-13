@@ -2,6 +2,9 @@ import { GameLocalization } from "../../game-localization.types";
 
 import { barbarian_es } from "./barbarian/es-barbarian";
 import { bard_es } from "./bard/es/bard-es";
+import { cleric_es } from "./cleric/es/cleric-es";
+import { druid_es } from "./druid/es/druid-es";
+import { fighter_es } from "./fighter/es/fighter-es";
 
 export const classes_es: GameLocalization = {
   classes: {
@@ -12,21 +15,9 @@ export const classes_es: GameLocalization = {
     },
     ...barbarian_es,
     ...bard_es,
-    cleric: {
-      name: "Clérigo",
-      description:
-        "Un campeón divino que canaliza el poder de su deidad para sanar, proteger y castigar a sus enemigos.",
-    },
-    druid: {
-      name: "Druida",
-      description:
-        "Un guardián de la naturaleza que obtiene su poder de los espíritus y las fuerzas primordiales del mundo.",
-    },
-    fighter: {
-      name: "Guerrero",
-      description:
-        "Un combatiente versátil, maestro del combate físico y del uso de armas y armaduras.",
-    },
+    ...cleric_es,
+    ...druid_es,
+    ...fighter_es,
     monk: {
       name: "Monje",
       description:

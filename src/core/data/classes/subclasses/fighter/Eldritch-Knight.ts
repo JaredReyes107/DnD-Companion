@@ -1,12 +1,8 @@
 import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 
-/**
- * Eldritch Knight — Fighter subclass (Player's Handbook)
- */
 export const ELDRITCH_KNIGHT: SubclassTemplate = {
   id: "eldritch_knight",
   classId: "fighter",
-  source: "Players Handbook",
 
   spellcastingTemplate: {
     id: "eldritch_knight_spellcasting",
@@ -18,50 +14,57 @@ export const ELDRITCH_KNIGHT: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "weapon_bond",
-        source: "subclass",
+        id: "spellcasting",
+        source: "subclass" as const,
         level: 3,
-        grants: [{ type: "action", id: "summon_bonded_weapon" }],
-        tags: ["action"],
+        tags: ["spellcasting"],
+      },
+      {
+        id: "weapon_bond",
+        source: "subclass" as const,
+        level: 3,
+        grants: [{ type: "action", id: "weapon_bond" }],
+        tags: [],
       },
     ],
 
     7: [
       {
         id: "war_magic",
-        source: "subclass",
+        source: "subclass" as const,
         level: 7,
         grants: [{ type: "action", id: "war_magic" }],
-        tags: ["combat"],
+        tags: [],
       },
     ],
 
     10: [
       {
         id: "eldritch_strike",
-        source: "subclass",
+        source: "subclass" as const,
         level: 10,
-        tags: ["passive"],
+        grants: [{ type: "action", id: "eldritch_strike" }],
+        tags: [],
       },
     ],
 
     15: [
       {
         id: "arcane_charge",
-        source: "subclass",
+        source: "subclass" as const,
         level: 15,
-        // TODO: Modify Action Surge Behaviour or tooltip
-        tags: ["combat"],
+        grants: [{ type: "action", id: "arcane_charge" }],
+        tags: [],
       },
     ],
 
     18: [
       {
         id: "improved_war_magic",
-        source: "subclass",
+        source: "subclass" as const,
         level: 18,
-        //TODO: Replace the original War Magic Action or just remove the condition of canntrip (spell lv = 0)
-        tags: ["action", "combat"],
+        grants: [{ type: "action", id: "improved_war_magic" }],
+        tags: [],
       },
     ],
   },

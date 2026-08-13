@@ -5,7 +5,7 @@ import { barbarian_actions_es } from "../classes/barbarian/es-barbarian-actions"
 import { bard_actions_es } from "../classes/bard/es/bard-actions-es";
 import { cleric_actions_es } from "../classes/cleric/es/cleric-actions-es";
 import { druid_actions_es } from "../classes/druid/es/druid-actions-es";
-import { es_fighter_actions } from "./by-class/es-fighter-actions";
+import { fighter_actions_es } from "../classes/fighter/es/fighter-actions-es";
 import { es_monk_actions } from "./by-class/es-monk-actions";
 import { es_paladin_actions } from "./by-class/es-paladin-actions";
 import { es_ranger_actions } from "./by-class/es-ranger-actions";
@@ -21,7 +21,7 @@ export const actions_es: GameLocalization = {
     ...bard_actions_es,
     ...cleric_actions_es,
     ...druid_actions_es,
-    ...es_fighter_actions,
+    ...fighter_actions_es,
     ...es_monk_actions,
     ...es_paladin_actions,
     ...es_ranger_actions,

@@ -1,0 +1,9 @@
+import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
+
+export const battle_master_en: GameLocalizationCategory = {
+  battle_master: {
+    name: "Battle Master",
+    description:
+      "Those who emulate the archetypal Battle Master employ martial techniques passed down through generations. To a Battle Master, combat is an academic field, sometimes including subjects beyond battle such as weaponsmithing and calligraphy. Not every fighter absorbs the lessons of history, theory, and artistry that are reflected in the Battle Master archetype, but those who do are well-rounded fighters of great skill and knowledge.",
+  },
+};

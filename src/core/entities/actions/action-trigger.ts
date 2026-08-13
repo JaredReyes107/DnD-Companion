@@ -1,7 +1,6 @@
 // src/core/entities/actions/action-trigger.ts
 export type ActionTrigger =
-  | "onSkillCheck"
-  | "onSavingThrow"
+  | "onInitiativeRoll"
   | "onAttack"
   | "onAttackHit"
   | "onAttackMiss"
@@ -9,6 +8,9 @@ export type ActionTrigger =
   | "onDamageRoll"
   | "onDamageTaken"
   | "onZeroHp"
+  | "onMovement"
+  | "onSavingThrow"
+  | "onSkillCheck"
   | "onLongRest"
   | "onShortRest"
   | "onSpellCast"

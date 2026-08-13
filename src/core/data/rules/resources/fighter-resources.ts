@@ -1,12 +1,16 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
-import { RESOURCES_BATTLE_MASTER } from "./fighter/battle-master-resources";
+import { BATTLE_MASTER_RESOURCES } from "./fighter/battle-master-resources";
+import { CHAMPION_RESOURCES } from "./fighter/champion-resources";
+import { ELDRITCH_KNIGHT_RESOURCES } from "./fighter/eldritch-knight-resources";
 
 const RESOURCES_SUBCLASSES: Record<string, ResourceTemplate> = {
-  ...RESOURCES_BATTLE_MASTER,
+  ...BATTLE_MASTER_RESOURCES,
+  ...CHAMPION_RESOURCES,
+  ...ELDRITCH_KNIGHT_RESOURCES,
 };
 
-export const RESOURCES_FIGHTER: Record<string, ResourceTemplate> = {
+export const FIGHTER_RESOURCES: Record<string, ResourceTemplate> = {
   second_wind: {
     id: "second_wind",
     sourceId: "fighter",

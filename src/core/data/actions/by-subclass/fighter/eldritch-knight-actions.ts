@@ -1,11 +1,11 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 
 export const ELDRITCH_KNIGHT_ACTIONS: Record<string, ActionInstance> = {
-  summon_bonded_weapon: {
-    id: "summon_bonded_weapon",
+  weapon_bond: {
+    id: "weapon_bond",
     sourceId: "eldritch_knight",
-    boards: ["combat", "roleplay"],
-    duration: { kind: "economy", slot: "bonusAction" },
+    boards: ["downtime"],
+    duration: { kind: "timed", minutes: 60 },
     effects: [],
   },
   war_magic: {
@@ -13,6 +13,31 @@ export const ELDRITCH_KNIGHT_ACTIONS: Record<string, ActionInstance> = {
     sourceId: "eldritch_knight",
     boards: ["combat"],
     duration: { kind: "economy", slot: "bonusAction" },
+    // TODO: Only after a cantrip
+    effects: [],
+  },
+  eldritch_strike: {
+    id: "eldritch_strike",
+    sourceId: "eldritch_knight",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
+    trigger: ["onAttackHit"],
+    effects: [],
+  },
+  arcane_charge: {
+    id: "arcane_charge",
+    sourceId: "eldritch_knight",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
+    // TODO: Only after action surge
+    effects: [],
+  },
+  improved_war_magic: {
+    id: "improved_war_magic",
+    sourceId: "eldritch_knight",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "bonusAction" },
+    // TODO: Only after any spell
     effects: [],
   },
 };

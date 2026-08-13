@@ -4,6 +4,7 @@ import { barbarian_features_en } from "@/services/localization/game/classes/barb
 import { bard_features_en } from "../classes/bard/en/bard-features-en";
 import { cleric_features_en } from "../classes/cleric/en/cleric-features-en";
 import { druid_features_en } from "../classes/druid/en/druid-features-en";
+import { fighter_features_en } from "../classes/fighter/en/fighter-features-en";
 
 export const features_en: GameLocalization = {
   features: {
@@ -11,5 +12,6 @@ export const features_en: GameLocalization = {
     ...bard_features_en,
     ...cleric_features_en,
     ...druid_features_en,
+    ...fighter_features_en,
   },
 };

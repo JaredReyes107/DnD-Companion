@@ -5,7 +5,7 @@ export const FIGHTER: ClassTemplate = {
 
   hitDie: 10,
 
-  primaryAbilities: [], // TODO: fill in
+  primaryAbilities: ["STR", "DEX"],
   savingThrows: ["STR", "CON"],
 
   featuresByLevel: {
@@ -14,25 +14,32 @@ export const FIGHTER: ClassTemplate = {
         id: "fighting_style",
         source: "class",
         level: 1,
-        tags: [],
-        // TODO: resources, actions, combatRole
+        grants: [{ type: "choice", id: "fighting_style" }],
+        tags: ["build-choice"],
       },
       {
         id: "second_wind",
         source: "class",
         level: 1,
-        tags: [],
-        // TODO: resources, actions, combatRole
+        grants: [
+          { type: "resource", id: "second_wind" },
+          { type: "action", id: "second_wind" },
+        ],
+        tags: ["combat", "healing", "self-sustain"],
       },
     ],
 
     2: [
       {
+        // TODO: Check scaling
         id: "action_surge",
         source: "class",
         level: 2,
-        tags: [],
-        // TODO: resources, actions, combatRole
+        grants: [
+          { type: "resource", id: "action_surge" },
+          { type: "action", id: "action_surge" },
+        ],
+        tags: ["combat"],
       },
     ],
 
@@ -42,7 +49,6 @@ export const FIGHTER: ClassTemplate = {
         source: "class",
         level: 3,
         tags: ["subclass"],
-        // TODO: resources, actions, combatRole
       },
     ],
 
@@ -52,24 +58,16 @@ export const FIGHTER: ClassTemplate = {
         source: "class",
         level: 4,
         tags: [],
-        // TODO: resources, actions, combatRole
-      },
-      {
-        id: "martial_versatility",
-        source: "class",
-        level: 4,
-        tags: [],
-        // TODO: resources, actions, combatRole
       },
     ],
 
     5: [
       {
-        id: "extra_attack",
+        // TODO: Replace previous
+        id: "extra_attack_fighter",
         source: "class",
         level: 5,
-        tags: [],
-        // TODO: resources, actions, combatRole
+        tags: ["combat", "extra-attack"],
       },
     ],
 
@@ -79,17 +77,6 @@ export const FIGHTER: ClassTemplate = {
         source: "class",
         level: 6,
         tags: [],
-        // TODO: resources, actions, combatRole
-      },
-    ],
-
-    7: [
-      {
-        id: "martial_archetype_feature",
-        source: "class",
-        level: 7,
-        tags: ["subclass"],
-        // TODO: resources, actions, combatRole
       },
     ],
 
@@ -99,7 +86,6 @@ export const FIGHTER: ClassTemplate = {
         source: "class",
         level: 8,
         tags: [],
-        // TODO: resources, actions, combatRole
       },
     ],
 
@@ -108,28 +94,12 @@ export const FIGHTER: ClassTemplate = {
         id: "indomitable",
         source: "class",
         level: 9,
+        grants: [
+          { type: "resource", id: "indomitable" },
+          { type: "action", id: "indomitable" },
+        ],
+        // TODO: Check scaling
         tags: [],
-        // TODO: resources, actions, combatRole
-      },
-    ],
-
-    10: [
-      {
-        id: "martial_archetype_feature",
-        source: "class",
-        level: 10,
-        tags: ["subclass"],
-        // TODO: resources, actions, combatRole
-      },
-    ],
-
-    11: [
-      {
-        id: "extra_attack_2",
-        source: "class",
-        level: 11,
-        tags: [],
-        // TODO: resources, actions, combatRole
       },
     ],
 
@@ -138,18 +108,7 @@ export const FIGHTER: ClassTemplate = {
         id: "ability_score_improvement",
         source: "class",
         level: 12,
-        tags: [],
-        // TODO: resources, actions, combatRole
-      },
-    ],
-
-    13: [
-      {
-        id: "indomitable_two_uses",
-        source: "class",
-        level: 13,
-        tags: [],
-        // TODO: resources, actions, combatRole
+        tags: ["combat", "extra-attack"],
       },
     ],
 
@@ -159,17 +118,6 @@ export const FIGHTER: ClassTemplate = {
         source: "class",
         level: 14,
         tags: [],
-        // TODO: resources, actions, combatRole
-      },
-    ],
-
-    15: [
-      {
-        id: "martial_archetype_feature",
-        source: "class",
-        level: 15,
-        tags: ["subclass"],
-        // TODO: resources, actions, combatRole
       },
     ],
 
@@ -183,48 +131,11 @@ export const FIGHTER: ClassTemplate = {
       },
     ],
 
-    17: [
-      {
-        id: "action_surge_two_uses",
-        source: "class",
-        level: 17,
-        tags: [],
-        // TODO: resources, actions, combatRole
-      },
-      {
-        id: "indomitable_three_uses",
-        source: "class",
-        level: 17,
-        tags: [],
-        // TODO: resources, actions, combatRole
-      },
-    ],
-
-    18: [
-      {
-        id: "martial_archetype_feature",
-        source: "class",
-        level: 18,
-        tags: ["subclass"],
-        // TODO: resources, actions, combatRole
-      },
-    ],
-
     19: [
       {
         id: "ability_score_improvement",
         source: "class",
         level: 19,
-        tags: [],
-        // TODO: resources, actions, combatRole
-      },
-    ],
-
-    20: [
-      {
-        id: "extra_attack_3",
-        source: "class",
-        level: 20,
         tags: [],
         // TODO: resources, actions, combatRole
       },
