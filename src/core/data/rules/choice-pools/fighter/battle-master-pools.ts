@@ -1,8 +1,8 @@
 import { ChoicePoolTemplate } from "@/core/entities/rules/choice-pool-template";
 
 export const BATTLE_MASTER_POOLS: Record<string, ChoicePoolTemplate> = {
-  battle_master_maneuvers: {
-    id: "battle_master_maneuvers",
+  maneuvers: {
+    id: "maneuvers",
     sourceId: "battle_master",
     classId: "fighter",
     selectionTrigger: "onLevelUp",
