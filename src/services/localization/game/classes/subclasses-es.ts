@@ -3,11 +3,15 @@ import { GameLocalization } from "@/services/localization/game-localization.type
 import { barbarian_subclasses_es } from "./barbarian/es-barbarian-subclasses";
 import { bard_subclasses_es } from "./bard/es/bard-subclasses-es";
 import { cleric_subclasses_es } from "./cleric/es/cleric-subclasses-es";
+import { druid_subclasses_es } from "./druid/es/druid-subclasses-es";
+import { fighter_subclasses_es } from "./fighter/es/fighter-subclasses-es";
 
 export const subclasses_es: GameLocalization = {
   subclasses: {
     ...barbarian_subclasses_es,
     ...bard_subclasses_es,
     ...cleric_subclasses_es,
+    ...druid_subclasses_es,
+    ...fighter_subclasses_es,
   },
 };

@@ -2,7 +2,6 @@ import { ClassTemplate } from "@/core/entities/rules/class-template";
 
 export const DRUID: ClassTemplate = {
   id: "druid",
-  name: "Druid",
 
   hitDie: 8,
 

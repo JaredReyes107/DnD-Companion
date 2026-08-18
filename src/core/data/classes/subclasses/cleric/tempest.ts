@@ -11,7 +11,7 @@ export const TEMPEST: SubclassTemplate = {
         id: "bonus_proficiencies_tempest",
         source: "subclass" as const,
         level: 1,
-        tags: ["armor-proficiencies", "weapon-proficiencies"],
+        tags: ["armor", "weapon", "proficiency"],
       },
       {
         id: "wrath_of_the_storm",

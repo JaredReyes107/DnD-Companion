@@ -11,7 +11,7 @@ export const TWILIGHT: SubclassTemplate = {
         id: "bonus_proficiencies_twilight",
         source: "subclass" as const,
         level: 1,
-        tags: ["armor-proficiencies", "weapon-proficiencies"],
+        tags: ["armor", "weapon", "proficiency"],
       },
       {
         id: "domain_spells",

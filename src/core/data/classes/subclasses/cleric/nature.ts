@@ -10,7 +10,7 @@ export const NATURE: SubclassTemplate = {
         id: "acolyte_of_nature",
         source: "subclass" as const,
         level: 1,
-        tags: ["proficiency", "skills", "spells"],
+        tags: ["proficiency", "skill", "spells"],
       },
       {
         id: "bonus_proficiencies_nature",

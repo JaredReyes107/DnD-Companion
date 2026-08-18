@@ -2,7 +2,6 @@ import { ClassTemplate } from "@/core/entities/rules/class-template";
 
 export const FIGHTER: ClassTemplate = {
   id: "fighter",
-  name: "Fighter",
 
   hitDie: 10,
 
@@ -15,30 +14,32 @@ export const FIGHTER: ClassTemplate = {
         id: "fighting_style",
         source: "class",
         level: 1,
-        tags: ["passive", "build-choice"],
-        // TODO: subclass-extension (inject passive modifiers later)
+        grants: [{ type: "choice", id: "fighting_style" }],
+        tags: ["build-choice"],
       },
       {
         id: "second_wind",
         source: "class",
         level: 1,
-        grants: [{ type: "resource", id: "second_wind" }],
-        tags: ["resource", "healing"],
-        // TODO: action
-        // TODO: rest-hook
+        grants: [
+          { type: "resource", id: "second_wind" },
+          { type: "action", id: "second_wind" },
+        ],
+        tags: ["combat", "healing", "self-sustain"],
       },
     ],
 
     2: [
       {
+        // TODO: Check scaling
         id: "action_surge",
         source: "class",
         level: 2,
         grants: [
-          { type: "action", id: "action_surge" },
           { type: "resource", id: "action_surge" },
+          { type: "action", id: "action_surge" },
         ],
-        tags: ["resource", "combat"],
+        tags: ["combat"],
       },
     ],
 
@@ -51,65 +52,92 @@ export const FIGHTER: ClassTemplate = {
       },
     ],
 
-    4: [],
-
-    5: [
+    4: [
       {
-        id: "extra_attack",
+        id: "ability_score_improvement",
         source: "class",
-        level: 5,
-        tags: ["combat"],
-        // TODO: combat-hook
-        // NOTE: scaling extra attacks handled elsewhere
+        level: 4,
+        tags: [],
       },
     ],
 
-    6: [],
+    5: [
+      {
+        // TODO: Replace previous
+        id: "extra_attack_fighter",
+        source: "class",
+        level: 5,
+        tags: ["combat", "extra-attack"],
+      },
+    ],
 
-    7: [],
+    6: [
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 6,
+        tags: [],
+      },
+    ],
 
-    8: [],
+    8: [
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 8,
+        tags: [],
+      },
+    ],
 
     9: [
       {
         id: "indomitable",
         source: "class",
         level: 9,
-        grants: [{ type: "resource", id: "indomitable" }],
-        tags: ["resource", "defense"],
-        // TODO: reaction
-        // TODO: rest-hook
+        grants: [
+          { type: "resource", id: "indomitable" },
+          { type: "action", id: "indomitable" },
+        ],
+        // TODO: Check scaling
+        tags: [],
       },
     ],
 
-    10: [],
-
-    11: [],
-
-    12: [],
-
-    13: [],
-
-    14: [],
-
-    15: [],
-
-    16: [],
-
-    17: [],
-
-    18: [],
-
-    19: [],
-
-    20: [
+    12: [
       {
-        id: "extra_attack_3",
+        id: "ability_score_improvement",
         source: "class",
-        level: 20,
-        tags: ["combat"],
-        // TODO: combat-hook
-        // NOTE: modifies Extra Attack, no duplication
+        level: 12,
+        tags: ["combat", "extra-attack"],
+      },
+    ],
+
+    14: [
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 14,
+        tags: [],
+      },
+    ],
+
+    16: [
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 16,
+        tags: [],
+        // TODO: resources, actions, combatRole
+      },
+    ],
+
+    19: [
+      {
+        id: "ability_score_improvement",
+        source: "class",
+        level: 19,
+        tags: [],
+        // TODO: resources, actions, combatRole
       },
     ],
   },

@@ -1,7 +1,10 @@
 import { GameLocalization } from "../../game-localization.types";
 
-import { barbarian_es } from "./barbarian/es-barbarian";
+import { barbarian_en } from "./barbarian/en-barbarian";
 import { bard_en } from "./bard/en/bard-en";
+import { cleric_en } from "./cleric/en/cleric-en";
+import { druid_en } from "./druid/en/druid-en";
+import { fighter_en } from "./fighter/en/fighter-en";
 
 export const classes_en: GameLocalization = {
   classes: {
@@ -10,23 +13,11 @@ export const classes_en: GameLocalization = {
       description:
         "An expert inventor who blends magic and technology to create infusions, devices, and magical items.",
     },
-    ...barbarian_es,
+    ...barbarian_en,
     ...bard_en,
-    cleric: {
-      name: "Cleric",
-      description:
-        "A divine champion who channels the power of a deity to heal, protect, and smite foes.",
-    },
-    druid: {
-      name: "Druid",
-      description:
-        "A guardian of nature who draws power from spirits and the primal forces of the world.",
-    },
-    fighter: {
-      name: "Fighter",
-      description:
-        "A versatile combatant, skilled in physical combat and the use of weapons and armor.",
-    },
+    ...cleric_en,
+    ...druid_en,
+    ...fighter_en,
     monk: {
       name: "Monk",
       description:

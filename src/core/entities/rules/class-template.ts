@@ -4,7 +4,6 @@ import { FeatureTemplate } from "./feature-template";
 
 export type ClassTemplate = {
   id: string;
-  name: string;
 
   hitDie: number;
 

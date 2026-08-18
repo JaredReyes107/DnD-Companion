@@ -2,7 +2,6 @@ import { ClassTemplate } from "@/core/entities/rules/class-template";
 
 export const SORCERER: ClassTemplate = {
   id: "sorcerer",
-  name: "Sorcerer",
 
   hitDie: 6,
 

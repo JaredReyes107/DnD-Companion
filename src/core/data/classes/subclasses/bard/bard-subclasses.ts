@@ -21,7 +21,7 @@ const XANATHAR_SUBCLASSES: Record<string, SubclassTemplate> = {
 
 const TASHA_SUBCLASSES: Record<string, SubclassTemplate> = {
   creation: CREATION,
-  elocuence: ELOQUENCE,
+  eloquence: ELOQUENCE,
 };
 
 export const BARD_SUBCLASSES: Record<string, SubclassTemplate> = {

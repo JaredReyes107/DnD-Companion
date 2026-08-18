@@ -18,7 +18,7 @@ export const LORE: SubclassTemplate = {
         id: "extra_proficiencies",
         source: "subclass" as const,
         level: 3,
-        tags: ["subclass", "skills", "proficiency"],
+        tags: ["subclass", "skill", "proficiency"],
         // TODO: Add the handler for proficiency
       },
     ],

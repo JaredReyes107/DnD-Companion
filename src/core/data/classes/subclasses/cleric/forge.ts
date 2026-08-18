@@ -11,7 +11,7 @@ export const FORGE: SubclassTemplate = {
         id: "bonus_proficiencies_forge",
         source: "subclass" as const,
         level: 1,
-        tags: ["tool-proficiencies", "armor-proficiencies"],
+        tags: ["tool", "proficiency", "armor"],
       },
       {
         id: "domain_spells",

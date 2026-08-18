@@ -4,7 +4,7 @@ import { barbarian_resources_es } from "../classes/barbarian/barbarian-resources
 import { bard_resources_es } from "../classes/bard/es/bard-resources-es";
 import { cleric_resources_es } from "../classes/cleric/es/cleric-resources-es";
 import { druid_resources_es } from "../classes/druid/es/druid-resources-es";
-import { resources_fighter_es } from "./class/es-fighter-resources";
+import { fighter_resources_es } from "../classes/fighter/es/fighter-resources-es";
 import { resources_monk_es } from "./class/es-monk-resources";
 import { resources_paladin_es } from "./class/es-paladin-resources";
 import { resources_ranger_es } from "./class/es-ranger-resources";
@@ -21,7 +21,7 @@ export const resources_es: GameLocalization = {
     ...barbarian_resources_es,
     ...cleric_resources_es,
     ...druid_resources_es,
-    ...resources_fighter_es,
+    ...fighter_resources_es,
     ...resources_monk_es,
     ...resources_paladin_es,
     ...resources_ranger_es,
