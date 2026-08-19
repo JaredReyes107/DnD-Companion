@@ -1,0 +1,9 @@
+import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
+
+export const shadow_en: GameLocalizationCategory = {
+  shadow: {
+    name: "Way of Shadow",
+    description:
+      "Monks of the Way of Shadow follow a tradition that values stealth and subterfuge. These monks might be called ninjas or shadow dancers, and they serve as spies and assassins. Sometimes the members of a ninja monastery are family members, forming a clan sworn to secrecy about their arts and missions. Other monasteries are more like thieves' guilds, hiring out their services to nobles, rich merchants, or anyone else who can pay their fees. Regardless of their methods, the heads of these monasteries expect the unquestioning obedience of their students.",
+  },
+};
