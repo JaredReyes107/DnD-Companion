@@ -17,14 +17,14 @@ export const PALADIN_ACTIONS: Record<string, ActionInstance> = {
   lay_on_hands: {
     id: "lay_on_hands",
     sourceId: "paladin",
-    boards: ["combat", "roleplay"],
+    boards: ["combat", "roleplay", "exploration"],
     duration: { kind: "economy", slot: "action" },
-    //TODO: Make the amount an argument
+    //TODO: Make the amount an argument / variable resource
     effects: [
       {
         type: "modifyResource",
         resourceId: "lay_on_hands",
-        amount: -1,
+        amount: -5,
       },
     ],
   },
@@ -33,7 +33,7 @@ export const PALADIN_ACTIONS: Record<string, ActionInstance> = {
     sourceId: "paladin",
     boards: ["combat"],
     duration: { kind: "instantaneous" },
-    //TODO: Make the spell_slot level an argument
+    //TODO: Make the spell_slot level an argument / variable resource
     effects: [
       {
         type: "modifyResource",
@@ -41,6 +41,14 @@ export const PALADIN_ACTIONS: Record<string, ActionInstance> = {
         amount: -1,
       },
     ],
+  },
+  improved_divine_smite: {
+    id: "improved_divine_smite",
+    sourceId: "paladin",
+    boards: ["combat"],
+    duration: { kind: "instantaneous" },
+    //TODO: Make the spell_slot level an argument
+    effects: [],
   },
   cleansing_touch: {
     id: "cleansing_touch",

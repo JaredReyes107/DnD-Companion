@@ -7,7 +7,7 @@ export const RESOURCES_PALADIN: Record<string, ResourceTemplate> = {
     category: "class_features",
     scalingType: "CHA:+1",
     recharge: "longRest",
-    tags: ["combat", "healing"],
+    tags: ["senses"],
   },
   lay_on_hands: {
     id: "lay_on_hands",
@@ -15,7 +15,7 @@ export const RESOURCES_PALADIN: Record<string, ResourceTemplate> = {
     category: "class_features",
     scalingType: "class-level:*5",
     recharge: "longRest",
-    tags: ["combat", "damage", "resistance"],
+    tags: ["combat", "healing", "cleansing"],
   },
   cleansing_touch: {
     id: "cleansing_touch",
@@ -23,6 +23,6 @@ export const RESOURCES_PALADIN: Record<string, ResourceTemplate> = {
     category: "class_features",
     scalingType: "CHA",
     recharge: "longRest",
-    tags: ["combat", "damage", "resistance"],
+    tags: ["cleansing"],
   },
 };
