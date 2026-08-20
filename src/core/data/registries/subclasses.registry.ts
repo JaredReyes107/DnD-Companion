@@ -4,6 +4,8 @@ import { BARBARIAN_SUBCLASSES } from "@/core/data/classes/subclasses/barbarian/B
 import { BARD_SUBCLASSES } from "../classes/subclasses/bard/bard-subclasses";
 import { CLERIC_SUBCLASSES } from "@/core/data/classes/subclasses/cleric/cleric-subclasses";
 import { DRUID_SUBCLASSES } from "../classes/subclasses/druid/druid-subclasses";
+import { FIGHTER_SUBCLASSES } from "../classes/subclasses/fighter/Fighter-Subclasses";
+import { MONK_SUBCLASSES } from "../classes/subclasses/monk/monk-subclasses";
 
 /**
  * Base subclass definitions imported from data files.
@@ -14,6 +16,8 @@ const BASE_SUBCLASSES: Record<string, SubclassTemplate> = {
   ...BARD_SUBCLASSES,
   ...CLERIC_SUBCLASSES,
   ...DRUID_SUBCLASSES,
+  ...FIGHTER_SUBCLASSES,
+  ...MONK_SUBCLASSES,
 };
 
 const homebrewSubclasses: Record<string, SubclassTemplate> = {};

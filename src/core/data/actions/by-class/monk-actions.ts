@@ -6,6 +6,7 @@ export const MONK_ACTIONS: Record<string, ActionInstance> = {
     sourceId: "monk",
     boards: ["combat"],
     duration: { kind: "economy", slot: "bonusAction" },
+    trigger: ["onAttack"], //TODO: After the Attack action
     effects: [
       {
         type: "modifyResource",
@@ -46,11 +47,14 @@ export const MONK_ACTIONS: Record<string, ActionInstance> = {
     boards: ["combat"],
     duration: { kind: "economy", slot: "reaction" },
     effects: [
+      // TODO: Only if damage was reduced to 0
+      /*
       {
         type: "modifyResource",
         resourceId: "ki_points",
         amount: -1,
       },
+      */
     ],
   },
   slow_fall: {
@@ -78,14 +82,15 @@ export const MONK_ACTIONS: Record<string, ActionInstance> = {
     sourceId: "monk",
     boards: ["combat", "roleplay", "exploration"],
     duration: { kind: "economy", slot: "action" },
-    effects: [],
+    effects: [
+      //TODO: End one modifier with causing you to be Charmed or Frightened
+    ],
   },
   diamond_soul: {
     id: "diamond_soul",
     sourceId: "monk",
     boards: ["combat", "roleplay", "exploration"],
     duration: { kind: "instantaneous" },
-    // TODO: Option when making a saving throw
     effects: [
       {
         type: "modifyResource",
@@ -97,7 +102,7 @@ export const MONK_ACTIONS: Record<string, ActionInstance> = {
   empty_body_invisibility: {
     id: "empty_body_invisibility",
     sourceId: "monk",
-    boards: ["combat", "exploration", "downtime"],
+    boards: ["combat", "exploration"],
     duration: { kind: "economy", slot: "action" },
     effects: [
       {

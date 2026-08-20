@@ -15,14 +15,13 @@ export const MONK: ClassTemplate = {
         source: "class",
         level: 1,
         tags: ["passive", "defense"],
-        // TODO: AC calculation hook
+        // TODO: AC calculation hook / modifier
       },
       {
         id: "martial_arts",
         source: "class",
         level: 1,
         tags: ["combat"],
-        // TODO: combat-hook
         // TODO: scaling (damage die)
       },
     ],
@@ -39,15 +38,13 @@ export const MONK: ClassTemplate = {
           { type: "action", id: "step_of_the_wind" },
         ],
         tags: ["resource"],
-        // TODO: rest-hook
       },
       {
         id: "unarmored_movement",
         source: "class",
         level: 2,
         tags: ["movement"],
-        // TODO: movement-hook
-        // NOTE: scaling ignored
+        // TODO: movement modifier
       },
     ],
 
@@ -64,7 +61,6 @@ export const MONK: ClassTemplate = {
         level: 3,
         grants: [{ type: "action", id: "deflect_missiles" }],
         tags: ["reaction", "combat"],
-        // TODO: combat-hook
       },
     ],
 
@@ -75,17 +71,15 @@ export const MONK: ClassTemplate = {
         level: 4,
         grants: [{ type: "action", id: "slow_fall" }],
         tags: ["reaction"],
-        // TODO: reaction
       },
     ],
 
     5: [
       {
-        id: "extra_attack_monk",
+        id: "extra_attack",
         source: "class",
         level: 5,
         tags: ["combat"],
-        // TODO: combat-hook
       },
       {
         id: "stunning_strike",
@@ -93,7 +87,6 @@ export const MONK: ClassTemplate = {
         level: 5,
         grants: [{ type: "action", id: "stunning_strike" }],
         tags: ["combat", "debuff"],
-        // TODO: combat-hook
       },
     ],
 
@@ -103,7 +96,6 @@ export const MONK: ClassTemplate = {
         source: "class",
         level: 6,
         tags: ["combat", "passive"],
-        // TODO: damage-type hook
       },
     ],
 
@@ -119,23 +111,12 @@ export const MONK: ClassTemplate = {
         id: "stillness_of_mind",
         source: "class",
         level: 7,
-        grants: [{ type: "action", id: "stillness_of_the_mind" }],
+        grants: [{ type: "action", id: "stillness_of_mind" }],
         tags: ["action"],
-        //? TODO: condition system
       },
     ],
 
     8: [],
-
-    9: [
-      {
-        id: "unarmored_movement_improvement",
-        source: "class",
-        level: 9,
-        tags: ["movement"],
-        // TODO: movement-hook
-      },
-    ],
 
     10: [
       {
@@ -147,17 +128,12 @@ export const MONK: ClassTemplate = {
       },
     ],
 
-    11: [],
-
-    12: [],
-
     13: [
       {
         id: "tongue_of_the_sun_and_moon",
         source: "class",
         level: 13,
         tags: ["utility", "roleplay"],
-        // TODO: language system
       },
     ],
 
@@ -168,7 +144,7 @@ export const MONK: ClassTemplate = {
         level: 14,
         grants: [{ type: "action", id: "diamond_soul" }],
         tags: ["defense"],
-        // NOTE: ST proficiencies logic ignored per constraints
+        // NOTE: Modifier: ST proficiencies
       },
     ],
 
@@ -180,10 +156,6 @@ export const MONK: ClassTemplate = {
         tags: ["passive"],
       },
     ],
-
-    16: [],
-
-    17: [],
 
     18: [
       {
@@ -198,16 +170,13 @@ export const MONK: ClassTemplate = {
       },
     ],
 
-    19: [],
-
     20: [
       {
         id: "perfect_self",
         source: "class",
         level: 20,
         tags: ["resource"],
-        // TODO: combat-hook
-        // TODO: resource override
+        // TODO: Trigger. Regain on initiative if 0 ki points
       },
     ],
   },
