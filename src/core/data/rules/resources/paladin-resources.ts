@@ -17,6 +17,14 @@ export const RESOURCES_PALADIN: Record<string, ResourceTemplate> = {
     recharge: "longRest",
     tags: ["combat", "healing", "cleansing"],
   },
+  channel_divinity: {
+    id: "channel_divinity",
+    sourceId: "paladin",
+    category: "class_features",
+    scalingType: "fixed:1",
+    recharge: "longRest",
+    tags: ["combat"],
+  },
   cleansing_touch: {
     id: "cleansing_touch",
     sourceId: "paladin",

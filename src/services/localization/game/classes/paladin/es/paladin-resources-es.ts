@@ -9,6 +9,10 @@ export const paladin_resources_es: GameLocalizationCategory = {
     name: "Imponer las Manos",
     description: `Usado para recuperar puntos de golpe y curar enfermedades o venenos de una criatura que toques. Tienes una reserva igual a tu nivel de paladín multiplicado por 5, y recuperas todos cuando terminas un descanso largo. `,
   },
+  channel_divinity: {
+    name: "Canalizar Divinidad",
+    description: `Usado para activar distintos efectos mágicos en base a tu Juramento. Se recarga tras un descanso corto o largo.`,
+  },
   cleansing_touch: {
     name: "Toque Purificador",
     description: `Usado para terminar el efecto de un conjuro sobre una criatura voluntaria que toques. Puedes usar este rasgo tantas veces como tu modificador por Carisma (mínimo una vez). Recuperas los usos gastados cuando termina un descanso prolongado.`,

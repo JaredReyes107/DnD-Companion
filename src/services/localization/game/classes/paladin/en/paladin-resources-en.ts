@@ -9,6 +9,10 @@ export const paladin_resources_en: GameLocalizationCategory = {
     name: "Lay on Hands",
     description: `Used to recover hit points or end a disease or posion affecting a creature. The amount of points you have equal to your paladin level x 5, and they replenish after a long rest.`,
   },
+  channel_divinity: {
+    name: "Channel Divinity",
+    description: `Used to activate magical effects based on your Oath. It recharges on a short or long rest.`,
+  },
   cleansing_touch: {
     name: "Cleansing Touch",
     description: `Used to end the effect of a spell on a voluntary creature you touch. You can use this feature a number of times equal to your Charisma modifier (a minimum of once). You regain expended uses when you finish a long rest.`,
