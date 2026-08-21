@@ -9,7 +9,7 @@ export const ancients_features_es: GameLocalizationCategory = {
       - Conserva tu Propia Luz. Deléitate con la música y la risa, la belleza y el arte. Si dejas morir la luz en tu corazón, no podrás preservarla en el mundo.
       - Sé la Luz. Sé un glorioso faro para todos aquellos que viven en la desesperación. Deja que la luz de tu alegría y tu coraje brille en todas tus acciones.`,
   },
-  oath_spells: {
+  oath_spells_ancients: {
     name: "Conjuros de Juramento",
     description: `Consigues los conjuros de juramento en los niveles de paladín indicados.`,
   },

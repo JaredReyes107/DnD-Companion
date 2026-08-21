@@ -5,7 +5,7 @@ export const redemption_features_es: GameLocalizationCategory = {
     name: "Principios de la Redención",
     description: "",
   },
-  oath_spells: {
+  oath_spells_redemption: {
     name: "Conjuros de Juramento",
     description: `Consigues los conjuros de juramento en los niveles de paladín indicados. Una vez accedes a un conjuro de juramento, siempre lo tienes preparado. Los conjuros de juramento no cuentan conjuros que puedes preparar cada día. Si consigues un conjuro de juramento que no aparece en la lista de conjuros de paladín, para ti ese conjuro cuenta como un conjuro de paladín.`,
   },

@@ -13,7 +13,7 @@ export const CONQUEST: SubclassTemplate = {
         tags: ["flavour"],
       },
       {
-        id: "oath_spells",
+        id: "oath_spells_conquest",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],

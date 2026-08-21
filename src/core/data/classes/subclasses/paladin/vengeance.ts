@@ -14,7 +14,7 @@ export const VENGEANCE: SubclassTemplate = {
         tags: ["flavour"],
       },
       {
-        id: "oath_of_vengeance_spells",
+        id: "oath_spells_vengeance",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],

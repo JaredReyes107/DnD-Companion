@@ -13,7 +13,7 @@ export const ANCIENTS: SubclassTemplate = {
         tags: [],
       },
       {
-        id: "oath_spells",
+        id: "oath_spells_ancients",
         source: "subclass" as const,
         level: 3,
         tags: [],

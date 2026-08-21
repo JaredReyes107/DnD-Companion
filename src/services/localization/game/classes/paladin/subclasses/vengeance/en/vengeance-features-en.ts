@@ -6,7 +6,7 @@ export const vengeance_features_en: GameLocalizationCategory = {
     description:
       "The tenets of the Oath of Vengeance vary by paladin, but all the tenets revolve around punishing wrongdoers by any means necessary. Paladins who uphold these tenets are willing to sacrifice even their own righteousness to mete out justice upon those who do evil, so the paladins are often neutral or lawful neutral in alignment. The core principles of the tenets are brutally simple. Faced with a choice of fighting my sworn foes or combating a lesser evil, I choose the greater evil. Ordinary foes might win my mercy, but my sworn enemies do not. My qualms can't get in the way of exterminating my foes. If my foes wreak ruin on the world, it is because I failed to stop them. I must help those harmed by their misdeeds.",
   },
-  oath_spells: {
+  oath_spells_vengeance: {
     name: "Oath Spells",
     description: "You gain oath spells at the paladin levels listed.",
   },

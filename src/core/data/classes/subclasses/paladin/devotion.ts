@@ -14,7 +14,7 @@ export const DEVOTION: SubclassTemplate = {
         tags: ["flavour"],
       },
       {
-        id: "oath_of_devotion_spells",
+        id: "oath_spells_devotion",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],

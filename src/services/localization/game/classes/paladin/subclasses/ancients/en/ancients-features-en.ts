@@ -6,7 +6,7 @@ export const ancients_features_en: GameLocalizationCategory = {
     description:
       "The tenets of the Oath of the Ancients have been preserved for uncounted centuries. This oath emphasizes the principles of good above any concerns of law or chaos. Its four central principles are simple. Through your acts of mercy, kindness, and forgiveness, kindle the light of hope in the world, beating back despair. Where there is good, beauty, love, and laughter in the world, stand against the wickedness that would swallow it. Where life flourishes, stand against the forces that would render it barren. Delight in song and laughter, in beauty and art. If you allow the light to die in your own heart, you can't preserve it in the world. Be a glorious beacon for all who live in despair. Let the light of your joy and courage shine forth in all your deeds.",
   },
-  oath_spells: {
+  oath_spells_ancients: {
     name: "Oath Spells",
     description: "You gain oath spells at the paladin levels listed.",
   },

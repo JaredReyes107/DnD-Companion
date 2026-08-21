@@ -10,7 +10,7 @@ export const devotion_features_es: GameLocalizationCategory = {
       Honor. Trata a los demás con justicia y deja que tus actos honorables sean un ejemplo para ellos. Haz todo el bien que esté en tu mano y causa el menor daño posible.
       Deber. Sé responsable de tus actos y sus consecuencias, protege a aquellos a tu cargo y obedece a quienes ejercen una autoridad justa sobre ti.`,
   },
-  oath_spells: {
+  oath_spells_devotion: {
     name: "Conjuros de Juramento",
     description: `Consigues los conjuros de juramento en los niveles de paladín indicados.
       Una vez accedes a un conjuro de juramento, siempre lo tienes preparado. Los conjuros de juramento no cuentan conjuros que puedes preparar cada día.
