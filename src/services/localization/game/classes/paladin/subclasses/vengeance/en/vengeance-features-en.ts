@@ -10,7 +10,7 @@ export const vengeance_features_en: GameLocalizationCategory = {
     name: "Oath Spells",
     description: "You gain oath spells at the paladin levels listed.",
   },
-  channel_divinity: {
+  channel_divinity_vengeance: {
     name: "Channel Divinity",
     description: `You gain the following two Channel Divinity options:
       - Abjure Enemy: As an action, you present your holy symbol and speak a prayer of denunciation, using your Channel Divinity. Choose one creature within 60 feet of you that you can see. That creature must make a Wisdom saving throw, unless it is immune to being frightened. Fiends and undead have disadvantage on this saving throw. On a failed save, the creature is frightened for 1 minute or until it takes any damage. While frightened, the creature's speed is 0, and it can't benefit from any bonus to its speed. On a successful save, the creature's speed is halved for 1 minute or until the creature takes any damage.

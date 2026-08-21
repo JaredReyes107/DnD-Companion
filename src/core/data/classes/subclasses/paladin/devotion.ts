@@ -20,7 +20,7 @@ export const DEVOTION: SubclassTemplate = {
         tags: ["spells"],
       },
       {
-        id: "channel_divinity",
+        id: "channel_divinity_devotion",
         source: "subclass" as const,
         level: 3,
         grants: [

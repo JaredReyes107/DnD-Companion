@@ -6,14 +6,26 @@ export const VENGEANCE_ACTIONS: Record<string, ActionInstance> = {
     sourceId: "vengeance",
     boards: ["combat"],
     duration: { kind: "economy", slot: "action" },
-    effects: [],
+    effects: [
+      {
+        type: "modifyResource",
+        resourceId: "channel_divinity",
+        amount: -1,
+      },
+    ],
   },
   channel_divinity_vow_of_enmity: {
     id: "channel_divinity_vow_of_enmity",
     sourceId: "vengeance",
     boards: ["combat"],
     duration: { kind: "economy", slot: "bonusAction" },
-    effects: [],
+    effects: [
+      {
+        type: "modifyResource",
+        resourceId: "channel_divinity",
+        amount: -1,
+      },
+    ],
   },
   soul_of_vengeance: {
     id: "soul_of_vengeance",
@@ -29,6 +41,7 @@ export const VENGEANCE_ACTIONS: Record<string, ActionInstance> = {
     boards: ["combat"],
     duration: { kind: "economy", slot: "action" },
     effects: [
+      { type: "modifyResource", resourceId: "avenging_angel", amount: -1 },
       //TODO: Modifier, 1 hour. 60 ft. fly speed, 30-foot radius aura of fear (flavour)
     ],
   },

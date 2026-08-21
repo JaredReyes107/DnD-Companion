@@ -13,7 +13,7 @@ export const vengeance_features_es: GameLocalizationCategory = {
     name: "Conjuros de Juramento",
     description: `Consigues los conjuros de juramento en los niveles de paladín indicados. Una vez accedes a un conjuro de juramento, siempre lo tienes preparado. Los conjuros de juramento no cuentan conjuros que puedes preparar cada día. Si consigues un conjuro de juramento que no aparece en la lista de conjuros de paladín, para ti ese conjuro cuenta como un conjuro de paladín.`,
   },
-  channel_divinity: {
+  channel_divinity_vengeance: {
     name: "Canalizar Divinidad",
     description: `Obtienes las siguientes opciones de Canalizar Divinidad:
     - Puedes utilizar Canalizar Divinidad e invertir tu acción para mostrar tu símbolo sagrado y rezar una oración de denuncia. Como acción, elige a una criatura que puedas ver a 60 pies o menos de ti. Dicha criatura, salvo que sea inmune a ser asustada, deberá hacer una tirada de salvación de Sabiduría. Los muertos vivientes y los infernales tienen desventaja en esta tirada de salvación. Si el objetivo falla su tirada de salvación, estará asustado durante 1 minuto o hasta recibir daño. Mientras esté asustada, la velocidad de la criatura será 0 y no podrá beneficiarse de ningún bonificador a su velocidad. Si el objetivo tiene éxito en la tirada de salvación, su velocidad se verá reducida a la mitad durante 1 minuto o hasta recibir daño.

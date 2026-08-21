@@ -23,8 +23,8 @@ export const ANCIENTS: SubclassTemplate = {
         source: "subclass" as const,
         level: 3,
         grants: [
-          { type: "action", id: "nature_wrath" },
-          { type: "action", id: "turn_the_faithless" },
+          { type: "action", id: "channel_divinity_nature_wrath" },
+          { type: "action", id: "channel_divinity_turn_the_faithless" },
         ],
         tags: [],
       },

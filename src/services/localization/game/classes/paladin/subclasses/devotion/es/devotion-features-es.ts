@@ -16,7 +16,7 @@ export const devotion_features_es: GameLocalizationCategory = {
       Una vez accedes a un conjuro de juramento, siempre lo tienes preparado. Los conjuros de juramento no cuentan conjuros que puedes preparar cada día.
       Si consigues un conjuro de juramento que no aparece en la lista de conjuros de paladín, para ti ese conjuro cuenta como un conjuro de paladín.`,
   },
-  channel_divinity: {
+  channel_divinity_devotion: {
     name: "Canalizar Divinidad",
     description: `Consigues las siguientes opciones de Canalizar Divinidad:
       - Como acción, puedes usar Canalizar Divinidad para imbuir de energía positiva un arma que sostengas. Durante 1 minuto, sumarás tu modificador por Carisma a las tiradas de ataque hechas con esa arma (mínimo de +1). El arma también emite luz brillante en un radio de 20 pies y luz tenue 20 pies más allá. Si el arma no es mágica, pasará a serlo hasta que acabe el efecto. Puedes poner fin a este efecto durante tu turno como parte de cualquier otra acción. El efecto termina si ya no sostienes o llevas contigo el arma o si caes inconsciente.

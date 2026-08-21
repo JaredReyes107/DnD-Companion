@@ -26,6 +26,7 @@ export const DEVOTION_ACTIONS: Record<string, ActionInstance> = {
     boards: ["combat"],
     duration: { kind: "economy", slot: "action" },
     effects: [
+      { type: "modifyResource", resourceId: "holy_nimbus", amount: -1 },
       //TODO: Modifier, 1 min. Purely desciptive (damage + conditional advantage)
     ],
   },
