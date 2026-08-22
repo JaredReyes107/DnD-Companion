@@ -1,6 +1,32 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { four_elements_features_en } from "../subclasses/four-elements/en/four-elements-features-en";
+import { open_hand_features_en } from "../subclasses/open-hand/en/open-hand-features-en";
+import { shadow_features_en } from "../subclasses/shadow/en/shadow-features-en";
+
+import { drunken_master_features_en } from "../subclasses/drunken-master/en/drunken-master-features-en";
+import { kensei_features_en } from "../subclasses/kensei/en/kensei-features-en";
+import { sun_soul_resources_en } from "../subclasses/sun-soul/en/sun-soul-resources-en";
+
+import { astral_self_features_en } from "../subclasses/astral-self/en/astral-self-features-en";
+import { mercy_features_en } from "../subclasses/mercy/en/mercy-features-en";
+
+export const subclass_features: GameLocalizationCategory = {
+  four_elements: four_elements_features_en,
+  open_hand: open_hand_features_en,
+  shadow: shadow_features_en,
+
+  drunken_master: drunken_master_features_en,
+  kensei: kensei_features_en,
+  sun_soul: sun_soul_resources_en,
+
+  astral_self: astral_self_features_en,
+  mercy: mercy_features_en,
+};
+
 export const monk_features_en: GameLocalizationCategory = {
+  ...subclass_features,
+
   unarmored_defense: {
     name: "Unarmored Defense",
     description: `While you are wearing no armor and not wielding a shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier.`,

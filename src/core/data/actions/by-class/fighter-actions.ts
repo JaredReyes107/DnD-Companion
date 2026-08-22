@@ -8,6 +8,9 @@ import { ARCANE_ARCHER_ACTIONS } from "../by-subclass/fighter/arcane-archer-acti
 import { CAVALIER_ACTIONS } from "../by-subclass/fighter/cavalier-actions";
 import { SAMURAI_ACTIONS } from "../by-subclass/fighter/samurai-actions";
 
+import { PSI_WARRIOR_ACTIONS } from "../by-subclass/fighter/psi-warrior-actions";
+import { RUNE_KNIGHT_ACTIONS } from "../by-subclass/fighter/rune-knight-actions";
+
 const SUBCLASSES_ACTIONS: Record<string, ActionInstance> = {
   ...BATTLE_MASTER_ACTIONS,
   ...CHAMPION_ACTIONS,
@@ -16,6 +19,9 @@ const SUBCLASSES_ACTIONS: Record<string, ActionInstance> = {
   ...ARCANE_ARCHER_ACTIONS,
   ...CAVALIER_ACTIONS,
   ...SAMURAI_ACTIONS,
+
+  ...PSI_WARRIOR_ACTIONS,
+  ...RUNE_KNIGHT_ACTIONS,
 };
 
 export const FIGHTER_ACTIONS: Record<string, ActionInstance> = {

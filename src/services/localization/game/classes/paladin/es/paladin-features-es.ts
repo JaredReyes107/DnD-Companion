@@ -1,6 +1,34 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { devotion_features_es } from "../subclasses/devotion/es/devotion-features-es";
+import { ancients_features_es } from "../subclasses/ancients/es/ancients-features-es";
+import { vengeance_features_es } from "../subclasses/vengeance/es/vengeance-features-es";
+
+import { oathbreaker_features_es } from "../subclasses/oathbreaker/es/oathbreaker-features-es";
+
+import { conquest_features_es } from "../subclasses/conquest/es/conquest-features-es";
+import { redemption_features_es } from "../subclasses/redemption/es/redemption-features-es";
+
+import { glory_features_es } from "../subclasses/glory/es/glory-features-es";
+import { watchers_features_es } from "../subclasses/watchers/es/watchers-features-es";
+
+export const subclass_features: GameLocalizationCategory = {
+  devotion: devotion_features_es,
+  ancient: ancients_features_es,
+  vengeance: vengeance_features_es,
+
+  oathbreaker: oathbreaker_features_es,
+
+  conquest: conquest_features_es,
+  redemption: redemption_features_es,
+
+  glory: glory_features_es,
+  watchers: watchers_features_es,
+};
+
 export const paladin_features_es: GameLocalizationCategory = {
+  ...subclass_features,
+
   divine_sense: {
     name: "Sentido Divino",
     description: `Para tus sentidos, la presencia de un gran mal se percibe como un hedor nocivo, mientras que un bien poderoso es como música celestial. Como acción, puedes abrir tus sentidos para detectar tales fuerzas. Hasta el final de tu siguiente turno, sabes dónde se encuentra cualquier celestial, infernal o no muerto que esté a menos de 60 pies de ti y que no esté completamente cubierto. Sabes de qué tipo es (celestial, infernal o no muerto), pero no su identidad (el vampiro conde Strahd von Zarovich, por ejemplo). Dentro del mismo radio, también puedes detectar la presencia de cualquier lugar u objeto que haya sido bendecido o desacralizado, como con el conjuro Consagrar.

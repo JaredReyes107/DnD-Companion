@@ -5,6 +5,8 @@ import { bard_es } from "./bard/es/bard-es";
 import { cleric_es } from "./cleric/es/cleric-es";
 import { druid_es } from "./druid/es/druid-es";
 import { fighter_es } from "./fighter/es/fighter-es";
+import { monk_es } from "./monk/es/monk-es";
+import { paladin_es } from "./paladin/es/paladin-es";
 
 export const classes_es: GameLocalization = {
   classes: {
@@ -18,6 +20,8 @@ export const classes_es: GameLocalization = {
     ...cleric_es,
     ...druid_es,
     ...fighter_es,
+    ...monk_es,
+    ...paladin_es,
     monk: {
       name: "Monje",
       description:

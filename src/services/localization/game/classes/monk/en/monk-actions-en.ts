@@ -1,6 +1,35 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { four_elements_actions_en } from "../subclasses/four-elements/en/four-elements-actions-en";
+import { open_hand_actions_en } from "../subclasses/open-hand/en/open-hand-actions-en";
+import { shadow_actions_en } from "../subclasses/shadow/en/shadow-actions-en";
+
+import { drunken_master_actions_en } from "../subclasses/drunken-master/en/drunken-master-actions-en";
+import { kensei_actions_en } from "../subclasses/kensei/en/kensei-actions-en";
+import { sun_soul_actions_en } from "../subclasses/sun-soul/en/sun-soul-actions-en";
+
+import { astral_self_actions_en } from "../subclasses/astral-self/en/astral-self-actions-en";
+import { mercy_actions_en } from "../subclasses/mercy/en/mercy-actions-en";
+
+const subclass_actions: GameLocalizationCategory = {
+  // PHB
+  ...four_elements_actions_en,
+  ...open_hand_actions_en,
+  ...shadow_actions_en,
+
+  // Xanathar's
+  ...drunken_master_actions_en,
+  ...kensei_actions_en,
+  ...sun_soul_actions_en,
+
+  // Tasha's
+  ...astral_self_actions_en,
+  ...mercy_actions_en,
+};
+
 export const monk_actions_en: GameLocalizationCategory = {
+  ...subclass_actions,
+
   flurry_of_blows: {
     name: "Flurry of Blows",
     description: `Immediately after you take the Attack action on your turn, you spend 1 ki point to make two unarmed strikes as a bonus action.`,

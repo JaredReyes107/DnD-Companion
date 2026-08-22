@@ -1,6 +1,34 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { devotion_features_en } from "../subclasses/devotion/en/devotion-features-en";
+import { ancients_features_en } from "../subclasses/ancients/en/ancients-features-en";
+import { vengeance_features_en } from "../subclasses/vengeance/en/vengeance-features-en";
+
+import { oathbreaker_features_en } from "../subclasses/oathbreaker/en/oathbreaker-features-en";
+
+import { conquest_features_en } from "../subclasses/conquest/en/conquest-features-en";
+import { redemption_features_en } from "../subclasses/redemption/en/redemption-features-en";
+
+import { glory_features_en } from "../subclasses/glory/en/glory-features-en";
+import { watchers_features_en } from "../subclasses/watchers/en/watchers-features-en";
+
+export const subclass_features: GameLocalizationCategory = {
+  devotion: devotion_features_en,
+  ancient: ancients_features_en,
+  vengeance: vengeance_features_en,
+
+  oathbreaker: oathbreaker_features_en,
+
+  conquest: conquest_features_en,
+  redemption: redemption_features_en,
+
+  glory: glory_features_en,
+  watchers: watchers_features_en,
+};
+
 export const paladin_features_en: GameLocalizationCategory = {
+  ...subclass_features,
+
   divine_sense: {
     name: "Divine Sense",
     description: `The presence of strong evil registers on your senses like a noxious odor, and powerful good rings like heavenly music in your ears. As an action, you can open your awareness to detect such forces. Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity (the vampire Count Strahd von Zarovich, for instance). Within the same radius, you also detect the presence of any place or object that has been consecrated or desecrated, as with the Hallow spell.

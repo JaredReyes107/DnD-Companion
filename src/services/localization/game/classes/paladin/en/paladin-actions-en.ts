@@ -1,6 +1,38 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { devotion_actions_en } from "../subclasses/devotion/en/devotion-actions-en";
+import { ancients_actions_en } from "../subclasses/ancients/en/ancients-actions-en";
+import { vengeance_actions_en } from "../subclasses/vengeance/en/vengeance-actions-en";
+
+import { oathbreaker_actions_en } from "../subclasses/oathbreaker/en/oathbreaker-actions-en";
+
+import { conquest_actions_en } from "../subclasses/conquest/en/conquest-actions-en";
+import { redemption_actions_en } from "../subclasses/redemption/en/redemption-actions-en";
+
+import { glory_actions_en } from "../subclasses/glory/en/glory-actions-en";
+import { watchers_actions_en } from "../subclasses/watchers/en/watchers-actions-en";
+
+const subclass_actions: GameLocalizationCategory = {
+  // PHB
+  ...devotion_actions_en,
+  ...ancients_actions_en,
+  ...vengeance_actions_en,
+
+  // DMG
+  ...oathbreaker_actions_en,
+
+  // Xanathar's
+  ...conquest_actions_en,
+  ...redemption_actions_en,
+
+  // Tasha's
+  ...glory_actions_en,
+  ...watchers_actions_en,
+};
+
 export const paladin_actions_en: GameLocalizationCategory = {
+  ...subclass_actions,
+
   divine_sense: {
     name: "Divine Sense",
     description: `Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity (the vampire Count Strahd von Zarovich, for instance). Within the same radius, you also detect the presence of any place or object that has been consecrated or desecrated, as with the Hallow spell.`,

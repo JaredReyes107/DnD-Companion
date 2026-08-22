@@ -5,7 +5,7 @@ import { valor_es } from "../subclasses/valor/es/valor-es";
 import { glamour_es } from "../subclasses/glamour/es/glamour-es";
 import { swords_es } from "../subclasses/swords/es/swords-es";
 import { whispers_es } from "../subclasses/whispers/es/whispers-es";
-import { creation_es } from "../subclasses/creation/es/creation-en";
+import { creation_es } from "../subclasses/creation/es/creation-es";
 import { eloquence_es } from "../subclasses/eloquence/es/eloquence-es";
 
 export const bard_subclasses_es: GameLocalizationCategory = {
