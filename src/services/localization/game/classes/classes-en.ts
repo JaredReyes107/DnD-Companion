@@ -5,6 +5,8 @@ import { bard_en } from "./bard/en/bard-en";
 import { cleric_en } from "./cleric/en/cleric-en";
 import { druid_en } from "./druid/en/druid-en";
 import { fighter_en } from "./fighter/en/fighter-en";
+import { monk_en } from "./monk/en/monk-en";
+import { paladin_en } from "./paladin/en/paladin-en";
 
 export const classes_en: GameLocalization = {
   classes: {
@@ -18,16 +20,8 @@ export const classes_en: GameLocalization = {
     ...cleric_en,
     ...druid_en,
     ...fighter_en,
-    monk: {
-      name: "Monk",
-      description:
-        "A disciplined warrior who channels inner energy to perform extraordinary physical feats.",
-    },
-    paladin: {
-      name: "Paladin",
-      description:
-        "A holy warrior bound by a sacred oath, combining martial prowess and divine power.",
-    },
+    ...monk_en,
+    ...paladin_en,
     ranger: {
       name: "Ranger",
       description:

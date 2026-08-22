@@ -6,7 +6,7 @@ export const PALADIN: ClassTemplate = {
   hitDie: 10,
 
   primaryAbilities: ["STR", "CHA"],
-  savingThrows: ["CON", "CHA"],
+  savingThrows: ["WIS", "CHA"],
 
   spellcastingTemplate: {
     id: "paladin_spellcasting",
@@ -14,165 +14,161 @@ export const PALADIN: ClassTemplate = {
     kind: "standard",
     progression: "half",
   },
-
   featuresByLevel: {
     1: [
       {
         id: "divine_sense",
-        source: "class",
+        source: "class" as const,
         level: 1,
         grants: [
           { type: "action", id: "divine_sense" },
           { type: "resource", id: "divine_sense" },
         ],
-        tags: ["resource", "utility"],
+        tags: ["senses"],
       },
       {
         id: "lay_on_hands",
-        source: "class",
+        source: "class" as const,
         level: 1,
         grants: [
           { type: "action", id: "lay_on_hands" },
           { type: "resource", id: "lay_on_hands" },
         ],
-        tags: ["resource", "healing"],
-        // TODO: rest-hook
+        tags: ["healing", "cleansing"],
       },
     ],
 
     2: [
       {
-        id: "fighting_style_paladin",
-        source: "class",
+        id: "fighting_style",
+        source: "class" as const,
         level: 2,
-        tags: ["passive", "build-choice"],
-        // TODO: passive modifiers
+        grants: [{ type: "choice", id: "fighting_style" }],
+        tags: ["build-choice"],
       },
       {
         id: "spellcasting_paladin",
-        source: "class",
+        source: "class" as const,
         level: 2,
         tags: ["spellcasting"],
       },
       {
         id: "divine_smite",
-        source: "class",
+        source: "class" as const,
         level: 2,
         grants: [{ type: "action", id: "divine_smite" }],
-        tags: ["combat"],
+        tags: ["combat", "damage"],
       },
     ],
 
     3: [
       {
         id: "divine_health",
-        source: "class",
+        source: "class" as const,
         level: 3,
-        tags: ["passive", "defense"],
-        // TODO: condition immunity system
+        tags: ["inmunity", "disease"],
       },
       {
         id: "sacred_oath",
-        source: "class",
+        source: "class" as const,
         level: 3,
-        grants: [{ type: "resource", id: "channel_divinity" }],
+        grants: [{ type: "action", id: "channel_divinity" }],
         tags: ["subclass"],
       },
     ],
 
-    4: [],
+    4: [
+      {
+        id: "ability_score_improvement",
+        source: "class" as const,
+        level: 4,
+        tags: ["ASI"],
+      },
+    ],
 
     5: [
       {
-        id: "extra_attack_paladin",
-        source: "class",
+        id: "extra_attack",
+        source: "class" as const,
         level: 5,
-        tags: ["combat"],
-        // TODO: combat-hook
+        tags: ["attack"],
       },
     ],
 
     6: [
       {
         id: "aura_of_protection",
-        source: "class",
+        source: "class" as const,
         level: 6,
-        tags: ["aura", "defense"],
-        // TODO: aura system
-        // NOTE: flat bonus ignored per constraints
+        tags: ["saving-throw", "bonus"],
       },
     ],
 
-    7: [],
-
-    8: [],
-
-    9: [],
+    8: [
+      {
+        id: "ability_score_improvement",
+        source: "class" as const,
+        level: 8,
+        tags: ["ASI"],
+      },
+    ],
 
     10: [
       {
         id: "aura_of_courage",
-        source: "class",
+        source: "class" as const,
         level: 10,
-        tags: ["aura", "defense"],
-        // TODO: aura system
-        // TODO: condition immunity
+        tags: ["inmunity", "frightened"],
       },
     ],
 
     11: [
       {
         id: "improved_divine_smite",
-        source: "class",
+        source: "class" as const,
         level: 11,
-        tags: ["combat", "damage"],
-        // TODO: combat-hook
+        grants: [{ type: "action", id: "improved_divine_smite" }],
+        tags: ["damage"],
       },
     ],
 
-    12: [],
-
-    13: [],
+    12: [
+      {
+        id: "ability_score_improvement",
+        source: "class" as const,
+        level: 12,
+        tags: ["ASI"],
+      },
+    ],
 
     14: [
       {
         id: "cleansing_touch",
-        source: "class",
+        source: "class" as const,
         level: 14,
         grants: [
           { type: "action", id: "cleansing_touch" },
           { type: "resource", id: "cleansing_touch" },
         ],
-        tags: ["resource", "utility"],
-        // TODO: spell-effect hook
-        // TODO: rest-hook
+        tags: ["cleansing"],
       },
     ],
 
-    15: [],
-
-    16: [],
-
-    17: [],
-
-    18: [
+    15: [
       {
-        id: "aura_improvements",
-        source: "class",
-        level: 18,
-        tags: ["aura"],
-        // TODO: aura scaling
-      },
-    ],
-
-    19: [],
-
-    20: [
-      {
-        id: "sacred_oath_capstone",
-        source: "class",
-        level: 20,
+        id: "sacred_oath_feature_paladin",
+        source: "class" as const,
+        level: 15,
         tags: ["subclass"],
+      },
+    ],
+
+    19: [
+      {
+        id: "ability_score_improvement",
+        source: "class" as const,
+        level: 19,
+        tags: ["ASI"],
       },
     ],
   },

@@ -1,6 +1,32 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { four_elements_features_es } from "../subclasses/four-elements/es/four-elements-features-es";
+import { open_hand_features_es } from "../subclasses/open-hand/es/open-hand-features-es";
+import { shadow_features_es } from "../subclasses/shadow/es/shadow-features-es";
+
+import { drunken_master_features_es } from "../subclasses/drunken-master/es/drunken-master-features-es";
+import { kensei_features_es } from "../subclasses/kensei/es/kensei-features-es";
+import { sun_soul_resources_es } from "../subclasses/sun-soul/es/sun-soul-resources-es";
+
+import { astral_self_features_es } from "../subclasses/astral-self/es/astral-self-features-es";
+import { mercy_features_es } from "../subclasses/mercy/es/mercy-features-es";
+
+export const subclass_features: GameLocalizationCategory = {
+  four_elements: four_elements_features_es,
+  open_hand: open_hand_features_es,
+  shadow: shadow_features_es,
+
+  drunken_master: drunken_master_features_es,
+  kensei: kensei_features_es,
+  sun_soul: sun_soul_resources_es,
+
+  astral_self: astral_self_features_es,
+  mercy: mercy_features_es,
+};
+
 export const monk_features_es: GameLocalizationCategory = {
+  ...subclass_features,
+
   unarmored_defense: {
     name: "Defensa sin Armadura",
     description:

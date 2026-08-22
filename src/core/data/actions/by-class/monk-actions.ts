@@ -1,6 +1,32 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 
+import { FOUR_ELEMENTS_ACTIONS } from "../by-subclass/monk/four-elements-actions";
+import { OPEN_HAND_ACTIONS } from "../by-subclass/monk/open-hand-actions";
+import { SHADOW_ACTIONS } from "../by-subclass/monk/shadow-actions";
+
+import { DRUNKEN_MASTER_ACTIONS } from "../by-subclass/monk/drunken-master-actions";
+import { KENSEI_ACTIONS } from "../by-subclass/monk/kensei-actions";
+import { SUN_SOUL_ACTIONS } from "../by-subclass/monk/sun-soul-actions";
+
+import { ASTRAL_SELF_ACTIONS } from "../by-subclass/monk/astral-self-actions";
+import { MERCY_ACTIONS } from "../by-subclass/monk/mercy-actions";
+
+const SUBCLASSES_ACTIONS: Record<string, ActionInstance> = {
+  ...FOUR_ELEMENTS_ACTIONS,
+  ...OPEN_HAND_ACTIONS,
+  ...SHADOW_ACTIONS,
+
+  ...DRUNKEN_MASTER_ACTIONS,
+  ...KENSEI_ACTIONS,
+  ...SUN_SOUL_ACTIONS,
+
+  ...ASTRAL_SELF_ACTIONS,
+  ...MERCY_ACTIONS,
+};
+
 export const MONK_ACTIONS: Record<string, ActionInstance> = {
+  ...SUBCLASSES_ACTIONS,
+
   flurry_of_blows: {
     id: "flurry_of_blows",
     sourceId: "monk",

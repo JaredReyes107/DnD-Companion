@@ -1,6 +1,32 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { battle_master_features_en } from "../subclasses/battle-master/en/battle-master-features-en";
+import { champion_features_en } from "../subclasses/champion/en/champion-features-en";
+import { eldritch_knight_features_en } from "../subclasses/eldritch-knight/en/eldritch-knight-features-en";
+
+import { arcane_archer_features_en } from "../subclasses/arcane-archer/en/arcane-archer-features-en";
+import { cavalier_features_en } from "../subclasses/cavalier/en/cavalier-features-en";
+import { samurai_features_en } from "../subclasses/samurai/en/samurai-features-en";
+
+import { psi_warrior_features_en } from "../subclasses/psi-warrior/en/psi-warrior-features-en";
+import { rune_knight_features_en } from "../subclasses/rune-knight/en/rune-knight-features-en";
+
+export const subclass_features: GameLocalizationCategory = {
+  battle_master: battle_master_features_en,
+  champion: champion_features_en,
+  eldritch_knight: eldritch_knight_features_en,
+
+  arcane_archer: arcane_archer_features_en,
+  cavalier: cavalier_features_en,
+  samurai: samurai_features_en,
+
+  psi_warrior: psi_warrior_features_en,
+  rune_knight: rune_knight_features_en,
+};
+
 export const fighter_features_en: GameLocalizationCategory = {
+  ...subclass_features,
+
   fighting_style: {
     name: "Fighting Style",
     description:

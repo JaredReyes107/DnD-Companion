@@ -6,6 +6,7 @@ import { cleric_subclasses_es } from "./cleric/es/cleric-subclasses-es";
 import { druid_subclasses_es } from "./druid/es/druid-subclasses-es";
 import { fighter_subclasses_es } from "./fighter/es/fighter-subclasses-es";
 import { monk_subclasses_es } from "./monk/es/monk-subclasses-es";
+import { paladin_subclasses_es } from "./paladin/es/paladin-subclasses-es";
 
 export const subclasses_es: GameLocalization = {
   subclasses: {
@@ -15,5 +16,6 @@ export const subclasses_es: GameLocalization = {
     ...druid_subclasses_es,
     ...fighter_subclasses_es,
     ...monk_subclasses_es,
+    ...paladin_subclasses_es,
   },
 };

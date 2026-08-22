@@ -8,6 +8,9 @@ import { ARCANE_ARCHER_RESOURCES } from "./fighter/arcane-archer-resources";
 import { CAVALIER_RESOURCES } from "./fighter/cavalier-resources";
 import { SAMURAI_RESOURCES } from "./fighter/samurai-resources";
 
+import { PSI_WARRIOR_RESOURCES } from "./fighter/psi-warrior-resources";
+import { RUNE_KNIGHT_RESOURCES } from "./fighter/rune-knight-resources";
+
 const RESOURCES_SUBCLASSES: Record<string, ResourceTemplate> = {
   ...BATTLE_MASTER_RESOURCES,
   ...CHAMPION_RESOURCES,
@@ -16,6 +19,9 @@ const RESOURCES_SUBCLASSES: Record<string, ResourceTemplate> = {
   ...ARCANE_ARCHER_RESOURCES,
   ...CAVALIER_RESOURCES,
   ...SAMURAI_RESOURCES,
+
+  ...PSI_WARRIOR_RESOURCES,
+  ...RUNE_KNIGHT_RESOURCES,
 };
 
 export const FIGHTER_RESOURCES: Record<string, ResourceTemplate> = {

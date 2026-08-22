@@ -20,7 +20,7 @@ export const ${constName}: Record<string, ActionInstance> = {
   some_action: {
     id: "some_action",
     sourceId: "${sub.id}",
-    boards: [],
+    boards: ["combat"],
     duration: { kind: "economy", slot: "action" },
     effects: [],
   },

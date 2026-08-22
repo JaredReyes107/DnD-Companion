@@ -1,6 +1,35 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { four_elements_actions_es } from "../subclasses/four-elements/es/four-elements-actions-es";
+import { open_hand_actions_es } from "../subclasses/open-hand/es/open-hand-actions-es";
+import { shadow_actions_es } from "../subclasses/shadow/es/shadow-actions-es";
+
+import { drunken_master_actions_es } from "../subclasses/drunken-master/es/drunken-master-actions-es";
+import { kensei_actions_es } from "../subclasses/kensei/es/kensei-actions-es";
+import { sun_soul_actions_es } from "../subclasses/sun-soul/es/sun-soul-actions-es";
+
+import { astral_self_actions_es } from "../subclasses/astral-self/es/astral-self-actions-es";
+import { mercy_actions_es } from "../subclasses/mercy/es/mercy-actions-es";
+
+const subclass_actions: GameLocalizationCategory = {
+  // PHB
+  ...four_elements_actions_es,
+  ...open_hand_actions_es,
+  ...shadow_actions_es,
+
+  // Xanathar's
+  ...drunken_master_actions_es,
+  ...kensei_actions_es,
+  ...sun_soul_actions_es,
+
+  // Tasha's
+  ...astral_self_actions_es,
+  ...mercy_actions_es,
+};
+
 export const monk_actions_es: GameLocalizationCategory = {
+  ...subclass_actions,
+
   flurry_of_blows: {
     name: "Ráfaga de Golpes",
     description: `Después de realizar tu acción de ataque durante tu turno, puedes gastar 1 punto de ki para realizar dos impactos desarmados como acción adicional.`,
