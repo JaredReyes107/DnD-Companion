@@ -1,0 +1,9 @@
+import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
+
+export const oathbreaker_en: GameLocalizationCategory = {
+  oathbreaker: {
+    name: "Oathbreaker",
+    description:
+      "An Oathbreaker is a paladin who breaks his or her sacred oaths to pursue some dark ambition or serve an evil power. Whatever light burned in the paladin's heart has been extinguished. Only darkness remains. A paladin must be evil and at least 3rd level to become an Oathbreaker. The paladin replaces the features specific to his or her Sacred Oath with Oathbreaker features.",
+  },
+};
