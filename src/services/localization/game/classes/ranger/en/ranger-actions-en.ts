@@ -1,6 +1,33 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { beast_actions_en } from "../../barbarian/subclasses/beast/en/en-beast-actions";
+import { hunter_actions_en } from "../subclasses/hunter/en/hunter-actions-en";
+
+import { gloom_stalker_actions_en } from "../subclasses/gloom-stalker/en/gloom-stalker-actions-en";
+import { horizon_walker_actions_en } from "../subclasses/horizon-walker/en/horizon-walker-actions-en";
+import { monster_slayer_actions_en } from "../subclasses/monster-slayer/en/monster-slayer-actions-en";
+
+import { fey_wanderer_actions_en } from "../subclasses/fey-wanderer/en/fey-wanderer-actions-en";
+import { swarmkeeper_actions_en } from "../subclasses/swarmkeeper/en/swarmkeeper-actions-en";
+
+const subclass_actions: GameLocalizationCategory = {
+  // PHB
+  ...beast_actions_en,
+  ...hunter_actions_en,
+
+  // Xanathar's
+  ...gloom_stalker_actions_en,
+  ...horizon_walker_actions_en,
+  ...monster_slayer_actions_en,
+
+  // Tasha's
+  ...fey_wanderer_actions_en,
+  ...swarmkeeper_actions_en,
+};
+
 export const ranger_actions_en: GameLocalizationCategory = {
+  ...subclass_actions,
+
   primeval_awareness: {
     name: "Primeval Awareness",
     description: `For 1 minute per level of the spell slot you expend, you can sense whether the following types of creatures are present within 1 mile of you (or within up to 6 miles if you are in your favored terrain): aberrations, celestials, dragons, elementals, fey, fiends, and undead. This feature doesn’t reveal the creatures’ location or number.`,

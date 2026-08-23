@@ -1,6 +1,30 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 
+import { BEAST_ACTIONS } from "../by-subclass/barbarian/beast-actions";
+import { HUNTER_ACTIONS } from "../by-subclass/ranger/hunter-actions";
+
+import { GLOOM_STALKER_ACTIONS } from "../by-subclass/ranger/gloom-stalker-actions";
+import { HORIZON_WALKER_ACTIONS } from "../by-subclass/ranger/horizon-walker-actions";
+import { MONSTER_SLAYER_ACTIONS } from "../by-subclass/ranger/monster-slayer-actions";
+
+import { FEY_WANDERER_ACTIONS } from "../by-subclass/ranger/fey-wanderer-actions";
+import { SWARMKEEPER_ACTIONS } from "../by-subclass/ranger/swarmkeeper-actions";
+
+const SUBCLASSES_ACTIONS: Record<string, ActionInstance> = {
+  ...BEAST_ACTIONS,
+  ...HUNTER_ACTIONS,
+
+  ...GLOOM_STALKER_ACTIONS,
+  ...HORIZON_WALKER_ACTIONS,
+  ...MONSTER_SLAYER_ACTIONS,
+
+  ...FEY_WANDERER_ACTIONS,
+  ...SWARMKEEPER_ACTIONS,
+};
+
 export const RANGER_ACTIONS: Record<string, ActionInstance> = {
+  ...SUBCLASSES_ACTIONS,
+
   primeval_awareness: {
     id: "primeval_awareness",
     sourceId: "ranger",
