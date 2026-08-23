@@ -15,8 +15,15 @@ export const RANGER_ACTIONS: Record<string, ActionInstance> = {
       },
     ],
   },
-  vanish: {
-    id: "vanish",
+  hide_in_plain_sight: {
+    id: "hide_in_plain_sight",
+    sourceId: "ranger",
+    boards: ["combat", "exploration"],
+    duration: { kind: "timed", minutes: 1 },
+    effects: [],
+  },
+  hide: {
+    id: "hide",
     sourceId: "ranger",
     boards: ["combat", "exploration"],
     duration: { kind: "economy", slot: "bonusAction" },

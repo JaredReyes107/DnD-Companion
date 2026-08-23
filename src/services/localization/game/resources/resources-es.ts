@@ -7,7 +7,7 @@ import { druid_resources_es } from "../classes/druid/es/druid-resources-es";
 import { fighter_resources_es } from "../classes/fighter/es/fighter-resources-es";
 import { monk_resources_es } from "../classes/monk/es/monk-resources-es";
 import { paladin_resources_es } from "../classes/paladin/es/paladin-resources-es";
-import { resources_ranger_es } from "./class/es-ranger-resources";
+import { ranger_resources_es } from "../classes/ranger/es/ranger-resources-es";
 import { resources_rogue_es } from "./class/es-rogue-resources";
 import { resources_sorcerer_es } from "./class/es-sorcerer-resources";
 import { resources_warlock_es } from "./class/es-warlock-resources";
@@ -24,7 +24,7 @@ export const resources_es: GameLocalization = {
     ...fighter_resources_es,
     ...monk_resources_es,
     ...paladin_resources_es,
-    ...resources_ranger_es,
+    ...ranger_resources_es,
     ...resources_rogue_es,
     ...resources_sorcerer_es,
     ...resources_warlock_es,
