@@ -1,6 +1,6 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
-import { beast_actions_es } from "../../barbarian/subclasses/beast/es/es-beast-actions";
+import { beast_master_actions_es } from "../subclasses/beast-master/es/beast-master-actions-es";
 import { hunter_actions_es } from "../subclasses/hunter/es/hunter-actions-es";
 
 import { gloom_stalker_actions_es } from "../subclasses/gloom-stalker/es/gloom-stalker-actions-es";
@@ -12,7 +12,7 @@ import { swarmkeeper_actions_es } from "../subclasses/swarmkeeper/es/swarmkeeper
 
 const subclass_actions: GameLocalizationCategory = {
   // PHB
-  ...beast_actions_es,
+  ...beast_master_actions_es,
   ...hunter_actions_es,
 
   // Xanathar's

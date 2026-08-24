@@ -1,6 +1,6 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
-import { BEAST_RESOURCES } from "./barbarian/beast-resources";
+import { BEAST_MASTER_RESOURCES } from "./ranger/beast-master-resources";
 import { HUNTER_RESOURCES } from "./ranger/hunter-resources";
 
 import { GLOOM_STALKER_RESOURCES } from "./ranger/gloom-stalker-resources";
@@ -11,7 +11,7 @@ import { FEY_WANDERER_RESOURCES } from "./ranger/fey-wanderer-resources";
 import { SWARMKEEPER_RESOURCES } from "./ranger/swarmkeeper-resources";
 
 const RESOURCES_SUBCLASSES: Record<string, ResourceTemplate> = {
-  ...BEAST_RESOURCES,
+  ...BEAST_MASTER_RESOURCES,
   ...HUNTER_RESOURCES,
 
   ...GLOOM_STALKER_RESOURCES,

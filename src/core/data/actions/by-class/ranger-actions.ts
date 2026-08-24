@@ -1,6 +1,6 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 
-import { BEAST_ACTIONS } from "../by-subclass/barbarian/beast-actions";
+import { BEAST_MASTER_ACTIONS } from "../by-subclass/ranger/beast-master-actions";
 import { HUNTER_ACTIONS } from "../by-subclass/ranger/hunter-actions";
 
 import { GLOOM_STALKER_ACTIONS } from "../by-subclass/ranger/gloom-stalker-actions";
@@ -11,7 +11,7 @@ import { FEY_WANDERER_ACTIONS } from "../by-subclass/ranger/fey-wanderer-actions
 import { SWARMKEEPER_ACTIONS } from "../by-subclass/ranger/swarmkeeper-actions";
 
 const SUBCLASSES_ACTIONS: Record<string, ActionInstance> = {
-  ...BEAST_ACTIONS,
+  ...BEAST_MASTER_ACTIONS,
   ...HUNTER_ACTIONS,
 
   ...GLOOM_STALKER_ACTIONS,

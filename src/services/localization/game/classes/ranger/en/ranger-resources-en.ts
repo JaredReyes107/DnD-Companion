@@ -1,6 +1,6 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
-import { beast_resources_en } from "../../barbarian/subclasses/beast/en/en-beast-resources";
+import { beast_master_resources_en } from "../subclasses/beast-master/en/beast-master-resources-en";
 import { hunter_resources_en } from "../subclasses/hunter/en/hunter-resources-en";
 
 import { gloom_stalker_resources_en } from "../subclasses/gloom-stalker/en/gloom-stalker-resources-en";
@@ -12,7 +12,7 @@ import { swarmkeeper_resources_en } from "../subclasses/swarmkeeper/en/swarmkeep
 
 const subclass_resources: GameLocalizationCategory = {
   //PHB
-  ...beast_resources_en,
+  ...beast_master_resources_en,
   ...hunter_resources_en,
 
   // XGE
