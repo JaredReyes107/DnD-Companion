@@ -15,7 +15,13 @@ export type ResourceTemplate = {
   category: ResourceCategory; //For UI sections in the Dashboard
 
   scalingType: string; // ej: "PB", "CHA", "class-level", "character-level","fixed:3", etc
-  recharge: "shortRest" | "longRest" | "perTurn" | "none" | "custom";
+  recharge:
+    | "shortRest"
+    | "longRest"
+    | "perTurn"
+    | "perRound"
+    | "none"
+    | "custom";
 
   tags?: string[]; // para UI ("combat", "spell", "defensive")
 };

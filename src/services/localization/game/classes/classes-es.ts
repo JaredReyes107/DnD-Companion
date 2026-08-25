@@ -7,6 +7,8 @@ import { druid_es } from "./druid/es/druid-es";
 import { fighter_es } from "./fighter/es/fighter-es";
 import { monk_es } from "./monk/es/monk-es";
 import { paladin_es } from "./paladin/es/paladin-es";
+import { ranger_es } from "./ranger/es/ranger-es";
+import { rogue_es } from "./rogue/es/rogue-es";
 
 export const classes_es: GameLocalization = {
   classes: {
@@ -22,26 +24,9 @@ export const classes_es: GameLocalization = {
     ...fighter_es,
     ...monk_es,
     ...paladin_es,
-    monk: {
-      name: "Monje",
-      description:
-        "Un luchador disciplinado que canaliza la energía interior para lograr hazañas físicas extraordinarias.",
-    },
-    paladin: {
-      name: "Paladín",
-      description:
-        "Un guerrero sagrado ligado por un juramento, que combina combate marcial y poder divino.",
-    },
-    ranger: {
-      name: "Explorador",
-      description:
-        "Un cazador y rastreador experto que domina la supervivencia, el combate a distancia y la magia natural.",
-    },
-    rogue: {
-      name: "Pícaro",
-      description:
-        "Un especialista en sigilo y precisión, capaz de explotar las debilidades de sus enemigos.",
-    },
+    ...monk_es,
+    ...ranger_es,
+    ...rogue_es,
     sorcerer: {
       name: "Hechicero",
       description:

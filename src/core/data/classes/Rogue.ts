@@ -13,24 +13,24 @@ export const ROGUE: ClassTemplate = {
         id: "expertise_rogue",
         source: "class",
         level: 1,
-        tags: ["passive"],
-        // TODO: proficiency override system
-        // NOTE: flat bonus ignored
+        tags: ["expertise", "skill"],
+        //TODO: Extra at level 6
       },
       {
         id: "sneak_attack",
         source: "class",
         level: 1,
-        tags: ["combat"],
-        // TODO: combat-hook
-        // TODO: scaling handled elsewhere
+        grants: [
+          { type: "resource", id: "sneak_attack" },
+          { type: "action", id: "sneak_attack" },
+        ],
+        tags: ["combat", "damage"],
       },
       {
         id: "thieves_cant",
         source: "class",
         level: 1,
-        tags: ["roleplay"],
-        // TODO: language system
+        tags: ["language", "roleplay"],
       },
     ],
 
@@ -45,7 +45,6 @@ export const ROGUE: ClassTemplate = {
           { type: "action", id: "cunning_action_hide" },
         ],
         tags: ["combat"],
-        // TODO: combat-hook
       },
     ],
 
@@ -58,32 +57,19 @@ export const ROGUE: ClassTemplate = {
       },
     ],
 
-    4: [],
-
     5: [
       {
         id: "uncanny_dodge",
         source: "class",
         level: 5,
+        grants: [{ type: "action", id: "uncanny_dodge" }],
         tags: ["reaction", "defense"],
-        // TODO: reaction
-        // TODO: damage-hook
-      },
-    ],
-
-    6: [
-      {
-        id: "expertise_rogue_2",
-        source: "class",
-        level: 6,
-        tags: ["passive"],
-        // TODO: proficiency override system
       },
     ],
 
     7: [
       {
-        id: "evasion_rogue",
+        id: "evasion",
         source: "class",
         level: 7,
         tags: ["defense"],
@@ -91,33 +77,21 @@ export const ROGUE: ClassTemplate = {
       },
     ],
 
-    8: [],
-
-    9: [],
-
-    10: [],
-
     11: [
       {
         id: "reliable_talent",
         source: "class",
         level: 11,
-        tags: ["passive"],
-        // TODO: dice-roll override system
+        tags: ["skill"],
       },
     ],
-
-    12: [],
-
-    13: [],
 
     14: [
       {
         id: "blindsense",
         source: "class",
         level: 14,
-        tags: ["perception"],
-        // TODO: perception system
+        tags: ["senses"],
       },
     ],
 
@@ -127,13 +101,9 @@ export const ROGUE: ClassTemplate = {
         source: "class",
         level: 15,
         tags: ["defense"],
-        // TODO: saving-throw hook
+        // TODO: ST proficiency
       },
     ],
-
-    16: [],
-
-    17: [],
 
     18: [
       {
@@ -141,20 +111,19 @@ export const ROGUE: ClassTemplate = {
         source: "class",
         level: 18,
         tags: ["defense"],
-        // TODO: combat-hook
       },
     ],
-
-    19: [],
 
     20: [
       {
         id: "stroke_of_luck",
         source: "class",
         level: 20,
+        grants: [
+          { type: "resource", id: "stroke_of_luck" },
+          { type: "action", id: "stroke_of_luck" },
+        ],
         tags: ["combat"],
-        // TODO: combat-hook
-        // TODO: rest-hook
       },
     ],
   },

@@ -5,7 +5,7 @@ export const RANGER: ClassTemplate = {
 
   hitDie: 10,
 
-  primaryAbilities: ["DEX", "WIS"],
+  primaryAbilities: [], // TODO: fill in
   savingThrows: ["STR", "DEX"],
 
   spellcastingTemplate: {
@@ -14,34 +14,33 @@ export const RANGER: ClassTemplate = {
     kind: "standard",
     progression: "half",
   },
-
   featuresByLevel: {
     1: [
       {
         id: "favored_enemy",
-        source: "class",
+        source: "class" as const,
         level: 1,
-        tags: ["passive"],
+        tags: [],
       },
       {
         id: "natural_explorer",
-        source: "class",
+        source: "class" as const,
         level: 1,
-        tags: ["exploration"],
+        tags: [],
       },
     ],
 
     2: [
       {
-        id: "fighting_style_ranger",
-        source: "class",
+        id: "fighting_style",
+        source: "class" as const,
         level: 2,
-        tags: ["passive", "build-choice"],
-        // TODO: passive modifiers
+        grants: [{ type: "choice", id: "fighting_style" }],
+        tags: [],
       },
       {
         id: "spellcasting_ranger",
-        source: "class",
+        source: "class" as const,
         level: 2,
         tags: ["spellcasting"],
       },
@@ -50,109 +49,112 @@ export const RANGER: ClassTemplate = {
     3: [
       {
         id: "ranger_archetype",
-        source: "class",
+        source: "class" as const,
         level: 3,
         tags: ["subclass"],
       },
       {
         id: "primeval_awareness",
-        source: "class",
+        source: "class" as const,
         level: 3,
         grants: [{ type: "action", id: "primeval_awareness" }],
-        tags: ["utility"],
-        // TODO: detection hook
+        tags: [],
       },
     ],
 
-    4: [],
+    4: [
+      {
+        id: "ability_score_improvement",
+        source: "class" as const,
+        level: 4,
+        tags: [],
+      },
+    ],
 
     5: [
       {
-        id: "extra_attack_ranger",
-        source: "class",
+        id: "extra_attack",
+        source: "class" as const,
         level: 5,
-        tags: ["combat"],
-        // TODO: combat-hook
+        tags: [],
       },
     ],
-
-    6: [
-      {
-        id: "favored_enemy_improvement",
-        source: "class",
-        level: 6,
-        tags: ["passive"],
-        // TODO: creature-tag system
-      },
-    ],
-
-    7: [],
 
     8: [
       {
-        id: "land_stride",
-        source: "class",
+        id: "ability_score_improvement",
+        source: "class" as const,
         level: 8,
-        tags: ["movement"],
-        // TODO: movement-hook
+        tags: [],
+      },
+      {
+        id: "lands_stride",
+        source: "class" as const,
+        level: 8,
+        tags: [],
       },
     ],
-
-    9: [],
 
     10: [
       {
         id: "hide_in_plain_sight",
-        source: "class",
+        source: "class" as const,
         level: 10,
-        tags: ["stealth"],
-        // TODO: stealth system
+        grants: [{ type: "action", id: "hide_in_plain_sight" }],
+        tags: [],
       },
     ],
-
-    11: [],
-
-    12: [],
-
-    13: [],
 
     14: [
       {
         id: "vanish",
-        source: "class",
+        source: "class" as const,
         level: 14,
-        grants: [{ type: "action", id: "vanish" }],
-        tags: ["stealth"],
+        grants: [{ type: "action", id: "hide" }],
+        tags: [],
       },
     ],
 
-    15: [
+    16: [
       {
-        id: "feral_senses",
-        source: "class",
-        level: 15,
-        tags: ["combat", "perception"],
-        // TODO: perception / targeting hook
+        id: "ability_score_improvement",
+        source: "class" as const,
+        level: 16,
+        tags: [],
       },
     ],
-
-    16: [],
 
     17: [],
 
     18: [
       {
-        id: "foe_slayer",
-        source: "class",
+        id: "feral_senses",
+        source: "class" as const,
         level: 18,
-        tags: ["combat"],
-        // TODO: combat-hook
-        // NOTE: flat bonus ignored
+        tags: [],
       },
     ],
 
-    19: [],
+    19: [
+      {
+        id: "ability_score_improvement",
+        source: "class" as const,
+        level: 19,
+        tags: [],
+      },
+    ],
 
-    20: [],
+    20: [
+      {
+        id: "foe_slayer",
+        source: "class" as const,
+        level: 20,
+        grants: [
+          { type: "resource", id: "foe_slayer" },
+          { type: "action", id: "foe_slayer" },
+        ],
+        tags: [],
+      },
+    ],
   },
 };

@@ -8,8 +8,10 @@ import { CLERIC_OPTIONS } from "./cleric-options";
 import { DRUID_OPTIONS } from "./druid-options";
 import { FIGHTER_OPTIONS } from "./fighter-options";
 import { MONK_OPTIONS } from "./monk-options";
+import { RANGER_OPTIONS } from "./ranger-options";
 
 export const BASE_OPTIONS: Record<string, OptionTemplate> = {
+  //NOT CLASS-SPECIFIC
   ...FIGHTING_STYLE_OPTIONS,
 
   ...BARBARIAN_OPTIONS,
@@ -18,4 +20,5 @@ export const BASE_OPTIONS: Record<string, OptionTemplate> = {
   ...DRUID_OPTIONS,
   ...FIGHTER_OPTIONS,
   ...MONK_OPTIONS,
+  ...RANGER_OPTIONS,
 };

@@ -7,6 +7,8 @@ import { druid_subclasses_en } from "./druid/en/druid-subclasses-en";
 import { fighter_subclasses_en } from "./fighter/en/fighter-subclasses-en";
 import { monk_subclasses_en } from "./monk/en/monk-subclasses-en";
 import { paladin_subclasses_en } from "./paladin/en/paladin-subclasses-en";
+import { ranger_subclasses_en } from "./ranger/en/ranger-subclasses-en";
+import { rogue_subclasses_en } from "./rogue/en/rogue-subclasses-en";
 
 export const subclasses_en: GameLocalization = {
   subclasses: {
@@ -17,5 +19,7 @@ export const subclasses_en: GameLocalization = {
     ...fighter_subclasses_en,
     ...monk_subclasses_en,
     ...paladin_subclasses_en,
+    ...ranger_subclasses_en,
+    ...rogue_subclasses_en,
   },
 };

@@ -7,6 +7,8 @@ import { druid_en } from "./druid/en/druid-en";
 import { fighter_en } from "./fighter/en/fighter-en";
 import { monk_en } from "./monk/en/monk-en";
 import { paladin_en } from "./paladin/en/paladin-en";
+import { ranger_en } from "./ranger/en/ranger-en";
+import { rogue_en } from "./rogue/en/rogue-en";
 
 export const classes_en: GameLocalization = {
   classes: {
@@ -22,16 +24,8 @@ export const classes_en: GameLocalization = {
     ...fighter_en,
     ...monk_en,
     ...paladin_en,
-    ranger: {
-      name: "Ranger",
-      description:
-        "A skilled hunter and tracker who excels at survival, ranged combat, and nature magic.",
-    },
-    rogue: {
-      name: "Rogue",
-      description:
-        "A specialist in stealth and precision, adept at exploiting an enemy’s weaknesses.",
-    },
+    ...ranger_en,
+    ...rogue_en,
     sorcerer: {
       name: "Sorcerer",
       description:
