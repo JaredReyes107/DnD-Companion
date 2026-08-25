@@ -1,7 +1,34 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { beast_master_features_es } from "../subclasses/beast-master/es/beast-master-features-es";
+import { hunter_features_es } from "../subclasses/hunter/es/hunter-features-es";
+
+import { gloom_stalker_features_es } from "../subclasses/gloom-stalker/es/gloom-stalker-features-es";
+import { horizon_walker_features_es } from "../subclasses/horizon-walker/es/horizon-walker-features-es";
+import { monster_slayer_features_es } from "../subclasses/monster-slayer/es/monster-slayer-features-es";
+
+import { fey_wanderer_features_es } from "../subclasses/fey-wanderer/es/fey-wanderer-features-es";
+import { swarmkeeper_features_es } from "../subclasses/swarmkeeper/es/swarmkeeper-features-es";
+
+const subclass_features: GameLocalizationCategory = {
+  //PHB
+  ...beast_master_features_es,
+  ...hunter_features_es,
+
+  // XGE
+  ...gloom_stalker_features_es,
+  ...horizon_walker_features_es,
+  ...monster_slayer_features_es,
+
+  // TCE
+  ...fey_wanderer_features_es,
+  ...swarmkeeper_features_es,
+};
+
 export const ranger_features_es: GameLocalizationCategory = {
-  favored_enemy: {
+  ...subclass_features,
+
+  favored_esemy: {
     name: "Enemigo Predilecto",
     description: `Tienes una experiencia notable estudiando, rastreando, cazando e incluso hablando con un cierto tipo de enemigo. Elige un tipo de enemigo predilecto: aberraciones, bestias, celestiales, constructos, fatas, gigantes, infernales, limos, monstruosidades, no muertos o plantas. Como alternativa, puedes seleccionar dos razas de humanoides (como gnolls u orcos) como enemigos predilectos. Tienes ventaja en las pruebas de Sabiduría (Supervivencia) para rastrear a tus enemigos predilectos, así como en las pruebas de Inteligencia para recordar información sobre ellos.
       Cuando consigues este rasgo, también aprendes un idioma de tu elección que hablen tus enemigos predilectos, si es que hablan alguno.

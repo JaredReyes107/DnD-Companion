@@ -1,6 +1,33 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { beast_master_features_en } from "../subclasses/beast-master/en/beast-master-features-en";
+import { hunter_features_en } from "../subclasses/hunter/en/hunter-features-en";
+
+import { gloom_stalker_features_en } from "../subclasses/gloom-stalker/en/gloom-stalker-features-en";
+import { horizon_walker_features_en } from "../subclasses/horizon-walker/en/horizon-walker-features-en";
+import { monster_slayer_features_en } from "../subclasses/monster-slayer/en/monster-slayer-features-en";
+
+import { fey_wanderer_features_en } from "../subclasses/fey-wanderer/en/fey-wanderer-features-en";
+import { swarmkeeper_features_en } from "../subclasses/swarmkeeper/en/swarmkeeper-features-en";
+
+const subclass_features: GameLocalizationCategory = {
+  //PHB
+  ...beast_master_features_en,
+  ...hunter_features_en,
+
+  // XGE
+  ...gloom_stalker_features_en,
+  ...horizon_walker_features_en,
+  ...monster_slayer_features_en,
+
+  // TCE
+  ...fey_wanderer_features_en,
+  ...swarmkeeper_features_en,
+};
+
 export const ranger_features_en: GameLocalizationCategory = {
+  ...subclass_features,
+
   favored_enemy: {
     name: "Favored Enemy",
     description: `You have significant experience studying, tracking, hunting, and even talking to a certain type of enemy.

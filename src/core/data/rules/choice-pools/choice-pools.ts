@@ -6,6 +6,7 @@ import { CLERIC_POOLS } from "./cleric-pools";
 import { DRUID_POOLS } from "./druid-pools";
 import { FIGHTER_POOLS } from "./fighter-pools";
 import { MONK_POOLS } from "./monk-pools";
+import { RANGER_POOLS } from "./ranger-pools";
 
 export const BASE_POOLS: Record<string, ChoicePoolTemplate> = {
   ...BARBARIAN_POOLS,
@@ -14,4 +15,5 @@ export const BASE_POOLS: Record<string, ChoicePoolTemplate> = {
   ...DRUID_POOLS,
   ...FIGHTER_POOLS,
   ...MONK_POOLS,
+  ...RANGER_POOLS,
 };
