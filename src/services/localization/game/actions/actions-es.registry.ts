@@ -1,6 +1,5 @@
 import { GameLocalization } from "@/services/localization/game-localization.types";
 
-import { es_artificer_actions } from "./by-class/es-artificer-actions";
 import { barbarian_actions_es } from "../classes/barbarian/es-barbarian-actions";
 import { bard_actions_es } from "../classes/bard/es/bard-actions-es";
 import { cleric_actions_es } from "../classes/cleric/es/cleric-actions-es";
@@ -9,14 +8,10 @@ import { fighter_actions_es } from "../classes/fighter/es/fighter-actions-es";
 import { monk_actions_es } from "../classes/monk/es/monk-actions-es";
 import { paladin_actions_es } from "../classes/paladin/es/paladin-actions-es";
 import { ranger_actions_es } from "../classes/ranger/es/ranger-actions-es";
-import { es_rogue_actions } from "./by-class/es-rogue-actions";
-import { es_sorcerer_actions } from "./by-class/es-sorcerer-actions";
-import { es_warlock_actions } from "./by-class/es-warlock-actions";
-import { es_wizard_actions } from "./by-class/es-wizard-actions";
+import { rogue_resources_es } from "../classes/rogue/es/rogue-resources-es";
 
 export const actions_es: GameLocalization = {
   actions: {
-    ...es_artificer_actions,
     ...barbarian_actions_es,
     ...bard_actions_es,
     ...cleric_actions_es,
@@ -25,9 +20,6 @@ export const actions_es: GameLocalization = {
     ...monk_actions_es,
     ...paladin_actions_es,
     ...ranger_actions_es,
-    ...es_rogue_actions,
-    ...es_sorcerer_actions,
-    ...es_warlock_actions,
-    ...es_wizard_actions,
+    ...rogue_resources_es,
   },
 };

@@ -1,6 +1,34 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { arcane_trickster_features_es } from "../subclasses/arcane-trickster/es/arcane-trickster-features-es";
+import { assassin_features_es } from "../subclasses/assassin/es/assassin-features-es";
+import { thief_features_es } from "../subclasses/thief/es/thief-features-es";
+
+import { inquisitive_features_es } from "../subclasses/inquisitive/es/inquisitive-features-es";
+import { mastermind_features_es } from "../subclasses/mastermind/es/mastermind-features-es";
+import { scout_features_es } from "../subclasses/scout/es/scout-features-es";
+import { swashbuckler_features_es } from "../subclasses/swashbuckler/es/swashbuckler-features-es";
+
+import { phantom_features_es } from "../subclasses/phantom/es/phantom-features-es";
+import { soulknife_features_es } from "../subclasses/soulknife/es/soulknife-features-es";
+
+export const subclass_features: GameLocalizationCategory = {
+  arcane_trickster: arcane_trickster_features_es,
+  assassin: assassin_features_es,
+  thief: thief_features_es,
+
+  inquisitive: inquisitive_features_es,
+  mastermind: mastermind_features_es,
+  scout: scout_features_es,
+  swashbuckler: swashbuckler_features_es,
+
+  phantom: phantom_features_es,
+  soulknife: soulknife_features_es,
+};
+
 export const rogue_features_es: GameLocalizationCategory = {
+  ...subclass_features,
+
   expertise_rogue: {
     name: "Pericia",
     description: `Elige dos de tus competencias con habilidades, o una de tus competencias con habilidades y tu competencia con herramientas de ladrón. Tu bonificador por competencia se multiplica por 2 en cualquier prueba de característica que hagas que utilice una de las dos competencias elegidas.

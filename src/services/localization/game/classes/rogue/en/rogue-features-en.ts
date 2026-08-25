@@ -1,6 +1,34 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { arcane_trickster_features_en } from "../subclasses/arcane-trickster/en/arcane-trickster-features-en";
+import { assassin_features_en } from "../subclasses/assassin/en/assassin-features-en";
+import { thief_features_en } from "../subclasses/thief/en/thief-features-en";
+
+import { inquisitive_features_en } from "../subclasses/inquisitive/en/inquisitive-features-en";
+import { mastermind_features_en } from "../subclasses/mastermind/en/mastermind-features-en";
+import { scout_features_en } from "../subclasses/scout/en/scout-features-en";
+import { swashbuckler_features_en } from "../subclasses/swashbuckler/en/swashbuckler-features-en";
+
+import { phantom_features_en } from "../subclasses/phantom/en/phantom-features-en";
+import { soulknife_features_en } from "../subclasses/soulknife/en/soulknife-features-en";
+
+export const subclass_features: GameLocalizationCategory = {
+  arcane_trickster: arcane_trickster_features_en,
+  assassin: assassin_features_en,
+  thief: thief_features_en,
+
+  inquisitive: inquisitive_features_en,
+  mastermind: mastermind_features_en,
+  scout: scout_features_en,
+  swashbuckler: swashbuckler_features_en,
+
+  phantom: phantom_features_en,
+  soulknife: soulknife_features_en,
+};
+
 export const rogue_features_en: GameLocalizationCategory = {
+  ...subclass_features,
+
   expertise_rogue: {
     name: "Expertise",
     description:

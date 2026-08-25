@@ -1,9 +1,29 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
-const subclass_actions: GameLocalizationCategory = {
-  // PHB
-  // Xanathar's
-  // Tasha's
+import { arcane_trickster_actions_en } from "../subclasses/arcane-trickster/en/arcane-trickster-actions-en";
+import { assassin_actions_en } from "../subclasses/assassin/en/assassin-actions-en";
+import { thief_actions_en } from "../subclasses/thief/en/thief-actions-en";
+
+import { inquisitive_actions_en } from "../subclasses/inquisitive/en/inquisitive-actions-en";
+import { mastermind_actions_en } from "../subclasses/mastermind/en/mastermind-actions-en";
+import { scout_actions_en } from "../subclasses/scout/en/scout-actions-en";
+import { swashbuckler_actions_en } from "../subclasses/swashbuckler/en/swashbuckler-actions-en";
+
+import { phantom_actions_en } from "../subclasses/phantom/en/phantom-actions-en";
+import { soulknife_actions_en } from "../subclasses/soulknife/en/soulknife-actions-en";
+
+export const subclass_actions: GameLocalizationCategory = {
+  arcane_trickster: arcane_trickster_actions_en,
+  assassin: assassin_actions_en,
+  thief: thief_actions_en,
+
+  inquisitive: inquisitive_actions_en,
+  mastermind: mastermind_actions_en,
+  scout: scout_actions_en,
+  swashbuckler: swashbuckler_actions_en,
+
+  phantom: phantom_actions_en,
+  soulknife: soulknife_actions_en,
 };
 
 export const rogue_actions_en: GameLocalizationCategory = {
