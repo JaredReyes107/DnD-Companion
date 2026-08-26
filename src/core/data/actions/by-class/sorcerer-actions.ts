@@ -1,6 +1,10 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 
+import { SORCERER_METAMAGIC_ACTIONS } from "./sorcerer-metamagic-actions";
+
 export const SORCERER_ACTIONS: Record<string, ActionInstance> = {
+  ...SORCERER_METAMAGIC_ACTIONS,
+
   font_of_magic_to_spellslots: {
     id: "font_of_magic_to_spellslots",
     sourceId: "sorcerer",

@@ -18,15 +18,15 @@ export const SORCERER: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
+        id: "spellcasting_sorcerer",
+        source: "class",
+        level: 1,
+      },
+      {
         id: "sorcerous_origin",
         source: "class",
         level: 1,
         tags: ["subclass"],
-      },
-      {
-        id: "spellcasting_sorcerer",
-        source: "class",
-        level: 1,
       },
     ],
 
@@ -39,7 +39,6 @@ export const SORCERER: ClassTemplate = {
           { type: "resource", id: "sorcery_points" },
           { type: "action", id: "font_of_magic_to_spellslots" },
           { type: "action", id: "font_of_magic_from_spellslots" },
-          { type: "action", id: "font_of_magic_to_spellslots" },
         ],
         tags: ["resource"],
       },
@@ -50,64 +49,17 @@ export const SORCERER: ClassTemplate = {
         id: "metamagic",
         source: "class",
         level: 3,
+        grants: [{ type: "choice", id: "metamagic" }],
         tags: ["build-choice"],
-        // TODO: metamagic system
-        // TODO: spell-hook
       },
     ],
-
-    4: [],
-
-    5: [],
-
-    6: [],
-
-    7: [],
-
-    8: [],
-
-    9: [],
-
-    10: [
-      {
-        id: "metamagic_improvement",
-        source: "class",
-        level: 10,
-        tags: ["spellcasting"],
-        // TODO: metamagic system
-      },
-    ],
-
-    11: [],
-
-    12: [],
-
-    13: [],
-
-    14: [],
-
-    15: [],
-
-    16: [],
-
-    17: [
-      {
-        id: "metamagic_improvement_2",
-        source: "class",
-        level: 17,
-        tags: ["spellcasting"],
-      },
-    ],
-
-    18: [],
-
-    19: [],
 
     20: [
       {
         id: "sorcerous_restoration",
         source: "class",
         level: 20,
+        grants: [{ type: "action", id: "sorcerous_restoration" }],
         tags: ["resource"],
         // TODO: rest-hook
       },

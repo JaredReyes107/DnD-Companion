@@ -1,6 +1,10 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
+const RESOURCES_SUBCLASSES: Record<string, ResourceTemplate> = {};
+
 export const RESOURCES_SORCERER: Record<string, ResourceTemplate> = {
+  ...RESOURCES_SUBCLASSES,
+
   sorcery_points: {
     id: "sorcery_points",
     //origin: "Players Handbook", //For distinguishing official rules and homebrew
