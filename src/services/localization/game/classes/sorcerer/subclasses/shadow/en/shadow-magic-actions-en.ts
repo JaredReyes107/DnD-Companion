@@ -1,0 +1,31 @@
+import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
+
+export const shadow_magic_actions_en: GameLocalizationCategory = {
+  eyes_of_the_dark_darkness: {
+    name: "Eyes of the Dark: Darkness",
+    description: `You cast the spell 'Darkness' using 2 sorcery points instead of using a spell slots. You can see through the magical darkness created by the spell.`,
+  },
+  strength_of_the_grave: {
+    name: "Strength of the Grave",
+    description: ``,
+  },
+  hound_of_ill_omen: {
+    name: "Hound of Ill Omen",
+    description: `You spend 3 sorcery points to summon a hound of ill omen to target one creature you can see within 120 feet of you. The hound uses the dire wolf's statistics, with the following changes:
+        - The hound is size Medium, not Large, and it counts as a monstrosity, not a beast.
+        - It appears with a number of temporary hit points equal to half your sorcerer level.
+        - It can move through other creatures and objects as if they were difficult terrain. The hound takes 5 force damage if it ends its turn inside an object.
+        - At the start of its turn, the hound automatically knows its target's location. If the target was hidden, it is no longer hidden from the hound.
+    The hound appears in an unoccupied space of your choice within 30 feet of the target. Roll initiative for the hound. On its turn, it can move only toward its target by the most direct route, and it can use its action only to attack its target. The hound can make opportunity attacks, but only against its target. Additionally, while the hound is within 5 feet of the target, the target has disadvantage on saving throws against any spell you cast.
+    The hound disappears if it is reduced to 0 hit points, if its target is reduced to 0 hit points, or after 5 minutes.`,
+  },
+  shadow_walk: {
+    name: "Shadow Walk",
+    description: `When you are in dim light or darkness, you can teleport up to 120 feet to an unoccupied space you can see that is also in dim light or darkness.`,
+  },
+  umbral_form: {
+    name: "Umbral Form",
+    description: `You spend 6 sorcery points to transform yourself into a shadowy form. In this form, you have resistance to all damage except force and radiant damage, and you can move through other creatures and objects as if they were difficult terrain. You take 5 force damage if you end your turn inside an object.
+        You remain in this form for 1 minute. It ends early if you are incapacitated, if you die, or if you dismiss it as a bonus action.`,
+  },
+};
