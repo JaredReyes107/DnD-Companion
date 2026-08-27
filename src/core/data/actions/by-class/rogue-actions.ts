@@ -29,6 +29,20 @@ const SUBCLASSES_ACTIONS: Record<string, ActionInstance> = {
 export const ROGUE_ACTIONS: Record<string, ActionInstance> = {
   ...SUBCLASSES_ACTIONS,
 
+  sneak_attack: {
+    id: "sneak_attack",
+    sourceId: "rogue",
+    boards: ["combat"],
+    trigger: ["onAttack"], //TODO: Must be finesse/ranged weapon, and other conditions
+    duration: { kind: "instantaneous" },
+    effects: [
+      {
+        type: "modifyResource",
+        resourceId: "sneak_attack",
+        amount: -1,
+      },
+    ],
+  },
   cunning_action_dash: {
     id: "cunning_action_dash",
     sourceId: "rogue",
@@ -56,5 +70,18 @@ export const ROGUE_ACTIONS: Record<string, ActionInstance> = {
     boards: ["combat", "exploration"],
     duration: { kind: "economy", slot: "reaction" },
     effects: [],
+  },
+  stroke_of_luck: {
+    id: "stroke_of_luck",
+    sourceId: "rogue",
+    boards: ["combat", "utility"],
+    duration: { kind: "instantaneous" },
+    effects: [
+      {
+        type: "modifyResource",
+        resourceId: "stroke_of_luck",
+        amount: -1,
+      },
+    ],
   },
 };

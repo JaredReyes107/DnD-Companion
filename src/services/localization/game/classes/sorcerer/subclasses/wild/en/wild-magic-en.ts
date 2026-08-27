@@ -1,0 +1,9 @@
+import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
+
+export const wild_magic_sorcerer_en: GameLocalizationCategory = {
+  wild_magic_sorcerer: {
+    name: "Wild Magic",
+    description:
+      "Your innate magic comes from the wild forces of chaos that underlie the order of creation. You might have endured exposure to some form of raw magic, perhaps through a planar portal leading to Limbo, the Elemental Planes, or the mysterious Far Realm. Perhaps you were blessed by a powerful fey creature or marked by a demon. Or your magic could be a fluke of your birth, with no apparent cause or reason. However it came to be, this chaotic magic churns within you, waiting for any outlet.",
+  },
+};

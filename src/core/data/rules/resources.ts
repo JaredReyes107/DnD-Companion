@@ -8,8 +8,8 @@ import { FIGHTER_RESOURCES } from "./resources/fighter-resources";
 import { MONK_RESOURCES } from "./resources/monk-resources";
 import { PALADIN_RESOURCES } from "./resources/paladin-resources";
 import { RANGER_RESOURCES } from "./resources/ranger-resources";
-import { RESOURCES_ROGUE } from "./resources/rogue-resources";
-import { RESOURCES_SORCERER } from "./resources/sorcerer-resources";
+import { ROGUE_RESOURCES } from "./resources/rogue-resources";
+import { SORCERER_RESOURCES } from "./resources/sorcerer-resources";
 import { RESOURCES_WARLOCK } from "./resources/warlock-resources";
 import { RESOURCES_WIZARD } from "./resources/wizard-resources";
 
@@ -35,8 +35,8 @@ export const BASE_RESOURCES: Record<string, ResourceTemplate> = {
   ...MONK_RESOURCES,
   ...PALADIN_RESOURCES,
   ...RANGER_RESOURCES,
-  ...RESOURCES_ROGUE,
-  ...RESOURCES_SORCERER,
+  ...ROGUE_RESOURCES,
+  ...SORCERER_RESOURCES,
   ...RESOURCES_WARLOCK,
   ...RESOURCES_WIZARD,
 };

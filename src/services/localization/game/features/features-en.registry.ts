@@ -9,6 +9,7 @@ import { monk_features_en } from "../classes/monk/en/monk-features-en";
 import { paladin_features_en } from "../classes/paladin/en/paladin-features-en";
 import { ranger_features_en } from "../classes/ranger/en/ranger-features-en";
 import { rogue_features_en } from "../classes/rogue/en/rogue-features-en";
+import { sorcerer_features_en } from "../classes/sorcerer/en/sorcerer-features-en";
 
 export const features_en: GameLocalization = {
   features: {
@@ -21,5 +22,6 @@ export const features_en: GameLocalization = {
     ...paladin_features_en,
     ...ranger_features_en,
     ...rogue_features_en,
+    ...sorcerer_features_en,
   },
 };

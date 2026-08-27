@@ -1,19 +1,23 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
-export const features_warlock_es: GameLocalizationCategory = {
-  otherworldly_patron: {
+export const divine_soul_features_es: GameLocalizationCategory = {
+  divine_magic: {
     name: "",
     description: "",
   },
-  pact_magic: {
+  favored_by_the_gods: {
     name: "",
     description: "",
   },
-  eldritch_invocations: {
+  empowered_healing: {
     name: "",
     description: "",
   },
-  eldritch_master: {
+  otherworldly_wings: {
+    name: "",
+    description: "",
+  },
+  unearthly_recovery: {
     name: "",
     description: "",
   },

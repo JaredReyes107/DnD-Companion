@@ -9,6 +9,7 @@ import { paladin_resources_es } from "../classes/paladin/es/paladin-resources-es
 import { ranger_resources_es } from "../classes/ranger/es/ranger-resources-es";
 import { resources_spell_slots_es } from "./spell-slots-es";
 import { rogue_resources_es } from "../classes/rogue/es/rogue-resources-es";
+import { sorcerer_resources_es } from "../classes/sorcerer/es/sorcerer-resources-es";
 
 export const resources_es: GameLocalization = {
   resources: {
@@ -21,6 +22,7 @@ export const resources_es: GameLocalization = {
     ...paladin_resources_es,
     ...ranger_resources_es,
     ...rogue_resources_es,
+    ...sorcerer_resources_es,
 
     ...resources_spell_slots_es,
   },

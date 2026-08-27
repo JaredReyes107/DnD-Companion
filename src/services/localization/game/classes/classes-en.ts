@@ -9,6 +9,7 @@ import { monk_en } from "./monk/en/monk-en";
 import { paladin_en } from "./paladin/en/paladin-en";
 import { ranger_en } from "./ranger/en/ranger-en";
 import { rogue_en } from "./rogue/en/rogue-en";
+import { sorcerer_en } from "./sorcerer/en/sorcerer-en";
 
 export const classes_en: GameLocalization = {
   classes: {
@@ -26,11 +27,7 @@ export const classes_en: GameLocalization = {
     ...paladin_en,
     ...ranger_en,
     ...rogue_en,
-    sorcerer: {
-      name: "Sorcerer",
-      description:
-        "A spellcaster whose magical power is innate, born of a bloodline or extraordinary event.",
-    },
+    ...sorcerer_en,
     warlock: {
       name: "Warlock",
       description:
