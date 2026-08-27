@@ -26,7 +26,7 @@ const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
   ...SOULKNIFE_RESOURCES,
 };
 
-export const RESOURCES_ROGUE: Record<string, ResourceTemplate> = {
+export const ROGUE_RESOURCES: Record<string, ResourceTemplate> = {
   ...SUBCLASSES_RESOURCES,
 
   sneak_attack: {

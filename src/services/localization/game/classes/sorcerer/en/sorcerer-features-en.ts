@@ -1,6 +1,33 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { draconic_features_en } from "../subclasses/draconic/en/draconic-features-en";
+import { wild_magic_sorcerer_features_en } from "../subclasses/wild/en/wild-magic-features-en";
+
+import { divine_soul_features_en } from "../subclasses/divine-soul/en/divine-soul-features-en";
+import { shadow_features_en } from "../../monk/subclasses/shadow/en/shadow-features-en";
+import { storm_features_en } from "../subclasses/storm/en/storm-features-en";
+
+import { aberrant_mind_features_en } from "../subclasses/aberrant-mind/en/aberrant-mind-features-en";
+import { clockwork_soul_features_en } from "../subclasses/clockwork-soul/en/clockwork-soul-features-en";
+
+const subclass_features: GameLocalizationCategory = {
+  //PHB
+  ...draconic_features_en,
+  ...wild_magic_sorcerer_features_en,
+
+  // XGE
+  ...divine_soul_features_en,
+  ...shadow_features_en,
+  ...storm_features_en,
+
+  // TCE
+  ...aberrant_mind_features_en,
+  ...clockwork_soul_features_en,
+};
+
 export const sorcerer_features_en: GameLocalizationCategory = {
+  ...subclass_features,
+
   spellcasting_sorcerer: {
     name: "Spellcasting",
     description: `An event in your past, or in the life of a parent or ancestor, left an indelible mark on you, infusing you with arcane magic. This font of magic, whatever its origin, fuels your spells.

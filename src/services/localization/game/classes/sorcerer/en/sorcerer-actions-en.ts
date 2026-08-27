@@ -1,9 +1,28 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { draconic_actions_en } from "../subclasses/draconic/en/draconic-actions-en";
+import { wild_magic_sorcerer_actions_en } from "../subclasses/wild/en/wild-magic-actions-en";
+
+import { divine_soul_actions_en } from "../subclasses/divine-soul/en/divine-soul-actions-en";
+import { shadow_magic_actions_en } from "../subclasses/shadow/en/shadow-magic-actions-en";
+import { storm_actions_en } from "../subclasses/storm/en/storm-actions-en";
+
+import { aberrant_mind_actions_en } from "../subclasses/aberrant-mind/en/aberrant-mind-actions-en";
+import { clockwork_soul_actions_en } from "../subclasses/clockwork-soul/en/clockwork-soul-actions-en";
+
 const subclass_actions: GameLocalizationCategory = {
   // PHB
-  // Xanathar's
-  // Tasha's
+  ...draconic_actions_en,
+  ...wild_magic_sorcerer_actions_en,
+
+  // XGE
+  ...divine_soul_actions_en,
+  ...shadow_magic_actions_en,
+  ...storm_actions_en,
+
+  // TCE
+  ...aberrant_mind_actions_en,
+  ...clockwork_soul_actions_en,
 };
 
 const metamagic_actions: GameLocalizationCategory = {

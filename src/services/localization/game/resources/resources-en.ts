@@ -9,6 +9,7 @@ import { monk_resources_en } from "../classes/monk/en/monk-resources-en";
 import { paladin_resources_en } from "../classes/paladin/en/paladin-resources-en";
 import { ranger_resources_en } from "../classes/ranger/en/ranger-resources-en";
 import { rogue_resources_en } from "../classes/rogue/en/rogue-resources-en";
+import { sorcerer_resources_en } from "../classes/sorcerer/en/sorcerer-resources-en";
 // TODO: Change for the en version
 import { resources_spell_slots_es } from "./spell-slots-es";
 
@@ -23,6 +24,7 @@ export const resources_en: GameLocalization = {
     ...paladin_resources_en,
     ...ranger_resources_en,
     ...rogue_resources_en,
+    ...sorcerer_resources_en,
 
     ...resources_spell_slots_es,
   },

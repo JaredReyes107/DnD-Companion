@@ -9,6 +9,7 @@ import { monk_es } from "./monk/es/monk-es";
 import { paladin_es } from "./paladin/es/paladin-es";
 import { ranger_es } from "./ranger/es/ranger-es";
 import { rogue_es } from "./rogue/es/rogue-es";
+import { sorcerer_es } from "./sorcerer/es/sorcerer-es";
 
 export const classes_es: GameLocalization = {
   classes: {
@@ -27,11 +28,7 @@ export const classes_es: GameLocalization = {
     ...monk_es,
     ...ranger_es,
     ...rogue_es,
-    sorcerer: {
-      name: "Hechicero",
-      description:
-        "Un lanzador de conjuros cuyo poder mágico es innato, fruto de una herencia o evento extraordinario.",
-    },
+    ...sorcerer_es,
     warlock: {
       name: "Brujo",
       description:

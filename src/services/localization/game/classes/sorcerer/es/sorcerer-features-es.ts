@@ -1,6 +1,33 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { draconic_features_es } from "../subclasses/draconic/es/draconic-features-es";
+import { wild_magic_sorcerer_features_es } from "../subclasses/wild/es/wild-magic-features-es";
+
+import { divine_soul_features_es } from "../subclasses/divine-soul/es/divine-soul-features-es";
+import { shadow_features_es } from "../../monk/subclasses/shadow/es/shadow-features-es";
+import { storm_features_es } from "../subclasses/storm/es/storm-features-es";
+
+import { aberrant_mind_features_es } from "../subclasses/aberrant-mind/es/aberrant-mind-features-es";
+import { clockwork_soul_features_es } from "../subclasses/clockwork-soul/es/clockwork-soul-features-es";
+
+const subclass_features: GameLocalizationCategory = {
+  //PHB
+  ...draconic_features_es,
+  ...wild_magic_sorcerer_features_es,
+
+  // XGE
+  ...divine_soul_features_es,
+  ...shadow_features_es,
+  ...storm_features_es,
+
+  // TCE
+  ...aberrant_mind_features_es,
+  ...clockwork_soul_features_es,
+};
+
 export const sorcerer_features_es: GameLocalizationCategory = {
+  ...subclass_features,
+
   spellcasting_sorcerer: {
     name: "Lanzamiento de Conjuros",
     description: `Un evento de tu pasado, o la vida de un padre o ancestro, dejó una marca indeleble en ti que te infundió magia arcana. Esta fuente de magia, sea cual sea su origen, alimenta tus conjuros.
