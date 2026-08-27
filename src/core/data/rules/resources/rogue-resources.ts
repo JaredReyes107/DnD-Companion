@@ -29,6 +29,14 @@ const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
 export const RESOURCES_ROGUE: Record<string, ResourceTemplate> = {
   ...SUBCLASSES_RESOURCES,
 
+  sneak_attack: {
+    id: "sneak_attack",
+    sourceId: "rogue",
+    category: "class_features",
+    scalingType: "fixed:1",
+    recharge: "perTurn",
+    tags: ["combat", "damage"],
+  },
   stroke_of_luck: {
     id: "stroke_of_luck",
     sourceId: "rogue",
