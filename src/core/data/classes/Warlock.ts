@@ -27,43 +27,28 @@ export const WARLOCK: ClassTemplate = {
         source: "class",
         level: 1,
         tags: ["spellcasting"],
-        // TODO: pact-magic system
       },
     ],
 
     2: [
       {
         id: "eldritch_invocations",
-        source: "class",
+        source: "class" as const,
         level: 2,
-        tags: ["customization"],
-        // TODO: invocation system
+        grants: [{ type: "choice", id: "eldritch_invocations" }],
+        tags: ["build-choice"],
       },
     ],
 
     3: [
       {
         id: "pact_boon",
-        source: "class",
+        source: "class" as const,
         level: 3,
+        grants: [{ type: "choice", id: "pact_boon" }],
         tags: ["build-choice"],
-        // TODO: pact-specific systems
       },
     ],
-
-    4: [],
-
-    5: [],
-
-    6: [],
-
-    7: [],
-
-    8: [],
-
-    9: [],
-
-    10: [],
 
     11: [
       {
@@ -71,12 +56,9 @@ export const WARLOCK: ClassTemplate = {
         source: "class",
         level: 11,
         tags: ["spellcasting"],
-        // TODO: arcanum system
         // TODO: rest-hook
       },
     ],
-
-    12: [],
 
     13: [
       {
@@ -87,18 +69,14 @@ export const WARLOCK: ClassTemplate = {
       },
     ],
 
-    14: [],
-
     15: [
       {
-        id: "mystic-arcanum-8",
+        id: "mystic-arcanum_8",
         source: "class",
         level: 15,
         tags: ["spellcasting"],
       },
     ],
-
-    16: [],
 
     17: [
       {
@@ -109,17 +87,16 @@ export const WARLOCK: ClassTemplate = {
       },
     ],
 
-    18: [],
-
-    19: [],
-
     20: [
       {
         id: "eldritch_master",
-        source: "class",
+        source: "class" as const,
         level: 20,
-        tags: ["spellcasting"],
-        // TODO: rest-hook
+        grants: [
+          { type: "resource", id: "eldritch_master" },
+          { type: "action", id: "eldritch_master" },
+        ],
+        tags: ["utility"],
       },
     ],
   },

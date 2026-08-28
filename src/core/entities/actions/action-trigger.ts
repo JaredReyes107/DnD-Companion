@@ -8,6 +8,7 @@ export type ActionTrigger =
   | "onDamageRoll"
   | "onDamageTaken"
   | "onZeroHp"
+  | "onHealingReceived"
   | "onMovement"
   | "onSavingThrow"
   | "onSkillCheck"
