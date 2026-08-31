@@ -10,6 +10,7 @@ import { paladin_features_es } from "../classes/paladin/es/paladin-features-es";
 import { ranger_features_es } from "../classes/ranger/es/ranger-features-es";
 import { rogue_features_es } from "../classes/rogue/es/rogue-features-es";
 import { sorcerer_features_es } from "../classes/sorcerer/es/sorcerer-features-es";
+import { warlock_features_es } from "../classes/warlock/es/warlock-features-es";
 
 export const features_es: GameLocalization = {
   features: {
@@ -23,5 +24,6 @@ export const features_es: GameLocalization = {
     ...ranger_features_es,
     ...rogue_features_es,
     ...sorcerer_features_es,
+    ...warlock_features_es,
   },
 };

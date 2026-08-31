@@ -10,7 +10,7 @@ import { PALADIN_RESOURCES } from "./resources/paladin-resources";
 import { RANGER_RESOURCES } from "./resources/ranger-resources";
 import { ROGUE_RESOURCES } from "./resources/rogue-resources";
 import { SORCERER_RESOURCES } from "./resources/sorcerer-resources";
-import { RESOURCES_WARLOCK } from "./resources/warlock-resources";
+import { WARLOCK_RESOURCES } from "./resources/warlock-resources";
 import { RESOURCES_WIZARD } from "./resources/wizard-resources";
 
 const FEATS: Record<string, ResourceTemplate> = {
@@ -37,6 +37,6 @@ export const BASE_RESOURCES: Record<string, ResourceTemplate> = {
   ...RANGER_RESOURCES,
   ...ROGUE_RESOURCES,
   ...SORCERER_RESOURCES,
-  ...RESOURCES_WARLOCK,
+  ...WARLOCK_RESOURCES,
   ...RESOURCES_WIZARD,
 };
