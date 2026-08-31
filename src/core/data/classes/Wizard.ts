@@ -19,71 +19,62 @@ export const WIZARD: ClassTemplate = {
     1: [
       {
         id: "spellcasting_wizard",
-        source: "class",
+        source: "class" as const,
         level: 1,
-        tags: ["spellcasting"],
+        grants: [{ type: "resource", id: "spell_slots" }],
+        tags: ["spells", "spellcasting"],
       },
       {
         id: "arcane_recovery",
-        source: "class",
+        source: "class" as const,
         level: 1,
-        tags: ["spellcasting"],
-        // TODO: rest-hook
-        // TODO: spell-slot recovery
+        grants: [
+          { type: "action", id: "arcane_recovery" },
+          { type: "resource", id: "arcane_recovery" },
+        ],
+        tags: ["utility"],
       },
     ],
 
-    2: [],
-
-    3: [],
-
-    4: [],
-
-    5: [],
-
-    6: [],
-
-    7: [],
-
-    8: [],
-
-    9: [],
-
-    10: [],
-
-    11: [],
-
-    12: [],
-
-    13: [],
-
-    14: [],
-
-    15: [],
-
-    16: [],
-
-    17: [],
+    2: [
+      {
+        id: "arcane_tradition",
+        source: "class" as const,
+        level: 2,
+        grants: [{ type: "choice", id: "arcane_tradition" }],
+        tags: ["build-choice", "subclass"],
+      },
+    ],
 
     18: [
       {
         id: "spell_mastery",
-        source: "class",
+        source: "class" as const,
         level: 18,
-        tags: ["spellcasting"],
-        // TODO: at-will spell system
+        grants: [
+          { type: "choice", id: "spell_mastery_1" },
+          { type: "choice", id: "spell_mastery_2" },
+          { type: "action", id: "cast_spell_mastery_1st" },
+          { type: "action", id: "cast_spell_mastery_2nd" },
+          { type: "action", id: "replace_spell_mastery" },
+        ],
+        tags: ["spells", "spellcasting", "build-choice"],
       },
     ],
-
-    19: [],
 
     20: [
       {
         id: "signature_spells",
-        source: "class",
+        source: "class" as const,
         level: 20,
-        tags: ["spellcasting"],
-        // TODO: preparation override
+        grants: [
+          { type: "choice", id: "signature_spells" },
+          { type: "action", id: "cast_signature_spell_1" },
+          { type: "action", id: "cast_signature_spell_2" },
+          { type: "resource", id: "signature_spell_1" },
+          { type: "resource", id: "signature_spell_2" },
+        ],
+        tags: ["spells", "spellcasting", "build-choice"],
       },
     ],
   },
