@@ -1,9 +1,28 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { archfey_features_en } from "../subclasses/archfey/en/archfey-features-en";
+import { fiend_features_en } from "../subclasses/fiend/en/fiend-features-en";
+import { great_old_one_features_en } from "../subclasses/great-old-one/en/great-old-one-features-en";
+
+import { celestial_features_en } from "../subclasses/celestial/en/celestial-features-en";
+import { hexblade_features_en } from "../subclasses/hexblade/en/hexblade-features-en";
+
+import { fathomless_features_en } from "../subclasses/fathomless/en/fathomless-features-en";
+import { genie_features_en } from "../subclasses/genie/en/genie-features-en";
+
 const subclass_features: GameLocalizationCategory = {
   // PHB
+  ...archfey_features_en,
+  ...fiend_features_en,
+  ...great_old_one_features_en,
+
   // XGE
+  ...celestial_features_en,
+  ...hexblade_features_en,
+
   // TCE
+  ...fathomless_features_en,
+  ...genie_features_en,
 };
 
 const invocations: GameLocalizationCategory = {

@@ -1,9 +1,28 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { archfey_actions_en } from "../subclasses/archfey/en/archfey-actions-en";
+import { fiend_actions_en } from "../subclasses/fiend/en/fiend-actions-en";
+import { great_old_one_actions_en } from "../subclasses/great-old-one/en/great-old-one-actions-en";
+
+import { celestial_actions_en } from "../subclasses/celestial/en/celestial-actions-en";
+import { hexblade_actions_en } from "../subclasses/hexblade/en/hexblade-actions-en";
+
+import { fathomless_actions_en } from "../subclasses/fathomless/en/fathomless-actions-en";
+import { genie_actions_en } from "../subclasses/genie/en/genie-actions-en";
+
 const subclass_actions: GameLocalizationCategory = {
   // PHB
+  ...archfey_actions_en,
+  ...fiend_actions_en,
+  ...great_old_one_actions_en,
+
   // XGE
+  ...celestial_actions_en,
+  ...hexblade_actions_en,
+
   // TCE
+  ...fathomless_actions_en,
+  ...genie_actions_en,
 };
 
 const invocations_actions: GameLocalizationCategory = {

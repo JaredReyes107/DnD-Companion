@@ -10,6 +10,7 @@ import { ranger_resources_es } from "../classes/ranger/es/ranger-resources-es";
 import { resources_spell_slots_es } from "./spell-slots-es";
 import { rogue_resources_es } from "../classes/rogue/es/rogue-resources-es";
 import { sorcerer_resources_es } from "../classes/sorcerer/es/sorcerer-resources-es";
+import { warlock_resources_es } from "../classes/warlock/es/warlock-resources-es";
 
 export const resources_es: GameLocalization = {
   resources: {
@@ -23,6 +24,7 @@ export const resources_es: GameLocalization = {
     ...ranger_resources_es,
     ...rogue_resources_es,
     ...sorcerer_resources_es,
+    ...warlock_resources_es,
 
     ...resources_spell_slots_es,
   },

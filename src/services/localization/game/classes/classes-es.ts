@@ -10,6 +10,7 @@ import { paladin_es } from "./paladin/es/paladin-es";
 import { ranger_es } from "./ranger/es/ranger-es";
 import { rogue_es } from "./rogue/es/rogue-es";
 import { sorcerer_es } from "./sorcerer/es/sorcerer-es";
+import { warlock_es } from "./warlock/es/warlock-es";
 
 export const classes_es: GameLocalization = {
   classes: {
@@ -29,11 +30,7 @@ export const classes_es: GameLocalization = {
     ...ranger_es,
     ...rogue_es,
     ...sorcerer_es,
-    warlock: {
-      name: "Brujo",
-      description:
-        "Un usuario de magia que obtiene su poder a través de un pacto con una entidad sobrenatural.",
-    },
+    ...warlock_es,
     wizard: {
       name: "Mago",
       description:
