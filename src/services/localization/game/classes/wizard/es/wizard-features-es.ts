@@ -1,6 +1,41 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { abjuration_features_es } from "../subclasses/abjuration/es/abjuration-features-es";
+import { conjuration_features_es } from "../subclasses/conjuration/es/conjuration-features-es";
+import { divination_features_es } from "../subclasses/divination/es/divination-features-es";
+import { enchantment_features_es } from "../subclasses/enchantment/es/enchantment-features-es";
+import { evocation_features_es } from "../subclasses/evocation/es/evocation-features-es";
+import { illusion_features_es } from "../subclasses/illusion/es/illusion-features-es";
+import { necromancy_features_es } from "../subclasses/necromancy/es/necromancy-features-es";
+import { transmutation_features_es } from "../subclasses/transmutation/es/transmutation-features-es";
+
+import { war_magic_features_es } from "../subclasses/war-magic/es/war-magic-features-es";
+
+import { scribes_features_es } from "../subclasses/scribes/es/scribes-features-es";
+import { bladesinging_features_es } from "../subclasses/bladesinging/es/bladesinging-features-es";
+
+export const subclass_features: GameLocalizationCategory = {
+  // PHB
+  ...abjuration_features_es,  
+  ...conjuration_features_es, 
+  ...divination_features_es,
+  ...enchantment_features_es,
+  ...evocation_features_es,
+  ...illusion_features_es,
+  ...necromancy_features_es,
+  ...transmutation_features_es, 
+
+  // XGE
+  ...war_magic_features_es,
+
+  // TCE
+  ...bladesinging_features_es,
+  ...scribes_features_es,
+};
+
 export const wizard_features_es: GameLocalizationCategory = {
+  ...subclass_features,
+
   spellcasting_wizard: {
     name: "Lanzamiento de Conjuros",
     description: `Como estudiante de magia arcana, tienes un libro de conjuros que contiene conjuros que muestran los primeros destellos del verdadero poder.

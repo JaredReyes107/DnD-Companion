@@ -11,6 +11,7 @@ import { ranger_en } from "./ranger/en/ranger-en";
 import { rogue_en } from "./rogue/en/rogue-en";
 import { sorcerer_en } from "./sorcerer/en/sorcerer-en";
 import { warlock_en } from "./warlock/en/warlock-en";
+import { wizard_en } from "./wizard/en/wizard-en";
 
 export const classes_en: GameLocalization = {
   classes: {
@@ -30,10 +31,6 @@ export const classes_en: GameLocalization = {
     ...rogue_en,
     ...sorcerer_en,
     ...warlock_en,
-    wizard: {
-      name: "Wizard",
-      description:
-        "A scholar of arcane magic who learns and masters spells through study and preparation.",
-    },
+    ...wizard_en,
   },
 };
