@@ -17,4 +17,7 @@ export const WIZARD_MODIFIERS: Record<string, StatModifierTemplate> = {
     mode: "add",
     value: 10,
   },
+
+  //TODO: Modifier. Advantage for Acrobatics. Only flavour/UI
+  //TODO: Modifier. +INT to concentration checks. Only flavour/UI
 };

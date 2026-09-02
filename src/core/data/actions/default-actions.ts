@@ -50,18 +50,4 @@ export const DEFAULT_ACTIONS: Record<string, ActionInstance> = {
     boards: ["combat", "exploration"],
     effects: [],
   },
-  testBladesong: {
-    id: "testBladesong",
-    sourceId: "wizard_bladesinger",
-    duration: { kind: "economy", slot: "bonusAction" },
-    boards: ["combat"],
-    effects: [
-      {
-        type: "applyModifier",
-        modifiers: ["bladesong_ac_bonus", "bladesong_speed_bonus"],
-        durationRounds: 2,
-        stacking: "refresh",
-      },
-    ],
-  },
 };
