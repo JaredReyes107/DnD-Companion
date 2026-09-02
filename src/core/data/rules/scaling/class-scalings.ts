@@ -14,6 +14,19 @@ function registerSubclassScalings() {
     if (level >= 7) return 5;
     return 4;
   });
+
+  registerScaling("portent-dice", ({ character }) => {
+    const wizard = Object.values(character.classes.byId).find(
+      (c) => c.classId === "wizard",
+    );
+
+    if (!wizard) return 0;
+
+    const level = wizard.level;
+
+    if (level >= 14) return 3;
+    return 2;
+  });
 }
 
 export function registerClassScalings() {

@@ -11,6 +11,8 @@ export function evaluateFormula(
     return Number(resource.scalingType.split(":")[1]) || 0;
   }
 
+  //TODO: Add composed scalers. E.g. Abjuration's Ward:
+  // Wizard Level * 2 + INT Mod
   if (resource.scalingType.includes(":")) {
     const scalingType = resource.scalingType.split(":")[0];
     const operator = resource.scalingType.split(":")[1].at(0);
@@ -32,7 +34,10 @@ export function evaluateFormula(
       case "*":
         return scaler({ character, sourceId: resource.sourceId }) * value;
       case "/":
-        return scaler({ character, sourceId: resource.sourceId }) + value;
+        //TODO: Check if all are rounding up / exceptions
+        return Math.round(
+          scaler({ character, sourceId: resource.sourceId }) / value,
+        );
     }
   }
 
