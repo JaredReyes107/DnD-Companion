@@ -11,6 +11,7 @@ import { ranger_actions_es } from "../classes/ranger/es/ranger-actions-es";
 import { rogue_actions_es } from "../classes/rogue/es/rogue-actions-es";
 import { sorcerer_actions_es } from "../classes/sorcerer/es/sorcerer-actions-es";
 import { warlock_actions_es } from "../classes/warlock/es/warlock-actions-es";
+import { wizard_actions_es } from "../classes/wizard/es/wizard-actions-es";
 import { artificer_actions_es } from "../classes/artificer/es/artificer-actions-es";
 
 export const actions_es: GameLocalization = {
@@ -26,6 +27,7 @@ export const actions_es: GameLocalization = {
     ...rogue_actions_es,
     ...sorcerer_actions_es,
     ...warlock_actions_es,
+    ...wizard_actions_es,
     ...artificer_actions_es,
   },
 };

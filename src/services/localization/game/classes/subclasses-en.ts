@@ -11,6 +11,7 @@ import { ranger_subclasses_en } from "./ranger/en/ranger-subclasses-en";
 import { rogue_subclasses_en } from "./rogue/en/rogue-subclasses-en";
 import { sorcerer_subclasses_en } from "./sorcerer/en/sorcerer-subclasses-en";
 import { warlock_subclasses_en } from "./warlock/en/warlock-subclasses-en";
+import { wizard_subclasses_en } from "./wizard/en/wizard-subclasses-en";
 import { artificer_subclasses_en } from "./artificer/en/artificer-subclasses-en";
 
 export const subclasses_en: GameLocalization = {
@@ -26,6 +27,7 @@ export const subclasses_en: GameLocalization = {
     ...rogue_subclasses_en,
     ...sorcerer_subclasses_en,
     ...warlock_subclasses_en,
+    ...wizard_subclasses_en,
     ...artificer_subclasses_en,
   },
 };
