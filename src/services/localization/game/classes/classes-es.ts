@@ -1,5 +1,6 @@
 import { GameLocalization } from "../../game-localization.types";
 
+import { artificer_es } from "./artificer/es/artificer-es";
 import { barbarian_es } from "./barbarian/es-barbarian";
 import { bard_es } from "./bard/es/bard-es";
 import { cleric_es } from "./cleric/es/cleric-es";
@@ -11,14 +12,11 @@ import { ranger_es } from "./ranger/es/ranger-es";
 import { rogue_es } from "./rogue/es/rogue-es";
 import { sorcerer_es } from "./sorcerer/es/sorcerer-es";
 import { warlock_es } from "./warlock/es/warlock-es";
+import { wizard_es } from "./wizard/es/wizard-es";
 
 export const classes_es: GameLocalization = {
   classes: {
-    artificer: {
-      name: "Artífice",
-      description:
-        "Un inventor experto que combina magia y tecnología para crear infusiones, artilugios y objetos mágicos.",
-    },
+    ...artificer_es,
     ...barbarian_es,
     ...bard_es,
     ...cleric_es,
@@ -31,10 +29,6 @@ export const classes_es: GameLocalization = {
     ...rogue_es,
     ...sorcerer_es,
     ...warlock_es,
-    wizard: {
-      name: "Mago",
-      description:
-        "Un erudito de la magia arcana que estudia y domina los conjuros mediante conocimiento y preparación.",
-    },
+    ...wizard_es,
   },
 };

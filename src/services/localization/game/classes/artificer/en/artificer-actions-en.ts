@@ -1,7 +1,16 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { alchemist_actions_en } from "../subclasses/alchemist/en/alchemist-actions-en";
+import { armorer_actions_en } from "../subclasses/armorer/en/armorer-actions-en";
+import { artillerist_actions_en } from "../subclasses/artillerist/en/artillerist-actions-en";
+import { battle_smith_actions_en } from "../subclasses/battle-smith/en/battle-smith-actions-en";
+
 const subclass_actions: GameLocalizationCategory = {
   // TCE
+  ...alchemist_actions_en,
+  ...armorer_actions_en,
+  ...artillerist_actions_en,
+  ...battle_smith_actions_en,
 };
 
 export const artificer_actions_en: GameLocalizationCategory = {

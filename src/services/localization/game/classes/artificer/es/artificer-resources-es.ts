@@ -1,10 +1,19 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { alchemist_resources_es } from "../subclasses/alchemist/es/alchemist-resources-es";
+import { armorer_resources_es } from "../subclasses/armorer/es/armorer-resources-es";
+import { artillerist_resources_es } from "../subclasses/artillerist/es/artillerist-resources-es";
+import { battle_smith_resources_es } from "../subclasses/battle-smith/es/battle-smith-resources-es";
+
 const subclass_resources: GameLocalizationCategory = {
   // TCE
+  ...alchemist_resources_es,
+  ...armorer_resources_es,
+  ...artillerist_resources_es,
+  ...battle_smith_resources_es,
 };
 
-export const artificer_resources_en: GameLocalizationCategory = {
+export const artificer_resources_es: GameLocalizationCategory = {
   ...subclass_resources,
 
   magical_tinkering: {

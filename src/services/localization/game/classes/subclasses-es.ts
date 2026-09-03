@@ -11,6 +11,7 @@ import { ranger_subclasses_es } from "./ranger/es/ranger-subclasses-es";
 import { rogue_subclasses_es } from "./rogue/es/rogue-subclasses-es";
 import { sorcerer_subclasses_es } from "./sorcerer/es/sorcerer-subclasses-es";
 import { warlock_subclasses_es } from "./warlock/es/warlock-subclasses-es";
+import { artificer_subclasses_es } from "./artificer/es/artificer-subclasses-es";
 
 export const subclasses_es: GameLocalization = {
   subclasses: {
@@ -25,5 +26,6 @@ export const subclasses_es: GameLocalization = {
     ...rogue_subclasses_es,
     ...sorcerer_subclasses_es,
     ...warlock_subclasses_es,
+    ...artificer_subclasses_es,
   },
 };

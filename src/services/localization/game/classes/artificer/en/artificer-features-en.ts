@@ -1,6 +1,20 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { alchemist_features_en } from "../subclasses/alchemist/en/alchemist-features-en";
+import { armorer_features_en } from "../subclasses/armorer/en/armorer-features-en";
+import { artillerist_features_en } from "../subclasses/artillerist/en/artillerist-features-en";
+import { battle_smith_features_en } from "../subclasses/battle-smith/en/battle-smith-features-en";
+
+const subclass_features: GameLocalizationCategory = {
+  ...alchemist_features_en,
+  ...armorer_features_en,
+  ...artillerist_features_en,
+  ...battle_smith_features_en,
+};
+
 export const artificer_features_en: GameLocalizationCategory = {
+  ...subclass_features,
+
   magical_tinkering: {
     name: "Magical Tinkering",
     description:

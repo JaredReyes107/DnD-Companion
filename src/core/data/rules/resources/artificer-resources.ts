@@ -1,6 +1,19 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
+import { ALCHEMIST_RESOURCES } from "./artificer/alchemist-resources";
+import { ARMORER_RESOURCES } from "./artificer/armorer-resources";
+import { ARTILLERIST_RESOURCES } from "./artificer/artillerist-resources";
+import { BATTLE_SMITH_RESOURCES } from "./artificer/battle-smith-resources";
+
+const SUBCLASS_RESOURCES: Record<string, ResourceTemplate> = {
+  ...ALCHEMIST_RESOURCES,
+  ...ARMORER_RESOURCES,
+  ...ARTILLERIST_RESOURCES,
+  ...BATTLE_SMITH_RESOURCES,
+};
 
 export const ARTIFICER_RESOURCES: Record<string, ResourceTemplate> = {
+  ...SUBCLASS_RESOURCES,
+
   magical_tinkering: {
     id: "magical_tinkering",
     sourceId: "artificer",

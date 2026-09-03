@@ -1,6 +1,20 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { alchemist_features_es } from "../subclasses/alchemist/es/alchemist-features-es";
+import { armorer_features_es } from "../subclasses/armorer/es/armorer-features-es";
+import { artillerist_features_es } from "../subclasses/artillerist/es/artillerist-features-es";
+import { battle_smith_features_es } from "../subclasses/battle-smith/es/battle-smith-features-es";
+
+const subclass_features: GameLocalizationCategory = {
+  ...alchemist_features_es,
+  ...armorer_features_es,
+  ...artillerist_features_es,
+  ...battle_smith_features_es,
+};
+
 export const artificer_features_es: GameLocalizationCategory = {
+  ...subclass_features,
+
   magical_tinkering: {
     name: "Arreglos Mágicos",
     description: `Has aprendido a inyectar una chispa de magia en objetos mundanos. Para usar esta característica, tienes que tener a mano herramientas de ladrón o de artesano. Después, toca un objeto no mágico Diminuto como acción y otórgale una de las siguientes propiedades mágicas a tu elección:

@@ -1,5 +1,5 @@
 import { ResourceTemplate as ResourceTemplate } from "@/core/entities/rules/resource-template";
-import { RESOURCES_ARTIFICER } from "./resources/artificer-resources";
+
 import { BARBARIAN_RESOURCES } from "./resources/barbarian-resources";
 import { BARD_RESOURCES } from "./resources/bard-resources";
 import { CLERIC_RESOURCES } from "./resources/cleric-resources";
@@ -12,6 +12,7 @@ import { ROGUE_RESOURCES } from "./resources/rogue-resources";
 import { SORCERER_RESOURCES } from "./resources/sorcerer-resources";
 import { WARLOCK_RESOURCES } from "./resources/warlock-resources";
 import { WIZARD_RESOURCES } from "./resources/wizard-resources";
+import { ARTIFICER_RESOURCES } from "./resources/artificer-resources";
 
 const FEATS: Record<string, ResourceTemplate> = {
   luck_points: {
@@ -26,7 +27,7 @@ const FEATS: Record<string, ResourceTemplate> = {
 
 export const BASE_RESOURCES: Record<string, ResourceTemplate> = {
   ...FEATS,
-  ...RESOURCES_ARTIFICER,
+
   ...BARBARIAN_RESOURCES,
   ...BARD_RESOURCES,
   ...CLERIC_RESOURCES,
@@ -39,4 +40,5 @@ export const BASE_RESOURCES: Record<string, ResourceTemplate> = {
   ...SORCERER_RESOURCES,
   ...WARLOCK_RESOURCES,
   ...WIZARD_RESOURCES,
+  ...ARTIFICER_RESOURCES,
 };

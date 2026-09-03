@@ -1,10 +1,19 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { alchemist_actions_es } from "../subclasses/alchemist/es/alchemist-actions-es";
+import { armorer_actions_es } from "../subclasses/armorer/es/armorer-actions-es";
+import { artillerist_actions_es } from "../subclasses/artillerist/es/artillerist-actions-es";
+import { battle_smith_actions_es } from "../subclasses/battle-smith/es/battle-smith-actions-es";
+
 const subclass_actions: GameLocalizationCategory = {
   // TCE
+  ...alchemist_actions_es,
+  ...armorer_actions_es,
+  ...artillerist_actions_es,
+  ...battle_smith_actions_es,
 };
 
-export const artificer_actions_en: GameLocalizationCategory = {
+export const artificer_actions_es: GameLocalizationCategory = {
   ...subclass_actions,
 
   magical_tinkering_bestow: {

@@ -1,6 +1,6 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
-export const alchemist_actions_es: GameLocalizationCategory = {
+export const alchemist_actions_en: GameLocalizationCategory = {
   experimental_elixir_fabricate: {
     name: "Fabricate Experimental Elixir",
     description: `You create an experimental elixir inside an empty flask using alchemist supplies after finishing a long rest. Roll 1d6 to determine its effect.`,
