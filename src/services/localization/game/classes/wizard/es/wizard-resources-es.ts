@@ -16,14 +16,14 @@ import { bladesinging_resources_es } from "../subclasses/bladesinging/es/bladesi
 
 export const subclass_resources: GameLocalizationCategory = {
   // PHB
-  ...abjuration_resources_es,  
-  ...conjuration_resources_es, 
+  ...abjuration_resources_es,
+  ...conjuration_resources_es,
   ...divination_resources_es,
   ...enchantment_resources_es,
   ...evocation_resources_es,
   ...illusion_resources_es,
   ...necromancy_resources_es,
-  ...transmutation_resources_es, 
+  ...transmutation_resources_es,
 
   // XGE
   ...war_magic_resources_es,

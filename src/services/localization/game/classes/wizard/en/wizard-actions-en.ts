@@ -16,14 +16,14 @@ import { bladesinging_actions_en } from "../subclasses/bladesinging/en/bladesing
 
 export const subclass_actions: GameLocalizationCategory = {
   // PHB
-  ...abjuration_actions_en,  
-  ...conjuration_actions_en, 
+  ...abjuration_actions_en,
+  ...conjuration_actions_en,
   ...divination_actions_en,
   ...enchantment_actions_en,
   ...evocation_actions_en,
   ...illusion_actions_en,
   ...necromancy_actions_en,
-  ...transmutation_actions_en, 
+  ...transmutation_actions_en,
 
   // XGE
   ...war_magic_actions_en,

@@ -16,14 +16,14 @@ import { bladesinging_features_es } from "../subclasses/bladesinging/es/bladesin
 
 export const subclass_features: GameLocalizationCategory = {
   // PHB
-  ...abjuration_features_es,  
-  ...conjuration_features_es, 
+  ...abjuration_features_es,
+  ...conjuration_features_es,
   ...divination_features_es,
   ...enchantment_features_es,
   ...evocation_features_es,
   ...illusion_features_es,
   ...necromancy_features_es,
-  ...transmutation_features_es, 
+  ...transmutation_features_es,
 
   // XGE
   ...war_magic_features_es,

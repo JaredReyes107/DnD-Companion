@@ -16,14 +16,14 @@ import { scribes_en } from "../subclasses/scribes/en/scribes-en";
 
 export const wizard_subclasses_en: GameLocalizationCategory = {
   // PHB
-  ...abjuration_en,  
-  ...conjuration_en, 
+  ...abjuration_en,
+  ...conjuration_en,
   ...divination_en,
   ...enchantment_en,
   ...evocation_en,
   ...illusion_en,
   ...necromancy_en,
-  ...transmutation_en, 
+  ...transmutation_en,
 
   // XGE
   ...war_magic_en,
