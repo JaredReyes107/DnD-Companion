@@ -5,7 +5,7 @@ export const BATTLE_SMITH_ACTIONS: Record<string, ActionInstance> = {
     id: "steel_defender_create",
     sourceId: "battle_smith",
     boards: ["exploration"],
-    duration: { kind: "instantaneous" }, 
+    duration: { kind: "instantaneous" },
     // TODO: trigger, On a long rest
     effects: [],
   },
@@ -38,7 +38,8 @@ export const BATTLE_SMITH_ACTIONS: Record<string, ActionInstance> = {
     duration: { kind: "instantaneous" },
     trigger: ["onAttackHit"], // Self-vs-other-actor: also fires off on defender's hit
     effects: [
-      { type: "modifyResource", resourceId: "arcane_jolt", amount: -1 },    ],
+      { type: "modifyResource", resourceId: "arcane_jolt", amount: -1 },
+    ],
   },
   arcane_jolt_heal: {
     id: "arcane_jolt_heal",
@@ -47,6 +48,7 @@ export const BATTLE_SMITH_ACTIONS: Record<string, ActionInstance> = {
     duration: { kind: "instantaneous" },
     trigger: ["onAttackHit"], // Self-vs-other-actor: also fires off on defender's hit
     effects: [
-      { type: "modifyResource", resourceId: "arcane_jolt", amount: -1 },    ],
+      { type: "modifyResource", resourceId: "arcane_jolt", amount: -1 },
+    ],
   },
 };

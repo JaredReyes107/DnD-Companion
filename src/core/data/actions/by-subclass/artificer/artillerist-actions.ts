@@ -7,11 +7,19 @@ export const ARTILLERIST_ACTIONS: Record<string, ActionInstance> = {
     boards: ["combat", "exploration"],
     duration: { kind: "economy", slot: "action" },
     effects: [
-      { type: "modifyResource", resourceId: "eldritch_cannon_reservoir", amount: -1 },
-      { type: "modifyResource", resourceId: "eldritch_cannons_limit", amount: -1 },
+      {
+        type: "modifyResource",
+        resourceId: "eldritch_cannon_reservoir",
+        amount: -1,
+      },
+      {
+        type: "modifyResource",
+        resourceId: "eldritch_cannons_limit",
+        amount: -1,
+      },
     ],
     // TODO: Resource fallback. Spell slot, select level
-    // TODO: Cannon type selection (Flamethrower/Force Ballista/Protector) 
+    // TODO: Cannon type selection (Flamethrower/Force Ballista/Protector)
   },
   eldritch_cannon_activate: {
     id: "eldritch_cannon_activate",
@@ -28,7 +36,11 @@ export const ARTILLERIST_ACTIONS: Record<string, ActionInstance> = {
     boards: ["combat", "exploration", "roleplay"],
     duration: { kind: "economy", slot: "action" },
     effects: [
-      { type: "modifyResource", resourceId: "eldritch_cannons_limit", amount: -1 },
+      {
+        type: "modifyResource",
+        resourceId: "eldritch_cannons_limit",
+        amount: -1,
+      },
     ],
   },
 
@@ -42,14 +54,17 @@ export const ARTILLERIST_ACTIONS: Record<string, ActionInstance> = {
     ],
   },
 
-
   eldritch_cannon_detonate: {
     id: "eldritch_cannon_detonate",
     sourceId: "artillerist",
     boards: ["combat"],
     duration: { kind: "economy", slot: "action" },
     effects: [
-      { type: "modifyResource", resourceId: "eldritch_cannons_limit", amount: -1 },
+      {
+        type: "modifyResource",
+        resourceId: "eldritch_cannons_limit",
+        amount: -1,
+      },
     ],
   },
 };
