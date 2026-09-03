@@ -14,6 +14,35 @@ function registerSubclassScalings() {
     if (level >= 7) return 5;
     return 4;
   });
+
+  registerScaling("portent-dice", ({ character }) => {
+    const characterClass = Object.values(character.classes.byId).find(
+      (c) => c.classId === "wizard",
+    );
+
+    if (!characterClass) return 0;
+
+    const level = characterClass.level;
+
+    if (level >= 14) return 3;
+    return 2;
+  });
+
+  registerScaling("infused-items", ({ character }) => {
+    const characterClass = Object.values(character.classes.byId).find(
+      (c) => c.classId === "artificer",
+    );
+
+    if (!characterClass) return 0;
+
+    const level = characterClass.level;
+
+    if (level >= 18) return 6;
+    if (level >= 14) return 5;
+    if (level >= 10) return 4;
+    if (level >= 6) return 3;
+    return 2;
+  });
 }
 
 export function registerClassScalings() {

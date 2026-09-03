@@ -1,6 +1,10 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 
+import { INFUSIONS_ACTIONS } from "./infusions-actions";
+
 export const ARTIFICER_ACTIONS: Record<string, ActionInstance> = {
+  ...INFUSIONS_ACTIONS,
+
   flash_of_genius: {
     id: "flash_of_genius",
     sourceId: "artificer",
