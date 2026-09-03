@@ -1,6 +1,41 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
+import { abjuration_features_en } from "../subclasses/abjuration/en/abjuration-features-en";
+import { conjuration_features_en } from "../subclasses/conjuration/en/conjuration-features-en";
+import { divination_features_en } from "../subclasses/divination/en/divination-features-en";
+import { enchantment_features_en } from "../subclasses/enchantment/en/enchantment-features-en";
+import { evocation_features_en } from "../subclasses/evocation/en/evocation-features-en";
+import { illusion_features_en } from "../subclasses/illusion/en/illusion-features-en";
+import { necromancy_features_en } from "../subclasses/necromancy/en/necromancy-features-en";
+import { transmutation_features_en } from "../subclasses/transmutation/en/transmutation-features-en";
+
+import { war_magic_features_en } from "../subclasses/war-magic/en/war-magic-features-en";
+
+import { scribes_features_en } from "../subclasses/scribes/en/scribes-features-en";
+import { bladesinging_features_en } from "../subclasses/bladesinging/en/bladesinging-features-en";
+
+export const subclass_features: GameLocalizationCategory = {
+  // PHB
+  ...abjuration_features_en,
+  ...conjuration_features_en,
+  ...divination_features_en,
+  ...enchantment_features_en,
+  ...evocation_features_en,
+  ...illusion_features_en,
+  ...necromancy_features_en,
+  ...transmutation_features_en,
+
+  // XGE
+  ...war_magic_features_en,
+
+  // TCE
+  ...bladesinging_features_en,
+  ...scribes_features_en,
+};
+
 export const wizard_features_en: GameLocalizationCategory = {
+  ...subclass_features,
+
   spellcasting_wizard: {
     name: "Spellcasting",
     description: `As a student of arcane magic, you have a spellbook containing spells that show the first glimmerings of your true power.

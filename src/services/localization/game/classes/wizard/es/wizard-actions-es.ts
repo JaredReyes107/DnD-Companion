@@ -1,9 +1,36 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
-const subclass_actions: GameLocalizationCategory = {
+import { abjuration_actions_es } from "../subclasses/abjuration/es/abjuration-actions-es";
+import { conjuration_actions_es } from "../subclasses/conjuration/es/conjuration-actions-es";
+import { divination_actions_es } from "../subclasses/divination/es/divination-actions-es";
+import { enchantment_actions_es } from "../subclasses/enchantment/es/enchantment-actions-es";
+import { evocation_actions_es } from "../subclasses/evocation/es/evocation-actions-es";
+import { illusion_actions_es } from "../subclasses/illusion/es/illusion-actions-es";
+import { necromancy_actions_es } from "../subclasses/necromancy/es/necromancy-actions-es";
+import { transmutation_actions_es } from "../subclasses/transmutation/es/transmutation-actions-es";
+
+import { war_magic_actions_es } from "../subclasses/war-magic/es/war-magic-actions-es";
+
+import { scribes_actions_es } from "../subclasses/scribes/es/scribes-actions-es";
+import { bladesinging_actions_es } from "../subclasses/bladesinging/es/bladesinging-actions-es";
+
+export const subclass_actions: GameLocalizationCategory = {
   // PHB
+  ...abjuration_actions_es,
+  ...conjuration_actions_es,
+  ...divination_actions_es,
+  ...enchantment_actions_es,
+  ...evocation_actions_es,
+  ...illusion_actions_es,
+  ...necromancy_actions_es,
+  ...transmutation_actions_es,
+
   // XGE
+  ...war_magic_actions_es,
+
   // TCE
+  ...bladesinging_actions_es,
+  ...scribes_actions_es,
 };
 
 export const wizard_actions_es: GameLocalizationCategory = {
