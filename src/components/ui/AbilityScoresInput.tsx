@@ -1,13 +1,11 @@
-import { MaterialIcons } from "@expo/vector-icons";
 import { View, Text } from "react-native";
-
 import styles from "@/styles/character-creation.styles";
-import SmoothCounterButton from "./SmoothCounterButton";
+import SteppedNumberInput from "./SteppedNumberInput";
 
 type Props = {
   label: string;
   score: number;
-  onChange: (delta: number) => void;
+  onChange: (score: number) => void; // now absolute value, not delta
 };
 
 const AbilityScoreInput = ({ label, score, onChange }: Props) => {
@@ -15,27 +13,16 @@ const AbilityScoreInput = ({ label, score, onChange }: Props) => {
     <View style={styles.statContainer}>
       <Text style={styles.statTitle}>{label}</Text>
 
-      <View style={styles.statDetailsContainer}>
-        <Text style={styles.statValue}>{score}</Text>
-
-        <View style={styles.statDetailsButtonsContainer}>
-          <SmoothCounterButton
-            style={styles.statDetailsButtons}
-            disabled={score <= 0}
-            onPress={() => onChange(-1)}
-          >
-            <MaterialIcons name="remove" size={12} color="white" />
-          </SmoothCounterButton>
-
-          <SmoothCounterButton
-            style={styles.statDetailsButtons}
-            onPress={() => onChange(+1)}
-            disabled={score >= 30}
-          >
-            <MaterialIcons name="add" size={12} color="white" />
-          </SmoothCounterButton>
-        </View>
-      </View>
+      <SteppedNumberInput
+        value={score}
+        onChange={onChange}
+        min={0}
+        max={30}
+        containerStyle={styles.statDetailsContainer}
+        valueStyle={styles.statValue}
+        buttonsContainerStyle={styles.statDetailsButtonsContainer}
+        buttonStyle={styles.statDetailsButtons}
+      />
     </View>
   );
 };

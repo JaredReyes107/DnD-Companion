@@ -38,10 +38,9 @@ import { buildCharacterPassiveModifiers } from "@/core/rules/character/stat-modi
 
 // Components
 import { ThemedView } from "./ThemedView";
-import { MaterialIcons } from "@expo/vector-icons";
 
-import SmoothCounterButton from "./SmoothCounterButton";
 import { FormattedNumberInput } from "./FormattedNumberInput";
+import SteppedNumberInput from "./SteppedNumberInput";
 import CustomPicker from "@/components/ui/CustomPicker";
 import { MainClassForm } from "@/components/ui/MainClassForm";
 import { SecondaryClassesForm } from "@/components/ui/SecondaryClassesForm";
@@ -310,29 +309,17 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
   const renderSpeedField = () => (
     <View style={styles.fieldContainer}>
       <Text style={styles.fieldHeader}>{ui("stats.speed")}</Text>
-      <View style={styles.counterContainer}>
-        <Text style={styles.counterInput}>{baseSpeed}</Text>
-        <View style={styles.counterButtonsContainer}>
-          <SmoothCounterButton
-            style={styles.counterButton}
-            onPress={() => setBaseSpeed((prev) => (prev > 0 ? prev - 5 : 0))}
-          >
-            <MaterialIcons
-              name="remove"
-              style={styles.counterButtonIcon}
-            ></MaterialIcons>
-          </SmoothCounterButton>
-          <SmoothCounterButton
-            style={styles.counterButton}
-            onPress={() => setBaseSpeed((prev) => (prev < 75 ? prev + 5 : 75))}
-          >
-            <MaterialIcons
-              name="add"
-              style={styles.counterButtonIcon}
-            ></MaterialIcons>
-          </SmoothCounterButton>
-        </View>
-      </View>
+      <SteppedNumberInput
+        value={baseSpeed}
+        onChange={setBaseSpeed}
+        min={0}
+        max={75}
+        step={5}
+        containerStyle={styles.counterContainer}
+        valueStyle={styles.counterInput}
+        buttonsContainerStyle={styles.counterButtonsContainer}
+        buttonStyle={styles.counterButton}
+      />
     </View>
   );
 
@@ -386,18 +373,8 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
             <AbilityScoreInput
               label={getLocalizedName("abilities", ability)}
               score={abilityScores[ability]}
-              onChange={(delta) =>
-                setAbilityScores((prev) => {
-                  const currentValue = prev[ability];
-                  const newValue = Math.max(
-                    0,
-                    Math.min(30, currentValue + delta),
-                  );
-                  return {
-                    ...prev,
-                    [ability]: newValue,
-                  };
-                })
+              onChange={(newValue) =>
+                setAbilityScores((prev) => ({ ...prev, [ability]: newValue }))
               }
             />
           )}
