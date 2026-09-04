@@ -11,7 +11,7 @@ export const twilight_actions_es: GameLocalizationCategory = {
       "Proporcionas ventaja a una criatura que toques (incluido tú) en la siguiente tirada de iniciativa que haga. Este beneficio finaliza inmediatamente después de la tirada o si vuelves a usar este rasgo.",
   },
   channel_divinity_twilight_sanctuary: {
-    name: "Canalizar Divinidad: Santuario del Crepúsculo",
+    name: "Santuario del Crepúsculo",
     description: `Muestras tu símbolo sagrado y de ti emana una esfera crepuscular. La esfera está centrada en ti, tiene un radio de 30 pies y brilla con luz tenue. La esfera se mueve a la vez que tú y dura 1 minuto o hasta que quedes incapacitado o mueras. Siempre que una criatura (incluyéndote a ti) termine su turno en la esfera, puedes concederle una cantidad puntos de golpe temporales igual a 1d6 más tu nivel de clérigo. Alternativamente, puedes acabar con un efecto que hace que esté hechizada o asustada.`,
   },
   steps_of_night: {

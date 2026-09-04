@@ -17,7 +17,7 @@ export const trickery_actions_es: GameLocalizationCategory = {
       Mientras dure, puedes lanzar conjuros como si estuvieses en el espacio de la ilusión, pero debes usar tus propios sentidos. Adicionalmente, cuando tanto tú y tu ilusión estéis en un rango de 5 pies de una criatura que pueda ver la ilusión, tienes ventaja en las tiradas de ataque, teniendo en cuenta la distracción que causa la ilusión en el objetivo.`,
   },
   channel_divinity_cloak_of_shadows: {
-    name: "Canalizar Divinidad: Capa de Sombras",
+    name: "Capa de Sombras",
     description:
       "Puedes usar tu Canalizar Divinidad para desaparecer. Como una acción, te vuelves invisible hasta el final de tu siguiente turno. Te vuelves visible si atacas o lanzas un conjuro",
   },

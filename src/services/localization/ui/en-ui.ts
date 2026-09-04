@@ -35,8 +35,8 @@ export const en = {
   savingThrows: {
     full: "Saving Throws",
     death: "Death saving throws",
-    successes: "Successes",
-    failures: "Failures",
+    successes: "Passed",
+    failures: "Failed",
   },
   pb: {
     full: "Proficiency bonus",
@@ -60,6 +60,11 @@ export const en = {
     full: "Initiative",
     bonus: "Initiative bonus",
     order: "Initiative {value} Order",
+  },
+  actionEconomy: {
+    action: "Action",
+    bonusAction: "Bonus Action",
+    reaction: "Reaction",
   },
   rest: {
     long: "Long rest",

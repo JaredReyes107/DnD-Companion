@@ -2,11 +2,11 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 
 export const oathbreaker_actions_es: GameLocalizationCategory = {
   channel_divinity_control_undead: {
-    name: "Canalizar Divinidad: Controlar Muertos Vivientes",
+    name: "Controlar Muertos Vivientes",
     description: `Eliges a una criatura muerta viviente que se encuentre a 30 pies o menos y pueda ver. El objetivo deberá hacer una tirada de salvación de Sabiduría. Si la falla, tendrá que obedecer las tus ordenes durante las 24 horas siguientes o hasta que este vuelva a usar esta opción de Canalizar Divinidad. Los muertos vivientes cuyo valor de desafío sea igual o superior a tu nivel de paladín son nmunes a este efecto.`,
   },
   channel_divinity_dreadful_aspect: {
-    name: "Canalizar Divinidad: Aspecto Aterrador",
+    name: "Aspecto Aterrador",
     description: `Todas las criaturas situadas a 30 pies o menos de ti que elijas y que puedas ver deberán realizar una tirada de salvación de Sabiduría. Si la fallan, estarán asustadas de ti durante 1 minuto. Si una criatura asustada por este efecto termina su turno a 30 pies o más de ti, podrá intentar hacer de nuevo la tirada de salvación de Sabiduría para librarse del efecto.`,
   },
   dread_lord: {

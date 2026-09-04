@@ -2,11 +2,11 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 
 export const watchers_actions_en: GameLocalizationCategory = {
   channel_divinity_watchers_will: {
-    name: "Channel Divinity: Watcher's Will",
+    name: "Watcher's Will",
     description: `For 1 minute, you creatures you choose (up to your Charisma modifier, minimum of 1) have advantage on Intelligence, Wisdom, and Charisma saving throws.`,
   },
   channel_divinity_abjure_the_extraplanar: {
-    name: "Channel Divinity: Abjure the Extraplanar",
+    name: "Abjure the Extraplanar",
     description: `Each aberration, celestial, elemental, fey, or fiend within 30 feet of you that can hear you must make a Wisdom saving throw. On a failed save, the creature is turned for 1 minute or until it takes damage.
         A turned creature must spend its turns trying to move as far away from you as it can, and it can't willingly end its move in a space within 30 feet of you. For its action, it can use only the Dash action or try to escape from an effect that prevents it from moving. If there's nowhere to move, the creature can take the Dodge action.`,
   },

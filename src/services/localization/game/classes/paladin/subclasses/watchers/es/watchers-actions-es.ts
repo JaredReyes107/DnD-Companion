@@ -2,11 +2,11 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 
 export const watchers_actions_es: GameLocalizationCategory = {
   channel_divinity_watchers_will: {
-    name: "Canalizar Divinidad: Voluntad del Vigilante",
+    name: "Voluntad del Vigilante",
     description: `Durante 1 minuto, tú y una cantidad de criaturas hasta tu modificador por Carisma obtienen ventaja en las tiradas de salvación de Inteligencia, Sabiduría y Carisma.`,
   },
   channel_divinity_abjure_the_extraplanar: {
-    name: "Canalizar Divinidad: Expulsar a los Extraplanares",
+    name: "Expulsar a los Extraplanares",
     description: `Cada aberración, celestial, elemental, feérico o infernal a 30 pies o menos de ti que pueda oírte deberá hacer una tirada de salvación de Sabiduría. Si falla, será expulsada durante 1 minuto o hasta que reciba daño.
         Una criatura expulsada deberá dedicar sus turnos a tratar de alejarse de ti todo lo que pueda y no podrá acabar su movimiento voluntariamente en ningún espacio que se encuentre a 30 pies o menos de ti. Tan solo podrá realizar la acción de Correr o intentar escapar de un efecto que le impida moverse. Si no tiene adónde ir, la criatura podrá usar la acción de Esquivar.`,
   },

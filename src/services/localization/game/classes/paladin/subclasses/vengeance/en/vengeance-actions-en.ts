@@ -2,11 +2,11 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 
 export const vengeance_actions_en: GameLocalizationCategory = {
   channel_divinity_abjure_enemy: {
-    name: "Channel Divinity: Abjure Enemy",
+    name: "Abjure Enemy",
     description: `Choose one creature within 60 feet of you that you can see. That creature must make a Wisdom saving throw, unless it is immune to being frightened. Fiends and undead have disadvantage on this saving throw.`,
   },
   channel_divinity_vow_of_enmity: {
-    name: "Channel Divinity: Vow of Enmity",
+    name: "Vow of Enmity",
     description: `You utter a vow of enmity against a creature you can see within 10 feet of you. You gain advantage on attack rolls against the creature for 1 minute or until it drops to 0 hit points or falls unconscious.`,
   },
   soul_of_vengeance: {
