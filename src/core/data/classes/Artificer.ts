@@ -56,8 +56,8 @@ export const ARTIFICER: ClassTemplate = {
         id: "artificer_specialist",
         source: "class" as const,
         level: 3,
-        grants: [{ type: "choice", id: "artificer_specialist" }],
-        tags: ["build-choice", "subclass-selection"],
+        grants: [],
+        tags: ["build-choice", "subclass"],
       },
       {
         id: "the_right_tool_for_the_job",
