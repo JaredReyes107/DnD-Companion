@@ -18,7 +18,6 @@ import {
   getProficiencyBonus,
 } from "@/core/rules/character/abilities-modifiers";
 import { resolveInCombat } from "@/core/systems/stats/stat-resolver";
-import { ModifierType, StatModel } from "@/core/entities/rules/stats.types";
 import { getTotalCharacterLevel } from "@/core/rules/character/character-multiclassing";
 import { getNextXPThreshold } from "@/core/entities/progression/leveling";
 import { formatNaturalNumber } from "@/utils/input-handler";
@@ -46,7 +45,7 @@ import { ui } from "@/services/localization/ui-localization-resolver";
 
 const CharacterSheetScreen = () => {
   const router = useRouter();
-  const { character, encounter, saveCharacter } = useCharacter();
+  const { character, encounter } = useCharacter();
 
   const [_fontsLoaded] = useFonts({
     Montserrat: Montserrat_500Medium,
@@ -66,52 +65,6 @@ const CharacterSheetScreen = () => {
     <ScrollView
       style={[genericStyles.rootContainer, { paddingHorizontal: "0%" }]}
     >
-      {/* Test button – remove before release */}
-      <View>
-        <TouchableOpacity
-          onPress={() => {
-            const newChar = {
-              ...character,
-              statModifiers: {
-                mod1: {
-                  templateId: "exampleId",
-                  statModel: {
-                    type: "derived",
-                    key: "spellAttackModifier",
-                  } as StatModel,
-                  sourceId: "HB",
-                  mode: "add" as ModifierType,
-                  value: 2,
-                },
-                alert: {
-                  templateId: "string",
-                  statModel: {
-                    type: "derived",
-                    key: "initiative",
-                  } as StatModel,
-                  sourceId: "alert",
-                  mode: "add" as ModifierType,
-                  value: 5,
-                },
-              },
-            };
-            saveCharacter(newChar);
-          }}
-        >
-          <Text
-            style={{
-              backgroundColor: "#249A0F",
-              color: "white",
-              textAlign: "center",
-              padding: 10,
-              marginHorizontal: "20%",
-            }}
-          >
-            Test action
-          </Text>
-        </TouchableOpacity>
-      </View>
-
       <View style={[genericStyles.characterCard, { marginHorizontal: 20 }]}>
         <View style={genericStyles.iconContainer}>
           <MaterialIcons name="face" size={24} color="white" />
