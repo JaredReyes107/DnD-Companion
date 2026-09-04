@@ -21,7 +21,7 @@ export const WIZARD: ClassTemplate = {
         id: "spellcasting_wizard",
         source: "class" as const,
         level: 1,
-        grants: [{ type: "resource", id: "spell_slots" }],
+        grants: [],
         tags: ["spells", "spellcasting"],
       },
       {
