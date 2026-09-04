@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Character } from "../core/entities/character/Character";
+import { hydrateCharacter } from "./character-migration";
 
 const CHARACTERS_KEY = "characters";
 
@@ -7,7 +8,9 @@ export const CharacterRepository = {
   async getAll(): Promise<Character[]> {
     try {
       const stored = await AsyncStorage.getItem(CHARACTERS_KEY);
-      return stored ? JSON.parse(stored) : [];
+      const parsed: unknown = stored ? JSON.parse(stored) : [];
+      const list = Array.isArray(parsed) ? parsed : [];
+      return list.map(hydrateCharacter);
     } catch (error) {
       console.error("Failed to fetch characters from storage:", error);
       return [];
