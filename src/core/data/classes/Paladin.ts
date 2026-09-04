@@ -72,7 +72,7 @@ export const PALADIN: ClassTemplate = {
         id: "sacred_oath",
         source: "class" as const,
         level: 3,
-        grants: [{ type: "action", id: "channel_divinity" }],
+        grants: [{ type: "resource", id: "channel_divinity" }],
         tags: ["subclass"],
       },
     ],
