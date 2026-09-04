@@ -55,6 +55,7 @@ import {
 
 import styles from "@/styles/character-creation.styles";
 import genericStyles from "@/styles/generic.styles";
+import { FormattedNumberInput } from "./FormattedNumberInput";
 
 type Props = {
   initialCharacter?: Character | null;
@@ -281,14 +282,9 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       return (
         <View style={styles.fieldContainer}>
           <Text style={styles.fieldHeader}>{ui("xp.full")}</Text>
-          <TextInput
-            keyboardType="numeric"
-            value={formatNaturalNumber(xp)}
-            onChangeText={(text: string) => {
-              if (formatNaturalNumber(xp) !== text) {
-                setXp(returnNaturalNumber(text));
-              }
-            }}
+          <FormattedNumberInput
+            value={xp}
+            onChange={setXp}
             style={styles.input}
           />
         </View>
