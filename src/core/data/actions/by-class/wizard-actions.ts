@@ -61,7 +61,6 @@ export const WIZARD_ACTIONS: Record<string, ActionInstance> = {
     effects: [],
     //TODO: Replace with actual (selected) spell
   },
-
   cast_spell_mastery_2nd: {
     id: "cast_spell_mastery_2nd",
     sourceId: "wizard",
@@ -69,6 +68,13 @@ export const WIZARD_ACTIONS: Record<string, ActionInstance> = {
     duration: { kind: "economy", slot: "action" },
     effects: [],
     //TODO: Replace with actual (selected) spell
+  },
+  replace_spell_mastery: {
+    id: "replace_spell_mastery",
+    sourceId: "wizard",
+    boards: ["downtime"],
+    duration: { kind: "timed", minutes: 480 },
+    effects: [],
   },
 
   cast_signature_spell_1: {
