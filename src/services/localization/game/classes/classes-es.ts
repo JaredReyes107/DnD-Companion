@@ -1,5 +1,6 @@
 import { GameLocalization } from "../../game-localization.types";
 
+import { artificer_es } from "./artificer/es/artificer-es";
 import { barbarian_es } from "./barbarian/es-barbarian";
 import { bard_es } from "./bard/es/bard-es";
 import { cleric_es } from "./cleric/es/cleric-es";
@@ -15,11 +16,7 @@ import { wizard_es } from "./wizard/es/wizard-es";
 
 export const classes_es: GameLocalization = {
   classes: {
-    artificer: {
-      name: "Artífice",
-      description:
-        "Un inventor experto que combina magia y tecnología para crear infusiones, artilugios y objetos mágicos.",
-    },
+    ...artificer_es,
     ...barbarian_es,
     ...bard_es,
     ...cleric_es,

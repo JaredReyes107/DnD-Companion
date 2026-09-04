@@ -12,6 +12,7 @@ import { rogue_actions_en } from "../classes/rogue/en/rogue-actions-en";
 import { sorcerer_actions_en } from "../classes/sorcerer/en/sorcerer-actions-en";
 import { warlock_actions_en } from "../classes/warlock/en/warlock-actions-en";
 import { wizard_actions_en } from "../classes/wizard/en/wizard-actions-en";
+import { artificer_actions_en } from "../classes/artificer/en/artificer-actions-en";
 
 export const actions_en: GameLocalization = {
   actions: {
@@ -27,5 +28,6 @@ export const actions_en: GameLocalization = {
     ...sorcerer_actions_en,
     ...warlock_actions_en,
     ...wizard_actions_en,
+    ...artificer_actions_en,
   },
 };

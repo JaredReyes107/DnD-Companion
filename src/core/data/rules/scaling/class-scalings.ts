@@ -16,16 +16,30 @@ function registerSubclassScalings() {
   });
 
   registerScaling("portent-dice", ({ character }) => {
-    const wizard = Object.values(character.classes.byId).find(
+    const characterClass = Object.values(character.classes.byId).find(
       (c) => c.classId === "wizard",
     );
 
-    if (!wizard) return 0;
+    if (!characterClass) return 0;
 
-    const level = wizard.level;
+    const level = characterClass.level;
 
     if (level >= 14) return 3;
     return 2;
+  });
+
+  registerScaling("experimental-elixir", ({ character }) => {
+    const characterClass = Object.values(character.classes.byId).find(
+      (c) => c.classId === "artificer",
+    );
+
+    if (!characterClass) return 0;
+
+    const level = characterClass.level;
+
+    if (level >= 15) return 3;
+    if (level >= 6) return 2;
+    return 1;
   });
 }
 
@@ -90,6 +104,22 @@ export function registerClassScalings() {
     if (level >= 17) return 3;
     if (level >= 13) return 2;
     return 1;
+  });
+
+  registerScaling("infused-items", ({ character }) => {
+    const characterClass = Object.values(character.classes.byId).find(
+      (c) => c.classId === "artificer",
+    );
+
+    if (!characterClass) return 0;
+
+    const level = characterClass.level;
+
+    if (level >= 18) return 6;
+    if (level >= 14) return 5;
+    if (level >= 10) return 4;
+    if (level >= 6) return 3;
+    return 2;
   });
 
   registerSubclassScalings();

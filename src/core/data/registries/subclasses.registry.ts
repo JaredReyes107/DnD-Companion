@@ -10,6 +10,9 @@ import { PALADIN_SUBCLASSES } from "../classes/subclasses/paladin/paladin-subcla
 import { RANGER_SUBCLASSES } from "../classes/subclasses/ranger/ranger-subclasses";
 import { ROGUE_SUBCLASSES } from "../classes/subclasses/rogue/rogue-subclasses";
 import { SORCERER_SUBCLASSES } from "../classes/subclasses/sorcerer/sorcerer-subclasses";
+import { WARLOCK_SUBCLASSES } from "../classes/subclasses/warlock/warlock-subclasses";
+import { WIZARD_SUBCLASSES } from "../classes/subclasses/wizard/wizard-subclasses";
+import { ARTIFICER_SUBCLASSES } from "../classes/subclasses/artificer/artificer-subclasses";
 
 /**
  * Base subclass definitions imported from data files.
@@ -26,6 +29,9 @@ const BASE_SUBCLASSES: Record<string, SubclassTemplate> = {
   ...RANGER_SUBCLASSES,
   ...ROGUE_SUBCLASSES,
   ...SORCERER_SUBCLASSES,
+  ...WARLOCK_SUBCLASSES,
+  ...WIZARD_SUBCLASSES,
+  ...ARTIFICER_SUBCLASSES,
 };
 
 const homebrewSubclasses: Record<string, SubclassTemplate> = {};

@@ -12,6 +12,7 @@ import { rogue_features_en } from "../classes/rogue/en/rogue-features-en";
 import { sorcerer_features_en } from "../classes/sorcerer/en/sorcerer-features-en";
 import { warlock_features_en } from "../classes/warlock/en/warlock-features-en";
 import { wizard_features_en } from "../classes/wizard/en/wizard-features-en";
+import { artificer_features_en } from "../classes/artificer/en/artificer-features-en";
 
 export const features_en: GameLocalization = {
   features: {
@@ -27,5 +28,6 @@ export const features_en: GameLocalization = {
     ...sorcerer_features_en,
     ...warlock_features_en,
     ...wizard_features_en,
+    ...artificer_features_en,
   },
 };
