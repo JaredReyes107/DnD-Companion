@@ -2,7 +2,7 @@ import { ActionInstance } from "@/core/entities/actions/action-instance";
 
 export const OATHBREAKER_ACTIONS: Record<string, ActionInstance> = {
   channel_divinity_control_undead: {
-    id: "control_undead",
+    id: "channel_divinity_control_undead",
     sourceId: "oathbreaker",
     boards: ["combat"],
     duration: { kind: "economy", slot: "action" },
@@ -10,8 +10,8 @@ export const OATHBREAKER_ACTIONS: Record<string, ActionInstance> = {
       { type: "modifyResource", resourceId: "channel_divinity", amount: -1 },
     ],
   },
-  channel_divinity_supernatural_resistance: {
-    id: "supernatural_resistance",
+  channel_divinity_dreadful_aspect: {
+    id: "channel_divinity_dreadful_aspect",
     sourceId: "oathbreaker",
     boards: ["combat"],
     duration: { kind: "economy", slot: "action" },

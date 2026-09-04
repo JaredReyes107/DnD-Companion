@@ -17,8 +17,8 @@ export const OATHBREAKER: SubclassTemplate = {
         source: "subclass" as const,
         level: 3,
         grants: [
-          { type: "action", id: "control_undead" },
-          { type: "action", id: "dreadful_aspect" },
+          { type: "action", id: "channel_divinity_control_undead" },
+          { type: "action", id: "channel_divinity_dreadful_aspect" },
         ],
         tags: [],
       },
