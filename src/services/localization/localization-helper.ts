@@ -1,5 +1,6 @@
 //import { GameLocale } from "@/services/localization/game-localization.types";
 import { resolveGameText } from "@/services/localization/game-localization-resolver";
+import { useLocaleStore } from "@/store/localizationStore";
 
 //TODO: Adapt this to get the selected language
 const locale = "es";
@@ -9,6 +10,7 @@ export function getLocalizedName(
   id: string,
   fallback = id,
 ): string {
+  const locale = useLocaleStore.getState().locale;
   return resolveGameText(category, id, "name", locale) ?? fallback;
 }
 

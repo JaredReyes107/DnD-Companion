@@ -1,7 +1,7 @@
 import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 
 export const ORDER_OF_SCRIBES: SubclassTemplate = {
-  id: "order_of_scribes",
+  id: "scribes",
   classId: "wizard",
   source: "Tasha's Cauldron of Everything",
 

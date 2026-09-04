@@ -2,7 +2,7 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 
 export const totem_warrior_es: GameLocalizationCategory = {
   totem_warrior: {
-    name: "Guerrero del Totem",
+    name: "Guerrero del Totém",
     description:
       "Un bárbaro que se conecta con el espíritu de un animal totem y recibe sus poderes.",
   },
