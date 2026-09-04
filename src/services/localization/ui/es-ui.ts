@@ -103,4 +103,8 @@ export const es = {
     feats: "De dotes",
     homebrew: "Homebrew",
   },
+  settings: {
+    language: "Idioma",
+    languageSelf: "Español",
+  },
 } as const;

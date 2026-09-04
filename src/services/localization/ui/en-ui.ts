@@ -9,6 +9,10 @@ export const en = {
     singular: "Race",
     input: "Select a race",
   },
+  alignment: {
+    singular: "Alignment",
+    input: "Selecciona un alineamiento",
+  },
   xp: {
     full: "Experience points",
   },
@@ -93,5 +97,9 @@ export const en = {
     racial_features: "Racial",
     feats: "Feats",
     homebrew: "Homebrew",
+  },
+  settings: {
+    language: "Language",
+    languageSelf: "English",
   },
 } as const;
