@@ -21,6 +21,8 @@ import {
 import { CharacterSavingThrows } from "@/core/entities/rules/saving-throw/saving-throw-instance";
 
 // Functions and Helpers
+import { defaultScalarFields } from "@/repositories/character-defaults";
+
 import { getMaximumHitDice } from "@/core/rules/character/hit-dice-helper";
 import { buildAbilityScores } from "@/core/rules/character/ability-scores-helper";
 import { buildSavingThrows } from "@/core/rules/combat/saving-throws-helper";
@@ -39,6 +41,7 @@ import { ThemedView } from "./ThemedView";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import SmoothCounterButton from "./SmoothCounterButton";
+import { FormattedNumberInput } from "./FormattedNumberInput";
 import CustomPicker from "@/components/ui/CustomPicker";
 import { MainClassForm } from "@/components/ui/MainClassForm";
 import { SecondaryClassesForm } from "@/components/ui/SecondaryClassesForm";
@@ -55,7 +58,6 @@ import {
 
 import styles from "@/styles/character-creation.styles";
 import genericStyles from "@/styles/generic.styles";
-import { FormattedNumberInput } from "./FormattedNumberInput";
 
 type Props = {
   initialCharacter?: Character | null;
@@ -143,7 +145,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       id: initialCharacter?.id ?? Crypto.randomUUID(),
       icon: initialCharacter?.icon ?? "face",
       name,
-      race,
+      race: race ?? "Human",
       alignment: alignment ?? "lawful_good",
       experiencePoints: xp,
 
@@ -166,16 +168,12 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       savingThrows,
       skills,
 
-      actionLimits: {
-        actions: 1,
-        bonusActions: 1,
-        reactions: 1,
-      },
+      actionLimits:
+        initialCharacter?.actionLimits ?? defaultScalarFields.actionLimits!,
+      encounterId:
+        initialCharacter?.encounterId ?? defaultScalarFields.encounterId!,
 
-      encounterId: "",
       features: initialCharacter?.features ?? {},
-
-      // Placeholder — will be replaced below
       featureChoices: initialCharacter?.featureChoices ?? {},
       resources: {},
       actions: {},
