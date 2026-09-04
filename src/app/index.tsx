@@ -1,8 +1,6 @@
 // Libraries
 import React, { useEffect } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
-// This import is no longer needed but was not explicitly removed in the instruction, so I'll keep it for now.
-// This import is no longer needed but was not explicitly removed in the instruction, so I'll keep it for now.
 
 // Import custom types
 import { Character } from "@/core/entities/character/Character";
@@ -10,6 +8,7 @@ import { Character } from "@/core/entities/character/Character";
 // Custom Components
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { ThemedView } from "@/components/ui/ThemedView";
+import LocaleSwitch from "@/components/ui/LocaleSwitch";
 
 import { getLocalizedName } from "@/services/localization/localization-helper";
 import { getTotalCharacterLevel } from "@/core/rules/character/character-multiclassing";
@@ -24,6 +23,7 @@ import { CharacterRepository } from "@/repositories/CharacterRepository";
 import { useCharacterStore } from "@/store/characterStore";
 import { useCombatNavigator } from "@/navigation/navigators/combatNavigator";
 import { useCharacterNavigator } from "@/navigation/navigators/characterNavigator";
+import { useLocaleStore } from "@/store/localizationStore";
 
 const IndexScreen = () => {
   const characters = useCharacterStore((s) => s.characters);
@@ -31,6 +31,8 @@ const IndexScreen = () => {
   const selectCharacter = useCharacterStore((s) => s.selectCharacter);
   const combatNavigator = useCombatNavigator();
   const characterNavigator = useCharacterNavigator();
+
+  useLocaleStore((s) => s.locale);
 
   useEffect(() => {
     async function load() {
@@ -130,6 +132,11 @@ const IndexScreen = () => {
         renderItem={renderListItem}
         style={styles.list}
       />
+      <View style={styles.footerContainer}>
+        <View style={styles.footerSectionRight}>
+          <LocaleSwitch />
+        </View>
+      </View>
     </ThemedView>
   );
 };
