@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useCharacterNavigator } from "@/navigation/navigators/characterNavigator";
 
 // Custom Components
 import { ProficiencyIcon } from "@/components/ui/ProficiencyIcon";
@@ -44,7 +44,7 @@ import styles from "@/styles/character-sheet.styles";
 import { ui } from "@/services/localization/ui-localization-resolver";
 
 const CharacterSheetScreen = () => {
-  const router = useRouter();
+  const characterNavigator = useCharacterNavigator();
   const { character, encounter } = useCharacter();
 
   const [_fontsLoaded] = useFonts({
@@ -95,10 +95,9 @@ const CharacterSheetScreen = () => {
               )}
           </Text>
         </View>
-
         <View style={genericStyles.characterCard_ButtonsContainer}>
           <TouchableOpacity
-            onPress={() => router.push("../character-edition")}
+            onPress={() => characterNavigator.goToEdition(character.id)}
             style={genericStyles.characterCard_ActionIcon}
           >
             <MaterialCommunityIcons
