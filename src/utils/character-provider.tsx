@@ -9,7 +9,6 @@ import { Character } from "@/core/entities/character/Character";
 import { EncounterState } from "@/core/entities/combat/encounter-state";
 import { CombatState } from "@/core/entities/combat/combat-state";
 import { CharacterRepository } from "@/repositories/CharacterRepository";
-import { CharacterSelectionRepository } from "@/repositories/CharacterSelectionRepository";
 import { EncounterRepository } from "@/repositories/EncounterRepository";
 
 import { buildCombatState } from "@/core/rules/combat/combat-helper";
@@ -97,19 +96,11 @@ export const CharacterProvider = ({
   }, []);
 
   useEffect(() => {
-    async function init() {
-      if (initialCharacterId) {
-        await loadCharacterById(initialCharacterId);
-      } else {
-        const selectedId = await CharacterSelectionRepository.getSelectedId();
-        if (selectedId) {
-          await loadCharacterById(selectedId);
-        } else {
-          setLoading(false);
-        }
-      }
+    if (initialCharacterId) {
+      loadCharacterById(initialCharacterId);
+    } else {
+      setLoading(false);
     }
-    init();
   }, [initialCharacterId, loadCharacterById]);
 
   /**

@@ -1,6 +1,5 @@
 import { Stack } from "expo-router";
 
-import { CharacterProvider } from "@/utils/character-provider";
 import { useCharacterStore } from "@/store/characterStore";
 import { initializeCoreSystems } from "@/core/init";
 import { View } from "react-native";
@@ -15,7 +14,7 @@ const RootLayout = () => {
   }
 
   return (
-    <CharacterProvider>
+    <>
       <Stack screenOptions={{ headerShown: false }}>
         {/* Auto-nests the views inside the root folder ('app')*/}
         <Stack.Screen name="index" options={{ title: "Inicio" }} />
@@ -24,11 +23,11 @@ const RootLayout = () => {
           options={{ title: "Nuevo Personaje" }}
         />
         <Stack.Screen
-          name="character-edition"
+          name="character-edition/[characterId]"
           options={{ title: "Editar Personaje" }}
         />
       </Stack>
-    </CharacterProvider>
+    </>
   );
 };
 
