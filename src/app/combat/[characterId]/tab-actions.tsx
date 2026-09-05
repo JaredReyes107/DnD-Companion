@@ -1,4 +1,4 @@
-import { Button, FlatList, TouchableOpacity, View } from "react-native";
+import { Button, ScrollView, TouchableOpacity, View } from "react-native";
 import { ThemedView } from "@/components/ui/ThemedView";
 import { ThemedText } from "@/components/ui/ThemedText";
 import { useCharacter } from "@/utils/character-provider";
@@ -116,19 +116,17 @@ const TabActions = () => {
       </View>
 
       {/* Action Board */}
-      <FlatList
-        contentContainerStyle={styles.actionBoard}
-        data={sections}
-        keyExtractor={(action) => action.slot}
-        renderItem={({ item }) => (
+      <ScrollView contentContainerStyle={styles.actionBoard}>
+        {sections.map((item) => (
           <ActionSection
+            key={item.slot}
             slot={item.slot}
             actions={item.actions}
             character={character}
             onUpdate={saveCharacter}
           />
-        )}
-      />
+        ))}
+      </ScrollView>
 
       <View style={styles.footerSection}>
         <Button
