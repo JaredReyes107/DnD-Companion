@@ -23,6 +23,8 @@ export const SUBCLASS_ACTIONS: Record<string, ActionInstance> = {
 };
 
 export const DRUID_ACTIONS: Record<string, ActionInstance> = {
+  ...SUBCLASS_ACTIONS,
+
   wild_shape: {
     id: "wild_shape",
     sourceId: "druid",

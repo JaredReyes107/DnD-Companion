@@ -23,6 +23,8 @@ export const SUBCLASS_RESOURCES: Record<string, ResourceTemplate> = {
 };
 
 export const DRUID_RESOURCES: Record<string, ResourceTemplate> = {
+  ...SUBCLASS_RESOURCES,
+
   wild_shape: {
     id: "wild_shape",
     sourceId: "druid",
@@ -31,6 +33,4 @@ export const DRUID_RESOURCES: Record<string, ResourceTemplate> = {
     recharge: "longRest",
     tags: ["combat", "utility"],
   },
-
-  ...SUBCLASS_RESOURCES,
 };
