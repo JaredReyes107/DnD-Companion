@@ -1,5 +1,5 @@
 // Libraries
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 
 // Import custom types
@@ -24,6 +24,7 @@ import { useCharacterStore } from "@/store/characterStore";
 import { useCombatNavigator } from "@/navigation/navigators/combatNavigator";
 import { useCharacterNavigator } from "@/navigation/navigators/characterNavigator";
 import { useLocaleStore } from "@/store/localizationStore";
+import { useFocusEffect } from "expo-router";
 
 const IndexScreen = () => {
   const characters = useCharacterStore((s) => s.characters);
@@ -34,13 +35,21 @@ const IndexScreen = () => {
 
   useLocaleStore((s) => s.locale);
 
-  useEffect(() => {
-    async function load() {
-      const stored = await CharacterRepository.getAll();
-      setCharacters(stored);
-    }
-    load();
-  }, [setCharacters]);
+  useFocusEffect(
+    useCallback(() => {
+      let cancelled = false;
+
+      async function load() {
+        const stored = await CharacterRepository.getAll();
+        if (!cancelled) setCharacters(stored);
+      }
+      load();
+
+      return () => {
+        cancelled = true;
+      };
+    }, [setCharacters]),
+  );
 
   const deleteItem = async (id: string) => {
     await CharacterRepository.deleteById(id);
