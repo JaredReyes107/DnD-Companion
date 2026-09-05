@@ -95,7 +95,7 @@ const IndexScreen = () => {
           <TouchableOpacity
             onPress={() => {
               selectCharacter(character.id);
-              characterNavigator.goToEdition();
+              characterNavigator.goToEdition(character.id);
             }}
             style={styles.characterCard_ActionIcon}
           >

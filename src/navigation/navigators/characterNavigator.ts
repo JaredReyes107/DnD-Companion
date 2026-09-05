@@ -10,8 +10,8 @@ export const useCharacterNavigator = () => {
       goToCreation: () => {
         router.push(Paths.characterCreation as Href);
       },
-      goToEdition: () => {
-        router.push(Paths.characterEdition as Href);
+      goToEdition: (characterId: string) => {
+        router.push(Paths.characterEdition(characterId) as Href);
       },
       goBack: () => {
         router.back();
