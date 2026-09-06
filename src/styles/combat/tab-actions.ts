@@ -108,8 +108,8 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   actionBoardCell: {
-    width: 65,
-    height: 65,
+    width: 70,
+    height: 70,
     padding: 2,
 
     display: "flex",

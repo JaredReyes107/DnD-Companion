@@ -28,7 +28,7 @@ const SkillProficiencyInput = ({
       >
         <MaterialIcons
           name={hasProficiency ? "circle" : "radio-button-unchecked"}
-          size={16}
+          size={18}
           color="white"
         />
       </TouchableOpacity>
@@ -39,7 +39,7 @@ const SkillProficiencyInput = ({
         >
           <MaterialIcons
             name={hasExpertise ? "circle" : "radio-button-unchecked"}
-            size={16}
+            size={18}
             color="white"
           />
         </TouchableOpacity>
@@ -48,7 +48,7 @@ const SkillProficiencyInput = ({
         <TouchableOpacity style={styles.proficiencyButton} onPress={() => null}>
           <MaterialIcons
             name={hasExpertise ? "circle" : "radio-button-unchecked"}
-            size={16}
+            size={18}
             color="#808080"
           />
         </TouchableOpacity>

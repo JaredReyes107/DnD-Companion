@@ -28,7 +28,7 @@ const SavingThrowProficiencyInput = ({
           name={
             savingThrow.hasProficiency ? "circle" : "radio-button-unchecked"
           }
-          size={16}
+          size={18}
           color="white"
         />
       </TouchableOpacity>
