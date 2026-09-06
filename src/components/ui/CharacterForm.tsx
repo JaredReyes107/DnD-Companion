@@ -124,8 +124,22 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
   const [secondaryClasses, setSecondaryClasses] =
     useState<ClassDraft[]>(secondaryInitial);
 
+  const [validationError, setValidationError] = useState<string | null>(null);
+
   const handleSubmit = () => {
-    const classDrafts = [mainClass, ...secondaryClasses];
+    if (!mainClass.classTemplateId) {
+      setValidationError(ui("errors.mainClassRequired"));
+      return;
+    }
+
+    // Drop secondary slots that were added but never assigned a class —
+    // treated as an abandoned draft, not a validation error.
+    const validSecondaryClasses = secondaryClasses.filter(
+      (c) => c.classTemplateId !== null,
+    );
+
+    setValidationError(null);
+    const classDrafts = [mainClass, ...validSecondaryClasses];
 
     const classesById = Object.fromEntries(
       classDrafts.map((c) => [
@@ -459,6 +473,9 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
 
   const renderSubmitButton = () => (
     <View style={styles.submitButtonContainer}>
+      {validationError && (
+        <Text style={{ color: "#ce343f" }}>{ui("error.mainClassMissing")}</Text>
+      )}
       <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
         <Text style={styles.submitButtonText}>{submitLabel}</Text>
       </TouchableOpacity>

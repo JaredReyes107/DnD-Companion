@@ -128,4 +128,7 @@ export const en = {
     language: "Language",
     languageSelf: "English",
   },
+  error: {
+    mainClassMissing: "Main class must not be empty",
+  },
 } as const;

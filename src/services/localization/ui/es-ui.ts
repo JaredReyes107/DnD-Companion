@@ -128,4 +128,7 @@ export const es = {
     language: "Idioma",
     languageSelf: "Español",
   },
+  error: {
+    mainClassMissing: "La clase principal no puede estar vacía",
+  },
 } as const;
