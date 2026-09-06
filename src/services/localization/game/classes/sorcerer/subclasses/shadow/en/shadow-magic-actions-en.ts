@@ -2,7 +2,7 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 
 export const shadow_magic_actions_en: GameLocalizationCategory = {
   eyes_of_the_dark_darkness: {
-    name: "Eyes of the Dark: Darkness",
+    name: "Cast Darkness",
     description: `You cast the spell 'Darkness' using 2 sorcery points instead of using a spell slots. You can see through the magical darkness created by the spell.`,
   },
   strength_of_the_grave: {

@@ -286,7 +286,7 @@ const CharacterSheetScreen = () => {
         {/* Skills */}
         <View style={styles.detailsSection}>
           <View style={genericStyles.headerContainer}>
-            <Text style={genericStyles.header}>Habilidades</Text>
+            <Text style={genericStyles.header}>{ui("stats.skills")}</Text>
           </View>
 
           <FlatList

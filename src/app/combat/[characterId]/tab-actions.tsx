@@ -130,7 +130,7 @@ const TabActions = () => {
 
       <View style={styles.footerSection}>
         <Button
-          title="Comenzar nueva ronda"
+          title={ui("timeIntervals.startRound")}
           onPress={() => saveCharacter(advanceRound(character))}
         />
       </View>

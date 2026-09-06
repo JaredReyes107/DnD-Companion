@@ -8,6 +8,7 @@ import React from "react";
 
 import { CharacterProvider } from "@/utils/character-provider";
 import { useThemeColor } from "@/hooks/useThemeColor";
+import { ui } from "@/services/localization/ui-localization-resolver";
 
 const TabBarIcon = <T extends string>({
   IconComponent,
@@ -111,35 +112,35 @@ const TabLayout = () => {
         <Tabs.Screen
           name="tab-character-sheet"
           options={{
-            title: "Estadísticas",
+            title: ui("combatTabs.sheet"),
             tabBarIcon: CharacterSheetIcon,
           }}
         />
         <Tabs.Screen
           name="tab-stats"
           options={{
-            title: "Estado",
+            title: ui("combatTabs.stats"),
             tabBarIcon: StatsIcon,
           }}
         />
         <Tabs.Screen
           name="tab-actions"
           options={{
-            title: "Acciones",
+            title: ui("combatTabs.actions"),
             tabBarIcon: ActionsIcon,
           }}
         />
         <Tabs.Screen
           name="tab-resources"
           options={{
-            title: "Recursos",
+            title: ui("combatTabs.resources"),
             tabBarIcon: ResourcesIcon,
           }}
         />
         <Tabs.Screen
           name="tab-equipment"
           options={{
-            title: "Equipamiento",
+            title: ui("combatTabs.equipment"),
             tabBarIcon: EquipmentIcon,
           }}
         />

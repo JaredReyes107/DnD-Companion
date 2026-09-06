@@ -402,7 +402,7 @@ const TabStats = () => {
                     : [styles.deathThrowsTitle, styles.deathThrowsDisabled]
                 }
               >
-                {ui("savingThrows.full")}
+                {ui("savingThrows.death")}
               </ThemedText>
 
               <View style={styles.deathThrowsBody}>
@@ -539,9 +539,7 @@ const TabStats = () => {
             </View>
           </View>
 
-          {/* ---------------------------------------------------------------- */}
-          {/* Hit Dice + Rests                                                  */}
-          {/* ---------------------------------------------------------------- */}
+          {/* Hit Dice + Rests */}
           <View style={styles.sharedSection}>
             <TouchableOpacity
               style={[styles.hitDieSection, styles.sharedSectionLeft]}

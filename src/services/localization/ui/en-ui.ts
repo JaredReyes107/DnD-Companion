@@ -1,4 +1,11 @@
 export const en = {
+  combatTabs: {
+    sheet: "Stats",
+    stats: "Status",
+    actions: "Actions",
+    resources: "Resources",
+    equipment: "Equipment",
+  },
   character: {
     singular: "Character",
     plural: "Characters",
@@ -34,7 +41,7 @@ export const en = {
   },
   savingThrows: {
     full: "Saving Throws",
-    death: "Death saving throws",
+    death: "Death Saving Throws",
     successes: "Passed",
     failures: "Failed",
   },
@@ -88,12 +95,26 @@ export const en = {
     selectClass: "Select a class",
     selectSubclass: "Select a subclass",
   },
+  //tab-stats.tsx
   action: {
     takenDamage: "Damage received",
     newTempHp: "New temporal HP",
     receivedHealing: "Healing received",
     useHitDice: "Use hit die",
   },
+  //tab-actions.tsx
+  actionSection: {
+    action: "Actions",
+    bonusAaction: "Bonus Actions",
+    reaction: "Reactions",
+    instantaneous: "Instantaneous",
+  },
+  timeIntervals: {
+    startTurn: "Start New Turn",
+    endTurn: "End Turn",
+    startRound: "Start New Round",
+  },
+  //tab-resources.tsx
   resourceSection: {
     spell_slots: "Spell slots",
     pact_slots: "Pact slots",
