@@ -130,7 +130,7 @@ export const CharacterProvider = ({
 
     // Persist without combatState — it lives in the encounter
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { combatState, ...characterToStore } = rebuilt;
+    const { ...characterToStore } = rebuilt;
 
     const all = await CharacterRepository.getAll();
     const next = all.map((c) => (c.id === rebuilt.id ? characterToStore : c));
