@@ -3,10 +3,10 @@ import {
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import { useLocalSearchParams, Tabs } from "expo-router";
-import React from "react";
+import { useLocalSearchParams, Tabs, useFocusEffect } from "expo-router";
+import React, { useCallback } from "react";
 
-import { CharacterProvider } from "@/utils/character-provider";
+import { CharacterProvider, useCharacter } from "@/utils/character-provider";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { ui } from "@/services/localization/ui-localization-resolver";
 
@@ -91,60 +91,74 @@ const EquipmentIcon = ({
   />
 );
 
-const TabLayout = () => {
-  const { characterId } = useLocalSearchParams<{ characterId: string }>();
+const TabLayoutInner = ({ characterId }: { characterId: string }) => {
+  const { loadCharacterById } = useCharacter();
   const tint = useThemeColor({}, "tint");
   const tabBarBackground = useThemeColor({}, "tabBarBackground");
 
+  useFocusEffect(
+    useCallback(() => {
+      loadCharacterById(characterId);
+    }, [characterId, loadCharacterById]),
+  );
+
+  return (
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: tint,
+        tabBarStyle: {
+          backgroundColor: tabBarBackground,
+          borderTopColor: "transparent",
+        },
+        headerShown: false,
+        lazy: true,
+      }}
+    >
+      <Tabs.Screen
+        name="tab-character-sheet"
+        options={{
+          title: ui("combatTabs.sheet"),
+          tabBarIcon: CharacterSheetIcon,
+        }}
+      />
+      <Tabs.Screen
+        name="tab-stats"
+        options={{
+          title: ui("combatTabs.stats"),
+          tabBarIcon: StatsIcon,
+        }}
+      />
+      <Tabs.Screen
+        name="tab-actions"
+        options={{
+          title: ui("combatTabs.actions"),
+          tabBarIcon: ActionsIcon,
+        }}
+      />
+      <Tabs.Screen
+        name="tab-resources"
+        options={{
+          title: ui("combatTabs.resources"),
+          tabBarIcon: ResourcesIcon,
+        }}
+      />
+      <Tabs.Screen
+        name="tab-equipment"
+        options={{
+          title: ui("combatTabs.equipment"),
+          tabBarIcon: EquipmentIcon,
+        }}
+      />
+    </Tabs>
+  );
+};
+
+const TabLayout = () => {
+  const { characterId } = useLocalSearchParams<{ characterId: string }>();
+
   return (
     <CharacterProvider initialCharacterId={characterId}>
-      <Tabs
-        screenOptions={{
-          tabBarActiveTintColor: tint,
-          tabBarStyle: {
-            backgroundColor: tabBarBackground,
-            borderTopColor: "transparent",
-          },
-          headerShown: false,
-          lazy: true,
-        }}
-      >
-        <Tabs.Screen
-          name="tab-character-sheet"
-          options={{
-            title: ui("combatTabs.sheet"),
-            tabBarIcon: CharacterSheetIcon,
-          }}
-        />
-        <Tabs.Screen
-          name="tab-stats"
-          options={{
-            title: ui("combatTabs.stats"),
-            tabBarIcon: StatsIcon,
-          }}
-        />
-        <Tabs.Screen
-          name="tab-actions"
-          options={{
-            title: ui("combatTabs.actions"),
-            tabBarIcon: ActionsIcon,
-          }}
-        />
-        <Tabs.Screen
-          name="tab-resources"
-          options={{
-            title: ui("combatTabs.resources"),
-            tabBarIcon: ResourcesIcon,
-          }}
-        />
-        <Tabs.Screen
-          name="tab-equipment"
-          options={{
-            title: ui("combatTabs.equipment"),
-            tabBarIcon: EquipmentIcon,
-          }}
-        />
-      </Tabs>
+      <TabLayoutInner characterId={characterId} />
     </CharacterProvider>
   );
 };
