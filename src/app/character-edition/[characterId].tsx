@@ -1,13 +1,21 @@
-import React from "react";
-import { useLocalSearchParams } from "expo-router";
+import React, { useCallback } from "react";
+import { useFocusEffect, useLocalSearchParams } from "expo-router";
 import CharacterForm from "@/components/ui/CharacterForm";
-import { CharacterProvider, useCharacter } from "@/utils/character-provider";
+import { useCharacter } from "@/utils/character-provider";
 import { Character } from "@/core/entities/character/Character";
 import { useCharacterNavigator } from "@/navigation/navigators/characterNavigator";
 
-const EditCharacterScreenInner = () => {
+const EditCharacterScreen = () => {
+  const { characterId } = useLocalSearchParams<{ characterId: string }>();
   const characterNavigator = useCharacterNavigator();
-  const { character, saveCharacter, loading } = useCharacter();
+  const { character, saveCharacter, loading, loadCharacterById } =
+    useCharacter();
+
+  useFocusEffect(
+    useCallback(() => {
+      loadCharacterById(characterId);
+    }, [characterId, loadCharacterById]),
+  );
 
   if (loading || !character) return null;
 
@@ -22,16 +30,6 @@ const EditCharacterScreenInner = () => {
       onSubmit={handleUpdate}
       submitLabel="Guardar Cambios"
     />
-  );
-};
-
-const EditCharacterScreen = () => {
-  const { characterId } = useLocalSearchParams<{ characterId: string }>();
-
-  return (
-    <CharacterProvider initialCharacterId={characterId}>
-      <EditCharacterScreenInner />
-    </CharacterProvider>
   );
 };
 

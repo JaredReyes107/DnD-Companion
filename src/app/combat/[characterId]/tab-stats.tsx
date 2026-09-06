@@ -1,5 +1,5 @@
 import { FontAwesome, FontAwesome6, Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Text,
   View,
@@ -8,12 +8,13 @@ import {
   Button,
   TextInput,
 } from "react-native";
+import { useCharacter } from "@/utils/character-provider";
+import { useFocusEffect } from "expo-router";
 
 import { ThemedText } from "@/components/ui/ThemedText";
 import { ThemedView } from "@/components/ui/ThemedView";
 
 import { returnNaturalNumber } from "@/utils/input-handler";
-import { useCharacter } from "@/utils/character-provider";
 import { takeLongRest, takeShortRest } from "@/core/rules/character/resting";
 import {
   getCurrentHitDiceAsArray,
@@ -40,7 +41,15 @@ import styles from "@/styles/combat/index.styles";
 import genericStyles from "@/styles/generic.styles";
 
 const TabStats = () => {
-  const { character, saveCharacter, loading } = useCharacter();
+  const { character, saveCharacter, loading, loadCharacterById } =
+    useCharacter();
+  const characterId = character?.id;
+
+  useFocusEffect(
+    useCallback(() => {
+      if (characterId) loadCharacterById(characterId);
+    }, [characterId, loadCharacterById]),
+  );
 
   const totalHP =
     (character?.hitPoints.temporalHP ?? 0) +

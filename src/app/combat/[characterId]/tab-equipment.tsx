@@ -1,4 +1,5 @@
 import { View } from "react-native";
+//import { useLocalSearchParams } from "expo-router";
 
 import { ThemedText } from "@/components/ui/ThemedText";
 import { ThemedView } from "@/components/ui/ThemedView";
@@ -9,14 +10,14 @@ import styles from "@/styles/combat/index.styles";
 import genericStyles from "@/styles/generic.styles";
 
 const App = () => {
+  //const { characterId } = useLocalSearchParams<{ characterId: string }>();
   const { character, loading } = useCharacter();
-  //#endregion
 
   if (loading || !character?.combatState) {
     return (
-      <View>
+      <ThemedView>
         <ThemedText>Cargando personaje…</ThemedText>
-      </View>
+      </ThemedView>
     );
   }
 

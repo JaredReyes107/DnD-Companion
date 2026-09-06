@@ -6,7 +6,7 @@ import {
 import { useLocalSearchParams, Tabs, useFocusEffect } from "expo-router";
 import React, { useCallback } from "react";
 
-import { CharacterProvider, useCharacter } from "@/utils/character-provider";
+import { useCharacter } from "@/utils/character-provider";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { ui } from "@/services/localization/ui-localization-resolver";
 
@@ -91,7 +91,8 @@ const EquipmentIcon = ({
   />
 );
 
-const TabLayoutInner = ({ characterId }: { characterId: string }) => {
+const TabLayout = () => {
+  const { characterId } = useLocalSearchParams<{ characterId: string }>();
   const { loadCharacterById } = useCharacter();
   const tint = useThemeColor({}, "tint");
   const tabBarBackground = useThemeColor({}, "tabBarBackground");
@@ -150,16 +151,6 @@ const TabLayoutInner = ({ characterId }: { characterId: string }) => {
         }}
       />
     </Tabs>
-  );
-};
-
-const TabLayout = () => {
-  const { characterId } = useLocalSearchParams<{ characterId: string }>();
-
-  return (
-    <CharacterProvider initialCharacterId={characterId}>
-      <TabLayoutInner characterId={characterId} />
-    </CharacterProvider>
   );
 };
 

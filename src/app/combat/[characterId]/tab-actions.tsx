@@ -2,6 +2,8 @@ import { Button, ScrollView, TouchableOpacity, View } from "react-native";
 import { ThemedView } from "@/components/ui/ThemedView";
 import { ThemedText } from "@/components/ui/ThemedText";
 import { useCharacter } from "@/utils/character-provider";
+import { useFocusEffect } from "expo-router";
+import { useCallback } from "react";
 
 import { ActionSection } from "@/components/ui/ActionSection";
 
@@ -18,8 +20,20 @@ import genericStyles from "@/styles/generic.styles";
 import styles from "@/styles/combat/tab-actions";
 
 const TabActions = () => {
-  const { character, encounter, saveCharacter, saveEncounter, loading } =
-    useCharacter();
+  const {
+    character,
+    encounter,
+    saveCharacter,
+    saveEncounter,
+    loading,
+    loadCharacterById,
+  } = useCharacter();
+
+  useFocusEffect(
+    useCallback(() => {
+      if (character?.id) loadCharacterById(character.id);
+    }, [character?.id, loadCharacterById]),
+  );
 
   if (loading || !character || !encounter || !character.combatState) {
     return (

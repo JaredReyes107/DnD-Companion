@@ -1,9 +1,10 @@
 import React, {
   createContext,
   useContext,
-  useEffect,
   useState,
   useCallback,
+  useRef,
+  useEffect,
 } from "react";
 import { Character } from "@/core/entities/character/Character";
 import { EncounterState } from "@/core/entities/combat/encounter-state";
@@ -66,17 +67,25 @@ const CharacterContext = createContext<CharacterContextType | null>(null);
 
 export const CharacterProvider = ({
   children,
-  initialCharacterId,
 }: {
   children: React.ReactNode;
   initialCharacterId?: string;
 }) => {
   const [character, setCharacter] = useState<Character | null>(null);
   const [encounter, setEncounter] = useState<EncounterState | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const characterRef = useRef<Character | null>(null);
+  useEffect(() => {
+    characterRef.current = character;
+  }, [character]);
 
   const loadCharacterById = useCallback(async (id: string) => {
-    setLoading(true);
+    const isFirstLoadOfThisCharacter =
+      characterRef.current === null || characterRef.current.id !== id;
+
+    if (isFirstLoadOfThisCharacter) setLoading(true);
+
     try {
       const raw = await CharacterRepository.getById(id);
       if (!raw) {
@@ -91,17 +100,9 @@ export const CharacterProvider = ({
       setCharacter(hydrated);
       setEncounter(enc);
     } finally {
-      setLoading(false);
+      if (isFirstLoadOfThisCharacter) setLoading(false);
     }
   }, []);
-
-  useEffect(() => {
-    if (initialCharacterId) {
-      loadCharacterById(initialCharacterId);
-    } else {
-      setLoading(false);
-    }
-  }, [initialCharacterId, loadCharacterById]);
 
   /**
    * Saves a character mutation.

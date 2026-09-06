@@ -1,5 +1,5 @@
 // Libraries
-import React from "react";
+import React, { useCallback } from "react";
 import {
   ScrollView,
   View,
@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
+import { useCharacter } from "@/utils/character-provider";
+import { useFocusEffect } from "expo-router";
 import { useCharacterNavigator } from "@/navigation/navigators/characterNavigator";
 
 // Custom Components
@@ -26,30 +28,32 @@ import { formatNaturalNumber } from "@/utils/input-handler";
 import { PrintNumberWithSign } from "@/utils/formater-numbers";
 import { getCharacterSkillsAsArray } from "@/core/rules/combat/skills-helper";
 import { getCharacterSavingThrowsAsArray } from "@/core/rules/combat/saving-throws-helper";
-import { useCharacter } from "@/utils/character-provider";
 import {
   getLocalizedName,
   getLocalizedShortName,
 } from "@/services/localization/localization-helper";
 
 // Styles
-import { useFonts } from "expo-font";
-import { Montserrat_500Medium } from "@expo-google-fonts/montserrat";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 
 // Custom Styles
 import genericStyles from "@/styles/generic.styles";
 import styles from "@/styles/character-sheet.styles";
+import { Montserrat_500Medium, useFonts } from "@expo-google-fonts/montserrat";
 
 import { ui } from "@/services/localization/ui-localization-resolver";
 
 const CharacterSheetScreen = () => {
   const characterNavigator = useCharacterNavigator();
-  const { character, encounter } = useCharacter();
+  const { character, encounter, loadCharacterById } = useCharacter();
 
-  const [_fontsLoaded] = useFonts({
-    Montserrat: Montserrat_500Medium,
-  });
+  const [_fontsLoaded] = useFonts({ Montserrat: Montserrat_500Medium });
+
+  useFocusEffect(
+    useCallback(() => {
+      if (character?.id) loadCharacterById(character.id);
+    }, [character?.id, loadCharacterById]),
+  );
 
   if (!character || !encounter || !_fontsLoaded) {
     return (
