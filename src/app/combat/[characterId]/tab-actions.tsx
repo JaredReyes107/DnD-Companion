@@ -130,17 +130,19 @@ const TabActions = () => {
       </View>
 
       {/* Action Board */}
-      <ScrollView contentContainerStyle={styles.actionBoard}>
-        {sections.map((item) => (
-          <ActionSection
-            key={item.slot}
-            slot={item.slot}
-            actions={item.actions}
-            character={character}
-            onUpdate={saveCharacter}
-          />
-        ))}
-      </ScrollView>
+      <View style={{ flex: 1, marginVertical: 7.5 }}>
+        <ScrollView contentContainerStyle={styles.actionBoard}>
+          {sections.map((item) => (
+            <ActionSection
+              key={item.slot}
+              slot={item.slot}
+              actions={item.actions}
+              character={character}
+              onUpdate={saveCharacter}
+            />
+          ))}
+        </ScrollView>
+      </View>
 
       <View style={styles.footerSection}>
         <Button

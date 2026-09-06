@@ -81,13 +81,11 @@ const styles = StyleSheet.create({
   },
 
   actionBoard: {
-    flex: 1,
+    flexGrow: 1,
 
     display: "flex",
     justifyContent: "flex-start",
     gap: 7.5,
-
-    marginVertical: 7.5,
   },
   actionBoardRow: {
     display: "flex",
