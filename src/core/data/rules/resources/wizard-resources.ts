@@ -9,7 +9,7 @@ import { ILLUSION_RESOURCES } from "./wizard/illusion-resources";
 import { NECROMANCY_RESOURCES } from "./wizard/necromancy-resources";
 import { TRANSMUTATION_RESOURCES } from "./wizard/transmutation-resources";
 
-import { WAR_MAGIC_RESOURCES } from "./wizard/war-resources";
+import { WAR_MAGIC_RESOURCES } from "./wizard/war-magic-resources";
 
 import { BLADESINGING_RESOURCES } from "./wizard/bladesinging-resources";
 import { ORDER_OF_SCRIBES_RESOURCES } from "./wizard/scribes-resources";

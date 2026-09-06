@@ -27,10 +27,10 @@ const bard_subclass_actions: GameLocalizationCategory = {
 
 export const bard_actions_en: GameLocalizationCategory = {
   bardic_inspiration: {
-    name: "Inspiración bárdica",
+    name: "Bardic Inspiration",
   },
   countercharm: {
-    name: "Contraencanto",
+    name: "Countercharm",
   },
 
   ...bard_subclass_actions,

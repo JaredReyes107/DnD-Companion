@@ -105,7 +105,7 @@ export const es = {
   //tab-actions.tsx
   actionSection: {
     action: "Acciones",
-    bonusAaction: "Acciones Adicionales",
+    bonusAction: "Acciones Adicionales",
     reaction: "Reacciones",
     instantaneous: "Inmediatas",
   },
