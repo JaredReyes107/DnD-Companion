@@ -9,7 +9,8 @@ export const en = {
   character: {
     singular: "Character",
     plural: "Characters",
-    add: "Add character",
+    create: "Create Character",
+    save: "Save Character",
     input: "Character's name",
   },
   race: {
@@ -27,7 +28,6 @@ export const en = {
     singular: "Class",
     plural: "Classes",
     main: "Main class",
-    add: "Add class",
     input: "Select a class",
   },
   subclass: {
@@ -93,6 +93,7 @@ export const en = {
     selectOption: "Select and option",
     selectAlignment: "Select an alignment",
     selectClass: "Select a class",
+    addClass: "Add class",
     selectSubclass: "Select a subclass",
   },
   //tab-stats.tsx

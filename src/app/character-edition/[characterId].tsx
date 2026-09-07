@@ -4,6 +4,7 @@ import CharacterForm from "@/components/ui/CharacterForm";
 import { useCharacter } from "@/utils/character-provider";
 import { Character } from "@/core/entities/character/Character";
 import { useCharacterNavigator } from "@/navigation/navigators/characterNavigator";
+import { ui } from "@/services/localization/ui-localization-resolver";
 
 const EditCharacterScreen = () => {
   const { characterId } = useLocalSearchParams<{ characterId: string }>();
@@ -28,7 +29,7 @@ const EditCharacterScreen = () => {
     <CharacterForm
       initialCharacter={character}
       onSubmit={handleUpdate}
-      submitLabel="Guardar Cambios"
+      submitLabel={ui("character.save")}
     />
   );
 };

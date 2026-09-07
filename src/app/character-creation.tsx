@@ -4,6 +4,7 @@ import { Character } from "@/core/entities/character/Character";
 import { CharacterRepository } from "@/repositories/CharacterRepository";
 import { useCharacterNavigator } from "@/navigation/navigators/characterNavigator";
 import { useCharacterStore } from "@/store/characterStore";
+import { ui } from "@/services/localization/ui-localization-resolver";
 
 const CreateCharacterScreen = () => {
   const characterNavigator = useCharacterNavigator();
@@ -24,7 +25,7 @@ const CreateCharacterScreen = () => {
     <CharacterForm
       initialCharacter={null}
       onSubmit={handleCreate}
-      submitLabel="Crear Personaje"
+      submitLabel={ui("character.create")}
     />
   );
 };

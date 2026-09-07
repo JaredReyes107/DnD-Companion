@@ -372,7 +372,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
         ])
       }
     >
-      <Text style={styles.addClassButton}>+ Añadir clase</Text>
+      <Text style={styles.addClassButton}>+ {ui("picker.addClass")}</Text>
     </TouchableOpacity>
   );
 
