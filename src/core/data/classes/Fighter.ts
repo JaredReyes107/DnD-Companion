@@ -11,10 +11,10 @@ export const FIGHTER: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "fighting_style",
+        id: "fighting_style_fighter",
         source: "class",
         level: 1,
-        grants: [{ type: "choice", id: "fighting_style" }],
+        grants: [{ type: "choice", id: "fighting_style_fighter" }],
         tags: ["build-choice"],
       },
       {

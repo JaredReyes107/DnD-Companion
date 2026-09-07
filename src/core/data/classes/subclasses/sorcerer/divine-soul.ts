@@ -11,7 +11,7 @@ export const DIVINE_SOUL: SubclassTemplate = {
         id: "divine_magic",
         source: "subclass" as const,
         level: 1,
-        grants: [{ type: "choice", id: "divine_magic_affinity" }],
+        grants: [], //TODO: Choice/Pool
         tags: ["spells", "build-choice"],
       },
       {

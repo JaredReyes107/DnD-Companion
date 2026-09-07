@@ -32,10 +32,10 @@ export const RANGER: ClassTemplate = {
 
     2: [
       {
-        id: "fighting_style",
+        id: "fighting_style_ranger",
         source: "class" as const,
         level: 2,
-        grants: [{ type: "choice", id: "fighting_style" }],
+        grants: [{ type: "choice", id: "fighting_style_ranger" }],
         tags: [],
       },
       {

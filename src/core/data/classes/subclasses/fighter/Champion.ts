@@ -28,7 +28,8 @@ export const CHAMPION: SubclassTemplate = {
         id: "additional_fighting_style",
         source: "subclass" as const,
         level: 10,
-        grants: [{ type: "choice", id: "fighting_style" }],
+        grants: [],
+        // TODO: Add override. (+1 to number of picks)
         tags: [],
       },
     ],

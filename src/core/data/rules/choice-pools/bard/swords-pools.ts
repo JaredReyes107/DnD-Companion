@@ -1,8 +1,8 @@
 import { ChoicePoolTemplate } from "@/core/entities/rules/choice-pool-template";
 
 export const SWORDS_POOLS: Record<string, ChoicePoolTemplate> = {
-  swords_fighting_styles: {
-    id: "swords_fighting_styles",
+  fighting_style_swords: {
+    id: "fighting_style_swords",
     sourceId: "swords",
     classId: "bard",
     selectionTrigger: "onLevelUp",

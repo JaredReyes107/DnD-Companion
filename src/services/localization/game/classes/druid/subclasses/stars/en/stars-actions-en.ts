@@ -2,9 +2,14 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 
 export const stars_actions_en: GameLocalizationCategory = {
   star_map_guiding_bolt: {
-    name: "Star Map: Guiding Bolt",
+    name: "Cast Guiding Bolt",
     description:
       "You cast the spell Guiding Bolt, without expending a spell slot.",
+  },
+  starry_form: {
+    name: "Starry Form",
+    description:
+      "You spend 1 use of Wild Shape and adopt a starry form for 10 minutes, until you are incapacitated, until you die or until you use this feature again. For you starry form, you can choose between Archer, Calice and Dragon.",
   },
   cosmic_omen: {
     name: "Cosmic Omen",

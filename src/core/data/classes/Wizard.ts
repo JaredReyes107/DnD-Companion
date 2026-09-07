@@ -41,7 +41,7 @@ export const WIZARD: ClassTemplate = {
         id: "arcane_tradition",
         source: "class" as const,
         level: 2,
-        grants: [{ type: "choice", id: "arcane_tradition" }],
+        grants: [],
         tags: ["build-choice", "subclass"],
       },
     ],
@@ -52,8 +52,6 @@ export const WIZARD: ClassTemplate = {
         source: "class" as const,
         level: 18,
         grants: [
-          { type: "choice", id: "spell_mastery_1" },
-          { type: "choice", id: "spell_mastery_2" },
           { type: "action", id: "cast_spell_mastery_1st" },
           { type: "action", id: "cast_spell_mastery_2nd" },
           { type: "action", id: "replace_spell_mastery" },
@@ -68,7 +66,6 @@ export const WIZARD: ClassTemplate = {
         source: "class" as const,
         level: 20,
         grants: [
-          { type: "choice", id: "signature_spells" },
           { type: "action", id: "cast_signature_spell_1" },
           { type: "action", id: "cast_signature_spell_2" },
           { type: "resource", id: "signature_spell_1" },

@@ -11,7 +11,7 @@ export const DRACONIC_BLOODLINE: SubclassTemplate = {
         id: "dragon_ancestor",
         source: "subclass" as const,
         level: 1,
-        grants: [{ type: "choice", id: "dragon_ancestor" }],
+        grants: [], //TODO: Choice/Pool
         //TODO: Grant language (draconic),
         tags: ["build-choice", "expertise", "language"],
       },
@@ -19,7 +19,7 @@ export const DRACONIC_BLOODLINE: SubclassTemplate = {
         id: "draconic_resilience",
         source: "subclass" as const,
         level: 1,
-        grants: [{ type: "choice", id: "dragon_ancestor" }],
+        grants: [],
         //TODO: Modifier. Permanent. While unarmored, override AC formula
         //TODO: Modifier, permanent. +1 MaxHp per level
         tags: ["ac", "maximumHp"],

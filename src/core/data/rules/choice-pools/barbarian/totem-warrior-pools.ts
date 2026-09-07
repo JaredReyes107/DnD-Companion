@@ -26,6 +26,7 @@ export const TOTEM_WARRIOR_POOLS: Record<string, ChoicePoolTemplate> = {
       "aspect_bear",
       "aspect_eagle",
       "aspect_wolf",
+      // XGE additions
       "aspect_elk",
       "aspect_tiger",
     ],
@@ -41,18 +42,10 @@ export const TOTEM_WARRIOR_POOLS: Record<string, ChoicePoolTemplate> = {
       "attunement_bear",
       "attunement_eagle",
       "attunement_wolf",
+      // XGE additions
       "attunement_elk",
       "attunement_tiger",
     ],
     picksAtLevel: { 14: 1 },
-  },
-
-  bestial_soul_movement: {
-    id: "bestial_soul_movement",
-    sourceId: "beast",
-    classId: "barbarian",
-    selectionTrigger: "onLevelUp",
-    optionIds: ["bestial_soul_climb", "bestial_soul_swim", "bestial_soul_fly"],
-    picksAtLevel: { 6: 1 },
   },
 };
