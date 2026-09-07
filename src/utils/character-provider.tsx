@@ -1,15 +1,15 @@
 import React, {
   createContext,
   useContext,
-  useEffect,
   useState,
   useCallback,
+  useRef,
+  useEffect,
 } from "react";
 import { Character } from "@/core/entities/character/Character";
 import { EncounterState } from "@/core/entities/combat/encounter-state";
 import { CombatState } from "@/core/entities/combat/combat-state";
 import { CharacterRepository } from "@/repositories/CharacterRepository";
-import { CharacterSelectionRepository } from "@/repositories/CharacterSelectionRepository";
 import { EncounterRepository } from "@/repositories/EncounterRepository";
 
 import { buildCombatState } from "@/core/rules/combat/combat-helper";
@@ -67,17 +67,25 @@ const CharacterContext = createContext<CharacterContextType | null>(null);
 
 export const CharacterProvider = ({
   children,
-  initialCharacterId,
 }: {
   children: React.ReactNode;
   initialCharacterId?: string;
 }) => {
   const [character, setCharacter] = useState<Character | null>(null);
   const [encounter, setEncounter] = useState<EncounterState | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const characterRef = useRef<Character | null>(null);
+  useEffect(() => {
+    characterRef.current = character;
+  }, [character]);
 
   const loadCharacterById = useCallback(async (id: string) => {
-    setLoading(true);
+    const isFirstLoadOfThisCharacter =
+      characterRef.current === null || characterRef.current.id !== id;
+
+    if (isFirstLoadOfThisCharacter) setLoading(true);
+
     try {
       const raw = await CharacterRepository.getById(id);
       if (!raw) {
@@ -92,25 +100,9 @@ export const CharacterProvider = ({
       setCharacter(hydrated);
       setEncounter(enc);
     } finally {
-      setLoading(false);
+      if (isFirstLoadOfThisCharacter) setLoading(false);
     }
   }, []);
-
-  useEffect(() => {
-    async function init() {
-      if (initialCharacterId) {
-        await loadCharacterById(initialCharacterId);
-      } else {
-        const selectedId = await CharacterSelectionRepository.getSelectedId();
-        if (selectedId) {
-          await loadCharacterById(selectedId);
-        } else {
-          setLoading(false);
-        }
-      }
-    }
-    init();
-  }, [initialCharacterId, loadCharacterById]);
 
   /**
    * Saves a character mutation.
@@ -137,9 +129,8 @@ export const CharacterProvider = ({
     setCharacter(rebuilt);
 
     // Persist without combatState — it lives in the encounter
-    const { combatState: characterToStore } = rebuilt as Character & {
-      combatState?: CombatState;
-    };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { ...characterToStore } = rebuilt;
 
     const all = await CharacterRepository.getAll();
     const next = all.map((c) => (c.id === rebuilt.id ? characterToStore : c));

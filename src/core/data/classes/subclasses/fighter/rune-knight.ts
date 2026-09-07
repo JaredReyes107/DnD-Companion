@@ -16,7 +16,7 @@ export const RUNE_KNIGHT: SubclassTemplate = {
         id: "rune_carver",
         source: "subclass",
         level: 3,
-        grants: [{ type: "choice", id: "rune_knight_runes_known" }],
+        grants: [{ type: "choice", id: "rune_knight_runes" }],
         tags: ["build-choice", "utility"],
       },
       {

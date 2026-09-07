@@ -1,120 +1,110 @@
 import { Character } from "@/core/entities/character/Character";
-import { CharacterClasses } from "@/core/entities/character/character-classes";
 import { SpellSlotLevel } from "@/core/entities/spellcasting/spell-slot-instance";
 import {
   getClassInstanceByTemplateId,
   getClassTemplateById,
 } from "@/core/data/registries/classes.registry";
+import { ClassInstance } from "../character/class-instance";
+import { SpellcastingTemplate } from "../rules/spellcasting-template";
 import { getSubclassTemplateById } from "@/core/data/registries/subclasses.registry";
 import { CharacterResources } from "@/core/entities/resources/character-resources";
-import { getSpellcastingTemplateByClassTemplateId } from "@/core/rules/spellcasting/spellcasting-helper";
 import {
   getAbilityModifier,
   getProficiencyBonus,
 } from "@/core/rules/character/abilities-modifiers";
 
-export function hasSpellcasting(character: Character): boolean {
-  const characterClasses = character.classes;
+export type SpellcastingEntry = {
+  classInstanceId: string; // key in classes.byId / classes.order
+  classInstance: ClassInstance;
+  spellcastingTemplate: SpellcastingTemplate;
+};
 
-  for (const classId of characterClasses.order) {
-    const classInstance = characterClasses.byId[classId];
+export function getSpellcastingEntries(
+  character: Character,
+): SpellcastingEntry[] {
+  const entries: SpellcastingEntry[] = [];
+
+  for (const classInstanceId of character.classes.order) {
+    const classInstance = character.classes.byId[classInstanceId];
     const classTemplate = getClassTemplateById(classInstance.classId);
 
-    if (classTemplate?.spellcastingTemplate) return true;
+    const subclassTemplate = classInstance.subclassId
+      ? getSubclassTemplateById(classInstance.subclassId)
+      : undefined;
 
-    if (classInstance.subclassId) {
-      const subclassTemplate = getSubclassTemplateById(
-        classInstance.subclassId,
-      );
-      if (subclassTemplate?.spellcastingTemplate) return true;
-    }
-  }
-
-  return false;
-}
-
-export function getTotalCasterLevel(
-  characterClasses: CharacterClasses,
-): number {
-  let total = 0;
-
-  for (const classId of characterClasses.order) {
-    const classInstance = characterClasses.byId[classId];
-    const classTemplate = getClassTemplateById(classInstance.classId);
-
+    // Class-level spellcasting takes priority; a subclass grants it only
+    // when the base class itself doesn't (e.g. Eldritch Knight, Arcane Trickster).
     const spellcastingTemplate =
-      classTemplate.spellcastingTemplate ??
-      (classInstance.subclassId
-        ? getSubclassTemplateById(classInstance.subclassId).spellcastingTemplate
-        : undefined);
+      classTemplate?.spellcastingTemplate ??
+      subclassTemplate?.spellcastingTemplate;
 
     if (!spellcastingTemplate) continue;
 
-    switch (spellcastingTemplate.progression) {
+    entries.push({ classInstanceId, classInstance, spellcastingTemplate });
+  }
+
+  return entries;
+}
+
+export function hasSpellcasting(character: Character): boolean {
+  return getSpellcastingEntries(character).length > 0;
+}
+
+export function getTotalCasterLevel(character: Character): number {
+  return getSpellcastingEntries(character).reduce((total, entry) => {
+    switch (entry.spellcastingTemplate.progression) {
       case "full":
-        total += classInstance.level;
-        break;
+        return total + entry.classInstance.level;
       case "half":
-        total += Math.floor(classInstance.level / 2);
-        break;
+        return total + Math.floor(entry.classInstance.level / 2);
       case "third":
-        total += Math.floor(classInstance.level / 3);
-        break;
+        return total + Math.floor(entry.classInstance.level / 3);
+      default:
+        return total;
     }
-  }
-
-  return total;
+  }, 0);
 }
 
 //TODO: Make it per class
+export function getSpellAttackModifierForEntry(
+  character: Character,
+  entry: SpellcastingEntry,
+): number {
+  const ability = entry.spellcastingTemplate.ability;
+  //TODO: [Modifiers] Replace attribute with derived data resolver
+  const abilityScore = character.baseAbilityScores[ability];
+
+  return getAbilityModifier(abilityScore) + getProficiencyBonus(character);
+}
+
+//TODO: Make it per class
+export function getSpellSaveDCForEntry(
+  character: Character,
+  entry: SpellcastingEntry,
+): number {
+  const ability = entry.spellcastingTemplate.ability;
+  //TODO: [Modifiers] Replace attribute with derived data resolver
+  const abilityScore = character.baseAbilityScores[ability];
+
+  return 8 + getAbilityModifier(abilityScore) + getProficiencyBonus(character);
+}
+
+/**
+ * @deprecated Temporary aggregate for single-value stat resolution
+ * (stat-resolver.ts). Picks the character's first spellcasting class
+ * arbitrarily. Once the UI supports per-class display, callers should
+ * use getSpellAttackModifierForEntry with a specific SpellcastingEntry
+ * instead, and this should be removed.
+ */
 export function getSpellAttackModifier(character: Character): number {
-  if (!hasSpellcasting(character)) {
-    return 0;
-  }
-
-  const classInstance = character.classes.byId[character.classes.order[0]];
-  const spellcastingTemplate = getSpellcastingTemplateByClassTemplateId(
-    classInstance.classId,
-    classInstance.subclassId,
-  );
-
-  const spellcastingAbility = spellcastingTemplate.ability;
-  //TODO: [Modifiers] Replace attribute with derived data
-  const spellcastingAbilityScore =
-    character.baseAbilityScores[spellcastingAbility];
-
-  //TODO: [Modifiers] Replace with derived data resolver
-  const baseSpellAttackModifier =
-    getAbilityModifier(spellcastingAbilityScore) +
-    getProficiencyBonus(character);
-
-  return baseSpellAttackModifier;
+  const [firstEntry] = getSpellcastingEntries(character);
+  return firstEntry ? getSpellAttackModifierForEntry(character, firstEntry) : 0;
 }
 
-//TODO: Make it per class
+/** @deprecated same caveat as getSpellAttackModifier */
 export function getSpellSaveDC(character: Character): number {
-  if (!hasSpellcasting(character)) {
-    return 0;
-  }
-
-  const classInstance = character.classes.byId[character.classes.order[0]];
-  const spellcastingTemplate = getSpellcastingTemplateByClassTemplateId(
-    classInstance.classId,
-    classInstance.subclassId, // this line is likely missing here
-  );
-
-  const spellcastingAbility = spellcastingTemplate.ability;
-  //TODO: [Modifiers] Replace attribute with derived data
-  const spellcastingAbilityScore =
-    character.baseAbilityScores[spellcastingAbility];
-
-  //TODO: [Modifiers] Replace with derived data resolver
-  const baseSpellAttackModifier =
-    getAbilityModifier(spellcastingAbilityScore) +
-    getProficiencyBonus(character) +
-    8;
-
-  return baseSpellAttackModifier;
+  const [firstEntry] = getSpellcastingEntries(character);
+  return firstEntry ? getSpellSaveDCForEntry(character, firstEntry) : 0;
 }
 
 const STANDARD_SPELL_SLOTS: number[][] = [
@@ -248,7 +238,7 @@ export function buildSpellSlots(character: Character): CharacterResources {
 
   if (hasStandardCaster) {
     characterSpellSlots = {
-      ...buildStandardSpellSlots(getTotalCasterLevel(character.classes)),
+      ...buildStandardSpellSlots(getTotalCasterLevel(character)),
     };
   }
 

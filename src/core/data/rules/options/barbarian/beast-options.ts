@@ -44,10 +44,6 @@ export const BEAST_OPTIONS: Record<string, OptionTemplate> = {
     id: "bestial_soul_fly",
     poolIds: ["bestial_soul_movement"],
     tags: ["passive", "movement"],
-    // Fly speed equal to walking speed, but only 30ft max and must
-    // land at end of turn — limited enough that a flat speed modifier
-    // overstates it. Deferred until movement system can express
-    // conditional/temporary fly speed.
-    grants: [],
+    // Fly speed equal to walking speed, but only 30ft max and must land at end of turn
   },
 };

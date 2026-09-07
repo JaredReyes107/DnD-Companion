@@ -2,7 +2,7 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 
 export const wild_magic_es: GameLocalizationCategory = {
   wild_magic: {
-    name: "Senda de la magia salvaje",
+    name: "Senda de la Magia Salvaje",
     description:
       "Un bárbaro impregnado de energía arcana que desata efectos mágicos aleatorios al entrar en furia y apoya a sus aliados con poder inestable.",
   },

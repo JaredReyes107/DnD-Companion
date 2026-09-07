@@ -2,8 +2,13 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 
 export const stars_actions_es: GameLocalizationCategory = {
   star_map_guiding_bolt: {
-    name: "Mapa Estelar",
-    description: `Lanzas el conjuro Saeta guiada sin gastar un espacio de conjuro.`,
+    name: "Lanzar Seta Guiada",
+    description: `Lanzas el conjuro 'Saeta Guiada' sin gastar un espacio de conjuro.`,
+  },
+  starry_form: {
+    name: "Forma Estelar",
+    description:
+      "Gastas 1 uso de Forma Salvaje y asumes una forma estelar durante 10 minutos, hasta que seas incapactidado, hasta que mueras o hasta que uses este rasgo de nuevo. Para tu forma estelar, puedes elegir entre Arquero, Cáliz y Dragón.",
   },
   cosmic_omen: {
     name: "Presagio Cósmico",

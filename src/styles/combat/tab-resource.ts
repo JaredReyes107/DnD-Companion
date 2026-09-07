@@ -29,13 +29,13 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
-    gap: 5,
+    gap: 3,
 
     minWidth: "30%",
     maxWidth: "40%",
     marginBottom: 12,
 
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
     paddingVertical: 8,
 
     backgroundColor: "#D69F38",

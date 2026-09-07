@@ -128,7 +128,7 @@ export function isActionAvailable(
     for (const effect of action.effects) {
       switch (effect.type) {
         case "modifyResource":
-          if (effect.amount < 0) {
+          if (effect.amount < 0 && hasResource) {
             hasResource =
               character.resources[effect.resourceId].current >=
               Math.abs(effect.amount);

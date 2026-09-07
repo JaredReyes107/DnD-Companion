@@ -40,10 +40,10 @@ export const PALADIN: ClassTemplate = {
 
     2: [
       {
-        id: "fighting_style",
+        id: "fighting_style_paladin",
         source: "class" as const,
         level: 2,
-        grants: [{ type: "choice", id: "fighting_style" }],
+        grants: [{ type: "choice", id: "fighting_style_paladin" }],
         tags: ["build-choice"],
       },
       {
@@ -72,7 +72,7 @@ export const PALADIN: ClassTemplate = {
         id: "sacred_oath",
         source: "class" as const,
         level: 3,
-        grants: [{ type: "action", id: "channel_divinity" }],
+        grants: [{ type: "resource", id: "channel_divinity" }],
         tags: ["subclass"],
       },
     ],

@@ -93,6 +93,36 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+
+  footerContainer: {
+    marginBottom: -15,
+    alignItems: "center",
+
+    padding: 10,
+  },
+  footerSectionRight: {
+    alignSelf: "flex-end",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  localeSwitchHeader: {
+    fontWeight: 600,
+  },
+  localeSwitchContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  localeLabel: {
+    fontSize: 12,
+    color: "#bebcbc",
+  },
+  localeLabelActive: {
+    fontSize: 12,
+  },
   //#endregion
 
   customFieldContainer: {

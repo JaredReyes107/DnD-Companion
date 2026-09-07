@@ -1,13 +1,25 @@
 export const en = {
+  combatTabs: {
+    sheet: "Stats",
+    stats: "Status",
+    actions: "Actions",
+    resources: "Resources",
+    equipment: "Equipment",
+  },
   character: {
     singular: "Character",
     plural: "Characters",
-    add: "Add character",
+    create: "Create Character",
+    save: "Save Character",
     input: "Character's name",
   },
   race: {
     singular: "Race",
     input: "Select a race",
+  },
+  alignment: {
+    singular: "Alignment",
+    input: "Selecciona un alineamiento",
   },
   xp: {
     full: "Experience points",
@@ -16,7 +28,6 @@ export const en = {
     singular: "Class",
     plural: "Classes",
     main: "Main class",
-    add: "Add class",
     input: "Select a class",
   },
   subclass: {
@@ -30,9 +41,9 @@ export const en = {
   },
   savingThrows: {
     full: "Saving Throws",
-    death: "Death saving throws",
-    successes: "Successes",
-    failures: "Failures",
+    death: "Death Saving Throws",
+    successes: "Passed",
+    failures: "Failed",
   },
   pb: {
     full: "Proficiency bonus",
@@ -57,6 +68,11 @@ export const en = {
     bonus: "Initiative bonus",
     order: "Initiative {value} Order",
   },
+  actionEconomy: {
+    action: "Action",
+    bonusAction: "Bonus Action",
+    reaction: "Reaction",
+  },
   rest: {
     long: "Long rest",
     short: "Short rest",
@@ -77,14 +93,29 @@ export const en = {
     selectOption: "Select and option",
     selectAlignment: "Select an alignment",
     selectClass: "Select a class",
+    addClass: "Add class",
     selectSubclass: "Select a subclass",
   },
+  //tab-stats.tsx
   action: {
     takenDamage: "Damage received",
     newTempHp: "New temporal HP",
     receivedHealing: "Healing received",
     useHitDice: "Use hit die",
   },
+  //tab-actions.tsx
+  actionSection: {
+    action: "Actions",
+    bonusAction: "Bonus Actions",
+    reaction: "Reactions",
+    instantaneous: "Instantaneous",
+  },
+  timeIntervals: {
+    startTurn: "Start New Turn",
+    endTurn: "End Turn",
+    startRound: "Start New Round",
+  },
+  //tab-resources.tsx
   resourceSection: {
     spell_slots: "Spell slots",
     pact_slots: "Pact slots",
@@ -93,5 +124,12 @@ export const en = {
     racial_features: "Racial",
     feats: "Feats",
     homebrew: "Homebrew",
+  },
+  settings: {
+    language: "Language",
+    languageSelf: "English",
+  },
+  error: {
+    mainClassMissing: "Main class must not be empty",
   },
 } as const;

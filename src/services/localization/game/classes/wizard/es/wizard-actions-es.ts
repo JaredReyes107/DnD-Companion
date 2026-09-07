@@ -48,6 +48,10 @@ export const wizard_actions_es: GameLocalizationCategory = {
     name: "Conjuro de Maestría: Nivel 2",
     description: `Lanzas tu primer conjuro de maestría nivel 2 a ese nivel sin usar un espacio de conjuro.`,
   },
+  replace_spell_mastery: {
+    name: "Eemplazar Conjuro de Maestría",
+    description: `Dedicas 8 horas de estudio y cambias cualquiera de tus Conjuros de Maestría por otro del mismo nivel que esté en tu libro de conjuros.`,
+  },
   cast_signature_spell_1: {
     name: "Conjuro Insignia 1",
     description: `Lanzas tu primer conjuro insignia a su nivel más bajo sin usar un espacio de conjuro.`,

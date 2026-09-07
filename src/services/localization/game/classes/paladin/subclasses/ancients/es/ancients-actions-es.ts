@@ -2,11 +2,11 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 
 export const ancients_actions_es: GameLocalizationCategory = {
   channel_divinity_nature_wrath: {
-    name: "Canalizar Divinidad: Ira de la Naturaleza",
+    name: "Ira de la Naturaleza",
     description: `Aparecen enredaderas espectrales y atrapan a una criatura que puedas ver y esté a 10 pies o menos de ti. La criatura debe superar una tirada de salvación de Fuerza o Destreza o quedará apresada. Mientras está apresada por las enredaderas, la criatura repite la tirada de salvación al final de cada uno de sus turnos. Si la supera se libera y las enredaderas desaparecen.`,
   },
   channel_divinity_turn_the_faithless: {
-    name: "Canalizar Divinidad: Expulsar a los Infieles",
+    name: "Expulsar a los Infieles",
     description: `Cada criatura feérica o demoníaca en un rango de 30 pies o menos de ti que pueda escucharte debe realizar una tirada de salvación de Sabiduría. Si falla, la criatura es expulsada durante 1 minuto o hasta que sufra algún daño. Una criatura expulsada debe emplear sus turnos en intentar moverse tan lejos de ti como le sea posible, y no puede moverse voluntariamente a un espacio a menos de 30 pies de ti. Tampoco puede realizar reacciones. En su turno, sólo puede realizar la acción de Correr o intentar huir de un efecto que impida que se mueva. Si no hay sitio donde moverse, la criatura puede usar la acción de Esquivar. Si la verdadera forma de una criatura está oculta por una ilusión, cambiaformas o algún otro efecto, esa verdadera forma es revelada mientras está expulsada.`,
   },
   undying_sentinel: {

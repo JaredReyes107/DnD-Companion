@@ -1,8 +1,16 @@
 export const es = {
+  combatTabs: {
+    sheet: "Estadísticas",
+    stats: "Estado",
+    actions: "Acciones",
+    resources: "Recursos",
+    equipment: "Equipamiento",
+  },
   character: {
     singular: "Personaje",
     plural: "Personajes",
-    add: "Añadir personaje",
+    create: "Crear Personaje",
+    save: "Guardar Personaje",
     input: "Nombre del personaje",
   },
   race: {
@@ -20,7 +28,6 @@ export const es = {
     singular: "Clase",
     plural: "Clases",
     main: "Clase principal",
-    add: "Añadir clase",
     input: "Selecciona una clase",
   },
   subclass: {
@@ -86,14 +93,29 @@ export const es = {
     selectOption: "Selecciona una opción",
     selectAlignment: "Selecciona un alineamiento",
     selectClass: "Selecciona una clase",
+    addClass: "Añadir clase",
     selectSubclass: "Selecciona una subclase",
   },
+  //tab-stats.tsx
   action: {
     takenDamage: "Daño recibido",
     newTempHp: "Vida temporal nueva",
     receivedHealing: "Curación recibida",
     useHitDice: "Usar dados de golpe",
   },
+  //tab-actions.tsx
+  actionSection: {
+    action: "Acciones",
+    bonusAction: "Acciones Adicionales",
+    reaction: "Reacciones",
+    instantaneous: "Inmediatas",
+  },
+  timeIntervals: {
+    startTurn: "Comenzar Nuevo Turno",
+    endTurn: "Terminar Turno",
+    startRound: "Comenzar Nueva Ronda",
+  },
+  //tab-resources.tsx
   resourceSection: {
     spell_slots: "Espacios de conjuro",
     pact_slots: "Espacios de pacto",
@@ -102,5 +124,12 @@ export const es = {
     racial_features: "Raciales",
     feats: "De dotes",
     homebrew: "Homebrew",
+  },
+  settings: {
+    language: "Idioma",
+    languageSelf: "Español",
+  },
+  error: {
+    mainClassMissing: "La clase principal no puede estar vacía",
   },
 } as const;

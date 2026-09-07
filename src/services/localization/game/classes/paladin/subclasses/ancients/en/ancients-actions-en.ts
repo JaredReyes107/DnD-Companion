@@ -2,11 +2,11 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 
 export const ancients_actions_en: GameLocalizationCategory = {
   channel_divinity_nature_wrath: {
-    name: "Channel Divinity: Nature's Wrath",
+    name: "Nature's Wrath",
     description: `You cause spectral vines to spring up and reach for a creature within 10 feet of you that you can see. The creature must succeed on a Strength or Dexterity saving throw (its choice) or be restrained. While restrained by the vines, the creature repeats the saving throw at the end of each of its turns. On a success, it frees itself and the vines vanish.`,
   },
   channel_divinity_turn_the_faithless: {
-    name: "Channel Divinity: Turn the Faithless",
+    name: "Turn the Faithless",
     description: `Each fey or fiend within 30 feet of you that can hear you must make a Wisdom saving throw. On a failed save, the creature is turned for 1 minute or until it takes damage.`,
   },
   undying_sentinel: {

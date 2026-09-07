@@ -7,7 +7,7 @@ export const grave_actions_es: GameLocalizationCategory = {
       "Expandes tu percepción para detectar de forma mágica a este tipo de criaturas. Hasta el final del próximo turno, conoces la localización de cualquier muerto viviente situado a 60 pies o menos de ti, siempre que no esté tras cobertura completa ni protegido contra la magia de adivinación. Este sentido no te dice nada sobre las capacidades o la identidad de una criatura. Puedes emplear este rasgo tantas veces como tu modificador por Sabiduría (mínimo una vez). Recuperas todos los usos tras finalizar un descanso largo.",
   },
   channel_divinity_path_to_the_grave: {
-    name: "Canalizar Divinidad: Camino a la Sepultura",
+    name: "Camino a la Sepultura",
     description:
       "Eliges a un objetivo al que puedas ver y se encuentre a 30 pies o menos de ti, maldiciéndolo hasta el final de tu siguiente turno. La próxima vez que tú o un aliado tuyo impacte a la criatura maldita con un ataque, esta tendrá vulnerabilidad al daño de ese ataque, tras el cual finalizará la maldición.",
   },

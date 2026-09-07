@@ -21,6 +21,8 @@ import {
 import { CharacterSavingThrows } from "@/core/entities/rules/saving-throw/saving-throw-instance";
 
 // Functions and Helpers
+import { defaultScalarFields } from "@/repositories/character-defaults";
+
 import { getMaximumHitDice } from "@/core/rules/character/hit-dice-helper";
 import { buildAbilityScores } from "@/core/rules/character/ability-scores-helper";
 import { buildSavingThrows } from "@/core/rules/combat/saving-throws-helper";
@@ -36,9 +38,9 @@ import { buildCharacterPassiveModifiers } from "@/core/rules/character/stat-modi
 
 // Components
 import { ThemedView } from "./ThemedView";
-import { MaterialIcons } from "@expo/vector-icons";
 
-import SmoothCounterButton from "./SmoothCounterButton";
+import { FormattedNumberInput } from "./FormattedNumberInput";
+import SteppedNumberInput from "./SteppedNumberInput";
 import CustomPicker from "@/components/ui/CustomPicker";
 import { MainClassForm } from "@/components/ui/MainClassForm";
 import { SecondaryClassesForm } from "@/components/ui/SecondaryClassesForm";
@@ -122,8 +124,22 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
   const [secondaryClasses, setSecondaryClasses] =
     useState<ClassDraft[]>(secondaryInitial);
 
+  const [validationError, setValidationError] = useState<string | null>(null);
+
   const handleSubmit = () => {
-    const classDrafts = [mainClass, ...secondaryClasses];
+    if (!mainClass.classTemplateId) {
+      setValidationError(ui("errors.mainClassRequired"));
+      return;
+    }
+
+    // Drop secondary slots that were added but never assigned a class —
+    // treated as an abandoned draft, not a validation error.
+    const validSecondaryClasses = secondaryClasses.filter(
+      (c) => c.classTemplateId !== null,
+    );
+
+    setValidationError(null);
+    const classDrafts = [mainClass, ...validSecondaryClasses];
 
     const classesById = Object.fromEntries(
       classDrafts.map((c) => [
@@ -142,7 +158,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       id: initialCharacter?.id ?? Crypto.randomUUID(),
       icon: initialCharacter?.icon ?? "face",
       name,
-      race,
+      race: race ?? "Human",
       alignment: alignment ?? "lawful_good",
       experiencePoints: xp,
 
@@ -165,16 +181,12 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       savingThrows,
       skills,
 
-      actionLimits: {
-        actions: 1,
-        bonusActions: 1,
-        reactions: 1,
-      },
+      actionLimits:
+        initialCharacter?.actionLimits ?? defaultScalarFields.actionLimits!,
+      encounterId:
+        initialCharacter?.encounterId ?? defaultScalarFields.encounterId!,
 
-      encounterId: "",
       features: initialCharacter?.features ?? {},
-
-      // Placeholder — will be replaced below
       featureChoices: initialCharacter?.featureChoices ?? {},
       resources: {},
       actions: {},
@@ -281,14 +293,9 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       return (
         <View style={styles.fieldContainer}>
           <Text style={styles.fieldHeader}>{ui("xp.full")}</Text>
-          <TextInput
-            keyboardType="numeric"
-            value={formatNaturalNumber(xp)}
-            onChangeText={(text: string) => {
-              if (formatNaturalNumber(xp) !== text) {
-                setXp(returnNaturalNumber(text));
-              }
-            }}
+          <FormattedNumberInput
+            value={xp}
+            onChange={setXp}
             style={styles.input}
           />
         </View>
@@ -316,29 +323,17 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
   const renderSpeedField = () => (
     <View style={styles.fieldContainer}>
       <Text style={styles.fieldHeader}>{ui("stats.speed")}</Text>
-      <View style={styles.counterContainer}>
-        <Text style={styles.counterInput}>{baseSpeed}</Text>
-        <View style={styles.counterButtonsContainer}>
-          <SmoothCounterButton
-            style={styles.counterButton}
-            onPress={() => setBaseSpeed((prev) => (prev > 0 ? prev - 5 : 0))}
-          >
-            <MaterialIcons
-              name="remove"
-              style={styles.counterButtonIcon}
-            ></MaterialIcons>
-          </SmoothCounterButton>
-          <SmoothCounterButton
-            style={styles.counterButton}
-            onPress={() => setBaseSpeed((prev) => (prev < 75 ? prev + 5 : 75))}
-          >
-            <MaterialIcons
-              name="add"
-              style={styles.counterButtonIcon}
-            ></MaterialIcons>
-          </SmoothCounterButton>
-        </View>
-      </View>
+      <SteppedNumberInput
+        value={baseSpeed}
+        onChange={setBaseSpeed}
+        min={0}
+        max={75}
+        step={5}
+        containerStyle={styles.counterContainer}
+        valueStyle={styles.counterInput}
+        buttonsContainerStyle={styles.counterButtonsContainer}
+        buttonStyle={styles.counterButton}
+      />
     </View>
   );
 
@@ -377,7 +372,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
         ])
       }
     >
-      <Text style={styles.addClassButton}>+ Añadir clase</Text>
+      <Text style={styles.addClassButton}>+ {ui("picker.addClass")}</Text>
     </TouchableOpacity>
   );
 
@@ -392,18 +387,8 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
             <AbilityScoreInput
               label={getLocalizedName("abilities", ability)}
               score={abilityScores[ability]}
-              onChange={(delta) =>
-                setAbilityScores((prev) => {
-                  const currentValue = prev[ability];
-                  const newValue = Math.max(
-                    0,
-                    Math.min(30, currentValue + delta),
-                  );
-                  return {
-                    ...prev,
-                    [ability]: newValue,
-                  };
-                })
+              onChange={(newValue) =>
+                setAbilityScores((prev) => ({ ...prev, [ability]: newValue }))
               }
             />
           )}
@@ -488,6 +473,9 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
 
   const renderSubmitButton = () => (
     <View style={styles.submitButtonContainer}>
+      {validationError && (
+        <Text style={{ color: "#ce343f" }}>{ui("error.mainClassMissing")}</Text>
+      )}
       <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
         <Text style={styles.submitButtonText}>{submitLabel}</Text>
       </TouchableOpacity>

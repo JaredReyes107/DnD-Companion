@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
+import SteppedNumberInput from "./SteppedNumberInput";
 import ClassPicker from "@/components/ui/ClassPicker";
 import SubclassPicker from "@/components/ui/SubclassPicker";
 import { getSubclassUnlockLevel } from "@/core/rules/character/subclass-helper";
@@ -58,27 +59,16 @@ export const SecondaryClassesForm = ({ value, onChange, onRemove }: Props) => {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.counterContainer}>
-          <Text style={styles.counterInput}>{value.level}</Text>
-          <View style={styles.counterButtonsContainer}>
-            <TouchableOpacity
-              style={styles.counterButton}
-              onPress={() =>
-                onChange({ ...value, level: Math.max(1, value.level - 1) })
-              }
-            >
-              <MaterialIcons name="remove" size={16} color="white" />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.counterButton}
-              onPress={() =>
-                onChange({ ...value, level: Math.min(20, value.level + 1) })
-              }
-            >
-              <MaterialIcons name="add" size={16} color="white" />
-            </TouchableOpacity>
-          </View>
-        </View>
+        <SteppedNumberInput
+          value={value.level}
+          onChange={(level) => onChange({ ...value, level })}
+          min={1}
+          max={20}
+          containerStyle={styles.counterContainer}
+          valueStyle={[styles.counterInput, { height: 41 }]}
+          buttonsContainerStyle={styles.counterButtonsContainer}
+          buttonStyle={styles.counterButton}
+        />
       </View>
 
       {showSubclassPicker && (

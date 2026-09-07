@@ -2,11 +2,11 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 
 export const oathbreaker_actions_en: GameLocalizationCategory = {
   channel_divinity_control_undead: {
-    name: "Channel Divinity: Control Undead",
+    name: "Control Undead",
     description: `You target one undead creature you can see within 30 feet of you. The target must make a Wisdom saving throw. On a failed save, the target must obey your commands for the next 24 hours, or until you use this Channel Divinity option again. An undead whose challenge rating is equal to or greater than your paladin level is immune to this effect.`,
   },
   channel_divinity_dreadful_aspect: {
-    name: "Channel Divinity: Dreadful Aspect",
+    name: "Dreadful Aspect",
     description: `Each creature of your choice within 30 feet of you must make a Wisdom saving throw if it can see you. On a failed save, the target is frightened of you for 1 minute. If a creature frightened by this effect ends its turn more than 30 feet away from you, it can attempt another Wisdom saving throw to end the effect on it.`,
   },
   dread_lord: {

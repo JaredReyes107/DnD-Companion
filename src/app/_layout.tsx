@@ -1,9 +1,9 @@
 import { Stack } from "expo-router";
 
-import { CharacterProvider } from "@/utils/character-provider";
 import { useCharacterStore } from "@/store/characterStore";
 import { initializeCoreSystems } from "@/core/init";
 import { View } from "react-native";
+import { CharacterProvider } from "@/utils/character-provider";
 
 const RootLayout = () => {
   const hasHydrated = useCharacterStore((s) => s.hasHydrated);
@@ -24,7 +24,7 @@ const RootLayout = () => {
           options={{ title: "Nuevo Personaje" }}
         />
         <Stack.Screen
-          name="character-edition"
+          name="character-edition/[characterId]"
           options={{ title: "Editar Personaje" }}
         />
       </Stack>

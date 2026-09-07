@@ -6,7 +6,10 @@ export const DIVINATION_ACTIONS: Record<string, ActionInstance> = {
     sourceId: "divination",
     boards: ["combat", "exploration"],
     duration: { kind: "instantaneous" },
-    effects: [{ type: "modifyResource", resourceId: "portent", amount: -1 }],
+    effects: [
+      { type: "modifyResource", resourceId: "portent_dice", amount: -1 },
+      { type: "modifyResource", resourceId: "portent_turn_uses", amount: -1 },
+    ],
   },
 
   expert_divination: {

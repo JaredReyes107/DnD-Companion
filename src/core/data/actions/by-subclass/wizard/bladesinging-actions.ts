@@ -25,7 +25,7 @@ export const BLADESINGING_ACTIONS: Record<string, ActionInstance> = {
     duration: { kind: "economy", slot: "reaction" },
     trigger: ["onDamageTaken"],
     effects: [
-      { type: "modifyResource", resourceId: "spell_slots", amount: -1 },
+      { type: "modifyResource", resourceId: "spell_slot_1", amount: -1 },
     ],
     // TODO: variable cost. Spell Slot level, no Max.
   },

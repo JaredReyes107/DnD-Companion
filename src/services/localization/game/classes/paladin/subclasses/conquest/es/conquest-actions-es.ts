@@ -2,11 +2,11 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 
 export const conquest_actions_es: GameLocalizationCategory = {
   channel_divinity_conquering_presence: {
-    name: "Canalizar Divinidad: Presencia de Conquistador",
+    name: "Presencia de Conquistador",
     description: `Fuerzas a todas las criaturas de tu elección que puedas ver y se encuentren a 30 pies o menos de ti a realizar una tirada de salvación de Sabiduría. Las que fallen quedarán asustadas de ti durante 1 minuto. Un objetivo asustado puede repetir la tirada de salvación al final de cada uno de sus turnos, librándose del efecto si tiene éxito.`,
   },
   channel_divinity_guided_strike: {
-    name: "Canalizar Divinidad: Golpe Guiado",
+    name: "Golpe Guiado",
     description: `Sumas +10 al resultado de una tirada de ataque que hagas. Puedes elegir emplear este rasgo después de ver el resultado de la tirada, pero antes de que el DM te diga si el ataque impacta o no.`,
   },
   scornful_rebuke: {

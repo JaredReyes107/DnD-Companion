@@ -11,7 +11,7 @@ export const GENIE: SubclassTemplate = {
         id: "genie_expanded_spells",
         source: "subclass" as const,
         level: 1,
-        grants: [{ type: "choice", id: "genie_patron_kind" }],
+        grants: [], //TODO: Choice/Pool
         tags: ["spells", "build-choice"],
         // TODO: Choice/Pool. Genie kind (dao/djinni/efreeti/marid)
       },

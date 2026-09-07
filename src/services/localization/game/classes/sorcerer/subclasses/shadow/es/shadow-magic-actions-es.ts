@@ -2,7 +2,7 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 
 export const shadow_magic_actions_es: GameLocalizationCategory = {
   eyes_of_the_dark_darkness: {
-    name: "Ojos de la Oscuridad: Lanzar Oscuridad",
+    name: "Lanzar Oscuridad",
     description: `Lanzas el conjuro 'Oscuridad' usando 2 puntos de hechicería en lugar de un espacio de conjuro. Eres capaz de ver a través de la oscuridad creada por el conjuro.`,
   },
   strength_of_the_grave: {

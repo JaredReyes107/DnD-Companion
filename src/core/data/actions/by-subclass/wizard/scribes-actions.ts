@@ -3,7 +3,7 @@ import { ActionInstance } from "@/core/entities/actions/action-instance";
 export const ORDER_OF_SCRIBES_ACTIONS: Record<string, ActionInstance> = {
   wizardly_quill_create: {
     id: "wizardly_quill_create",
-    sourceId: "order_of_scribes",
+    sourceId: "scribes",
     boards: ["exploration"],
     duration: { kind: "economy", slot: "bonusAction" },
     effects: [],
@@ -12,7 +12,7 @@ export const ORDER_OF_SCRIBES_ACTIONS: Record<string, ActionInstance> = {
 
   awakened_spellbook_swap_damage_type: {
     id: "awakened_spellbook_swap_damage_type",
-    sourceId: "order_of_scribes",
+    sourceId: "scribes",
     boards: ["combat"],
     duration: { kind: "instantaneous" },
     effects: [],
@@ -20,7 +20,7 @@ export const ORDER_OF_SCRIBES_ACTIONS: Record<string, ActionInstance> = {
 
   awakened_spellbook_fast_ritual: {
     id: "awakened_spellbook_fast_ritual",
-    sourceId: "order_of_scribes",
+    sourceId: "scribes",
     boards: ["exploration"],
     duration: { kind: "instantaneous" },
     effects: [
@@ -35,7 +35,7 @@ export const ORDER_OF_SCRIBES_ACTIONS: Record<string, ActionInstance> = {
 
   manifest_mind_summon: {
     id: "manifest_mind_summon",
-    sourceId: "order_of_scribes",
+    sourceId: "scribes",
     boards: ["combat", "exploration"],
     duration: { kind: "economy", slot: "bonusAction" },
     effects: [
@@ -45,7 +45,7 @@ export const ORDER_OF_SCRIBES_ACTIONS: Record<string, ActionInstance> = {
 
   manifest_mind_move: {
     id: "manifest_mind_move",
-    sourceId: "order_of_scribes",
+    sourceId: "scribes",
     boards: ["combat", "exploration"],
     duration: { kind: "economy", slot: "bonusAction" },
     effects: [],
@@ -53,7 +53,7 @@ export const ORDER_OF_SCRIBES_ACTIONS: Record<string, ActionInstance> = {
 
   manifest_mind_dismiss: {
     id: "manifest_mind_dismiss",
-    sourceId: "order_of_scribes",
+    sourceId: "scribes",
     boards: ["combat", "exploration"],
     duration: { kind: "economy", slot: "bonusAction" },
     effects: [],
@@ -61,7 +61,7 @@ export const ORDER_OF_SCRIBES_ACTIONS: Record<string, ActionInstance> = {
 
   manifest_mind_cast_through: {
     id: "manifest_mind_cast_through",
-    sourceId: "order_of_scribes",
+    sourceId: "scribes",
     boards: ["combat"],
     duration: { kind: "instantaneous" },
     effects: [],
@@ -69,7 +69,7 @@ export const ORDER_OF_SCRIBES_ACTIONS: Record<string, ActionInstance> = {
 
   master_scrivener: {
     id: "master_scrivener",
-    sourceId: "order_of_scribes",
+    sourceId: "scribes",
     boards: ["exploration"],
     duration: { kind: "instantaneous" }, // Usable once per
     // long rest, not an in-combat activation
@@ -81,7 +81,7 @@ export const ORDER_OF_SCRIBES_ACTIONS: Record<string, ActionInstance> = {
 
   one_with_the_word: {
     id: "one_with_the_word",
-    sourceId: "order_of_scribes",
+    sourceId: "scribes",
     boards: ["combat"],
     duration: { kind: "economy", slot: "reaction" },
     trigger: ["onDamageTaken"],

@@ -1,5 +1,5 @@
 // Libraries
-import React from "react";
+import React, { useCallback } from "react";
 import {
   ScrollView,
   View,
@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useCharacter } from "@/utils/character-provider";
+import { useFocusEffect } from "expo-router";
+import { useCharacterNavigator } from "@/navigation/navigators/characterNavigator";
 
 // Custom Components
 import { ProficiencyIcon } from "@/components/ui/ProficiencyIcon";
@@ -18,7 +20,6 @@ import {
   getProficiencyBonus,
 } from "@/core/rules/character/abilities-modifiers";
 import { resolveInCombat } from "@/core/systems/stats/stat-resolver";
-import { ModifierType, StatModel } from "@/core/entities/rules/stats.types";
 import { getTotalCharacterLevel } from "@/core/rules/character/character-multiclassing";
 import { getNextXPThreshold } from "@/core/entities/progression/leveling";
 import { formatNaturalNumber } from "@/utils/input-handler";
@@ -27,30 +28,32 @@ import { formatNaturalNumber } from "@/utils/input-handler";
 import { PrintNumberWithSign } from "@/utils/formater-numbers";
 import { getCharacterSkillsAsArray } from "@/core/rules/combat/skills-helper";
 import { getCharacterSavingThrowsAsArray } from "@/core/rules/combat/saving-throws-helper";
-import { useCharacter } from "@/utils/character-provider";
 import {
   getLocalizedName,
   getLocalizedShortName,
 } from "@/services/localization/localization-helper";
 
 // Styles
-import { useFonts } from "expo-font";
-import { Montserrat_500Medium } from "@expo-google-fonts/montserrat";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 
 // Custom Styles
 import genericStyles from "@/styles/generic.styles";
 import styles from "@/styles/character-sheet.styles";
+import { Montserrat_500Medium, useFonts } from "@expo-google-fonts/montserrat";
 
 import { ui } from "@/services/localization/ui-localization-resolver";
 
 const CharacterSheetScreen = () => {
-  const router = useRouter();
-  const { character, encounter, saveCharacter } = useCharacter();
+  const characterNavigator = useCharacterNavigator();
+  const { character, encounter, loadCharacterById } = useCharacter();
 
-  const [_fontsLoaded] = useFonts({
-    Montserrat: Montserrat_500Medium,
-  });
+  const [_fontsLoaded] = useFonts({ Montserrat: Montserrat_500Medium });
+
+  useFocusEffect(
+    useCallback(() => {
+      if (character?.id) loadCharacterById(character.id);
+    }, [character?.id, loadCharacterById]),
+  );
 
   if (!character || !encounter || !_fontsLoaded) {
     return (
@@ -66,52 +69,6 @@ const CharacterSheetScreen = () => {
     <ScrollView
       style={[genericStyles.rootContainer, { paddingHorizontal: "0%" }]}
     >
-      {/* Test button – remove before release */}
-      <View>
-        <TouchableOpacity
-          onPress={() => {
-            const newChar = {
-              ...character,
-              statModifiers: {
-                mod1: {
-                  templateId: "exampleId",
-                  statModel: {
-                    type: "derived",
-                    key: "spellAttackModifier",
-                  } as StatModel,
-                  sourceId: "HB",
-                  mode: "add" as ModifierType,
-                  value: 2,
-                },
-                alert: {
-                  templateId: "string",
-                  statModel: {
-                    type: "derived",
-                    key: "initiative",
-                  } as StatModel,
-                  sourceId: "alert",
-                  mode: "add" as ModifierType,
-                  value: 5,
-                },
-              },
-            };
-            saveCharacter(newChar);
-          }}
-        >
-          <Text
-            style={{
-              backgroundColor: "#249A0F",
-              color: "white",
-              textAlign: "center",
-              padding: 10,
-              marginHorizontal: "20%",
-            }}
-          >
-            Test action
-          </Text>
-        </TouchableOpacity>
-      </View>
-
       <View style={[genericStyles.characterCard, { marginHorizontal: 20 }]}>
         <View style={genericStyles.iconContainer}>
           <MaterialIcons name="face" size={24} color="white" />
@@ -142,10 +99,9 @@ const CharacterSheetScreen = () => {
               )}
           </Text>
         </View>
-
         <View style={genericStyles.characterCard_ButtonsContainer}>
           <TouchableOpacity
-            onPress={() => router.push("../character-edition")}
+            onPress={() => characterNavigator.goToEdition(character.id)}
             style={genericStyles.characterCard_ActionIcon}
           >
             <MaterialCommunityIcons
@@ -334,7 +290,7 @@ const CharacterSheetScreen = () => {
         {/* Skills */}
         <View style={styles.detailsSection}>
           <View style={genericStyles.headerContainer}>
-            <Text style={genericStyles.header}>Habilidades</Text>
+            <Text style={genericStyles.header}>{ui("stats.skills")}</Text>
           </View>
 
           <FlatList

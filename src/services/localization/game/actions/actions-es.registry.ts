@@ -1,5 +1,7 @@
 import { GameLocalization } from "@/services/localization/game-localization.types";
 
+import { default_actions_es } from "./default-actions-es";
+
 import { barbarian_actions_es } from "../classes/barbarian/es-barbarian-actions";
 import { bard_actions_es } from "../classes/bard/es/bard-actions-es";
 import { cleric_actions_es } from "../classes/cleric/es/cleric-actions-es";
@@ -16,6 +18,8 @@ import { artificer_actions_es } from "../classes/artificer/es/artificer-actions-
 
 export const actions_es: GameLocalization = {
   actions: {
+    ...default_actions_es,
+
     ...barbarian_actions_es,
     ...bard_actions_es,
     ...cleric_actions_es,

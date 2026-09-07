@@ -1,7 +1,9 @@
-import { Button, FlatList, TouchableOpacity, View } from "react-native";
+import { Button, ScrollView, TouchableOpacity, View } from "react-native";
 import { ThemedView } from "@/components/ui/ThemedView";
 import { ThemedText } from "@/components/ui/ThemedText";
 import { useCharacter } from "@/utils/character-provider";
+import { useFocusEffect } from "expo-router";
+import { useCallback } from "react";
 
 import { ActionSection } from "@/components/ui/ActionSection";
 
@@ -18,8 +20,20 @@ import genericStyles from "@/styles/generic.styles";
 import styles from "@/styles/combat/tab-actions";
 
 const TabActions = () => {
-  const { character, encounter, saveCharacter, saveEncounter, loading } =
-    useCharacter();
+  const {
+    character,
+    encounter,
+    saveCharacter,
+    saveEncounter,
+    loading,
+    loadCharacterById,
+  } = useCharacter();
+
+  useFocusEffect(
+    useCallback(() => {
+      if (character?.id) loadCharacterById(character.id);
+    }, [character?.id, loadCharacterById]),
+  );
 
   if (loading || !character || !encounter || !character.combatState) {
     return (
@@ -116,23 +130,23 @@ const TabActions = () => {
       </View>
 
       {/* Action Board */}
-      <FlatList
-        contentContainerStyle={styles.actionBoard}
-        data={sections}
-        keyExtractor={(action) => action.slot}
-        renderItem={({ item }) => (
-          <ActionSection
-            slot={item.slot}
-            actions={item.actions}
-            character={character}
-            onUpdate={saveCharacter}
-          />
-        )}
-      />
+      <View style={{ flex: 1, marginVertical: 7.5 }}>
+        <ScrollView contentContainerStyle={styles.actionBoard}>
+          {sections.map((item) => (
+            <ActionSection
+              key={item.slot}
+              slot={item.slot}
+              actions={item.actions}
+              character={character}
+              onUpdate={saveCharacter}
+            />
+          ))}
+        </ScrollView>
+      </View>
 
       <View style={styles.footerSection}>
         <Button
-          title="Comenzar nueva ronda"
+          title={ui("timeIntervals.startRound")}
           onPress={() => saveCharacter(advanceRound(character))}
         />
       </View>

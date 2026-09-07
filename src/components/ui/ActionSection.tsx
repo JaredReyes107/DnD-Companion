@@ -15,6 +15,7 @@ import {
   isActionAvailable,
 } from "@/core/systems/combat/action-execution/take-action";
 import { getLocalizedName } from "@/services/localization/localization-helper";
+import { ui } from "@/services/localization/ui-localization-resolver";
 
 import styles from "@/styles/combat/tab-actions";
 
@@ -46,7 +47,9 @@ export const ActionSection = ({
 
   return (
     <View style={styles.actionBoardRow}>
-      <ThemedText style={styles.actionBoardRowHeader}>{slot}</ThemedText>
+      <ThemedText style={styles.actionBoardRowHeader}>
+        {ui("actionSection." + slot)}
+      </ThemedText>
       <View style={styles.actionBoardRowContent}>
         {actions.map((action) => (
           <ActionElement

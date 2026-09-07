@@ -48,6 +48,10 @@ export const wizard_actions_en: GameLocalizationCategory = {
     name: "Spell Mastery Level 2",
     description: `You cast your level 2 mastered spell at it's lowest level without expending a spell slot.`,
   },
+  replace_spell_mastery: {
+    name: "Replace Spell Mastery",
+    description: `You dedicate 8 hours and replace any of your Spell Mastery spells for any other spell on your spellbook of the same level.`,
+  },
   cast_signature_spell_1: {
     name: "Signature Spell 1",
     description: `You cast your first signature spell at it's lowest level without expending a spell slot.`,

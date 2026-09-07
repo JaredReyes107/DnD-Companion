@@ -13,7 +13,8 @@ export type CombatTab =
 export const Paths = {
   home: "/" as const,
   characterCreation: "/character-creation" as const,
-  characterEdition: "/character-edition" as const,
+  characterEdition: (characterId: string) =>
+    `/character-edition/${characterId}`,
 
   // Dynamic segments
   combat: (characterId: string) => `/combat/${characterId}` as const,

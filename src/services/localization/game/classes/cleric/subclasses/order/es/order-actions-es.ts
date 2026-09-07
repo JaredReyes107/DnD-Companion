@@ -7,7 +7,7 @@ export const order_actions_es: GameLocalizationCategory = {
       Si el conjuro tiene como objetivo a más de un aliado, tú eliges quién quieres que haga el ataque.`,
   },
   channel_divinity_orders_demand: {
-    name: "Canalizar Divinidad: Demanda del Orden",
+    name: "Demanda del Orden",
     description: `Muestras tu símbolo sagrado y cada criatura de tu elección que pueda verte u oírte a 30 pies o menos de ti deberá hacer una tirada de salvación de Sabiduría o será hechizada por ti hasta el final de tu siguiente turno o hasta que la criatura hechizada reciba algún daño. También puedes hacer que cualquiera de las criaturas hechizadas suelte lo que esté sujetando si falla la tirada de salvación.`,
   },
   embodiment_of_the_law: {

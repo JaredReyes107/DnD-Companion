@@ -2,12 +2,12 @@ import { GameLocalizationCategory } from "@/services/localization/game-localizat
 
 export const devotion_actions_en: GameLocalizationCategory = {
   channel_divinity_sacred_weapon: {
-    name: "Channel Divinity: Sacred Weapon",
+    name: "Sacred Weapon",
     description: `For 1 minute, you add your Charisma modifier to attack rolls made with a weapon you're holding (with a minimum bonus of +1). The weapon also emits bright light in a 20-foot radius and dim light 20 feet beyond that. If the weapon is not already magical, it becomes magical for the duration.
         You can end this effect on your turn as part of any other action. If you are no longer holding or carrying this weapon, or if you fall unconscious, this effect ends.`,
   },
   channel_divinity_turn_the_unholy: {
-    name: "Channel Divinity: Turn the Unholy",
+    name: "Turn the Unholy",
     description: `Each fiend or undead that can see or hear you within 30 feet of you must make a Wisdom saving throw. If the creature fails its saving throw, it is turned for 1 minute or until it takes damage.
         A turned creature must spend its turns trying to move as far away from you as it can, and it can't willingly move to a space within 30 feet of you. It also can't take reactions. For its action, it can use only the Dash action or try to escape from an effect that prevents it from moving. If there's nowhere to move, the creature can use the Dodge action.`,
   },

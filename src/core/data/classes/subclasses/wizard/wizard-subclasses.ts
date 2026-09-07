@@ -31,7 +31,7 @@ const XANATHAR_SUBCLASSES: Record<string, SubclassTemplate> = {
 
 const TASHA_SUBCLASSES: Record<string, SubclassTemplate> = {
   bladesinging: BLADESINGING,
-  order_of_scribes: ORDER_OF_SCRIBES,
+  scribes: ORDER_OF_SCRIBES,
 };
 
 export const WIZARD_SUBCLASSES: Record<string, SubclassTemplate> = {

@@ -15,31 +15,31 @@ export const FIGHTING_STYLE_OPTIONS: Record<string, OptionTemplate> = {
       // "fighter_fighting_styles",
       // "ranger_fighting_styles",
     ],
-    tags: ["passive", "combat", "fighting-style"],
+    tags: ["combat", "fighting-style"],
     grants: [{ type: "modifier", id: "fighting_style_archery_attack" }],
   },
 
   fighting_style_defense: {
     id: "fighting_style_defense",
     poolIds: [
-      "swords_fighting_styles",
+      "fighting_style_swords",
       // "fighter_fighting_styles",
       // "paladin_fighting_styles",
       // "ranger_fighting_styles",
     ],
-    tags: ["passive", "defense", "fighting-style"],
+    tags: ["defense", "fighting-style"],
     grants: [{ type: "modifier", id: "fighting_style_defense_ac" }],
   },
 
   fighting_style_dueling: {
     id: "fighting_style_dueling",
     poolIds: [
-      "swords_fighting_styles",
+      "fighting_style_swords",
       // "fighter_fighting_styles",
       // "paladin_fighting_styles",
       // "ranger_fighting_styles",
     ],
-    tags: ["passive", "combat", "fighting-style"],
+    tags: ["combat", "fighting-style"],
     grants: [{ type: "modifier", id: "fighting_style_dueling_damage" }],
   },
 
@@ -49,7 +49,7 @@ export const FIGHTING_STYLE_OPTIONS: Record<string, OptionTemplate> = {
       // "fighter_fighting_styles",
       // "paladin_fighting_styles",
     ],
-    tags: ["passive", "combat", "fighting-style"],
+    tags: ["combat", "fighting-style"],
     // Reroll 1s and 2s on damage — dice-roll hook, deferred.
     grants: [],
   },
@@ -60,7 +60,7 @@ export const FIGHTING_STYLE_OPTIONS: Record<string, OptionTemplate> = {
       // "fighter_fighting_styles",
       // "paladin_fighting_styles",
     ],
-    tags: ["passive", "defense", "fighting-style"],
+    tags: ["defense", "fighting-style"],
     // Impose disadvantage on attack against ally — affects other
     // actors, deferred.
     grants: [],
@@ -69,11 +69,11 @@ export const FIGHTING_STYLE_OPTIONS: Record<string, OptionTemplate> = {
   fighting_style_two_weapon_fighting: {
     id: "fighting_style_two_weapon_fighting",
     poolIds: [
-      "swords_fighting_styles",
+      "fighting_style_swords",
       // "fighter_fighting_styles",
       // "ranger_fighting_styles",
     ],
-    tags: ["passive", "combat", "fighting-style"],
+    tags: ["combat", "fighting-style"],
     // Off-hand attack damage bonus — equipment-dependent, deferred.
     grants: [],
   },
