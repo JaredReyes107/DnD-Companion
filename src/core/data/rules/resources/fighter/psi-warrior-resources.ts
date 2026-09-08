@@ -5,17 +5,18 @@ export const PSI_WARRIOR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "psionic_dice",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "psionic_dice",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "psi_warrior",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "psionic_dice",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "psi_warrior",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "PB" } },
     max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
     min: { kind: "value", amount: 0 },
 
@@ -26,17 +27,18 @@ export const PSI_WARRIOR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "psionic_recovery",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "psionic_recovery",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "psi_warrior",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "psionic_recovery",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "psi_warrior",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -47,17 +49,18 @@ export const PSI_WARRIOR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "telekinetic_movement",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "telekinetic_movement",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "psi_warrior",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "telekinetic_movement",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "psi_warrior",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -68,17 +71,18 @@ export const PSI_WARRIOR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "psi_powered_leap",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "psi_powered_leap",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "psi_warrior",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "psi_powered_leap",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "psi_warrior",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -89,17 +93,18 @@ export const PSI_WARRIOR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "bulwark_of_force",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "bulwark_of_force",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "psi_warrior",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "bulwark_of_force",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "psi_warrior",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -110,17 +115,18 @@ export const PSI_WARRIOR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "telekinetic_master",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "telekinetic_master",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "psi_warrior",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "telekinetic_master",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "psi_warrior",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 

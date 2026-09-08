@@ -5,17 +5,18 @@ export const TWILIGHT_RESOURCES: Record<string, ResourceTemplate> = {
     id: "eyes_of_night",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "eyes_of_night",
-      obtainedVia: {
-        via: "subclass",
-        classId: "cleric",
-        subclassId: "twilight",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "eyes_of_night",
+        obtainedVia: {
+          via: "subclass",
+          classId: "cleric",
+          subclassId: "twilight",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -26,17 +27,18 @@ export const TWILIGHT_RESOURCES: Record<string, ResourceTemplate> = {
     id: "steps_of_the_night",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "steps_of_the_night",
-      obtainedVia: {
-        via: "subclass",
-        classId: "cleric",
-        subclassId: "twilight",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "steps_of_the_night",
+        obtainedVia: {
+          via: "subclass",
+          classId: "cleric",
+          subclassId: "twilight",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "PB" } },
     max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
     min: { kind: "value", amount: 0 },
 

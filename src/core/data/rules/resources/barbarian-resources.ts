@@ -15,13 +15,14 @@ export const BARBARIAN_RESOURCES: Record<string, ResourceTemplate> = {
     id: "rage",
     category: "class_features",
     origin: { book: "PHB" },
-    grantor: {
-      system: "feature",
-      featureId: "rage",
-      obtainedVia: { via: "class", classId: "barbarian" },
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "rage",
+        obtainedVia: { via: "class", classId: "barbarian" },
+      },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "rage" } }, // unchanged breakpoint table, still level 2–17
     max: {
       kind: "conditional",
       when: {

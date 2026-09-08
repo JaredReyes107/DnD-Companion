@@ -5,13 +5,14 @@ export const LAND_RESOURCES: Record<string, ResourceTemplate> = {
     id: "natural_recovery",
     category: "subclass_features",
     origin: { book: "PHB" },
-    grantor: {
-      system: "feature",
-      featureId: "natural_recovery",
-      obtainedVia: { via: "subclass", classId: "druid", subclassId: "land" },
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "natural_recovery",
+        obtainedVia: { via: "subclass", classId: "druid", subclassId: "land" },
+      },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 

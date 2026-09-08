@@ -5,17 +5,18 @@ export const SHEPHERD_RESOURCES: Record<string, ResourceTemplate> = {
     id: "spirit_totem",
     category: "subclass_features",
     origin: { book: "XGE" },
-    grantor: {
-      system: "feature",
-      featureId: "spirit_totem",
-      obtainedVia: {
-        via: "subclass",
-        classId: "druid",
-        subclassId: "shepherd",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "spirit_totem",
+        obtainedVia: {
+          via: "subclass",
+          classId: "druid",
+          subclassId: "shepherd",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -26,17 +27,18 @@ export const SHEPHERD_RESOURCES: Record<string, ResourceTemplate> = {
     id: "faithful_summons",
     category: "subclass_features",
     origin: { book: "XGE" },
-    grantor: {
-      system: "feature",
-      featureId: "faithful_summons",
-      obtainedVia: {
-        via: "subclass",
-        classId: "druid",
-        subclassId: "shepherd",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "faithful_summons",
+        obtainedVia: {
+          via: "subclass",
+          classId: "druid",
+          subclassId: "shepherd",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 

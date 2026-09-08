@@ -5,17 +5,18 @@ export const CAVALIER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "unwavering_mark_retaliate",
     category: "subclass_features",
     origin: { book: "XGE" },
-    grantor: {
-      system: "feature",
-      featureId: "unwavering_mark_retaliate",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "cavalier",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "unwavering_mark_retaliate",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "cavalier",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "CHA" } },
     max: { kind: "formula", formula: { base: { kind: "scaler", id: "CHA" } } },
     min: { kind: "value", amount: 0 },
 
@@ -27,17 +28,18 @@ export const CAVALIER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "warding_maneuver",
     category: "subclass_features",
     origin: { book: "XGE" },
-    grantor: {
-      system: "feature",
-      featureId: "warding_maneuver",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "cavalier",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "warding_maneuver",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "cavalier",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "CON" } },
     max: { kind: "formula", formula: { base: { kind: "scaler", id: "CON" } } },
     min: { kind: "value", amount: 0 },
 
@@ -48,17 +50,18 @@ export const CAVALIER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "vigilant_defender",
     category: "subclass_features",
     origin: { book: "XGE" },
-    grantor: {
-      system: "feature",
-      featureId: "vigilant_defender",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "cavalier",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "vigilant_defender",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "cavalier",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 

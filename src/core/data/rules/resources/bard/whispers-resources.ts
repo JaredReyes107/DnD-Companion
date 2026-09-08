@@ -5,13 +5,18 @@ export const WHISPERS_RESOURCES: Record<string, ResourceTemplate> = {
     id: "words_of_terror",
     category: "subclass_features",
     origin: { book: "XGE" },
-    grantor: {
-      system: "feature",
-      featureId: "words_of_terror",
-      obtainedVia: { via: "subclass", classId: "bard", subclassId: "whispers" },
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "words_of_terror",
+        obtainedVia: {
+          via: "subclass",
+          classId: "bard",
+          subclassId: "whispers",
+        },
+      },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -22,13 +27,18 @@ export const WHISPERS_RESOURCES: Record<string, ResourceTemplate> = {
     id: "mantle_of_whispers_capture_shadow",
     category: "subclass_features",
     origin: { book: "XGE" },
-    grantor: {
-      system: "feature",
-      featureId: "mantle_of_whispers_capture_shadow",
-      obtainedVia: { via: "subclass", classId: "bard", subclassId: "whispers" },
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "mantle_of_whispers_capture_shadow",
+        obtainedVia: {
+          via: "subclass",
+          classId: "bard",
+          subclassId: "whispers",
+        },
+      },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -39,13 +49,18 @@ export const WHISPERS_RESOURCES: Record<string, ResourceTemplate> = {
     id: "mantle_of_whispers_disguise",
     category: "subclass_features",
     origin: { book: "XGE" },
-    grantor: {
-      system: "feature",
-      featureId: "mantle_of_whispers_disguise",
-      obtainedVia: { via: "subclass", classId: "bard", subclassId: "whispers" },
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "mantle_of_whispers_disguise",
+        obtainedVia: {
+          via: "subclass",
+          classId: "bard",
+          subclassId: "whispers",
+        },
+      },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -62,7 +77,6 @@ export const WHISPERS_RESOURCES: Record<string, ResourceTemplate> = {
       obtainedVia: { via: "subclass", classId: "bard", subclassId: "whispers" }, // was "whisper" — fixed
     },
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 

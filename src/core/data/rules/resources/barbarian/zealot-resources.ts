@@ -5,17 +5,18 @@ export const ZEALOT_RESOURCES: Record<string, ResourceTemplate> = {
     id: "zealous_presence",
     category: "subclass_features",
     origin: { book: "XGE" },
-    grantor: {
-      system: "feature",
-      featureId: "zealous_presence",
-      obtainedVia: {
-        via: "subclass",
-        classId: "barbarian",
-        subclassId: "zealot",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "zealous_presence",
+        obtainedVia: {
+          via: "subclass",
+          classId: "barbarian",
+          subclassId: "zealot",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -26,17 +27,18 @@ export const ZEALOT_RESOURCES: Record<string, ResourceTemplate> = {
     id: "fanatical_focus",
     category: "subclass_features",
     origin: { book: "XGE" },
-    grantor: {
-      system: "feature",
-      featureId: "fanatical_focus",
-      obtainedVia: {
-        via: "subclass",
-        classId: "barbarian",
-        subclassId: "zealot",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "fanatical_focus",
+        obtainedVia: {
+          via: "subclass",
+          classId: "barbarian",
+          subclassId: "zealot",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 

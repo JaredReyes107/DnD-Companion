@@ -5,17 +5,18 @@ export const WILD_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
     id: "magic_awareness",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "magic_awareness",
-      obtainedVia: {
-        via: "subclass",
-        classId: "barbarian",
-        subclassId: "wild_magic",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "magic_awareness",
+        obtainedVia: {
+          via: "subclass",
+          classId: "barbarian",
+          subclassId: "wild_magic",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "PB" } },
     max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
     min: { kind: "value", amount: 0 },
 
@@ -26,17 +27,18 @@ export const WILD_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
     id: "bolstering_magic",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "bolstering_magic",
-      obtainedVia: {
-        via: "subclass",
-        classId: "barbarian",
-        subclassId: "wild_magic",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "bolstering_magic",
+        obtainedVia: {
+          via: "subclass",
+          classId: "barbarian",
+          subclassId: "wild_magic",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "PB" } },
     max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
     min: { kind: "value", amount: 0 },
 

@@ -27,13 +27,14 @@ export const DRUID_RESOURCES: Record<string, ResourceTemplate> = {
     id: "wild_shape",
     category: "class_features",
     origin: { book: "PHB" },
-    grantor: {
-      system: "feature",
-      featureId: "wild_shape",
-      obtainedVia: { via: "class", classId: "druid" },
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "wild_shape",
+        obtainedVia: { via: "class", classId: "druid" },
+      },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 2 } },
     max: { kind: "value", amount: 2 },
     min: { kind: "value", amount: 0 },
 

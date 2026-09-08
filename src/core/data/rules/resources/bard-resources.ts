@@ -19,13 +19,14 @@ export const BARD_RESOURCES: Record<string, ResourceTemplate> = {
     id: "bardic_inspiration",
     category: "class_features",
     origin: { book: "PHB" },
-    grantor: {
-      system: "feature",
-      featureId: "bardic_inspiration",
-      obtainedVia: { via: "class", classId: "bard" },
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "bardic_inspiration",
+        obtainedVia: { via: "class", classId: "bard" },
+      },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "CHA" } },
     max: { kind: "formula", formula: { base: { kind: "scaler", id: "CHA" } } },
     min: { kind: "value", amount: 0 },
 

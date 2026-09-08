@@ -19,13 +19,14 @@ export const MONK_RESOURCES: Record<string, ResourceTemplate> = {
     id: "ki_points",
     category: "class_features",
     origin: { book: "PHB" },
-    grantor: {
-      system: "feature",
-      featureId: "ki_points",
-      obtainedVia: { via: "class", classId: "monk" },
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "ki_points",
+        obtainedVia: { via: "class", classId: "monk" },
+      },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "class-level", param: "monk" } },
     max: {
       kind: "formula",
       formula: { base: { kind: "scaler", id: "class-level", param: "monk" } },

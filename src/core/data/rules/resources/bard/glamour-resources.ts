@@ -5,13 +5,18 @@ export const GLAMOUR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "mantle_of_majesty",
     category: "subclass_features",
     origin: { book: "XGE" },
-    grantor: {
-      system: "feature",
-      featureId: "mantle_of_majesty",
-      obtainedVia: { via: "subclass", classId: "bard", subclassId: "glamour" },
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "mantle_of_majesty",
+        obtainedVia: {
+          via: "subclass",
+          classId: "bard",
+          subclassId: "glamour",
+        },
+      },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -22,13 +27,18 @@ export const GLAMOUR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "unbreakable_majesty",
     category: "subclass_features",
     origin: { book: "XGE" },
-    grantor: {
-      system: "feature",
-      featureId: "unbreakable_majesty",
-      obtainedVia: { via: "subclass", classId: "bard", subclassId: "glamour" },
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "unbreakable_majesty",
+        obtainedVia: {
+          via: "subclass",
+          classId: "bard",
+          subclassId: "glamour",
+        },
+      },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 

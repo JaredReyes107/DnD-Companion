@@ -5,17 +5,18 @@ export const TEMPEST_RESOURCES: Record<string, ResourceTemplate> = {
     id: "wrath_of_the_storm",
     category: "subclass_features",
     origin: { book: "PHB" },
-    grantor: {
-      system: "feature",
-      featureId: "wrath_of_the_storm",
-      obtainedVia: {
-        via: "subclass",
-        classId: "cleric",
-        subclassId: "tempest",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "wrath_of_the_storm",
+        obtainedVia: {
+          via: "subclass",
+          classId: "cleric",
+          subclassId: "tempest",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "PB" } },
     max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
     min: { kind: "value", amount: 0 },
 

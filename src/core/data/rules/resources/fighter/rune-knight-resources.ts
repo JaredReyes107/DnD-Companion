@@ -5,17 +5,18 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
     id: "giants_might",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "giants_might",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "rune_knight",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "giants_might",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "rune_knight",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "PB" } },
     max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
     min: { kind: "value", amount: 0 },
 
@@ -26,17 +27,18 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
     id: "runic_shield",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "runic_shield",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "rune_knight",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "runic_shield",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "rune_knight",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "PB" } },
     max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
     min: { kind: "value", amount: 0 },
 
@@ -49,17 +51,18 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
     id: "cloud_rune",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "cloud_rune",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "rune_knight",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "cloud_rune",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "rune_knight",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -70,17 +73,18 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
     id: "fire_rune",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "fire_rune",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "rune_knight",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "fire_rune",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "rune_knight",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -91,17 +95,18 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
     id: "frost_rune",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "frost_rune",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "rune_knight",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "frost_rune",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "rune_knight",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -112,17 +117,18 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
     id: "stone_rune",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "stone_rune",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "rune_knight",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "stone_rune",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "rune_knight",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -133,17 +139,18 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
     id: "hill_rune",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "hill_rune",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "rune_knight",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "hill_rune",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "rune_knight",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -154,17 +161,18 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
     id: "storm_rune",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "storm_rune",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "rune_knight",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "storm_rune",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "rune_knight",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 

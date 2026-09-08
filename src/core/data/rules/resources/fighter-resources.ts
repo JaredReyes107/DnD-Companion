@@ -27,13 +27,14 @@ export const FIGHTER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "second_wind",
     category: "class_features",
     origin: { book: "PHB" },
-    grantor: {
-      system: "feature",
-      featureId: "second_wind",
-      obtainedVia: { via: "class", classId: "fighter" },
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "second_wind",
+        obtainedVia: { via: "class", classId: "fighter" },
+      },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -44,13 +45,14 @@ export const FIGHTER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "action_surge",
     category: "class_features",
     origin: { book: "PHB" },
-    grantor: {
-      system: "feature",
-      featureId: "action_surge",
-      obtainedVia: { via: "class", classId: "fighter" },
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "action_surge",
+        obtainedVia: { via: "class", classId: "fighter" },
+      },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "action-surge" } },
     max: {
       kind: "formula",
       formula: { base: { kind: "scaler", id: "action-surge" } },
@@ -64,13 +66,14 @@ export const FIGHTER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "indomitable",
     category: "class_features",
     origin: { book: "PHB" },
-    grantor: {
-      system: "feature",
-      featureId: "indomitable",
-      obtainedVia: { via: "class", classId: "fighter" },
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "indomitable",
+        obtainedVia: { via: "class", classId: "fighter" },
+      },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "indomitable" } },
     max: {
       kind: "formula",
       formula: { base: { kind: "scaler", id: "indomitable" } },

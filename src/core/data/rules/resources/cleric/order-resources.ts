@@ -5,13 +5,18 @@ export const ORDER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "embodiment_of_the_law",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "embodiment_of_the_law",
-      obtainedVia: { via: "subclass", classId: "cleric", subclassId: "order" },
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "embodiment_of_the_law",
+        obtainedVia: {
+          via: "subclass",
+          classId: "cleric",
+          subclassId: "order",
+        },
+      },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "WIS" } },
     max: { kind: "formula", formula: { base: { kind: "scaler", id: "WIS" } } },
     min: { kind: "value", amount: 0 },
 

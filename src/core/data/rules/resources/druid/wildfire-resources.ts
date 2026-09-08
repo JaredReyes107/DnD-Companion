@@ -5,17 +5,18 @@ export const WILDFIRE_RESOURCES: Record<string, ResourceTemplate> = {
     id: "cauterizing_flames",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "cauterizing_flames",
-      obtainedVia: {
-        via: "subclass",
-        classId: "druid",
-        subclassId: "wildfire",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "cauterizing_flames",
+        obtainedVia: {
+          via: "subclass",
+          classId: "druid",
+          subclassId: "wildfire",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "PB" } },
     max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
     min: { kind: "value", amount: 0 },
 
@@ -26,17 +27,18 @@ export const WILDFIRE_RESOURCES: Record<string, ResourceTemplate> = {
     id: "blazing_revival",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "blazing_revival",
-      obtainedVia: {
-        via: "subclass",
-        classId: "druid",
-        subclassId: "wildfire",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "blazing_revival",
+        obtainedVia: {
+          via: "subclass",
+          classId: "druid",
+          subclassId: "wildfire",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 

@@ -5,17 +5,18 @@ export const SAMURAI_RESOURCES: Record<string, ResourceTemplate> = {
     id: "fighting_spirit",
     category: "subclass_features",
     origin: { book: "XGE" },
-    grantor: {
-      system: "feature",
-      featureId: "fighting_spirit",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "samurai",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "fighting_spirit",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "samurai",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "PB" } },
     max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
     min: { kind: "value", amount: 0 },
 
@@ -26,17 +27,18 @@ export const SAMURAI_RESOURCES: Record<string, ResourceTemplate> = {
     id: "strength_before_death",
     category: "subclass_features",
     origin: { book: "XGE" },
-    grantor: {
-      system: "feature",
-      featureId: "strength_before_death",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "samurai",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "strength_before_death",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "samurai",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 

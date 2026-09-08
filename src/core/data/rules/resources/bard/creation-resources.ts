@@ -5,13 +5,18 @@ export const CREATION_RESOURCES: Record<string, ResourceTemplate> = {
     id: "performance_of_creation",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "performance_of_creation",
-      obtainedVia: { via: "subclass", classId: "bard", subclassId: "creation" },
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "performance_of_creation",
+        obtainedVia: {
+          via: "subclass",
+          classId: "bard",
+          subclassId: "creation",
+        },
+      },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
@@ -22,13 +27,18 @@ export const CREATION_RESOURCES: Record<string, ResourceTemplate> = {
     id: "animating_performance",
     category: "subclass_features",
     origin: { book: "TCE" },
-    grantor: {
-      system: "feature",
-      featureId: "animating_performance",
-      obtainedVia: { via: "subclass", classId: "bard", subclassId: "creation" },
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "animating_performance",
+        obtainedVia: {
+          via: "subclass",
+          classId: "bard",
+          subclassId: "creation",
+        },
+      },
+    ],
 
-    scaling: { base: { kind: "fixed", value: 1 } },
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 

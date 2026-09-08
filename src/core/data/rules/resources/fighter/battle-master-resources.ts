@@ -5,17 +5,18 @@ export const BATTLE_MASTER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "superiority_dice",
     category: "subclass_features",
     origin: { book: "PHB" },
-    grantor: {
-      system: "feature",
-      featureId: "superiority_dice",
-      obtainedVia: {
-        via: "subclass",
-        classId: "fighter",
-        subclassId: "battle_master",
+    grantors: [
+      {
+        system: "feature",
+        featureId: "superiority_dice",
+        obtainedVia: {
+          via: "subclass",
+          classId: "fighter",
+          subclassId: "battle_master",
+        },
       },
-    },
+    ],
 
-    scaling: { base: { kind: "scaler", id: "superiority-dice" } },
     max: {
       kind: "formula",
       formula: { base: { kind: "scaler", id: "superiority-dice" } },
