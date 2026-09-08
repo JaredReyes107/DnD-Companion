@@ -137,3 +137,22 @@ export function resolveBound(
     }
   }
 }
+
+export function getActiveGrantors(
+  grantors: ResourceGrantor[],
+  character: Character,
+): ResourceGrantor[] {
+  return grantors.filter((g) => {
+    if (g.system !== "feature") return true;
+    const via = g.obtainedVia.via;
+    if (via === "class" || via === "subclass") {
+      return (
+        getClassInstanceByTemplateId(
+          character.classes,
+          g.obtainedVia.classId,
+        ) !== undefined
+      );
+    }
+    return true;
+  });
+}
