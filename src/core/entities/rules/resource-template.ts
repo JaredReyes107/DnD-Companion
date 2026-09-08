@@ -25,8 +25,8 @@ export type ResourceBound =
 export type RestoreTrigger =
   | { type: "shortRest" }
   | { type: "longRest" }
-  | { type: "turnStart" }
-  | { type: "roundStart" }
+  | { type: "perRound" } // Start of own turn
+  | { type: "turnStart" } // Start of anyone's turn
   | { type: "interval"; formula: ScalingFormula } // "1d4 long rests" — needs a dice-capable base later
   | { type: "none" };
 

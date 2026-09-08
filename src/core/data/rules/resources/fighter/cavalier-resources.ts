@@ -65,8 +65,7 @@ export const CAVALIER_RESOURCES: Record<string, ResourceTemplate> = {
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
-    // old "perTurn" trigger renamed to "turnStart" under the new RestoreTrigger union
-    recharge: [{ trigger: { type: "turnStart" }, amount: "full" }],
+    recharge: [{ trigger: { type: "perRound" }, amount: "full" }],
     tags: ["combat", "reaction"],
   },
 };
