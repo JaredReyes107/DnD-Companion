@@ -13,11 +13,31 @@ const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
 export const BARBARIAN_RESOURCES: Record<string, ResourceTemplate> = {
   rage: {
     id: "rage",
-    sourceId: "barbarian",
     category: "class_features",
-    scalingType: "rage",
-    recharge: "longRest",
-    tags: ["combat", "damage", "resistance"],
+    origin: { book: "PHB" },
+    grantor: {
+      system: "feature",
+      featureId: "rage",
+      obtainedVia: { via: "class", classId: "barbarian" },
+    },
+
+    scaling: { base: { kind: "scaler", id: "rage" } }, // unchanged breakpoint table, still level 2–17
+    max: {
+      kind: "conditional",
+      when: {
+        base: { kind: "scaler", id: "class-level" },
+        operator: ">=",
+        value: 20,
+      },
+      ifTrue: { kind: "unbounded" },
+      ifFalse: {
+        kind: "formula",
+        formula: { base: { kind: "scaler", id: "rage" } },
+      },
+    },
+    min: { kind: "value", amount: 0 },
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
   },
 
   ...SUBCLASSES_RESOURCES,

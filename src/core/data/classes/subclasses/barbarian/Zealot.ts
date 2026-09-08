@@ -35,7 +35,7 @@ export const ZEALOT: SubclassTemplate = {
           { type: "resource", id: "fanatical_focus" },
         ],
         tags: ["defense"],
-        // TODO: rage hook + saving throw reroll (once per rage tracker)
+        //TODO: Override. Rage now grants +1 fanatical_focus
       },
     ],
 
