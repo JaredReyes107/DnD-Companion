@@ -1,8 +1,8 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 import { BATTLE_MASTER_RESOURCES } from "./fighter/battle-master-resources";
-import { CHAMPION_RESOURCES } from "./fighter/champion-resources";
-import { ELDRITCH_KNIGHT_RESOURCES } from "./fighter/eldritch-knight-resources";
+// Champion has no dedicated chargeable resource in RAW.
+// Eldritch Knight has no dedicated chargeable resource in RAW.
 
 import { ARCANE_ARCHER_RESOURCES } from "./fighter/arcane-archer-resources";
 import { CAVALIER_RESOURCES } from "./fighter/cavalier-resources";
@@ -13,8 +13,6 @@ import { RUNE_KNIGHT_RESOURCES } from "./fighter/rune-knight-resources";
 
 const RESOURCES_SUBCLASSES: Record<string, ResourceTemplate> = {
   ...BATTLE_MASTER_RESOURCES,
-  ...CHAMPION_RESOURCES,
-  ...ELDRITCH_KNIGHT_RESOURCES,
 
   ...ARCANE_ARCHER_RESOURCES,
   ...CAVALIER_RESOURCES,
@@ -27,26 +25,60 @@ const RESOURCES_SUBCLASSES: Record<string, ResourceTemplate> = {
 export const FIGHTER_RESOURCES: Record<string, ResourceTemplate> = {
   second_wind: {
     id: "second_wind",
-    sourceId: "fighter",
     category: "class_features",
-    scalingType: "fixed:1",
-    recharge: "shortRest",
+    origin: { book: "PHB" },
+    grantor: {
+      system: "feature",
+      featureId: "second_wind",
+      obtainedVia: { via: "class", classId: "fighter" },
+    },
+
+    scaling: { base: { kind: "fixed", value: 1 } },
+    max: { kind: "value", amount: 1 },
+    min: { kind: "value", amount: 0 },
+
+    recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["combat", "healing"],
   },
   action_surge: {
     id: "action_surge",
-    sourceId: "fighter",
     category: "class_features",
-    scalingType: "action-surge",
-    recharge: "shortRest",
+    origin: { book: "PHB" },
+    grantor: {
+      system: "feature",
+      featureId: "action_surge",
+      obtainedVia: { via: "class", classId: "fighter" },
+    },
+
+    scaling: { base: { kind: "scaler", id: "action-surge" } },
+    max: {
+      kind: "formula",
+      formula: { base: { kind: "scaler", id: "action-surge" } },
+    },
+    min: { kind: "value", amount: 0 },
+
+    recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["combat", "damage", "resistance"],
   },
   indomitable: {
     id: "indomitable",
-    sourceId: "fighter",
     category: "class_features",
-    scalingType: "indomitable",
-    recharge: "shortRest",
+    origin: { book: "PHB" },
+    grantor: {
+      system: "feature",
+      featureId: "indomitable",
+      obtainedVia: { via: "class", classId: "fighter" },
+    },
+
+    scaling: { base: { kind: "scaler", id: "indomitable" } },
+    max: {
+      kind: "formula",
+      formula: { base: { kind: "scaler", id: "indomitable" } },
+    },
+    min: { kind: "value", amount: 0 },
+
+    // NOTE: RAW recovers on long rest only — currently modeled as shortRest.
+    recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["combat", "damage", "resistance"],
   },
 

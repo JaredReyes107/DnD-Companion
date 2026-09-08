@@ -3,27 +3,67 @@ import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 export const CAVALIER_RESOURCES: Record<string, ResourceTemplate> = {
   unwavering_mark_retaliate: {
     id: "unwavering_mark_retaliate",
-    sourceId: "cavalier",
     category: "subclass_features",
-    scalingType: "CHA",
-    recharge: "longRest",
-    tags: ["combat", "tank"],
+    origin: { book: "XGE" },
+    grantor: {
+      system: "feature",
+      featureId: "unwavering_mark_retaliate",
+      obtainedVia: {
+        via: "subclass",
+        classId: "fighter",
+        subclassId: "cavalier",
+      },
+    },
+
+    scaling: { base: { kind: "scaler", id: "CHA" } },
+    max: { kind: "formula", formula: { base: { kind: "scaler", id: "CHA" } } },
+    min: { kind: "value", amount: 0 },
+
     // Gates the retaliation attack only — marking a creature on hit is free.
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
+    tags: ["combat", "tank"],
   },
   warding_maneuver: {
     id: "warding_maneuver",
-    sourceId: "cavalier",
     category: "subclass_features",
-    scalingType: "CON",
-    recharge: "longRest",
+    origin: { book: "XGE" },
+    grantor: {
+      system: "feature",
+      featureId: "warding_maneuver",
+      obtainedVia: {
+        via: "subclass",
+        classId: "fighter",
+        subclassId: "cavalier",
+      },
+    },
+
+    scaling: { base: { kind: "scaler", id: "CON" } },
+    max: { kind: "formula", formula: { base: { kind: "scaler", id: "CON" } } },
+    min: { kind: "value", amount: 0 },
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["defense", "damage-reduction", "reaction"],
   },
   vigilant_defender: {
     id: "vigilant_defender",
-    sourceId: "cavalier",
     category: "subclass_features",
-    scalingType: "fixed:1",
-    recharge: "perTurn",
+    origin: { book: "XGE" },
+    grantor: {
+      system: "feature",
+      featureId: "vigilant_defender",
+      obtainedVia: {
+        via: "subclass",
+        classId: "fighter",
+        subclassId: "cavalier",
+      },
+    },
+
+    scaling: { base: { kind: "fixed", value: 1 } },
+    max: { kind: "value", amount: 1 },
+    min: { kind: "value", amount: 0 },
+
+    // old "perTurn" trigger renamed to "turnStart" under the new RestoreTrigger union
+    recharge: [{ trigger: { type: "turnStart" }, amount: "full" }],
     tags: ["combat", "reaction"],
   },
 };
