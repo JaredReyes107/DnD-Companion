@@ -50,9 +50,8 @@ export type ResourceTemplate = {
   id: string;
   category: ResourceCategory;
   origin: ContentOrigin;
-  grantor: ResourceGrantor;
+  grantors: ResourceGrantor[];
 
-  scaling: ScalingFormula;
   min?: ResourceBound; // default: { kind: "value", amount: 0 } if omitted
   max: ResourceBound; // required — explicit "unbounded" beats an implicit Infinity leak
 

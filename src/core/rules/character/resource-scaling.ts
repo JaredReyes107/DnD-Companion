@@ -1,5 +1,7 @@
+// src/core/rules/character/resource-scaling.ts
 import { Character } from "@/core/entities/character/Character";
 import { getScaling } from "@/core/data/registries/resource-scaling.registry";
+import { getClassInstanceByTemplateId } from "@/core/data/registries/classes.registry";
 import { ResourceGrantor } from "@/core/entities/rules/grantor";
 import {
   ScalingFormula,
@@ -10,12 +12,43 @@ import {
   ScalingCondition,
 } from "@/core/entities/rules/resource-template";
 
+/**
+ * Picks which grantor's context to hand to a scaler when a resource has more
+ * than one path to being granted (e.g. Channel Divinity via Cleric or Paladin).
+ * Matches against a class/subclass the character actually has; falls back to
+ * the first grantor for single-grantor resources or non-class-gated grants
+ * (race/background/feat/homebrew), where selection is a no-op.
+ */
+function selectGrantor(
+  grantors: ResourceGrantor[],
+  character: Character,
+): ResourceGrantor {
+  if (grantors.length === 1) return grantors[0];
+
+  const matching = grantors.find((g) => {
+    if (g.system !== "feature") return false;
+    const via = g.obtainedVia.via;
+    if (via === "class" || via === "subclass") {
+      return (
+        getClassInstanceByTemplateId(
+          character.classes,
+          g.obtainedVia.classId,
+        ) !== undefined
+      );
+    }
+    return true; // race/background/feat/homebrew grants aren't class-gated — trivially eligible
+  });
+
+  return matching ?? grantors[0];
+}
+
 function resolveBase(
   base: ScalingBase,
   character: Character,
   grantor: ResourceGrantor,
 ): number {
   if (base.kind === "fixed") return base.value;
+
   const scaler = getScaling(base.id);
   if (!scaler) {
     console.warn(`Unknown scaler: ${base.id}`);
@@ -42,8 +75,9 @@ function applyRounding(
 export function evaluateFormula(
   formula: ScalingFormula,
   character: Character,
-  grantor: ResourceGrantor,
+  grantors: ResourceGrantor[],
 ): number {
+  const grantor = selectGrantor(grantors, character);
   const base = resolveBase(formula.base, character, grantor);
 
   const result = (formula.steps ?? []).reduce((acc, step) => {
@@ -59,7 +93,6 @@ export function evaluateFormula(
     }
   }, base);
 
-  // Rounding applied once at the end, not per-step, to avoid compounding error
   return applyRounding(result, formula.rounding);
 }
 
@@ -84,25 +117,23 @@ function evaluateCondition(
   }
 }
 
-/**
- * Resolves a ResourceBound to either a finite number or the "unbounded" sentinel.
- * Used for both min and max resolution on ResourceTemplate -> ResourceInstance.
- */
 export function resolveBound(
   bound: ResourceBound,
   character: Character,
-  grantor: ResourceGrantor,
+  grantors: ResourceGrantor[],
 ): number | "unbounded" {
   switch (bound.kind) {
     case "value":
       return bound.amount;
     case "formula":
-      return evaluateFormula(bound.formula, character, grantor);
+      return evaluateFormula(bound.formula, character, grantors);
     case "unbounded":
       return "unbounded";
-    case "conditional":
+    case "conditional": {
+      const grantor = selectGrantor(grantors, character);
       return evaluateCondition(bound.when, character, grantor)
-        ? resolveBound(bound.ifTrue, character, grantor)
-        : resolveBound(bound.ifFalse, character, grantor);
+        ? resolveBound(bound.ifTrue, character, grantors)
+        : resolveBound(bound.ifFalse, character, grantors);
+    }
   }
 }

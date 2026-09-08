@@ -41,9 +41,9 @@ export function buildCharacterClassResources(
     if (!nextResources[id]) {
       const template = getResourceById(id);
 
-      const max = resolveBound(template.max, character, template.grantor);
+      const max = resolveBound(template.max, character, template.grantors);
       const resolvedMin = template.min
-        ? resolveBound(template.min, character, template.grantor)
+        ? resolveBound(template.min, character, template.grantors)
         : 0;
       const min = resolvedMin === "unbounded" ? 0 : resolvedMin; // min should never realistically be unbounded
 
