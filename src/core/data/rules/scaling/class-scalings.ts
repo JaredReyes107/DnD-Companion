@@ -53,7 +53,6 @@ export function registerClassScalings() {
 
     const level = barbarian.level;
 
-    if (level >= 20) return Infinity;
     if (level >= 17) return 6;
     if (level >= 12) return 5;
     if (level >= 6) return 4;

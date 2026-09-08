@@ -1,3 +1,42 @@
+import { ScalingFormula } from "@/core/data/rules/scaling/scaling-formula";
+import { ContentOrigin } from "./content-origin";
+import { ResourceGrantor } from "./grantor";
+
+export type ScalingCondition = {
+  base: import("@/core/data/rules/scaling/scaling-formula").ScalingBase;
+  operator: ">=" | ">" | "<=" | "<" | "==";
+  value: number;
+};
+
+export type ResourceBound =
+  | { kind: "value"; amount: number }
+  | {
+      kind: "formula";
+      formula: import("@/core/data/rules/scaling/scaling-formula").ScalingFormula;
+    }
+  | { kind: "unbounded" }
+  | {
+      kind: "conditional";
+      when: ScalingCondition;
+      ifTrue: ResourceBound;
+      ifFalse: ResourceBound;
+    };
+
+export type RestoreTrigger =
+  | { type: "shortRest" }
+  | { type: "longRest" }
+  | { type: "turnStart" }
+  | { type: "roundStart" }
+  | { type: "interval"; formula: ScalingFormula } // "1d4 long rests" — needs a dice-capable base later
+  | { type: "none" };
+
+export type RestoreRule = {
+  trigger: RestoreTrigger;
+  amount: "full" | { kind: "fixed"; value: number }; // partial restore, e.g. Channel Divinity short rest
+};
+
+export type Recharge = RestoreRule[]; // empty/only-"none" = never recharges on schedule
+
 export type ResourceCategory =
   | "spell_slots"
   | "pact_slots"
@@ -5,23 +44,18 @@ export type ResourceCategory =
   | "subclass_features"
   | "racial_features"
   | "background_features"
-  | "feats"
-  | "homebrew";
+  | "feats";
 
 export type ResourceTemplate = {
   id: string;
-  sourceId: string; // classId, featureId, raceId, etc
-  //origin: "Players Handbook", //For distinguishing official rules and homebrew
-  category: ResourceCategory; //For UI sections in the Dashboard
+  category: ResourceCategory;
+  origin: ContentOrigin;
+  grantor: ResourceGrantor;
 
-  scalingType: string; // ej: "PB", "CHA", "class-level", "character-level","fixed:3", etc
-  recharge:
-    | "shortRest"
-    | "longRest"
-    | "perTurn"
-    | "perRound"
-    | "none"
-    | "custom";
+  scaling: ScalingFormula;
+  min?: ResourceBound; // default: { kind: "value", amount: 0 } if omitted
+  max: ResourceBound; // required — explicit "unbounded" beats an implicit Infinity leak
 
-  tags?: string[]; // para UI ("combat", "spell", "defensive")
+  recharge: Recharge;
+  tags?: string[];
 };
