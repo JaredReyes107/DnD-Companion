@@ -36,7 +36,7 @@ export const ROGUE_RESOURCES: Record<string, ResourceTemplate> = {
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
-    recharge: [{ trigger: { type: "perRound" }, amount: "full" }], // own turn
+    recharge: [{ trigger: { type: "turnStart" }, amount: "full" }], // own turn
     tags: ["combat", "damage"],
   },
   stroke_of_luck: {

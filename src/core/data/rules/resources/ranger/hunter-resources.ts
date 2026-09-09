@@ -20,7 +20,6 @@ export const HUNTER_RESOURCES: Record<string, ResourceTemplate> = {
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
-    // NOTE: field/comment mismatch in source data — flagged above, preserved as authored.
     recharge: [{ trigger: { type: "turnStart" }, amount: "full" }],
     tags: [],
   },
@@ -43,7 +42,6 @@ export const HUNTER_RESOURCES: Record<string, ResourceTemplate> = {
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
-    // NOTE: field/comment mismatch in source data — flagged above, preserved as authored.
     recharge: [{ trigger: { type: "perRound" }, amount: "full" }],
     tags: [],
   },
