@@ -7,11 +7,12 @@ import {
   getLocalizedName,
   getLocalizedShortName,
 } from "@/services/localization/localization-helper";
+import { ui } from "@/services/localization/ui-localization-resolver";
 
 type Props = {
   label: string;
   current: number;
-  max: number;
+  max: number | "unbounded";
   onChange: (newUsed: number) => void;
 };
 
@@ -25,7 +26,9 @@ export const ResourceElement = ({ label, current, max, onChange }: Props) => {
       </ThemedText>
 
       <ThemedText style={styles.resourceElementValues}>
-        {current} / {max}
+        {max == "unbounded"
+          ? ui("resourceValues.unbounded")
+          : current + " / " + max}
       </ThemedText>
 
       <View style={styles.resourceElementButtonsContainer}>
@@ -33,11 +36,18 @@ export const ResourceElement = ({ label, current, max, onChange }: Props) => {
           <MaterialIcons name="remove" size={18} color="white" />
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => current < max && onChange(current + 1)}
-        >
-          <MaterialIcons name="add" size={18} color="white" />
-        </TouchableOpacity>
+        {max == "unbounded" && (
+          <TouchableOpacity>
+            <MaterialIcons name="add" size={18} color="white" />
+          </TouchableOpacity>
+        )}
+        {max != "unbounded" && (
+          <TouchableOpacity
+            onPress={() => current < max && onChange(current + 1)}
+          >
+            <MaterialIcons name="add" size={18} color="white" />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

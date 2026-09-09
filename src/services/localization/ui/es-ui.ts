@@ -125,6 +125,9 @@ export const es = {
     feats: "De dotes",
     homebrew: "Homebrew",
   },
+  resourceValues: {
+    unbounded: "Ilimitado",
+  },
   settings: {
     language: "Idioma",
     languageSelf: "Español",
