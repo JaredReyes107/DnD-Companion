@@ -81,15 +81,27 @@ export function evaluateFormula(
   const base = resolveBase(formula.base, character, grantor);
 
   const result = (formula.steps ?? []).reduce((acc, step) => {
+    const operand =
+      "value" in step
+        ? step.value
+        : (() => {
+            const scaler = getScaling(step.scalerId);
+            if (!scaler) {
+              console.warn(`Unknown scaler: ${step.scalerId}`);
+              return 0;
+            }
+            return scaler({ character, grantor, param: step.param });
+          })();
+
     switch (step.op) {
       case "add":
-        return acc + step.value;
+        return acc + operand;
       case "subtract":
-        return acc - step.value;
+        return acc - operand;
       case "multiply":
-        return acc * step.value;
+        return acc * operand;
       case "divide":
-        return acc / step.value;
+        return acc / operand;
     }
   }, base);
 

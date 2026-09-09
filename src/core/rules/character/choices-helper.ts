@@ -1,6 +1,7 @@
 import { Character } from "@/core/entities/character/Character";
 import { ChoiceInstance } from "@/core/entities/character/choice-instance";
 import { OptionGrant } from "@/core/entities/rules/option-template";
+import { TimingTrigger } from "@/core/entities/rules/trigger";
 import { getOptionById } from "@/core/data/registries/options.registry";
 import { getChoicePoolById } from "@/core/data/registries/choice-pools.registry";
 import { getActiveFeatures } from "./features-helper";
@@ -150,12 +151,11 @@ export function bootstrapFeatureChoices(
 
 /**
  * Clears selectedOptionIds for all pools with the given selectionTrigger.
- * Called by takeLongRest / takeShortRest for onLongRest / onShortRest pools.
  * Returns a new featureChoices record (does not mutate).
  */
 export function resetChoicesForTrigger(
   character: Character,
-  trigger: "onLongRest" | "onShortRest",
+  trigger: TimingTrigger["type"],
 ): Record<string, ChoiceInstance> {
   const next = { ...character.featureChoices };
 

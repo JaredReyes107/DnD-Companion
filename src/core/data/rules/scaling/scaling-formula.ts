@@ -3,10 +3,12 @@ export type ScalingBase =
   | { kind: "scaler"; id: string; param?: string };
 
 export type ScalingStep =
-  | { op: "add"; value: number }
-  | { op: "subtract"; value: number }
-  | { op: "multiply"; value: number }
-  | { op: "divide"; value: number };
+  | { op: "add" | "subtract" | "multiply" | "divide"; value: number }
+  | {
+      op: "add" | "subtract" | "multiply" | "divide";
+      scalerId: string;
+      param?: string;
+    };
 
 export type ScalingFormula = {
   base: ScalingBase;

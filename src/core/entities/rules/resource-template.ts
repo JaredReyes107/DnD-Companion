@@ -1,6 +1,6 @@
-import { ScalingFormula } from "@/core/data/rules/scaling/scaling-formula";
 import { ContentOrigin } from "./content-origin";
 import { ResourceGrantor } from "./grantor";
+import { TimingTrigger } from "./trigger";
 
 export type ScalingCondition = {
   base: import("@/core/data/rules/scaling/scaling-formula").ScalingBase;
@@ -22,17 +22,14 @@ export type ResourceBound =
       ifFalse: ResourceBound;
     };
 
-export type RestoreTrigger =
-  | { type: "shortRest" }
-  | { type: "longRest" }
-  | { type: "perRound" } // Start of own turn
-  | { type: "turnStart" } // Start of anyone's turn
-  | { type: "interval"; formula: ScalingFormula } // "1d4 long rests" — needs a dice-capable base later
-  | { type: "none" };
+export type RestoreAmount =
+  | "full"
+  | { kind: "reset"; value: number } // set current to this exact value
+  | { kind: "delta"; value: number }; // add this to current (negative = decay)
 
 export type RestoreRule = {
-  trigger: RestoreTrigger;
-  amount: "full" | { kind: "fixed"; value: number }; // partial restore, e.g. Channel Divinity short rest
+  trigger: TimingTrigger;
+  amount: RestoreAmount;
 };
 
 export type Recharge = RestoreRule[]; // empty/only-"none" = never recharges on schedule
