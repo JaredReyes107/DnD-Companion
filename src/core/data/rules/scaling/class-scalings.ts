@@ -41,6 +41,32 @@ function registerSubclassScalings() {
     if (level >= 6) return 2;
     return 1;
   });
+
+  registerScaling("eldritch-cannon-reservoir", ({ character }) => {
+    const characterClass = Object.values(character.classes.byId).find(
+      (c) => c.classId === "artificer",
+    );
+
+    if (!characterClass) return 0;
+
+    const level = characterClass.level;
+
+    if (level >= 15) return 2;
+    return 1;
+  });
+
+  registerScaling("eldritch-cannon-rlimit", ({ character }) => {
+    const characterClass = Object.values(character.classes.byId).find(
+      (c) => c.classId === "artificer",
+    );
+
+    if (!characterClass) return 0;
+
+    const level = characterClass.level;
+
+    if (level >= 15) return 2;
+    return 1;
+  });
 }
 
 export function registerClassScalings() {
