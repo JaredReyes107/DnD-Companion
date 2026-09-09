@@ -3,20 +3,49 @@ import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 export const WAR_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
   power_surge: {
     id: "power_surge",
-    sourceId: "war_magic",
     category: "subclass_features",
-    scalingType: "INT",
-    // TODO: Resets to 1 on longRest, not max
-    // TODO: Gains 1 if = 0 on shortRest
-    recharge: "longRest",
+    origin: { book: "XGE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "power_surge",
+        obtainedVia: {
+          via: "subclass",
+          classId: "wizard",
+          subclassId: "war_magic",
+        },
+      },
+    ],
+
+    max: { kind: "formula", formula: { base: { kind: "scaler", id: "INT" } } },
+    min: { kind: "value", amount: 0 },
+
+    recharge: [
+      { trigger: { type: "longRest" }, amount: { kind: "reset", value: 0 } },
+      { trigger: { type: "shortRest" }, amount: { kind: "delta", value: 0 } }, // TODO: ONLY if currently at 0.
+    ],
     tags: ["combat", "damage"],
   },
   power_surge_turn_uses: {
-    id: "power_surge",
-    sourceId: "war_magic",
+    id: "power_surge_turn_uses",
     category: "subclass_features",
-    scalingType: "INT",
-    recharge: "perTurn",
+    origin: { book: "XGE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "power_surge_turn_uses",
+        obtainedVia: {
+          via: "subclass",
+          classId: "wizard",
+          subclassId: "war_magic",
+        },
+      },
+    ],
+
+    max: { kind: "value", amount: 1 },
+    min: { kind: "value", amount: 0 },
+
+    recharge: [{ trigger: { type: "turnStart" }, amount: "full" }],
     tags: ["combat", "damage"],
   },
 };
