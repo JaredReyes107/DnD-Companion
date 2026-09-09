@@ -16,7 +16,7 @@ export const KENSEI_RESOURCES: Record<string, ResourceTemplate> = {
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
-    recharge: [{ trigger: { type: "perRound" }, amount: "full" }],
+    recharge: [{ trigger: { type: "roundStart" }, amount: "full" }],
     tags: [],
   },
   unerring_accurracy: {
@@ -34,7 +34,7 @@ export const KENSEI_RESOURCES: Record<string, ResourceTemplate> = {
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
 
-    recharge: [{ trigger: { type: "perRound" }, amount: "full" }],
+    recharge: [{ trigger: { type: "roundStart" }, amount: "full" }],
     tags: [],
   },
 };

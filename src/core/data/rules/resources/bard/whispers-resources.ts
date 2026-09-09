@@ -71,11 +71,17 @@ export const WHISPERS_RESOURCES: Record<string, ResourceTemplate> = {
     id: "shadow_lore",
     category: "subclass_features",
     origin: { book: "XGE" },
-    grantor: {
-      system: "feature",
-      featureId: "shadow_lore",
-      obtainedVia: { via: "subclass", classId: "bard", subclassId: "whispers" }, // was "whisper" — fixed
-    },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "shadow_lore",
+        obtainedVia: {
+          via: "subclass",
+          classId: "bard",
+          subclassId: "whispers",
+        },
+      },
+    ],
 
     max: { kind: "value", amount: 1 },
     min: { kind: "value", amount: 0 },
