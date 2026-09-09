@@ -6,7 +6,7 @@ export const BEAST_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "form_of_the_beast_weapon",
     sourceId: "beast",
     classId: "barbarian",
-    selectionTrigger: "onActivation", // deferred
+    selectionTrigger: { type: "onActivation" }, // deferred
     optionIds: ["beast_weapon_bite", "beast_weapon_claws", "beast_weapon_tail"],
     picksAtLevel: { 3: 1 },
   },
@@ -15,7 +15,7 @@ export const BEAST_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "bestial_soul_movement",
     sourceId: "beast",
     classId: "barbarian",
-    selectionTrigger: "onLevelUp",
+    selectionTrigger: { type: "levelUp" },
     optionIds: ["bestial_soul_climb", "bestial_soul_swim", "bestial_soul_fly"],
     picksAtLevel: { 6: 1 },
   },

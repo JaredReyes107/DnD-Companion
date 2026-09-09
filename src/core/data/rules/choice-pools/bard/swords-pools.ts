@@ -5,7 +5,7 @@ export const SWORDS_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "fighting_style_swords",
     sourceId: "swords",
     classId: "bard",
-    selectionTrigger: "onLevelUp",
+    selectionTrigger: { type: "levelUp" },
     optionIds: ["fighting_style_dueling", "fighting_style_two_weapon_fighting"],
     picksAtLevel: { 3: 1 },
   },

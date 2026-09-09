@@ -5,7 +5,7 @@ export const ARCANE_ARCHER_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "arcane_shots_known",
     sourceId: "arcane_archer",
     classId: "fighter",
-    selectionTrigger: "onLevelUp",
+    selectionTrigger: { type: "levelUp" },
     optionIds: [
       "banishing_arrow",
       "beguiling_arrow",

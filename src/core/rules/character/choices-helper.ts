@@ -86,7 +86,7 @@ export function getUnfilledChoices(
 
     // Only surface onLevelUp pools here — rest and activation pools
     // are handled by their respective flows
-    if (pool.selectionTrigger !== "onLevelUp") continue;
+    if (pool.selectionTrigger.type !== "levelUp") continue;
 
     const totalPicks = getTotalPicksForPool(character, poolId);
     const currentPicks = instance.selectedOptionIds.length;
@@ -162,7 +162,7 @@ export function resetChoicesForTrigger(
   for (const poolId of Object.keys(next)) {
     const pool = getChoicePoolById(poolId);
 
-    if (pool.selectionTrigger === trigger) {
+    if (pool.selectionTrigger.type === trigger) {
       next[poolId] = {
         ...next[poolId],
         selectedOptionIds: [],

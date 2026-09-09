@@ -5,7 +5,7 @@ export const TOTEM_WARRIOR_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "totem_spirit",
     sourceId: "totem_warrior",
     classId: "barbarian",
-    selectionTrigger: "onLevelUp",
+    selectionTrigger: { type: "levelUp" },
     optionIds: [
       "totem_spirit_bear",
       "totem_spirit_eagle",
@@ -21,7 +21,7 @@ export const TOTEM_WARRIOR_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "aspect_of_the_beast",
     sourceId: "totem_warrior",
     classId: "barbarian",
-    selectionTrigger: "onLevelUp",
+    selectionTrigger: { type: "levelUp" },
     optionIds: [
       "aspect_bear",
       "aspect_eagle",
@@ -37,7 +37,7 @@ export const TOTEM_WARRIOR_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "totemic_attunement",
     sourceId: "totem_warrior",
     classId: "barbarian",
-    selectionTrigger: "onLevelUp",
+    selectionTrigger: { type: "levelUp" },
     optionIds: [
       "attunement_bear",
       "attunement_eagle",

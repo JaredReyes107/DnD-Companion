@@ -5,7 +5,7 @@ export const WARLOCK_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "eldritch_invocations",
     sourceId: "warlock",
     classId: "warlock",
-    selectionTrigger: "onLevelUp",
+    selectionTrigger: { type: "levelUp" },
     optionIds: [
       // PHB
       "invocation_agonizing_blast",
@@ -72,7 +72,7 @@ export const WARLOCK_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "pact_boon",
     sourceId: "warlock",
     classId: "warlock",
-    selectionTrigger: "onLevelUp",
+    selectionTrigger: { type: "levelUp" },
     optionIds: [
       "pact_of_the_blade",
       "pact_of_the_chain",
