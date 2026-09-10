@@ -1,10 +1,11 @@
 import { ContentOrigin } from "./content-origin";
 import { ResourceGrantor } from "./grantor";
 import { TimingTrigger } from "./trigger";
+import { Comparator } from "@/core/entities/rules/comparator";
 
 export type ScalingCondition = {
   base: import("@/core/data/rules/scaling/scaling-formula").ScalingBase;
-  operator: ">=" | ">" | "<=" | "<" | "==";
+  operator: Comparator;
   value: number;
 };
 
@@ -27,9 +28,15 @@ export type RestoreAmount =
   | { kind: "reset"; value: number } // set current to this exact value
   | { kind: "delta"; value: number }; // add this to current (negative = decay)
 
+export type ResourceRechargeCondition = {
+  operator: Comparator;
+  value: number;
+};
+
 export type RestoreRule = {
   trigger: TimingTrigger;
   amount: RestoreAmount;
+  when?: ResourceRechargeCondition;
 };
 
 export type Recharge = RestoreRule[]; // empty/only-"none" = never recharges on schedule

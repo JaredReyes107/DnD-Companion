@@ -6,8 +6,9 @@ import {
   RestoreAmount,
 } from "@/core/entities/rules/resource-template";
 import { getResourceRegistry } from "../../data/registries/resources.registry";
-import { resetChoicesForTrigger } from "./choices-helper";
 import { TimingTrigger } from "@/core/entities/rules/trigger";
+import { evaluateComparator } from "@/core/rules/shared/comparator-helper";
+import { resetChoicesForTrigger } from "./choices-helper";
 
 /**
  * Resolves what an instance's `current` becomes after applying one
@@ -41,13 +42,23 @@ function applyRestoreAmount(
  * rule over a "shortRest" rule when both exist, instead of applying both or
  * applying the wrong one.
  */
+
 function findMatchingRule(
   rules: RestoreRule[],
   priority: TimingTrigger["type"][],
+  currentValue: number,
 ): RestoreRule | undefined {
   for (const triggerType of priority) {
-    const match = rules.find((rule) => rule.trigger.type === triggerType);
-    if (match) return match;
+    const candidate = rules.find((rule) => {
+      if (rule.trigger.type !== triggerType) return false;
+      if (!rule.when) return true;
+      return evaluateComparator(
+        currentValue,
+        rule.when.operator,
+        rule.when.value,
+      );
+    });
+    if (candidate) return candidate;
   }
   return undefined;
 }
@@ -68,7 +79,11 @@ function restoreResources(
       continue;
     }
 
-    const rule = findMatchingRule(definition.recharge, triggerPriority);
+    const rule = findMatchingRule(
+      definition.recharge,
+      triggerPriority,
+      instance.current,
+    );
 
     updated[key] = rule
       ? { ...instance, current: applyRestoreAmount(instance, rule.amount) }

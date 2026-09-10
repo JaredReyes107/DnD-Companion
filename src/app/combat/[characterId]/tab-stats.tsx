@@ -15,7 +15,10 @@ import { ThemedText } from "@/components/ui/ThemedText";
 import { ThemedView } from "@/components/ui/ThemedView";
 
 import { returnNaturalNumber } from "@/utils/input-handler";
-import { takeLongRest, takeShortRest } from "@/core/rules/character/resting";
+import {
+  takeLongRest,
+  takeShortRest,
+} from "@/core/rules/character/resource-recharge";
 import {
   getCurrentHitDiceAsArray,
   getMaximumHitDice,

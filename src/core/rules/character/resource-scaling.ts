@@ -1,4 +1,3 @@
-// src/core/rules/character/resource-scaling.ts
 import { Character } from "@/core/entities/character/Character";
 import { getScaling } from "@/core/data/registries/resource-scaling.registry";
 import { getClassInstanceByTemplateId } from "@/core/data/registries/classes.registry";
@@ -11,6 +10,7 @@ import {
   ResourceBound,
   ScalingCondition,
 } from "@/core/entities/rules/resource-template";
+import { evaluateComparator } from "../shared/comparator-helper";
 
 /**
  * Picks which grantor's context to hand to a scaler when a resource has more
@@ -114,19 +114,7 @@ function evaluateCondition(
   grantor: ResourceGrantor,
 ): boolean {
   const observed = resolveBase(condition.base, character, grantor);
-
-  switch (condition.operator) {
-    case ">=":
-      return observed >= condition.value;
-    case ">":
-      return observed > condition.value;
-    case "<=":
-      return observed <= condition.value;
-    case "<":
-      return observed < condition.value;
-    case "==":
-      return observed === condition.value;
-  }
+  return evaluateComparator(observed, condition.operator, condition.value);
 }
 
 export function resolveBound(
