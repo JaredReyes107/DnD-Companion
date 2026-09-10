@@ -21,8 +21,12 @@ export const WAR_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
     min: { kind: "value", amount: 0 },
 
     recharge: [
-      { trigger: { type: "longRest" }, amount: { kind: "reset", value: 0 } },
-      { trigger: { type: "shortRest" }, amount: { kind: "delta", value: 0 } }, // TODO: ONLY if currently at 0.
+      { trigger: { type: "longRest" }, amount: { kind: "reset", value: 1 } },
+      {
+        trigger: { type: "shortRest" },
+        when: { operator: "==", value: 0 },
+        amount: { kind: "reset", value: 1 },
+      },
     ],
     tags: ["combat", "damage"],
   },

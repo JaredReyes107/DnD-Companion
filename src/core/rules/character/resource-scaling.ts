@@ -11,6 +11,8 @@ import {
   ScalingCondition,
 } from "@/core/entities/rules/resource-template";
 import { evaluateComparator } from "../shared/comparator-helper";
+import { isObtentionChainSafe } from "../shared/obtention-helper";
+import { getResourcesFromChoices } from "./choices-helper";
 
 /**
  * Picks which grantor's context to hand to a scaler when a resource has more
@@ -27,6 +29,8 @@ function selectGrantor(
 
   const matching = grantors.find((g) => {
     if (g.system !== "feature") return false;
+    if (!isObtentionChainSafe(g.obtainedVia)) return false;
+
     const via = g.obtainedVia.via;
     if (via === "class" || via === "subclass") {
       return (
@@ -35,6 +39,12 @@ function selectGrantor(
           g.obtainedVia.classId,
         ) !== undefined
       );
+    }
+    if (via === "choice") {
+      // The resource's own id (featureId) is what an Option's `grants`
+      // array actually references — poolId/grantedBy on the obtention is
+      // provenance metadata, not needed for this eligibility check.
+      return getResourcesFromChoices(character).has(g.featureId);
     }
     return true; // race/background/feat/homebrew grants aren't class-gated — trivially eligible
   });
@@ -144,6 +154,8 @@ export function getActiveGrantors(
 ): ResourceGrantor[] {
   return grantors.filter((g) => {
     if (g.system !== "feature") return true;
+    if (!isObtentionChainSafe(g.obtainedVia)) return false;
+
     const via = g.obtainedVia.via;
     if (via === "class" || via === "subclass") {
       return (
@@ -152,6 +164,9 @@ export function getActiveGrantors(
           g.obtainedVia.classId,
         ) !== undefined
       );
+    }
+    if (via === "choice") {
+      return getResourcesFromChoices(character).has(g.featureId);
     }
     return true;
   });
