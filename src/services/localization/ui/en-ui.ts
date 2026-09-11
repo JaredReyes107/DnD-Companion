@@ -125,6 +125,9 @@ export const en = {
     feats: "Feats",
     homebrew: "Homebrew",
   },
+  resourceValues: {
+    unbounded: "Unlimited",
+  },
   settings: {
     language: "Language",
     languageSelf: "English",

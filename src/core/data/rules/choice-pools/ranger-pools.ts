@@ -9,7 +9,7 @@ export const RANGER_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "maneuvers",
     sourceId: "fighter",
     classId: "fighter",
-    selectionTrigger: "onLevelUp",
+    selectionTrigger: { type: "levelUp" },
     optionIds: [
       "fighting_style_archery",
       "fighting_style_defense",

@@ -17,7 +17,7 @@ export const kensei_actions_en: GameLocalizationCategory = {
     name: "Sharpen the Blade",
     description: `You expend up to 3 ki points to grant one kensei weapon you touch a bonus to attack and damage rolls when you attack with it. The bonus equals the number of ki points you spent. This bonus lasts for 1 minute or until you use this feature again. This feature has no effect on a magic weapon that already has a bonus to attack and damage rolls.`,
   },
-  unerring_acurracy: {
+  unerring_accurracy: {
     name: "Unerring Acurracy",
     description: `You reroll an atack you missed using a monk weapon on your turn.`,
   },

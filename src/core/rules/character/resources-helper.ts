@@ -7,7 +7,7 @@ import {
   GroupedResources,
 } from "@/core/data/registries/resources.registry";
 import { getResourcesFromChoices } from "./choices-helper";
-import { evaluateFormula } from "./resource-scaling";
+import { resolveBound } from "./resource-scaling";
 import { ResourceCategory } from "@/core/entities/rules/resource-template";
 import {
   buildSpellSlots,
@@ -32,7 +32,6 @@ export function buildCharacterClassResources(
   const characterFeatures = getActiveFeatures(character);
   const featureResourceIds = getResourcesFromFeatures(characterFeatures);
 
-  // NEW — merge choice-granted resource IDs
   const choiceResourceIds = getResourcesFromChoices(character);
   const resourceIds = new Set([...featureResourceIds, ...choiceResourceIds]);
 
@@ -41,12 +40,17 @@ export function buildCharacterClassResources(
   for (const id of resourceIds) {
     if (!nextResources[id]) {
       const template = getResourceById(id);
-      const charges = evaluateFormula(template, character);
-      nextResources[id] = {
-        resourceId: id,
-        max: charges,
-        current: charges,
-      };
+
+      const max = resolveBound(template.max, character, template.grantors);
+      const resolvedMin = template.min
+        ? resolveBound(template.min, character, template.grantors)
+        : 0;
+      const min = resolvedMin === "unbounded" ? 0 : resolvedMin; // min should never realistically be unbounded
+
+      // Unbounded resources start at 0 spent (nothing to "fill"); bounded resources start full.
+      const current = max === "unbounded" ? 0 : max;
+
+      nextResources[id] = { resourceId: id, max, current, min };
     }
   }
 

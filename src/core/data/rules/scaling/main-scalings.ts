@@ -11,43 +11,50 @@ export function registerMainScalings() {
     getTotalCharacterLevel(character.classes),
   );
 
-  registerScaling("class-level", ({ character, sourceId }) => {
-    if (sourceId === undefined) return 0;
+  registerScaling("class-level", ({ character, grantor, param }) => {
+    // Explicit param wins — lets homebrew resources target a class independent of how they were granted.
+    // Falls back to the grantor's own class/subclass when no param is given (the common case).
+    const classId =
+      param ??
+      (grantor.system === "feature" &&
+      (grantor.obtainedVia.via === "class" ||
+        grantor.obtainedVia.via === "subclass")
+        ? grantor.obtainedVia.classId
+        : undefined);
+
+    if (!classId) return 0;
 
     const sourceClass = getClassInstanceByTemplateId(
       character.classes,
-      sourceId,
+      classId,
     );
-
-    if (sourceClass === undefined) return 0;
-
-    return sourceClass.level;
+    return sourceClass?.level ?? 0;
   });
 
   //#region Ability Score Scalers
 
   registerScaling("STR", ({ character }) =>
-    Math.max(getAbilityModifier(character.baseAbilityScores.STR), 1),
+    getAbilityModifier(character.baseAbilityScores.STR),
   );
 
   registerScaling("DEX", ({ character }) =>
-    Math.max(getAbilityModifier(character.baseAbilityScores.DEX), 1),
+    getAbilityModifier(character.baseAbilityScores.DEX),
   );
 
   registerScaling("CON", ({ character }) =>
-    Math.max(getAbilityModifier(character.baseAbilityScores.CON), 1),
+    getAbilityModifier(character.baseAbilityScores.CON),
   );
 
   registerScaling("INT", ({ character }) =>
-    Math.max(getAbilityModifier(character.baseAbilityScores.INT), 1),
+    getAbilityModifier(character.baseAbilityScores.INT),
   );
 
   registerScaling("WIS", ({ character }) =>
-    Math.max(getAbilityModifier(character.baseAbilityScores.WIS), 1),
+    getAbilityModifier(character.baseAbilityScores.WIS),
   );
 
   registerScaling("CHA", ({ character }) =>
-    Math.max(getAbilityModifier(character.baseAbilityScores.CHA), 1),
+    getAbilityModifier(character.baseAbilityScores.CHA),
   );
 
   registerScaling("spellcasting", ({ character }) =>
