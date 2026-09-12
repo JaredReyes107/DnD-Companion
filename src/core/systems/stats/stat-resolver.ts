@@ -20,6 +20,14 @@ import {
 import { ABILITIES } from "../../entities/rules/ability/ability.types";
 import { SKILL_KEYS } from "../../data/rules/SKILLS";
 import { EncounterState } from "../../entities/combat/encounter-state";
+import {
+  getAbilityModifier,
+  getProficiencyBonus,
+} from "@/core/rules/character/abilities-modifiers";
+import {
+  resolveCheckAbility,
+  resolveCheckProficiency,
+} from "@/core/rules/character/checks-helper";
 import { getInitiativeBonus } from "../../entities/combat/initiative";
 import { getArmorClass } from "../../rules/character/armor-class";
 import { getSavingThrowModifier } from "../../rules/combat/saving-throws-modifiers";
@@ -105,6 +113,8 @@ export function serializeStatModel(statModel: StatModel): string {
       return `save:${statModel.ability}`;
     case "skill":
       return `skill:${statModel.skill.skillId}`;
+    case "check":
+      return `check:${statModel.nodeId}`;
     case "derived":
       return `derived:${statModel.key}`;
     case "custom":
@@ -117,7 +127,6 @@ export const serializeStatTemplate = serializeStatModel;
 
 function isSameStat(
   a: StatModel | undefined,
-
   b: StatModel | undefined,
 ): boolean {
   if (!a || !b) return false;
@@ -131,6 +140,9 @@ function isSameStat(
     case "skill":
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return a.skill.skillId === (b as any).skill.skillId;
+    case "check":
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return a.nodeId === (b as any).nodeId;
     case "derived":
     case "custom":
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -188,6 +200,14 @@ function getBaseValue(stat: StatModel, character: Character): number {
       return getSavingThrowModifier(character, stat.ability);
     case "skill":
       return getSkillModifier(character, character.skills[stat.skill.skillId]);
+    case "check": {
+      const ability = resolveCheckAbility(character, stat.nodeId);
+      const abilityMod = ability
+        ? getAbilityModifier(character.baseAbilityScores[ability])
+        : 0;
+      const proficient = resolveCheckProficiency(character, stat.nodeId);
+      return abilityMod + (proficient ? getProficiencyBonus(character) : 0);
+    }
     case "derived":
       switch (stat.key) {
         case "maxHp":

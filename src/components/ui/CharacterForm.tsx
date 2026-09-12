@@ -44,6 +44,7 @@ import SteppedNumberInput from "./SteppedNumberInput";
 import CustomPicker from "@/components/ui/CustomPicker";
 import { MainClassForm } from "@/components/ui/MainClassForm";
 import { SecondaryClassesForm } from "@/components/ui/SecondaryClassesForm";
+import { buildCharacterCheckState } from "@/core/entities/character/check-state";
 import AbilityScoreInput from "@/components/ui/AbilityScoresInput";
 import SavingThrowProficiencyInput from "@/components/ui/SavingThrowProficiencyInput";
 import SkillProficiencyInput from "@/components/ui/SkillProficiencyInput";
@@ -180,6 +181,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       currentHitDice: {},
       savingThrows,
       skills,
+      checks: initialCharacter?.checks ?? buildCharacterCheckState(),
 
       actionLimits:
         initialCharacter?.actionLimits ?? defaultScalarFields.actionLimits!,

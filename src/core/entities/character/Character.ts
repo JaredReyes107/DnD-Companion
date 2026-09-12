@@ -3,6 +3,7 @@ import { CharacterClasses } from "./character-classes";
 import { AbilityScores } from "@/core/entities/rules/ability/ability.types";
 import { CharacterSavingThrows } from "@/core/entities/rules/saving-throw/saving-throw-instance";
 import { CharacterSkills } from "@/core/entities/character/skill-instance";
+import { CharacterCheckState } from "./check-state";
 import { HitPoints } from "@/core/entities/rules/hit-points";
 import { FeatureInstance } from "../features/feature-instance";
 import { ResourceInstance } from "../resources/resource-instance";
@@ -32,8 +33,9 @@ export type Character = {
   hitPoints: HitPoints;
   currentHitDice: Record<number, number>;
 
-  savingThrows: CharacterSavingThrows;
-  skills: CharacterSkills;
+  savingThrows: CharacterSavingThrows; // deprecated, see below
+  skills: CharacterSkills; // deprecated, see below
+  checks: CharacterCheckState; // new
 
   actionLimits: {
     actions: number;

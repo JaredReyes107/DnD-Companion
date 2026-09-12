@@ -13,7 +13,8 @@ export type DerivedStatKey =
 export type StatModel =
   | { type: "ability"; ability: Ability }
   | { type: "save"; ability: Ability }
-  | { type: "skill"; skill: SkillInstance }
+  | { type: "skill"; skill: SkillInstance } // superseded by "check" — see migration note
+  | { type: "check"; nodeId: string }
   | { type: "derived"; key: DerivedStatKey }
   | { type: "custom"; key: string };
 
