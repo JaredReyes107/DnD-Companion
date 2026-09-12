@@ -26,6 +26,7 @@ import {
 } from "@/core/rules/character/abilities-modifiers";
 import {
   resolveCheckAbility,
+  resolveCheckExpertise,
   resolveCheckProficiency,
 } from "@/core/rules/character/checks-helper";
 import { getInitiativeBonus } from "../../entities/combat/initiative";
@@ -37,6 +38,7 @@ import {
   getSpellSaveDC,
   hasSpellcasting,
 } from "../../entities/spellcasting/spellcasting";
+import { getCharacterSavingThrowsAsArray } from "@/core/rules/combat/saving-throws-helper";
 
 // ---------------------------------------------------------------------------
 // New modifier-system resolveStat (used by tests and the new engine)
@@ -205,8 +207,13 @@ function getBaseValue(stat: StatModel, character: Character): number {
       const abilityMod = ability
         ? getAbilityModifier(character.baseAbilityScores[ability])
         : 0;
+
       const proficient = resolveCheckProficiency(character, stat.nodeId);
-      return abilityMod + (proficient ? getProficiencyBonus(character) : 0);
+      const expertise =
+        proficient && resolveCheckExpertise(character, stat.nodeId);
+      const pbMultiplier = expertise ? 2 : proficient ? 1 : 0;
+
+      return abilityMod + pbMultiplier * getProficiencyBonus(character);
     }
     case "derived":
       switch (stat.key) {
@@ -238,10 +245,9 @@ function buildAllStatModels(character: Character): StatModel[] {
     ability,
   }));
 
-  const saveStats: StatModel[] = ABILITIES.map((ability) => ({
-    type: "save" as const,
-    ability,
-  }));
+  const saveStats: StatModel[] = getCharacterSavingThrowsAsArray().map(
+    ({ nodeId }) => ({ type: "check" as const, nodeId }),
+  );
 
   const skillStats: StatModel[] = SKILL_KEYS.map((skillId) => ({
     type: "skill" as const,

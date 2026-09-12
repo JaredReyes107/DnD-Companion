@@ -4,6 +4,9 @@ import {
   getCheckNodeById,
   getCheckNodeAncestryChain,
 } from "@/core/data/registries/check-nodes.registry";
+import { FeatureTemplate } from "@/core/entities/rules/feature-template";
+import { getActiveFeatures } from "./features-helper";
+import { grantsOfType } from "../shared/grant-filters";
 
 /**
  * Which ability feeds this node for this character.
@@ -88,5 +91,65 @@ export function clearCheckAbilityOverride(
   return {
     ...character,
     checks: { ...character.checks, abilityOverrides: next },
+  };
+}
+
+export function getProficienciesFromFeatures(
+  features: FeatureTemplate[],
+): Set<string> {
+  const ids = new Set<string>();
+  for (const feature of features) {
+    grantsOfType(feature.grants, "proficiency").forEach((g) =>
+      ids.add(g.nodeId),
+    );
+  }
+  return ids;
+}
+
+/**
+ * Merges feature-derived proficiencies (class/subclass grants — fixed,
+ * never player-editable) with whatever the character already has
+ * recorded (manual entries from choice-driven proficiencies, once that
+ * exists). Feature-derived grants are additive and never removed here —
+ * same "never overwrite existing selections" rule bootstrapFeatureChoices
+ * follows, so a manual/choice-granted proficiency isn't clobbered by a
+ * rebuild.
+ */
+export function buildCharacterCheckProficiencies(
+  character: Character,
+): Set<string> {
+  const featureIds = getProficienciesFromFeatures(getActiveFeatures(character));
+  return new Set([...character.checks.proficiencies, ...featureIds]);
+}
+
+export function resolveCheckExpertise(
+  character: Character,
+  nodeId: string,
+): boolean {
+  const chain = getCheckNodeAncestryChain(nodeId);
+  return chain.some((id) => character.checks.manualExpertise.has(id));
+}
+
+export function grantCheckExpertise(
+  character: Character,
+  nodeId: string,
+): Character {
+  const next = new Set(character.checks.manualExpertise);
+  next.add(nodeId);
+  return {
+    ...character,
+    checks: { ...character.checks, manualExpertise: next },
+  };
+}
+
+export function revokeCheckExpertise(
+  character: Character,
+  nodeId: string,
+): Character {
+  const next = new Set(character.checks.manualExpertise);
+  next.delete(nodeId);
+  return {
+    ...character,
+    checks: { ...character.checks, manualExpertise: next },
   };
 }

@@ -32,6 +32,7 @@ import {
   getLocalizedName,
   getLocalizedShortName,
 } from "@/services/localization/localization-helper";
+import { resolveCheckProficiency } from "@/core/rules/character/checks-helper";
 
 // Styles
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
@@ -257,8 +258,8 @@ const CharacterSheetScreen = () => {
 
           <FlatList
             style={{ marginHorizontal: -20 }}
-            data={getCharacterSavingThrowsAsArray(character)}
-            keyExtractor={(item) => item.id}
+            data={getCharacterSavingThrowsAsArray()}
+            keyExtractor={(item) => item.nodeId}
             renderItem={({ item }) => (
               <View
                 style={[
@@ -269,15 +270,22 @@ const CharacterSheetScreen = () => {
                 <View style={styles.proficiencyRow}>
                   <View style={styles.proficiencyDetails}>
                     <ProficiencyIcon
-                      hasProficiency={item.state.hasProficiency}
+                      hasProficiency={resolveCheckProficiency(
+                        character,
+                        item.nodeId,
+                      )}
                     />
+                    {/* Placeholder — no resolved advantage/disadvantage
+                        source exists yet (ModifierType.ADVANTAGE sourced
+                        modifiers aren't built). Static icon for now. */}
+                    <MaterialIcons name="unfold-more" size={14} color="#888" />
                     <Text style={styles.proficiencyText}>
-                      {getLocalizedName("abilities", item.definition)}
+                      {getLocalizedName("abilities", item.ability)}
                     </Text>
                   </View>
                   <Text style={styles.proficiencyModifierBold}>
                     {PrintNumberWithSign(
-                      resolvedStats.stats.get("save:" + item.definition)
+                      resolvedStats.stats.get("check:" + item.nodeId)
                         ?.finalValue ?? 0,
                     )}
                   </Text>

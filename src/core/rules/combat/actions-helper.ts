@@ -9,15 +9,14 @@ import {
 } from "@/core/data/registries/actions.registry";
 import { getActionsFromChoices } from "@/core/rules/character/choices-helper";
 import { DEFAULT_ACTIONS } from "@/core/data/actions/default-actions";
+import { grantsOfType } from "../shared/grant-filters";
 
 export function getActionsFromFeatures(
   features: FeatureTemplate[],
 ): Set<string> {
   const ids = new Set<string>();
   for (const feature of features) {
-    feature.grants
-      ?.filter((g) => g.type === "action")
-      .forEach((g) => ids.add(g.id));
+    grantsOfType(feature.grants, "action").forEach((g) => ids.add(g.id));
   }
   return ids;
 }

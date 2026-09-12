@@ -11,6 +11,22 @@ export const FIGHTER: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
+        id: "proficiencies_fighter",
+        source: "class",
+        level: 1,
+        grants: [
+          { type: "proficiency", nodeId: "armor.light" },
+          { type: "proficiency", nodeId: "armor.medium" },
+          { type: "proficiency", nodeId: "armor.heavy" },
+          { type: "proficiency", nodeId: "armor.shield" },
+          { type: "proficiency", nodeId: "weapon.simple" },
+          { type: "proficiency", nodeId: "weapon.martial" },
+          { type: "proficiency", nodeId: "savingThrow.STR" },
+          { type: "proficiency", nodeId: "savingThrow.CON" },
+        ],
+        tags: ["proficiency"],
+      },
+      {
         id: "fighting_style_fighter",
         source: "class",
         level: 1,

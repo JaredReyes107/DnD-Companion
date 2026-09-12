@@ -2,7 +2,8 @@ export type FeatureGrant =
   | { type: "resource"; id: string }
   | { type: "action"; id: string }
   | { type: "modifier"; id: string }
-  | { type: "choice"; id: string };
+  | { type: "choice"; id: string }
+  | { type: "proficiency"; nodeId: string };
 
 export type FeatureTemplate = {
   id: string;

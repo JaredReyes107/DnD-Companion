@@ -1,33 +1,50 @@
 import { Ability } from "@/core/entities/rules/ability/ability.types";
 
-/**
- * Runtime check-related state for a character.
- *
- * `proficiencies` is a flat set of CheckNode ids. Proficiency recorded
- * at a non-leaf node (e.g. "weapon.martial") is inherited by every
- * descendant leaf at resolve time — never expanded into individual
- * leaves at build time. A new leaf added to a category later (homebrew
- * or errata) is automatically covered by existing "all X" grants
- * without touching existing characters.
- *
- * Expertise and advantage are deliberately NOT modeled here. Both are
- * StatModifierInstance grants targeting a node (see stats.types.ts),
- * resolved through the same modifier pipeline as everything else in
- * the app — sourced, and they disappear when their source does.
- *
- * `abilityOverrides` records per-character deviations from a node's
- * registry-declared ability (e.g. using INT instead of WIS for a
- * specific tool, or for a skill). Sparse — only nodes the player has
- * actually changed appear here.
- */
 export type CharacterCheckState = {
   proficiencies: Set<string>;
   abilityOverrides: Record<string, Ability>;
+
+  // TEMPORARY: manual expertise grants for freeform character creation.
+  // Architecturally this should be a StatModifierInstance sourced from a
+  // feature/choice grant (see checks-helper.ts). There's no grant/choice
+  // UI backing manual sheet entry yet, and statModifiers is fully
+  // rebuilt by buildCharacterPassiveModifiers on every save, which would
+  // erase a manually-added modifier. This set is the stopgap until that
+  // exists — migrate it to the modifier pipeline once expertise can be
+  // granted through a proper source.
+  manualExpertise: Set<string>;
 };
 
 export function buildCharacterCheckState(): CharacterCheckState {
   return {
     proficiencies: new Set<string>(),
     abilityOverrides: {},
+    manualExpertise: new Set<string>(),
+  };
+}
+
+export type SerializedCharacterCheckState = {
+  proficiencies: string[];
+  abilityOverrides: Record<string, Ability>;
+  manualExpertise: string[];
+};
+
+export function serializeCharacterCheckState(
+  state: CharacterCheckState,
+): SerializedCharacterCheckState {
+  return {
+    proficiencies: [...state.proficiencies],
+    abilityOverrides: state.abilityOverrides,
+    manualExpertise: [...state.manualExpertise],
+  };
+}
+
+export function hydrateCharacterCheckState(
+  raw: SerializedCharacterCheckState,
+): CharacterCheckState {
+  return {
+    proficiencies: new Set(raw.proficiencies),
+    abilityOverrides: raw.abilityOverrides,
+    manualExpertise: new Set(raw.manualExpertise),
   };
 }

@@ -6,6 +6,7 @@ import {
 import { getActiveFeatures } from "./features-helper";
 import { getStatModifierTemplateById } from "@/core/data/registries/modifiers.registry";
 import { getModifiersFromChoices } from "./choices-helper";
+import { grantsOfType } from "../shared/grant-filters";
 
 export function instantiateModifier(
   template: StatModifierTemplate,
@@ -35,14 +36,12 @@ export function buildCharacterPassiveModifiers(
   // Feature-granted modifiers — read grants directly off the template,
   // no registry lookup needed since getActiveFeatures already resolved them
   for (const feature of features) {
-    feature.grants
-      ?.filter((g) => g.type === "modifier")
-      .forEach((g) => {
-        const template = getStatModifierTemplateById(g.id);
-        const instance = instantiateModifier(template, character, feature.id);
-        const instanceKey = `${feature.id}:${g.id}`;
-        nextModifiers[instanceKey] = instance;
-      });
+    grantsOfType(feature.grants, "modifier").forEach((g) => {
+      const template = getStatModifierTemplateById(g.id);
+      const instance = instantiateModifier(template, character, feature.id);
+      const instanceKey = `${feature.id}:${g.id}`;
+      nextModifiers[instanceKey] = instance;
+    });
   }
 
   // Choice-granted modifiers — these come from selected options,
