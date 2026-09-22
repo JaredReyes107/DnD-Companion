@@ -21,8 +21,11 @@ export const FIGHTER: ClassTemplate = {
           { type: "proficiency", nodeId: "armor.shield" },
           { type: "proficiency", nodeId: "weapon.simple" },
           { type: "proficiency", nodeId: "weapon.martial" },
+          { type: "proficiency", nodeId: "tool.thievesTools" },
           { type: "proficiency", nodeId: "savingThrow.STR" },
           { type: "proficiency", nodeId: "savingThrow.CON" },
+          //Languages for testing
+          //Aplhabetical Ordering based on localization (Weapon, Languages. Only Items, not categories)
         ],
         tags: ["proficiency"],
       },

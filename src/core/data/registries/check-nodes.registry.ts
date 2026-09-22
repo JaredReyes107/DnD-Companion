@@ -1,5 +1,6 @@
 import { CheckNode } from "@/core/entities/rules/check/check-node";
 import { BASE_CHECK_NODES } from "@/core/data/rules/checks/checks";
+import { CheckCategory } from "@/core/entities/rules/check/check-category";
 
 const homebrewCheckNodes: Record<string, CheckNode> = {};
 
@@ -53,4 +54,18 @@ export function getCheckNodeChildren(nodeId: string): CheckNode[] {
   return Object.values(getCheckNodeRegistry()).filter((n) =>
     n.parentIds.includes(nodeId),
   );
+}
+
+export function getCheckCategoryRoots(category: CheckCategory): string[] {
+  return Object.values(getCheckNodeRegistry())
+    .filter((n) => n.category === category && n.parentIds.length === 0)
+    .map((n) => n.id);
+}
+
+export function getAllCheckNodeIdsByCategory(
+  category: CheckCategory,
+): string[] {
+  return Object.values(getCheckNodeRegistry())
+    .filter((n) => n.category === category)
+    .map((n) => n.id);
 }

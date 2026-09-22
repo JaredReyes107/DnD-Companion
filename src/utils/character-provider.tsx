@@ -20,6 +20,7 @@ import { buildCharacterPassiveModifiers } from "@/core/rules/character/stat-modi
 import { buildCharacterCheckProficiencies } from "@/core/rules/character/checks-helper";
 
 import { bootstrapFeatureChoices } from "@/core/rules/character/choices-helper";
+import { buildCharacterLanguageState } from "@/core/rules/character/languages-helper";
 
 /**
  * Returns the character with its CombatState merged in from the encounter.
@@ -129,6 +130,7 @@ export const CharacterProvider = ({
         ...withChoices.checks,
         proficiencies: buildCharacterCheckProficiencies(withChoices),
       },
+      languages: buildCharacterLanguageState(withChoices),
     };
 
     setCharacter(rebuilt);

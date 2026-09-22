@@ -1,10 +1,17 @@
 import { Character } from "@/core/entities/character/Character";
 import { ChoiceInstance } from "@/core/entities/character/choice-instance";
-import { OptionGrant } from "@/core/entities/rules/option-template";
-import { getOptionById } from "@/core/data/registries/options.registry";
+import {
+  OptionGrant,
+  OptionTemplate,
+} from "@/core/entities/rules/option-template";
+import {
+  getOptionById,
+  getOptionsForPool,
+} from "@/core/data/registries/options.registry";
 import { getChoicePoolById } from "@/core/data/registries/choice-pools.registry";
 import { getActiveFeatures } from "./features-helper";
 import { grantsOfType, optionGrantsOfType } from "../shared/grant-filters";
+import { evaluateEligibility } from "./eligibility-helper";
 
 /**
  * Returns all OptionGrants earned by the character's current selections,
@@ -173,4 +180,14 @@ export function resetChoicesForTrigger(
   }
 
   return next;
+}
+
+export function getEligibleOptionsForPool(
+  character: Character,
+  poolId: string,
+): OptionTemplate[] {
+  return getOptionsForPool(poolId).filter(
+    (option) =>
+      !option.eligibility || evaluateEligibility(character, option.eligibility),
+  );
 }

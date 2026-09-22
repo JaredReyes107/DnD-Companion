@@ -1,3 +1,4 @@
+import { EligibilityCondition } from "./eligibility/eligibility-condition";
 import { FeatureGrant } from "./feature-template";
 
 // Options cannot grant further choice pools — prevents circular resolution
@@ -10,4 +11,5 @@ export type OptionTemplate = {
   poolIds: string[];
   grants?: OptionGrant[];
   tags?: string[];
+  eligibility?: EligibilityCondition;
 };

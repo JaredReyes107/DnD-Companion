@@ -4,17 +4,26 @@ import {
   hydrateCharacterCheckState,
   serializeCharacterCheckState,
 } from "../core/entities/character/check-state";
+import {
+  hydrateCharacterLanguageState,
+  serializeCharacterLanguageState,
+} from "@/core/entities/character/language-state";
 
 const CHARACTERS_KEY = "characters";
 
 function hydrateCharacter(raw: Character): Character {
-  return { ...raw, checks: hydrateCharacterCheckState(raw.checks as never) };
+  return {
+    ...raw,
+    checks: hydrateCharacterCheckState(raw.checks as never),
+    languages: hydrateCharacterLanguageState(raw.languages as never),
+  };
 }
 
 function serializeCharacter(character: Character): unknown {
   return {
     ...character,
     checks: serializeCharacterCheckState(character.checks),
+    languages: serializeCharacterLanguageState(character.languages),
   };
 }
 

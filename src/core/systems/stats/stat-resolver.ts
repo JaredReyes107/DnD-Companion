@@ -18,7 +18,6 @@ import {
   StatModifierInstance,
 } from "../../entities/rules/stats.types";
 import { ABILITIES } from "../../entities/rules/ability/ability.types";
-import { SKILL_KEYS } from "../../data/rules/SKILLS";
 import { EncounterState } from "../../entities/combat/encounter-state";
 import {
   getAbilityModifier,
@@ -38,7 +37,7 @@ import {
   getSpellSaveDC,
   hasSpellcasting,
 } from "../../entities/spellcasting/spellcasting";
-import { getCharacterSavingThrowsAsArray } from "@/core/rules/combat/saving-throws-helper";
+import { getAllCheckNodeIdsByCategory } from "@/core/data/registries/check-nodes.registry";
 
 // ---------------------------------------------------------------------------
 // New modifier-system resolveStat (used by tests and the new engine)
@@ -239,20 +238,23 @@ function getBaseValue(stat: StatModel, character: Character): number {
   return 0;
 }
 
-function buildAllStatModels(character: Character): StatModel[] {
+function buildAllStatModels(): StatModel[] {
   const abilityStats: StatModel[] = ABILITIES.map((ability) => ({
     type: "ability" as const,
     ability,
   }));
 
-  const saveStats: StatModel[] = getCharacterSavingThrowsAsArray().map(
-    ({ nodeId }) => ({ type: "check" as const, nodeId }),
-  );
+  const saveStats: StatModel[] = getAllCheckNodeIdsByCategory(
+    "savingThrow",
+  ).map((nodeId) => ({ type: "check" as const, nodeId }));
 
-  const skillStats: StatModel[] = SKILL_KEYS.map((skillId) => ({
-    type: "skill" as const,
-    skill: character.skills[skillId],
-  }));
+  const skillStats: StatModel[] = getAllCheckNodeIdsByCategory(
+    "skillCheck",
+  ).map((nodeId) => ({ type: "check" as const, nodeId }));
+
+  const toolStats: StatModel[] = getAllCheckNodeIdsByCategory("toolCheck").map(
+    (nodeId) => ({ type: "check" as const, nodeId }),
+  );
 
   const derivedStats: StatModel[] = [
     { type: "derived" as const, key: "maxHp" as const },
@@ -263,12 +265,18 @@ function buildAllStatModels(character: Character): StatModel[] {
     { type: "derived" as const, key: "spellSaveDC" as const },
   ];
 
-  return [...abilityStats, ...saveStats, ...skillStats, ...derivedStats];
+  return [
+    ...abilityStats,
+    ...saveStats,
+    ...toolStats,
+    ...skillStats,
+    ...derivedStats,
+  ];
 }
 
 export function resolveOutOfCombat(character: Character): ResolvedCharacter {
   const stats = new Map<string, LegacyResolvedStat>();
-  const allStats = buildAllStatModels(character);
+  const allStats = buildAllStatModels();
 
   for (const statModel of allStats) {
     const base = getBaseValue(statModel, character);

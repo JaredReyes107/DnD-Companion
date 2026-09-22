@@ -1,18 +1,14 @@
 // Libraries
 import React, { useCallback } from "react";
-import {
-  ScrollView,
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import { ScrollView, View, Text, TouchableOpacity } from "react-native";
 import { useCharacter } from "@/utils/character-provider";
 import { useFocusEffect } from "expo-router";
 import { useCharacterNavigator } from "@/navigation/navigators/characterNavigator";
 
 // Custom Components
-import { ProficiencyIcon } from "@/components/ui/ProficiencyIcon";
+import { SavingThrowTree } from "@/components/ui/SavingThrowTree";
+import { AbilityCheckTree } from "@/components/ui/AbilityCheckTree";
+import { LanguageProficiencyTree } from "@/components/ui/LanguageProficiencyTree";
 
 // Character Functions
 import {
@@ -23,16 +19,25 @@ import { resolveInCombat } from "@/core/systems/stats/stat-resolver";
 import { getTotalCharacterLevel } from "@/core/rules/character/character-multiclassing";
 import { getNextXPThreshold } from "@/core/entities/progression/leveling";
 import { formatNaturalNumber } from "@/utils/input-handler";
+import { getLanguageNodeRoots } from "@/core/data/registries/language-nodes.registry";
+import {
+  getCheckCategoryRoots,
+  getCheckNodeChildren,
+} from "@/core/data/registries/check-nodes.registry";
+import {
+  resolveCheckProficiency,
+  revokeCheckProficiency,
+  grantCheckProficiency,
+} from "@/core/rules/character/checks-helper";
 
 // Helper Functions
 import { PrintNumberWithSign } from "@/utils/formater-numbers";
-import { getCharacterSkillsAsArray } from "@/core/rules/combat/skills-helper";
 import { getCharacterSavingThrowsAsArray } from "@/core/rules/combat/saving-throws-helper";
 import {
   getLocalizedName,
   getLocalizedShortName,
 } from "@/services/localization/localization-helper";
-import { resolveCheckProficiency } from "@/core/rules/character/checks-helper";
+import { WEAPON_PROFICIENCY_UI_ROOTS } from "@/core/data/rules/checks/weapon-nodes";
 
 // Styles
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
@@ -46,7 +51,8 @@ import { ui } from "@/services/localization/ui-localization-resolver";
 
 const CharacterSheetScreen = () => {
   const characterNavigator = useCharacterNavigator();
-  const { character, encounter, loadCharacterById } = useCharacter();
+  const { character, encounter, saveCharacter, loadCharacterById } =
+    useCharacter();
 
   const [_fontsLoaded] = useFonts({ Montserrat: Montserrat_500Medium });
 
@@ -63,6 +69,13 @@ const CharacterSheetScreen = () => {
       </View>
     );
   }
+
+  const toggleProficiency = (nodeId: string) =>
+    saveCharacter(
+      resolveCheckProficiency(character, nodeId)
+        ? revokeCheckProficiency(character, nodeId)
+        : grantCheckProficiency(character, nodeId),
+    );
 
   const resolvedStats = resolveInCombat(character, encounter);
 
@@ -256,42 +269,10 @@ const CharacterSheetScreen = () => {
             <Text style={genericStyles.header}>{ui("savingThrows.full")}</Text>
           </View>
 
-          <FlatList
-            style={{ marginHorizontal: -20 }}
-            data={getCharacterSavingThrowsAsArray()}
-            keyExtractor={(item) => item.nodeId}
-            renderItem={({ item }) => (
-              <View
-                style={[
-                  styles.proficienciesContainer,
-                  { paddingHorizontal: 20 },
-                ]}
-              >
-                <View style={styles.proficiencyRow}>
-                  <View style={styles.proficiencyDetails}>
-                    <ProficiencyIcon
-                      hasProficiency={resolveCheckProficiency(
-                        character,
-                        item.nodeId,
-                      )}
-                    />
-                    {/* Placeholder — no resolved advantage/disadvantage
-                        source exists yet (ModifierType.ADVANTAGE sourced
-                        modifiers aren't built). Static icon for now. */}
-                    <MaterialIcons name="unfold-more" size={14} color="#888" />
-                    <Text style={styles.proficiencyText}>
-                      {getLocalizedName("abilities", item.ability)}
-                    </Text>
-                  </View>
-                  <Text style={styles.proficiencyModifierBold}>
-                    {PrintNumberWithSign(
-                      resolvedStats.stats.get("check:" + item.nodeId)
-                        ?.finalValue ?? 0,
-                    )}
-                  </Text>
-                </View>
-              </View>
-            )}
+          <SavingThrowTree
+            entries={getCharacterSavingThrowsAsArray()}
+            character={character}
+            resolvedStats={resolvedStats}
           />
         </View>
 
@@ -300,30 +281,83 @@ const CharacterSheetScreen = () => {
           <View style={genericStyles.headerContainer}>
             <Text style={genericStyles.header}>{ui("stats.skills")}</Text>
           </View>
-
-          <FlatList
-            data={getCharacterSkillsAsArray(character)}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <View style={styles.proficienciesContainer}>
-                <View style={styles.proficiencyRow}>
-                  <View style={styles.proficiencyDetails}>
-                    <ProficiencyIcon
-                      hasProficiency={item.state.hasProficiency}
-                    />
-                    <Text style={styles.proficiencyText}>
-                      {getLocalizedName("skills", item.id)}
-                    </Text>
-                  </View>
-                  <Text style={styles.proficiencyModifier}>
-                    {PrintNumberWithSign(
-                      resolvedStats.stats.get("skill:" + item.id)?.finalValue ??
-                        0,
-                    )}
-                  </Text>
-                </View>
-              </View>
+          <AbilityCheckTree
+            rootNodeIds={getCheckCategoryRoots("skillCheck").flatMap((rootId) =>
+              getCheckNodeChildren(rootId).map((c) => c.id),
             )}
+            namespace="skills"
+            character={character}
+            resolvedStats={resolvedStats}
+            onUpdate={saveCharacter}
+            onToggleProficiency={(nodeId) =>
+              saveCharacter(
+                resolveCheckProficiency(character, nodeId)
+                  ? revokeCheckProficiency(character, nodeId)
+                  : grantCheckProficiency(character, nodeId),
+              )
+            }
+            sortRoots
+          />
+        </View>
+
+        {/* Weapons */}
+        <View style={styles.detailsSection}>
+          <View style={genericStyles.headerContainer}>
+            <Text style={genericStyles.header}>Weapons</Text>
+          </View>
+          <AbilityCheckTree
+            rootNodeIds={WEAPON_PROFICIENCY_UI_ROOTS}
+            namespace="checkNodes"
+            character={character}
+            resolvedStats={resolvedStats}
+            onUpdate={saveCharacter}
+            onToggleProficiency={toggleProficiency}
+            showAbilityPicker={false}
+            showValue={false}
+            sortChildren
+          />
+        </View>
+
+        {/* Armor */}
+        <View style={styles.detailsSection}>
+          <View style={genericStyles.headerContainer}>
+            <Text style={genericStyles.header}>Armor</Text>
+          </View>
+          <AbilityCheckTree
+            rootNodeIds={getCheckCategoryRoots("armorCheck")}
+            namespace="checkNodes"
+            character={character}
+            resolvedStats={resolvedStats}
+            onUpdate={saveCharacter}
+            onToggleProficiency={toggleProficiency}
+          />
+        </View>
+
+        {/* Tools */}
+        <View style={styles.detailsSection}>
+          <View style={genericStyles.headerContainer}>
+            <Text style={genericStyles.header}>Tools</Text>
+          </View>
+          <AbilityCheckTree
+            rootNodeIds={getCheckCategoryRoots("toolCheck")}
+            namespace="checkNodes"
+            character={character}
+            resolvedStats={resolvedStats}
+            onUpdate={saveCharacter}
+            onToggleProficiency={toggleProficiency}
+            sortRoots
+            sortChildren
+          />
+        </View>
+
+        {/* Languages */}
+        <View style={styles.detailsSection}>
+          <View style={genericStyles.headerContainer}>
+            <Text style={genericStyles.header}>Languages</Text>
+          </View>
+          <LanguageProficiencyTree
+            rootNodeIds={getLanguageNodeRoots()}
+            character={character}
           />
         </View>
       </View>

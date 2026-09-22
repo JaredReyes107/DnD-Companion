@@ -122,34 +122,17 @@ export function buildCharacterCheckProficiencies(
   return new Set([...character.checks.proficiencies, ...featureIds]);
 }
 
+const EXPERTISE_SOURCE_TAG = "expertise";
+
 export function resolveCheckExpertise(
   character: Character,
   nodeId: string,
 ): boolean {
   const chain = getCheckNodeAncestryChain(nodeId);
-  return chain.some((id) => character.checks.manualExpertise.has(id));
-}
-
-export function grantCheckExpertise(
-  character: Character,
-  nodeId: string,
-): Character {
-  const next = new Set(character.checks.manualExpertise);
-  next.add(nodeId);
-  return {
-    ...character,
-    checks: { ...character.checks, manualExpertise: next },
-  };
-}
-
-export function revokeCheckExpertise(
-  character: Character,
-  nodeId: string,
-): Character {
-  const next = new Set(character.checks.manualExpertise);
-  next.delete(nodeId);
-  return {
-    ...character,
-    checks: { ...character.checks, manualExpertise: next },
-  };
+  return Object.values(character.statModifiers).some(
+    (mod) =>
+      mod.statModel.type === "check" &&
+      chain.includes(mod.statModel.nodeId) &&
+      mod.sourceId === EXPERTISE_SOURCE_TAG,
+  );
 }

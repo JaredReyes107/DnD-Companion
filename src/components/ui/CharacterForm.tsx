@@ -64,6 +64,7 @@ import styles from "@/styles/character-creation.styles";
 import genericStyles from "@/styles/generic.styles";
 import { SKILL_NODES } from "@/core/data/rules/checks/skill-nodes";
 import CheckProficiencyInput from "./CheckProficiencyInput";
+import { buildCharacterLanguageState } from "@/core/rules/character/languages-helper";
 
 type Props = {
   initialCharacter?: Character | null;
@@ -192,6 +193,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       savingThrows,
       skills,
       checks,
+      languages: {},
 
       actionLimits:
         initialCharacter?.actionLimits ?? defaultScalarFields.actionLimits!,
@@ -223,6 +225,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
         ...withChoices.checks,
         proficiencies: buildCharacterCheckProficiencies(withChoices),
       },
+      languages: buildCharacterLanguageState(withChoices),
     };
 
     startEncounter([character]);
@@ -426,17 +429,13 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
                 nodeId={nodeId}
                 label={getLocalizedName("skills", nodeId)}
                 hasProficiency={checks.proficiencies.has(nodeId)}
-                hasExpertise={checks.manualExpertise.has(nodeId)}
-                showExpertise
                 onToggleProficiency={() =>
                   setChecks((prev) => {
                     const wasProficient = prev.proficiencies.has(nodeId);
                     const nextProficiencies = new Set(prev.proficiencies);
-                    const nextExpertise = new Set(prev.manualExpertise);
 
                     if (wasProficient) {
                       nextProficiencies.delete(nodeId);
-                      nextExpertise.delete(nodeId); // can't have expertise without proficiency
                     } else {
                       nextProficiencies.add(nodeId);
                     }
@@ -444,20 +443,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
                     return {
                       ...prev,
                       proficiencies: nextProficiencies,
-                      manualExpertise: nextExpertise,
                     };
-                  })
-                }
-                onToggleExpertise={() =>
-                  setChecks((prev) => {
-                    if (!prev.proficiencies.has(nodeId)) return prev;
-                    const nextExpertise = new Set(prev.manualExpertise);
-                    if (nextExpertise.has(nodeId)) {
-                      nextExpertise.delete(nodeId);
-                    } else {
-                      nextExpertise.add(nodeId);
-                    }
-                    return { ...prev, manualExpertise: nextExpertise };
                   })
                 }
               />

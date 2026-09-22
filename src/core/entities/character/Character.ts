@@ -11,6 +11,7 @@ import { ActionInstance } from "@/core/entities/actions/action-instance";
 import { StatModifierInstance } from "@/core/entities/rules/stats.types";
 import { CombatState } from "@/core/entities/combat/combat-state";
 import { ChoiceInstance } from "./choice-instance";
+import { CharacterLanguageState } from "./language-state";
 
 export type Character = {
   // Internal Id
@@ -35,7 +36,8 @@ export type Character = {
 
   savingThrows: CharacterSavingThrows; // deprecated, see below
   skills: CharacterSkills; // deprecated, see below
-  checks: CharacterCheckState; // new
+  checks: CharacterCheckState;
+  languages: CharacterLanguageState;
 
   actionLimits: {
     actions: number;

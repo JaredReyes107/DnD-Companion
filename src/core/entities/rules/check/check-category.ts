@@ -3,5 +3,4 @@ export type CheckCategory =
   | "skillCheck"
   | "toolCheck"
   | "weaponCheck"
-  | "armorCheck"
-  | "language";
+  | "armorCheck";
