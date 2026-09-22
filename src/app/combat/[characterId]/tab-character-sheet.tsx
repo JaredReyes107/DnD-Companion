@@ -273,6 +273,7 @@ const CharacterSheetScreen = () => {
             entries={getCharacterSavingThrowsAsArray()}
             character={character}
             resolvedStats={resolvedStats}
+            onUpdate={saveCharacter}
           />
         </View>
 

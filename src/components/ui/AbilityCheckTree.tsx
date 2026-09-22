@@ -6,8 +6,10 @@ import { getCheckNodeChildren } from "@/core/data/registries/check-nodes.registr
 import {
   resolveCheckProficiency,
   resolveCheckExpertise,
-  resolveCheckAbility,
   setCheckAbilityOverride,
+  resolveRequiredCheckAbility,
+  resolveAdvantageState,
+  setAdvantageState,
 } from "@/core/rules/character/checks-helper";
 import {
   ABILITIES,
@@ -62,7 +64,10 @@ const AbilityCheckRow = ({
   const hasChildren = children.length > 0;
   const isLeaf = !hasChildren;
 
-  const ability = resolveCheckAbility(character, nodeId);
+  // was: const ability = resolveCheckAbility(character, nodeId)!;
+  const ability = isLeaf
+    ? resolveRequiredCheckAbility(character, nodeId)
+    : undefined;
   const proficient = resolveCheckProficiency(character, nodeId);
   const expertise = resolveCheckExpertise(character, nodeId);
   const finalValue =
@@ -92,7 +97,12 @@ const AbilityCheckRow = ({
                     {proficiencyExpertiseIcon(proficient, expertise)}
                   </TouchableOpacity>
 
-                  <AdvantageToggle />
+                  <AdvantageToggle
+                    state={resolveAdvantageState(character, nodeId)}
+                    onChange={(next) =>
+                      onUpdate(setAdvantageState(character, nodeId, next))
+                    }
+                  />
                 </>
               )}
             </View>

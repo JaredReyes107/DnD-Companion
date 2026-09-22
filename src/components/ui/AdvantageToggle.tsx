@@ -1,20 +1,15 @@
-import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import {
+  AdvantageState,
+  nextAdvantageState,
+} from "@/core/entities/character/advantage-state";
 
-export type AdvantageState = "none" | "advantage" | "disadvantage";
-
-const nextAdvantageState = (s: AdvantageState): AdvantageState =>
-  s === "none" ? "advantage" : s === "advantage" ? "disadvantage" : "none";
-
-// Placeholder only — no resolved advantage/disadvantage source exists
-// yet (ModifierType.ADVANTAGE sourced modifiers aren't built). State is
-// local and resets on remount; nothing persists it.
 const ADVANTAGE_ICON: Record<
   AdvantageState,
   keyof typeof MaterialIcons.glyphMap
 > = {
-  none: "remove", // neutral dash
+  none: "remove",
   advantage: "arrow-upward",
   disadvantage: "arrow-downward",
 };
@@ -25,15 +20,15 @@ const ADVANTAGE_COLOR: Record<AdvantageState, string> = {
 };
 
 type Props = {
+  state: AdvantageState;
+  onChange: (next: AdvantageState) => void;
   size?: number;
 };
 
-export const AdvantageToggle = ({ size = 16 }: Props) => {
-  const [state, setState] = useState<AdvantageState>("none");
-
+export const AdvantageToggle = ({ state, onChange, size = 16 }: Props) => {
   return (
     <TouchableOpacity
-      onPress={() => setState(nextAdvantageState(state))}
+      onPress={() => onChange(nextAdvantageState(state))}
       style={{
         width: size,
         height: size,

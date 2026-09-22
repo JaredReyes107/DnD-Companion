@@ -3,7 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import { getCheckNodeChildren } from "@/core/data/registries/check-nodes.registry";
-import { resolveCheckProficiency } from "@/core/rules/character/checks-helper";
+import {
+  resolveAdvantageState,
+  resolveCheckProficiency,
+  setAdvantageState,
+} from "@/core/rules/character/checks-helper";
 import { Ability } from "@/core/entities/rules/ability/ability.types";
 import { Character } from "@/core/entities/character/Character";
 import { ResolvedCharacter } from "@/core/systems/stats/stat-resolver";
@@ -17,6 +21,7 @@ type RowProps = {
   ability: Ability;
   character: Character;
   resolvedStats: ResolvedCharacter;
+  onUpdate: (updated: Character) => void;
   depth?: number;
 };
 
@@ -25,6 +30,7 @@ const SavingThrowRow = ({
   ability,
   character,
   resolvedStats,
+  onUpdate,
   depth = 0,
 }: RowProps) => {
   const [expanded, setExpanded] = useState(false);
@@ -43,7 +49,12 @@ const SavingThrowRow = ({
               hasProficiency={resolveCheckProficiency(character, nodeId)}
             />
 
-            <AdvantageToggle />
+            <AdvantageToggle
+              state={resolveAdvantageState(character, nodeId)}
+              onChange={(next) =>
+                onUpdate(setAdvantageState(character, nodeId, next))
+              }
+            />
 
             {hasChildren && (
               <TouchableOpacity onPress={() => setExpanded((e) => !e)}>
@@ -77,6 +88,7 @@ const SavingThrowRow = ({
             nodeId={child.id}
             ability={ability}
             character={character}
+            onUpdate={onUpdate}
             resolvedStats={resolvedStats}
             depth={depth + 1}
           />
@@ -88,12 +100,14 @@ const SavingThrowRow = ({
 type TreeProps = {
   entries: { nodeId: string; ability: Ability }[];
   character: Character;
+  onUpdate: (updated: Character) => void;
   resolvedStats: ResolvedCharacter;
 };
 
 export const SavingThrowTree = ({
   entries,
   character,
+  onUpdate,
   resolvedStats,
 }: TreeProps) => (
   <View>
@@ -103,6 +117,7 @@ export const SavingThrowTree = ({
         nodeId={nodeId}
         ability={ability}
         character={character}
+        onUpdate={onUpdate}
         resolvedStats={resolvedStats}
       />
     ))}

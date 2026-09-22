@@ -7,6 +7,7 @@ import {
 import { FeatureTemplate } from "@/core/entities/rules/feature-template";
 import { getActiveFeatures } from "./features-helper";
 import { grantsOfType } from "../shared/grant-filters";
+import { AdvantageState } from "@/core/entities/character/advantage-state";
 
 /**
  * Which ability feeds this node for this character.
@@ -135,4 +136,40 @@ export function resolveCheckExpertise(
       chain.includes(mod.statModel.nodeId) &&
       mod.sourceId === EXPERTISE_SOURCE_TAG,
   );
+}
+
+export function resolveRequiredCheckAbility(
+  character: Character,
+  nodeId: string,
+): Ability {
+  const ability = resolveCheckAbility(character, nodeId);
+  if (!ability) {
+    throw new Error(
+      `CheckNode "${nodeId}" has no ability assigned (no character override, no ` +
+        `registry default, no ancestor default). Every skillCheck/toolCheck leaf ` +
+        `must declare a default ability, or the character must set an override.`,
+    );
+  }
+  return ability;
+}
+
+export function resolveAdvantageState(
+  character: Character,
+  nodeId: string,
+): AdvantageState {
+  return character.checks.advantage[nodeId] ?? "none";
+}
+
+export function setAdvantageState(
+  character: Character,
+  nodeId: string,
+  state: AdvantageState,
+): Character {
+  return {
+    ...character,
+    checks: {
+      ...character.checks,
+      advantage: { ...character.checks.advantage, [nodeId]: state },
+    },
+  };
 }
