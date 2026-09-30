@@ -55,10 +55,65 @@ export const check_nodes_es: GameLocalization = {
     "weapon.net": { name: "Red" },
     //#endregion
 
-    "armor.none": { name: "No Armor" },
     "armor.light": { name: "Armadura Ligera" },
     "armor.medium": { name: "Armadura Media" },
     "armor.heavy": { name: "Armadura Pesada" },
     "armor.shield": { name: "Escudos" },
+
+    //#region Tools
+
+    //#region Artisan's Tools
+    "tool.artisan": { name: "Herramientas de Artesano" },
+    "tool.alchemistsSupplies": { name: "Suministros de Alquimista" },
+    "tool.brewersSupplies": { name: "Suministros de Cervecero" },
+    "tool.calligraphersSupplies": { name: "Suministros de Calígrafo" },
+    "tool.carpenterSupplies": { name: "Suministros de Carpintero" },
+    "tool.cartographersTools": { name: "Herramientas de Cartógrafo" },
+    "tool.cobblersTools": { name: "Herramientas de Zapatero" },
+    "tool.cooksUtensils": { name: "Utensilios de Cocinero" },
+    "tool.glassblowersTools": { name: "Herramientas de Soplador de Vidrio" },
+    "tool.jewelersTools": { name: "Herramientas de Joyero" },
+    "tool.leatherworksTools": { name: "Herramientas de Curtidor" },
+    "tool.masonsTools": { name: "Herramientas de Albañil" },
+    "tool.paintersSupplies": { name: "Suministros de Pintor" },
+    "tool.pottersTools": { name: "Herramientas de Alfarero" },
+    "tool.smithsTools": { name: "Herramientas de Herrero" },
+    "tool.tinkersTools": { name: "Herramientas de Manitas" },
+    "tool.weaversTools": { name: "Herramientas de Tejedor" },
+    "tool.woodcarversTools": { name: "Herramientas de Ebanista" },
+    //#endregion
+
+    "tool.disguiseKit": { name: "Kit de Disfraz" },
+    "tool.forgeryKit": { name: "Kit de Falsificación" },
+
+    //#region Gaming Sets
+    "tool.gamingSet": { name: "Juegos" },
+    "tool.diceSet": { name: "Juego de Dados" },
+    "tool.dragonchessSet": { name: "Juego de Ajedrez" },
+    "tool.playingCardSet": { name: "Juego de Cartas" },
+    "tool.threeDragonAnteSet": { name: "Juego de Three-Dragon Ante" },
+    //#endregion
+
+    "tool.herbalismKit": { name: "Kit de Herborista" },
+
+    //#region Musical Instruments
+    "tool.musicalInstrument": { name: "Instrumentos Musicales" },
+    "tool.bagpipes": { name: "Gaita" },
+    "tool.drum": { name: "Tambor" },
+    "tool.dulcimer": { name: "Dulcimer" },
+    "tool.flute": { name: "Flauta" },
+    "tool.lute": { name: "Laúd" },
+    "tool.lyre": { name: "Lira" },
+    "tool.horn": { name: "Cuerno" },
+    "tool.panFlute": { name: "Flauta de Pan" },
+    "tool.shawm": { name: "Caramillo" },
+    "tool.viol": { name: "Viola" },
+    //#endregion
+
+    "tool.navigatorsTools": { name: "Herramientas de Navegante" },
+    "tool.poisonersKit": { name: "Herramientas de Envenenador" },
+    "tool.thievesTools": { name: "Herramientas de Ladrón" },
+
+    //#endregion
   },
 };

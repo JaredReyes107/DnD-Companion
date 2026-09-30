@@ -55,21 +55,65 @@ export const check_nodes_en: GameLocalization = {
     "weapon.net": { name: "Net" },
     //#endregion
 
-    "armor.none": { name: "No Armor" },
     "armor.light": { name: "Light Armor" },
     "armor.medium": { name: "Medium Armor" },
     "armor.heavy": { name: "Heavy Armor" },
     "armor.shield": { name: "Shields" },
 
     //#region Tools
+
+    //#region Artisan's Tools
     "tool.artisan": { name: "Artisan's Tools" },
-    "tool.musicalInstrument": { name: "Musical Instrument" },
-    "tool.gamingSet": { name: "Gaming Set" },
+    "tool.alchemistsSupplies": { name: "Alchemist's Suppplies" },
+    "tool.brewersSupplies": { name: "Brewer's Suppplies" },
+    "tool.calligraphersSupplies": { name: "Calligrapher's Suppplies" },
+    "tool.carpenterSupplies": { name: "Carpenter's Suppplies" },
+    "tool.cartographersTools": { name: "Cartographer's Tools" },
+    "tool.cobblersTools": { name: "Cobbler's Tools" },
+    "tool.cooksUtensils": { name: "Cook's Tools" },
+    "tool.glassblowersTools": { name: "Glassblower's Tools" },
+    "tool.jewelersTools": { name: "Jeweler's Tools" },
+    "tool.leatherworksTools": { name: "Leatherwork's Tools" },
+    "tool.masonsTools": { name: "Mason's Tools" },
+    "tool.paintersSupplies": { name: "Painter's Suppplies" },
+    "tool.pottersTools": { name: "Potter's Tools" },
     "tool.smithsTools": { name: "Smith's Tools" },
-    "tool.brewersSupplies": { name: "Brewer's Supplies" },
-    "tool.alchemistsSupplies": { name: "Alchemist's Supplies" },
-    "tool.thievesTools": { name: "Thieves' Tools" },
+    "tool.tinkersTools": { name: "Tinker's Tools" },
+    "tool.weaversTools": { name: "Weaver's Tools" },
+    "tool.woodcarversTools": { name: "Woodcarver's Tools" },
+    //#endregion
+
+    "tool.disguiseKit": { name: "Disguise Kit" },
+    "tool.forgeryKit": { name: "Forgery Kit" },
+
+    //#region Gaming Sets
+    "tool.gamingSet": { name: "Gaming Sets" },
+    "tool.diceSet": { name: "Dice Set" },
+    "tool.dragonchessSet": { name: "Dragonchess Set" },
+    "tool.playingCardSet": { name: "Playing Card Set" },
+    "tool.threeDragonAnteSet": { name: "Three-Dragon Ante Set" },
+    //#endregion
+
     "tool.herbalismKit": { name: "Herbalism Kit" },
+
+    //#region Musical Instruments
+    "tool.musicalInstrument": { name: "Musical Instruments" },
+    "tool.bagpipes": { name: "Bagpipes" },
+    "tool.drum": { name: "Drum" },
+    "tool.dulcimer": { name: "Dulcimer" },
+    "tool.flute": { name: "Flute" },
+    "tool.lute": { name: "Lute" },
+    "tool.lyre": { name: "Lyre" },
+    "tool.horn": { name: "Horn" },
+    "tool.panFlute": { name: "Pan Flute" },
+    "tool.shawm": { name: "Shawm" },
+    "tool.viol": { name: "Viol" },
+    //#endregion
+
+    "tool.navigatorsTools": { name: "Navigator's Tools" },
+    "tool.poisonersKit": { name: "Poisoner's Tools" },
+    "tool.thievesTools": { name: "Thieves' Tools" },
+
     //#endregion
   },
 };
