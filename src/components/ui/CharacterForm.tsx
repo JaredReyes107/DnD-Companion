@@ -65,6 +65,7 @@ import genericStyles from "@/styles/generic.styles";
 import { SKILL_NODES } from "@/core/data/rules/checks/skill-nodes";
 import CheckProficiencyInput from "./CheckProficiencyInput";
 import { buildCharacterLanguageState } from "@/core/rules/character/languages-helper";
+import { buildCharacterAdvantageInstances } from "@/core/rules/character/advantage-helper";
 
 type Props = {
   initialCharacter?: Character | null;
@@ -224,6 +225,8 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       checks: {
         ...withChoices.checks,
         proficiencies: buildCharacterCheckProficiencies(withChoices),
+        passiveAdvantageInstances:
+          buildCharacterAdvantageInstances(withChoices),
       },
       languages: buildCharacterLanguageState(withChoices),
     };

@@ -7,7 +7,6 @@ import {
 import { FeatureTemplate } from "@/core/entities/rules/feature-template";
 import { getActiveFeatures } from "./features-helper";
 import { grantsOfType } from "../shared/grant-filters";
-import { AdvantageState } from "@/core/entities/character/advantage-state";
 
 /**
  * Which ability feeds this node for this character.
@@ -151,25 +150,4 @@ export function resolveRequiredCheckAbility(
     );
   }
   return ability;
-}
-
-export function resolveAdvantageState(
-  character: Character,
-  nodeId: string,
-): AdvantageState {
-  return character.checks.advantage[nodeId] ?? "none";
-}
-
-export function setAdvantageState(
-  character: Character,
-  nodeId: string,
-  state: AdvantageState,
-): Character {
-  return {
-    ...character,
-    checks: {
-      ...character.checks,
-      advantage: { ...character.checks.advantage, [nodeId]: state },
-    },
-  };
 }

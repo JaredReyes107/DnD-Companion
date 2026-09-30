@@ -314,6 +314,7 @@ const CharacterSheetScreen = () => {
             onUpdate={saveCharacter}
             onToggleProficiency={toggleProficiency}
             showAbilityPicker={false}
+            showAdvantage={false}
             showValue={false}
             sortChildren
           />
@@ -331,6 +332,9 @@ const CharacterSheetScreen = () => {
             resolvedStats={resolvedStats}
             onUpdate={saveCharacter}
             onToggleProficiency={toggleProficiency}
+            showAbilityPicker={false}
+            showAdvantage={false}
+            showValue={false}
           />
         </View>
 

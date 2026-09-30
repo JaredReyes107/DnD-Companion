@@ -1,27 +1,25 @@
 import { Ability } from "@/core/entities/rules/ability/ability.types";
-import { AdvantageState } from "./advantage-state";
+import { AdvantageInstance } from "../rules/advantage/advantage-instance";
 
 export type CharacterCheckState = {
   proficiencies: Set<string>;
   abilityOverrides: Record<string, Ability>;
-  advantage: Record<string, AdvantageState>; // manual, per-node, character-authored.
-  // NOT sourced/derived — the eventual ModifierType.ADVANTAGE system (still
-  // deferred) will supersede this with real grant-derived resolution; this
-  // is a sticky-note-style override until then.
+  advantageStackingRule: "raw" | "oneToOne";
+  passiveAdvantageInstances: Record<string, AdvantageInstance>;
 };
 
 export function buildCharacterCheckState(): CharacterCheckState {
   return {
     proficiencies: new Set<string>(),
     abilityOverrides: {},
-    advantage: {},
+    advantageStackingRule: "raw",
+    passiveAdvantageInstances: {},
   };
 }
 
 export type SerializedCharacterCheckState = {
   proficiencies: string[];
   abilityOverrides: Record<string, Ability>;
-  advantage: Record<string, AdvantageState>;
 };
 
 export function serializeCharacterCheckState(
@@ -30,7 +28,6 @@ export function serializeCharacterCheckState(
   return {
     proficiencies: [...state.proficiencies],
     abilityOverrides: state.abilityOverrides,
-    advantage: state.advantage,
   };
 }
 
@@ -40,6 +37,7 @@ export function hydrateCharacterCheckState(
   return {
     proficiencies: new Set(raw.proficiencies),
     abilityOverrides: raw.abilityOverrides,
-    advantage: raw.advantage,
+    advantageStackingRule: "raw",
+    passiveAdvantageInstances: {},
   };
 }

@@ -2,6 +2,7 @@ import {
   RuntimeModifierInstance,
   ActiveCombatModifier,
 } from "@/core/entities/rules/stats.types";
+import { AdvantageInstance } from "../rules/advantage/advantage-instance";
 
 export type CombatState = {
   round: number;
@@ -30,4 +31,5 @@ export type CombatState = {
   conditions: string[];
   modifiers: Record<string, ActiveCombatModifier>;
   runtimeModifiers: Record<string, RuntimeModifierInstance>;
+  runtimeAdvantageInstances: Record<string, AdvantageInstance>;
 };

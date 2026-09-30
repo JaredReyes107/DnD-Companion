@@ -34,6 +34,7 @@ export function buildCombatState(character: Character): CombatState {
     conditions: [],
     modifiers: {},
     runtimeModifiers: {},
+    runtimeAdvantageInstances: {},
   };
 
   return characterInstance;

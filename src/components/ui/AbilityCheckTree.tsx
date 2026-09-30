@@ -8,8 +8,6 @@ import {
   resolveCheckExpertise,
   setCheckAbilityOverride,
   resolveRequiredCheckAbility,
-  resolveAdvantageState,
-  setAdvantageState,
 } from "@/core/rules/character/checks-helper";
 import {
   ABILITIES,
@@ -26,6 +24,7 @@ import { AdvantageToggle } from "@/components/ui/AdvantageToggle";
 import CustomPicker from "@/components/ui/CustomPicker";
 import { LocalizationNamespace } from "@/services/localization/game-localization.types";
 import { proficiencyExpertiseIcon } from "./ProficiencyIcon";
+import { resolveAdvantageState } from "@/core/rules/character/advantage-helper";
 
 type RowProps = {
   nodeId: string;
@@ -35,6 +34,7 @@ type RowProps = {
   onUpdate: (updated: Character) => void;
   onToggleProficiency: (nodeId: string) => void;
   showAbilityPicker?: boolean;
+  showAdvantage?: boolean;
   showValue?: boolean;
   sortChildren?: boolean;
   depth?: number;
@@ -48,6 +48,7 @@ const AbilityCheckRow = ({
   onUpdate,
   onToggleProficiency,
   showAbilityPicker = true,
+  showAdvantage = true,
   showValue = true,
   sortChildren = false,
   depth = 0,
@@ -64,10 +65,10 @@ const AbilityCheckRow = ({
   const hasChildren = children.length > 0;
   const isLeaf = !hasChildren;
 
-  // was: const ability = resolveCheckAbility(character, nodeId)!;
-  const ability = isLeaf
-    ? resolveRequiredCheckAbility(character, nodeId)
-    : undefined;
+  const ability =
+    isLeaf && showAbilityPicker
+      ? resolveRequiredCheckAbility(character, nodeId)
+      : undefined;
   const proficient = resolveCheckProficiency(character, nodeId);
   const expertise = resolveCheckExpertise(character, nodeId);
   const finalValue =
@@ -97,12 +98,11 @@ const AbilityCheckRow = ({
                     {proficiencyExpertiseIcon(proficient, expertise)}
                   </TouchableOpacity>
 
-                  <AdvantageToggle
-                    state={resolveAdvantageState(character, nodeId)}
-                    onChange={(next) =>
-                      onUpdate(setAdvantageState(character, nodeId, next))
-                    }
-                  />
+                  {showAdvantage && (
+                    <AdvantageToggle
+                      state={resolveAdvantageState(character, nodeId)}
+                    />
+                  )}
                 </>
               )}
             </View>
@@ -130,7 +130,7 @@ const AbilityCheckRow = ({
               </View>
             )}
 
-            {isLeaf && showValue && (
+            {isLeaf && showValue && ability && (
               <Text
                 style={[
                   styles.proficiencyModifier,
@@ -172,6 +172,7 @@ type TreeProps = {
   onUpdate: (updated: Character) => void;
   onToggleProficiency: (nodeId: string) => void;
   showAbilityPicker?: boolean;
+  showAdvantage?: boolean;
   showValue?: boolean;
   sortRoots?: boolean;
   sortChildren?: boolean;
@@ -185,6 +186,7 @@ export const AbilityCheckTree = ({
   onUpdate,
   onToggleProficiency,
   showAbilityPicker = true,
+  showAdvantage = true,
   showValue = true,
   sortRoots = false,
   sortChildren = false,
@@ -205,6 +207,7 @@ export const AbilityCheckTree = ({
           onUpdate={onUpdate}
           onToggleProficiency={onToggleProficiency}
           showAbilityPicker={showAbilityPicker}
+          showAdvantage={showAdvantage}
           showValue={showValue}
           sortChildren={sortChildren}
         />

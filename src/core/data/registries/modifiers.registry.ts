@@ -1,6 +1,9 @@
+import { StatModifierTemplate } from "@/core/entities/rules/stats.types";
+
+import { EXPERTISE_MODIFIERS } from "../rules/modifiers/expertise-modifiers";
+
 import { BARD_MODIFIERS } from "../rules/modifiers/by-class/bard-modifiers";
 import { WIZARD_MODIFIERS } from "../rules/modifiers/by-class/wizard-modifiers";
-import { StatModifierTemplate } from "@/core/entities/rules/stats.types";
 
 const homebrewModifiers: Record<string, StatModifierTemplate> = {};
 
@@ -10,6 +13,7 @@ export const CLASS_MODIFIERS = {
 };
 
 export const BASE_MODIFIERS: Record<string, StatModifierTemplate> = {
+  ...EXPERTISE_MODIFIERS,
   ...CLASS_MODIFIERS,
 };
 

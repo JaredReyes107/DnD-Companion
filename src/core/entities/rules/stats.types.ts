@@ -1,6 +1,7 @@
 import { Ability } from "@/core/entities/rules/ability/ability.types";
 import { SkillInstance } from "@/core/entities/character/skill-instance";
 import { Character } from "@/core/entities/character/Character";
+import { ExpiryCondition } from "./duration/expiry-condition";
 
 export type DerivedStatKey =
   | "maxHp"
@@ -50,22 +51,15 @@ export type StatModifierInstance = {
 };
 
 export type RuntimeModifierInstance = {
-  id: string; // unique instance id
+  id: string;
   modifier: StatModifierInstance;
-
-  appliedAtRound: number;
-  expiresAtRound?: number; // inclusive
-
+  expiryConditions?: ExpiryCondition[]; // undefined = passive/permanent
   concentration?: boolean;
 };
 
 export type ActiveCombatModifier = {
-  id: string; // unique instance id
+  id: string;
   modifier: StatModifierInstance;
-
-  appliedAtRound: number;
-  expiresAtRound?: number; // inclusive
-  expiresAtTurn?: number; // initiative index
-
+  expiryConditions?: ExpiryCondition[];
   concentration?: boolean;
 };

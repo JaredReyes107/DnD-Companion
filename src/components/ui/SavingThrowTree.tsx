@@ -3,11 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import { getCheckNodeChildren } from "@/core/data/registries/check-nodes.registry";
-import {
-  resolveAdvantageState,
-  resolveCheckProficiency,
-  setAdvantageState,
-} from "@/core/rules/character/checks-helper";
+import { resolveCheckProficiency } from "@/core/rules/character/checks-helper";
 import { Ability } from "@/core/entities/rules/ability/ability.types";
 import { Character } from "@/core/entities/character/Character";
 import { ResolvedCharacter } from "@/core/systems/stats/stat-resolver";
@@ -15,6 +11,7 @@ import { getLocalizedName } from "@/services/localization/localization-helper";
 import { PrintNumberWithSign } from "@/utils/formater-numbers";
 import { AdvantageToggle } from "@/components/ui/AdvantageToggle";
 import { ProficiencyIcon } from "@/components/ui/ProficiencyIcon";
+import { resolveAdvantageState } from "@/core/rules/character/advantage-helper";
 
 type RowProps = {
   nodeId: string;
@@ -49,12 +46,7 @@ const SavingThrowRow = ({
               hasProficiency={resolveCheckProficiency(character, nodeId)}
             />
 
-            <AdvantageToggle
-              state={resolveAdvantageState(character, nodeId)}
-              onChange={(next) =>
-                onUpdate(setAdvantageState(character, nodeId, next))
-              }
-            />
+            <AdvantageToggle state={resolveAdvantageState(character, nodeId)} />
 
             {hasChildren && (
               <TouchableOpacity onPress={() => setExpanded((e) => !e)}>

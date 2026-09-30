@@ -1,5 +1,3 @@
-import * as Crypto from "expo-crypto";
-
 import {
   ActionInstance,
   ConvertResourceEffect,
@@ -13,6 +11,13 @@ import { decreaseActionResource } from "@/core/entities/combat/action-economy";
 import { getStatModifierTemplateById } from "@/core/data/registries/modifiers.registry";
 import { applyStackingRule } from "@/core/systems/stats/modifiers-stacking-helper";
 import { instantiateModifier } from "@/core/rules/character/stat-modifiers-helper";
+import { ExpiryCondition } from "@/core/entities/rules/duration/expiry-condition";
+import { onActionTaken } from "../combat-triggers";
+import {
+  AdvantagePolarity,
+  AdvantageInstance,
+} from "@/core/entities/rules/advantage/advantage-instance";
+import * as Crypto from "expo-crypto";
 
 export function applyResourceDelta(
   character: Character,
@@ -63,22 +68,16 @@ export function applyResourceConversion(
 export function applyRuntimeModifier(
   character: Character,
   modifier: StatModifierInstance,
-  durationRounds?: number,
+  expiryConditions?: ExpiryCondition[],
 ): Character {
   if (!character.combatState) return character;
 
   const id = Crypto.randomUUID();
 
-  const expiresAtRound =
-    durationRounds === undefined
-      ? undefined
-      : character.combatState.round + durationRounds;
-
   const runtimeInstance: RuntimeModifierInstance = {
     id,
     modifier,
-    expiresAtRound,
-    appliedAtRound: character.combatState.round,
+    expiryConditions,
   };
 
   return {
@@ -88,6 +87,36 @@ export function applyRuntimeModifier(
       runtimeModifiers: {
         ...character.combatState.runtimeModifiers,
         [id]: runtimeInstance,
+      },
+    },
+  };
+}
+
+export function applyRuntimeAdvantage(
+  character: Character,
+  nodeId: string,
+  polarity: AdvantagePolarity,
+  sourceId: string,
+  expiryConditions?: ExpiryCondition[],
+): Character {
+  if (!character.combatState) return character;
+
+  const id = Crypto.randomUUID();
+  const instance: AdvantageInstance = {
+    id,
+    nodeId,
+    polarity,
+    sourceId,
+    expiryConditions,
+  };
+
+  return {
+    ...character,
+    combatState: {
+      ...character.combatState,
+      runtimeAdvantageInstances: {
+        ...character.combatState.runtimeAdvantageInstances,
+        [id]: instance,
       },
     },
   };
@@ -152,10 +181,7 @@ export function isActionAvailable(
 
 export function executeAction(
   action: ActionInstance,
-  ctx: {
-    character: Character;
-    dispatch: (update: Character) => void;
-  },
+  ctx: { character: Character; dispatch: (update: Character) => void },
 ) {
   let updatedCharacter = ctx.character;
 
@@ -176,9 +202,10 @@ export function executeAction(
       case "applyModifier": {
         if (!updatedCharacter.combatState) break;
 
+        const currentRound = updatedCharacter.combatState.round;
+
         for (const modifierId of effect.modifiers) {
           const template = getStatModifierTemplateById(modifierId);
-
           const modifierInstance = instantiateModifier(
             template,
             updatedCharacter,
@@ -191,15 +218,29 @@ export function executeAction(
             effect.stacking,
           );
 
+          const expiryConditions: ExpiryCondition[] | undefined =
+            effect.durationRounds !== undefined
+              ? [
+                  {
+                    type: "endOfRound",
+                    round: currentRound + effect.durationRounds,
+                  },
+                ]
+              : undefined;
+
           updatedCharacter = applyRuntimeModifier(
             updatedCharacter,
             modifierInstance,
-            effect.durationRounds,
+            expiryConditions,
           );
         }
         break;
       }
     }
+  }
+
+  if (updatedCharacter.combatState) {
+    updatedCharacter = onActionTaken(updatedCharacter, action.id);
   }
 
   if (action.duration.kind === "economy") {
