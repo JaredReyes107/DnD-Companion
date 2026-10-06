@@ -1,7 +1,30 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 import { ELDRITCH_INVOCATIONS_ACTIONS } from "./eldritch-invocations-actions";
 
-const SUBCLASSES_ACTIONS: Record<string, ActionInstance> = {};
+import { ARCHFEY_ACTIONS } from "../by-subclass/warlock/archfey-actions";
+import { FIEND_ACTIONS } from "../by-subclass/warlock/fiend-actions";
+import { GREAT_OLD_ONE_ACTIONS } from "../by-subclass/warlock/great-old-one-actions";
+
+import { CELESTIAL_ACTIONS } from "../by-subclass/warlock/celestial-actions";
+import { HEXBLADE_ACTIONS } from "../by-subclass/warlock/hexblade-actions";
+
+import { FATHOMLESS_ACTIONS } from "../by-subclass/warlock/fathomless-actions";
+import { GENIE_ACTIONS } from "../by-subclass/warlock/genie-actions";
+
+const SUBCLASSES_ACTIONS: Record<string, ActionInstance> = {
+  // PHB
+  ...ARCHFEY_ACTIONS,
+  ...FIEND_ACTIONS,
+  ...GREAT_OLD_ONE_ACTIONS,
+
+  // XGE
+  ...CELESTIAL_ACTIONS,
+  ...HEXBLADE_ACTIONS,
+
+  // TCE
+  ...FATHOMLESS_ACTIONS,
+  ...GENIE_ACTIONS,
+};
 
 const PACT_BOON_ACTIONS: Record<string, ActionInstance> = {
   pact_of_the_blade_summon: {
