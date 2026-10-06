@@ -9,6 +9,14 @@ export const GLAMOUR_RESOURCES: Record<string, ResourceTemplate> = {
     recharge: "longRest",
     tags: ["combat", "support"],
   },
+  enthralling_performance: {
+    id: "enthralling_performance",
+    sourceId: "glamour",
+    category: "subclass_features",
+    scalingType: "fixed:1",
+    recharge: "longRest",
+    tags: ["roleplay"],
+  },
   unbreakable_majesty: {
     id: "unbreakable_majesty",
     sourceId: "glamour",
