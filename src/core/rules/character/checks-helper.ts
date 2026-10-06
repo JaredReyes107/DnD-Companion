@@ -8,6 +8,8 @@ import { FeatureTemplate } from "@/core/entities/rules/feature-template";
 import { getActiveFeatures } from "./features-helper";
 import { grantsOfType } from "../shared/grant-filters";
 
+const DEFAULT_CHECK_ABILITY: Ability = "INT"; // arbitrary fallback
+
 /**
  * Which ability feeds this node for this character.
  * Priority, nearest-first: character override at this node or an
@@ -29,6 +31,11 @@ export function resolveCheckAbility(
   for (const id of chain) {
     const ability = getCheckNodeById(id).ability;
     if (ability) return ability;
+  }
+
+  const node = getCheckNodeById(nodeId);
+  if (node.category === "skillCheck" || node.category === "toolCheck") {
+    return DEFAULT_CHECK_ABILITY;
   }
 
   return undefined;
@@ -144,9 +151,9 @@ export function resolveRequiredCheckAbility(
   const ability = resolveCheckAbility(character, nodeId);
   if (!ability) {
     throw new Error(
-      `CheckNode "${nodeId}" has no ability assigned (no character override, no ` +
-        `registry default, no ancestor default). Every skillCheck/toolCheck leaf ` +
-        `must declare a default ability, or the character must set an override.`,
+      `CheckNode "${nodeId}" resolved to no ability — this should be unreachable ` +
+        `for skillCheck/toolCheck (covered by DEFAULT_CHECK_ABILITY) and should ` +
+        `never be called for other categories. Check the call site's category gating.`,
     );
   }
   return ability;
