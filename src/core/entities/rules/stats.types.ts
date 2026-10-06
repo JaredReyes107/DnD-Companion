@@ -1,5 +1,4 @@
 import { Ability } from "@/core/entities/rules/ability/ability.types";
-import { SkillInstance } from "@/core/entities/character/skill-instance";
 import { Character } from "@/core/entities/character/Character";
 import { ExpiryCondition } from "./duration/expiry-condition";
 
@@ -11,11 +10,19 @@ export type DerivedStatKey =
   | "spellAttackModifier"
   | "spellSaveDC";
 
+export type SpellcastingStatKey = "attackModifier" | "saveDC";
+
 export type StatModel =
   | { type: "ability"; ability: Ability }
   | { type: "save"; ability: Ability }
-  | { type: "skill"; skill: SkillInstance } // superseded by "check" — see migration note
   | { type: "check"; nodeId: string }
+  | { type: "spellcasting"; sourceId: string; key: SpellcastingStatKey }
+  | {
+      type: "spellcastingByAbility";
+      ability: Ability;
+      key: SpellcastingStatKey;
+    }
+  | { type: "spellcastingGlobal"; key: SpellcastingStatKey }
   | { type: "derived"; key: DerivedStatKey }
   | { type: "custom"; key: string };
 

@@ -3,7 +3,7 @@ import { ThemedView } from "@/components/ui/ThemedView";
 import { ThemedText } from "@/components/ui/ThemedText";
 import { useCharacter } from "@/utils/character-provider";
 import { useFocusEffect } from "expo-router";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 import { ActionSection } from "@/components/ui/ActionSection";
 
@@ -12,12 +12,14 @@ import { groupActionsBySlot } from "@/core/data/registries/actions.registry";
 import { groupedActionsAsArray } from "@/core/rules/combat/actions-helper";
 import { resolveInCombat } from "@/core/systems/stats/stat-resolver";
 import { advanceRound } from "@/core/rules/combat/combat-runtime";
+import { getCharacterSpellcastingSources } from "@/core/entities/spellcasting/spellcasting";
 
 import { PrintNumberWithSign } from "@/utils/formater-numbers";
 import { ui } from "@/services/localization/ui-localization-resolver";
 
 import genericStyles from "@/styles/generic.styles";
 import styles from "@/styles/combat/tab-actions";
+import { getLocalizedName } from "@/services/localization/localization-helper";
 
 const TabActions = () => {
   const {
@@ -28,6 +30,7 @@ const TabActions = () => {
     loading,
     loadCharacterById,
   } = useCharacter();
+  const [spellcastingSourceIndex, setSpellcastingSourceIndex] = useState(0);
 
   useFocusEffect(
     useCallback(() => {
@@ -46,28 +49,57 @@ const TabActions = () => {
   const combatState = encounter.participants[character.id];
   const resolvedStats = resolveInCombat(character, encounter);
 
+  const spellcastingSources = getCharacterSpellcastingSources(character);
+  const activeSource =
+    spellcastingSources[spellcastingSourceIndex % spellcastingSources.length];
+
+  const cycleSpellcastingSource = () => {
+    if (spellcastingSources.length <= 1) return;
+    setSpellcastingSourceIndex((i) => (i + 1) % spellcastingSources.length);
+  };
+
   const grouped = groupActionsBySlot(character.actions);
   const sections = groupedActionsAsArray(grouped);
 
   return (
     <ThemedView style={genericStyles.rootContainer}>
       <View style={styles.headerSection}>
-        <View style={styles.primaryStatCell}>
+        <TouchableOpacity
+          style={styles.primaryStatCell}
+          onPress={cycleSpellcastingSource}
+          disabled={spellcastingSources.length === 0}
+        >
           <ThemedText style={styles.primaryStatText}>Bon. de Ataque</ThemedText>
           <ThemedText style={styles.primaryStatValue}>
-            {PrintNumberWithSign(
-              resolvedStats.stats.get("derived:spellAttackModifier")
-                ?.finalValue ?? 0,
-            )}
+            {activeSource
+              ? PrintNumberWithSign(
+                  resolvedStats.stats.get(
+                    `spellcasting:${activeSource.sourceId}:attackModifier`,
+                  )?.finalValue ?? 0,
+                )
+              : "—"}
           </ThemedText>
-          <ThemedText style={styles.primaryStatText}>De Conjuro</ThemedText>
-        </View>
-        <View style={styles.spellcastingStatCell}>
+          <ThemedText style={styles.primaryStatText}>
+            {activeSource
+              ? getLocalizedName("classes", activeSource.sourceId)
+              : "De Conjuro"}
+          </ThemedText>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.spellcastingStatCell}
+          onPress={cycleSpellcastingSource}
+          disabled={spellcastingSources.length === 0}
+        >
           <ThemedText style={styles.spellcastingText}>CD de Conjuro</ThemedText>
           <ThemedText style={styles.spellcastingValue}>
-            {resolvedStats.stats.get("derived:spellSaveDC")?.finalValue}
+            {activeSource
+              ? resolvedStats.stats.get(
+                  `spellcasting:${activeSource.sourceId}:saveDC`,
+                )?.finalValue
+              : "—"}
           </ThemedText>
-        </View>
+        </TouchableOpacity>
       </View>
 
       {/* Action Economy tracker */}

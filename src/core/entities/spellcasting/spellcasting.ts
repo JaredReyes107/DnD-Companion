@@ -12,11 +12,18 @@ import {
   getAbilityModifier,
   getProficiencyBonus,
 } from "@/core/rules/character/abilities-modifiers";
+import { Ability } from "../rules/ability/ability.types";
 
 export type SpellcastingEntry = {
   classInstanceId: string; // key in classes.byId / classes.order
   classInstance: ClassInstance;
   spellcastingTemplate: SpellcastingTemplate;
+};
+
+export type SpellcastingSource = {
+  sourceId: string;
+  ability: Ability;
+  classInstanceId: string;
 };
 
 export function getSpellcastingEntries(
@@ -65,46 +72,51 @@ export function getTotalCasterLevel(character: Character): number {
   }, 0);
 }
 
-//TODO: Make it per class
-export function getSpellAttackModifierForEntry(
+/**
+ * Every independent spellcasting source on the character — one entry
+ * per class or subclass that grants its own spellcastingTemplate.
+ */
+export function getCharacterSpellcastingSources(
   character: Character,
-  entry: SpellcastingEntry,
-): number {
-  const ability = entry.spellcastingTemplate.ability;
-  //TODO: [Modifiers] Replace attribute with derived data resolver
-  const abilityScore = character.baseAbilityScores[ability];
+): SpellcastingSource[] {
+  const sources: SpellcastingSource[] = [];
 
+  for (const instanceId of character.classes.order) {
+    const classInstance = character.classes.byId[instanceId];
+    const classTemplate = getClassTemplateById(classInstance.classId);
+
+    const spellcastingTemplate =
+      classTemplate.spellcastingTemplate ??
+      (classInstance.subclassId
+        ? getSubclassTemplateById(classInstance.subclassId).spellcastingTemplate
+        : undefined);
+
+    if (!spellcastingTemplate) continue;
+
+    sources.push({
+      sourceId: spellcastingTemplate.id,
+      ability: spellcastingTemplate.ability,
+      classInstanceId: instanceId,
+    });
+  }
+
+  return sources;
+}
+
+export function getBaseSpellAttackModifierForSource(
+  character: Character,
+  source: SpellcastingSource,
+): number {
+  const abilityScore = character.baseAbilityScores[source.ability];
   return getAbilityModifier(abilityScore) + getProficiencyBonus(character);
 }
 
-//TODO: Make it per class
-export function getSpellSaveDCForEntry(
+export function getBaseSpellSaveDCForSource(
   character: Character,
-  entry: SpellcastingEntry,
+  source: SpellcastingSource,
 ): number {
-  const ability = entry.spellcastingTemplate.ability;
-  //TODO: [Modifiers] Replace attribute with derived data resolver
-  const abilityScore = character.baseAbilityScores[ability];
-
+  const abilityScore = character.baseAbilityScores[source.ability];
   return 8 + getAbilityModifier(abilityScore) + getProficiencyBonus(character);
-}
-
-/**
- * @deprecated Temporary aggregate for single-value stat resolution
- * (stat-resolver.ts). Picks the character's first spellcasting class
- * arbitrarily. Once the UI supports per-class display, callers should
- * use getSpellAttackModifierForEntry with a specific SpellcastingEntry
- * instead, and this should be removed.
- */
-export function getSpellAttackModifier(character: Character): number {
-  const [firstEntry] = getSpellcastingEntries(character);
-  return firstEntry ? getSpellAttackModifierForEntry(character, firstEntry) : 0;
-}
-
-/** @deprecated same caveat as getSpellAttackModifier */
-export function getSpellSaveDC(character: Character): number {
-  const [firstEntry] = getSpellcastingEntries(character);
-  return firstEntry ? getSpellSaveDCForEntry(character, firstEntry) : 0;
 }
 
 const STANDARD_SPELL_SLOTS: number[][] = [
