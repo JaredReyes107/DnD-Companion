@@ -9,15 +9,11 @@ import {
 import {
   applyStackingRules,
   sortModifiersByPriority,
-  resolveModifierValue,
 } from "../../rules/modifiers/stacking";
 
 import { Character } from "../../entities/character/Character";
-import {
-  StatModel,
-  StatModifierInstance,
-} from "../../entities/rules/stats.types";
-import { ABILITIES } from "../../entities/rules/ability/ability.types";
+import { StatModel } from "../../entities/rules/stats.types";
+import { ABILITIES, Ability } from "../../entities/rules/ability/ability.types";
 import { EncounterState } from "../../entities/combat/encounter-state";
 import {
   getAbilityModifier,
@@ -30,18 +26,14 @@ import {
 } from "@/core/rules/character/checks-helper";
 import { getInitiativeBonus } from "../../entities/combat/initiative";
 import { getArmorClass } from "../../rules/character/armor-class";
-import { getSavingThrowModifier } from "../../rules/combat/saving-throws-modifiers";
-import { getSkillModifier } from "../../rules/combat/skills-modifiers";
 import {
-  getSpellAttackModifier,
-  getSpellSaveDC,
-  hasSpellcasting,
+  getBaseSpellAttackModifierForSource,
+  getBaseSpellSaveDCForSource,
+  getCharacterSpellcastingSources,
 } from "../../entities/spellcasting/spellcasting";
 import { getAllCheckNodeIdsByCategory } from "@/core/data/registries/check-nodes.registry";
-
-// ---------------------------------------------------------------------------
-// New modifier-system resolveStat (used by tests and the new engine)
-// ---------------------------------------------------------------------------
+import { isExpiredByEvent } from "@/core/rules/combat/expiry-helper";
+import { matchesStatTarget } from "@/core/rules/shared/stat-targeting";
 
 export interface ResolvedStat {
   statId: string;
@@ -59,22 +51,21 @@ export function resolveStat(
   const activeModifiers = modifiers.filter((mod) =>
     evaluateCondition(mod.condition, context),
   );
-  const stacked = applyStackingRules(activeModifiers, context);
+  const stacked = applyStackingRules(activeModifiers);
   const ordered = sortModifiersByPriority(stacked);
 
   let finalValue = baseValue;
 
   for (const mod of ordered) {
-    const modValue = resolveModifierValue(mod, context);
     switch (mod.type) {
       case ModifierType.SET:
-        finalValue = modValue;
+        finalValue = mod.value;
         break;
       case ModifierType.ADDITIVE:
-        finalValue += modValue;
+        finalValue += mod.value;
         break;
       case ModifierType.MULTIPLICATIVE:
-        finalValue *= modValue;
+        finalValue *= mod.value;
         break;
       case ModifierType.ADVANTAGE:
       case ModifierType.DISADVANTAGE:
@@ -91,31 +82,18 @@ export function resolveStat(
   };
 }
 
-// ---------------------------------------------------------------------------
-// Legacy stat-model resolver (used by character sheet and combat tabs)
-// ---------------------------------------------------------------------------
-
-export type LegacyResolvedStat = {
-  statModel: StatModel;
-  base: number;
-  finalValue: number;
-  modifiers: StatModifierInstance[];
-};
-
-export type ResolvedCharacter = {
-  stats: Map<string, LegacyResolvedStat>;
-};
-
 export function serializeStatModel(statModel: StatModel): string {
   switch (statModel.type) {
     case "ability":
       return `ability:${statModel.ability}`;
-    case "save":
-      return `save:${statModel.ability}`;
-    case "skill":
-      return `skill:${statModel.skill.skillId}`;
     case "check":
       return `check:${statModel.nodeId}`;
+    case "spellcasting":
+      return `spellcasting:${statModel.sourceId}:${statModel.key}`;
+    case "spellcastingByAbility":
+      return `spellcastingByAbility:${statModel.ability}:${statModel.key}`;
+    case "spellcastingGlobal":
+      return `spellcastingGlobal:${statModel.key}`;
     case "derived":
       return `derived:${statModel.key}`;
     case "custom":
@@ -123,84 +101,12 @@ export function serializeStatModel(statModel: StatModel): string {
   }
 }
 
-// Keep the old export name so existing callers don't break.
 export const serializeStatTemplate = serializeStatModel;
-
-function isSameStat(
-  a: StatModel | undefined,
-  b: StatModel | undefined,
-): boolean {
-  if (!a || !b) return false;
-  if (a.type !== b.type) return false;
-
-  switch (a.type) {
-    case "ability":
-    case "save":
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return a.ability === (b as any).ability;
-    case "skill":
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return a.skill.skillId === (b as any).skill.skillId;
-    case "check":
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return a.nodeId === (b as any).nodeId;
-    case "derived":
-    case "custom":
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return a.key === (b as any).key;
-  }
-}
-
-function applyLegacyModifiers(
-  statModel: StatModel,
-  base: number,
-  modifiers: StatModifierInstance[],
-): LegacyResolvedStat {
-  const sorted = [...modifiers].sort(
-    (a, b) => (a.priority ?? 0) - (b.priority ?? 0),
-  );
-
-  let value = base;
-
-  for (const mod of sorted) {
-    switch (mod.mode) {
-      case "add":
-        value += mod.value;
-        break;
-      case "subtract":
-        value -= mod.value;
-        break;
-      case "multiply":
-        value *= mod.value;
-        break;
-      case "override":
-        value = mod.value;
-        break;
-      case "min":
-        value = Math.min(value, mod.value);
-        break;
-      case "max":
-        value = Math.max(value, mod.value);
-        break;
-    }
-  }
-
-  return {
-    statModel,
-    base,
-    finalValue: Math.floor(value),
-    modifiers: sorted,
-  };
-}
 
 function getBaseValue(stat: StatModel, character: Character): number {
   switch (stat.type) {
     case "ability":
       return character.baseAbilityScores[stat.ability];
-    case "save":
-      return getSavingThrowModifier(character, stat.ability);
-    case "skill":
-      return getSkillModifier(character, character.skills[stat.skill.skillId]);
     case "check": {
       const ability = resolveCheckAbility(character, stat.nodeId);
       const abilityMod = ability
@@ -224,12 +130,16 @@ function getBaseValue(stat: StatModel, character: Character): number {
           return getInitiativeBonus(character);
         case "ac":
           return getArmorClass(character);
-        case "spellAttackModifier":
-          return hasSpellcasting(character)
-            ? getSpellAttackModifier(character)
-            : 0;
-        case "spellSaveDC":
-          return hasSpellcasting(character) ? getSpellSaveDC(character) : 0;
+        case "spellAttackModifier": {
+          const sources = getCharacterSpellcastingSources(character);
+          if (sources.length === 0) return 0;
+          return getBaseSpellAttackModifierForSource(character, sources[0]);
+        }
+        case "spellSaveDC": {
+          const sources = getCharacterSpellcastingSources(character);
+          if (sources.length === 0) return 0;
+          return getBaseSpellSaveDCForSource(character, sources[0]);
+        }
       }
       break;
     case "custom":
@@ -274,59 +184,102 @@ function buildAllStatModels(): StatModel[] {
   ];
 }
 
-export function resolveOutOfCombat(character: Character): ResolvedCharacter {
-  const stats = new Map<string, LegacyResolvedStat>();
+export type ResolvedCharacter = {
+  stats: Map<string, ResolvedStat>;
+};
+
+function gatherModifiersFor(
+  statModel: StatModel,
+  allModifiers: ModifierInstance[],
+  context: { sourceAbility?: Ability },
+): ModifierInstance[] {
+  return allModifiers.filter((m) =>
+    matchesStatTarget(m.statModel, statModel, context),
+  );
+}
+
+function buildEvaluationContext(character: Character): EvaluationContext {
+  return {
+    currentHp: character.hitPoints.currentHP,
+    maxHp: character.hitPoints.currentMaximumHP,
+    // targetIsRanged/targetIsMelee/targetStatuses/distanceToTarget intentionally
+    // left unset here — those depend on a specific target in combat, which
+    // isn't resolvable from the character alone. Out of scope for now
+  };
+}
+
+function resolveAllStats(
+  character: Character,
+  extraModifiers: ModifierInstance[],
+): ResolvedCharacter {
+  const stats = new Map<string, ResolvedStat>();
   const allStats = buildAllStatModels();
+  const allModifiers = [
+    ...Object.values(character.statModifiers),
+    ...extraModifiers,
+  ];
+  const evalContext = buildEvaluationContext(character);
 
   for (const statModel of allStats) {
     const base = getBaseValue(statModel, character);
-    const relevantModifiers = Object.values(character.statModifiers).filter(
-      (mod) => isSameStat(mod.statModel, statModel),
+    const relevant = gatherModifiersFor(statModel, allModifiers, {});
+    const resolved = resolveStat(
+      serializeStatModel(statModel),
+      base,
+      relevant,
+      evalContext,
     );
-    const resolved = applyLegacyModifiers(statModel, base, relevantModifiers);
     stats.set(serializeStatModel(statModel), resolved);
   }
 
+  const spellcastingSources = getCharacterSpellcastingSources(character);
+  for (const source of spellcastingSources) {
+    for (const key of ["attackModifier", "saveDC"] as const) {
+      const statModel: StatModel = {
+        type: "spellcasting",
+        sourceId: source.sourceId,
+        key,
+      };
+      const base =
+        key === "attackModifier"
+          ? getBaseSpellAttackModifierForSource(character, source)
+          : getBaseSpellSaveDCForSource(character, source);
+      const relevant = gatherModifiersFor(statModel, allModifiers, {
+        sourceAbility: source.ability,
+      });
+      const resolved = resolveStat(
+        serializeStatModel(statModel),
+        base,
+        relevant,
+        evalContext,
+      );
+      stats.set(serializeStatModel(statModel), resolved);
+    }
+  }
+
   return { stats };
+}
+
+export function resolveOutOfCombat(character: Character): ResolvedCharacter {
+  return resolveAllStats(character, []);
 }
 
 export function resolveInCombat(
   character: Character,
   encounterState: EncounterState,
 ): ResolvedCharacter {
-  const passiveResolved = resolveOutOfCombat(character);
-
   const combatState = encounterState.participants[character.id];
-  if (!combatState?.runtimeModifiers) return passiveResolved;
-
-  const stats = new Map<string, LegacyResolvedStat>();
+  if (!combatState?.runtimeModifiers) return resolveOutOfCombat(character);
 
   const combatModifiers = Object.values(combatState.runtimeModifiers)
     .filter(
       (m) =>
-        m.expiresAtRound === undefined ||
-        m.expiresAtRound >= encounterState.currentRound,
+        !isExpiredByEvent(m.expiryConditions, {
+          type: "roundAdvanced",
+          newRound: encounterState.currentRound,
+        }),
     )
     .map((m) => m.modifier);
 
-  for (const [key, resolvedBase] of passiveResolved.stats.entries()) {
-    const relevantCombatMods = combatModifiers.filter((m) =>
-      isSameStat(m.statModel, resolvedBase.statModel),
-    );
-
-    if (relevantCombatMods.length === 0) {
-      stats.set(key, resolvedBase);
-      continue;
-    }
-
-    const finalResolved = applyLegacyModifiers(
-      resolvedBase.statModel,
-      resolvedBase.base,
-      [...resolvedBase.modifiers, ...relevantCombatMods],
-    );
-
-    stats.set(key, finalResolved);
-  }
-
-  return { stats };
+  return resolveAllStats(character, combatModifiers);
 }

@@ -3,14 +3,9 @@ import {
   ConvertResourceEffect,
 } from "@/core/entities/actions/action-instance";
 import { Character } from "@/core/entities/character/Character";
-import {
-  RuntimeModifierInstance,
-  StatModifierInstance,
-} from "@/core/entities/rules/stats.types";
+import { RuntimeModifierInstance } from "@/core/entities/rules/stats.types";
 import { decreaseActionResource } from "@/core/entities/combat/action-economy";
-import { getStatModifierTemplateById } from "@/core/data/registries/modifiers.registry";
 import { applyStackingRule } from "@/core/systems/stats/modifiers-stacking-helper";
-import { instantiateModifier } from "@/core/rules/character/stat-modifiers-helper";
 import { ExpiryCondition } from "@/core/entities/rules/duration/expiry-condition";
 import { onActionTaken } from "../combat-triggers";
 import {
@@ -18,6 +13,9 @@ import {
   AdvantageInstance,
 } from "@/core/entities/rules/advantage/advantage-instance";
 import * as Crypto from "expo-crypto";
+import { instantiateModifier } from "@/core/rules/character/modifiers-helper";
+import { getModifierTemplateById } from "@/core/data/registries/modifiers.registry";
+import { ModifierInstance } from "@/core/entities/modifiers/Modifier";
 
 export function applyResourceDelta(
   character: Character,
@@ -67,7 +65,7 @@ export function applyResourceConversion(
 
 export function applyRuntimeModifier(
   character: Character,
-  modifier: StatModifierInstance,
+  modifier: ModifierInstance,
   expiryConditions?: ExpiryCondition[],
 ): Character {
   if (!character.combatState) return character;
@@ -205,7 +203,7 @@ export function executeAction(
         const currentRound = updatedCharacter.combatState.round;
 
         for (const modifierId of effect.modifiers) {
-          const template = getStatModifierTemplateById(modifierId);
+          const template = getModifierTemplateById(modifierId); // was getStatModifierTemplateById
           const modifierInstance = instantiateModifier(
             template,
             updatedCharacter,

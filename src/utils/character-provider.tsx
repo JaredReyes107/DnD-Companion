@@ -16,12 +16,12 @@ import { buildCombatState } from "@/core/rules/combat/combat-helper";
 import { buildEncounterState } from "@/core/entities/combat/encounter-helper";
 import { buildCharacterResources } from "@/core/rules/character/resources-helper";
 import { buildCharacterActions } from "@/core/rules/combat/actions-helper";
-import { buildCharacterPassiveModifiers } from "@/core/rules/character/stat-modifiers-helper";
 import { buildCharacterCheckProficiencies } from "@/core/rules/character/checks-helper";
 
 import { bootstrapFeatureChoices } from "@/core/rules/character/choices-helper";
 import { buildCharacterLanguageState } from "@/core/rules/character/languages-helper";
 import { buildCharacterAdvantageInstances } from "@/core/rules/character/advantage-helper";
+import { buildCharacterPassiveModifiers } from "@/core/rules/character/modifiers-helper";
 
 /**
  * Returns the character with its CombatState merged in from the encounter.

@@ -1,6 +1,7 @@
 import { Ability } from "@/core/entities/rules/ability/ability.types";
 import { Character } from "@/core/entities/character/Character";
 import { ExpiryCondition } from "./duration/expiry-condition";
+import { ModifierInstance } from "../modifiers/Modifier";
 
 export type DerivedStatKey =
   | "maxHp"
@@ -14,7 +15,6 @@ export type SpellcastingStatKey = "attackModifier" | "saveDC";
 
 export type StatModel =
   | { type: "ability"; ability: Ability }
-  | { type: "save"; ability: Ability }
   | { type: "check"; nodeId: string }
   | { type: "spellcasting"; sourceId: string; key: SpellcastingStatKey }
   | {
@@ -46,27 +46,16 @@ export type StatModifierTemplate = {
   priority?: number;
 };
 
-export type StatModifierInstance = {
-  templateId: string;
-  sourceId: string;
-  statModel: StatModel;
-
-  mode: ModifierType;
-  value: number;
-
-  priority?: number;
-};
-
 export type RuntimeModifierInstance = {
   id: string;
-  modifier: StatModifierInstance;
+  modifier: ModifierInstance;
   expiryConditions?: ExpiryCondition[]; // undefined = passive/permanent
   concentration?: boolean;
 };
 
 export type ActiveCombatModifier = {
   id: string;
-  modifier: StatModifierInstance;
+  modifier: ModifierInstance;
   expiryConditions?: ExpiryCondition[];
   concentration?: boolean;
 };

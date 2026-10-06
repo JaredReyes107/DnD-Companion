@@ -1,39 +1,37 @@
-import { StatModifierTemplate } from "@/core/entities/rules/stats.types";
+import { ModifierTemplate } from "@/core/entities/modifiers/Modifier";
 
 import { EXPERTISE_MODIFIERS } from "../rules/modifiers/expertise-modifiers";
 
 import { BARD_MODIFIERS } from "../rules/modifiers/by-class/bard-modifiers";
 import { WIZARD_MODIFIERS } from "../rules/modifiers/by-class/wizard-modifiers";
+import { TEST_MODIFIERS } from "../rules/test-grants";
 
-const homebrewModifiers: Record<string, StatModifierTemplate> = {};
+const homebrewModifiers: Record<string, ModifierTemplate> = {};
 
-export const CLASS_MODIFIERS = {
+export const CLASS_MODIFIERS: Record<string, ModifierTemplate> = {
   ...BARD_MODIFIERS,
   ...WIZARD_MODIFIERS,
 };
 
-export const BASE_MODIFIERS: Record<string, StatModifierTemplate> = {
+export const BASE_MODIFIERS: Record<string, ModifierTemplate> = {
   ...EXPERTISE_MODIFIERS,
+  ...TEST_MODIFIERS,
+
   ...CLASS_MODIFIERS,
 };
 
-export function registerHomebrewAction(res: StatModifierTemplate) {
-  homebrewModifiers[res.id] = res;
+export function registerHomebrewModifier(template: ModifierTemplate) {
+  homebrewModifiers[template.id] = template;
 }
 
-export function getActionRegistry() {
-  return {
-    ...BASE_MODIFIERS,
-    ...homebrewModifiers,
-  };
+export function getModifierRegistry(): Record<string, ModifierTemplate> {
+  return { ...BASE_MODIFIERS, ...homebrewModifiers };
 }
 
-export function getStatModifierTemplateById(id: string): StatModifierTemplate {
-  const template = BASE_MODIFIERS[id];
-
+export function getModifierTemplateById(id: string): ModifierTemplate {
+  const template = getModifierRegistry()[id];
   if (!template) {
-    throw new Error(`StatModifierTemplate not found: ${id}`);
+    throw new Error(`ModifierTemplate not found: ${id}`);
   }
-
   return template;
 }

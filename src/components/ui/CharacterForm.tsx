@@ -18,16 +18,12 @@ import {
   AbilityScores,
   ABILITIES,
 } from "@/core/entities/rules/ability/ability.types";
-import { CharacterSavingThrows } from "@/core/entities/rules/saving-throw/saving-throw-instance";
 
 // Functions and Helpers
 import { defaultScalarFields } from "@/repositories/character-defaults";
 
 import { getMaximumHitDice } from "@/core/rules/character/hit-dice-helper";
 import { buildAbilityScores } from "@/core/rules/character/ability-scores-helper";
-import { buildSavingThrows } from "@/core/rules/combat/saving-throws-helper";
-import { CharacterSkills } from "@/core/entities/character/skill-instance";
-import { buildCharacterSkills } from "@/core/rules/combat/skills-helper";
 import { buildCharacterResources } from "@/core/rules/character/resources-helper";
 import { buildCharacterActions } from "@/core/rules/combat/actions-helper";
 import {
@@ -38,7 +34,6 @@ import { buildCharacterCheckProficiencies } from "@/core/rules/character/checks-
 import { startEncounter } from "@/core/entities/combat/encounter-helper";
 
 import { bootstrapFeatureChoices } from "@/core/rules/character/choices-helper";
-import { buildCharacterPassiveModifiers } from "@/core/rules/character/stat-modifiers-helper";
 
 // Components
 import { ThemedView } from "./ThemedView";
@@ -66,6 +61,7 @@ import { SKILL_NODES } from "@/core/data/rules/checks/skill-nodes";
 import CheckProficiencyInput from "./CheckProficiencyInput";
 import { buildCharacterLanguageState } from "@/core/rules/character/languages-helper";
 import { buildCharacterAdvantageInstances } from "@/core/rules/character/advantage-helper";
+import { buildCharacterPassiveModifiers } from "@/core/rules/character/modifiers-helper";
 
 type Props = {
   initialCharacter?: Character | null;
@@ -92,12 +88,6 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
 
   const [abilityScores, setAbilityScores] = useState<AbilityScores>(
     initialCharacter?.baseAbilityScores ?? buildAbilityScores(),
-  );
-  const [savingThrows] = useState<CharacterSavingThrows>(
-    initialCharacter?.savingThrows ?? buildSavingThrows(),
-  );
-  const [skills] = useState<CharacterSkills>(
-    initialCharacter?.skills ?? buildCharacterSkills(),
   );
 
   const [checks, setChecks] = useState<CharacterCheckState>(
@@ -191,8 +181,6 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       },
 
       currentHitDice: {},
-      savingThrows,
-      skills,
       checks,
       languages: {},
 

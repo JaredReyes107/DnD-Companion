@@ -4,10 +4,11 @@ import { parseDice } from "./dice-parser";
 import { RuleDSL, ModifierDSL } from "./dsl-types";
 import { RuleExecutionGraph } from "../execution/execution-graph";
 import { RuleContext, RuleHandler } from "../execution/rule-handler";
+import * as Crypto from "expo-crypto";
 
 export function parseRule(rule: RuleDSL): Effect {
   return {
-    id: crypto.randomUUID(),
+    id: Crypto.randomUUID(),
     effectId: rule.id,
     sourceId: "",
     modifiers: parseModifiers(rule.modifiers ?? []),
@@ -16,7 +17,16 @@ export function parseRule(rule: RuleDSL): Effect {
   };
 }
 
-function parseModifiers(mods: ModifierDSL[]) {
+export type DslParsedModifier = {
+  id: string;
+  effectId: string;
+  statId: string;
+  type: ModifierType;
+  value: (context: { diceProvider?: unknown }) => number;
+  priority: number;
+};
+
+function parseModifiers(mods: ModifierDSL[]): DslParsedModifier[] {
   return mods.map((mod) => {
     let modifierType = ModifierType.ADDITIVE;
     if (mod.type === "multiplicative")
@@ -24,7 +34,7 @@ function parseModifiers(mods: ModifierDSL[]) {
     if (mod.type === "set") modifierType = ModifierType.SET;
 
     return {
-      id: crypto.randomUUID(),
+      id: Crypto.randomUUID(),
       effectId: "",
       statId: mod.stat,
       type: modifierType,

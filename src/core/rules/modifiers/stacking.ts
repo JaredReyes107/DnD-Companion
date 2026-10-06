@@ -3,7 +3,7 @@ import {
   ModifierType,
 } from "../../entities/modifiers/Modifier";
 
-export const MODIFIER_PRIORITY = {
+export const DEFAULT_MODIFIER_PRIORITY: Record<ModifierType, number> = {
   [ModifierType.SET]: 100,
   [ModifierType.MULTIPLICATIVE]: 200,
   [ModifierType.ADDITIVE]: 300,
@@ -12,21 +12,12 @@ export const MODIFIER_PRIORITY = {
   [ModifierType.REROLL]: 600,
 };
 
-export function resolveModifierValue(
-  modifier: ModifierInstance,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  context?: any,
-): number {
-  if (typeof modifier.value === "function") {
-    return modifier.value(context);
-  }
+export function resolveModifierValue(modifier: ModifierInstance): number {
   return modifier.value;
 }
 
 export function applyStackingRules(
   modifiers: ModifierInstance[],
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  context?: any,
 ): ModifierInstance[] {
   const groupedByEffect = new Map<string, ModifierInstance[]>();
   const independentModifiers: ModifierInstance[] = [];
@@ -48,12 +39,11 @@ export function applyStackingRules(
     if (group.length === 1) {
       stackedModifiers.push(group[0]);
     } else {
-      const highest = group.reduce((prev, current) => {
-        const prevValue = resolveModifierValue(prev, context);
-        const currValue = resolveModifierValue(current, context);
-        return currValue > prevValue ? current : prev;
-      }, group[0]);
-
+      const highest = group.reduce((prev, current) =>
+        resolveModifierValue(current) > resolveModifierValue(prev)
+          ? current
+          : prev,
+      );
       stackedModifiers.push(highest);
     }
   }
