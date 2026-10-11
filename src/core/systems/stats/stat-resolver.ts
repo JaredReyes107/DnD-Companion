@@ -32,7 +32,6 @@ import {
   getCharacterSpellcastingSources,
 } from "../../entities/spellcasting/spellcasting";
 import { getAllCheckNodeIdsByCategory } from "@/core/data/registries/check-nodes.registry";
-import { isExpiredByEvent } from "@/core/rules/combat/expiry-helper";
 import { matchesStatTarget } from "@/core/rules/shared/stat-targeting";
 
 export interface ResolvedStat {
@@ -271,15 +270,9 @@ export function resolveInCombat(
   const combatState = encounterState.participants[character.id];
   if (!combatState?.runtimeModifiers) return resolveOutOfCombat(character);
 
-  const combatModifiers = Object.values(combatState.runtimeModifiers)
-    .filter(
-      (m) =>
-        !isExpiredByEvent(m.expiryConditions, {
-          type: "roundAdvanced",
-          newRound: encounterState.currentRound,
-        }),
-    )
-    .map((m) => m.modifier);
+  const combatModifiers = Object.values(combatState.runtimeModifiers).map(
+    (m) => m.modifier,
+  );
 
   return resolveAllStats(character, combatModifiers);
 }

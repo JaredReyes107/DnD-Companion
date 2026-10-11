@@ -5,7 +5,8 @@ import { AdvantageInstance } from "@/core/entities/rules/advantage/advantage-ins
 import { Character } from "@/core/entities/character/Character";
 
 export type ExpiryEvent =
-  | { type: "roundAdvanced"; newRound: number }
+  | { type: "turnStarted"; newRound: number }
+  | { type: "turnEnded"; round: number }
   | { type: "zeroHp" }
   | { type: "actionTaken"; actionId: string }
   | { type: "longRest" }
@@ -19,10 +20,9 @@ export function isExpiredByEvent(
 
   return conditions.some((condition) => {
     switch (condition.type) {
-      case "endOfRound":
-        return (
-          event.type === "roundAdvanced" && event.newRound > condition.round
-        );
+      case "endOfTurn":
+        return event.type === "turnEnded" && event.round >= condition.round;
+      case "startOfTurn":
       case "onZeroHp":
         return event.type === "zeroHp";
       case "onAnyAction":
@@ -37,6 +37,23 @@ export function isExpiredByEvent(
         return event.type === "shortRest";
     }
   });
+}
+
+export function buildExpiryConditions(
+  currentRound: number,
+  durationRounds?: number,
+  endsAt: "startOfTurn" | "endOfTurn" = "startOfTurn",
+  endsEarlyOn?: ExpiryCondition[],
+): ExpiryCondition[] | undefined {
+  const conditions: ExpiryCondition[] = [...(endsEarlyOn ?? [])];
+  if (durationRounds !== undefined) {
+    conditions.push(
+      endsAt === "endOfTurn"
+        ? { type: "endOfTurn", round: currentRound + durationRounds - 1 }
+        : { type: "startOfTurn", round: currentRound + durationRounds },
+    );
+  }
+  return conditions.length > 0 ? conditions : undefined;
 }
 
 /**

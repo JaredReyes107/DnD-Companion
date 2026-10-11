@@ -16,6 +16,7 @@ import * as Crypto from "expo-crypto";
 import { instantiateModifier } from "@/core/rules/character/modifiers-helper";
 import { getModifierTemplateById } from "@/core/data/registries/modifiers.registry";
 import { ModifierInstance } from "@/core/entities/modifiers/Modifier";
+import { buildExpiryConditions } from "@/core/rules/combat/expiry-helper";
 
 export function applyResourceDelta(
   character: Character,
@@ -183,6 +184,10 @@ export function executeAction(
 ) {
   let updatedCharacter = ctx.character;
 
+  if (updatedCharacter.combatState) {
+    updatedCharacter = onActionTaken(updatedCharacter, action.id);
+  }
+
   for (const effect of action.effects) {
     switch (effect.type) {
       case "modifyResource":
@@ -216,15 +221,12 @@ export function executeAction(
             effect.stacking,
           );
 
-          const expiryConditions: ExpiryCondition[] | undefined =
-            effect.durationRounds !== undefined
-              ? [
-                  {
-                    type: "endOfRound",
-                    round: currentRound + effect.durationRounds,
-                  },
-                ]
-              : undefined;
+          const expiryConditions = buildExpiryConditions(
+            currentRound,
+            effect.durationRounds,
+            effect.endsAt,
+            effect.endsEarlyOn,
+          );
 
           updatedCharacter = applyRuntimeModifier(
             updatedCharacter,
@@ -234,11 +236,29 @@ export function executeAction(
         }
         break;
       }
-    }
-  }
+      case "applyAdvantage": {
+        if (!updatedCharacter.combatState) break;
 
-  if (updatedCharacter.combatState) {
-    updatedCharacter = onActionTaken(updatedCharacter, action.id);
+        const currentRound = updatedCharacter.combatState.round;
+        const expiryConditions = buildExpiryConditions(
+          currentRound,
+          effect.durationRounds,
+          effect.endsAt,
+          effect.endsEarlyOn,
+        );
+
+        for (const nodeId of effect.nodeIds) {
+          updatedCharacter = applyRuntimeAdvantage(
+            updatedCharacter,
+            nodeId,
+            effect.polarity,
+            action.id,
+            expiryConditions,
+          );
+        }
+        break;
+      }
+    }
   }
 
   if (action.duration.kind === "economy") {

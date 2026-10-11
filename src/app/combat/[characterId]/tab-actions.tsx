@@ -1,4 +1,4 @@
-import { Button, ScrollView, TouchableOpacity, View } from "react-native";
+import { ScrollView, TouchableOpacity, View } from "react-native";
 import { ThemedView } from "@/components/ui/ThemedView";
 import { ThemedText } from "@/components/ui/ThemedText";
 import { useCharacter } from "@/utils/character-provider";
@@ -11,7 +11,6 @@ import { cycleActionResource } from "@/core/entities/combat/action-economy";
 import { groupActionsBySlot } from "@/core/data/registries/actions.registry";
 import { groupedActionsAsArray } from "@/core/rules/combat/actions-helper";
 import { resolveInCombat } from "@/core/systems/stats/stat-resolver";
-import { advanceRound } from "@/core/rules/combat/combat-runtime";
 import { getCharacterSpellcastingSources } from "@/core/entities/spellcasting/spellcasting";
 
 import { PrintNumberWithSign } from "@/utils/formater-numbers";
@@ -20,6 +19,7 @@ import { ui } from "@/services/localization/ui-localization-resolver";
 import genericStyles from "@/styles/generic.styles";
 import styles from "@/styles/combat/tab-actions";
 import { getLocalizedName } from "@/services/localization/localization-helper";
+import { onEndTurn, onStartTurn } from "@/core/systems/combat/combat-triggers";
 
 const TabActions = () => {
   const {
@@ -37,6 +37,8 @@ const TabActions = () => {
       if (character?.id) loadCharacterById(character.id);
     }, [character?.id, loadCharacterById]),
   );
+
+  const [isMyTurn, setIsMyTurn] = useState(true);
 
   if (loading || !character || !encounter || !character.combatState) {
     return (
@@ -61,49 +63,62 @@ const TabActions = () => {
   const grouped = groupActionsBySlot(character.actions);
   const sections = groupedActionsAsArray(grouped);
 
+  const handleTurnButton = () => {
+    saveCharacter(isMyTurn ? onEndTurn(character) : onStartTurn(character));
+    setIsMyTurn((v) => !v);
+  };
+
   return (
     <ThemedView style={genericStyles.rootContainer}>
+      {/* Header Stats */}
       <View style={styles.headerSection}>
-        <TouchableOpacity
-          style={styles.primaryStatCell}
-          onPress={cycleSpellcastingSource}
-          disabled={spellcastingSources.length === 0}
-        >
-          <ThemedText style={styles.primaryStatText}>Bon. de Ataque</ThemedText>
-          <ThemedText style={styles.primaryStatValue}>
-            {activeSource
-              ? PrintNumberWithSign(
-                  resolvedStats.stats.get(
-                    `spellcasting:${activeSource.sourceId}:attackModifier`,
-                  )?.finalValue ?? 0,
-                )
-              : "—"}
-          </ThemedText>
-          <ThemedText style={styles.primaryStatText}>
-            {activeSource
-              ? getLocalizedName("classes", activeSource.sourceId)
-              : "De Conjuro"}
-          </ThemedText>
-        </TouchableOpacity>
+        {/* Spellcasting Stats */}
+        {activeSource && (
+          <View style={styles.statRow}>
+            <TouchableOpacity
+              style={styles.primaryStatCell}
+              onPress={cycleSpellcastingSource}
+              disabled={spellcastingSources.length === 0}
+            >
+              <ThemedText style={styles.primaryStatText}>
+                Bon. de Ataque
+              </ThemedText>
+              <ThemedText style={styles.primaryStatValue}>
+                {activeSource
+                  ? PrintNumberWithSign(
+                      resolvedStats.stats.get(
+                        `spellcasting:${activeSource.sourceId}:attackModifier`,
+                      )?.finalValue ?? 0,
+                    )
+                  : "—"}
+              </ThemedText>
+              <ThemedText style={styles.primaryStatText}>
+                {activeSource
+                  ? getLocalizedName("classes", activeSource.sourceId)
+                  : "De Conjuro"}
+              </ThemedText>
+            </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.spellcastingStatCell}
-          onPress={cycleSpellcastingSource}
-          disabled={spellcastingSources.length === 0}
-        >
-          <ThemedText style={styles.spellcastingText}>CD de Conjuro</ThemedText>
-          <ThemedText style={styles.spellcastingValue}>
-            {activeSource
-              ? resolvedStats.stats.get(
-                  `spellcasting:${activeSource.sourceId}:saveDC`,
-                )?.finalValue
-              : "—"}
-          </ThemedText>
-        </TouchableOpacity>
-      </View>
+            <TouchableOpacity
+              style={styles.spellcastingStatCell}
+              onPress={cycleSpellcastingSource}
+              disabled={spellcastingSources.length === 0}
+            >
+              <ThemedText style={styles.spellcastingText}>
+                CD de Conjuro
+              </ThemedText>
+              <ThemedText style={styles.spellcastingValue}>
+                {activeSource
+                  ? resolvedStats.stats.get(
+                      `spellcasting:${activeSource.sourceId}:saveDC`,
+                    )?.finalValue
+                  : "—"}
+              </ThemedText>
+            </TouchableOpacity>
+          </View>
+        )}
 
-      {/* Action Economy tracker */}
-      <View>
+        {/* Action Economy tracker */}
         <View style={styles.statRow}>
           <TouchableOpacity
             style={styles.actionSlotCell}
@@ -177,10 +192,19 @@ const TabActions = () => {
       </View>
 
       <View style={styles.footerSection}>
-        <Button
-          title={ui("timeIntervals.startRound")}
-          onPress={() => saveCharacter(advanceRound(character))}
-        />
+        <TouchableOpacity
+          style={[
+            styles.turnButton,
+            isMyTurn ? styles.turnButtonEnd : styles.turnButtonStart,
+          ]}
+          onPress={handleTurnButton}
+        >
+          <ThemedText style={styles.turnButtonText}>
+            {isMyTurn
+              ? ui("timeIntervals.endTurn")
+              : ui("timeIntervals.startTurn")}
+          </ThemedText>
+        </TouchableOpacity>
       </View>
     </ThemedView>
   );

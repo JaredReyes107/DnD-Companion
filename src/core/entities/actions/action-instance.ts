@@ -2,6 +2,7 @@ import { Character } from "@/core/entities/character/Character";
 import { ActionDuration } from "./action-duration";
 import { ActionBoard } from "./action-board";
 import { ActionTrigger } from "./action-trigger";
+import { ExpiryCondition } from "../rules/duration/expiry-condition";
 
 export type ModifyResourceEffect = {
   type: "modifyResource";
@@ -25,13 +26,11 @@ export type ConvertResourceEffect = {
 
 export type ApplyModifierEffect = {
   type: "applyModifier";
-
   modifiers: string[]; //modifierId
-
   durationRounds?: number;
-
+  endsAt?: "startOfTurn" | "endOfTurn"; // default "startOfTurn"
+  endsEarlyOn?: ExpiryCondition[]; // e.g. onZeroHp, onSpecificAction
   stacking?: "overlap" | "refresh" | "override" | "ignore";
-
   concentration?: boolean;
 };
 

@@ -9,6 +9,7 @@ import { getModifiersFromChoices } from "./choices-helper";
 import { getModifierTemplateById } from "@/core/data/registries/modifiers.registry";
 import { getActiveFeatures } from "./features-helper";
 import { grantsOfType } from "@/core/rules/shared/grant-filters";
+import * as Crypto from "expo-crypto";
 
 function resolveModifierValue(
   value: ModifierValue,
@@ -29,7 +30,7 @@ export function instantiateModifier(
       : DEFAULT_MODIFIER_PRIORITY[template.type];
 
   return {
-    id: crypto.randomUUID(),
+    id: Crypto.randomUUID(),
     templateId: template.id,
     sourceId,
     statModel: template.statModel,

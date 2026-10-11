@@ -1,9 +1,9 @@
 import { Character } from "@/core/entities/character/Character";
 import { CombatState } from "@/core/entities/combat/combat-state";
 import { AdvantageInstance } from "@/core/entities/rules/advantage/advantage-instance";
-import { isExpiredByEvent, sweepExpiredByEvent } from "./expiry-helper";
+import { isExpiredByEvent } from "./expiry-helper";
 
-export function advanceRound(character: Character) {
+export function startNewTurn(character: Character): Character {
   if (!character.combatState) return character;
 
   const updatedCombatState = {
@@ -18,10 +18,7 @@ export function advanceRound(character: Character) {
 
   return {
     ...character,
-    combatState: sweepExpiredByEvent(updatedCombatState, {
-      type: "roundAdvanced",
-      newRound: updatedCombatState.round,
-    }),
+    combatState: updatedCombatState,
   };
 }
 
@@ -34,8 +31,8 @@ export function removeExpiredCombatAdvantage(
     combatState.runtimeAdvantageInstances,
   )) {
     const expired = isExpiredByEvent(instance.expiryConditions, {
-      type: "roundAdvanced",
-      newRound: combatState.round,
+      type: "turnEnded",
+      round: combatState.round,
     });
     if (!expired) nextInstances[id] = instance;
   }

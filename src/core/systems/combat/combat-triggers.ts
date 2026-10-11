@@ -1,16 +1,9 @@
 import { Character } from "@/core/entities/character/Character";
+import { startNewTurn } from "@/core/rules/combat/combat-runtime";
 import {
   sweepExpiredByEvent,
   sweepExpiredPassiveAdvantage,
 } from "@/core/rules/combat/expiry-helper";
-
-export function onZeroHp(character: Character): Character {
-  if (!character.combatState) return character;
-  return {
-    ...character,
-    combatState: sweepExpiredByEvent(character.combatState, { type: "zeroHp" }),
-  };
-}
 
 export function onActionTaken(
   character: Character,
@@ -22,6 +15,39 @@ export function onActionTaken(
     combatState: sweepExpiredByEvent(character.combatState, {
       type: "actionTaken",
       actionId,
+    }),
+  };
+}
+
+export function onZeroHp(character: Character): Character {
+  if (!character.combatState) return character;
+  return {
+    ...character,
+    combatState: sweepExpiredByEvent(character.combatState, { type: "zeroHp" }),
+  };
+}
+
+export function onStartTurn(character: Character): Character {
+  const advanced = startNewTurn(character);
+  console.log("Starting turn");
+  if (!advanced.combatState) return advanced;
+  return {
+    ...advanced,
+    combatState: sweepExpiredByEvent(advanced.combatState, {
+      type: "turnStarted",
+      newRound: advanced.combatState.round,
+    }),
+  };
+}
+
+export function onEndTurn(character: Character): Character {
+  if (!character.combatState) return character;
+  console.log("Ending turn");
+  return {
+    ...character,
+    combatState: sweepExpiredByEvent(character.combatState, {
+      type: "turnEnded",
+      round: character.combatState.round,
     }),
   };
 }
