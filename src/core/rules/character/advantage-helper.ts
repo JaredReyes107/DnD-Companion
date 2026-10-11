@@ -9,19 +9,23 @@ import { grantsOfType } from "../shared/grant-filters";
 import { getActiveFeatures } from "./features-helper";
 import { ExpiryCondition } from "@/core/entities/rules/duration/expiry-condition";
 import * as Crypto from "expo-crypto";
+import { getCheckNodeAncestryChain } from "@/core/data/registries/check-nodes.registry";
 
 function collectInstancesForNode(
   character: Character,
   nodeId: string,
 ): AdvantageInstance[] {
+  const chain = new Set(getCheckNodeAncestryChain(nodeId));
+
   const passive = Object.values(
     character.checks.passiveAdvantageInstances,
-  ).filter((i) => i.nodeId === nodeId);
+  ).filter((i) => chain.has(i.nodeId));
   const combat = character.combatState
     ? Object.values(character.combatState.runtimeAdvantageInstances).filter(
-        (i) => i.nodeId === nodeId,
+        (i) => chain.has(i.nodeId),
       )
     : [];
+
   return [...passive, ...combat];
 }
 
@@ -125,6 +129,7 @@ export function buildCharacterAdvantageInstances(
   // ones are fully recomputed below to avoid duplicate instances piling
   // up across repeated saves.
   const featureIds = new Set(getActiveFeatures(character).map((f) => f.id));
+
   const preserved = Object.fromEntries(
     Object.entries(character.checks.passiveAdvantageInstances).filter(
       ([, instance]) =>
@@ -136,7 +141,7 @@ export function buildCharacterAdvantageInstances(
   for (const grant of getAdvantageGrantsFromFeatures(
     getActiveFeatures(character),
   )) {
-    const id = Crypto.randomUUID();
+    const id = `${grant.sourceId}:${grant.nodeId}:${grant.polarity}`;
     next[id] = {
       id,
       nodeId: grant.nodeId,
@@ -146,4 +151,28 @@ export function buildCharacterAdvantageInstances(
   }
 
   return next;
+}
+
+export function applyRuntimeAdvantage(
+  character: Character,
+  nodeId: string,
+  polarity: AdvantagePolarity,
+  sourceId: string,
+  expiryConditions?: ExpiryCondition[],
+): Character {
+  if (!character.combatState) return character;
+
+  // Deterministic id. Duplicates matter under "oneToOne" stacking, where each instance counts.
+  const id = `${sourceId}:${nodeId}:${polarity}`;
+
+  return {
+    ...character,
+    combatState: {
+      ...character.combatState,
+      runtimeAdvantageInstances: {
+        ...character.combatState.runtimeAdvantageInstances,
+        [id]: { id, nodeId, polarity, sourceId, expiryConditions },
+      },
+    },
+  };
 }

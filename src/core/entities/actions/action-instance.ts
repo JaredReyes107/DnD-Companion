@@ -3,6 +3,7 @@ import { ActionDuration } from "./action-duration";
 import { ActionBoard } from "./action-board";
 import { ActionTrigger } from "./action-trigger";
 import { ExpiryCondition } from "../rules/duration/expiry-condition";
+import { AdvantagePolarity } from "../rules/advantage/advantage-instance";
 
 export type ModifyResourceEffect = {
   type: "modifyResource";
@@ -34,6 +35,15 @@ export type ApplyModifierEffect = {
   concentration?: boolean;
 };
 
+export type ApplyAdvantageEffect = {
+  type: "applyAdvantage";
+  nodeIds: string[]; // CheckNode ids; a parent node covers its descendants
+  polarity: AdvantagePolarity;
+  durationRounds?: number;
+  endsAt?: "startOfTurn" | "endOfTurn";
+  endsEarlyOn?: ExpiryCondition[];
+};
+
 export type LogEffect = {
   type: "log";
   text: string;
@@ -43,6 +53,7 @@ export type ActionEffect =
   | ModifyResourceEffect
   | ConvertResourceEffect
   | ApplyModifierEffect
+  | ApplyAdvantageEffect
   | LogEffect;
 
 export type ActionInstance = {

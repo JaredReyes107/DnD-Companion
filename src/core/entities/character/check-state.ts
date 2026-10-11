@@ -20,6 +20,8 @@ export function buildCharacterCheckState(): CharacterCheckState {
 export type SerializedCharacterCheckState = {
   proficiencies: string[];
   abilityOverrides: Record<string, Ability>;
+  advantageStackingRule: "raw" | "oneToOne";
+  passiveAdvantageInstances: Record<string, AdvantageInstance>;
 };
 
 export function serializeCharacterCheckState(
@@ -28,6 +30,8 @@ export function serializeCharacterCheckState(
   return {
     proficiencies: [...state.proficiencies],
     abilityOverrides: state.abilityOverrides,
+    advantageStackingRule: state.advantageStackingRule,
+    passiveAdvantageInstances: state.passiveAdvantageInstances,
   };
 }
 
@@ -37,7 +41,7 @@ export function hydrateCharacterCheckState(
   return {
     proficiencies: new Set(raw.proficiencies),
     abilityOverrides: raw.abilityOverrides,
-    advantageStackingRule: "raw",
-    passiveAdvantageInstances: {},
+    advantageStackingRule: raw.advantageStackingRule,
+    passiveAdvantageInstances: raw.passiveAdvantageInstances,
   };
 }
