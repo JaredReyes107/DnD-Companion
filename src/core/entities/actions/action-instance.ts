@@ -45,10 +45,18 @@ export type ApplyAdvantageEffect = {
   concentration?: boolean;
 };
 
+export type ApplyStatusEffect = {
+  type: "applyStatus";
+  statusId: string;
+  durationRounds?: number;
+  endsAt?: "startOfTurn" | "endOfTurn";
+  endsEarlyOn?: ExpiryCondition[];
+};
+
 export type EndEffectsEffect = {
   type: "endEffects";
-  sourceIds?: string[]; // end everything these sources applied
-  allConcentration?: boolean; // end everything currently held under concentration
+  sourceIds?: string[]; // everything these sources applied
+  statusIds?: string[]; // every instance of these statuses (cascades if bound)
 };
 
 export type ActionEffect =
@@ -56,6 +64,7 @@ export type ActionEffect =
   | ConvertResourceEffect
   | ApplyModifierEffect
   | ApplyAdvantageEffect
+  | ApplyStatusEffect
   | EndEffectsEffect;
 
 export type ActionInstance = {

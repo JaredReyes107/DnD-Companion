@@ -10,6 +10,7 @@ import { getActiveFeatures } from "./features-helper";
 import { ExpiryCondition } from "@/core/entities/rules/duration/expiry-condition";
 import * as Crypto from "expo-crypto";
 import { getCheckNodeAncestryChain } from "@/core/data/registries/check-nodes.registry";
+import { getStatusAdvantageInstances } from "./status-effects-helper";
 
 function collectInstancesForNode(
   character: Character,
@@ -26,7 +27,10 @@ function collectInstancesForNode(
       )
     : [];
 
-  return [...passive, ...combat];
+  const status = getStatusAdvantageInstances(character).filter((i) =>
+    chain.has(i.nodeId),
+  );
+  return [...passive, ...combat, ...status];
 }
 
 export function resolveAdvantageState(

@@ -3,7 +3,7 @@ import { CombatState } from "@/core/entities/combat/combat-state";
 import { RuntimeModifierInstance } from "@/core/entities/rules/stats.types";
 import { AdvantageInstance } from "@/core/entities/rules/advantage/advantage-instance";
 import { Character } from "@/core/entities/character/Character";
-import { PruneConcentration } from "./runtime-effects-helper";
+import { cascadeStatusRemoval } from "./runtime-effects-helper";
 
 export type ExpiryEvent =
   | { type: "turnStarted"; newRound: number }
@@ -84,11 +84,17 @@ export function sweepExpiredByEvent(
       nextAdvantage[id] = instance;
   }
 
-  return PruneConcentration({
+  const expired = combatState.statuses.filter((s) =>
+    isExpiredByEvent(s.expiryConditions, event),
+  );
+  let next: CombatState = {
     ...combatState,
     runtimeModifiers: nextModifiers,
     runtimeAdvantageInstances: nextAdvantage,
-  });
+    statuses: combatState.statuses.filter((s) => !expired.includes(s)),
+  };
+  for (const s of expired) next = cascadeStatusRemoval(next, s);
+  return next;
 }
 
 export function sweepExpiredPassiveAdvantage(

@@ -12,6 +12,7 @@ export type LocalizationNamespace =
   | "skills"
   | "checkNodes"
   | "languages"
+  | "statuses"
   | "equipment"
   | "spells";
 
@@ -49,6 +50,7 @@ export type GameLocalization = {
   skills?: GameLocalizationCategory;
   checkNodes?: GameLocalizationCategory;
   languages?: GameLocalizationCategory;
+  statuses?: GameLocalizationCategory;
 
   // future-proofing
   equipment?: GameLocalizationCategory;

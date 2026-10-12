@@ -4,6 +4,7 @@ import { EXPERTISE_MODIFIERS } from "../rules/modifiers/expertise-modifiers";
 
 import { BARD_MODIFIERS } from "../rules/modifiers/by-class/bard-modifiers";
 import { WIZARD_MODIFIERS } from "../rules/modifiers/by-class/wizard-modifiers";
+import { STATUS_MODIFIERS } from "../rules/modifiers/status-modifiers";
 import { TEST_MODIFIERS } from "../rules/test-grants";
 
 const homebrewModifiers: Record<string, ModifierTemplate> = {};
@@ -15,6 +16,7 @@ export const CLASS_MODIFIERS: Record<string, ModifierTemplate> = {
 
 export const BASE_MODIFIERS: Record<string, ModifierTemplate> = {
   ...EXPERTISE_MODIFIERS,
+  ...STATUS_MODIFIERS,
   ...TEST_MODIFIERS,
 
   ...CLASS_MODIFIERS,

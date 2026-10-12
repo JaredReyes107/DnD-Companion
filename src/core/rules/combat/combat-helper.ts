@@ -7,7 +7,6 @@ export function buildCombatState(character: Character): CombatState {
     currentTurnIndex: 0,
     initiativeOrder: 1,
     initiativeRoll: 10,
-    concentratingOn: [],
 
     actionEconomy: {
       actions: {
@@ -29,7 +28,7 @@ export function buildCombatState(character: Character): CombatState {
       failures: 0,
     },
 
-    conditions: [],
+    statuses: [],
     modifiers: {},
     runtimeModifiers: {},
     runtimeAdvantageInstances: {},

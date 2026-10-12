@@ -28,7 +28,6 @@ export interface ModifierTemplate {
   priority?: ModifierValue;
   condition?: Condition;
   effectId?: string; // for stacking
-  concentration?: boolean;
 }
 
 export interface ModifierInstance {
@@ -41,6 +40,5 @@ export interface ModifierInstance {
   priority: number; // resolved at instantiation — formula evaluated once per build
   condition?: Condition;
   effectId?: string;
-  concentration?: boolean;
   expiryConditions?: ExpiryCondition[];
 }

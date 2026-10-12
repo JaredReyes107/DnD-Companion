@@ -18,12 +18,13 @@ import { getModifierTemplateById } from "@/core/data/registries/modifiers.regist
 import { ModifierInstance } from "@/core/entities/modifiers/Modifier";
 import { buildExpiryConditions } from "@/core/rules/combat/expiry-helper";
 import {
-  endAllConcentration,
-  isConcentrationAction,
-  registerConcentration,
+  applyStatus,
+  removeStatusesById,
   revokeRuntimeEffectsBySource,
 } from "@/core/rules/combat/runtime-effects-helper";
 import { resolveStatValue } from "../../stats/stat-resolver";
+import { getStatusTemplateById } from "@/core/data/registries/status.registry";
+import { StatusInstance } from "@/core/entities/combat/status-instance";
 
 export function applyResourceDelta(
   character: Character,
@@ -265,32 +266,53 @@ export function executeAction(
         }
         break;
       }
+      case "applyStatus": {
+        if (!updatedCharacter.combatState) break;
+        const template = getStatusTemplateById(effect.statusId);
+        const limit =
+          template.limitStat !== undefined
+            ? resolveStatValue(updatedCharacter, {
+                type: "derived",
+                key: template.limitStat,
+              })
+            : undefined;
+        const timed = buildExpiryConditions(
+          updatedCharacter.combatState.round,
+          effect.durationRounds,
+          effect.endsAt,
+          effect.endsEarlyOn,
+        );
+        const instance: StatusInstance = {
+          id: `${effect.statusId}:${action.id}`,
+          statusId: effect.statusId,
+          sourceId: action.id,
+          expiryConditions: [
+            ...(template.defaultExpiry ?? []),
+            ...(timed ?? []),
+          ],
+        };
+        updatedCharacter = {
+          ...updatedCharacter,
+          combatState: applyStatus(
+            updatedCharacter.combatState,
+            instance,
+            limit,
+          ),
+        };
+        break;
+      }
+
       case "endEffects": {
         if (!updatedCharacter.combatState) break;
         let cs = updatedCharacter.combatState;
-        if (effect.allConcentration) cs = endAllConcentration(cs);
-        for (const sourceId of effect.sourceIds ?? []) {
+        for (const statusId of effect.statusIds ?? [])
+          cs = removeStatusesById(cs, statusId);
+        for (const sourceId of effect.sourceIds ?? [])
           cs = revokeRuntimeEffectsBySource(cs, sourceId);
-        }
         updatedCharacter = { ...updatedCharacter, combatState: cs };
         break;
       }
     }
-  }
-
-  if (isConcentrationAction(action) && updatedCharacter.combatState) {
-    const limit = resolveStatValue(updatedCharacter, {
-      type: "derived",
-      key: "concentrationLimit",
-    });
-    updatedCharacter = {
-      ...updatedCharacter,
-      combatState: registerConcentration(
-        updatedCharacter.combatState,
-        action.id,
-        limit,
-      ),
-    };
   }
 
   if (action.duration.kind === "economy") {

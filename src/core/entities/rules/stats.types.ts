@@ -37,7 +37,7 @@ export type ModifierType =
 
 export type StatModifierTemplate = {
   id: string;
-  //?: Consider moving into "Instance" and apply dinamically for later reuse in items, features, etc
+  //TODO: ? Consider moving into "Instance" and apply dinamically for later reuse in items, features, etc
   sourceId: string; // featureId, itemId, actionId or spellId
   statModel: StatModel;
   mode: ModifierType;
@@ -51,12 +51,10 @@ export type RuntimeModifierInstance = {
   id: string;
   modifier: ModifierInstance;
   expiryConditions?: ExpiryCondition[]; // undefined = passive/permanent
-  concentration?: boolean;
 };
 
 export type ActiveCombatModifier = {
   id: string;
   modifier: ModifierInstance;
   expiryConditions?: ExpiryCondition[];
-  concentration?: boolean;
 };

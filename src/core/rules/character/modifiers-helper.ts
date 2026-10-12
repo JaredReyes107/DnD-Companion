@@ -39,7 +39,6 @@ export function instantiateModifier(
     priority,
     condition: template.condition,
     effectId: template.effectId,
-    concentration: template.concentration,
   };
 }
 

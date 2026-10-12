@@ -33,6 +33,7 @@ import {
 } from "../../entities/spellcasting/spellcasting";
 import { getAllCheckNodeIdsByCategory } from "@/core/data/registries/check-nodes.registry";
 import { matchesStatTarget } from "@/core/rules/shared/stat-targeting";
+import { getStatusModifierInstances } from "@/core/rules/character/status-effects-helper";
 
 export interface ResolvedStat {
   statId: string;
@@ -198,7 +199,7 @@ export function resolveStatValue(
         (m) => m.modifier,
       )
     : [];
-  const all = [...Object.values(character.statModifiers), ...runtime];
+  const all = gatherAllModifiers(character, runtime);
   const relevant = gatherModifiersFor(statModel, all, {});
   return resolveStat(
     serializeStatModel(statModel),
@@ -206,6 +207,17 @@ export function resolveStatValue(
     relevant,
     buildEvaluationContext(character),
   ).finalValue;
+}
+
+function gatherAllModifiers(
+  character: Character,
+  runtime: ModifierInstance[],
+): ModifierInstance[] {
+  return [
+    ...Object.values(character.statModifiers),
+    ...getStatusModifierInstances(character),
+    ...runtime,
+  ];
 }
 
 export type ResolvedCharacter = {
@@ -238,10 +250,7 @@ function resolveAllStats(
 ): ResolvedCharacter {
   const stats = new Map<string, ResolvedStat>();
   const allStats = buildAllStatModels();
-  const allModifiers = [
-    ...Object.values(character.statModifiers),
-    ...extraModifiers,
-  ];
+  const allModifiers = gatherAllModifiers(character, extraModifiers);
   const evalContext = buildEvaluationContext(character);
 
   for (const statModel of allStats) {

@@ -1,19 +1,9 @@
+// rules/combat/runtime-effects-helper.ts (replace last turn's contents)
 import { CombatState } from "@/core/entities/combat/combat-state";
-import { ActionInstance } from "@/core/entities/actions/action-instance";
+import { StatusInstance } from "@/core/entities/combat/status-instance";
+import { getStatusTemplateById } from "@/core/data/registries/status.registry";
 
-function hasEffectsFromSource(cs: CombatState, sourceId: string): boolean {
-  return (
-    Object.values(cs.runtimeModifiers).some(
-      (i) => i.modifier.sourceId === sourceId,
-    ) ||
-    Object.values(cs.runtimeAdvantageInstances).some(
-      (i) => i.sourceId === sourceId,
-    )
-  );
-}
-
-/** Removes every runtime modifier and advantage instance a source applied,
- *  and releases its concentration slot. */
+/** Everything a source applied: modifiers, advantage and statuses. */
 export function revokeRuntimeEffectsBySource(
   cs: CombatState,
   sourceId: string,
@@ -30,49 +20,60 @@ export function revokeRuntimeEffectsBySource(
         ([, i]) => i.sourceId !== sourceId,
       ),
     ),
-    concentratingOn: cs.concentratingOn.filter((id) => id !== sourceId),
+    statuses: cs.statuses.filter((s) => s.sourceId !== sourceId),
   };
 }
 
-export function isConcentrationAction(action: ActionInstance): boolean {
-  return action.effects.some(
-    (e) =>
-      (e.type === "applyModifier" || e.type === "applyAdvantage") &&
-      e.concentration,
-  );
+export function cascadeStatusRemoval(
+  cs: CombatState,
+  removed: StatusInstance,
+): CombatState {
+  return getStatusTemplateById(removed.statusId).bindsSourceEffects
+    ? revokeRuntimeEffectsBySource(cs, removed.sourceId)
+    : cs;
 }
 
-/** Registers a source as concentrated on, evicting the oldest while over the limit. */
-export function registerConcentration(
+export function removeStatusInstance(
   cs: CombatState,
-  sourceId: string,
-  limit: number,
+  instance: StatusInstance,
 ): CombatState {
-  const max = Math.max(0, limit);
+  const without = {
+    ...cs,
+    statuses: cs.statuses.filter((s) => s.id !== instance.id),
+  };
+  return cascadeStatusRemoval(without, instance);
+}
+
+export function removeStatusesById(
+  cs: CombatState,
+  statusId: string,
+): CombatState {
+  return cs.statuses
+    .filter((s) => s.statusId === statusId)
+    .reduce(removeStatusInstance, cs);
+}
+
+export function applyStatus(
+  cs: CombatState,
+  instance: StatusInstance,
+  limit?: number,
+): CombatState {
   let next: CombatState = {
     ...cs,
-    // re-using an active source refreshes it to "newest"
-    concentratingOn: [
-      ...cs.concentratingOn.filter((id) => id !== sourceId),
-      sourceId,
-    ],
+    statuses: [...cs.statuses.filter((s) => s.id !== instance.id), instance], // re-applying = newest
   };
-  while (next.concentratingOn.length > max) {
-    next = revokeRuntimeEffectsBySource(next, next.concentratingOn[0]);
+
+  const template = getStatusTemplateById(instance.statusId);
+  if (template.limitStat !== undefined && limit !== undefined) {
+    const max = Math.max(0, limit);
+    while (
+      next.statuses.filter((s) => s.statusId === instance.statusId).length > max
+    ) {
+      const oldest = next.statuses.find(
+        (s) => s.statusId === instance.statusId,
+      )!;
+      next = removeStatusInstance(next, oldest);
+    }
   }
   return next;
-}
-
-export function endAllConcentration(cs: CombatState): CombatState {
-  return cs.concentratingOn.reduce(revokeRuntimeEffectsBySource, cs);
-}
-
-/** Frees slots whose effects all expired on their own (duration, early-end). */
-export function PruneConcentration(cs: CombatState): CombatState {
-  return {
-    ...cs,
-    concentratingOn: cs.concentratingOn.filter((id) =>
-      hasEffectsFromSource(cs, id),
-    ),
-  };
 }
