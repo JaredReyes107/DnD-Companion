@@ -42,11 +42,13 @@ export type ApplyAdvantageEffect = {
   durationRounds?: number;
   endsAt?: "startOfTurn" | "endOfTurn";
   endsEarlyOn?: ExpiryCondition[];
+  concentration?: boolean;
 };
 
-export type LogEffect = {
-  type: "log";
-  text: string;
+export type EndEffectsEffect = {
+  type: "endEffects";
+  sourceIds?: string[]; // end everything these sources applied
+  allConcentration?: boolean; // end everything currently held under concentration
 };
 
 export type ActionEffect =
@@ -54,7 +56,7 @@ export type ActionEffect =
   | ConvertResourceEffect
   | ApplyModifierEffect
   | ApplyAdvantageEffect
-  | LogEffect;
+  | EndEffectsEffect;
 
 export type ActionInstance = {
   id: string;

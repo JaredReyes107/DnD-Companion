@@ -141,6 +141,8 @@ function getBaseValue(stat: StatModel, character: Character): number {
           if (sources.length === 0) return 0;
           return getBaseSpellSaveDCForSource(character, sources[0]);
         }
+        case "concentrationLimit":
+          return 1;
       }
       break;
     case "custom":
@@ -174,6 +176,7 @@ function buildAllStatModels(): StatModel[] {
     { type: "derived" as const, key: "ac" as const },
     { type: "derived" as const, key: "spellAttackModifier" as const },
     { type: "derived" as const, key: "spellSaveDC" as const },
+    { type: "derived" as const, key: "concentrationLimit" as const },
   ];
 
   return [
@@ -183,6 +186,26 @@ function buildAllStatModels(): StatModel[] {
     ...skillStats,
     ...derivedStats,
   ];
+}
+
+export function resolveStatValue(
+  character: Character,
+  statModel: StatModel,
+): number {
+  const base = getBaseValue(statModel, character);
+  const runtime = character.combatState
+    ? Object.values(character.combatState.runtimeModifiers).map(
+        (m) => m.modifier,
+      )
+    : [];
+  const all = [...Object.values(character.statModifiers), ...runtime];
+  const relevant = gatherModifiersFor(statModel, all, {});
+  return resolveStat(
+    serializeStatModel(statModel),
+    base,
+    relevant,
+    buildEvaluationContext(character),
+  ).finalValue;
 }
 
 export type ResolvedCharacter = {

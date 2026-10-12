@@ -9,7 +9,8 @@ export type DerivedStatKey =
   | "initiative"
   | "ac"
   | "spellAttackModifier"
-  | "spellSaveDC";
+  | "spellSaveDC"
+  | "concentrationLimit";
 
 export type SpellcastingStatKey = "attackModifier" | "saveDC";
 

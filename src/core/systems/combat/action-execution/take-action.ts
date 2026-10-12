@@ -17,6 +17,13 @@ import { instantiateModifier } from "@/core/rules/character/modifiers-helper";
 import { getModifierTemplateById } from "@/core/data/registries/modifiers.registry";
 import { ModifierInstance } from "@/core/entities/modifiers/Modifier";
 import { buildExpiryConditions } from "@/core/rules/combat/expiry-helper";
+import {
+  endAllConcentration,
+  isConcentrationAction,
+  registerConcentration,
+  revokeRuntimeEffectsBySource,
+} from "@/core/rules/combat/runtime-effects-helper";
+import { resolveStatValue } from "../../stats/stat-resolver";
 
 export function applyResourceDelta(
   character: Character,
@@ -258,7 +265,32 @@ export function executeAction(
         }
         break;
       }
+      case "endEffects": {
+        if (!updatedCharacter.combatState) break;
+        let cs = updatedCharacter.combatState;
+        if (effect.allConcentration) cs = endAllConcentration(cs);
+        for (const sourceId of effect.sourceIds ?? []) {
+          cs = revokeRuntimeEffectsBySource(cs, sourceId);
+        }
+        updatedCharacter = { ...updatedCharacter, combatState: cs };
+        break;
+      }
     }
+  }
+
+  if (isConcentrationAction(action) && updatedCharacter.combatState) {
+    const limit = resolveStatValue(updatedCharacter, {
+      type: "derived",
+      key: "concentrationLimit",
+    });
+    updatedCharacter = {
+      ...updatedCharacter,
+      combatState: registerConcentration(
+        updatedCharacter.combatState,
+        action.id,
+        limit,
+      ),
+    };
   }
 
   if (action.duration.kind === "economy") {

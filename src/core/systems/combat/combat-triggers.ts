@@ -4,6 +4,7 @@ import {
   sweepExpiredByEvent,
   sweepExpiredPassiveAdvantage,
 } from "@/core/rules/combat/expiry-helper";
+import { endAllConcentration } from "@/core/rules/combat/runtime-effects-helper";
 
 export function onActionTaken(
   character: Character,
@@ -21,15 +22,13 @@ export function onActionTaken(
 
 export function onZeroHp(character: Character): Character {
   if (!character.combatState) return character;
-  return {
-    ...character,
-    combatState: sweepExpiredByEvent(character.combatState, { type: "zeroHp" }),
-  };
+  let cs = sweepExpiredByEvent(character.combatState, { type: "zeroHp" });
+  cs = endAllConcentration(cs);
+  return { ...character, combatState: cs };
 }
 
 export function onStartTurn(character: Character): Character {
   const advanced = startNewTurn(character);
-  console.log("Starting turn");
   if (!advanced.combatState) return advanced;
   return {
     ...advanced,
@@ -42,7 +41,6 @@ export function onStartTurn(character: Character): Character {
 
 export function onEndTurn(character: Character): Character {
   if (!character.combatState) return character;
-  console.log("Ending turn");
   return {
     ...character,
     combatState: sweepExpiredByEvent(character.combatState, {

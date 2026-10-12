@@ -3,6 +3,7 @@ import { CombatState } from "@/core/entities/combat/combat-state";
 import { RuntimeModifierInstance } from "@/core/entities/rules/stats.types";
 import { AdvantageInstance } from "@/core/entities/rules/advantage/advantage-instance";
 import { Character } from "@/core/entities/character/Character";
+import { PruneConcentration } from "./runtime-effects-helper";
 
 export type ExpiryEvent =
   | { type: "turnStarted"; newRound: number }
@@ -23,6 +24,9 @@ export function isExpiredByEvent(
       case "endOfTurn":
         return event.type === "turnEnded" && event.round >= condition.round;
       case "startOfTurn":
+        return (
+          event.type === "turnStarted" && event.newRound >= condition.round
+        );
       case "onZeroHp":
         return event.type === "zeroHp";
       case "onAnyAction":
@@ -80,11 +84,11 @@ export function sweepExpiredByEvent(
       nextAdvantage[id] = instance;
   }
 
-  return {
+  return PruneConcentration({
     ...combatState,
     runtimeModifiers: nextModifiers,
     runtimeAdvantageInstances: nextAdvantage,
-  };
+  });
 }
 
 export function sweepExpiredPassiveAdvantage(

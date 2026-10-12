@@ -7,9 +7,7 @@ export function buildCombatState(character: Character): CombatState {
     currentTurnIndex: 0,
     initiativeOrder: 1,
     initiativeRoll: 10,
-    // TODO: Increase max dinamically trough helper.
-    // Concentration doesn't matter only in combat
-    concentrationSlots: { max: 1, active: [] },
+    concentratingOn: [],
 
     actionEconomy: {
       actions: {
