@@ -4,12 +4,11 @@ import { Condition } from "./Condition";
 import { Character } from "@/core/entities/character/Character";
 
 export enum ModifierType {
-  ADDITIVE,
-  MULTIPLICATIVE,
-  SET,
-  ADVANTAGE,
-  DISADVANTAGE,
-  REROLL,
+  ADDITIVE = "additive",
+  MULTIPLICATIVE = "multiplicative",
+  SET = "set",
+  FLOOR = "floor",
+  CAP = "cap",
 }
 
 export type ModifierValue = number | ((context: ModifierEvalContext) => number);

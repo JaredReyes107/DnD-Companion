@@ -7,9 +7,8 @@ export const DEFAULT_MODIFIER_PRIORITY: Record<ModifierType, number> = {
   [ModifierType.SET]: 100,
   [ModifierType.MULTIPLICATIVE]: 200,
   [ModifierType.ADDITIVE]: 300,
-  [ModifierType.ADVANTAGE]: 400,
-  [ModifierType.DISADVANTAGE]: 500,
-  [ModifierType.REROLL]: 600,
+  [ModifierType.FLOOR]: 400,
+  [ModifierType.CAP]: 500,
 };
 
 export function resolveModifierValue(modifier: ModifierInstance): number {
@@ -36,16 +35,14 @@ export function applyStackingRules(
   const stackedModifiers: ModifierInstance[] = [...independentModifiers];
 
   for (const group of groupedByEffect.values()) {
-    if (group.length === 1) {
-      stackedModifiers.push(group[0]);
-    } else {
-      const highest = group.reduce((prev, current) =>
-        resolveModifierValue(current) > resolveModifierValue(prev)
-          ? current
-          : prev,
-      );
-      stackedModifiers.push(highest);
-    }
+    const strongest = group.reduce((best, current) => {
+      const better =
+        current.type === ModifierType.CAP
+          ? resolveModifierValue(current) < resolveModifierValue(best)
+          : resolveModifierValue(current) > resolveModifierValue(best);
+      return better ? current : best;
+    });
+    stackedModifiers.push(strongest);
   }
 
   return stackedModifiers;

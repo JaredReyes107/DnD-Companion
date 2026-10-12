@@ -66,9 +66,11 @@ export function resolveStat(
       case ModifierType.MULTIPLICATIVE:
         finalValue *= mod.value;
         break;
-      case ModifierType.ADVANTAGE:
-      case ModifierType.DISADVANTAGE:
-      case ModifierType.REROLL:
+      case ModifierType.FLOOR:
+        finalValue = Math.max(finalValue, mod.value);
+        break;
+      case ModifierType.CAP:
+        finalValue = Math.min(finalValue, mod.value);
         break;
     }
   }
