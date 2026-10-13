@@ -1,5 +1,6 @@
 import { getMaximumHitDice } from "@/core/rules/character/hit-dice-helper";
 import { Character } from "@/core/entities/character/Character";
+import { onZeroHp } from "@/core/systems/combat/combat-triggers";
 
 export function takeDamage(
   damageTaken: number,
@@ -10,15 +11,18 @@ export function takeDamage(
   if (remainingTempHP < 0) {
     const leftoverDamage = Math.abs(remainingTempHP);
     const remainingHP = character.hitPoints.currentHP - leftoverDamage;
+    const resultingHp = Math.max(remainingHP, 0);
 
-    return {
+    const updated: Character = {
       ...character,
       hitPoints: {
         ...character.hitPoints,
         temporalHP: 0,
-        currentHP: Math.max(remainingHP, 0),
+        currentHP: resultingHp,
       },
     };
+
+    return resultingHp === 0 ? onZeroHp(updated) : updated;
   }
 
   return {

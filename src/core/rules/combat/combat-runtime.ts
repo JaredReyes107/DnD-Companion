@@ -1,8 +1,9 @@
 import { Character } from "@/core/entities/character/Character";
-import { RuntimeModifierInstance } from "@/core/entities/rules/stats.types";
 import { CombatState } from "@/core/entities/combat/combat-state";
+import { AdvantageInstance } from "@/core/entities/rules/advantage/advantage-instance";
+import { isExpiredByEvent } from "./expiry-helper";
 
-export function advanceRound(character: Character) {
+export function startNewTurn(character: Character): Character {
   if (!character.combatState) return character;
 
   const updatedCombatState = {
@@ -15,31 +16,26 @@ export function advanceRound(character: Character) {
     round: character.combatState.round + 1,
   };
 
-  const updatedCharacter: Character = {
+  return {
     ...character,
-    combatState: removeExpiredCombatModifiers(updatedCombatState),
+    combatState: updatedCombatState,
   };
-
-  return updatedCharacter;
 }
 
-export function removeExpiredCombatModifiers(
+export function removeExpiredCombatAdvantage(
   combatState: CombatState,
 ): CombatState {
-  const nextModifiers: Record<string, RuntimeModifierInstance> = {};
+  const nextInstances: Record<string, AdvantageInstance> = {};
 
-  for (const [id, active] of Object.entries(combatState.runtimeModifiers)) {
-    const expiredByRound =
-      active.expiresAtRound !== undefined &&
-      combatState.round >= active.expiresAtRound;
-
-    if (!expiredByRound) {
-      nextModifiers[id] = active;
-    }
+  for (const [id, instance] of Object.entries(
+    combatState.runtimeAdvantageInstances,
+  )) {
+    const expired = isExpiredByEvent(instance.expiryConditions, {
+      type: "turnEnded",
+      round: combatState.round,
+    });
+    if (!expired) nextInstances[id] = instance;
   }
 
-  return {
-    ...combatState,
-    runtimeModifiers: nextModifiers,
-  };
+  return { ...combatState, runtimeAdvantageInstances: nextInstances };
 }

@@ -1,6 +1,6 @@
 // Libraries
 import React, { useCallback } from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, Button } from "react-native";
 
 // Import custom types
 import { Character } from "@/core/entities/character/Character";
@@ -19,7 +19,10 @@ import { ui } from "@/services/localization/ui-localization-resolver";
 import styles from "@/styles/generic.styles";
 import { formatNaturalNumber } from "@/utils/input-handler";
 
-import { CharacterRepository } from "@/repositories/CharacterRepository";
+import {
+  CharacterRepository,
+  DebugDelete,
+} from "@/repositories/CharacterRepository";
 import { useCharacterStore } from "@/store/characterStore";
 import { useCombatNavigator } from "@/navigation/navigators/combatNavigator";
 import { useCharacterNavigator } from "@/navigation/navigators/characterNavigator";
@@ -142,6 +145,10 @@ const IndexScreen = () => {
         style={styles.list}
       />
       <View style={styles.footerContainer}>
+        <Button
+          title="Clear All Characters"
+          onPress={() => DebugDelete.clearAll()}
+        />
         <View style={styles.footerSectionRight}>
           <LocaleSwitch />
         </View>

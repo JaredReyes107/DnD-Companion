@@ -1,9 +1,9 @@
-import { Button, ScrollView, TouchableOpacity, View } from "react-native";
+import { ScrollView, TouchableOpacity, View } from "react-native";
 import { ThemedView } from "@/components/ui/ThemedView";
 import { ThemedText } from "@/components/ui/ThemedText";
 import { useCharacter } from "@/utils/character-provider";
 import { useFocusEffect } from "expo-router";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 import { ActionSection } from "@/components/ui/ActionSection";
 
@@ -11,13 +11,15 @@ import { cycleActionResource } from "@/core/entities/combat/action-economy";
 import { groupActionsBySlot } from "@/core/data/registries/actions.registry";
 import { groupedActionsAsArray } from "@/core/rules/combat/actions-helper";
 import { resolveInCombat } from "@/core/systems/stats/stat-resolver";
-import { advanceRound } from "@/core/rules/combat/combat-runtime";
+import { getCharacterSpellcastingSources } from "@/core/entities/spellcasting/spellcasting";
 
 import { PrintNumberWithSign } from "@/utils/formater-numbers";
 import { ui } from "@/services/localization/ui-localization-resolver";
 
 import genericStyles from "@/styles/generic.styles";
 import styles from "@/styles/combat/tab-actions";
+import { getLocalizedName } from "@/services/localization/localization-helper";
+import { onEndTurn, onStartTurn } from "@/core/systems/combat/combat-triggers";
 
 const TabActions = () => {
   const {
@@ -28,12 +30,15 @@ const TabActions = () => {
     loading,
     loadCharacterById,
   } = useCharacter();
+  const [spellcastingSourceIndex, setSpellcastingSourceIndex] = useState(0);
 
   useFocusEffect(
     useCallback(() => {
       if (character?.id) loadCharacterById(character.id);
     }, [character?.id, loadCharacterById]),
   );
+
+  const [isMyTurn, setIsMyTurn] = useState(true);
 
   if (loading || !character || !encounter || !character.combatState) {
     return (
@@ -46,32 +51,74 @@ const TabActions = () => {
   const combatState = encounter.participants[character.id];
   const resolvedStats = resolveInCombat(character, encounter);
 
+  const spellcastingSources = getCharacterSpellcastingSources(character);
+  const activeSource =
+    spellcastingSources[spellcastingSourceIndex % spellcastingSources.length];
+
+  const cycleSpellcastingSource = () => {
+    if (spellcastingSources.length <= 1) return;
+    setSpellcastingSourceIndex((i) => (i + 1) % spellcastingSources.length);
+  };
+
   const grouped = groupActionsBySlot(character.actions);
   const sections = groupedActionsAsArray(grouped);
 
+  const handleTurnButton = () => {
+    saveCharacter(isMyTurn ? onEndTurn(character) : onStartTurn(character));
+    setIsMyTurn((v) => !v);
+  };
+
   return (
     <ThemedView style={genericStyles.rootContainer}>
+      {/* Header Stats */}
       <View style={styles.headerSection}>
-        <View style={styles.primaryStatCell}>
-          <ThemedText style={styles.primaryStatText}>Bon. de Ataque</ThemedText>
-          <ThemedText style={styles.primaryStatValue}>
-            {PrintNumberWithSign(
-              resolvedStats.stats.get("derived:spellAttackModifier")
-                ?.finalValue ?? 0,
-            )}
-          </ThemedText>
-          <ThemedText style={styles.primaryStatText}>De Conjuro</ThemedText>
-        </View>
-        <View style={styles.spellcastingStatCell}>
-          <ThemedText style={styles.spellcastingText}>CD de Conjuro</ThemedText>
-          <ThemedText style={styles.spellcastingValue}>
-            {resolvedStats.stats.get("derived:spellSaveDC")?.finalValue}
-          </ThemedText>
-        </View>
-      </View>
+        {/* Spellcasting Stats */}
+        {activeSource && (
+          <View style={styles.statRow}>
+            <TouchableOpacity
+              style={styles.primaryStatCell}
+              onPress={cycleSpellcastingSource}
+              disabled={spellcastingSources.length === 0}
+            >
+              <ThemedText style={styles.primaryStatText}>
+                Bon. de Ataque
+              </ThemedText>
+              <ThemedText style={styles.primaryStatValue}>
+                {activeSource
+                  ? PrintNumberWithSign(
+                      resolvedStats.stats.get(
+                        `spellcasting:${activeSource.sourceId}:attackModifier`,
+                      )?.finalValue ?? 0,
+                    )
+                  : "—"}
+              </ThemedText>
+              <ThemedText style={styles.primaryStatText}>
+                {activeSource
+                  ? getLocalizedName("classes", activeSource.sourceId)
+                  : "De Conjuro"}
+              </ThemedText>
+            </TouchableOpacity>
 
-      {/* Action Economy tracker */}
-      <View>
+            <TouchableOpacity
+              style={styles.spellcastingStatCell}
+              onPress={cycleSpellcastingSource}
+              disabled={spellcastingSources.length === 0}
+            >
+              <ThemedText style={styles.spellcastingText}>
+                CD de Conjuro
+              </ThemedText>
+              <ThemedText style={styles.spellcastingValue}>
+                {activeSource
+                  ? resolvedStats.stats.get(
+                      `spellcasting:${activeSource.sourceId}:saveDC`,
+                    )?.finalValue
+                  : "—"}
+              </ThemedText>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {/* Action Economy tracker */}
         <View style={styles.statRow}>
           <TouchableOpacity
             style={styles.actionSlotCell}
@@ -145,10 +192,19 @@ const TabActions = () => {
       </View>
 
       <View style={styles.footerSection}>
-        <Button
-          title={ui("timeIntervals.startRound")}
-          onPress={() => saveCharacter(advanceRound(character))}
-        />
+        <TouchableOpacity
+          style={[
+            styles.turnButton,
+            isMyTurn ? styles.turnButtonEnd : styles.turnButtonStart,
+          ]}
+          onPress={handleTurnButton}
+        >
+          <ThemedText style={styles.turnButtonText}>
+            {isMyTurn
+              ? ui("timeIntervals.endTurn")
+              : ui("timeIntervals.startTurn")}
+          </ThemedText>
+        </TouchableOpacity>
       </View>
     </ThemedView>
   );

@@ -3,7 +3,10 @@ import DropDownPicker from "react-native-dropdown-picker";
 
 import { LocalizationNamespace } from "@/services/localization/game-localization.types";
 import { ui } from "@/services/localization/ui-localization-resolver";
-import { getLocalizedName } from "@/services/localization/localization-helper";
+import {
+  getLocalizedName,
+  getLocalizedShortName,
+} from "@/services/localization/localization-helper";
 
 import styles from "@/styles/character-creation.styles";
 
@@ -13,6 +16,8 @@ type CustomPickerProps<T> = {
   onChange: (value: T) => void;
   namespace: LocalizationNamespace;
   placeholder?: string;
+  useShortName?: boolean;
+  compact?: boolean; // tighter gap between label and dropdown arrow
 };
 
 const CustomPicker = <T extends string>({
@@ -21,6 +26,8 @@ const CustomPicker = <T extends string>({
   onChange,
   namespace,
   placeholder = ui("acton.SelectOption"),
+  useShortName = false,
+  compact = false,
 }: CustomPickerProps<T>) => {
   const [open, setOpen] = useState(false);
 
@@ -28,9 +35,12 @@ const CustomPicker = <T extends string>({
     () =>
       items.map((id) => ({
         value: id,
-        label: getLocalizedName(namespace, id),
+        label: useShortName
+          ? (getLocalizedShortName(namespace, id) ??
+            getLocalizedName(namespace, id))
+          : getLocalizedName(namespace, id),
       })),
-    [items, namespace],
+    [items, namespace, useShortName],
   );
 
   return (
@@ -48,11 +58,15 @@ const CustomPicker = <T extends string>({
       setItems={() => {}}
       placeholder={placeholder}
       theme="DARK"
-      style={[{ backgroundColor: "#1e2021" }, styles.picker]}
-      dropDownContainerStyle={{
-        backgroundColor: "#333",
-        borderColor: "#3e4446",
-      }}
+      style={[
+        styles.picker,
+        compact && {
+          justifyContent: "center",
+          paddingVertical: 0,
+          paddingHorizontal: 2,
+          width: 65,
+        },
+      ]}
       listMode="MODAL"
       modalTitle={placeholder}
       modalAnimationType="fade"

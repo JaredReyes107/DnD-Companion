@@ -3,30 +3,20 @@ import {
   ModifierType,
 } from "../../entities/modifiers/Modifier";
 
-export const MODIFIER_PRIORITY = {
+export const DEFAULT_MODIFIER_PRIORITY: Record<ModifierType, number> = {
   [ModifierType.SET]: 100,
   [ModifierType.MULTIPLICATIVE]: 200,
   [ModifierType.ADDITIVE]: 300,
-  [ModifierType.ADVANTAGE]: 400,
-  [ModifierType.DISADVANTAGE]: 500,
-  [ModifierType.REROLL]: 600,
+  [ModifierType.FLOOR]: 400,
+  [ModifierType.CAP]: 500,
 };
 
-export function resolveModifierValue(
-  modifier: ModifierInstance,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  context?: any,
-): number {
-  if (typeof modifier.value === "function") {
-    return modifier.value(context);
-  }
+export function resolveModifierValue(modifier: ModifierInstance): number {
   return modifier.value;
 }
 
 export function applyStackingRules(
   modifiers: ModifierInstance[],
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  context?: any,
 ): ModifierInstance[] {
   const groupedByEffect = new Map<string, ModifierInstance[]>();
   const independentModifiers: ModifierInstance[] = [];
@@ -45,17 +35,14 @@ export function applyStackingRules(
   const stackedModifiers: ModifierInstance[] = [...independentModifiers];
 
   for (const group of groupedByEffect.values()) {
-    if (group.length === 1) {
-      stackedModifiers.push(group[0]);
-    } else {
-      const highest = group.reduce((prev, current) => {
-        const prevValue = resolveModifierValue(prev, context);
-        const currValue = resolveModifierValue(current, context);
-        return currValue > prevValue ? current : prev;
-      }, group[0]);
-
-      stackedModifiers.push(highest);
-    }
+    const strongest = group.reduce((best, current) => {
+      const better =
+        current.type === ModifierType.CAP
+          ? resolveModifierValue(current) < resolveModifierValue(best)
+          : resolveModifierValue(current) > resolveModifierValue(best);
+      return better ? current : best;
+    });
+    stackedModifiers.push(strongest);
   }
 
   return stackedModifiers;

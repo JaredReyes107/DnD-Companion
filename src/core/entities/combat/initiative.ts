@@ -1,10 +1,9 @@
 import { Character } from "@/core/entities/character/Character";
 import { getAbilityModifier } from "@/core/rules/character/abilities-modifiers";
+import { ResolvedBase } from "../rules/resolved-base";
 
-export function getInitiativeBonus(character: Character): number {
-  const total = getAbilityModifier(character.baseAbilityScores.DEX);
-
-  return total;
+export function getInitiativeBonus(base: ResolvedBase): number {
+  return getAbilityModifier(base.abilityScores.DEX);
 }
 
 export function cycleInitiativeOrder(character: Character): Character {

@@ -10,6 +10,9 @@ export type LocalizationNamespace =
   | "resources"
   | "actions"
   | "skills"
+  | "checkNodes"
+  | "languages"
+  | "statuses"
   | "equipment"
   | "spells";
 
@@ -45,6 +48,9 @@ export type GameLocalization = {
   resources?: GameLocalizationCategory;
   actions?: GameLocalizationCategory;
   skills?: GameLocalizationCategory;
+  checkNodes?: GameLocalizationCategory;
+  languages?: GameLocalizationCategory;
+  statuses?: GameLocalizationCategory;
 
   // future-proofing
   equipment?: GameLocalizationCategory;

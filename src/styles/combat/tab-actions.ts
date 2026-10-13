@@ -128,10 +128,11 @@ const styles = StyleSheet.create({
     lineHeight: 15,
   },
 
-  footerSection: {
-    display: "flex",
-    justifyContent: "center",
-  },
+  footerSection: { display: "flex", justifyContent: "center" },
+  turnButton: { paddingVertical: 12, alignItems: "center", borderRadius: 8 },
+  turnButtonEnd: { backgroundColor: "#3066b1" },
+  turnButtonStart: { backgroundColor: "#ca6b2c" },
+  turnButtonText: { color: "#ffffff", fontSize: 14, fontWeight: "600" },
 });
 
 export default styles;

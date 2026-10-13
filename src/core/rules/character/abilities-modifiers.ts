@@ -1,10 +1,17 @@
 import { Character } from "@/core/entities/character/Character";
 import { getTotalCharacterLevel } from "./character-multiclassing";
+import { ResolvedBase } from "@/core/entities/rules/resolved-base";
 
-export function getProficiencyBonus(character: Character): number {
+export function getBaseProficiencyBonus(character: Character): number {
   const totalLevel = getTotalCharacterLevel(character.classes);
-
   return Math.trunc((totalLevel + 3) / 4) + 1;
+}
+
+export function getRawBase(character: Character): ResolvedBase {
+  return {
+    abilityScores: character.baseAbilityScores,
+    proficiencyBonus: getBaseProficiencyBonus(character),
+  };
 }
 
 export function getAbilityModifier(score: number): number {

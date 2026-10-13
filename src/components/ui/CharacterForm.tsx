@@ -18,23 +18,22 @@ import {
   AbilityScores,
   ABILITIES,
 } from "@/core/entities/rules/ability/ability.types";
-import { CharacterSavingThrows } from "@/core/entities/rules/saving-throw/saving-throw-instance";
 
 // Functions and Helpers
 import { defaultScalarFields } from "@/repositories/character-defaults";
 
 import { getMaximumHitDice } from "@/core/rules/character/hit-dice-helper";
 import { buildAbilityScores } from "@/core/rules/character/ability-scores-helper";
-import { buildSavingThrows } from "@/core/rules/combat/saving-throws-helper";
-import { SKILL_KEYS } from "@/core/data/rules/SKILLS";
-import { CharacterSkills } from "@/core/entities/character/skill-instance";
-import { buildCharacterSkills } from "@/core/rules/combat/skills-helper";
 import { buildCharacterResources } from "@/core/rules/character/resources-helper";
 import { buildCharacterActions } from "@/core/rules/combat/actions-helper";
+import {
+  buildCharacterCheckState,
+  CharacterCheckState,
+} from "@/core/entities/character/check-state";
+import { buildCharacterCheckProficiencies } from "@/core/rules/character/checks-helper";
 import { startEncounter } from "@/core/entities/combat/encounter-helper";
 
 import { bootstrapFeatureChoices } from "@/core/rules/character/choices-helper";
-import { buildCharacterPassiveModifiers } from "@/core/rules/character/stat-modifiers-helper";
 
 // Components
 import { ThemedView } from "./ThemedView";
@@ -45,11 +44,12 @@ import CustomPicker from "@/components/ui/CustomPicker";
 import { MainClassForm } from "@/components/ui/MainClassForm";
 import { SecondaryClassesForm } from "@/components/ui/SecondaryClassesForm";
 import AbilityScoreInput from "@/components/ui/AbilityScoresInput";
-import SavingThrowProficiencyInput from "@/components/ui/SavingThrowProficiencyInput";
-import SkillProficiencyInput from "@/components/ui/SkillProficiencyInput";
 
 import { ui } from "@/services/localization/ui-localization-resolver";
-import { getLocalizedName } from "@/services/localization/localization-helper";
+import {
+  getLocalizedName,
+  sortGameIdsByName,
+} from "@/services/localization/localization-helper";
 import {
   formatNaturalNumber,
   returnNaturalNumber,
@@ -57,6 +57,11 @@ import {
 
 import styles from "@/styles/character-creation.styles";
 import genericStyles from "@/styles/generic.styles";
+import { SKILL_NODES } from "@/core/data/rules/checks/skill-nodes";
+import CheckProficiencyInput from "./CheckProficiencyInput";
+import { buildCharacterLanguageState } from "@/core/rules/character/languages-helper";
+import { buildCharacterAdvantageInstances } from "@/core/rules/character/advantage-helper";
+import { buildCharacterPassiveModifiers } from "@/core/rules/character/modifiers-helper";
 
 type Props = {
   initialCharacter?: Character | null;
@@ -84,11 +89,9 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
   const [abilityScores, setAbilityScores] = useState<AbilityScores>(
     initialCharacter?.baseAbilityScores ?? buildAbilityScores(),
   );
-  const [savingThrows, setSavingThrows] = useState<CharacterSavingThrows>(
-    initialCharacter?.savingThrows ?? buildSavingThrows(),
-  );
-  const [skills, setSkills] = useState<CharacterSkills>(
-    initialCharacter?.skills ?? buildCharacterSkills(),
+
+  const [checks, setChecks] = useState<CharacterCheckState>(
+    initialCharacter?.checks ?? buildCharacterCheckState(),
   );
 
   const { mainClassInitial, secondaryInitial } = useMemo(() => {
@@ -178,8 +181,8 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       },
 
       currentHitDice: {},
-      savingThrows,
-      skills,
+      checks,
+      languages: {},
 
       actionLimits:
         initialCharacter?.actionLimits ?? defaultScalarFields.actionLimits!,
@@ -207,6 +210,13 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       resources: buildCharacterResources(withChoices),
       actions: buildCharacterActions(withChoices),
       statModifiers: buildCharacterPassiveModifiers(withChoices),
+      checks: {
+        ...withChoices.checks,
+        proficiencies: buildCharacterCheckProficiencies(withChoices),
+        passiveAdvantageInstances:
+          buildCharacterAdvantageInstances(withChoices),
+      },
+      languages: buildCharacterLanguageState(withChoices),
     };
 
     startEncounter([character]);
@@ -220,7 +230,6 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
     { key: "classes", data: ["mainClass", ...secondaryClasses] },
     { key: "addClass", data: ["addClass"] },
     { key: "stats", data: ["stats"] },
-    { key: "savingThrows", data: ["savingThrows"] },
     { key: "skills", data: ["skills"] },
     { key: "submit", data: ["submit"] },
   ];
@@ -240,8 +249,6 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
         return renderAddClassButton();
       case "stats":
         return renderStatsSection();
-      case "savingThrows":
-        return renderSavingThrowsSection();
       case "skills":
         return renderSkillsSection();
       case "submit":
@@ -397,79 +404,46 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
     </View>
   );
 
-  const renderSavingThrowsSection = () => (
-    <View style={styles.fieldContainer}>
-      <Text style={styles.fieldHeader}>{ui("savingThrows.full")}</Text>
-      <View style={styles.statsContainer}>
-        <FlatList
-          style={styles.proficienciesList}
-          data={ABILITIES}
-          keyExtractor={(ability) => ability}
-          renderItem={({ item: ability }) => (
-            <SavingThrowProficiencyInput
-              ability={ability}
-              label={getLocalizedName("abilities", ability)}
-              savingThrow={savingThrows[ability]}
-              onToggleProficiency={() =>
-                setSavingThrows((prev) => ({
-                  ...prev,
-                  [ability]: {
-                    ...prev[ability],
-                    hasProficiency: !prev[ability].hasProficiency,
-                  },
-                }))
-              }
-            />
-          )}
-        />
-      </View>
-    </View>
-  );
+  const renderSkillsSection = () => {
+    const skillNodeIds = sortGameIdsByName(Object.keys(SKILL_NODES), "skills");
 
-  const renderSkillsSection = () => (
-    <View style={styles.fieldContainer}>
-      <Text style={styles.fieldHeader}>{ui("stats.skills")}</Text>
-      <View style={styles.statsContainer}>
-        <FlatList
-          style={styles.proficienciesList}
-          data={SKILL_KEYS}
-          keyExtractor={(skillKey) => skillKey}
-          renderItem={({ item: skillKey }) => (
-            <SkillProficiencyInput
-              skillId={skillKey}
-              skillInstance={skills[skillKey]}
-              onToggleProficiency={() =>
-                setSkills((prev) => {
-                  const current = prev[skillKey];
-                  return {
-                    ...prev,
-                    [skillKey]: {
-                      ...current,
-                      hasProficiency: !current.hasProficiency,
-                      hasExpertise: false,
-                    },
-                  };
-                })
-              }
-              onToggleExpertise={() =>
-                setSkills((prev) => {
-                  const current = prev[skillKey];
-                  if (!current.hasProficiency) return prev;
-                  return {
-                    ...prev,
-                    [skillKey]: {
-                      ...current,
-                      hasExpertise: !current.hasExpertise,
-                    },
-                  };
-                })
-              }
-            />
-          )}
-        />
+    return (
+      <View style={styles.fieldContainer}>
+        <Text style={styles.fieldHeader}>{ui("stats.skills")}</Text>
+        <View style={styles.statsContainer}>
+          <FlatList
+            style={styles.proficienciesList}
+            data={skillNodeIds}
+            keyExtractor={(nodeId) => nodeId}
+            renderItem={({ item: nodeId }) => (
+              <CheckProficiencyInput
+                nodeId={nodeId}
+                label={getLocalizedName("skills", nodeId)}
+                hasProficiency={checks.proficiencies.has(nodeId)}
+                onToggleProficiency={() =>
+                  setChecks((prev) => {
+                    const wasProficient = prev.proficiencies.has(nodeId);
+                    const nextProficiencies = new Set(prev.proficiencies);
+
+                    if (wasProficient) {
+                      nextProficiencies.delete(nodeId);
+                    } else {
+                      nextProficiencies.add(nodeId);
+                    }
+
+                    return {
+                      ...prev,
+                      proficiencies: nextProficiencies,
+                    };
+                  })
+                }
+              />
+            )}
+          />
+        </View>
       </View>
-    </View>
-  );
+    );
+  };
 
   const renderSubmitButton = () => (
     <View style={styles.submitButtonContainer}>

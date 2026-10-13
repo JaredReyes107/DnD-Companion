@@ -8,15 +8,20 @@ import { ClassInstance } from "../character/class-instance";
 import { SpellcastingTemplate } from "../rules/spellcasting-template";
 import { getSubclassTemplateById } from "@/core/data/registries/subclasses.registry";
 import { CharacterResources } from "@/core/entities/resources/character-resources";
-import {
-  getAbilityModifier,
-  getProficiencyBonus,
-} from "@/core/rules/character/abilities-modifiers";
+import { getAbilityModifier } from "@/core/rules/character/abilities-modifiers";
+import { Ability } from "../rules/ability/ability.types";
+import { ResolvedBase } from "../rules/resolved-base";
 
 export type SpellcastingEntry = {
   classInstanceId: string; // key in classes.byId / classes.order
   classInstance: ClassInstance;
   spellcastingTemplate: SpellcastingTemplate;
+};
+
+export type SpellcastingSource = {
+  sourceId: string;
+  ability: Ability;
+  classInstanceId: string;
 };
 
 export function getSpellcastingEntries(
@@ -65,46 +70,55 @@ export function getTotalCasterLevel(character: Character): number {
   }, 0);
 }
 
-//TODO: Make it per class
-export function getSpellAttackModifierForEntry(
-  character: Character,
-  entry: SpellcastingEntry,
-): number {
-  const ability = entry.spellcastingTemplate.ability;
-  //TODO: [Modifiers] Replace attribute with derived data resolver
-  const abilityScore = character.baseAbilityScores[ability];
-
-  return getAbilityModifier(abilityScore) + getProficiencyBonus(character);
-}
-
-//TODO: Make it per class
-export function getSpellSaveDCForEntry(
-  character: Character,
-  entry: SpellcastingEntry,
-): number {
-  const ability = entry.spellcastingTemplate.ability;
-  //TODO: [Modifiers] Replace attribute with derived data resolver
-  const abilityScore = character.baseAbilityScores[ability];
-
-  return 8 + getAbilityModifier(abilityScore) + getProficiencyBonus(character);
-}
-
 /**
- * @deprecated Temporary aggregate for single-value stat resolution
- * (stat-resolver.ts). Picks the character's first spellcasting class
- * arbitrarily. Once the UI supports per-class display, callers should
- * use getSpellAttackModifierForEntry with a specific SpellcastingEntry
- * instead, and this should be removed.
+ * Every independent spellcasting source on the character — one entry
+ * per class or subclass that grants its own spellcastingTemplate.
  */
-export function getSpellAttackModifier(character: Character): number {
-  const [firstEntry] = getSpellcastingEntries(character);
-  return firstEntry ? getSpellAttackModifierForEntry(character, firstEntry) : 0;
+export function getCharacterSpellcastingSources(
+  character: Character,
+): SpellcastingSource[] {
+  const sources: SpellcastingSource[] = [];
+
+  for (const instanceId of character.classes.order) {
+    const classInstance = character.classes.byId[instanceId];
+    const classTemplate = getClassTemplateById(classInstance.classId);
+
+    const spellcastingTemplate =
+      classTemplate.spellcastingTemplate ??
+      (classInstance.subclassId
+        ? getSubclassTemplateById(classInstance.subclassId).spellcastingTemplate
+        : undefined);
+
+    if (!spellcastingTemplate) continue;
+
+    sources.push({
+      sourceId: spellcastingTemplate.id,
+      ability: spellcastingTemplate.ability,
+      classInstanceId: instanceId,
+    });
+  }
+
+  return sources;
 }
 
-/** @deprecated same caveat as getSpellAttackModifier */
-export function getSpellSaveDC(character: Character): number {
-  const [firstEntry] = getSpellcastingEntries(character);
-  return firstEntry ? getSpellSaveDCForEntry(character, firstEntry) : 0;
+export function getBaseSpellAttackModifierForSource(
+  base: ResolvedBase,
+  source: SpellcastingSource,
+): number {
+  return (
+    getAbilityModifier(base.abilityScores[source.ability]) +
+    base.proficiencyBonus
+  );
+}
+export function getBaseSpellSaveDCForSource(
+  base: ResolvedBase,
+  source: SpellcastingSource,
+): number {
+  return (
+    8 +
+    getAbilityModifier(base.abilityScores[source.ability]) +
+    base.proficiencyBonus
+  );
 }
 
 const STANDARD_SPELL_SLOTS: number[][] = [

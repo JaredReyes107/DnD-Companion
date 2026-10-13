@@ -3,6 +3,7 @@ import { buildCombatState } from "@/core/rules/combat/combat-helper";
 import { ResourceInstance } from "@/core/entities/resources/resource-instance";
 import { getResourceRegistry } from "../../data/registries/resources.registry";
 import { resetChoicesForTrigger } from "./choices-helper";
+import { onLongRest, onShortRest } from "@/core/systems/combat/combat-triggers";
 
 function restoreResources(
   resources: Record<string, ResourceInstance>,
@@ -32,7 +33,7 @@ function restoreResources(
 }
 
 export function takeLongRest(character: Character): Character {
-  return {
+  const rested: Character = {
     ...character,
     hitPoints: {
       ...character.hitPoints,
@@ -41,16 +42,16 @@ export function takeLongRest(character: Character): Character {
     },
     combatState: buildCombatState(character),
     resources: restoreResources(character.resources, ["longRest", "shortRest"]),
-    // Reset onLongRest pools (e.g. Cosmic Omen Weal/Woe)
     featureChoices: resetChoicesForTrigger(character, "onLongRest"),
   };
+  return onLongRest(rested);
 }
 
 export function takeShortRest(character: Character): Character {
-  return {
+  const rested: Character = {
     ...character,
     resources: restoreResources(character.resources, ["shortRest"]),
-    // Reset onShortRest pools if any exist
     featureChoices: resetChoicesForTrigger(character, "onShortRest"),
   };
+  return onShortRest(rested);
 }

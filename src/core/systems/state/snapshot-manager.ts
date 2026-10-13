@@ -1,6 +1,7 @@
 import { EngineSnapshot, EngineSnapshotConfig } from "./snapshot-types";
 import { EncounterState } from "../../entities/combat/EncounterState";
 import { QueuedEvent } from "../events/event-queue";
+import * as Crypto from "expo-crypto";
 
 export class SnapshotManager {
   private readonly snapshots: EngineSnapshot[] = [];
@@ -18,7 +19,7 @@ export class SnapshotManager {
     const serializedState = structuredClone(state);
 
     const snapshot: EngineSnapshot = {
-      id: crypto.randomUUID(),
+      id: Crypto.randomUUID(),
       timestamp: Date.now(),
       tickInfo,
       triggerEvent,

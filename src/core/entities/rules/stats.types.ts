@@ -1,6 +1,6 @@
 import { Ability } from "@/core/entities/rules/ability/ability.types";
-import { SkillInstance } from "@/core/entities/character/skill-instance";
-import { Character } from "@/core/entities/character/Character";
+import { ExpiryCondition } from "./duration/expiry-condition";
+import { ModifierInstance } from "../modifiers/Modifier";
 
 export type DerivedStatKey =
   | "maxHp"
@@ -8,63 +8,33 @@ export type DerivedStatKey =
   | "initiative"
   | "ac"
   | "spellAttackModifier"
-  | "spellSaveDC";
+  | "spellSaveDC"
+  | "concentrationLimit"
+  | "proficiencyBonus";
+
+export type SpellcastingStatKey = "attackModifier" | "saveDC";
 
 export type StatModel =
   | { type: "ability"; ability: Ability }
-  | { type: "save"; ability: Ability }
-  | { type: "skill"; skill: SkillInstance }
+  | { type: "check"; nodeId: string }
+  | { type: "spellcasting"; sourceId: string; key: SpellcastingStatKey }
+  | {
+      type: "spellcastingByAbility";
+      ability: Ability;
+      key: SpellcastingStatKey;
+    }
+  | { type: "spellcastingGlobal"; key: SpellcastingStatKey }
   | { type: "derived"; key: DerivedStatKey }
   | { type: "custom"; key: string };
 
-export type ModifierType =
-  | "add" // +10 speed
-  | "subtract" //-5 maxHp
-  | "multiply" // x2 speed (haste)
-  | "override" // AC = 13 + Dex
-  | "min" // speed at least 10
-  | "max"; // speed cannot exceed X
-
-export type StatModifierTemplate = {
-  id: string;
-  //?: Consider moving into "Instance" and apply dinamically for later reuse in items, features, etc
-  sourceId: string; // featureId, itemId, actionId or spellId
-  statModel: StatModel;
-  mode: ModifierType;
-
-  value: number | ((character: Character) => number);
-
-  priority?: number;
-};
-
-export type StatModifierInstance = {
-  templateId: string;
-  sourceId: string;
-  statModel: StatModel;
-
-  mode: ModifierType;
-  value: number;
-
-  priority?: number;
-};
-
 export type RuntimeModifierInstance = {
-  id: string; // unique instance id
-  modifier: StatModifierInstance;
-
-  appliedAtRound: number;
-  expiresAtRound?: number; // inclusive
-
-  concentration?: boolean;
+  id: string;
+  modifier: ModifierInstance;
+  expiryConditions?: ExpiryCondition[]; // undefined = passive/permanent
 };
 
 export type ActiveCombatModifier = {
-  id: string; // unique instance id
-  modifier: StatModifierInstance;
-
-  appliedAtRound: number;
-  expiresAtRound?: number; // inclusive
-  expiresAtTurn?: number; // initiative index
-
-  concentration?: boolean;
+  id: string;
+  modifier: ModifierInstance;
+  expiryConditions?: ExpiryCondition[];
 };

@@ -1,12 +1,10 @@
 import { Effect } from "../../entities/modifiers/Effect";
-import {
-  ModifierInstance,
-  ModifierType,
-} from "../../entities/modifiers/Modifier";
+import { ModifierType } from "../../entities/modifiers/Modifier";
 import { EncounterState } from "../../entities/combat/EncounterState";
 import { AuraEffect } from "../../entities/modifiers/Aura";
 import { RuleDefinition } from "../../rules/rule-definition";
 import { ExecutionNode } from "../../rules/execution/execution-node";
+import { DslParsedModifier } from "@/core/rules/dsl/dsl-parser";
 
 export interface ValidationIssue {
   level: "error" | "warning";
@@ -51,15 +49,14 @@ export class RuleValidator {
     return { valid: !issues.some((i) => i.level === "error"), issues };
   }
 
-  validateModifier(modifier: ModifierInstance): ValidationResult {
+  validateModifier(modifier: DslParsedModifier): ValidationResult {
     const issues: ValidationIssue[] = [];
 
     if (!modifier.statId) {
       issues.push({ level: "error", message: "Modifier must define statId" });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (!Object.values(ModifierType).includes(modifier.type as any)) {
+    if (!Object.values(ModifierType).includes(modifier.type)) {
       issues.push({ level: "error", message: "Invalid modifier type" });
     }
 
@@ -70,13 +67,10 @@ export class RuleValidator {
       });
     }
 
-    if (
-      typeof modifier.value !== "number" &&
-      typeof modifier.value !== "function"
-    ) {
+    if (typeof modifier.value !== "function") {
       issues.push({
         level: "error",
-        message: "Modifier value must be number or function",
+        message: "Modifier value must be a function",
       });
     }
 

@@ -1,7 +1,30 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 import { ELDRITCH_INVOCATIONS_RESOURCES } from "./warlock/eldritch-invocations-resources";
 
-const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {};
+import { ARCHFEY_RESOURCES } from "./warlock/archfey-resources";
+import { FIEND_RESOURCES } from "./warlock/fiend-resources";
+import { GREAT_OLD_ONE_RESOURCES } from "./warlock/great-old-one-resources";
+
+import { CELESTIAL_RESOURCES } from "./warlock/celestial-resources";
+import { HEXBLADE_RESOURCES } from "./warlock/hexblade-resources";
+
+import { FATHOMLESS_RESOURCES } from "./warlock/fathomless-resources";
+import { GENIE_RESOURCES } from "./warlock/genie-resources";
+
+const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
+  // PHB
+  ...ARCHFEY_RESOURCES,
+  ...FIEND_RESOURCES,
+  ...GREAT_OLD_ONE_RESOURCES,
+
+  // XGE
+  ...CELESTIAL_RESOURCES,
+  ...HEXBLADE_RESOURCES,
+
+  // TCE
+  ...FATHOMLESS_RESOURCES,
+  ...GENIE_RESOURCES,
+};
 
 const PACT_BOON_RESOURCES: Record<string, ResourceTemplate> = {
   pact_of_the_talisman_aid: {

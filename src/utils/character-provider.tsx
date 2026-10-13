@@ -16,9 +16,12 @@ import { buildCombatState } from "@/core/rules/combat/combat-helper";
 import { buildEncounterState } from "@/core/entities/combat/encounter-helper";
 import { buildCharacterResources } from "@/core/rules/character/resources-helper";
 import { buildCharacterActions } from "@/core/rules/combat/actions-helper";
-import { buildCharacterPassiveModifiers } from "@/core/rules/character/stat-modifiers-helper";
+import { buildCharacterCheckProficiencies } from "@/core/rules/character/checks-helper";
 
 import { bootstrapFeatureChoices } from "@/core/rules/character/choices-helper";
+import { buildCharacterLanguageState } from "@/core/rules/character/languages-helper";
+import { buildCharacterAdvantageInstances } from "@/core/rules/character/advantage-helper";
+import { buildCharacterPassiveModifiers } from "@/core/rules/character/modifiers-helper";
 
 /**
  * Returns the character with its CombatState merged in from the encounter.
@@ -118,18 +121,29 @@ export const CharacterProvider = ({
 
     // Rebuild all derived state against the re-bootstrapped character
     const withChoices: Character = { ...updated, featureChoices };
+    const withModifiers: Character = {
+      ...withChoices,
+      statModifiers: buildCharacterPassiveModifiers(withChoices),
+    };
 
     const rebuilt: Character = {
-      ...withChoices,
+      ...withModifiers,
       resources: buildCharacterResources(withChoices),
       actions: buildCharacterActions(withChoices),
       statModifiers: buildCharacterPassiveModifiers(withChoices),
+      checks: {
+        ...withChoices.checks,
+        proficiencies: buildCharacterCheckProficiencies(withChoices),
+        passiveAdvantageInstances:
+          buildCharacterAdvantageInstances(withChoices),
+      },
+      languages: buildCharacterLanguageState(withChoices),
     };
 
     setCharacter(rebuilt);
 
     // Persist without combatState — it lives in the encounter
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     const { ...characterToStore } = rebuilt;
 
     const all = await CharacterRepository.getAll();

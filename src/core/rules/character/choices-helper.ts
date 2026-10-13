@@ -1,9 +1,17 @@
 import { Character } from "@/core/entities/character/Character";
 import { ChoiceInstance } from "@/core/entities/character/choice-instance";
-import { OptionGrant } from "@/core/entities/rules/option-template";
-import { getOptionById } from "@/core/data/registries/options.registry";
+import {
+  OptionGrant,
+  OptionTemplate,
+} from "@/core/entities/rules/option-template";
+import {
+  getOptionById,
+  getOptionsForPool,
+} from "@/core/data/registries/options.registry";
 import { getChoicePoolById } from "@/core/data/registries/choice-pools.registry";
 import { getActiveFeatures } from "./features-helper";
+import { grantsOfType, optionGrantsOfType } from "../shared/grant-filters";
+import { evaluateEligibility } from "./eligibility-helper";
 
 /**
  * Returns all OptionGrants earned by the character's current selections,
@@ -19,9 +27,10 @@ function getGrantsFromChoices(
   for (const instance of Object.values(character.featureChoices)) {
     for (const optionId of instance.selectedOptionIds) {
       const option = getOptionById(optionId);
-      option.grants
-        ?.filter((g) => g.type === type)
-        .forEach((g) => ids.add(g.id));
+      optionGrantsOfType(option.grants, type).forEach((g) => {
+        // proficiency grants key off `nodeId`, everything else off `id`
+        ids.add("nodeId" in g ? g.nodeId : g.id);
+      });
     }
   }
 
@@ -120,9 +129,9 @@ export function bootstrapFeatureChoices(
   const grantedPoolIds = new Set<string>();
 
   for (const feature of features) {
-    feature.grants
-      ?.filter((g) => g.type === "choice")
-      .forEach((g) => grantedPoolIds.add(g.id));
+    grantsOfType(feature.grants, "choice").forEach((g) =>
+      grantedPoolIds.add(g.id),
+    );
   }
 
   const next: Record<string, ChoiceInstance> = {};
@@ -171,4 +180,14 @@ export function resetChoicesForTrigger(
   }
 
   return next;
+}
+
+export function getEligibleOptionsForPool(
+  character: Character,
+  poolId: string,
+): OptionTemplate[] {
+  return getOptionsForPool(poolId).filter(
+    (option) =>
+      !option.eligibility || evaluateEligibility(character, option.eligibility),
+  );
 }
