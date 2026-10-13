@@ -4,15 +4,23 @@ import { CheckCategory } from "@/core/entities/rules/check/check-category";
 
 const homebrewCheckNodes: Record<string, CheckNode> = {};
 
+let cachedRegistry: Record<string, CheckNode> | null = null;
+let registryVersion = 0;
+
 export function registerHomebrewCheckNode(node: CheckNode) {
   homebrewCheckNodes[node.id] = node;
+  cachedRegistry = null;
+  registryVersion++;
 }
 
 export function getCheckNodeRegistry(): Record<string, CheckNode> {
-  return {
-    ...BASE_CHECK_NODES,
-    ...homebrewCheckNodes,
-  };
+  if (!cachedRegistry)
+    cachedRegistry = { ...BASE_CHECK_NODES, ...homebrewCheckNodes };
+  return cachedRegistry;
+}
+
+export function getCheckNodeRegistryVersion(): number {
+  return registryVersion;
 }
 
 export function getCheckNodeById(id: string): CheckNode {
@@ -23,28 +31,18 @@ export function getCheckNodeById(id: string): CheckNode {
   return node;
 }
 
-/**
- * Returns [nodeId, ...every ancestor], nearest-first, deduplicated.
- * Cycle-safe: a node already visited is never re-walked, so a
- * misconfigured homebrew node that parents back to itself (directly or
- * transitively) can't infinite-loop this — it just stops.
- */
+// Same cycle-safe walk, but the registry is fetched once, not once per node.
 export function getCheckNodeAncestryChain(nodeId: string): string[] {
+  const registry = getCheckNodeRegistry();
   const chain: string[] = [];
   const visited = new Set<string>();
 
-  function walk(id: string) {
+  const walk = (id: string) => {
     if (visited.has(id)) return;
     visited.add(id);
     chain.push(id);
-
-    const node = getCheckNodeRegistry()[id];
-    if (!node) return; // unknown ancestor id — stop rather than throw
-
-    for (const parentId of node.parentIds) {
-      walk(parentId);
-    }
-  }
+    registry[id]?.parentIds.forEach(walk);
+  };
 
   walk(nodeId);
   return chain;

@@ -1,22 +1,29 @@
-import { getProficiencyBonus } from "@/core/rules/character/abilities-modifiers";
-import { SKILL_NODES } from "@/core/data/rules/checks/skill-nodes";
 import {
   ModifierTemplate,
   ModifierType,
-  ModifierEvalContext,
 } from "@/core/entities/modifiers/Modifier";
+import { getCheckNodeRegistry } from "@/core/data/registries/check-nodes.registry";
+import { resolveCheckProficiency } from "@/core/rules/character/checks-helper";
 
-export const EXPERTISE_MODIFIERS: Record<string, ModifierTemplate> =
-  Object.fromEntries(
-    Object.keys(SKILL_NODES).map((nodeId) => [
-      `expertise_${nodeId}`,
+export function buildExpertiseModifiers(): Record<string, ModifierTemplate> {
+  const nodes = Object.values(getCheckNodeRegistry()).filter(
+    (n) => n.category === "skillCheck" || n.category === "toolCheck",
+  );
+
+  return Object.fromEntries(
+    nodes.map((node) => [
+      `expertise_${node.id}`,
       {
-        id: `expertise_${nodeId}`,
+        id: `expertise_${node.id}`,
         sourceId: "expertise",
-        statModel: { type: "check", nodeId },
+        statModel: { type: "check", nodeId: node.id },
         type: ModifierType.ADDITIVE,
-        value: (context: ModifierEvalContext) =>
-          getProficiencyBonus(context.character),
-      },
+        tags: ["expertise"],
+        value: (ctx) =>
+          resolveCheckProficiency(ctx.character, node.id)
+            ? ctx.resolved.proficiencyBonus
+            : 0,
+      } satisfies ModifierTemplate,
     ]),
   );
+}
