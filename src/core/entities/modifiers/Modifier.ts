@@ -1,4 +1,5 @@
 import { ExpiryCondition } from "../rules/duration/expiry-condition";
+import { ResolvedBase } from "../rules/resolved-base";
 import { StatModel } from "../rules/stats.types";
 import { Condition } from "./Condition";
 import { Character } from "@/core/entities/character/Character";
@@ -15,7 +16,8 @@ export type ModifierValue = number | ((context: ModifierEvalContext) => number);
 
 export type ModifierEvalContext = {
   character: Character;
-  [key: string]: unknown; // room for combat-only context later (targets, etc.)
+  resolved: ResolvedBase;
+  [key: string]: unknown;
 };
 
 export interface ModifierTemplate {
@@ -28,6 +30,7 @@ export interface ModifierTemplate {
   priority?: ModifierValue;
   condition?: Condition;
   effectId?: string; // for stacking
+  tags?: string[];
 }
 
 export interface ModifierInstance {
@@ -41,4 +44,5 @@ export interface ModifierInstance {
   condition?: Condition;
   effectId?: string;
   expiryConditions?: ExpiryCondition[];
+  tags?: string[];
 }

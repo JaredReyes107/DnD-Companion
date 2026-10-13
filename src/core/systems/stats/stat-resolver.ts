@@ -1,27 +1,11 @@
-import {
-  ModifierInstance,
-  ModifierType,
-} from "../../entities/modifiers/Modifier";
-import {
-  EvaluationContext,
-  evaluateCondition,
-} from "../../rules/modifiers/condition-evaluator";
-import {
-  applyStackingRules,
-  sortModifiersByPriority,
-} from "../../rules/modifiers/stacking";
+import { ModifierInstance } from "../../entities/modifiers/Modifier";
 
 import { Character } from "../../entities/character/Character";
 import { StatModel } from "../../entities/rules/stats.types";
-import { ABILITIES, Ability } from "../../entities/rules/ability/ability.types";
+import { Ability } from "../../entities/rules/ability/ability.types";
 import { EncounterState } from "../../entities/combat/encounter-state";
 import {
-  getAbilityModifier,
-  getProficiencyBonus,
-} from "@/core/rules/character/abilities-modifiers";
-import {
   resolveCheckAbility,
-  resolveCheckExpertise,
   resolveCheckProficiency,
 } from "@/core/rules/character/checks-helper";
 import { getInitiativeBonus } from "../../entities/combat/initiative";
@@ -32,95 +16,45 @@ import {
   getCharacterSpellcastingSources,
 } from "../../entities/spellcasting/spellcasting";
 import { getAllCheckNodeIdsByCategory } from "@/core/data/registries/check-nodes.registry";
-import { matchesStatTarget } from "@/core/rules/shared/stat-targeting";
-import { getStatusModifierInstances } from "@/core/rules/character/status-effects-helper";
-
-export interface ResolvedStat {
-  statId: string;
-  baseValue: number;
-  finalValue: number;
-  activeModifiers: ModifierInstance[];
-}
-
-export function resolveStat(
-  statId: string,
-  baseValue: number,
-  modifiers: ModifierInstance[],
-  context: EvaluationContext = {},
-): ResolvedStat {
-  const activeModifiers = modifiers.filter((mod) =>
-    evaluateCondition(mod.condition, context),
-  );
-  const stacked = applyStackingRules(activeModifiers);
-  const ordered = sortModifiersByPriority(stacked);
-
-  let finalValue = baseValue;
-
-  for (const mod of ordered) {
-    switch (mod.type) {
-      case ModifierType.SET:
-        finalValue = mod.value;
-        break;
-      case ModifierType.ADDITIVE:
-        finalValue += mod.value;
-        break;
-      case ModifierType.MULTIPLICATIVE:
-        finalValue *= mod.value;
-        break;
-      case ModifierType.FLOOR:
-        finalValue = Math.max(finalValue, mod.value);
-        break;
-      case ModifierType.CAP:
-        finalValue = Math.min(finalValue, mod.value);
-        break;
-    }
-  }
-
-  return {
-    statId,
-    baseValue,
-    finalValue: Math.floor(finalValue),
-    activeModifiers: ordered,
-  };
-}
-
-export function serializeStatModel(statModel: StatModel): string {
-  switch (statModel.type) {
-    case "ability":
-      return `ability:${statModel.ability}`;
-    case "check":
-      return `check:${statModel.nodeId}`;
-    case "spellcasting":
-      return `spellcasting:${statModel.sourceId}:${statModel.key}`;
-    case "spellcastingByAbility":
-      return `spellcastingByAbility:${statModel.ability}:${statModel.key}`;
-    case "spellcastingGlobal":
-      return `spellcastingGlobal:${statModel.key}`;
-    case "derived":
-      return `derived:${statModel.key}`;
-    case "custom":
-      return `custom:${statModel.key}`;
-  }
-}
+import {
+  matchesStatTarget,
+  serializeStatModel,
+} from "@/core/rules/shared/stat-targeting";
+import {
+  resolveStat,
+  buildEvaluationContext,
+  ResolvedStat,
+} from "@/core/systems/stats/resolve-stats";
+import { getAbilityModifier } from "@/core/rules/character/abilities-modifiers";
+import { resolveBase, ResolvedBase } from "@/core/entities/rules/resolved-base";
+import {
+  refreshModifierPool,
+  collectModifierPool,
+} from "@/core/rules/character/modifiers-pool";
 
 export const serializeStatTemplate = serializeStatModel;
+export {
+  resolveStat,
+  ResolvedStat,
+  buildEvaluationContext,
+} from "@/core/systems/stats/resolve-stats";
 
-function getBaseValue(stat: StatModel, character: Character): number {
+function getBaseValue(
+  stat: StatModel,
+  character: Character,
+  resolved: ResolvedBase,
+): number {
   switch (stat.type) {
     case "ability":
-      return character.baseAbilityScores[stat.ability];
+      return resolved.abilityScores[stat.ability];
     case "check": {
       const ability = resolveCheckAbility(character, stat.nodeId);
       const abilityMod = ability
-        ? getAbilityModifier(character.baseAbilityScores[ability])
+        ? getAbilityModifier(resolved.abilityScores[ability])
         : 0;
-
       const proficient = resolveCheckProficiency(character, stat.nodeId);
-      const expertise =
-        proficient && resolveCheckExpertise(character, stat.nodeId);
-      const pbMultiplier = expertise ? 2 : proficient ? 1 : 0;
-
-      return abilityMod + pbMultiplier * getProficiencyBonus(character);
+      // Expertise isn't counted here: it's a modifier adding PB a second time.
+      return abilityMod + (proficient ? resolved.proficiencyBonus : 0);
     }
     case "derived":
       switch (stat.key) {
@@ -129,21 +63,25 @@ function getBaseValue(stat: StatModel, character: Character): number {
         case "speed":
           return character.baseSpeed;
         case "initiative":
-          return getInitiativeBonus(character);
+          return getInitiativeBonus(resolved);
         case "ac":
-          return getArmorClass(character);
+          return getArmorClass(resolved);
+        case "proficiencyBonus":
+          return resolved.proficiencyBonus;
+        case "concentrationLimit":
+          return 1;
         case "spellAttackModifier": {
           const sources = getCharacterSpellcastingSources(character);
-          if (sources.length === 0) return 0;
-          return getBaseSpellAttackModifierForSource(character, sources[0]);
+          return sources.length === 0
+            ? 0
+            : getBaseSpellAttackModifierForSource(resolved, sources[0]);
         }
         case "spellSaveDC": {
           const sources = getCharacterSpellcastingSources(character);
-          if (sources.length === 0) return 0;
-          return getBaseSpellSaveDCForSource(character, sources[0]);
+          return sources.length === 0
+            ? 0
+            : getBaseSpellSaveDCForSource(resolved, sources[0]);
         }
-        case "concentrationLimit":
-          return 1;
       }
       break;
     case "custom":
@@ -153,11 +91,6 @@ function getBaseValue(stat: StatModel, character: Character): number {
 }
 
 function buildAllStatModels(): StatModel[] {
-  const abilityStats: StatModel[] = ABILITIES.map((ability) => ({
-    type: "ability" as const,
-    ability,
-  }));
-
   const saveStats: StatModel[] = getAllCheckNodeIdsByCategory(
     "savingThrow",
   ).map((nodeId) => ({ type: "check" as const, nodeId }));
@@ -180,44 +113,7 @@ function buildAllStatModels(): StatModel[] {
     { type: "derived" as const, key: "concentrationLimit" as const },
   ];
 
-  return [
-    ...abilityStats,
-    ...saveStats,
-    ...toolStats,
-    ...skillStats,
-    ...derivedStats,
-  ];
-}
-
-export function resolveStatValue(
-  character: Character,
-  statModel: StatModel,
-): number {
-  const base = getBaseValue(statModel, character);
-  const runtime = character.combatState
-    ? Object.values(character.combatState.runtimeModifiers).map(
-        (m) => m.modifier,
-      )
-    : [];
-  const all = gatherAllModifiers(character, runtime);
-  const relevant = gatherModifiersFor(statModel, all, {});
-  return resolveStat(
-    serializeStatModel(statModel),
-    base,
-    relevant,
-    buildEvaluationContext(character),
-  ).finalValue;
-}
-
-function gatherAllModifiers(
-  character: Character,
-  runtime: ModifierInstance[],
-): ModifierInstance[] {
-  return [
-    ...Object.values(character.statModifiers),
-    ...getStatusModifierInstances(character),
-    ...runtime,
-  ];
+  return [...saveStats, ...toolStats, ...skillStats, ...derivedStats];
 }
 
 export type ResolvedCharacter = {
@@ -234,63 +130,76 @@ function gatherModifiersFor(
   );
 }
 
-function buildEvaluationContext(character: Character): EvaluationContext {
-  return {
-    currentHp: character.hitPoints.currentHP,
-    maxHp: character.hitPoints.currentMaximumHP,
-    // targetIsRanged/targetIsMelee/targetStatuses/distanceToTarget intentionally
-    // left unset here — those depend on a specific target in combat, which
-    // isn't resolvable from the character alone. Out of scope for now
-  };
-}
-
 function resolveAllStats(
   character: Character,
-  extraModifiers: ModifierInstance[],
+  runtimeModifiers: ModifierInstance[],
 ): ResolvedCharacter {
-  const stats = new Map<string, ResolvedStat>();
-  const allStats = buildAllStatModels();
-  const allModifiers = gatherAllModifiers(character, extraModifiers);
+  const { base, stats: baseStats } = resolveBase(character, runtimeModifiers);
+  const stats = new Map<string, ResolvedStat>(baseStats);
+  const pool = refreshModifierPool(
+    collectModifierPool(character, runtimeModifiers),
+    character,
+    base,
+  );
   const evalContext = buildEvaluationContext(character);
 
-  for (const statModel of allStats) {
-    const base = getBaseValue(statModel, character);
-    const relevant = gatherModifiersFor(statModel, allModifiers, {});
-    const resolved = resolveStat(
-      serializeStatModel(statModel),
-      base,
-      relevant,
-      evalContext,
+  const resolveModel = (
+    model: StatModel,
+    baseValue: number,
+    context: { sourceAbility?: Ability } = {},
+  ) => {
+    const id = serializeStatModel(model);
+    stats.set(
+      id,
+      resolveStat(
+        id,
+        baseValue,
+        gatherModifiersFor(model, pool, context),
+        evalContext,
+      ),
     );
-    stats.set(serializeStatModel(statModel), resolved);
+  };
+
+  for (const model of buildAllStatModels()) {
+    resolveModel(model, getBaseValue(model, character, base));
   }
 
-  const spellcastingSources = getCharacterSpellcastingSources(character);
-  for (const source of spellcastingSources) {
+  for (const source of getCharacterSpellcastingSources(character)) {
     for (const key of ["attackModifier", "saveDC"] as const) {
-      const statModel: StatModel = {
-        type: "spellcasting",
-        sourceId: source.sourceId,
-        key,
-      };
-      const base =
+      resolveModel(
+        { type: "spellcasting", sourceId: source.sourceId, key },
         key === "attackModifier"
-          ? getBaseSpellAttackModifierForSource(character, source)
-          : getBaseSpellSaveDCForSource(character, source);
-      const relevant = gatherModifiersFor(statModel, allModifiers, {
-        sourceAbility: source.ability,
-      });
-      const resolved = resolveStat(
-        serializeStatModel(statModel),
-        base,
-        relevant,
-        evalContext,
+          ? getBaseSpellAttackModifierForSource(base, source)
+          : getBaseSpellSaveDCForSource(base, source),
+        { sourceAbility: source.ability },
       );
-      stats.set(serializeStatModel(statModel), resolved);
     }
   }
-
   return { stats };
+}
+
+// `statModel` must not be an ability score or PB. Read those from resolveBase.
+export function resolveStatValue(
+  character: Character,
+  statModel: StatModel,
+): number {
+  const runtime = character.combatState
+    ? Object.values(character.combatState.runtimeModifiers).map(
+        (m) => m.modifier,
+      )
+    : [];
+  const { base } = resolveBase(character, runtime);
+  const pool = refreshModifierPool(
+    collectModifierPool(character, runtime),
+    character,
+    base,
+  );
+  return resolveStat(
+    serializeStatModel(statModel),
+    getBaseValue(statModel, character, base),
+    gatherModifiersFor(statModel, pool, {}),
+    buildEvaluationContext(character),
+  ).finalValue;
 }
 
 export function resolveOutOfCombat(character: Character): ResolvedCharacter {

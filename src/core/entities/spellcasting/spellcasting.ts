@@ -8,11 +8,9 @@ import { ClassInstance } from "../character/class-instance";
 import { SpellcastingTemplate } from "../rules/spellcasting-template";
 import { getSubclassTemplateById } from "@/core/data/registries/subclasses.registry";
 import { CharacterResources } from "@/core/entities/resources/character-resources";
-import {
-  getAbilityModifier,
-  getProficiencyBonus,
-} from "@/core/rules/character/abilities-modifiers";
+import { getAbilityModifier } from "@/core/rules/character/abilities-modifiers";
 import { Ability } from "../rules/ability/ability.types";
+import { ResolvedBase } from "../rules/resolved-base";
 
 export type SpellcastingEntry = {
   classInstanceId: string; // key in classes.byId / classes.order
@@ -104,19 +102,23 @@ export function getCharacterSpellcastingSources(
 }
 
 export function getBaseSpellAttackModifierForSource(
-  character: Character,
+  base: ResolvedBase,
   source: SpellcastingSource,
 ): number {
-  const abilityScore = character.baseAbilityScores[source.ability];
-  return getAbilityModifier(abilityScore) + getProficiencyBonus(character);
+  return (
+    getAbilityModifier(base.abilityScores[source.ability]) +
+    base.proficiencyBonus
+  );
 }
-
 export function getBaseSpellSaveDCForSource(
-  character: Character,
+  base: ResolvedBase,
   source: SpellcastingSource,
 ): number {
-  const abilityScore = character.baseAbilityScores[source.ability];
-  return 8 + getAbilityModifier(abilityScore) + getProficiencyBonus(character);
+  return (
+    8 +
+    getAbilityModifier(base.abilityScores[source.ability]) +
+    base.proficiencyBonus
+  );
 }
 
 const STANDARD_SPELL_SLOTS: number[][] = [

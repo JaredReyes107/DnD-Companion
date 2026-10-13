@@ -121,9 +121,13 @@ export const CharacterProvider = ({
 
     // Rebuild all derived state against the re-bootstrapped character
     const withChoices: Character = { ...updated, featureChoices };
+    const withModifiers: Character = {
+      ...withChoices,
+      statModifiers: buildCharacterPassiveModifiers(withChoices),
+    };
 
     const rebuilt: Character = {
-      ...withChoices,
+      ...withModifiers,
       resources: buildCharacterResources(withChoices),
       actions: buildCharacterActions(withChoices),
       statModifiers: buildCharacterPassiveModifiers(withChoices),

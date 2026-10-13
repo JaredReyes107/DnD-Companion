@@ -3,19 +3,22 @@ import {
   ModifierTemplate,
   ModifierInstance,
   ModifierValue,
+  ModifierEvalContext,
 } from "@/core/entities/modifiers/Modifier";
 import { DEFAULT_MODIFIER_PRIORITY } from "../modifiers/stacking";
 import { getModifiersFromChoices } from "./choices-helper";
-import { getModifierTemplateById } from "@/core/data/registries/modifiers.registry";
+import {
+  getModifierTemplateById,
+  lookupModifierTemplate,
+} from "@/core/data/registries/modifiers.registry";
 import { getActiveFeatures } from "./features-helper";
 import { grantsOfType } from "@/core/rules/shared/grant-filters";
 import * as Crypto from "expo-crypto";
+import { ResolvedBase } from "@/core/entities/rules/resolved-base";
+import { getRawBase } from "./abilities-modifiers";
 
-function resolveModifierValue(
-  value: ModifierValue,
-  character: Character,
-): number {
-  return typeof value === "function" ? value({ character }) : value;
+function evaluate(value: ModifierValue, ctx: ModifierEvalContext): number {
+  return typeof value === "function" ? value(ctx) : value;
 }
 
 export function instantiateModifier(
@@ -23,22 +26,44 @@ export function instantiateModifier(
   character: Character,
   sourceId: string,
 ): ModifierInstance {
-  const value = resolveModifierValue(template.value, character);
-  const priority =
-    template.priority !== undefined
-      ? resolveModifierValue(template.priority, character)
-      : DEFAULT_MODIFIER_PRIORITY[template.type];
-
+  const ctx: ModifierEvalContext = {
+    character,
+    resolved: getRawBase(character),
+  };
   return {
     id: Crypto.randomUUID(),
     templateId: template.id,
     sourceId,
     statModel: template.statModel,
     type: template.type,
-    value,
-    priority,
+    value: evaluate(template.value, ctx),
+    priority:
+      template.priority !== undefined
+        ? evaluate(template.priority, ctx)
+        : DEFAULT_MODIFIER_PRIORITY[template.type],
     condition: template.condition,
     effectId: template.effectId,
+    tags: template.tags,
+  };
+}
+
+/** Re-evaluates value and priority against the resolved base. Instances
+ *  without a registered template keep their baked numbers. */
+export function refreshModifierInstance(
+  instance: ModifierInstance,
+  character: Character,
+  resolved: ResolvedBase,
+): ModifierInstance {
+  const template = lookupModifierTemplate(instance.templateId);
+  if (!template) return instance;
+  const ctx: ModifierEvalContext = { character, resolved };
+  return {
+    ...instance,
+    value: evaluate(template.value, ctx),
+    priority:
+      template.priority !== undefined
+        ? evaluate(template.priority, ctx)
+        : instance.priority,
   };
 }
 
