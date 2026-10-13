@@ -18,7 +18,10 @@ export function buildProficiencyOptionsForCategory(
     (n) => n.category === category,
   );
   const leaves = allNodes.filter(
-    (n) => !allNodes.some((other) => other.parentIds.includes(n.id)),
+    (n) =>
+      !allNodes.some(
+        (other) => other.parentIds.includes(n.id) && !other.abstract,
+      ),
   );
 
   return Object.fromEntries(

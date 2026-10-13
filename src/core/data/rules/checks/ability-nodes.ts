@@ -25,6 +25,7 @@ export const SKILL_CHECK_ABILITY_NODES: Record<string, CheckNode> =
         category: "skillCheck" as const,
         parentIds: [],
         ability,
+        abstract: true,
       },
     ]),
   );

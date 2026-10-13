@@ -15,4 +15,6 @@ export type CheckNode = {
   // node kinds with no default (most tools). Purely a registry default —
   // characters can override it per-node (see CharacterCheckState).
   ability?: Ability;
+  // true = not a real check, just a parent for other nodes
+  abstract?: boolean;
 };
