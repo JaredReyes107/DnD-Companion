@@ -216,7 +216,7 @@ export function executeAction(
         const currentRound = updatedCharacter.combatState.round;
 
         for (const modifierId of effect.modifiers) {
-          const template = getModifierTemplateById(modifierId); // was getStatModifierTemplateById
+          const template = getModifierTemplateById(modifierId);
           const modifierInstance = instantiateModifier(
             template,
             updatedCharacter,

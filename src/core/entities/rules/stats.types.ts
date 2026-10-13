@@ -1,5 +1,4 @@
 import { Ability } from "@/core/entities/rules/ability/ability.types";
-import { Character } from "@/core/entities/character/Character";
 import { ExpiryCondition } from "./duration/expiry-condition";
 import { ModifierInstance } from "../modifiers/Modifier";
 
@@ -27,26 +26,6 @@ export type StatModel =
   | { type: "spellcastingGlobal"; key: SpellcastingStatKey }
   | { type: "derived"; key: DerivedStatKey }
   | { type: "custom"; key: string };
-
-export type ModifierType =
-  | "add" // +10 speed
-  | "subtract" //-5 maxHp
-  | "multiply" // x2 speed (haste)
-  | "override" // AC = 13 + Dex
-  | "min" // speed at least 10
-  | "max"; // speed cannot exceed X
-
-export type StatModifierTemplate = {
-  id: string;
-  //TODO: ? Consider moving into "Instance" and apply dinamically for later reuse in items, features, etc
-  sourceId: string; // featureId, itemId, actionId or spellId
-  statModel: StatModel;
-  mode: ModifierType;
-
-  value: number | ((character: Character) => number);
-
-  priority?: number;
-};
 
 export type RuntimeModifierInstance = {
   id: string;
