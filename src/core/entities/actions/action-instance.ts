@@ -32,7 +32,6 @@ export type ApplyModifierEffect = {
   endsAt?: "startOfTurn" | "endOfTurn"; // default "startOfTurn"
   endsEarlyOn?: ExpiryCondition[]; // e.g. onZeroHp, onSpecificAction
   stacking?: "overlap" | "refresh" | "override" | "ignore";
-  concentration?: boolean;
 };
 
 export type ApplyAdvantageEffect = {

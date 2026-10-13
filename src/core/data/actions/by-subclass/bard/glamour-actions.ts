@@ -42,8 +42,8 @@ export const GLAMOUR_ACTIONS: Record<string, ActionInstance> = {
         type: "applyModifier",
         modifiers: ["mantle_of_majesty_active"],
         durationRounds: 10,
-        concentration: true,
       },
+      { type: "applyStatus", statusId: "concentrating", durationRounds: 10 },
     ],
   },
   mantle_of_majesty_command: {

@@ -10,10 +10,9 @@ export const TRICKERY_ACTIONS: Record<string, ActionInstance> = {
       {
         type: "applyModifier",
         modifiers: ["blessing_of_the_trickster"],
-        durationRounds: 600,
-        concentration: true,
-        // Advantage on Stealth checks for 1hr
+        //TODO: Advantage on Stealth checks for 1hr
       },
+      { type: "applyStatus", statusId: "concentrating", durationRounds: 600 },
     ],
   },
   channel_divinity_invoke_duplicity: {
@@ -30,9 +29,8 @@ export const TRICKERY_ACTIONS: Record<string, ActionInstance> = {
       {
         type: "applyModifier",
         modifiers: ["channel_divinity_invoke_duplicity"],
-        durationRounds: 10,
-        concentration: true,
       },
+      { type: "applyStatus", statusId: "concentrating", durationRounds: 10 },
     ],
   },
   control_duplicity: {
