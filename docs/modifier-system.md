@@ -1,0 +1,255 @@
+# Modifier System
+
+This document covers everything related to modifiers: how they are defined, instantiated, conditioned, stacked, targeted at stats, and applied to characters in and out of combat.
+
+---
+
+## Overview
+
+The modifier system is the mechanism by which features, choices, statuses, actions, and rules alter a character's stats. It is composed of four distinct layers:
+
+1. **`ModifierTemplate`** — static declaration of what a modifier does (registered in `modifiers.registry.ts`)
+2. **`ModifierInstance`** — a resolved snapshot of a template at a point in time, with concrete numeric values
+3. **`Condition`** — a runtime gate that determines if an instance is active during a given context
+4. **`StatModel`** — what stat the modifier targets, expressed as a discriminated union that supports hierarchical targeting
+
+---
+
+## `ModifierType` — The Math Operations
+
+Defined in `src/core/entities/modifiers/Modifier.ts`:
+
+| Type | Priority | Operation | Use case |
+|---|---|---|---|
+| `SET` | 100 | `value = mod.value` | Unarmored Defense, Mage Armor |
+| `MULTIPLICATIVE` | 200 | `value *= mod.value` | Conditions that halve a stat |
+| `ADDITIVE` | 300 | `value += mod.value` | Proficiency bonuses, spell bonuses, buffs |
+| `FLOOR` | 400 | `value = max(value, mod.value)` | "minimum 1" rules |
+| `CAP` | 500 | `value = min(value, mod.value)` | Maximum AC caps |
+
+Lower priority number runs first. A `SET` modifier at priority 100 runs before an `ADDITIVE` at 300 — so you can `SET` then `ADDITIVE` on top of it.
+
+---
+
+## `ModifierTemplate` — Static Declaration
+
+```typescript
+interface ModifierTemplate {
+  id: string;
+  sourceId: string;
+  statModel: StatModel;    // what stat this targets
+  type: ModifierType;
+  value: ModifierValue;    // number OR (context) => number
+  priority?: ModifierValue; // falls back to DEFAULT_MODIFIER_PRIORITY[type]
+  condition?: Condition;   // runtime gate
+  effectId?: string;       // stacking group key
+  tags?: string[];
+}
+
+type ModifierValue = number | ((context: ModifierEvalContext) => number);
+```
+
+`ModifierValue` can be a formula function. Formula functions receive `ModifierEvalContext`:
+
+```typescript
+type ModifierEvalContext = {
+  character: Character;
+  resolved: ResolvedBase;   // ability scores + PB after Phase 1 resolution
+  targetNodeId?: string;    // injected per check-node by the stat resolver
+  [key: string]: unknown;
+};
+```
+
+The `targetNodeId` field enables per-node formulas. Example from Fire Rune:
+```typescript
+// Add PB only for tool checks the character is proficient in:
+value: (ctx) =>
+  ctx.targetNodeId && resolveCheckProficiency(ctx.character, ctx.targetNodeId)
+    ? ctx.resolved.proficiencyBonus
+    : 0,
+```
+
+Templates are registered in `src/core/data/registries/modifiers.registry.ts`. Precedence: homebrew > base > generated expertise. `getModifierTemplateById(id)` throws if the template is not found.
+
+---
+
+## `ModifierInstance` — Resolved Snapshot
+
+```typescript
+interface ModifierInstance {
+  id: string;
+  templateId: string;
+  sourceId: string;
+  statModel: StatModel;
+  type: ModifierType;
+  value: number;      // resolved at instantiation
+  priority: number;   // resolved at instantiation
+  condition?: Condition;
+  effectId?: string;
+  expiryConditions?: ExpiryCondition[];
+  tags?: string[];
+}
+```
+
+Instances are created by `instantiateModifier(template, character, sourceId)` in `modifiers-helper.ts`. The formula is evaluated once at creation using the raw `ResolvedBase`. Formula-based instances can be refreshed later with `refreshModifierInstance(instance, character, resolved, targetNodeId?)` — this re-evaluates the formula against an updated base without changing the instance id.
+
+---
+
+## `StatModel` — What the Modifier Targets
+
+Defined in `src/core/entities/rules/stats.types.ts`:
+
+```typescript
+type StatModel =
+  | { type: "ability"; ability: Ability }           // STR, DEX, CON, INT, WIS, CHA
+  | { type: "check"; nodeId: string }               // any CheckNode id (skill, save, tool)
+  | { type: "derived"; key: DerivedStatKey }        // maxHp, speed, initiative, ac, ...
+  | { type: "spellcasting"; sourceId: string; key: SpellcastingStatKey }
+  | { type: "spellcastingByAbility"; ability: Ability; key: SpellcastingStatKey }
+  | { type: "spellcastingGlobal"; key: SpellcastingStatKey }
+  | { type: "custom"; key: string };
+
+type DerivedStatKey = "maxHp" | "speed" | "initiative" | "ac" | "spellAttackModifier"
+                    | "spellSaveDC" | "concentrationLimit" | "proficiencyBonus";
+type SpellcastingStatKey = "attackModifier" | "saveDC";
+```
+
+**Hierarchical `check` targeting** is the key design. A modifier targeting `{ type: "check", nodeId: "skillCheck" }` applies to every skill check. A modifier targeting `{ type: "check", nodeId: "skillCheck.STR" }` applies to every STR-based skill — including any skill whose character `abilityOverride` points to STR. This is resolved by `matchesStatTarget` in `stat-targeting.ts`.
+
+**Spellcasting tiers:**
+- `spellcasting` — targets one specific spellcasting source by id (e.g. "wizard_spellcasting").
+- `spellcastingByAbility` — targets all sources sharing the given ability (e.g. all INT casters).
+- `spellcastingGlobal` — targets all spellcasting sources regardless of ability.
+
+---
+
+## `matchesStatTarget` — Hierarchical Targeting
+
+`matchesStatTarget(modifierTarget, resolvingTarget, context)` in `src/core/rules/shared/stat-targeting.ts`:
+
+1. For spellcasting stats: applies the three-tier logic (`spellcasting` exact → `spellcastingByAbility` → `spellcastingGlobal`).
+2. For `check` → `check`: calls `resolveCheckNodeAncestryChain(resolvingTarget.nodeId, context.resolvedAbility)` to get the full ancestry chain (node → parents → ability-scoped parent if resolvedAbility provided), then checks if `modifierTarget.nodeId` is in that chain.
+3. For all other types: exact structural equality via `JSON.stringify`.
+
+The `resolvedAbility` context parameter is critical for ability-scoped modifiers (like Frost Rune: "add +2 to all STR checks") to also match any skill that the character has overridden to use STR.
+
+`serializeStatModel(statModel)` produces a stable string key for the `ResolvedCharacter` stats map (e.g. `"check:perception"`, `"derived:ac"`, `"ability:STR"`).
+
+---
+
+## `Condition` — Runtime Gates
+
+Defined in `src/core/entities/modifiers/Condition.ts`. Applied to `ModifierTemplate.condition`, `AdvantageInstance.condition`, and modifier filtering in `resolveStat`.
+
+```typescript
+type Condition =
+  | { type: "always" }
+  | { type: "targetIsRangedAttack" }
+  | { type: "targetIsMeleeAttack" }
+  | { type: "hpBelowThreshold"; threshold: number }
+  | { type: "targetHasStatus"; status: number }
+  | { type: "withinRange"; range: number }
+  | { type: "resourceAtLeast"; resourceId: string; minimum: number };
+```
+
+`evaluateCondition(condition, context)` in `condition-evaluator.ts` evaluates the condition against an `EvaluationContext`:
+
+```typescript
+interface EvaluationContext {
+  targetIsRanged?: boolean;
+  targetIsMelee?: boolean;
+  currentHp?: number;
+  maxHp?: number;
+  targetStatuses?: Set<number>;
+  distanceToTarget?: number;
+  resources?: Record<string, number>; // resourceId → current value
+}
+```
+
+`buildEvaluationContext(character)` populates `currentHp`, `maxHp`, and `resources` from the character. The combat-specific fields (`targetIsRanged`, `targetStatuses`, etc.) are left unset during out-of-combat resolution.
+
+**`resourceAtLeast` is the key pattern for resource-gated passive modifiers.** Example from Rune Knight: a rune's passive modifier has `condition: { type: "resourceAtLeast", resourceId: "fire_rune", minimum: 1 }` — the modifier is active while the resource has at least 1 charge and automatically deactivates when the resource is spent, with no lifecycle management needed.
+
+---
+
+## Stacking Rules
+
+`applyStackingRules(modifiers)` in `src/core/rules/modifiers/stacking.ts`:
+
+- Modifiers with the same `effectId` are grouped. Within each group, only the **strongest** instance survives (or the weakest for `CAP` type). "Strongest" is determined by `resolveModifierValue` — higher value wins for all types except `CAP`.
+- Modifiers without `effectId` are independent — they all apply.
+
+This is the **passive stacking** rule used during `resolveStat`. It prevents the same effect (e.g. two Bless spells) from stacking while allowing different effects (Bless + Bardic Inspiration) to stack freely.
+
+**Per-action stacking policy** for `applyModifier` action effects:
+
+`applyStackingRule(character, templateId, policy)` in `systems/stats/modifiers-stacking-helper.ts` handles the `stacking` field on `ApplyModifierEffect`:
+
+| Policy | Behavior |
+|---|---|
+| `"overlap"` (default) | Does nothing — allows multiple instances from the same template |
+| `"refresh"` | Removes the oldest instance of the same template before adding new |
+| `"override"` | Removes all instances of the same template, replacing with the new one |
+| `"ignore"` | If any instance of the same template already exists, do nothing |
+
+---
+
+## The Modifier Pool
+
+`collectModifierPool(character, runtimeModifiers)` in `modifiers-pool.ts` assembles all modifiers relevant for stat resolution:
+
+1. `Object.values(character.statModifiers)` — passive/permanent modifiers from features and choices.
+2. `getStatusModifierInstances(character)` — modifiers derived from active `CombatState.statuses`.
+3. `runtimeModifiers` — active timed combat modifiers from `CombatState.runtimeModifiers`.
+
+`refreshModifierPool(pool, character, resolved)` then re-evaluates all formula-based modifiers against the current `ResolvedBase`. This is called after Phase 1 resolution so formulas that reference `ctx.resolved.proficiencyBonus` use the modifier-adjusted PB.
+
+---
+
+## Building Passive Modifiers
+
+`buildCharacterPassiveModifiers(character)` in `modifiers-helper.ts` produces the `Record<string, ModifierInstance>` for `character.statModifiers`:
+
+1. Walks `getActiveFeatures(character)` and instantiates every `{ type: "modifier" }` grant.
+2. Walks `getModifiersFromChoices(character)` and instantiates every modifier granted by selected options.
+
+Keys are `"${feature.id}:${modifier.id}"` for feature grants and `"choice:${modifierId}"` for choice grants. Call this whenever features or choices change and assign the result back to `character.statModifiers`.
+
+---
+
+## Expertise
+
+Expertise modifiers are generated dynamically by `buildExpertiseModifiers()` in `src/core/data/rules/modifiers/expertise-modifiers.ts`. One `ADDITIVE` modifier template is created per `CheckNode` in the registry (adding PB a second time). These are lazily cached in `modifiers.registry.ts` and regenerated only when the check registry version changes (i.e. when homebrew nodes are registered).
+
+Expertise modifier instances use `tags: ["expertise"]` and the same `effectId` as Fire Rune's tool modifier (`"fire_rune_tool_pb"`), ensuring they participate in the same `effectId` stacking group — only the strongest one wins, so Fire Rune and Expertise don't double-stack on the same tool.
+
+---
+
+## Advantage System
+
+Advantage/disadvantage is tracked separately from numeric modifiers. `AdvantageInstance` in `src/core/entities/rules/advantage/advantage-instance.ts`:
+
+```typescript
+interface AdvantageInstance {
+  id: string;
+  nodeId: string;           // the CheckNode this applies to
+  polarity: "advantage" | "disadvantage";
+  sourceId: string;
+  expiryConditions?: ExpiryCondition[];
+  condition?: Condition;    // resource-gated passive advantages
+}
+```
+
+Three storage locations:
+
+| Location | Type | Lifecycle |
+|---|---|---|
+| `character.checks.passiveAdvantageInstances` | `Record<string, AdvantageInstance>` | Persistent; rebuilt by `buildCharacterAdvantageInstances` on every save |
+| `character.combatState.runtimeAdvantageInstances` | `Record<string, AdvantageInstance>` | Timed; cleared by `sweepExpiredByEvent` |
+| Status-derived (via `getStatusAdvantageInstances`) | ephemeral | Lives as long as the status is active |
+
+`resolveAdvantageState(character, nodeId)` merges all three sources, walks the CheckNode ancestry chain, filters by `condition`, and applies the character's `advantageStackingRule`.
+
+Two stacking modes:
+- `"raw"` (5e default): any advantage + any disadvantage = none, regardless of counts.
+- `"oneToOne"` (optional house rule): instances cancel one-for-one; the remainder polarity wins.

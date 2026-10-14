@@ -48,11 +48,17 @@ The project follows a **modular, domain-driven architecture** separating the UI 
 
 ```text
 src/
-├── app/          # Navigation and screens
-├── features/     # Feature modules (character sheet, combat tracker)
-├── core/         # D&D rules engine
-├── services/     # Infrastructure (storage, localization)
-└── components/   # Shared UI components
+├── app/          # Navigation and screens (Expo Router)
+├── core/         # D&D rules engine (pure TypeScript, UI-agnostic)
+│   ├── combat/   # Intent-based action resolution pipeline
+│   ├── data/     # Static game content, registries
+│   ├── entities/ # Pure TypeScript types — zero logic
+│   ├── rules/    # Pure functions (calculate, build, resolve)
+│   └── systems/  # Stateful orchestration (combat, stats, ECS, events)
+├── repositories/ # AsyncStorage abstractions
+├── rules/        # Hand-written rule definitions (compiled to rules.generated.ts)
+├── store/        # Zustand UI state (selectedCharacterId only)
+└── components/   # Stateless UI primitives
 ```
 
 ---
@@ -61,39 +67,39 @@ src/
 
 Project documentation is available in the `docs/` folder.
 
-| Document                                          | Description                      |
-| ------------------------------------------------- | -------------------------------- |
-| [architecture.md](docs/architecture.md)           | High-level system architecture   |
-| [domain-model.md](docs/domain-model.md)           | Domain entities and UML diagrams |
-| [engine.md](docs/engine.md)                       | Game engine rules and systems    |
-| [project-structure.md](docs/project-structure.md) | Folder hierarchy reference       |
-| [contributing.md](docs/contributing.md)           | Development workflow             |
+| Document | Description |
+|---|---|
+| [architecture.md](docs/architecture.md) | High-level system architecture, layer rules, key architectural decisions |
+| [domain-model.md](docs/domain-model.md) | Domain entities: Character, Encounter, Features, Options, Statuses, Expiry |
+| [engine.md](docs/engine.md) | Stat resolution pipeline, action execution, advantage resolution, resting |
+| [project-structure.md](docs/project-structure.md) | Complete folder hierarchy reference with file-level descriptions |
+| [rules-system.md](docs/rules-system.md) | RuleDefinition, RuleRegistry, ExecutionGraph, IntentResolver, authoring guide |
+| [modifier-system.md](docs/modifier-system.md) | ModifierTemplate/Instance, stacking, conditions, stat targeting, advantage |
+| [combat-engine.md](docs/combat-engine.md) | Combat subsystems: events, ECS, snapshots, action economy, invariants |
+| [navigation-architecture.md](docs/navigation-architecture.md) | Expo Router navigation, deep linking, hydration guard |
+| [contributing.md](docs/contributing.md) | Development workflow, branching, commit style, adding rules/content |
 
 ---
 
 ## 🧠 Core Concepts
 
-The project is organized around three main concepts:
-
 ### Core Engine
 
-Located in `src/core`, this layer contains the **pure D&D rules engine**:
+Located in `src/core`, this layer contains the **pure D&D rules engine** — no React, no AsyncStorage, no side effects:
 
-- **Entities**: (`Character`, `CombatState`)
-- **Rules**: (stat calculations, HP, modifiers)
-- **Systems**: (combat engine, stat resolution)
+- **Entities** — Pure TypeScript types: `Character`, `CombatState`, `EncounterState`, `FeatureTemplate`, `ModifierTemplate`, etc.
+- **Data** — Static game content: class templates, subclasses, feature grants, option pools, modifier templates, check node DAGs.
+- **Rules** — Pure functions: stat calculation, feature/choice resolution, proficiency, advantage, expiry, resting.
+- **Systems** — Stateful orchestration: stat resolver, combat engine, event bus, ECS component store, snapshot manager.
+- **Combat** — Intent-based action pipeline: `IntentQueue`, `IntentResolver`, `ReactionSystem`.
 
-### Features
+### Initialization
 
-Located in `src/features`, these modules implement user-facing functionality:
+`initializeCoreSystems()` in `src/core/init.ts` must be called once at app startup before any registry lookup or rule resolution. It registers scaling tables and loads all compiled rules into the `ruleRegistry`.
 
-- Character Sheet
-- Combat Tracker
-- DM Tools
+### Character Hydration
 
-### Infrastructure
-
-Located in `src/services`, this layer manages external interactions such as storage and localization.
+Always use `hydrateCharacter()` from `src/repositories/character-migration.ts` when reading raw character data from AsyncStorage. `CharacterRepository` does this automatically.
 
 ---
 
@@ -103,9 +109,10 @@ Contributions are welcome. Please read [docs/contributing.md](docs/contributing.
 
 Key rules:
 
-- Use **Conventional Commits**
+- Use **Conventional Commits** (`feat:`, `fix:`, `refactor:`, `test:`, `docs:`)
 - Follow the **feature branch workflow**
 - Keep the **core engine independent of UI**
+- Never edit `src/rules/rules.generated.ts` — run `ts-node scripts/compile-rules.ts` instead
 
 ---
 

@@ -1,137 +1,183 @@
 # Core Engine Mechanics
 
-This document details the critical flows within the isolated `src/core` D&D Engine. Understanding these lifecycles is crucial for implementing new rules, spells, or combat features.
+This document details the critical computation flows within the isolated `src/core` D&D Engine. See [`docs/rules-system.md`](rules-system.md) for the rule definition / execution graph pipeline and [`docs/modifier-system.md`](modifier-system.md) for the full modifier model.
 
-## 1. Combat Engine Lifecycle
+---
 
-The `EncounterState` manages the flow of time and turns in combat. This diagram illustrates the state machine from initialization to resolution.
+## 1. Character Stat Resolution
 
-```mermaid
-flowchart TD
-    %% States
-    StartCombat([Start Combat])
-    RollInitiative[⚙️ Roll Initiative]
-    SortTurnOrder[⚙️ Sort Turn Order]
-    StartRound([Start Round 1])
+The stat resolver computes a character's final numbers by combining their base stats with all active modifiers. It runs in two phases.
 
-    PlayerTurn{Is Player Turn?}
-    ApplyAction((Apply Action))
-    ResolveEffects[⚙️ Resolve Rule Effects]
-    CheckExpirations[⏳ Check Modifier Expirations]
+### Phase 1 — Base Resolution (`resolveBase`)
 
-    NextTurn[⏭️ Advance Turn]
-    NextRound[🔄 Advance Round]
+`resolveBase(character, runtimeModifiers?)` in `src/core/entities/rules/resolved-base.ts`:
 
-    EndCombat([End Combat])
+1. Computes the raw ability scores and proficiency bonus from the character record.
+2. Collects the full modifier pool: `character.statModifiers` + status-derived modifiers + any runtime combat modifiers passed in.
+3. Re-evaluates formula-based modifier values against the **raw** base (formulas cannot see each other here — no circular dependency).
+4. Resolves the six ability scores and proficiency bonus, applying stacking rules and the priority-ordered math pipeline.
+5. Returns `{ base: ResolvedBase, stats: Map<string, ResolvedStat> }`.
 
-    %% Transitions
-    StartCombat --> RollInitiative
-    RollInitiative --> SortTurnOrder
-    SortTurnOrder --> StartRound
+`ResolvedBase` (`{ abilityScores, proficiencyBonus }`) is then passed as input to Phase 2.
 
-    StartRound --> PlayerTurn
+### Phase 2 — Full Stat Resolution (`resolveAllStats`)
 
-    PlayerTurn -- "Yes" --> ApplyAction
-    ApplyAction --> ResolveEffects
-    PlayerTurn -- "No" --> ResolveEffects
+Called via `resolveOutOfCombat(character)` or `resolveInCombat(character, encounterState)`:
 
-    ResolveEffects --> CheckExpirations
-    CheckExpirations -. "If Combat Continues" .-> NextTurn
-
-    NextTurn -- "If End of Order" --> NextRound
-    NextTurn -- "Next Participant" --> PlayerTurn
-
-    NextRound --> CheckExpirations
-    CheckExpirations -. "If Enemies Defeated" .-> EndCombat
-```
-
-> **Action shape:** `ActionInstance` uses
-> `board: ActionBoard[]`, `duration: ActionDuration`, and
-> `trigger?: ActionTrigger[]` instead of the legacy `actionSlot` field.
-> Concentration on `ApplyModifierEffect` and `RuntimeModifierInstance`
-> is tracked via `concentration?: boolean` but cap enforcement and
-> out-of-combat concentration handling are not yet implemented.
-> See `src/core/entities/actions/action-instance.ts` for the current shape.
-
-## 2. Character Stat Resolution Diagram
-
-The `StatResolver` (`src/core/systems/stats`) is responsible for calculating a character's final numbers by combining their base stats with active modifiers.
+1. Iterates every registered `StatModel`: all `check` nodes (skills, saves, tools), all `derived` keys (`maxHp`, `speed`, `initiative`, `ac`, `spellAttackModifier`, `spellSaveDC`, `concentrationLimit`, `proficiencyBonus`), and all `spellcasting` sources.
+2. For each model, computes the base value (`getBaseValue`) using the `ResolvedBase` from Phase 1.
+3. Gathers matching modifiers from the refreshed pool via `matchesStatTarget`.
+4. For `check`-type stats, re-evaluates formula modifiers with `targetNodeId` injected so that per-node formulas (e.g. Fire Rune: "add PB only for proficient tools") resolve correctly per node.
+5. Applies `resolveStat` — condition filtering → stacking rules → priority-sorted math pipeline.
+6. Returns `ResolvedCharacter { stats: Map<string, ResolvedStat> }`.
 
 ```mermaid
 flowchart TD
-    subgraph OutOfCombat [Passive Stats (Out of Combat)]
-        BaseScores[(Base Ability Scores)]
-        Proficiency[(Proficiency Bonus)]
-        Features[(Class/Race Features)]
-
-        BaseAC[Calculate Base AC]
-        BaseHP[Calculate Base HP]
-        BaseSkills[calculate Base Skills]
+    subgraph Phase1 [Phase 1 — resolveBase]
+        RawScores[(Raw Ability Scores)]
+        RawPB[(Raw Proficiency Bonus)]
+        Pool1[Collect Modifier Pool]
+        Refresh1[Re-evaluate Formulas at Raw Base]
+        ResolveAbilities[Resolve 6 Ability Scores]
+        ResolvePB[Resolve Proficiency Bonus]
     end
 
-    subgraph ModifierSystem [Modifier Injection]
-        Items[Equipped Items]
-        PersistentBuffs[Persistent Buffs]
-        CombatBuffs[Active Combat Run-time Modifiers]
+    subgraph Phase2 [Phase 2 — resolveAllStats]
+        AllModels[Iterate All StatModels]
+        GetBase[getBaseValue per model]
+        GatherMods[matchesStatTarget — gather relevant modifiers]
+        ResolveStat[resolveStat: filter conditions → stack → sort → math]
+        Output[(ResolvedCharacter stats map)]
     end
 
-    subgraph Resolution [Stat Resolver Engine]
-        Gather[1. Gather All Modifiers for StatX]
-        Sort[2. Sort by Priority]
+    RawScores --> Pool1
+    RawPB --> Pool1
+    Pool1 --> Refresh1
+    Refresh1 --> ResolveAbilities
+    Refresh1 --> ResolvePB
+    ResolveAbilities --> Phase2
+    ResolvePB --> Phase2
 
-        MathAdd[3a. Apply Adds/Subtracts]
-        MathMult[3b. Apply Multipliers]
-        MathOverride[3c. Apply Overrides]
-        MathClamp[3d. Apply Min/Max Clamps]
-
-        Final[4. Output Final Resolved Stat]
-    end
-
-    BaseScores --> BaseAC
-    BaseScores --> BaseHP
-    BaseScores --> BaseSkills
-
-    BaseAC --> Gather
-    BaseHP --> Gather
-    BaseSkills --> Gather
-
-    Items --> Gather
-    PersistentBuffs --> Gather
-    CombatBuffs --> Gather
-
-    Gather --> Sort
-    Sort --> MathAdd
-    MathAdd --> MathMult
-    MathMult --> MathOverride
-    MathOverride --> MathClamp
-    MathClamp --> Final
+    AllModels --> GetBase
+    GetBase --> GatherMods
+    GatherMods --> ResolveStat
+    ResolveStat --> Output
 ```
 
-## 3. Universal Modifier Stacking System
+### The `resolveStat` Math Pipeline
 
-Modifications to a Character's state are handled asynchronously via `ActiveCombatModifier` structures. This shows how an attack or spell cascades into a state change.
+`resolveStat(statId, baseValue, modifiers, evaluationContext)` in `src/core/systems/stats/resolve-stats.ts`:
+
+1. Filter modifiers whose `condition` is satisfied by the `EvaluationContext`.
+2. Apply stacking rules (`applyStackingRules`): modifiers with the same `effectId` keep only the strongest (or lowest for `CAP`). Modifiers without `effectId` are independent.
+3. Sort by `priority` ascending.
+4. Apply math in priority order:
+
+| `ModifierType` | Operation |
+|---|---|
+| `SET` | `finalValue = mod.value` |
+| `MULTIPLICATIVE` | `finalValue *= mod.value` |
+| `ADDITIVE` | `finalValue += mod.value` |
+| `FLOOR` | `finalValue = Math.max(finalValue, mod.value)` |
+| `CAP` | `finalValue = Math.min(finalValue, mod.value)` |
+
+Default priorities: `SET=100, MULTIPLICATIVE=200, ADDITIVE=300, FLOOR=400, CAP=500`. Lower number runs first.
+
+The result is floored to an integer: `Math.floor(finalValue)`.
+
+---
+
+## 2. Action Execution
+
+`executeAction(action, { character, dispatch })` in `src/core/systems/combat/action-execution/take-action.ts` is the synchronous, pure function that applies a single action's effects to a character and dispatches the updated character.
 
 ```mermaid
-sequenceDiagram
-    participant Source as Source Entity (Attacker)
-    participant Action as Action/Spell Engine
-    participant Resolver as Stat Resolver
-    participant Target as Target Entity (CombatState)
+flowchart TD
+    Start([executeAction called])
+    ActionEconomy[onActionTaken — sweeps expiry for onAnyAction]
+    EffectsLoop{For each effect}
+    ModRes[modifyResource — applyResourceDelta]
+    ConvRes[convertResource — applyResourceConversion]
+    ApplyMod[applyModifier — instantiateModifier → applyStackingRule → buildExpiryConditions → applyRuntimeModifier]
+    ApplyAdv[applyAdvantage — buildExpiryConditions → applyRuntimeAdvantage]
+    ApplyStatus[applyStatus — getStatusTemplate → buildExpiryConditions → applyStatus]
+    EndEff[endEffects — removeStatusesById / revokeRuntimeEffectsBySource]
+    DecAction[decreaseActionResource if economy slot]
+    Dispatch([dispatch updated character])
 
-    Source->>Action: Executes "Cast Bless"
-    Action->>Action: Calculates Target List
-
-    loop For each Target
-        Action->>Target: Injects ActiveCombatModifier
-        Note right of Target: Mode: "add", Value: 1d4<br/>Scope: "combat", Stat: "save/attack"
-    end
-
-    Target->>Resolver: Target requests stat recount
-    Resolver-->>Target: Returns boosted AC/Saves
-
-    Note over Action,Target: 10 Rounds Later...
-    Action->>Target: Combat Engine ticks Round 11
-    Target->>Target: Evaluates Modifier Expirations
-    Target->>Resolver: ActiveCombatModifier Expired.<br/>Request recount.
-    Resolver-->>Target: Returns base AC/Saves
+    Start --> ActionEconomy
+    ActionEconomy --> EffectsLoop
+    EffectsLoop --> ModRes
+    EffectsLoop --> ConvRes
+    EffectsLoop --> ApplyMod
+    EffectsLoop --> ApplyAdv
+    EffectsLoop --> ApplyStatus
+    EffectsLoop --> EndEff
+    ModRes --> DecAction
+    ConvRes --> DecAction
+    ApplyMod --> DecAction
+    ApplyAdv --> DecAction
+    ApplyStatus --> DecAction
+    EndEff --> DecAction
+    DecAction --> Dispatch
 ```
+
+### `ActionInstance` Effect Types
+
+| Effect type | What it does |
+|---|---|
+| `modifyResource` | Adds/subtracts from `character.resources[resourceId].current` |
+| `convertResource` | Transfers an amount from one resource to another |
+| `applyModifier` | Instantiates `ModifierTemplate`(s), applies stacking policy, injects into `combatState.runtimeModifiers` with expiry |
+| `applyAdvantage` | Injects `AdvantageInstance`(s) into `combatState.runtimeAdvantageInstances` with expiry |
+| `applyStatus` | Applies a `StatusInstance` to `combatState.statuses`; respects `limitStat` cap |
+| `endEffects` | Removes statuses by `statusId` and/or revokes all runtime effects from given `sourceId`s |
+
+### `ActionDuration`
+
+`action.duration` replaces the old `actionSlot` field:
+- `{ kind: "economy"; slot: "action" | "bonusAction" | "reaction" }` — consumes an action economy slot.
+- `{ kind: "free" }` — no slot consumed.
+
+### `ActionBoard`
+
+`action.boards: ActionBoard[]` declares where the action renders in the UI (combat board, character sheet, etc.). This is purely a UI concern — it has no effect on economy or rule resolution.
+
+---
+
+## 3. Combat Turn Flow
+
+The `EncounterState` (persistence shape) tracks `currentRound`, `currentTurnIndex`, and `participants: Record<string, CombatState>`. Turn advancement is handled by the UI layer updating these fields and calling `saveEncounter`.
+
+Expiry sweeps on `CombatState` happen at turn events:
+- **`turnStarted`** — sweeps modifiers/advantages/statuses with `startOfTurn` expiry at the current round.
+- **`turnEnded`** — sweeps those with `endOfTurn` expiry.
+- **`longRest`** / **`shortRest`** — sweeps rest-scoped effects via `sweepExpiredByEvent`.
+
+All sweeps go through `sweepExpiredByEvent(combatState, event)` in `expiry-helper.ts`. Never filter `runtimeModifiers`, `runtimeAdvantageInstances`, or `statuses` manually.
+
+---
+
+## 4. Advantage Resolution
+
+`resolveAdvantageState(character, nodeId)` in `src/core/rules/character/advantage-helper.ts` returns `"advantage" | "disadvantage" | "none"` for a given CheckNode:
+
+1. Collects all applicable `AdvantageInstance`s across three sources:
+   - `character.checks.passiveAdvantageInstances` (permanent + feature-derived grants)
+   - `character.combatState.runtimeAdvantageInstances` (timed combat grants)
+   - Status-derived advantage from `getStatusAdvantageInstances(character)`
+2. Filters to instances whose `nodeId` is in the CheckNode ancestry chain.
+3. Filters by `condition` (using `evaluateCondition`).
+4. Applies the `advantageStackingRule`:
+   - `"raw"`: any advantage + any disadvantage → `"none"`.
+   - `"oneToOne"`: instances cancel one-to-one; remainder wins.
+
+Passive advantage instances are rebuilt on every character save by `buildCharacterAdvantageInstances(character)`, which merges feature-derived and choice-derived grants over the preserved manual instances. Feature/option-sourced instances are fully replaced (deterministic re-derive), manual instances are preserved.
+
+---
+
+## 5. Resting
+
+`takeLongRest(character)` and `takeShortRest(character)` in `src/core/rules/character/resting.ts` produce a new `Character` (no mutation). Long rest resets HP, hit dice, and all `onLongRest` choice pools. Short rest resets `onShortRest` choice pools and optionally hit dice.
+
+`sweepExpiredByEvent(combatState, { type: "longRest" })` and `{ type: "shortRest" }` must be called on the active `CombatState` as part of the rest flow to clear any combat effects scoped to the rest type.
