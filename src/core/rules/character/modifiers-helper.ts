@@ -48,15 +48,18 @@ export function instantiateModifier(
 }
 
 /** Re-evaluates value and priority against the resolved base. Instances
- *  without a registered template keep their baked numbers. */
+ *  without a registered template keep their baked numbers.
+ *  `targetNodeId` — when supplied (check-targeted modifiers), injected into
+ *  the eval context so value formulas can vary per node. */
 export function refreshModifierInstance(
   instance: ModifierInstance,
   character: Character,
   resolved: ResolvedBase,
+  targetNodeId?: string,
 ): ModifierInstance {
   const template = lookupModifierTemplate(instance.templateId);
   if (!template) return instance;
-  const ctx: ModifierEvalContext = { character, resolved };
+  const ctx: ModifierEvalContext = { character, resolved, targetNodeId };
   return {
     ...instance,
     value: evaluate(template.value, ctx),

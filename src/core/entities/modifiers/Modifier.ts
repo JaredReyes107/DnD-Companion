@@ -17,6 +17,10 @@ export type ModifierValue = number | ((context: ModifierEvalContext) => number);
 export type ModifierEvalContext = {
   character: Character;
   resolved: ResolvedBase;
+  // Set by the stat resolver when evaluating check-targeted modifiers.
+  // Allows value formulas to vary per node (e.g. Fire Rune: only double PB
+  // for nodes the character is actually proficient in).
+  targetNodeId?: string;
   [key: string]: unknown;
 };
 
