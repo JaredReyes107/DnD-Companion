@@ -129,7 +129,7 @@ export function buildCharacterCheckProficiencies(
   return new Set([...character.checks.proficiencies, ...featureIds]);
 }
 
-const EXPERTISE_SOURCE_TAG = "expertise";
+export const EXPERTISE_TAG = "expertise";
 
 export function resolveCheckExpertise(
   character: Character,
@@ -140,7 +140,7 @@ export function resolveCheckExpertise(
     (mod) =>
       mod.statModel.type === "check" &&
       chain.includes(mod.statModel.nodeId) &&
-      mod.sourceId === EXPERTISE_SOURCE_TAG,
+      mod.tags?.includes(EXPERTISE_TAG) === true,
   );
 }
 
