@@ -31,6 +31,7 @@ import {
   refreshModifierPool,
   collectModifierPool,
 } from "@/core/rules/character/modifiers-pool";
+import { refreshModifierInstance } from "@/core/rules/character/modifiers-helper";
 
 export const serializeStatTemplate = serializeStatModel;
 export {
@@ -123,11 +124,28 @@ export type ResolvedCharacter = {
 function gatherModifiersFor(
   statModel: StatModel,
   allModifiers: ModifierInstance[],
-  context: { sourceAbility?: Ability },
+  context: {
+    sourceAbility?: Ability;
+    resolvedAbility?: Ability;
+    character?: Character;
+    base?: ResolvedBase;
+  },
 ): ModifierInstance[] {
-  return allModifiers.filter((m) =>
+  const matched = allModifiers.filter((m) =>
     matchesStatTarget(m.statModel, statModel, context),
   );
+
+  // For check-targeted modifiers, re-evaluate value formulas with targetNodeId
+  // so formulas like Fire Rune ("add PB only when proficient in THIS node") work.
+  if (statModel.type === "check" && context.character && context.base) {
+    const { character, base } = context;
+    const nodeId = statModel.nodeId;
+    return matched.map((m) =>
+      refreshModifierInstance(m, character, base, nodeId),
+    );
+  }
+
+  return matched;
 }
 
 function resolveAllStats(
@@ -146,7 +164,7 @@ function resolveAllStats(
   const resolveModel = (
     model: StatModel,
     baseValue: number,
-    context: { sourceAbility?: Ability } = {},
+    context: { sourceAbility?: Ability; resolvedAbility?: Ability } = {},
   ) => {
     const id = serializeStatModel(model);
     stats.set(
@@ -161,7 +179,19 @@ function resolveAllStats(
   };
 
   for (const model of buildAllStatModels()) {
-    resolveModel(model, getBaseValue(model, character, base));
+    if (model.type === "check") {
+      // Pass resolvedAbility so ability-scoped modifiers (Frost Rune: skillCheck.STR)
+      // match nodes whose character override points to a different ability.
+      // Pass character + base so targetNodeId re-evaluation works per node.
+      const resolvedAbility = resolveCheckAbility(character, model.nodeId);
+      resolveModel(model, getBaseValue(model, character, base), {
+        resolvedAbility,
+        character,
+        base,
+      });
+    } else {
+      resolveModel(model, getBaseValue(model, character, base));
+    }
   }
 
   for (const source of getCharacterSpellcastingSources(character)) {
