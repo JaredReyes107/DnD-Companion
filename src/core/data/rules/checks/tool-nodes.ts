@@ -1,8 +1,22 @@
 import { CheckNode } from "@/core/entities/rules/check/check-node";
 
 export const TOOL_NODES: Record<string, CheckNode> = {
+  // Abstract root — all tool nodes descend from here, enabling modifiers
+  // that target all tools with a single StatModel (e.g. Fire Rune passive).
+  "tool.root": {
+    id: "tool.root",
+    category: "toolCheck",
+    parentIds: [],
+    abstract: true,
+  },
+
   //#region Artisan's Tools
-  "tool.artisan": { id: "tool.artisan", category: "toolCheck", parentIds: [] },
+  "tool.artisan": {
+    id: "tool.artisan",
+    category: "toolCheck",
+    parentIds: ["tool.root"],
+    abstract: true,
+  },
   "tool.alchemistsSupplies": {
     id: "tool.alchemistsSupplies",
     category: "toolCheck",
@@ -110,13 +124,13 @@ export const TOOL_NODES: Record<string, CheckNode> = {
   "tool.disguiseKit": {
     id: "tool.disguiseKit",
     category: "toolCheck",
-    parentIds: [],
+    parentIds: ["tool.root"],
     ability: "WIS",
   },
   "tool.forgeryKit": {
     id: "tool.forgeryKit",
     category: "toolCheck",
-    parentIds: [],
+    parentIds: ["tool.root"],
     ability: "INT",
   },
 
@@ -124,7 +138,8 @@ export const TOOL_NODES: Record<string, CheckNode> = {
   "tool.gamingSet": {
     id: "tool.gamingSet",
     category: "toolCheck",
-    parentIds: [],
+    parentIds: ["tool.root"],
+    abstract: true,
   },
   "tool.diceSet": {
     id: "tool.diceSet",
@@ -155,7 +170,7 @@ export const TOOL_NODES: Record<string, CheckNode> = {
   "tool.herbalismKit": {
     id: "tool.herbalismKit",
     category: "toolCheck",
-    parentIds: [],
+    parentIds: ["tool.root"],
     ability: "WIS",
   },
 
@@ -163,7 +178,8 @@ export const TOOL_NODES: Record<string, CheckNode> = {
   "tool.musicalInstrument": {
     id: "tool.musicalInstrument",
     category: "toolCheck",
-    parentIds: [],
+    parentIds: ["tool.root"],
+    abstract: true,
   },
   "tool.bagpipes": {
     id: "tool.bagpipes",
@@ -230,19 +246,19 @@ export const TOOL_NODES: Record<string, CheckNode> = {
   "tool.navigatorsTools": {
     id: "tool.navigatorsTools",
     category: "toolCheck",
-    parentIds: [],
+    parentIds: ["tool.root"],
     ability: "INT",
   },
   "tool.poisonersKit": {
     id: "tool.poisonersKit",
     category: "toolCheck",
-    parentIds: [],
+    parentIds: ["tool.root"],
     ability: "INT",
   },
   "tool.thievesTools": {
     id: "tool.thievesTools",
     category: "toolCheck",
-    parentIds: [],
+    parentIds: ["tool.root"],
     ability: "DEX",
   },
 };
