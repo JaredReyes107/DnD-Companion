@@ -2,6 +2,7 @@ import { ModifierTemplate } from "@/core/entities/modifiers/Modifier";
 
 import { BARD_MODIFIERS } from "../rules/modifiers/by-class/bard-modifiers";
 import { WIZARD_MODIFIERS } from "../rules/modifiers/by-class/wizard-modifiers";
+import { RUNE_KNIGHT_MODIFIERS } from "../rules/modifiers/by-class/fighter/rune-knight-modifiers";
 import { STATUS_MODIFIERS } from "../rules/modifiers/status-modifiers";
 
 import { buildExpertiseModifiers } from "../rules/modifiers/expertise-modifiers";
@@ -12,6 +13,7 @@ const homebrewModifiers: Record<string, ModifierTemplate> = {};
 export const CLASS_MODIFIERS: Record<string, ModifierTemplate> = {
   ...BARD_MODIFIERS,
   ...WIZARD_MODIFIERS,
+  ...RUNE_KNIGHT_MODIFIERS,
 };
 
 export const BASE_MODIFIERS: Record<string, ModifierTemplate> = {
