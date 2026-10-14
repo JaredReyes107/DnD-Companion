@@ -1,14 +1,9 @@
-export enum ConditionType {
-  ALWAYS,
-  TARGET_IS_RANGED_ATTACK,
-  TARGET_IS_MELEE_ATTACK,
-  HP_BELOW_THRESHOLD,
-  TARGET_HAS_STATUS,
-  WITHIN_RANGE,
-}
-
-export interface Condition {
-  type: ConditionType;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  params?: any;
-}
+export type Condition =
+  | { type: "always" }
+  | { type: "targetIsRangedAttack" }
+  | { type: "targetIsMeleeAttack" }
+  | { type: "hpBelowThreshold"; threshold: number }
+  | { type: "targetHasStatus"; status: number }
+  | { type: "withinRange"; range: number }
+  // resource.current >= minimum — used for passive effects gated on charges remaining
+  | { type: "resourceAtLeast"; resourceId: string; minimum: number };

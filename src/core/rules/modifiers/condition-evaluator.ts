@@ -1,4 +1,4 @@
-import { Condition, ConditionType } from "../../entities/modifiers/Condition";
+import { Condition } from "../../entities/modifiers/Condition";
 
 export interface EvaluationContext {
   targetIsRanged?: boolean;
@@ -7,57 +7,43 @@ export interface EvaluationContext {
   maxHp?: number;
   targetStatuses?: Set<number>;
   distanceToTarget?: number;
+  // Pre-extracted resource currents (resourceId → current value).
+  // Populated by the stat resolver from character.resources before resolution runs.
+  resources?: Record<string, number>;
 }
 
 export function evaluateCondition(
   condition: Condition | undefined,
   context: EvaluationContext,
 ): boolean {
-  if (!condition) {
-    return true;
-  }
+  if (!condition) return true;
 
   switch (condition.type) {
-    case ConditionType.ALWAYS:
+    case "always":
       return true;
 
-    case ConditionType.TARGET_IS_RANGED_ATTACK:
+    case "targetIsRangedAttack":
       return !!context.targetIsRanged;
 
-    case ConditionType.TARGET_IS_MELEE_ATTACK:
+    case "targetIsMeleeAttack":
       return !!context.targetIsMelee;
 
-    case ConditionType.HP_BELOW_THRESHOLD:
-      if (
-        context.currentHp === undefined ||
-        !condition.params ||
-        typeof condition.params.threshold !== "number"
-      ) {
-        return false;
-      }
-      return context.currentHp < condition.params.threshold;
+    case "hpBelowThreshold":
+      return context.currentHp !== undefined
+        ? context.currentHp < condition.threshold
+        : false;
 
-    case ConditionType.TARGET_HAS_STATUS:
-      if (
-        !context.targetStatuses ||
-        !condition.params ||
-        typeof condition.params.status !== "number"
-      ) {
-        return false;
-      }
-      return context.targetStatuses.has(condition.params.status);
+    case "targetHasStatus":
+      return context.targetStatuses?.has(condition.status) ?? false;
 
-    case ConditionType.WITHIN_RANGE:
-      if (
-        context.distanceToTarget === undefined ||
-        !condition.params ||
-        typeof condition.params.range !== "number"
-      ) {
-        return false;
-      }
-      return context.distanceToTarget <= condition.params.range;
+    case "withinRange":
+      return context.distanceToTarget !== undefined
+        ? context.distanceToTarget <= condition.range
+        : false;
 
-    default:
-      return false;
+    case "resourceAtLeast": {
+      const current = context.resources?.[condition.resourceId];
+      return current !== undefined ? current >= condition.minimum : false;
+    }
   }
 }
