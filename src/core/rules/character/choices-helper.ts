@@ -12,6 +12,15 @@ import { getChoicePoolById } from "@/core/data/registries/choice-pools.registry"
 import { getActiveFeatures } from "./features-helper";
 import { grantsOfType, optionGrantsOfType } from "../shared/grant-filters";
 import { evaluateEligibility } from "./eligibility-helper";
+import { AdvantagePolarity } from "@/core/entities/rules/advantage/advantage-instance";
+import { Condition } from "@/core/entities/modifiers/Condition";
+
+type AdvantageGrant = {
+  nodeId: string;
+  polarity: AdvantagePolarity;
+  sourceId: string;
+  condition?: Condition;
+};
 
 /**
  * Returns all OptionGrants earned by the character's current selections,
@@ -35,6 +44,33 @@ function getGrantsFromChoices(
   }
 
   return ids;
+}
+
+/**
+ * Returns all advantage grants from selected options with their full shape
+ * (nodeId, polarity, condition). Used by buildCharacterAdvantageInstances to
+ * include choice-driven passive advantages (e.g. rune passives).
+ */
+export function getAdvantageGrantsFromChoices(
+  character: Character,
+): AdvantageGrant[] {
+  const results: AdvantageGrant[] = [];
+
+  for (const instance of Object.values(character.featureChoices)) {
+    for (const optionId of instance.selectedOptionIds) {
+      const option = getOptionById(optionId);
+      optionGrantsOfType(option.grants, "advantage").forEach((g) => {
+        results.push({
+          nodeId: g.nodeId,
+          polarity: g.polarity,
+          sourceId: optionId,
+          condition: g.condition,
+        });
+      });
+    }
+  }
+
+  return results;
 }
 
 // ---------------------------------------------------------------------------

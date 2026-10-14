@@ -11,19 +11,29 @@ import { ExpiryCondition } from "@/core/entities/rules/duration/expiry-condition
 import * as Crypto from "expo-crypto";
 import { getCheckNodeAncestryChain } from "@/core/data/registries/check-nodes.registry";
 import { getStatusAdvantageInstances } from "./status-effects-helper";
+import {
+  EvaluationContext,
+  evaluateCondition,
+} from "@/core/rules/modifiers/condition-evaluator";
+import { buildEvaluationContext } from "@/core/systems/stats/resolve-stats";
+import { getAdvantageGrantsFromChoices } from "./choices-helper";
 
 function collectInstancesForNode(
   character: Character,
   nodeId: string,
+  ctx: EvaluationContext,
 ): AdvantageInstance[] {
   const chain = new Set(getCheckNodeAncestryChain(nodeId));
 
+  const filterByChainAndCondition = (i: AdvantageInstance) =>
+    chain.has(i.nodeId) && evaluateCondition(i.condition, ctx);
+
   const passive = Object.values(
     character.checks.passiveAdvantageInstances,
-  ).filter((i) => chain.has(i.nodeId));
+  ).filter(filterByChainAndCondition);
   const combat = character.combatState
     ? Object.values(character.combatState.runtimeAdvantageInstances).filter(
-        (i) => chain.has(i.nodeId),
+        filterByChainAndCondition,
       )
     : [];
 
@@ -37,7 +47,8 @@ export function resolveAdvantageState(
   character: Character,
   nodeId: string,
 ): AdvantageState {
-  const instances = collectInstancesForNode(character, nodeId);
+  const ctx = buildEvaluationContext(character);
+  const instances = collectInstancesForNode(character, nodeId, ctx);
   if (instances.length === 0) return "none";
 
   const advantageCount = instances.filter(
@@ -95,13 +106,17 @@ export function revokeAdvantageBySource(
   };
 }
 
-export function getAdvantageGrantsFromFeatures(
-  features: FeatureTemplate[],
-): { nodeId: string; polarity: AdvantagePolarity; sourceId: string }[] {
+export function getAdvantageGrantsFromFeatures(features: FeatureTemplate[]): {
+  nodeId: string;
+  polarity: AdvantagePolarity;
+  sourceId: string;
+  condition?: import("@/core/entities/modifiers/Condition").Condition;
+}[] {
   const grants: {
     nodeId: string;
     polarity: AdvantagePolarity;
     sourceId: string;
+    condition?: import("@/core/entities/modifiers/Condition").Condition;
   }[] = [];
   for (const feature of features) {
     grantsOfType(feature.grants, "advantage").forEach((g) =>
@@ -109,6 +124,7 @@ export function getAdvantageGrantsFromFeatures(
         nodeId: g.nodeId,
         polarity: g.polarity,
         sourceId: feature.id,
+        condition: g.condition,
       }),
     );
   }
@@ -129,19 +145,29 @@ export function getAdvantageGrantsFromFeatures(
 export function buildCharacterAdvantageInstances(
   character: Character,
 ): Record<string, AdvantageInstance> {
-  // Keep only manual and non-feature-sourced instances; feature-sourced
-  // ones are fully recomputed below to avoid duplicate instances piling
-  // up across repeated saves.
   const featureIds = new Set(getActiveFeatures(character).map((f) => f.id));
+
+  // Preserve only manual instances and instances not sourced by a current feature/option.
+  // Feature- and option-sourced instances are fully recomputed below to prevent
+  // duplicates accumulating across repeated saves.
+  const derivedSourceIds = new Set([
+    ...featureIds,
+    ...Object.values(character.featureChoices).flatMap(
+      (c) => c.selectedOptionIds,
+    ),
+  ]);
 
   const preserved = Object.fromEntries(
     Object.entries(character.checks.passiveAdvantageInstances).filter(
       ([, instance]) =>
-        !featureIds.has(instance.sourceId) || instance.sourceId === "manual",
+        !derivedSourceIds.has(instance.sourceId) ||
+        instance.sourceId === "manual",
     ),
   );
 
   const next = { ...preserved };
+
+  // Feature-driven grants (class/subclass/race/feat features)
   for (const grant of getAdvantageGrantsFromFeatures(
     getActiveFeatures(character),
   )) {
@@ -151,6 +177,19 @@ export function buildCharacterAdvantageInstances(
       nodeId: grant.nodeId,
       polarity: grant.polarity,
       sourceId: grant.sourceId,
+      condition: grant.condition,
+    };
+  }
+
+  // Choice-driven grants (rune selections, invocations, etc.)
+  for (const grant of getAdvantageGrantsFromChoices(character)) {
+    const id = `${grant.sourceId}:${grant.nodeId}:${grant.polarity}`;
+    next[id] = {
+      id,
+      nodeId: grant.nodeId,
+      polarity: grant.polarity,
+      sourceId: grant.sourceId,
+      condition: grant.condition,
     };
   }
 
