@@ -28,44 +28,53 @@ export function getResourcesFromFeatures(
 export function buildCharacterClassResources(
   character: Character,
 ): CharacterResources {
-  const characterFeatures = getActiveFeatures(character);
-  const featureResourceIds = getResourcesFromFeatures(characterFeatures);
+  const ids = new Set([
+    ...getResourcesFromFeatures(getActiveFeatures(character)),
+    ...getResourcesFromChoices(character),
+  ]);
 
-  // NEW — merge choice-granted resource IDs
-  const choiceResourceIds = getResourcesFromChoices(character);
-  const resourceIds = new Set([...featureResourceIds, ...choiceResourceIds]);
-
-  const nextResources = { ...character.resources };
-
-  for (const id of resourceIds) {
-    if (!nextResources[id]) {
-      const template = getResourceById(id);
-      const charges = evaluateFormula(template, character);
-      nextResources[id] = {
-        resourceId: id,
-        max: charges,
-        current: charges,
-      };
-    }
+  const fresh: CharacterResources = {};
+  for (const id of ids) {
+    const max = evaluateFormula(getResourceById(id), character);
+    fresh[id] = { resourceId: id, max, current: max };
   }
+  return fresh; // pure derivation, no carry-over
+}
 
-  return nextResources;
+/**
+ * Keeps player-spent state for resources that still exist; drops the rest.
+ * If max grew (PB bump, Master of Runes), the new capacity arrives available.
+ * If it shrank, current is clamped.
+ */
+function reconcileResources(
+  fresh: CharacterResources,
+  previous: CharacterResources,
+): CharacterResources {
+  const out: CharacterResources = {};
+  for (const [id, next] of Object.entries(fresh)) {
+    const prev = previous[id];
+    if (!prev) {
+      out[id] = next;
+      continue;
+    }
+    const bothFinite = Number.isFinite(prev.max) && Number.isFinite(next.max);
+    const gained = bothFinite ? Math.max(0, next.max - prev.max) : 0;
+    out[id] = {
+      ...next,
+      current: Math.min(next.max, prev.current + gained),
+    };
+  }
+  return out;
 }
 
 export function buildCharacterResources(
   character: Character,
 ): CharacterResources {
-  let allResources: CharacterResources = {};
-
-  if (hasSpellcasting(character)) {
-    allResources = buildSpellSlots(character);
-  }
-
-  const classResources = buildCharacterClassResources(character);
-
-  allResources = { ...allResources, ...classResources };
-
-  return allResources;
+  const fresh: CharacterResources = {
+    ...(hasSpellcasting(character) ? buildSpellSlots(character) : {}),
+    ...buildCharacterClassResources(character),
+  };
+  return reconcileResources(fresh, character.resources);
 }
 
 export type ResourceSectionData = {

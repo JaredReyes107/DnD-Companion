@@ -9,7 +9,6 @@ import { grantsOfType } from "../shared/grant-filters";
 import { getActiveFeatures } from "./features-helper";
 import { ExpiryCondition } from "@/core/entities/rules/duration/expiry-condition";
 import * as Crypto from "expo-crypto";
-import { getCheckNodeAncestryChain } from "@/core/data/registries/check-nodes.registry";
 import { getStatusAdvantageInstances } from "./status-effects-helper";
 import {
   EvaluationContext,
@@ -17,6 +16,8 @@ import {
 } from "@/core/rules/modifiers/condition-evaluator";
 import { buildEvaluationContext } from "@/core/systems/stats/resolve-stats";
 import { getAdvantageGrantsFromChoices } from "./choices-helper";
+import { Condition } from "@/core/entities/modifiers/Condition";
+import { getCheckNodeAncestryChain } from "@/core/data/registries/check-nodes.registry";
 
 function collectInstancesForNode(
   character: Character,
@@ -131,6 +132,19 @@ export function getAdvantageGrantsFromFeatures(features: FeatureTemplate[]): {
   return grants;
 }
 
+const FEATURE_PREFIX = "feature:";
+const CHOICE_PREFIX = "choice:";
+
+// Derived instances are namespaced. Legacy derived instances (saved before
+// namespacing) are recognizable by their deterministic id; manual ones use a UUID.
+function isDerivedInstance(i: AdvantageInstance): boolean {
+  return (
+    i.sourceId.startsWith(FEATURE_PREFIX) ||
+    i.sourceId.startsWith(CHOICE_PREFIX) ||
+    i.id === `${i.sourceId}:${i.nodeId}:${i.polarity}`
+  );
+}
+
 /**
  * Merges feature-derived advantage grants into the character's existing
  * passive instances. Feature-derived instances are keyed by featureId as
@@ -145,53 +159,37 @@ export function getAdvantageGrantsFromFeatures(features: FeatureTemplate[]): {
 export function buildCharacterAdvantageInstances(
   character: Character,
 ): Record<string, AdvantageInstance> {
-  const featureIds = new Set(getActiveFeatures(character).map((f) => f.id));
-
-  // Preserve only manual instances and instances not sourced by a current feature/option.
-  // Feature- and option-sourced instances are fully recomputed below to prevent
-  // duplicates accumulating across repeated saves.
-  const derivedSourceIds = new Set([
-    ...featureIds,
-    ...Object.values(character.featureChoices).flatMap(
-      (c) => c.selectedOptionIds,
-    ),
-  ]);
-
-  const preserved = Object.fromEntries(
+  // Everything derived is dropped and recomputed; only manual grants survive.
+  const next: Record<string, AdvantageInstance> = Object.fromEntries(
     Object.entries(character.checks.passiveAdvantageInstances).filter(
-      ([, instance]) =>
-        !derivedSourceIds.has(instance.sourceId) ||
-        instance.sourceId === "manual",
+      ([, i]) => !isDerivedInstance(i),
     ),
   );
 
-  const next = { ...preserved };
-
-  // Feature-driven grants (class/subclass/race/feat features)
-  for (const grant of getAdvantageGrantsFromFeatures(
-    getActiveFeatures(character),
-  )) {
-    const id = `${grant.sourceId}:${grant.nodeId}:${grant.polarity}`;
+  const install = (
+    grant: {
+      nodeId: string;
+      polarity: AdvantagePolarity;
+      sourceId: string;
+      condition?: Condition;
+    },
+    prefix: string,
+  ) => {
+    const sourceId = `${prefix}${grant.sourceId}`;
+    const id = `${sourceId}:${grant.nodeId}:${grant.polarity}`;
     next[id] = {
       id,
       nodeId: grant.nodeId,
       polarity: grant.polarity,
-      sourceId: grant.sourceId,
+      sourceId,
       condition: grant.condition,
     };
-  }
+  };
 
-  // Choice-driven grants (rune selections, invocations, etc.)
-  for (const grant of getAdvantageGrantsFromChoices(character)) {
-    const id = `${grant.sourceId}:${grant.nodeId}:${grant.polarity}`;
-    next[id] = {
-      id,
-      nodeId: grant.nodeId,
-      polarity: grant.polarity,
-      sourceId: grant.sourceId,
-      condition: grant.condition,
-    };
-  }
+  for (const g of getAdvantageGrantsFromFeatures(getActiveFeatures(character)))
+    install(g, FEATURE_PREFIX);
+  for (const g of getAdvantageGrantsFromChoices(character))
+    install(g, CHOICE_PREFIX);
 
   return next;
 }

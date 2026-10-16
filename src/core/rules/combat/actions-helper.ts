@@ -30,22 +30,13 @@ export function buildDefaultCharacterActions(): Record<string, ActionInstance> {
 export function buildCharacterClassActions(
   character: Character,
 ): Record<string, ActionInstance> {
-  const characterFeatures = getActiveFeatures(character);
-  const featureActionIds = getActionsFromFeatures(characterFeatures);
-
-  const choiceActionIds = getActionsFromChoices(character);
-  const actionIds = new Set([...featureActionIds, ...choiceActionIds]);
-
-  const nextActions = { ...character.actions };
-
-  for (const id of actionIds) {
-    if (!nextActions[id]) {
-      const action = getActionById(id);
-      nextActions[id] = action;
-    }
-  }
-
-  return nextActions;
+  const ids = new Set([
+    ...getActionsFromFeatures(getActiveFeatures(character)),
+    ...getActionsFromChoices(character),
+  ]);
+  const next: Record<string, ActionInstance> = {};
+  for (const id of ids) next[id] = getActionById(id);
+  return next;
 }
 
 export function buildCharacterActions(
