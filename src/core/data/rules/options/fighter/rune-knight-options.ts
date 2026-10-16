@@ -1,4 +1,5 @@
 import { OptionTemplate } from "@/core/entities/rules/option-template";
+import { P } from "@/core/entities/rules/predicate/predicate";
 
 export const RUNE_KNIGHT_OPTIONS: Record<string, OptionTemplate> = {
   cloud_rune: {
@@ -12,21 +13,13 @@ export const RUNE_KNIGHT_OPTIONS: Record<string, OptionTemplate> = {
         type: "advantage",
         nodeId: "sleight_of_hand",
         polarity: "advantage",
-        condition: {
-          type: "resourceAtLeast",
-          resourceId: "cloud_rune",
-          minimum: 1,
-        },
+        condition: P.resourceAtLeast("cloud_rune", 1),
       },
       {
         type: "advantage",
         nodeId: "deception",
         polarity: "advantage",
-        condition: {
-          type: "resourceAtLeast",
-          resourceId: "cloud_rune",
-          minimum: 1,
-        },
+        condition: P.resourceAtLeast("cloud_rune", 1),
       },
     ],
   },
@@ -54,21 +47,13 @@ export const RUNE_KNIGHT_OPTIONS: Record<string, OptionTemplate> = {
         type: "advantage",
         nodeId: "animal_handling",
         polarity: "advantage",
-        condition: {
-          type: "resourceAtLeast",
-          resourceId: "frost_rune",
-          minimum: 1,
-        },
+        condition: P.resourceAtLeast("frost_rune", 1),
       },
       {
         type: "advantage",
         nodeId: "intimidation",
         polarity: "advantage",
-        condition: {
-          type: "resourceAtLeast",
-          resourceId: "frost_rune",
-          minimum: 1,
-        },
+        condition: P.resourceAtLeast("frost_rune", 1),
       },
     ],
   },
@@ -84,11 +69,7 @@ export const RUNE_KNIGHT_OPTIONS: Record<string, OptionTemplate> = {
         type: "advantage",
         nodeId: "insight",
         polarity: "advantage",
-        condition: {
-          type: "resourceAtLeast",
-          resourceId: "stone_rune",
-          minimum: 1,
-        },
+        condition: P.resourceAtLeast("stone_rune", 1),
       },
       // TODO: Sense. Darkvision 120 ft.
     ],
@@ -98,7 +79,7 @@ export const RUNE_KNIGHT_OPTIONS: Record<string, OptionTemplate> = {
     id: "hill_rune",
     poolIds: ["rune_knight_runes"],
     tags: ["combat"],
-    eligibility: { type: "minClassLevel", classId: "fighter", level: 7 },
+    eligibility: P.minClassLevel("fighter", 7),
     grants: [
       { type: "resource", id: "hill_rune" },
       { type: "action", id: "hill_rune" }, // TODO: Resistance. BPS, 1 min.
@@ -111,7 +92,7 @@ export const RUNE_KNIGHT_OPTIONS: Record<string, OptionTemplate> = {
     id: "storm_rune",
     poolIds: ["rune_knight_runes"],
     tags: ["combat", "exploration", "roleplay"],
-    eligibility: { type: "minClassLevel", classId: "fighter", level: 7 },
+    eligibility: P.minClassLevel("fighter", 7),
     grants: [
       { type: "resource", id: "storm_rune" },
       { type: "action", id: "storm_rune" }, // Active: Grant status that unlocks reaction
@@ -120,11 +101,7 @@ export const RUNE_KNIGHT_OPTIONS: Record<string, OptionTemplate> = {
         type: "advantage",
         nodeId: "arcana",
         polarity: "advantage",
-        condition: {
-          type: "resourceAtLeast",
-          resourceId: "storm_rune",
-          minimum: 1,
-        },
+        condition: P.resourceAtLeast("storm_rune", 1),
       },
       // Passive: not modeled can't be surprised
     ],

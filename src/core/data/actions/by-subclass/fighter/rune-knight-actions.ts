@@ -1,4 +1,5 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
+import { P } from "@/core/entities/rules/predicate/predicate";
 
 export const RUNE_KNIGHT_ACTIONS: Record<string, ActionInstance> = {
   giants_might: {
@@ -97,9 +98,6 @@ export const RUNE_KNIGHT_ACTIONS: Record<string, ActionInstance> = {
     boards: ["combat", "exploration", "roleplay"],
     duration: { kind: "economy", slot: "reaction" },
     effects: [],
-    canExecute: (character) =>
-      (character.combatState?.statuses ?? []).some(
-        (s) => s.statusId === "storm_rune_active",
-      ),
+    requires: P.status("storm_rune_active"),
   },
 };

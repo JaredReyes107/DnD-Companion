@@ -2,6 +2,7 @@ import {
   ModifierTemplate,
   ModifierType,
 } from "@/core/entities/modifiers/Modifier";
+import { P } from "@/core/entities/rules/predicate/predicate";
 import { resolveCheckProficiency } from "@/core/rules/character/checks-helper";
 
 export const RUNE_KNIGHT_MODIFIERS: Record<string, ModifierTemplate> = {
@@ -13,7 +14,7 @@ export const RUNE_KNIGHT_MODIFIERS: Record<string, ModifierTemplate> = {
     type: ModifierType.ADDITIVE,
     tags: ["expertise"], // same stacking group — can't stack with expertise
     effectId: "fire_rune_tool_pb",
-    condition: { type: "resourceAtLeast", resourceId: "fire_rune", minimum: 1 },
+    condition: P.resourceAtLeast("fire_rune", 1),
     // targetNodeId is injected by the stat resolver for each concrete check node.
     // Return PB only when the character is proficient in that specific tool node.
     value: (ctx) =>

@@ -1,5 +1,17 @@
 import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 
+// CONCERNS:
+/* 
+  1. Unify conditions (expiry, for passive mods/advantages, and for canExecute, maybe triggers)
+    - is the canExecute definition under the storm rune reaction homebrew-friendly / exportable?
+    - homebrew approach: Extensive condition "types", configurable parameters. E.g:
+      a) stat related: above % HP, if currentSpeed != 0, if AC > 15, etc
+      b) status related: If unconscious can't do any actions, only while having Foresight from 
+        Storm rune you can do the special reaction
+      c) resource related: Only if reserves > expenditure, while having > 1, if 0 SP when ShortRest
+  2. Hide root.tools from UI / Don't use it for rendering 
+*/
+
 export const RUNE_KNIGHT: SubclassTemplate = {
   id: "rune_knight",
   classId: "fighter",
