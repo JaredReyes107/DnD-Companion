@@ -6,10 +6,7 @@ import { ActionElement } from "./ActionElement";
 import { Character } from "@/core/entities/character/Character";
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 
-import {
-  ActionSlot,
-  decreaseActionResource,
-} from "@/core/entities/combat/action-economy";
+import { ActionSlot } from "@/core/entities/combat/action-economy";
 import {
   executeAction,
   isActionAvailable,
@@ -34,17 +31,8 @@ export const ActionSection = ({
 }: Props) => {
   if (actions.length === 0) return null;
 
-  const handleAction = (action: ActionInstance) => {
-    const actionSlot =
-      action.duration.kind === "economy" ? action.duration.slot : undefined;
-
-    let working = character;
-    if (actionSlot) {
-      working = decreaseActionResource(working, actionSlot);
-    }
-
-    executeAction(action, { character: working, dispatch: onUpdate });
-  };
+  const handleAction = (action: ActionInstance) =>
+    executeAction(action, { character, dispatch: onUpdate });
 
   return (
     <View style={styles.actionBoardRow}>
