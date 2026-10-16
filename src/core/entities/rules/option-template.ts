@@ -1,5 +1,5 @@
-import { EligibilityCondition } from "./eligibility/eligibility-condition";
 import { FeatureGrant } from "./feature-template";
+import { Predicate } from "./predicate/predicate";
 
 // Options cannot grant further choice pools — prevents circular resolution
 // and keeps the selection model simple. Revisit if Pact of the Tome
@@ -11,5 +11,5 @@ export type OptionTemplate = {
   poolIds: string[];
   grants?: OptionGrant[];
   tags?: string[];
-  eligibility?: EligibilityCondition;
+  eligibility?: Predicate;
 };

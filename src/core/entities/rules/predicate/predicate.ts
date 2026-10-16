@@ -56,6 +56,12 @@ export const P = {
     op: "<",
     right: { type: "const", value: n },
   }),
+  minCharacterLevel: (n: number): Predicate => ({
+    type: "compare",
+    left: { type: "characterLevel" },
+    op: ">=",
+    right: { type: "const", value: n },
+  }),
   minClassLevel: (classId: string, n: number): Predicate => ({
     type: "compare",
     left: { type: "classLevel", classId },
