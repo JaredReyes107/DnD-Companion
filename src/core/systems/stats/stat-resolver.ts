@@ -121,30 +121,44 @@ export type ResolvedCharacter = {
   stats: Map<string, ResolvedStat>;
 };
 
+type StatTargetContext = {
+  sourceAbility?: Ability;
+  resolvedAbility?: Ability;
+  character?: Character;
+  base?: ResolvedBase;
+};
+
+/** Single place that decides what a stat needs in order to be matched/refreshed. */
+function contextFor(
+  model: StatModel,
+  character: Character,
+  base: ResolvedBase,
+): StatTargetContext {
+  if (model.type === "check") {
+    return {
+      resolvedAbility: resolveCheckAbility(character, model.nodeId),
+      character,
+      base,
+    };
+  }
+  return {};
+}
+
 function gatherModifiersFor(
   statModel: StatModel,
   allModifiers: ModifierInstance[],
-  context: {
-    sourceAbility?: Ability;
-    resolvedAbility?: Ability;
-    character?: Character;
-    base?: ResolvedBase;
-  },
+  context: StatTargetContext,
 ): ModifierInstance[] {
   const matched = allModifiers.filter((m) =>
     matchesStatTarget(m.statModel, statModel, context),
   );
 
-  // For check-targeted modifiers, re-evaluate value formulas with targetNodeId
-  // so formulas like Fire Rune ("add PB only when proficient in THIS node") work.
   if (statModel.type === "check" && context.character && context.base) {
     const { character, base } = context;
-    const nodeId = statModel.nodeId;
     return matched.map((m) =>
-      refreshModifierInstance(m, character, base, nodeId),
+      refreshModifierInstance(m, character, base, statModel.nodeId),
     );
   }
-
   return matched;
 }
 
@@ -164,7 +178,7 @@ function resolveAllStats(
   const resolveModel = (
     model: StatModel,
     baseValue: number,
-    context: { sourceAbility?: Ability; resolvedAbility?: Ability } = {},
+    context: StatTargetContext = {},
   ) => {
     const id = serializeStatModel(model);
     stats.set(
@@ -179,19 +193,11 @@ function resolveAllStats(
   };
 
   for (const model of buildAllStatModels()) {
-    if (model.type === "check") {
-      // Pass resolvedAbility so ability-scoped modifiers (Frost Rune: skillCheck.STR)
-      // match nodes whose character override points to a different ability.
-      // Pass character + base so targetNodeId re-evaluation works per node.
-      const resolvedAbility = resolveCheckAbility(character, model.nodeId);
-      resolveModel(model, getBaseValue(model, character, base), {
-        resolvedAbility,
-        character,
-        base,
-      });
-    } else {
-      resolveModel(model, getBaseValue(model, character, base));
-    }
+    resolveModel(
+      model,
+      getBaseValue(model, character, base),
+      contextFor(model, character, base),
+    );
   }
 
   for (const source of getCharacterSpellcastingSources(character)) {
@@ -227,7 +233,7 @@ export function resolveStatValue(
   return resolveStat(
     serializeStatModel(statModel),
     getBaseValue(statModel, character, base),
-    gatherModifiersFor(statModel, pool, {}),
+    gatherModifiersFor(statModel, pool, contextFor(statModel, character, base)),
     buildEvaluationContext(character),
   ).finalValue;
 }
