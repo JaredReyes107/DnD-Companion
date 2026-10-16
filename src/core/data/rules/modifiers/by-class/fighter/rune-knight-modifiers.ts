@@ -4,26 +4,8 @@ import {
 } from "@/core/entities/modifiers/Modifier";
 import { resolveCheckProficiency } from "@/core/rules/character/checks-helper";
 
-/**
- * Rune Knight modifier templates.
- *
- * Passives use Condition.resourceAtLeast so they are active exactly while
- * the rune's resource has at least 1 charge — no lifecycle management needed.
- *
- * Fire Rune passive targets `tool.root` (the abstract parent of all tool check
- * nodes). The value formula uses `targetNodeId` (injected per-node by the stat
- * resolver) to add PB only for nodes the character is actually proficient in,
- * matching the rule "proficiency bonus is doubled for any ability check you
- * make that uses your proficiency with a tool".
- *
- * Frost Rune active targets ability-parent nodes (skillCheck.STR, etc.), which
- * propagates to all child skill nodes AND — via resolveCheckNodeAncestryChain —
- * to any skill that has had its ability overridden to STR/CON by the player.
- */
 export const RUNE_KNIGHT_MODIFIERS: Record<string, ModifierTemplate> = {
-  // ---------------------------------------------------------------------------
-  // Fire Rune — passive (while fire_rune resource >= 1)
-  // ---------------------------------------------------------------------------
+  // Fire Rune passive
   fire_rune_tool_pb: {
     id: "fire_rune_tool_pb",
     sourceId: "fire_rune",
@@ -41,14 +23,7 @@ export const RUNE_KNIGHT_MODIFIERS: Record<string, ModifierTemplate> = {
         : 0,
   },
 
-  // ---------------------------------------------------------------------------
-  // Frost Rune — active (+2 to STR and CON checks and saves, 10 min)
-  //
-  // Applied as runtime modifiers when the action is taken; the action effect
-  // handler instantiates these templates with appropriate ExpiryConditions.
-  // The ancestry chain propagation means one template per ability parent covers
-  // all descendant skills, including any with runtime ability overrides.
-  // ---------------------------------------------------------------------------
+  // Frost Rune active
   frost_rune_str_checks: {
     id: "frost_rune_str_checks",
     sourceId: "frost_rune",

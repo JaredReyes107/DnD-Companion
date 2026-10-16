@@ -14,6 +14,13 @@ function registerSubclassScalings() {
     if (level >= 7) return 5;
     return 4;
   });
+  registerScaling("rune-uses", ({ character }) => {
+    const fighter = Object.values(character.classes.byId).find(
+      (c) => c.classId === "fighter" && c.subclassId === "rune_knight",
+    );
+    if (!fighter) return 0;
+    return fighter.level >= 15 ? 2 : 1;
+  });
 
   registerScaling("portent-dice", ({ character }) => {
     const characterClass = Object.values(character.classes.byId).find(

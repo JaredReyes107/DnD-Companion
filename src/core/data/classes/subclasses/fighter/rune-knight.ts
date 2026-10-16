@@ -16,7 +16,7 @@ export const RUNE_KNIGHT: SubclassTemplate = {
           {
             type: "language",
             nodeId: "language.giant",
-            modes: ["speak", "readWrite"],
+            modes: ["speak", "readWrite", "understand"],
           },
         ],
       },
@@ -34,14 +34,6 @@ export const RUNE_KNIGHT: SubclassTemplate = {
         grants: [
           { type: "action", id: "giants_might" },
           { type: "resource", id: "giants_might" },
-          // Advantage on all STR checks and STR saves while active.
-          // These instances carry a condition so they are only evaluated
-          // when the Giants Might resource has been spent (i.e. action used).
-          // The action itself applies them as runtime advantage instances
-          // with expiry; these passive entries just ensure the templates exist.
-          // NOTE: Giants Might advantage is runtime-only (applied by action),
-          // not a static passive — no advantage grant here. The action applies
-          // runtimeAdvantageInstances with endOfTurn expiry (1 min = 10 rounds).
         ],
         tags: ["combat", "buff", "bonus-action"],
       },
@@ -57,7 +49,6 @@ export const RUNE_KNIGHT: SubclassTemplate = {
           { type: "resource", id: "runic_shield" },
         ],
         tags: ["reaction", "defense"],
-        // Active: force attacker to reroll — not a stat modifier, bookkeeping only
       },
     ],
 
@@ -67,8 +58,7 @@ export const RUNE_KNIGHT: SubclassTemplate = {
         source: "subclass",
         level: 10,
         tags: ["passive", "combat"],
-        // Height increase: not modeled. Extra damage upgrade (1d6→1d8): not modeled
-        // (damage rolls out of scope).
+        // Extra damage upgrade 1d6 -> 1d8: not modeled
       },
     ],
 
@@ -78,10 +68,6 @@ export const RUNE_KNIGHT: SubclassTemplate = {
         source: "subclass",
         level: 15,
         tags: ["passive", "resource"],
-        // Each rune: 2 uses per short or long rest (replaces 1/short).
-        // Scaling handled by resource-scaling registry; recharge upgrade
-        // from longRest to shortRest tracked on the resource templates
-        // at level 15. TODO: override recharge type at level 15.
       },
     ],
 
@@ -91,8 +77,9 @@ export const RUNE_KNIGHT: SubclassTemplate = {
         source: "subclass",
         level: 18,
         tags: ["damage"],
-        // Extra damage upgrade 1d8→1d10: not modeled (damage rolls out of scope).
-        // Reach +5 ft: not modeled (positioning/senses out of scope).
+        // Extra damage upgrade 1d8 -> 1d10: not modeled.
+        // Reach +5 ft: not modeled.
+        // Size -> Huge: not modeled.
       },
     ],
   },
