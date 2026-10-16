@@ -14,14 +14,9 @@ import { EncounterRepository } from "@/repositories/EncounterRepository";
 
 import { buildCombatState } from "@/core/rules/combat/combat-helper";
 import { buildEncounterState } from "@/core/entities/combat/encounter-helper";
-import { buildCharacterResources } from "@/core/rules/character/resources-helper";
-import { buildCharacterActions } from "@/core/rules/combat/actions-helper";
-import { buildCharacterCheckProficiencies } from "@/core/rules/character/checks-helper";
 
 import { bootstrapFeatureChoices } from "@/core/rules/character/choices-helper";
-import { buildCharacterLanguageState } from "@/core/rules/character/languages-helper";
-import { buildCharacterAdvantageInstances } from "@/core/rules/character/advantage-helper";
-import { buildCharacterPassiveModifiers } from "@/core/rules/character/modifiers-helper";
+import { rebuildDerivedState } from "@/core/rules/character/rebuild-derived-state";
 
 /**
  * Returns the character with its CombatState merged in from the encounter.
@@ -118,27 +113,10 @@ export const CharacterProvider = ({
     // covers level-ups unlocking new pools and feature changes.
     // Never overwrites existing selections.
     const featureChoices = bootstrapFeatureChoices(updated);
+    const withChoices: Character = { ...updated, featureChoices };
 
     // Rebuild all derived state against the re-bootstrapped character
-    const withChoices: Character = { ...updated, featureChoices };
-    const withModifiers: Character = {
-      ...withChoices,
-      statModifiers: buildCharacterPassiveModifiers(withChoices),
-    };
-
-    const rebuilt: Character = {
-      ...withModifiers,
-      resources: buildCharacterResources(withChoices),
-      actions: buildCharacterActions(withChoices),
-      statModifiers: buildCharacterPassiveModifiers(withChoices),
-      checks: {
-        ...withChoices.checks,
-        proficiencies: buildCharacterCheckProficiencies(withChoices),
-        passiveAdvantageInstances:
-          buildCharacterAdvantageInstances(withChoices),
-      },
-      languages: buildCharacterLanguageState(withChoices),
-    };
+    const rebuilt = rebuildDerivedState(withChoices);
 
     setCharacter(rebuilt);
 

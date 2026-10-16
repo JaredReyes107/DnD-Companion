@@ -24,13 +24,10 @@ import { defaultScalarFields } from "@/repositories/character-defaults";
 
 import { getMaximumHitDice } from "@/core/rules/character/hit-dice-helper";
 import { buildAbilityScores } from "@/core/rules/character/ability-scores-helper";
-import { buildCharacterResources } from "@/core/rules/character/resources-helper";
-import { buildCharacterActions } from "@/core/rules/combat/actions-helper";
 import {
   buildCharacterCheckState,
   CharacterCheckState,
 } from "@/core/entities/character/check-state";
-import { buildCharacterCheckProficiencies } from "@/core/rules/character/checks-helper";
 import { startEncounter } from "@/core/entities/combat/encounter-helper";
 
 import { bootstrapFeatureChoices } from "@/core/rules/character/choices-helper";
@@ -59,9 +56,7 @@ import styles from "@/styles/character-creation.styles";
 import genericStyles from "@/styles/generic.styles";
 import { SKILL_NODES } from "@/core/data/rules/checks/skill-nodes";
 import CheckProficiencyInput from "./CheckProficiencyInput";
-import { buildCharacterLanguageState } from "@/core/rules/character/languages-helper";
-import { buildCharacterAdvantageInstances } from "@/core/rules/character/advantage-helper";
-import { buildCharacterPassiveModifiers } from "@/core/rules/character/modifiers-helper";
+import { rebuildDerivedState } from "@/core/rules/character/rebuild-derived-state";
 
 type Props = {
   initialCharacter?: Character | null;
@@ -205,19 +200,7 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
     const withChoices: Character = { ...base, featureChoices };
 
     // Now build derived state against the fully seeded character
-    const character: Character = {
-      ...withChoices,
-      resources: buildCharacterResources(withChoices),
-      actions: buildCharacterActions(withChoices),
-      statModifiers: buildCharacterPassiveModifiers(withChoices),
-      checks: {
-        ...withChoices.checks,
-        proficiencies: buildCharacterCheckProficiencies(withChoices),
-        passiveAdvantageInstances:
-          buildCharacterAdvantageInstances(withChoices),
-      },
-      languages: buildCharacterLanguageState(withChoices),
-    };
+    const character = rebuildDerivedState(withChoices);
 
     startEncounter([character]);
     onSubmit(character);
