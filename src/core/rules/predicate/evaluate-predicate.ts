@@ -1,8 +1,15 @@
 // src/core/rules/predicate/evaluate-predicate.ts
 import { Character } from "@/core/entities/character/Character";
 import { StatModel } from "@/core/entities/rules/stats.types";
-import { Predicate, ValueRef, Comparator } from "@/core/entities/rules/predicate/predicate";
-import { getTotalCharacterLevel, getClassLevel } from "./../character/character-multiclassing";
+import {
+  Predicate,
+  ValueRef,
+  Comparator,
+} from "@/core/entities/rules/predicate/predicate";
+import {
+  getTotalCharacterLevel,
+  getClassLevel,
+} from "./../character/character-multiclassing";
 import { resolveCheckProficiency } from "../character/checks-helper";
 import { getActiveFeatures } from "../character/features-helper";
 
@@ -25,22 +32,34 @@ export type UnknownPolicy = "open" | "closed";
 
 /** Escape-hatch registry. Unregistered ids evaluate to unknown, never throw. */
 const customPredicates = new Map<string, (ctx: PredicateContext) => boolean>();
-export function registerCustomPredicate(id: string, fn: (ctx: PredicateContext) => boolean) {
+export function registerCustomPredicate(
+  id: string,
+  fn: (ctx: PredicateContext) => boolean,
+) {
   customPredicates.set(id, fn);
 }
 
 function compare(a: number, op: Comparator, b: number): boolean {
   switch (op) {
-    case "<": return a < b;
-    case "<=": return a <= b;
-    case "==": return a === b;
-    case "!=": return a !== b;
-    case ">=": return a >= b;
-    case ">": return a > b;
+    case "<":
+      return a < b;
+    case "<=":
+      return a <= b;
+    case "==":
+      return a === b;
+    case "!=":
+      return a !== b;
+    case ">=":
+      return a >= b;
+    case ">":
+      return a > b;
   }
 }
 
-export function evaluateValueRef(ref: ValueRef, ctx: PredicateContext): number | undefined {
+export function evaluateValueRef(
+  ref: ValueRef,
+  ctx: PredicateContext,
+): number | undefined {
   const { character } = ctx;
   switch (ref.type) {
     case "const":
@@ -91,17 +110,23 @@ export function evaluatePredicate(p: Predicate, ctx: PredicateContext): Tri {
     case "compare": {
       const a = evaluateValueRef(p.left, ctx);
       const b = evaluateValueRef(p.right, ctx);
-      return a === undefined || b === undefined ? undefined : compare(a, p.op, b);
+      return a === undefined || b === undefined
+        ? undefined
+        : compare(a, p.op, b);
     }
 
     case "status": {
       // Out of combat there simply are no statuses: false, not unknown.
-      const has = (character.combatState?.statuses ?? []).some((s) => s.statusId === p.statusId);
+      const has = (character.combatState?.statuses ?? []).some(
+        (s) => s.statusId === p.statusId,
+      );
       return has === (p.present ?? true);
     }
 
     case "proficiency":
-      return resolveCheckProficiency(character, p.nodeId) === (p.present ?? true);
+      return (
+        resolveCheckProficiency(character, p.nodeId) === (p.present ?? true)
+      );
     case "hasFeature":
       return getActiveFeatures(character).some((f) => f.id === p.featureId);
     case "optionSelected":
@@ -110,11 +135,17 @@ export function evaluatePredicate(p: Predicate, ctx: PredicateContext): Tri {
       );
 
     case "targetAttackType":
-      return ctx.target?.attackType === undefined ? undefined : ctx.target.attackType === p.value;
+      return ctx.target?.attackType === undefined
+        ? undefined
+        : ctx.target.attackType === p.value;
     case "targetStatus":
-      return ctx.target?.statusIds === undefined ? undefined : ctx.target.statusIds.has(p.statusId);
+      return ctx.target?.statusIds === undefined
+        ? undefined
+        : ctx.target.statusIds.has(p.statusId);
     case "targetWithinRange":
-      return ctx.target?.distanceFeet === undefined ? undefined : ctx.target.distanceFeet <= p.feet;
+      return ctx.target?.distanceFeet === undefined
+        ? undefined
+        : ctx.target.distanceFeet <= p.feet;
 
     case "custom": {
       const fn = customPredicates.get(p.id);

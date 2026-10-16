@@ -39,7 +39,11 @@ export const P = {
   all: (...of: Predicate[]): Predicate => ({ type: "all", of }),
   any: (...of: Predicate[]): Predicate => ({ type: "any", of }),
   not: (of: Predicate): Predicate => ({ type: "not", of }),
-  status: (statusId: string, present = true): Predicate => ({ type: "status", statusId, present }),
+  status: (statusId: string, present = true): Predicate => ({
+    type: "status",
+    statusId,
+    present,
+  }),
   resourceAtLeast: (resourceId: string, n: number): Predicate => ({
     type: "compare",
     left: { type: "resource", resourceId },
