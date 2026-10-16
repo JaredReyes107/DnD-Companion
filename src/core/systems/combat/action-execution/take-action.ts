@@ -25,6 +25,7 @@ import {
 import { resolveStatValue } from "../../stats/stat-resolver";
 import { getStatusTemplateById } from "@/core/data/registries/status.registry";
 import { StatusInstance } from "@/core/entities/combat/status-instance";
+import { getActionRegistry } from "@/core/data/registries/actions.registry";
 
 export function applyResourceDelta(
   character: Character,
@@ -134,6 +135,10 @@ export function isActionAvailable(
   action: ActionInstance,
 ): boolean {
   if (!character.combatState) return false;
+
+  const canExecute =
+    getActionRegistry()[action.id]?.canExecute ?? action.canExecute;
+  if (canExecute && !canExecute(character)) return false;
 
   let hasActionEconomy = false;
 
