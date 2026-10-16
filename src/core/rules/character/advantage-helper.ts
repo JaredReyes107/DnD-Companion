@@ -44,8 +44,8 @@ function collectInstancesForNode(
       )
     : [];
 
-  const status = getStatusAdvantageInstances(character).filter((i) =>
-    chain.has(i.nodeId),
+  const status = getStatusAdvantageInstances(character).filter(
+    filterByChainAndCondition,
   );
   return [...passive, ...combat, ...status];
 }
