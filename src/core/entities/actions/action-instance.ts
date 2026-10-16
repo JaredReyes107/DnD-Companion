@@ -1,9 +1,9 @@
-import { Character } from "@/core/entities/character/Character";
 import { ActionDuration } from "./action-duration";
 import { ActionBoard } from "./action-board";
 import { ActionTrigger } from "./action-trigger";
 import { ExpiryCondition } from "../rules/duration/expiry-condition";
 import { AdvantagePolarity } from "../rules/advantage/advantage-instance";
+import { Predicate } from "../rules/predicate/predicate";
 
 export type ModifyResourceEffect = {
   type: "modifyResource";
@@ -78,5 +78,5 @@ export type ActionInstance = {
   boards: ActionBoard[]; // where it renders today; ignored by economy logic entirely
 
   effects: ActionEffect[];
-  canExecute?: (character: Character) => boolean;
+  requires?: Predicate;
 };
