@@ -17,14 +17,20 @@ import {
 import { buildEvaluationContext } from "@/core/systems/stats/resolve-stats";
 import { getAdvantageGrantsFromChoices } from "./choices-helper";
 import { Condition } from "@/core/entities/modifiers/Condition";
-import { getCheckNodeAncestryChain } from "@/core/data/registries/check-nodes.registry";
+import { resolveCheckNodeAncestryChain } from "@/core/data/registries/check-nodes.registry";
+import { resolveCheckAbility } from "./checks-helper";
 
 function collectInstancesForNode(
   character: Character,
   nodeId: string,
   ctx: EvaluationContext,
 ): AdvantageInstance[] {
-  const chain = new Set(getCheckNodeAncestryChain(nodeId));
+  const chain = new Set(
+    resolveCheckNodeAncestryChain(
+      nodeId,
+      resolveCheckAbility(character, nodeId),
+    ),
+  );
 
   const filterByChainAndCondition = (i: AdvantageInstance) =>
     chain.has(i.nodeId) && evaluateCondition(i.condition, ctx);
