@@ -91,4 +91,10 @@ export const SKILL_NODES: Record<string, CheckNode> = {
     category: "skillCheck",
     parentIds: ["skillCheck.WIS"],
   },
+
+  initiative: {
+    id: "initiative",
+    category: "skillCheck",
+    parentIds: ["skillCheck.DEX"],
+  },
 };
