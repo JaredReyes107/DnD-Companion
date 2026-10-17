@@ -19,6 +19,10 @@ import { getAdvantageGrantsFromChoices } from "./choices-helper";
 import { Condition } from "@/core/entities/modifiers/Condition";
 import { resolveCheckNodeAncestryChain } from "@/core/data/registries/check-nodes.registry";
 import { resolveCheckAbility } from "./checks-helper";
+import {
+  ExpandedAdvantage,
+  expandAdvantageTemplate,
+} from "@/core/data/registries/advantage.registry";
 
 function collectInstancesForNode(
   character: Character,
@@ -113,29 +117,14 @@ export function revokeAdvantageBySource(
   };
 }
 
-export function getAdvantageGrantsFromFeatures(features: FeatureTemplate[]): {
-  nodeId: string;
-  polarity: AdvantagePolarity;
-  sourceId: string;
-  condition?: import("@/core/entities/modifiers/Condition").Condition;
-}[] {
-  const grants: {
-    nodeId: string;
-    polarity: AdvantagePolarity;
-    sourceId: string;
-    condition?: import("@/core/entities/modifiers/Condition").Condition;
-  }[] = [];
-  for (const feature of features) {
-    grantsOfType(feature.grants, "advantage").forEach((g) =>
-      grants.push({
-        nodeId: g.nodeId,
-        polarity: g.polarity,
-        sourceId: feature.id,
-        condition: g.condition,
-      }),
-    );
-  }
-  return grants;
+export function getAdvantageGrantsFromFeatures(
+  features: FeatureTemplate[],
+): ExpandedAdvantage[] {
+  return features.flatMap((f) =>
+    grantsOfType(f.grants, "advantage").flatMap((g) =>
+      expandAdvantageTemplate(g.id, f.id),
+    ),
+  );
 }
 
 const FEATURE_PREFIX = "feature:";
