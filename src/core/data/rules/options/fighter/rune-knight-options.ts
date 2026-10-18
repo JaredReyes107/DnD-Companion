@@ -9,18 +9,7 @@ export const RUNE_KNIGHT_OPTIONS: Record<string, OptionTemplate> = {
     grants: [
       { type: "resource", id: "cloud_rune" },
       { type: "action", id: "cloud_rune" }, // Active: reaction to redirect an attack (not modeled)
-      {
-        type: "advantage",
-        nodeId: "sleight_of_hand",
-        polarity: "advantage",
-        condition: P.resourceAtLeast("cloud_rune", 1),
-      },
-      {
-        type: "advantage",
-        nodeId: "deception",
-        polarity: "advantage",
-        condition: P.resourceAtLeast("cloud_rune", 1),
-      },
+      { type: "advantage", id: "cloud_rune_passive" },
     ],
   },
 
@@ -43,18 +32,7 @@ export const RUNE_KNIGHT_OPTIONS: Record<string, OptionTemplate> = {
     grants: [
       { type: "resource", id: "frost_rune" },
       { type: "action", id: "frost_rune" },
-      {
-        type: "advantage",
-        nodeId: "animal_handling",
-        polarity: "advantage",
-        condition: P.resourceAtLeast("frost_rune", 1),
-      },
-      {
-        type: "advantage",
-        nodeId: "intimidation",
-        polarity: "advantage",
-        condition: P.resourceAtLeast("frost_rune", 1),
-      },
+      { type: "advantage", id: "frost_rune_passive" },
     ],
   },
 
@@ -65,12 +43,7 @@ export const RUNE_KNIGHT_OPTIONS: Record<string, OptionTemplate> = {
     grants: [
       { type: "resource", id: "stone_rune" },
       { type: "action", id: "stone_rune" }, // Active: not modeled. Charm creature
-      {
-        type: "advantage",
-        nodeId: "insight",
-        polarity: "advantage",
-        condition: P.resourceAtLeast("stone_rune", 1),
-      },
+      { type: "advantage", id: "stone_rune_passive" },
       // TODO: Sense. Darkvision 120 ft.
     ],
   },
@@ -97,12 +70,7 @@ export const RUNE_KNIGHT_OPTIONS: Record<string, OptionTemplate> = {
       { type: "resource", id: "storm_rune" },
       { type: "action", id: "storm_rune" }, // Active: Grant status that unlocks reaction
       { type: "action", id: "storm_rune_foresight" }, // Active: grant adv/disadv to rolls within 60 ft
-      {
-        type: "advantage",
-        nodeId: "arcana",
-        polarity: "advantage",
-        condition: P.resourceAtLeast("storm_rune", 1),
-      },
+      { type: "advantage", id: "storm_rune_passive" },
       // Passive: not modeled can't be surprised
     ],
   },

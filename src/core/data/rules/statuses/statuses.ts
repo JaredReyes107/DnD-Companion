@@ -1,9 +1,12 @@
 import { StatusTemplate } from "@/core/entities/rules/status/status-template";
+
+import { BARBARIAN_STATUSES } from "./barbarian/barbarian-statuses";
 import { FIGHTER_STATUSES } from "./fighter/fighter-statuses";
 
 const plain = (id: string): [string, StatusTemplate] => [id, { id }];
 
 const CLASS_FEATURE_STATUSES: Record<string, StatusTemplate> = {
+  ...BARBARIAN_STATUSES,
   ...FIGHTER_STATUSES,
 };
 

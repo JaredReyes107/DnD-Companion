@@ -1,23 +1,19 @@
 import { OptionTemplate } from "@/core/entities/rules/option-template";
 
 export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
-  // TODO: The rage condition on the modifier is deferred (condition system TBD).
-  // For now they grant the modifier unconditionally as a known limitation.
-
+  //#region Totem Spirit (Lv. 3)
   totem_spirit_bear: {
     id: "totem_spirit_bear",
     poolIds: ["totem_spirit"],
     tags: ["passive", "defense", "rage"],
-    grants: [{ type: "modifier", id: "totem_bear_resistance" }],
+    grants: [], // TODO: Resistances. All but psychic
   },
 
   totem_spirit_eagle: {
     id: "totem_spirit_eagle",
     poolIds: ["totem_spirit"],
     tags: ["passive", "combat", "rage"],
-    // Opportunity attacks against you have disadvantage while raging —
-    // condition-gated, deferred. No grants until condition system exists.
-    grants: [],
+    grants: [{ type: "action", id: "totem_eagle_dash" }],
   },
 
   totem_spirit_wolf: {
@@ -40,22 +36,19 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
     id: "totem_spirit_tiger",
     poolIds: ["totem_spirit"],
     tags: ["passive", "movement", "rage"],
-    // 10ft extra movement before melee attack — action-sequencing concern,
-    // deferred.
+    // TODO: Extra speed on jumps. While raging
     grants: [],
   },
+  //#endregion
 
-  // --- Aspect of the Beast (level 6) ---
-  // Exploration/utility passives. None currently map to
-  // actions/resources/modifiers in the engine. All deferred.
+  //#region Aspect of the Beast (level 6)
 
   aspect_bear: {
     id: "aspect_bear",
     poolIds: ["aspect_of_the_beast"],
     tags: ["passive", "utility"],
     grants: [],
-    // Carry capacity doubled, advantage on Str checks for pushing/etc.
-    // Passive utility, no mechanical hook yet.
+    //TODO: Advantage. Partial. Str checks for pushing/etc.
   },
 
   aspect_eagle: {
@@ -63,7 +56,7 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
     poolIds: ["aspect_of_the_beast"],
     tags: ["passive", "perception"],
     grants: [],
-    // See clearly at long range, no disadvantage in dim light.
+    // TODO: Senses. Ignore disadvantage when Status = Dim Light
   },
 
   aspect_wolf: {
@@ -71,7 +64,7 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
     poolIds: ["aspect_of_the_beast"],
     tags: ["passive", "utility"],
     grants: [],
-    // Track at fast pace, stealthy at normal pace.
+    // Unmodeled. Travel speed
   },
 
   aspect_elk: {
@@ -79,8 +72,7 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
     poolIds: ["aspect_of_the_beast"],
     tags: ["passive", "movement"],
     grants: [
-      { type: "modifier", id: "aspect_elk_speed" },
-      // +15ft speed out of combat. In-combat condition deferred.
+      // Unmodeled. Travel speed
     ],
   },
 
@@ -89,19 +81,18 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
     poolIds: ["aspect_of_the_beast"],
     tags: ["passive", "utility"],
     grants: [],
-    // Proficiency in two skills from a list.
-    // Skill proficiency system not yet modeled via grants.
+    //TODO: Skills. Proficiency in two skills from a list (Athletics, Acrobatics, Stealth, Survival)
   },
+  //#endregion
 
-  // --- Totemic Attunement (level 14) ---
+  //#region Totemic Attunement (level 14)
 
   attunement_bear: {
     id: "attunement_bear",
     poolIds: ["totemic_attunement"],
     tags: ["passive", "support", "rage"],
     grants: [],
-    // Enemies adjacent to you have disadvantage attacking others — affects
-    // other actors, deferred.
+    // TODO: Encounter. Disadvantage for others
   },
 
   attunement_eagle: {
@@ -109,31 +100,28 @@ export const TOTEM_WARRIOR_OPTIONS: Record<string, OptionTemplate> = {
     poolIds: ["totemic_attunement"],
     tags: ["passive", "movement", "rage"],
     grants: [],
-    // Fly speed while raging — condition-gated movement, deferred.
+    // TODO: Movement. Flight, while raging
   },
 
   attunement_wolf: {
     id: "attunement_wolf",
     poolIds: ["totemic_attunement"],
     tags: ["passive", "combat", "rage"],
-    grants: [],
-    // Knock prone as bonus action after hitting — action-sequencing, deferred.
+    grants: [{ type: "action", id: "totemic_attunement_wolf" }],
   },
 
   attunement_elk: {
     id: "attunement_elk",
     poolIds: ["totemic_attunement"],
     tags: ["passive", "combat", "rage"],
-    grants: [],
-    // Charge knockdown — action-sequencing, deferred.
+    grants: [{ type: "action", id: "totemic_attunement_elk" }],
   },
 
   attunement_tiger: {
     id: "attunement_tiger",
     poolIds: ["totemic_attunement"],
     tags: ["passive", "combat", "rage"],
-    grants: [],
-    // Attack up to 3 creatures adjacent to you when you use Dash —
-    // action-sequencing, deferred.
+    grants: [{ type: "action", id: "totemic_attunement_tiger" }],
   },
+  //#endregion
 };

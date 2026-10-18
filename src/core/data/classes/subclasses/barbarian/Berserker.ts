@@ -11,9 +11,10 @@ export const BERSERKER: SubclassTemplate = {
         id: "frenzy",
         source: "subclass",
         level: 3,
+        grants: [{ type: "action", id: "frenzy_attack" }],
         tags: ["combat"],
-        // TODO: Modify rage
-        // TODO: exhaustion system
+        // TODO: Override. Rage
+        // TODO: Status. Tiered condition: exhaustion, at end of rage
       },
     ],
 
@@ -23,7 +24,7 @@ export const BERSERKER: SubclassTemplate = {
         source: "subclass",
         level: 6,
         tags: ["passive", "defense"],
-        // TODO: condition immunity hook (during rage)
+        // TODO: Override. Rage ends statuses: Charmed + Frightened
       },
     ],
 

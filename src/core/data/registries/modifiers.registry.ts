@@ -1,5 +1,6 @@
 import { ModifierTemplate } from "@/core/entities/modifiers/Modifier";
 
+import { BARBARIAN_MODIFIERS } from "../rules/modifiers/by-class/barbarian/barbarian-modifiers";
 import { BARD_MODIFIERS } from "../rules/modifiers/by-class/bard-modifiers";
 import { WIZARD_MODIFIERS } from "../rules/modifiers/by-class/wizard-modifiers";
 import { RUNE_KNIGHT_MODIFIERS } from "../rules/modifiers/by-class/fighter/rune-knight-modifiers";
@@ -11,6 +12,7 @@ import { getCheckNodeRegistryVersion } from "./check-nodes.registry";
 const homebrewModifiers: Record<string, ModifierTemplate> = {};
 
 export const CLASS_MODIFIERS: Record<string, ModifierTemplate> = {
+  ...BARBARIAN_MODIFIERS,
   ...BARD_MODIFIERS,
   ...WIZARD_MODIFIERS,
   ...RUNE_KNIGHT_MODIFIERS,

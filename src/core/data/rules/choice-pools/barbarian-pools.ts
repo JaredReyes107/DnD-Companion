@@ -1,5 +1,7 @@
 import { ChoicePoolTemplate } from "@/core/entities/rules/choice-pool-template";
 
+import { BARBARIAN_SKILL_POOLS } from "../common/skill-pools/barbarian-skills";
+
 import { BERSERKER_POOLS } from "./barbarian/berserker-pools";
 import { TOTEM_WARRIOR_POOLS } from "./barbarian/totem-warrior-pools";
 
@@ -20,4 +22,6 @@ export const BARBARIAN_POOLS: Record<string, ChoicePoolTemplate> = {
 
   ...BEAST_POOLS,
   ...WILD_MAGIC_POOLS,
+
+  ...BARBARIAN_SKILL_POOLS,
 };

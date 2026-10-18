@@ -1,5 +1,7 @@
 import { OptionTemplate } from "@/core/entities/rules/option-template";
 
+import { BARBARIAN_SKILL_OPTIONS } from "../common/skill-pools/barbarian-skills";
+
 import { BERSERKER_OPTIONS } from "./barbarian/berserker-options";
 import { TOTEM_WARRIOR_OPTIONS } from "./barbarian/totem-warrior-options";
 
@@ -13,9 +15,13 @@ import { WILD_MAGIC_OPTIONS } from "./barbarian/wild-magic-options";
 export const BARBARIAN_OPTIONS: Record<string, OptionTemplate> = {
   ...BERSERKER_OPTIONS,
   ...TOTEM_WARRIOR_OPTIONS,
+
   ...ANCESTRAL_GUARDIAN_OPTIONS,
   ...STORM_HERALD_OPTIONS,
   ...ZEALOT_OPTIONS,
+
   ...BEAST_OPTIONS,
   ...WILD_MAGIC_OPTIONS,
+
+  ...BARBARIAN_SKILL_OPTIONS,
 };
