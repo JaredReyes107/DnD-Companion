@@ -4,6 +4,7 @@ import {
   getCheckNodeById,
   getCheckNodeAncestryChain,
 } from "@/core/data/registries/check-nodes.registry";
+import { getProficienciesFromChoices } from "@/core/rules/character/choices-helper";
 import { FeatureTemplate } from "@/core/entities/rules/feature-template";
 import { getActiveFeatures } from "./features-helper";
 import { grantsOfType } from "../shared/grant-filters";
@@ -50,8 +51,29 @@ export function resolveCheckProficiency(
   character: Character,
   nodeId: string,
 ): boolean {
-  const chain = getCheckNodeAncestryChain(nodeId);
-  return chain.some((id) => character.checks.proficiencies.has(id));
+  const { proficiencies, derivedProficiencies } = character.checks;
+  return getCheckNodeAncestryChain(nodeId).some(
+    (id) => proficiencies.has(id) || derivedProficiencies.has(id),
+  );
+}
+
+/** UI: derived proficiencies shouldn't be toggleable. */
+export function isProficiencyDerived(
+  character: Character,
+  nodeId: string,
+): boolean {
+  return getCheckNodeAncestryChain(nodeId).some((id) =>
+    character.checks.derivedProficiencies.has(id),
+  );
+}
+
+export function buildCharacterDerivedProficiencies(
+  character: Character,
+): Set<string> {
+  return new Set([
+    ...getProficienciesFromFeatures(getActiveFeatures(character)),
+    ...getProficienciesFromChoices(character),
+  ]);
 }
 
 export function grantCheckProficiency(
@@ -111,22 +133,6 @@ export function getProficienciesFromFeatures(
     );
   }
   return ids;
-}
-
-/**
- * Merges feature-derived proficiencies (class/subclass grants — fixed,
- * never player-editable) with whatever the character already has
- * recorded (manual entries from choice-driven proficiencies, once that
- * exists). Feature-derived grants are additive and never removed here —
- * same "never overwrite existing selections" rule bootstrapFeatureChoices
- * follows, so a manual/choice-granted proficiency isn't clobbered by a
- * rebuild.
- */
-export function buildCharacterCheckProficiencies(
-  character: Character,
-): Set<string> {
-  const featureIds = getProficienciesFromFeatures(getActiveFeatures(character));
-  return new Set([...character.checks.proficiencies, ...featureIds]);
 }
 
 export const EXPERTISE_TAG = "expertise";

@@ -75,6 +75,9 @@ export function getModifiersFromChoices(character: Character): Set<string> {
   return getGrantsFromChoices(character, "modifier");
 }
 
+export const getProficienciesFromChoices = (c: Character) =>
+  getGrantsFromChoices(c, "proficiency");
+
 /**
  * Returns how many picks a character is entitled to for a given pool
  * at their current class level.
