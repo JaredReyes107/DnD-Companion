@@ -1,6 +1,22 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const ZEALOT_RESOURCES: Record<string, ResourceTemplate> = {
+  divine_fury: {
+    id: "divine_fury",
+    sourceId: "zealot",
+    category: "subclass_features",
+    scalingType: "fixed:1",
+    recharge: "perTurn",
+    tags: ["combat"],
+  },
+  fanatical_focus: {
+    id: "fanatical_focus",
+    sourceId: "zealot",
+    category: "subclass_features",
+    scalingType: "fixed:1",
+    recharge: "custom",
+    tags: ["defense"],
+  },
   zealous_presence: {
     id: "zealous_presence",
     sourceId: "zealot",
@@ -8,14 +24,5 @@ export const ZEALOT_RESOURCES: Record<string, ResourceTemplate> = {
     scalingType: "fixed:1",
     recharge: "longRest",
     tags: ["combat", "support"],
-  },
-  fanatical_focus: {
-    id: "fanatical_focus",
-    sourceId: "zealot",
-    category: "subclass_features",
-    scalingType: "fixed:1",
-    recharge: "longRest",
-    tags: ["defense"],
-    // TODO: replace with per-rage tracker when rage system is implemented
   },
 };

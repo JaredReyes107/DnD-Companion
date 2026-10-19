@@ -11,8 +11,11 @@ export const ANCESTRAL_GUARDIAN: SubclassTemplate = {
         id: "ancestral_protectors",
         source: "subclass",
         level: 3,
+        grants: [
+          { type: "action", id: "ancestral_protectors" }, //TODO: Encounter. Other Resistance.
+          { type: "resource", id: "ancestral_protectors" },
+        ],
         tags: ["combat", "debuff"],
-        // TODO: rage hook + on-hit condition application
       },
     ],
 
@@ -21,10 +24,8 @@ export const ANCESTRAL_GUARDIAN: SubclassTemplate = {
         id: "spirit_shield",
         source: "subclass",
         level: 6,
-        grants: [{ type: "action", id: "spirit_shield" }],
+        grants: [{ type: "action", id: "spirit_shield" }], //TODO: Overrides. Description only
         tags: ["reaction", "defense"],
-        // TODO: reaction hook + damage reduction
-        // TODO: scaling (2d6 → 3d6 → 4d6)
       },
     ],
 
@@ -33,8 +34,13 @@ export const ANCESTRAL_GUARDIAN: SubclassTemplate = {
         id: "consult_the_spirits",
         source: "subclass",
         level: 10,
+        // TODO(spells): link to the real augury/clairvoyance spells once the spell registry exists.
+        grants: [
+          { type: "action", id: "consult_the_spirits_augury" },
+          { type: "action", id: "consult_the_spirits_clairvoyance" },
+          { type: "resource", id: "consult_the_spirits" },
+        ],
         tags: ["utility", "spellcasting"],
-        // TODO: limited spell use system (not spell slots)
       },
     ],
 
@@ -44,7 +50,7 @@ export const ANCESTRAL_GUARDIAN: SubclassTemplate = {
         source: "subclass",
         level: 14,
         tags: ["combat", "reaction"],
-        // TODO: extends spirit_shield — damage reflection hook
+        // TODO: Override. Description only, spirit_shield
       },
     ],
   },

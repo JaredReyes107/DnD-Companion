@@ -2,10 +2,10 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 
 import { BERSERKER } from "@/core/data/classes/subclasses/barbarian/Berserker";
 import { TOTEM_WARRIOR } from "@/core/data/classes/subclasses/barbarian/Totem-Warrior";
-import { ANCESTRAL_GUARDIAN } from "./Ancestral-Guardian";
+import { ANCESTRAL_GUARDIAN } from "@/core/data/classes/subclasses/barbarian/ancestral-guardian";
 import { STORM_HERALD } from "./Storm-Herald";
 import { ZEALOT } from "./Zealot";
-import { BEAST } from "./Beast";
+import { BEAST } from "@/core/data/classes/subclasses/barbarian/beast";
 import { WILD_MAGIC } from "./Wild-Magic";
 
 const PHB_SUBCLASSES: Record<string, SubclassTemplate> = {
