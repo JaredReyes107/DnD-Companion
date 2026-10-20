@@ -16,5 +16,6 @@ export type FeatureTemplate = {
   level?: number;
   tags?: string[];
 
+  appliesTo?: "primary" | "multiclass";
   grants?: FeatureGrant[];
 };

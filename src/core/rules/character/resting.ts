@@ -42,7 +42,13 @@ export function takeLongRest(character: Character): Character {
     },
     combatState: buildCombatState(character),
     resources: restoreResources(character.resources, ["longRest", "shortRest"]),
-    featureChoices: resetChoicesForTrigger(character, "onLongRest"),
+    featureChoices: resetChoicesForTrigger(
+      {
+        ...character,
+        featureChoices: resetChoicesForTrigger(character, "onShortRest"),
+      },
+      "onLongRest",
+    ),
   };
   return onLongRest(rested);
 }

@@ -28,9 +28,15 @@ export function cascadeStatusRemoval(
   cs: CombatState,
   removed: StatusInstance,
 ): CombatState {
-  return getStatusTemplateById(removed.statusId).bindsSourceEffects
+  const next = getStatusTemplateById(removed.statusId).bindsSourceEffects
     ? revokeRuntimeEffectsBySource(cs, removed.sourceId)
     : cs;
+  if (next.statuses.some((s) => s.statusId === removed.statusId)) return next;
+  return next.statuses
+    .filter(
+      (s) => getStatusTemplateById(s.statusId).dependsOn === removed.statusId,
+    )
+    .reduce(removeStatusInstance, next);
 }
 
 export function removeStatusInstance(
