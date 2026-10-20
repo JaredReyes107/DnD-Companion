@@ -1,8 +1,7 @@
 import { ExpiryCondition } from "../rules/duration/expiry-condition";
-import { ResolvedBase } from "../rules/resolved-base";
+import { Expr } from "../rules/expr/expr";
 import { StatModel } from "../rules/stats.types";
 import { Condition } from "./Condition";
-import { Character } from "@/core/entities/character/Character";
 
 export enum ModifierType {
   ADDITIVE = "additive",
@@ -12,17 +11,7 @@ export enum ModifierType {
   CAP = "cap",
 }
 
-export type ModifierValue = number | ((context: ModifierEvalContext) => number);
-
-export type ModifierEvalContext = {
-  character: Character;
-  resolved: ResolvedBase;
-  // Set by the stat resolver when evaluating check-targeted modifiers.
-  // Allows value formulas to vary per node (e.g. Fire Rune: only double PB
-  // for nodes the character is actually proficient in).
-  targetNodeId?: string;
-  [key: string]: unknown;
-};
+export type ModifierValue = number | Expr;
 
 export interface ModifierTemplate {
   id: string;
