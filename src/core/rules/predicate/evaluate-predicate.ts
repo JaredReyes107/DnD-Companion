@@ -3,28 +3,42 @@ import { Character } from "@/core/entities/character/Character";
 import { StatModel } from "@/core/entities/rules/stats.types";
 import {
   Predicate,
-  ValueRef,
   Comparator,
 } from "@/core/entities/rules/predicate/predicate";
-import {
-  getTotalCharacterLevel,
-  getClassLevel,
-} from "./../character/character-multiclassing";
+import { getTotalCharacterLevel } from "./../character/character-multiclassing";
 import { resolveCheckProficiency } from "../character/checks-helper";
 import { getActiveFeatures } from "../character/features-helper";
+import { ResolvedBase } from "@/core/entities/rules/resolved-base";
+import { Expr, Rounding } from "@/core/entities/rules/expr/expr";
+import {
+  getRawBase,
+  getAbilityModifier,
+} from "../character/abilities-modifiers";
 
-export interface PredicateContext {
+export interface ExprContext {
   character: Character;
-  /** Injected by callers that can resolve stats safely. Absent inside stat
-   *  resolution itself (it would be circular), so `stat` refs become unknown there. */
+  /** Resolved base for ability scores and PB. Absent = the raw base is used. */
+  resolved?: ResolvedBase;
+  /** The check node being resolved (Fire Rune, Jack of All Trades). */
+  targetNodeId?: string;
+  /** Absent inside stat resolution: `stat` leaves become unknown. */
   resolveStat?: (stat: StatModel) => number;
-  /** Absent until encounters model targets. */
+}
+
+export interface PredicateContext extends ExprContext {
   target?: {
     attackType?: "melee" | "ranged";
     statusIds?: ReadonlySet<string>;
     distanceFeet?: number;
   };
 }
+
+const ROUND: Record<Rounding, (n: number) => number> = {
+  floor: Math.floor,
+  ceil: Math.ceil,
+  round: Math.round,
+  trunc: Math.trunc,
+};
 
 /** Three-valued: true, false, or undefined = "can't tell". */
 export type Tri = boolean | undefined;
@@ -56,33 +70,97 @@ function compare(a: number, op: Comparator, b: number): boolean {
   }
 }
 
-export function evaluateValueRef(
-  ref: ValueRef,
-  ctx: PredicateContext,
-): number | undefined {
+export function evaluateExpr(e: Expr, ctx: ExprContext): number | undefined {
   const { character } = ctx;
-  switch (ref.type) {
+  const base = () => ctx.resolved ?? getRawBase(character);
+  const many = (xs: Expr[]): number[] | undefined => {
+    const v = xs.map((x) => evaluateExpr(x, ctx));
+    return v.includes(undefined) ? undefined : (v as number[]);
+  };
+
+  switch (e.type) {
     case "const":
-      return ref.value;
-    case "resource": {
-      const r = character.resources[ref.resourceId];
-      if (!r) return 0; // not owned = none available (a real answer, not unknown)
-      return ref.field === "max" ? r.max : r.current;
-    }
-    case "hp":
-      return ref.field === "current"
-        ? character.hitPoints.currentHP
-        : ref.field === "max"
-          ? character.hitPoints.currentMaximumHP
-          : character.hitPoints.temporalHP;
-    case "stat":
-      return ctx.resolveStat?.(ref.stat);
+      return e.value;
+    case "abilityScore":
+      return base().abilityScores[e.ability];
+    case "abilityMod":
+      return getAbilityModifier(base().abilityScores[e.ability]);
+    case "proficiencyBonus":
+      return base().proficiencyBonus;
     case "characterLevel":
       return getTotalCharacterLevel(character.classes);
-    case "classLevel":
-      return getClassLevel(character.classes, ref.classId);
+    case "classLevel": {
+      const inst = Object.values(character.classes.byId).find(
+        (c) =>
+          c.classId === e.classId &&
+          (!e.subclassId || c.subclassId === e.subclassId),
+      );
+      return inst?.level ?? 0;
+    }
+    case "resource": {
+      const r = character.resources[e.resourceId];
+      return !r ? 0 : e.field === "max" ? r.max : r.current;
+    }
+    case "hp": {
+      const h = character.hitPoints;
+      return e.field === "current"
+        ? h.currentHP
+        : e.field === "max"
+          ? h.currentMaximumHP
+          : h.temporalHP;
+    }
+    case "stat":
+      return ctx.resolveStat?.(e.stat);
+
+    case "add": {
+      const v = many(e.of);
+      return v && v.reduce((a, b) => a + b, 0);
+    }
+    case "mul": {
+      const v = many(e.of);
+      return v && v.reduce((a, b) => a * b, 1);
+    }
+    case "min": {
+      const v = many(e.of);
+      return v && v.length ? Math.min(...v) : undefined;
+    }
+    case "max": {
+      const v = many(e.of);
+      return v && v.length ? Math.max(...v) : undefined;
+    }
+    case "sub": {
+      const a = evaluateExpr(e.left, ctx),
+        b = evaluateExpr(e.right, ctx);
+      return a === undefined || b === undefined ? undefined : a - b;
+    }
+    case "div": {
+      const a = evaluateExpr(e.left, ctx),
+        b = evaluateExpr(e.right, ctx);
+      return a === undefined || b === undefined || b === 0
+        ? undefined
+        : ROUND[e.round ?? "floor"](a / b);
+    }
+    case "clamp": {
+      const v = many([e.value, e.min, e.max]);
+      return v && Math.min(Math.max(v[0], v[1]), v[2]);
+    }
+    case "if": {
+      const w = evaluatePredicate(e.when, ctx);
+      return w === undefined
+        ? undefined
+        : evaluateExpr(w ? e.then : e.else, ctx);
+    }
+    case "table": {
+      const v = evaluateExpr(e.by, ctx);
+      if (v === undefined) return undefined;
+      const hit = Object.keys(e.steps)
+        .map(Number)
+        .filter((k) => k <= v)
+        .sort((a, b) => b - a)[0];
+      return hit === undefined ? (e.below ?? 0) : e.steps[String(hit)];
+    }
     default:
-      return undefined; // value kind from a newer schema
+      return undefined; // variant from a newer schema
   }
 }
 
@@ -108,8 +186,8 @@ export function evaluatePredicate(p: Predicate, ctx: PredicateContext): Tri {
     }
 
     case "compare": {
-      const a = evaluateValueRef(p.left, ctx);
-      const b = evaluateValueRef(p.right, ctx);
+      const a = evaluateExpr(p.left, ctx);
+      const b = evaluateExpr(p.right, ctx);
       return a === undefined || b === undefined
         ? undefined
         : compare(a, p.op, b);
@@ -134,6 +212,11 @@ export function evaluatePredicate(p: Predicate, ctx: PredicateContext): Tri {
         c.selectedOptionIds.includes(p.optionId),
       );
 
+    case "targetProficiency":
+      return ctx.targetNodeId === undefined
+        ? undefined
+        : resolveCheckProficiency(character, ctx.targetNodeId) ===
+            (p.present ?? true);
     case "targetAttackType":
       return ctx.target?.attackType === undefined
         ? undefined

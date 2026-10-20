@@ -1,16 +1,6 @@
-// src/core/entities/rules/predicate/predicate.ts
-import { StatModel } from "@/core/entities/rules/stats.types";
+import { Expr } from "../expr/expr";
 
 export type Comparator = "<" | "<=" | "==" | "!=" | ">=" | ">";
-
-/** Anything that reads as a number. Shared later by formulas and scaling. */
-export type ValueRef =
-  | { type: "const"; value: number }
-  | { type: "resource"; resourceId: string; field?: "current" | "max" } // default "current"
-  | { type: "hp"; field: "current" | "max" | "temp" }
-  | { type: "stat"; stat: StatModel }
-  | { type: "characterLevel" }
-  | { type: "classLevel"; classId: string };
 
 export type Predicate =
   // composition
@@ -19,7 +9,7 @@ export type Predicate =
   | { type: "any"; of: Predicate[] }
   | { type: "not"; of: Predicate }
   // numeric: covers resource, stat, hp and level gates
-  | { type: "compare"; left: ValueRef; op: Comparator; right: ValueRef }
+  | { type: "compare"; left: Expr; op: Comparator; right: Expr }
   // status
   | { type: "status"; statusId: string; present?: boolean } // default true
   // build state
@@ -27,6 +17,7 @@ export type Predicate =
   | { type: "hasFeature"; featureId: string }
   | { type: "optionSelected"; optionId: string }
   // target-dependent (unknown until encounters have targets)
+  | { type: "targetProficiency"; present?: boolean }
   | { type: "targetAttackType"; value: "melee" | "ranged" }
   | { type: "targetStatus"; statusId: string }
   | { type: "targetWithinRange"; feet: number }
@@ -62,9 +53,13 @@ export const P = {
     op: ">=",
     right: { type: "const", value: n },
   }),
-  minClassLevel: (classId: string, n: number): Predicate => ({
+  minClassLevel: (
+    classId: string,
+    n: number,
+    subclassId?: string,
+  ): Predicate => ({
     type: "compare",
-    left: { type: "classLevel", classId },
+    left: { type: "classLevel", classId, subclassId },
     op: ">=",
     right: { type: "const", value: n },
   }),
