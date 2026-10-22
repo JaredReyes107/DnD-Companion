@@ -55,19 +55,17 @@ export function hasSpellcasting(character: Character): boolean {
   return getSpellcastingEntries(character).length > 0;
 }
 
+const CASTER_DIVISOR = { full: 1, half: 2, third: 3 } as const;
+
 export function getTotalCasterLevel(character: Character): number {
-  return getSpellcastingEntries(character).reduce((total, entry) => {
-    switch (entry.spellcastingTemplate.progression) {
-      case "full":
-        return total + entry.classInstance.level;
-      case "half":
-        return total + Math.floor(entry.classInstance.level / 2);
-      case "third":
-        return total + Math.floor(entry.classInstance.level / 3);
-      default:
-        return total;
-    }
-  }, 0);
+  return getSpellcastingEntries(character).reduce(
+    (total, { spellcastingTemplate: t, classInstance }) => {
+      if (!t.progression) return total; // pact casters don't count
+      const raw = classInstance.level / CASTER_DIVISOR[t.progression];
+      return total + (t.roundUp ? Math.ceil(raw) : Math.floor(raw));
+    },
+    0,
+  );
 }
 
 /**

@@ -12,6 +12,7 @@ export type Expr =
   | { type: "proficiencyBonus" }
   | { type: "characterLevel" }
   | { type: "classLevel"; classId: string; subclassId?: string }
+  | { type: "casterLevel" } // combined multiclass caster level (spell slot table index)
   | { type: "resource"; resourceId: string; field?: "current" | "max" }
   | { type: "hp"; field: "current" | "max" | "temp" }
   | { type: "stat"; stat: StatModel } // unknown during stat resolution (circular)
@@ -38,6 +39,7 @@ export const E = {
     classId,
     subclassId,
   }),
+  casterLevel: (): Expr => ({ type: "casterLevel" }),
   resource: (resourceId: string, field?: "current" | "max"): Expr => ({
     type: "resource",
     resourceId,

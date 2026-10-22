@@ -14,6 +14,7 @@ import {
   getRawBase,
   getAbilityModifier,
 } from "../character/abilities-modifiers";
+import { getTotalCasterLevel } from "@/core/entities/spellcasting/spellcasting";
 
 export interface ExprContext {
   character: Character;
@@ -97,6 +98,8 @@ export function evaluateExpr(e: Expr, ctx: ExprContext): number | undefined {
       );
       return inst?.level ?? 0;
     }
+    case "casterLevel":
+      return getTotalCasterLevel(character);
     case "resource": {
       const r = character.resources[e.resourceId];
       return !r ? 0 : e.field === "max" ? r.max : r.current;

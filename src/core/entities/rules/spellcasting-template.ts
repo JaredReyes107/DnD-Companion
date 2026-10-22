@@ -7,4 +7,6 @@ export type SpellcastingTemplate = {
   ability: Ability;
 
   progression?: "full" | "half" | "third"; // ONLY for standard
+  /** Multiclass caster level rounds this class's contribution up (Artificer). Default: down. */
+  roundUp?: boolean;
 };
