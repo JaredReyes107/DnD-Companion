@@ -1,4 +1,6 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
+import { E } from "@/core/entities/rules/expr/expr";
+
 import { ALCHEMIST_RESOURCES } from "./artificer/alchemist-resources";
 import { ARMORER_RESOURCES } from "./artificer/armorer-resources";
 import { ARTILLERIST_RESOURCES } from "./artificer/artillerist-resources";
@@ -18,7 +20,7 @@ export const ARTIFICER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "magical_tinkering",
     sourceId: "artificer",
     category: "class_features",
-    scalingType: "INT",
+    max: E.max(E.n(1), E.mod("INT")),
     recharge: "none",
     tags: ["utility"],
   },
@@ -27,7 +29,13 @@ export const ARTIFICER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "infused_items",
     sourceId: "artificer",
     category: "class_features",
-    scalingType: "infused-items",
+    max: E.table(E.classLevel("artificer"), {
+      1: 2,
+      6: 3,
+      10: 4,
+      14: 5,
+      18: 6,
+    }),
     recharge: "none",
     tags: ["utility"],
   },
@@ -36,7 +44,7 @@ export const ARTIFICER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "flash_of_genius",
     sourceId: "artificer",
     category: "class_features",
-    scalingType: "INT",
+    max: E.max(E.n(1), E.mod("INT")),
     recharge: "longRest",
     tags: ["utility"],
   },
@@ -45,7 +53,7 @@ export const ARTIFICER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "spell_storing_item_limit",
     sourceId: "artificer",
     category: "class_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: ["spells"],
   },

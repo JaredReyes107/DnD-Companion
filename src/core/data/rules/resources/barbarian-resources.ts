@@ -1,6 +1,7 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
-import { ANCESTRAL_GUARDIAN_RESOURCES } from "./paladin/ancients-resources";
+import { ANCESTRAL_GUARDIAN_RESOURCES } from "./barbarian/ancestral-guardian-resources";
 import { ZEALOT_RESOURCES } from "./barbarian/zealot-resources";
 
 import { BEAST_RESOURCES } from "./barbarian/beast-resources";
@@ -21,7 +22,15 @@ export const BARBARIAN_RESOURCES: Record<string, ResourceTemplate> = {
     id: "rage",
     sourceId: "barbarian",
     category: "class_features",
-    scalingType: "rage",
+    // TODO(unlimited): Infinity isn't JSON-safe; persistence fix deferred.
+    max: E.table(E.classLevel("barbarian"), {
+      1: 2,
+      3: 3,
+      6: 4,
+      12: 5,
+      17: 6,
+      20: Infinity,
+    }),
     recharge: "longRest",
     tags: ["combat", "damage", "resistance"],
   },

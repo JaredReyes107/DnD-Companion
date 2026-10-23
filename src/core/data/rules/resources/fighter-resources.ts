@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 import { BATTLE_MASTER_RESOURCES } from "./fighter/battle-master-resources";
@@ -29,7 +30,7 @@ export const FIGHTER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "second_wind",
     sourceId: "fighter",
     category: "class_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: ["combat", "healing"],
   },
@@ -37,7 +38,7 @@ export const FIGHTER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "action_surge",
     sourceId: "fighter",
     category: "class_features",
-    scalingType: "action-surge",
+    max: E.table(E.classLevel("fighter"), { 1: 1, 17: 2 }),
     recharge: "shortRest",
     tags: ["combat", "damage", "resistance"],
   },
@@ -45,7 +46,7 @@ export const FIGHTER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "indomitable",
     sourceId: "fighter",
     category: "class_features",
-    scalingType: "indomitable",
+    max: E.table(E.classLevel("fighter"), { 1: 1, 13: 2, 17: 3 }),
     recharge: "shortRest",
     tags: ["combat", "damage", "resistance"],
   },

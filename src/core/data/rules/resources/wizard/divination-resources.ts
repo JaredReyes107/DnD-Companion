@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const DIVINATION_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const DIVINATION_RESOURCES: Record<string, ResourceTemplate> = {
     id: "portent_dice",
     sourceId: "divination",
     category: "subclass_features",
-    scalingType: "portent-dice",
+    max: E.table(E.classLevel("wizard", "divination"), { 1: 2, 14: 3 }),
     recharge: "longRest",
     tags: ["utility"],
   },
@@ -13,7 +14,7 @@ export const DIVINATION_RESOURCES: Record<string, ResourceTemplate> = {
     id: "portent_turn_uses",
     sourceId: "divination",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "perTurn",
     tags: ["utility"],
   },
@@ -22,7 +23,7 @@ export const DIVINATION_RESOURCES: Record<string, ResourceTemplate> = {
     id: "the_third_eye",
     sourceId: "divination",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: ["senses"],
   },
