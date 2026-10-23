@@ -1,13 +1,9 @@
 import { Character } from "@/core/entities/character/Character";
 import { SpellSlotLevel } from "@/core/entities/spellcasting/spell-slot-instance";
-import {
-  getClassInstanceByTemplateId,
-  getClassTemplateById,
-} from "@/core/data/registries/classes.registry";
+import { getClassTemplateById } from "@/core/data/registries/classes.registry";
 import { ClassInstance } from "../character/class-instance";
 import { SpellcastingTemplate } from "../rules/spellcasting-template";
 import { getSubclassTemplateById } from "@/core/data/registries/subclasses.registry";
-import { CharacterResources } from "@/core/entities/resources/character-resources";
 import { getAbilityModifier } from "@/core/rules/character/abilities-modifiers";
 import { Ability } from "../rules/ability/ability.types";
 import { ResolvedBase } from "../rules/resolved-base";
@@ -119,50 +115,7 @@ export function getBaseSpellSaveDCForSource(
   );
 }
 
-const STANDARD_SPELL_SLOTS: number[][] = [
-  // character level: 1 → 20
-  [2],
-  [3],
-  [4, 2],
-  [4, 3],
-  [4, 3, 2],
-  [4, 3, 3],
-  [4, 3, 3, 1],
-  [4, 3, 3, 2],
-  [4, 3, 3, 3, 1],
-  [4, 3, 3, 3, 2],
-  [4, 3, 3, 3, 2, 1],
-  [4, 3, 3, 3, 2, 1],
-  [4, 3, 3, 3, 2, 1, 1],
-  [4, 3, 3, 3, 2, 1, 1],
-  [4, 3, 3, 3, 2, 1, 1, 1],
-  [4, 3, 3, 3, 2, 1, 1, 1],
-  [4, 3, 3, 3, 2, 1, 1, 1, 1],
-  [4, 3, 3, 3, 3, 1, 1, 1, 1],
-  [4, 3, 3, 3, 3, 2, 1, 1, 1],
-  [4, 3, 3, 3, 3, 2, 2, 1, 1],
-];
-
-function buildStandardSpellSlots(casterLevel: number): CharacterResources {
-  const row = STANDARD_SPELL_SLOTS[casterLevel - 1];
-  if (!row) return {};
-
-  const slots: CharacterResources = {};
-
-  row.forEach((max, index) => {
-    const resourceId = "spell_slot_" + (index + 1);
-
-    slots[resourceId] = {
-      resourceId,
-      max,
-      current: max,
-    };
-  });
-
-  return slots;
-}
-
-const PACT_MAGIC_TABLE: Record<
+export const PACT_MAGIC_TABLE: Record<
   number,
   { level: SpellSlotLevel; slots: number }
 > = {
@@ -187,86 +140,3 @@ const PACT_MAGIC_TABLE: Record<
   19: { level: 5, slots: 4 },
   20: { level: 5, slots: 4 },
 };
-
-function buildPactMagicSlots(warlockLevel: number): CharacterResources {
-  const row = PACT_MAGIC_TABLE[warlockLevel];
-  if (!row) return {};
-
-  return {
-    ["pact_slots"]: {
-      resourceId: "pact_slots",
-      max: row.slots,
-      current: row.slots,
-    },
-  };
-}
-
-function buildMysticArcanum(warlockLevel: number): CharacterResources {
-  const mysticArcanum: CharacterResources = {};
-
-  let leftoverLevels = warlockLevel - 10;
-  let counter = 6;
-
-  while (leftoverLevels > 0 && counter <= 9) {
-    const resourceId = "mystic_arcanum_" + counter;
-
-    mysticArcanum[resourceId] = {
-      resourceId,
-      max: 1,
-      current: 1,
-    };
-
-    leftoverLevels -= 2;
-    counter++;
-  }
-
-  return mysticArcanum;
-}
-
-export function buildSpellSlots(character: Character): CharacterResources {
-  let characterSpellSlots: CharacterResources = {};
-
-  let hasStandardCaster = false;
-  let hasWarlock = false;
-
-  for (const instanceId of character.classes.order) {
-    const classInstance = character.classes.byId[instanceId];
-    const classTemplate = getClassTemplateById(classInstance.classId);
-
-    const spellcastingTemplate =
-      classTemplate.spellcastingTemplate ??
-      (classInstance.subclassId
-        ? getSubclassTemplateById(classInstance.subclassId).spellcastingTemplate
-        : undefined);
-
-    if (!spellcastingTemplate) continue;
-
-    if (spellcastingTemplate.kind === "pact") {
-      hasWarlock = true;
-    } else {
-      hasStandardCaster = true;
-    }
-  }
-
-  if (hasStandardCaster) {
-    characterSpellSlots = {
-      ...buildStandardSpellSlots(getTotalCasterLevel(character)),
-    };
-  }
-
-  if (hasWarlock) {
-    const warlockInstance = getClassInstanceByTemplateId(
-      character.classes,
-      "warlock",
-    );
-    if (warlockInstance) {
-      characterSpellSlots = {
-        ...characterSpellSlots,
-        ...buildPactMagicSlots(warlockInstance.level),
-        ...buildMysticArcanum(warlockInstance.level),
-      };
-    }
-  }
-
-  return characterSpellSlots;
-}

@@ -4,16 +4,13 @@ import { FeatureTemplate } from "@/core/entities/rules/feature-template";
 import { getActiveFeatures } from "./features-helper";
 import {
   getResourceById,
+  getResourceRegistry,
   GroupedResources,
 } from "@/core/data/registries/resources.registry";
 import { getResourcesFromChoices } from "./choices-helper";
-import { evaluateFormula } from "./resource-scaling";
 import { ResourceCategory } from "@/core/entities/rules/resource-template";
-import {
-  buildSpellSlots,
-  hasSpellcasting,
-} from "@/core/entities/spellcasting/spellcasting";
 import { grantsOfType } from "../shared/grant-filters";
+import { buildResourceContext, resolveResourceMax } from "./resource-max";
 
 export function getResourcesFromFeatures(
   features: FeatureTemplate[],
@@ -25,6 +22,22 @@ export function getResourcesFromFeatures(
   return ids;
 }
 
+function addMissingResources(
+  character: Character,
+  ids: Set<string>,
+  opts: { skipZero?: boolean } = {},
+): CharacterResources {
+  const ctx = buildResourceContext(character);
+  const next = { ...character.resources };
+  for (const id of ids) {
+    if (next[id]) continue; // TODO(stale-max): existing instances aren't refreshed (commit 3.6)
+    const max = resolveResourceMax(getResourceById(id), ctx);
+    if (opts.skipZero && max === 0) continue;
+    next[id] = { resourceId: id, max, current: max };
+  }
+  return next;
+}
+
 export function buildCharacterClassResources(
   character: Character,
 ): CharacterResources {
@@ -32,49 +45,28 @@ export function buildCharacterClassResources(
     ...getResourcesFromFeatures(getActiveFeatures(character)),
     ...getResourcesFromChoices(character),
   ]);
-
-  const fresh: CharacterResources = {};
-  for (const id of ids) {
-    const max = evaluateFormula(getResourceById(id), character);
-    fresh[id] = { resourceId: id, max, current: max };
-  }
-  return fresh; // pure derivation, no carry-over
+  return addMissingResources(character, ids);
 }
 
-/**
- * Keeps player-spent state for resources that still exist; drops the rest.
- * If max grew (PB bump, Master of Runes), the new capacity arrives available.
- * If it shrank, current is clamped.
- */
-function reconcileResources(
-  fresh: CharacterResources,
-  previous: CharacterResources,
+/** Slot resources are data like any other: a table over casterLevel / class level.
+ *  Non-casters evaluate to 0 and are skipped, so no per-class gating is needed. */
+export function buildSpellSlotResources(
+  character: Character,
 ): CharacterResources {
-  const out: CharacterResources = {};
-  for (const [id, next] of Object.entries(fresh)) {
-    const prev = previous[id];
-    if (!prev) {
-      out[id] = next;
-      continue;
-    }
-    const bothFinite = Number.isFinite(prev.max) && Number.isFinite(next.max);
-    const gained = bothFinite ? Math.max(0, next.max - prev.max) : 0;
-    out[id] = {
-      ...next,
-      current: Math.min(next.max, prev.current + gained),
-    };
-  }
-  return out;
+  const ids = Object.values(getResourceRegistry())
+    .filter((r) => r.category === "spell_slots" || r.category === "pact_slots")
+    .map((r) => r.id);
+  return addMissingResources(character, new Set(ids), { skipZero: true });
 }
 
 export function buildCharacterResources(
   character: Character,
 ): CharacterResources {
-  const fresh: CharacterResources = {
-    ...(hasSpellcasting(character) ? buildSpellSlots(character) : {}),
+  // Slots first so class resources can't shadow them, same precedence as before.
+  return {
+    ...buildSpellSlotResources(character),
     ...buildCharacterClassResources(character),
   };
-  return reconcileResources(fresh, character.resources);
 }
 
 export type ResourceSectionData = {
