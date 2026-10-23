@@ -7,7 +7,8 @@ export type FeatureGrant =
   | { type: "choice"; id: string }
   | { type: "proficiency"; nodeId: string }
   | { type: "language"; nodeId: string; modes: LanguageMode[] }
-  | { type: "advantage"; id: string };
+  | { type: "advantage"; id: string }
+  | { type: "override"; id: string };
 
 export type FeatureTemplate = {
   id: string;
