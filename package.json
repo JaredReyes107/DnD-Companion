@@ -15,7 +15,9 @@
     "adapt": "ts-node --project tsconfig.scripts.json scripts/adapt-5etools/index.ts"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "setupFiles": ["<rootDir>/jest.setup.ts"],
+    "moduleNameMapper": { "^@/(.*)$": "<rootDir>/src/$1" }
   },
   "dependencies": {
     "@expo-google-fonts/montserrat": "^0.2.3",
