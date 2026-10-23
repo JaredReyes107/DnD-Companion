@@ -1,11 +1,12 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
+import { E } from "@/core/entities/rules/expr/expr";
 
 export const WILDFIRE_RESOURCES: Record<string, ResourceTemplate> = {
   cauterizing_flames: {
     id: "cauterizing_flames",
     sourceId: "wildfire",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "longRest",
     tags: [],
   },
@@ -13,7 +14,7 @@ export const WILDFIRE_RESOURCES: Record<string, ResourceTemplate> = {
     id: "blazing_revival",
     sourceId: "wildfire",
     category: "subclass_features",
-    scalingType: "fixed:1 ",
+    max: E.n(1),
     recharge: "longRest",
     tags: [],
   },

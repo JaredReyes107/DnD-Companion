@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const DIVINE_SOUL_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const DIVINE_SOUL_RESOURCES: Record<string, ResourceTemplate> = {
     id: "favored_by_the_gods",
     sourceId: "divine_soul",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: ["utility", "bonus", "saving-throw", "attack-roll"],
   },
@@ -14,7 +15,7 @@ export const DIVINE_SOUL_RESOURCES: Record<string, ResourceTemplate> = {
     id: "empowered_healing",
     sourceId: "divine_soul",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "perTurn",
     tags: ["healing"],
   },
@@ -23,7 +24,7 @@ export const DIVINE_SOUL_RESOURCES: Record<string, ResourceTemplate> = {
     id: "unearthly_recovery",
     sourceId: "divine_soul",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: ["healing"],
   },

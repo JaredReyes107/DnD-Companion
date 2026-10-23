@@ -9,6 +9,7 @@ import { STORM_SORCERY_RESOURCES } from "./sorcerer/storm-resources";
 
 import { ABERRANT_MIND_RESOURCES } from "./sorcerer/aberrant-mind-resources";
 import { CLOCKWORK_SOUL_RESOURCES } from "./sorcerer/clockwork-soul-resources";
+import { E } from "@/core/entities/rules/expr/expr";
 
 const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
   // PHB
@@ -33,7 +34,7 @@ export const SORCERER_RESOURCES: Record<string, ResourceTemplate> = {
     //origin: "Players Handbook", //For distinguishing official rules and homebrew
     sourceId: "sorcerer",
     category: "class_features", //For UI
-    scalingType: "class-level",
+    max: E.classLevel("sorcerer"),
     recharge: "longRest",
     tags: ["combat", "support"],
   },

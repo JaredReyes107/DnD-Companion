@@ -6,7 +6,7 @@ export const KNOWLEDGE_RESOURCES: Record<string, ResourceTemplate> = {
   //   id: "some_resource",
   //   sourceId: "knowledge",
   //   category: "subclass_features",
-  //   scalingType: "fixed:1",
+  //   max: E.n(1),
   //   recharge: "longRest",
   //   tags: [],
   // },

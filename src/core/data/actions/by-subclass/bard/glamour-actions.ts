@@ -1,4 +1,5 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
+import { P } from "@/core/entities/rules/predicate/predicate";
 
 export const GLAMOUR_ACTIONS: Record<string, ActionInstance> = {
   mantle_of_inspiration: {
@@ -52,10 +53,7 @@ export const GLAMOUR_ACTIONS: Record<string, ActionInstance> = {
     boards: ["combat"],
     duration: { kind: "economy", slot: "bonusAction" },
     effects: [], // TODO: Replicate the effect of "command" but with autofail
-    canExecute: (character) =>
-      Object.values(character.combatState?.runtimeModifiers ?? {}).some(
-        (m) => m.modifier.templateId === "mantle_of_majesty",
-      ),
+    requires: P.status("mantle_of_majesty_active"),
   },
   unbreakable_majesty: {
     id: "unbreakable_majesty",

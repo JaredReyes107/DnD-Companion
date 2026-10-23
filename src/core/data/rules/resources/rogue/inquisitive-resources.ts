@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const INQUISITIVE_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const INQUISITIVE_RESOURCES: Record<string, ResourceTemplate> = {
     id: "unerring_eye",
     sourceId: "inquisitive",
     category: "subclass_features",
-    scalingType: "WIS",
+    max: E.max(E.n(1), E.mod("WIS")),
     recharge: "longRest",
     tags: [],
   },

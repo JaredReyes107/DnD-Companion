@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const PEACE_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const PEACE_RESOURCES: Record<string, ResourceTemplate> = {
     id: "emboldening_bond",
     sourceId: "peace",
     category: "subclass_features",
-    scalingType: "WIS",
+    max: E.max(E.n(1), E.mod("WIS")),
     recharge: "longRest",
     tags: [],
   },

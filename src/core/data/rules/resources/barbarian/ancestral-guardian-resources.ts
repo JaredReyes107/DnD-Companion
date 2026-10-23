@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const ANCESTRAL_GUARDIAN_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const ANCESTRAL_GUARDIAN_RESOURCES: Record<string, ResourceTemplate> = {
     id: "ancestral_protectors",
     sourceId: "ancestral_guardian",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "perTurn",
     tags: ["combat"],
   },
@@ -13,7 +14,7 @@ export const ANCESTRAL_GUARDIAN_RESOURCES: Record<string, ResourceTemplate> = {
     id: "consult_the_spirits",
     sourceId: "ancestral_guardian",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: ["spellcasting", "utility"],
   },

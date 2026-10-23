@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const ARMORER_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const ARMORER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "defensive_field",
     sourceId: "guardian",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "shortRest",
     tags: ["defense"],
   },
@@ -14,7 +15,7 @@ export const ARMORER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "lightning_launcher_burst",
     sourceId: "infiltrator",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "perRound",
     tags: ["utility"],
   },
@@ -23,7 +24,7 @@ export const ARMORER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "perfected_armor_guardian",
     sourceId: "guardian",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "longRest",
     tags: ["utility"],
   },

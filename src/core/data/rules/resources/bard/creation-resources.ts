@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const CREATION_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const CREATION_RESOURCES: Record<string, ResourceTemplate> = {
     id: "performance_of_creation",
     sourceId: "creation",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: [],
   },
@@ -13,7 +14,7 @@ export const CREATION_RESOURCES: Record<string, ResourceTemplate> = {
     id: "animating_performance",
     sourceId: "creation",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: [],
   },

@@ -36,14 +36,5 @@ export const subclass_resources: Record<string, ResourceTemplate> = {
 };
 
 export const CLERIC_RESOURCES: Record<string, ResourceTemplate> = {
-  channel_divinity: {
-    id: "channel_divinity",
-    sourceId: "cleric",
-    category: "class_features",
-    scalingType: "channel-divinity",
-    recharge: "longRest",
-    tags: ["combat", "utility"],
-  },
-
   ...subclass_resources,
 };

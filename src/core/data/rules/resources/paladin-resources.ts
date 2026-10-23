@@ -11,6 +11,7 @@ import { REDEMPTION_RESOURCES } from "./paladin/redemption-resources";
 
 import { GLORY_RESOURCES } from "./paladin/glory-resources";
 import { WATCHERS_RESOURCES } from "./paladin/watchers-resources";
+import { E } from "@/core/entities/rules/expr/expr";
 
 const RESOURCES_SUBCLASSES: Record<string, ResourceTemplate> = {
   ...DEVOTION_RESOURCES,
@@ -33,7 +34,7 @@ export const PALADIN_RESOURCES: Record<string, ResourceTemplate> = {
     id: "divine_sense",
     sourceId: "paladin",
     category: "class_features",
-    scalingType: "CHA:+1",
+    max: E.max(E.n(1), E.add(E.mod("CHA"), E.n(1))),
     recharge: "longRest",
     tags: ["senses"],
   },
@@ -41,23 +42,15 @@ export const PALADIN_RESOURCES: Record<string, ResourceTemplate> = {
     id: "lay_on_hands",
     sourceId: "paladin",
     category: "class_features",
-    scalingType: "class-level:*5",
+    max: E.mul(E.classLevel("paladin"), E.n(5)),
     recharge: "longRest",
     tags: ["combat", "healing", "cleansing"],
-  },
-  channel_divinity: {
-    id: "channel_divinity",
-    sourceId: "paladin",
-    category: "class_features",
-    scalingType: "fixed:1",
-    recharge: "longRest",
-    tags: ["combat"],
   },
   cleansing_touch: {
     id: "cleansing_touch",
     sourceId: "paladin",
     category: "class_features",
-    scalingType: "CHA",
+    max: E.max(E.n(1), E.mod("CHA")),
     recharge: "longRest",
     tags: ["cleansing"],
   },

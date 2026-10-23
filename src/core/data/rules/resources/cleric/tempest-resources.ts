@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const TEMPEST_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const TEMPEST_RESOURCES: Record<string, ResourceTemplate> = {
     id: "wrath_of_the_storm",
     sourceId: "tempest",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "longRest",
     tags: ["combat", "reaction"],
   },

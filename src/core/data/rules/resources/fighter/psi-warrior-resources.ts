@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const PSI_WARRIOR_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const PSI_WARRIOR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "psionic_dice",
     sourceId: "psi_warrior",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "longRest",
     tags: [],
   },
@@ -13,7 +14,7 @@ export const PSI_WARRIOR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "psionic_recovery",
     sourceId: "psi_warrior",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: [],
   },
@@ -21,7 +22,7 @@ export const PSI_WARRIOR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "telekinetic_movement",
     sourceId: "psi_warrior",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: [],
   },
@@ -29,7 +30,7 @@ export const PSI_WARRIOR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "psi_powered_leap",
     sourceId: "psi_warrior",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: [],
   },
@@ -37,7 +38,7 @@ export const PSI_WARRIOR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "bulwark_of_force",
     sourceId: "psi_warrior",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: [],
   },
@@ -45,7 +46,7 @@ export const PSI_WARRIOR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "telekinetic_master",
     sourceId: "psi_warrior",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: [],
   },

@@ -1,3 +1,5 @@
+import { Expr } from "./expr/expr";
+
 export type ResourceCategory =
   | "spell_slots"
   | "pact_slots"
@@ -14,7 +16,7 @@ export type ResourceTemplate = {
   //origin: "Players Handbook", //For distinguishing official rules and homebrew
   category: ResourceCategory; //For UI sections in the Dashboard
 
-  scalingType: string; // ej: "PB", "CHA", "class-level", "character-level","fixed:3", etc
+  max: Expr;
   recharge:
     | "shortRest"
     | "longRest"

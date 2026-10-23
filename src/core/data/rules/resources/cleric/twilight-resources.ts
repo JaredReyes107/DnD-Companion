@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const TWILIGHT_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const TWILIGHT_RESOURCES: Record<string, ResourceTemplate> = {
     id: "eyes_of_night",
     sourceId: "twilight",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: [],
   },
@@ -13,7 +14,7 @@ export const TWILIGHT_RESOURCES: Record<string, ResourceTemplate> = {
     id: "steps_of_the_night",
     sourceId: "twilight",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "longRest",
     tags: [],
   },

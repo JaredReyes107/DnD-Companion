@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const WATCHERS_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const WATCHERS_RESOURCES: Record<string, ResourceTemplate> = {
     id: "mortal_bulwark",
     sourceId: "watchers",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: [],
   },

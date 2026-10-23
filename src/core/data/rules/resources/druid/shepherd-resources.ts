@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const SHEPHERD_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const SHEPHERD_RESOURCES: Record<string, ResourceTemplate> = {
     id: "spirit_totem",
     sourceId: "shepherd",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: [],
   },
@@ -13,7 +14,7 @@ export const SHEPHERD_RESOURCES: Record<string, ResourceTemplate> = {
     id: "faithful_summons",
     sourceId: "shepherd",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: [],
   },

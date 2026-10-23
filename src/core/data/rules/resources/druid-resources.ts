@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 import { LAND_RESOURCES } from "./druid/land-resources";
@@ -29,7 +30,7 @@ export const DRUID_RESOURCES: Record<string, ResourceTemplate> = {
     id: "wild_shape",
     sourceId: "druid",
     category: "class_features",
-    scalingType: "fixed:2",
+    max: E.n(2),
     recharge: "longRest",
     tags: ["combat", "utility"],
   },

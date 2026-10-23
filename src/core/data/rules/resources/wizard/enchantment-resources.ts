@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const ENCHANTMENT_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const ENCHANTMENT_RESOURCES: Record<string, ResourceTemplate> = {
     id: "hypnotic_gaze",
     sourceId: "enchantment",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: [],
   },
@@ -13,7 +14,7 @@ export const ENCHANTMENT_RESOURCES: Record<string, ResourceTemplate> = {
     id: "instinctive_charm",
     sourceId: "enchantment",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: [],
   },

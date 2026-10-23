@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const ORDER_OF_SCRIBES_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const ORDER_OF_SCRIBES_RESOURCES: Record<string, ResourceTemplate> = {
     id: "awakened_spellbook_fast_ritual",
     sourceId: "scribes",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: ["spellcasting"],
   },
@@ -14,7 +15,7 @@ export const ORDER_OF_SCRIBES_RESOURCES: Record<string, ResourceTemplate> = {
     id: "manifest_mind",
     sourceId: "scribes",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: ["utility"],
   },
@@ -22,7 +23,7 @@ export const ORDER_OF_SCRIBES_RESOURCES: Record<string, ResourceTemplate> = {
     id: "manifest_mind_cast_through",
     sourceId: "scribes",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "longRest",
     tags: ["utility"],
   },
@@ -31,7 +32,7 @@ export const ORDER_OF_SCRIBES_RESOURCES: Record<string, ResourceTemplate> = {
     id: "master_scrivener",
     sourceId: "scribes",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: ["utility", "spellcasting"],
   },

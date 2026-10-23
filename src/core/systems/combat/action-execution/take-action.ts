@@ -186,7 +186,7 @@ export function isActionAvailable(
     }
   }
 
-  const isAvailable = hasActionEconomy && hasResource; //&& canExecute
+  const isAvailable = hasActionEconomy && hasResource;
 
   return isAvailable;
 }

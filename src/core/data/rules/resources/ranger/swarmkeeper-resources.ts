@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const SWARMKEEPER_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const SWARMKEEPER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "gathered_swarm",
     sourceId: "swarmkeeper",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "perRound",
     tags: ["combat"],
   },
@@ -14,7 +15,7 @@ export const SWARMKEEPER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "writhing_tide",
     sourceId: "swarmkeeper",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "longRest",
     tags: ["movement", "utility"],
   },
@@ -23,7 +24,7 @@ export const SWARMKEEPER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "swarming_dispersal",
     sourceId: "swarmkeeper",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "longRest",
     tags: ["defense", "movement"],
   },

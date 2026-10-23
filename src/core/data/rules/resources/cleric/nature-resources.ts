@@ -6,7 +6,7 @@ export const NATURE_RESOURCES: Record<string, ResourceTemplate> = {
   //   id: "some_resource",
   //   sourceId: "nature",
   //   category: "subclass_features",
-  //   scalingType: "fixed:1",
+  //   max: E.n(1),
   //   recharge: "longRest",
   //   tags: [],
   // },

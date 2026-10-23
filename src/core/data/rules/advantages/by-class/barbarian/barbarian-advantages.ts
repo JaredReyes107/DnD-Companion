@@ -14,6 +14,12 @@ export const BARBARIAN_ADVANTAGES: Record<string, AdvantageTemplate> = {
       P.status("incapacitated", false),
     ),
   },
+  rage_str: {
+    id: "rage_str",
+    sourceId: "rage",
+    nodeIds: ["skillCheck.STR", "savingThrow.STR"],
+    polarity: "advantage",
+  },
   feral_instinct_initiative: {
     id: "feral_instinct_initiative",
     sourceId: "feral_instinct",

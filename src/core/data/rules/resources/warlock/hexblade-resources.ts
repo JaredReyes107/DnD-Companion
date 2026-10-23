@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const HEXBLADE_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const HEXBLADE_RESOURCES: Record<string, ResourceTemplate> = {
     id: "hexblades_curse",
     sourceId: "hexblade",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: ["combat"],
   },
@@ -14,7 +15,7 @@ export const HEXBLADE_RESOURCES: Record<string, ResourceTemplate> = {
     id: "accursed_specter",
     sourceId: "hexblade",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: ["combat", "summoning"],
   },

@@ -1,4 +1,5 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
+import { E } from "@/core/entities/rules/expr/expr";
 
 import { ABJURATION_RESOURCES } from "./wizard/abjuration-resources";
 import { CONJURATION_RESOURCES } from "./wizard/conjuration-resources";
@@ -40,7 +41,7 @@ export const WIZARD_RESOURCES: Record<string, ResourceTemplate> = {
     id: "arcane_recovery",
     sourceId: "wizard",
     category: "class_features",
-    scalingType: "class-level:/2",
+    max: E.div(E.classLevel("wizard"), E.n(2)),
     recharge: "longRest", // TODO: Once per DAY
     tags: ["spells", "utility"],
   },
@@ -49,7 +50,7 @@ export const WIZARD_RESOURCES: Record<string, ResourceTemplate> = {
     id: "signature_spell_1",
     sourceId: "wizard",
     category: "class_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: ["spellcasting"],
   },
@@ -57,7 +58,7 @@ export const WIZARD_RESOURCES: Record<string, ResourceTemplate> = {
     id: "signature_spell_2",
     sourceId: "wizard",
     category: "class_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: ["spellcasting"],
   },

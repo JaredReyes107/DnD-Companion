@@ -1,11 +1,12 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
+import { E } from "@/core/entities/rules/expr/expr";
 
 export const DREAMS_RESOURCES: Record<string, ResourceTemplate> = {
   balm_of_the_summer_court: {
     id: "balm_of_the_summer_court",
     sourceId: "dreams",
     category: "subclass_features",
-    scalingType: "class-level",
+    max: E.classLevel("druid"),
     recharge: "longRest",
     tags: ["healing", "support"],
   },
@@ -13,7 +14,7 @@ export const DREAMS_RESOURCES: Record<string, ResourceTemplate> = {
     id: "hidden_paths",
     sourceId: "dreams",
     category: "subclass_features",
-    scalingType: "WIS",
+    max: E.max(E.n(1), E.mod("WIS")),
     recharge: "longRest",
     tags: ["movement", "support"],
   },
@@ -21,7 +22,7 @@ export const DREAMS_RESOURCES: Record<string, ResourceTemplate> = {
     id: "walker_in_dreams",
     sourceId: "dreams",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: ["spellcasting", "utility"],
   },

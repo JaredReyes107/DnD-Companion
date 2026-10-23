@@ -10,9 +10,8 @@ export const RUNE_KNIGHT_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       { type: "modifyResource", resourceId: "giants_might", amount: -1 },
       {
-        type: "applyAdvantage",
-        nodeIds: ["skillCheck.STR", "savingThrow.STR"],
-        polarity: "advantage",
+        type: "applyStatus",
+        statusId: "giants_might_active",
         durationRounds: 10,
       },
       // Size increase and extra damage: not modeled.
@@ -28,6 +27,7 @@ export const RUNE_KNIGHT_ACTIONS: Record<string, ActionInstance> = {
       // Reroll: not modeled.
     ],
   },
+
   cloud_rune: {
     id: "cloud_rune",
     sourceId: "rune_knight",
@@ -51,15 +51,9 @@ export const RUNE_KNIGHT_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       { type: "modifyResource", resourceId: "frost_rune", amount: -1 },
       {
-        type: "applyModifier",
-        modifiers: [
-          "frost_rune_str_checks",
-          "frost_rune_str_saves",
-          "frost_rune_con_checks",
-          "frost_rune_con_saves",
-        ],
+        type: "applyStatus",
+        statusId: "frost_rune_active",
         durationRounds: 100,
-        stacking: "refresh",
       },
     ],
   },
@@ -76,7 +70,10 @@ export const RUNE_KNIGHT_ACTIONS: Record<string, ActionInstance> = {
     boards: ["combat"],
     duration: { kind: "economy", slot: "bonusAction" },
     // TODO: Resistance
-    effects: [{ type: "modifyResource", resourceId: "hill_rune", amount: -1 }],
+    effects: [
+      { type: "modifyResource", resourceId: "hill_rune", amount: -1 },
+      { type: "applyStatus", statusId: "hill_rune_active", durationRounds: 10 },
+    ],
   },
   storm_rune: {
     id: "storm_rune",

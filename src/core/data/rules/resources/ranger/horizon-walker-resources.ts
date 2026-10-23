@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const HORIZON_WALKER_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const HORIZON_WALKER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "some_resource",
     sourceId: "horizon_walker",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: [],
   },
@@ -13,7 +14,7 @@ export const HORIZON_WALKER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "ethereal_step",
     sourceId: "horizon_walker",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: [],
   },

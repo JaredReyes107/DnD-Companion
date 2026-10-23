@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const WHISPERS_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const WHISPERS_RESOURCES: Record<string, ResourceTemplate> = {
     id: "words_of_terror",
     sourceId: "whispers",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: ["combat"],
   },
@@ -13,7 +14,7 @@ export const WHISPERS_RESOURCES: Record<string, ResourceTemplate> = {
     id: "mantle_of_whispers_capture_shadow",
     sourceId: "whispers",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: [],
   },
@@ -21,7 +22,7 @@ export const WHISPERS_RESOURCES: Record<string, ResourceTemplate> = {
     id: "mantle_of_whispers_disguise",
     sourceId: "whispers",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: [],
   },
@@ -29,7 +30,7 @@ export const WHISPERS_RESOURCES: Record<string, ResourceTemplate> = {
     id: "shadow_lore",
     sourceId: "whisper",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: ["combat"],
   },

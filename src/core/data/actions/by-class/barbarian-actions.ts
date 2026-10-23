@@ -37,13 +37,6 @@ export const BARBARIAN_ACTIONS: Record<string, ActionInstance> = {
       { type: "modifyResource", resourceId: "rage", amount: -1 },
       { type: "endEffects", statusIds: ["concentrating"] }, // can't concentrate while raging
       { type: "applyStatus", statusId: "raging", durationRounds: 10 },
-      {
-        type: "applyAdvantage",
-        nodeIds: ["skillCheck.STR", "savingThrow.STR"],
-        polarity: "advantage",
-        durationRounds: 10,
-      },
-      // Rage damage bonus and B/P/S resistance: not modeled.
     ],
   },
   end_rage: {
@@ -52,7 +45,7 @@ export const BARBARIAN_ACTIONS: Record<string, ActionInstance> = {
     boards: ["combat"],
     duration: { kind: "economy", slot: "bonusAction" },
     requires: P.status("raging"),
-    effects: [{ type: "endEffects", statusIds: ["raging"] }], // cascades the advantage
+    effects: [{ type: "endEffects", statusIds: ["raging", "frenzied"] }],
   },
   reckless_attack: {
     id: "reckless_attack",

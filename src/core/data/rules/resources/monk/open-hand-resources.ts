@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const OPEN_HAND_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const OPEN_HAND_RESOURCES: Record<string, ResourceTemplate> = {
     id: "wholeness_of_body",
     sourceId: "open_hand",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: [],
   },

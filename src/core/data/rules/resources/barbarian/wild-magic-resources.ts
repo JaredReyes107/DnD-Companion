@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const WILD_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const WILD_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
     id: "magic_awareness",
     sourceId: "wild_magic",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "longRest",
     tags: ["utility"],
   },
@@ -13,7 +14,7 @@ export const WILD_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
     id: "bolstering_magic",
     sourceId: "wild_magic",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "longRest",
     tags: ["support", "utility"],
   },

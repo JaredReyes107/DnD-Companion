@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const TRANSMUTATION_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const TRANSMUTATION_RESOURCES: Record<string, ResourceTemplate> = {
     id: "shapechanger",
     sourceId: "transmutation",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: ["spells", "transformation"],
   },

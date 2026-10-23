@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const BEAST_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const BEAST_RESOURCES: Record<string, ResourceTemplate> = {
     id: "infectious_fury",
     sourceId: "beast",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "longRest",
     tags: ["combat"],
   },
@@ -13,7 +14,7 @@ export const BEAST_RESOURCES: Record<string, ResourceTemplate> = {
     id: "call_the_hunt",
     sourceId: "beast",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "longRest",
     tags: ["combat", "support"],
   },

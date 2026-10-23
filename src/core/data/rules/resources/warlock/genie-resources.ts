@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const GENIE_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const GENIE_RESOURCES: Record<string, ResourceTemplate> = {
     id: "bottled_respite",
     sourceId: "genie",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: ["utility"],
   },
@@ -14,7 +15,7 @@ export const GENIE_RESOURCES: Record<string, ResourceTemplate> = {
     id: "genies_wrath",
     sourceId: "genie",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "perRound",
     tags: ["combat", "damage"],
   },
@@ -23,7 +24,7 @@ export const GENIE_RESOURCES: Record<string, ResourceTemplate> = {
     id: "elemental_gift_flight",
     sourceId: "genie",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "longRest",
     tags: ["movement"],
   },
@@ -32,7 +33,7 @@ export const GENIE_RESOURCES: Record<string, ResourceTemplate> = {
     id: "limited_wish",
     sourceId: "genie",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest", // TODO: 1d4 long rests
     tags: ["spells"],
   },

@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const WAR_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const WAR_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
     id: "power_surge",
     sourceId: "war_magic",
     category: "subclass_features",
-    scalingType: "INT",
+    max: E.max(E.n(1), E.mod("INT")),
     // TODO: Resets to 1 on longRest, not max
     // TODO: Gains 1 if = 0 on shortRest
     recharge: "longRest",
@@ -15,7 +16,7 @@ export const WAR_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
     id: "power_surge",
     sourceId: "war_magic",
     category: "subclass_features",
-    scalingType: "INT",
+    max: E.max(E.n(1), E.mod("INT")),
     recharge: "perTurn",
     tags: ["combat", "damage"],
   },

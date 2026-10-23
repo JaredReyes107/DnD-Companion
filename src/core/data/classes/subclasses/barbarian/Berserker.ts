@@ -11,7 +11,10 @@ export const BERSERKER: SubclassTemplate = {
         id: "frenzy",
         source: "subclass",
         level: 3,
-        grants: [{ type: "action", id: "frenzy_attack" }],
+        grants: [
+          { type: "action", id: "frenzy_start" },
+          { type: "action", id: "frenzy_attack" },
+        ],
         tags: ["combat"],
         // TODO: Override. Rage
         // TODO: Status. Tiered condition: exhaustion, at end of rage

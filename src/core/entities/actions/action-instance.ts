@@ -8,7 +8,7 @@ import { Predicate } from "../rules/predicate/predicate";
 export type ModifyResourceEffect = {
   type: "modifyResource";
   resourceId: string;
-  amount: number; // puede ser negativo
+  amount: number;
 };
 
 export type ConvertResourceEffect = {
@@ -25,6 +25,7 @@ export type ConvertResourceEffect = {
   };
 };
 
+/** @deprecated Apply a status that grants the modifier/advantage instead. */
 export type ApplyModifierEffect = {
   type: "applyModifier";
   modifiers: string[]; //modifierId
@@ -34,6 +35,7 @@ export type ApplyModifierEffect = {
   stacking?: "overlap" | "refresh" | "override" | "ignore";
 };
 
+/** @deprecated Apply a status that grants the modifier/advantage instead. */
 export type ApplyAdvantageEffect = {
   type: "applyAdvantage";
   nodeIds: string[]; // CheckNode ids; a parent node covers its descendants

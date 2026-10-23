@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const FIEND_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const FIEND_RESOURCES: Record<string, ResourceTemplate> = {
     id: "dark_ones_own_luck",
     sourceId: "fiend",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: ["utility"],
   },
@@ -14,7 +15,7 @@ export const FIEND_RESOURCES: Record<string, ResourceTemplate> = {
     id: "hurl_through_hell",
     sourceId: "fiend",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: ["combat", "control"],
   },

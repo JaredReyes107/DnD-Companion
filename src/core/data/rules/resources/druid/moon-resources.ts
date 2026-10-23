@@ -6,7 +6,7 @@ export const MOON_RESOURCES: Record<string, ResourceTemplate> = {
   //   id: "some_resource",
   //   sourceId: "moon",
   //   category: "subclass_features",
-  //   scalingType: "fixed:1",
+  //   max: E.n(1),
   //   recharge: "longRest",
   //   tags: [],
   // },

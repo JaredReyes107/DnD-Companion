@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 import { BEAST_MASTER_RESOURCES } from "./ranger/beast-master-resources";
@@ -29,7 +30,7 @@ export const RANGER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "foe_slayer",
     sourceId: "ranger",
     category: "class_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "perTurn",
     tags: ["senses"],
   },

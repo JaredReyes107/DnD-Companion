@@ -6,7 +6,7 @@ export const ELDRITCH_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
   //   id: "some_resource",
   //   sourceId: "eldritch_knight",
   //   category: "subclass_features",
-  //   scalingType: "fixed:1",
+  //   max: E.n(1),
   //   recharge: "longRest",
   //   tags: [],
   // },

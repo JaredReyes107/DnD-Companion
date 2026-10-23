@@ -10,8 +10,10 @@ const aura = (env: string): ActionInstance => ({
   sourceId: "storm_herald",
   boards: ["combat"],
   duration: { kind: "economy", slot: "bonusAction" },
-  requires: raging,
-  effects: [], // Effect is damage/temp HP on others: not modeled. Entering rage activates it for free.
+  requires: P.status("raging"),
+  effects: [
+    { type: "applyStatus", statusId: `storm_aura_${env}`, durationRounds: 10 },
+  ],
 });
 
 export const STORM_HERALD_ACTIONS: Record<string, ActionInstance> = {

@@ -2,13 +2,12 @@ import { ClassTemplate } from "@/core/entities/rules/class-template";
 import { abilityScoreImprovement } from "../rules/features/feats";
 
 // NOTES:
-/*
-  1. Hide root.tools
-  2. Move abilityScoreImprovement into "Common features"-like file, future use for feats too
-  3. Choices/Pools for regular skill proficiencies
-  4. Class template only grants: doesn't hard define advantage instances (e.g. danger sense) -> Move to registries
-     This to allow future homebrew sharing to other classes/subclasses
-  5. "Partial" Advantages. Different color, inspect description. Not complete model
+/* AUTO:
+  3. Make TCE subclasses
+  N. "Partial" Advantages. Different color, inspect description. Not complete model
+
+  MANUAL
+  1. Localize root.tools
 */
 
 export const BARBARIAN: ClassTemplate = {
@@ -25,6 +24,7 @@ export const BARBARIAN: ClassTemplate = {
         id: "proficiencies_barbarian",
         source: "class",
         level: 1,
+        appliesTo: "primary",
         grants: [
           { type: "proficiency", nodeId: "armor.light" },
           { type: "proficiency", nodeId: "armor.medium" },
@@ -34,6 +34,18 @@ export const BARBARIAN: ClassTemplate = {
           { type: "proficiency", nodeId: "savingThrow.STR" },
           { type: "proficiency", nodeId: "savingThrow.CON" },
           { type: "choice", id: "barbarian_skills" },
+        ],
+        tags: ["proficiency"],
+      },
+      {
+        id: "multiclass_proficiencies_barbarian",
+        source: "class",
+        level: 1,
+        appliesTo: "multiclass",
+        grants: [
+          { type: "proficiency", nodeId: "armor.shield" },
+          { type: "proficiency", nodeId: "weapon.simple" },
+          { type: "proficiency", nodeId: "weapon.martial" },
         ],
         tags: ["proficiency"],
       },

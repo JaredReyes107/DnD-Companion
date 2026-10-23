@@ -10,6 +10,7 @@ import { SUN_SOUL_RESOURCES } from "./monk/sun-soul-resources";
 
 import { ASTRAL_SELF_RESOURCES } from "./monk/astral-self-resources";
 import { MERCY_RESOURCES } from "./monk/mercy-resources";
+import { E } from "@/core/entities/rules/expr/expr";
 
 const RESOURCES_SUBCLASSES: Record<string, ResourceTemplate> = {
   ...FOUR_ELEMENTS_RESOURCES,
@@ -31,7 +32,7 @@ export const MONK_RESOURCES: Record<string, ResourceTemplate> = {
     id: "ki_points",
     sourceId: "monk",
     category: "class_features",
-    scalingType: "class-level",
+    max: E.classLevel("monk"),
     recharge: "shortRest",
     tags: ["combat", "mobility"],
   },

@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const MONSTER_SLAYER_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const MONSTER_SLAYER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "hunters_sense",
     sourceId: "monster_slayer",
     category: "subclass_features",
-    scalingType: "WIS",
+    max: E.max(E.n(1), E.mod("WIS")),
     recharge: "longRest",
     tags: [],
   },
@@ -13,7 +14,7 @@ export const MONSTER_SLAYER_RESOURCES: Record<string, ResourceTemplate> = {
     id: "magic_users_nemesis",
     sourceId: "monster_slayer",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: [],
   },

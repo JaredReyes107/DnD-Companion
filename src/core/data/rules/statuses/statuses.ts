@@ -1,7 +1,9 @@
 import { StatusTemplate } from "@/core/entities/rules/status/status-template";
 
-import { BARBARIAN_STATUSES } from "./barbarian/barbarian-statuses";
-import { FIGHTER_STATUSES } from "./fighter/fighter-statuses";
+import { CORE_STATUSES, CONDITION_STATUSES } from "./conditions/conditions";
+
+import { BARBARIAN_STATUSES } from "./by-class/barbarian/barbarian-statuses";
+import { FIGHTER_STATUSES } from "./by-class/fighter/fighter-statuses";
 
 const plain = (id: string): [string, StatusTemplate] => [id, { id }];
 
@@ -11,6 +13,8 @@ const CLASS_FEATURE_STATUSES: Record<string, StatusTemplate> = {
 };
 
 export const BASE_STATUSES: Record<string, StatusTemplate> = {
+  ...CORE_STATUSES,
+  ...CONDITION_STATUSES,
   ...CLASS_FEATURE_STATUSES,
 
   concentrating: {
@@ -19,14 +23,6 @@ export const BASE_STATUSES: Record<string, StatusTemplate> = {
     limitStat: "concentrationLimit",
     bindsSourceEffects: true,
     defaultExpiry: [{ type: "onZeroHp" }],
-  },
-  grappled: {
-    id: "grappled",
-    grants: [{ type: "modifier", id: "status_speed_zero" }],
-  },
-  restrained: {
-    id: "restrained",
-    grants: [{ type: "modifier", id: "status_speed_zero" }],
   },
   ...Object.fromEntries(
     [

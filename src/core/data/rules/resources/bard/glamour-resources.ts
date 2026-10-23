@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const GLAMOUR_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const GLAMOUR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "mantle_of_majesty",
     sourceId: "glamour",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: ["combat", "support"],
   },
@@ -13,7 +14,7 @@ export const GLAMOUR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "enthralling_performance",
     sourceId: "glamour",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: ["roleplay"],
   },
@@ -21,7 +22,7 @@ export const GLAMOUR_RESOURCES: Record<string, ResourceTemplate> = {
     id: "unbreakable_majesty",
     sourceId: "glamour",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: ["combat"],
   },

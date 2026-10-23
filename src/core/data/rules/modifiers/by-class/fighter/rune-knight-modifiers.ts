@@ -2,8 +2,8 @@ import {
   ModifierTemplate,
   ModifierType,
 } from "@/core/entities/modifiers/Modifier";
+import { E } from "@/core/entities/rules/expr/expr";
 import { P } from "@/core/entities/rules/predicate/predicate";
-import { resolveCheckProficiency } from "@/core/rules/character/checks-helper";
 
 export const RUNE_KNIGHT_MODIFIERS: Record<string, ModifierTemplate> = {
   // Fire Rune passive
@@ -17,11 +17,7 @@ export const RUNE_KNIGHT_MODIFIERS: Record<string, ModifierTemplate> = {
     condition: P.resourceAtLeast("fire_rune", 1),
     // targetNodeId is injected by the stat resolver for each concrete check node.
     // Return PB only when the character is proficient in that specific tool node.
-    value: (ctx) =>
-      ctx.targetNodeId &&
-      resolveCheckProficiency(ctx.character, ctx.targetNodeId)
-        ? ctx.resolved.proficiencyBonus
-        : 0,
+    value: E.when({ type: "targetProficiency" }, E.pb(), E.n(0)),
   },
 
   // Frost Rune active

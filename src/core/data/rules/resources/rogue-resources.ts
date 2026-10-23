@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 import { ARCANE_TRICKSTER_RESOURCES } from "./rogue/arcane-trickster-resources";
@@ -33,7 +34,7 @@ export const ROGUE_RESOURCES: Record<string, ResourceTemplate> = {
     id: "sneak_attack",
     sourceId: "rogue",
     category: "class_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "perTurn",
     tags: ["combat", "damage"],
   },
@@ -41,7 +42,7 @@ export const ROGUE_RESOURCES: Record<string, ResourceTemplate> = {
     id: "stroke_of_luck",
     sourceId: "rogue",
     category: "class_features",
-    scalingType: "class-level",
+    max: E.n(1),
     recharge: "shortRest",
     tags: ["combat", "utility"],
   },

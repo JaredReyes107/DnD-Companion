@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const GLORY_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const GLORY_RESOURCES: Record<string, ResourceTemplate> = {
     id: "glorious_defense",
     sourceId: "glory",
     category: "subclass_features",
-    scalingType: "CHA",
+    max: E.max(E.n(1), E.mod("CHA")),
     recharge: "longRest",
     tags: [],
   },
@@ -13,7 +14,7 @@ export const GLORY_RESOURCES: Record<string, ResourceTemplate> = {
     id: "living_legend",
     sourceId: "glory",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: [],
   },
@@ -21,7 +22,7 @@ export const GLORY_RESOURCES: Record<string, ResourceTemplate> = {
     id: "living_legend_precise_attack",
     sourceId: "glory",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "perTurn",
     tags: [],
   },

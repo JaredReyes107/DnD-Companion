@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const FATHOMLESS_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const FATHOMLESS_RESOURCES: Record<string, ResourceTemplate> = {
     id: "tentacle_of_the_deeps",
     sourceId: "fathomless",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "longRest",
     tags: ["combat", "damage"],
   },
@@ -14,7 +15,7 @@ export const FATHOMLESS_RESOURCES: Record<string, ResourceTemplate> = {
     id: "grasping_tentacles",
     sourceId: "fathomless",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: ["spells", "control"],
   },
@@ -23,7 +24,7 @@ export const FATHOMLESS_RESOURCES: Record<string, ResourceTemplate> = {
     id: "fathomless_plunge",
     sourceId: "fathomless",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: ["movement"],
   },

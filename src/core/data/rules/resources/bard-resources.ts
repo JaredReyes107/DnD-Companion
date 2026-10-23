@@ -4,6 +4,7 @@ import { GLAMOUR_RESOURCES } from "./bard/glamour-resources";
 import { WHISPERS_RESOURCES } from "./bard/whispers-resources";
 import { CREATION_RESOURCES } from "./bard/creation-resources";
 import { ELOQUENCE_RESOURCES } from "./bard/eloquence-resources";
+import { E } from "@/core/entities/rules/expr/expr";
 
 const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
   ...GLAMOUR_RESOURCES,
@@ -18,7 +19,7 @@ export const BARD_RESOURCES: Record<string, ResourceTemplate> = {
     id: "bardic_inspiration",
     sourceId: "bard",
     category: "class_features",
-    scalingType: "CHA",
+    max: E.max(E.n(1), E.mod("CHA")),
     recharge: "longRest",
     tags: [
       "combat",

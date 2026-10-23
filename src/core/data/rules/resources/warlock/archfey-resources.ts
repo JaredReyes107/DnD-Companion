@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const ARCHFEY_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const ARCHFEY_RESOURCES: Record<string, ResourceTemplate> = {
     id: "fey_presence",
     sourceId: "archfey",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: ["combat", "control"],
   },
@@ -14,7 +15,7 @@ export const ARCHFEY_RESOURCES: Record<string, ResourceTemplate> = {
     id: "misty_escape",
     sourceId: "archfey",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: ["defense", "movement"],
   },
@@ -23,7 +24,7 @@ export const ARCHFEY_RESOURCES: Record<string, ResourceTemplate> = {
     id: "dark_delirium",
     sourceId: "archfey",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "shortRest",
     tags: ["combat", "control"],
   },

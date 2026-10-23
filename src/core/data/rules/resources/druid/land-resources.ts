@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const LAND_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const LAND_RESOURCES: Record<string, ResourceTemplate> = {
     id: "natural_recovery",
     sourceId: "land",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: ["spellcasting"],
     // NOTE: tracks the once-per-day USE of the feature, not the slot levels

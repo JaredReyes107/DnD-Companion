@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const PHANTOM_RESOURCES: Record<string, ResourceTemplate> = {
@@ -5,7 +6,7 @@ export const PHANTOM_RESOURCES: Record<string, ResourceTemplate> = {
     id: "wails_from_the_grave",
     sourceId: "phantom",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "longRest",
     tags: ["combat", "damage"],
   },
@@ -14,7 +15,7 @@ export const PHANTOM_RESOURCES: Record<string, ResourceTemplate> = {
     id: "soul_trinkets",
     sourceId: "phantom",
     category: "subclass_features",
-    scalingType: "PB",
+    max: E.pb(),
     recharge: "none",
     tags: ["utility", "consumable"],
   },
@@ -23,7 +24,7 @@ export const PHANTOM_RESOURCES: Record<string, ResourceTemplate> = {
     id: "ghost_walk",
     sourceId: "phantom",
     category: "subclass_features",
-    scalingType: "fixed:1",
+    max: E.n(1),
     recharge: "longRest",
     tags: ["movement", "transformation"],
     // TODO: Fallback: soul_trinkets

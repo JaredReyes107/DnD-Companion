@@ -4,6 +4,12 @@ import { P } from "@/core/entities/rules/predicate/predicate";
 const charged = (id: string) => P.resourceAtLeast(id, 1);
 
 export const RUNE_KNIGHT_ADVANTAGES: Record<string, AdvantageTemplate> = {
+  giants_might_str: {
+    id: "giants_might_str",
+    sourceId: "giants_might",
+    nodeIds: ["skillCheck.STR", "savingThrow.STR"],
+    polarity: "advantage",
+  },
   cloud_rune_passive: {
     id: "cloud_rune_passive",
     sourceId: "cloud_rune",
