@@ -3,8 +3,7 @@ import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 import { resolveBase } from "@/core/entities/rules/resolved-base";
 import type { ResolvedBase } from "@/core/entities/rules/resolved-base";
 import { getResourceRegistry } from "@/core/data/registries/resources.registry";
-import { evaluateExpr } from "@/core/rules/expr/evaluate-expr"; // adjust path
-import type { ExprContext } from "@/core/rules/expr/evaluate-expr"; // adjust path
+import { ExprContext, evaluateExpr } from "../predicate/evaluate-predicate";
 
 /** Pure max evaluation. Infinity (Rage 20) survives floor; see TODO(unlimited). */
 export function resolveResourceMax(

@@ -6,7 +6,7 @@ import {
 } from "@/core/data/registries/overrides.registry";
 import { registerHomebrewFeature } from "@/core/data/registries/features.registry";
 import { registerHomebrewOption } from "@/core/data/registries/options.registry";
-import { buildOverrideContext } from "../active-overrides";
+import { buildOverrideContext } from "@/core/rules/overrides/active-overrides";
 
 // Ids are unique to this file: homebrew registries are module-global.
 const mkOverride = (id: string): OverrideTemplate =>

@@ -1,8 +1,8 @@
 import { Character } from "@/core/entities/character/Character";
 import { ABILITIES } from "@/core/entities/rules/ability/ability.types";
 import { getResourceById } from "@/core/data/registries/resources.registry";
-import { resolveResourceMax } from "../resource-max";
-import { buildSpellSlotResources } from "../resources-helper";
+import { resolveResourceMax } from "@/core/rules/character/resource-max";
+import { buildSpellSlotResources } from "@/core/rules/character/resources-helper";
 import { getTotalCasterLevel } from "@/core/entities/spellcasting/spellcasting";
 
 type ClassSpec = [string, number, string?];

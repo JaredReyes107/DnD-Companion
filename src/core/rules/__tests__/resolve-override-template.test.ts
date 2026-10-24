@@ -1,7 +1,7 @@
 import { E } from "@/core/entities/rules/expr/expr";
 import type { OverrideTemplate } from "@/core/entities/rules/override/override-template";
 import { getResourceById } from "@/core/data/registries/resources.registry";
-import { resolveTemplateWith } from "../resolve-template";
+import { resolveTemplateWith } from "@/core/rules/overrides/resolve-template.ts";
 
 // Test helper: the cast keeps fixtures short; real data is type-checked by OverrideTemplate.
 const ov = (o: Record<string, unknown>) => o as unknown as OverrideTemplate;

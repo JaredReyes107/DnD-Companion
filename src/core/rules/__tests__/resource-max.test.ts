@@ -5,8 +5,8 @@ import {
 } from "@/core/entities/rules/ability/ability.types";
 import { getResourceById } from "@/core/data/registries/resources.registry";
 import { getAbilityModifier } from "@/core/rules/character/abilities-modifiers";
-import { resolveResourceMax } from "../resource-max";
-import type { ExprContext } from "@/core/rules/expr/evaluate-expr"; // adjust path
+import { resolveResourceMax } from "@/core/rules/character/resource-max";
+import { ExprContext } from "@/core/rules/predicate/evaluate-predicate";
 
 type ClassSpec = [classId: string, level: number, subclassId?: string];
 
