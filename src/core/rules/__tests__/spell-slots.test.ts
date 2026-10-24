@@ -21,6 +21,9 @@ function makeChar(classes: ClassSpec[]): Character {
     resources: {},
     hitPoints: { currentHP: 0, currentMaximumHP: 0, temporalHP: 0 },
     baseAbilityScores: Object.fromEntries(ABILITIES.map((a) => [a, 10])),
+    statModifiers: {},
+    features: {},
+    featureChoices: {},
   } as unknown as Character;
 }
 const ctxOf = (character: Character) => ({
