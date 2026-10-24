@@ -9,26 +9,16 @@ function restoreResources(
   resources: Record<string, ResourceInstance>,
   rechargeTypes: string[],
 ): Record<string, ResourceInstance> {
+  const registry = getResourceRegistry();
   const updated: Record<string, ResourceInstance> = {};
-
-  const RESOURCE_DEFINITIONS = getResourceRegistry();
-
   for (const [key, instance] of Object.entries(resources)) {
-    const definition = RESOURCE_DEFINITIONS[instance.resourceId];
-
-    if (!definition) {
-      // TODO[RESOURCE_SAFETY]: Decide how to handle missing definitions
-      updated[key] = instance;
-      continue;
-    }
-
-    const shouldRestore = rechargeTypes.includes(definition.recharge);
-
-    updated[key] = shouldRestore
-      ? { ...instance, current: instance.max }
-      : instance;
+    const definition = registry[instance.resourceId];
+    // TODO[RESOURCE_SAFETY]: missing definitions are left untouched
+    updated[key] =
+      definition && rechargeTypes.includes(definition.recharge)
+        ? { ...instance, spent: 0 }
+        : instance;
   }
-
   return updated;
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { View } from "react-native";
 import { ThemedText } from "@/components/ui/ThemedText";
 import { ActionElement } from "./ActionElement";
@@ -15,6 +15,7 @@ import { getLocalizedName } from "@/services/localization/localization-helper";
 import { ui } from "@/services/localization/ui-localization-resolver";
 
 import styles from "@/styles/combat/tab-actions";
+import { buildResourceContext } from "@/core/rules/character/resource-max";
 
 type Props = {
   slot: ActionSlot;
@@ -29,6 +30,11 @@ export const ActionSection = ({
   character,
   onUpdate,
 }: Props) => {
+  const resourceCtx = useMemo(
+    () => buildResourceContext(character),
+    [character],
+  );
+
   if (actions.length === 0) return null;
 
   const handleAction = (action: ActionInstance) =>
@@ -44,7 +50,7 @@ export const ActionSection = ({
           <ActionElement
             key={action.id}
             label={getLocalizedName("actions", action.id)}
-            isAvailable={isActionAvailable(character, action)}
+            isAvailable={isActionAvailable(character, action, resourceCtx)}
             onUse={() => handleAction(action)}
           />
         ))}

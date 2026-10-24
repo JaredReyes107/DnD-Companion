@@ -1,5 +1,5 @@
 export type ResourceInstance = {
   resourceId: string;
-  max: number;
-  current: number;
+  /** Uses consumed. current = max - spent; max is derived from the template (never stored). */
+  spent: number;
 };

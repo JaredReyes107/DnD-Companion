@@ -25,7 +25,7 @@ export const ResourceElement = ({ label, current, max, onChange }: Props) => {
       </ThemedText>
 
       <ThemedText style={styles.resourceElementValues}>
-        {current} / {max}
+        {Number.isFinite(max) ? `${current} / ${max}` : "∞"}
       </ThemedText>
 
       <View style={styles.resourceElementButtonsContainer}>

@@ -1,4 +1,3 @@
-// src/core/rules/predicate/evaluate-predicate.ts
 import { Character } from "@/core/entities/character/Character";
 import { StatModel } from "@/core/entities/rules/stats.types";
 import {
@@ -24,6 +23,11 @@ export interface ExprContext {
   targetNodeId?: string;
   /** Absent inside stat resolution: `stat` leaves become unknown. */
   resolveStat?: (stat: StatModel) => number;
+  /** Absent outside resource-aware contexts: `resource` leaves become unknown. */
+  resolveResource?: (
+    resourceId: string,
+    field: "current" | "max",
+  ) => number | undefined;
 }
 
 export interface PredicateContext extends ExprContext {
@@ -100,10 +104,8 @@ export function evaluateExpr(e: Expr, ctx: ExprContext): number | undefined {
     }
     case "casterLevel":
       return getTotalCasterLevel(character);
-    case "resource": {
-      const r = character.resources[e.resourceId];
-      return !r ? 0 : e.field === "max" ? r.max : r.current;
-    }
+    case "resource":
+      return ctx.resolveResource?.(e.resourceId, e.field ?? "current");
     case "hp": {
       const h = character.hitPoints;
       return e.field === "current"
