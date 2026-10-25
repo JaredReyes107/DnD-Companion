@@ -5,13 +5,15 @@ import { ExpiryCondition } from "../rules/duration/expiry-condition";
 import { AdvantagePolarity } from "../rules/advantage/advantage-instance";
 import { Predicate } from "../rules/predicate/predicate";
 
-export type ModifyResourceEffect = {
+type EffectBase = { key?: string };
+
+export type ModifyResourceEffect = EffectBase & {
   type: "modifyResource";
   resourceId: string;
   amount: number;
 };
 
-export type ConvertResourceEffect = {
+export type ConvertResourceEffect = EffectBase & {
   type: "convertResource";
 
   from: {
@@ -26,7 +28,7 @@ export type ConvertResourceEffect = {
 };
 
 /** @deprecated Apply a status that grants the modifier/advantage instead. */
-export type ApplyModifierEffect = {
+export type ApplyModifierEffect = EffectBase & {
   type: "applyModifier";
   modifiers: string[]; //modifierId
   durationRounds?: number;
@@ -36,7 +38,7 @@ export type ApplyModifierEffect = {
 };
 
 /** @deprecated Apply a status that grants the modifier/advantage instead. */
-export type ApplyAdvantageEffect = {
+export type ApplyAdvantageEffect = EffectBase & {
   type: "applyAdvantage";
   nodeIds: string[]; // CheckNode ids; a parent node covers its descendants
   polarity: AdvantagePolarity;
@@ -46,7 +48,7 @@ export type ApplyAdvantageEffect = {
   concentration?: boolean;
 };
 
-export type ApplyStatusEffect = {
+export type ApplyStatusEffect = EffectBase & {
   type: "applyStatus";
   statusId: string;
   durationRounds?: number;
@@ -54,7 +56,7 @@ export type ApplyStatusEffect = {
   endsEarlyOn?: ExpiryCondition[];
 };
 
-export type EndEffectsEffect = {
+export type EndEffectsEffect = EffectBase & {
   type: "endEffects";
   sourceIds?: string[]; // everything these sources applied
   statusIds?: string[]; // every instance of these statuses (cascades if bound)

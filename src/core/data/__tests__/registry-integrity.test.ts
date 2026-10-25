@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getResourceRegistry } from "@/core/data/registries/resources.registry";
 import { getActionRegistry } from "@/core/data/registries/actions.registry";
 import { getModifierRegistry } from "@/core/data/registries/modifiers.registry";
@@ -6,6 +7,8 @@ import { getChoicePoolRegistry } from "@/core/data/registries/choice-pools.regis
 import { getAllClassTemplates } from "@/core/data/registries/classes.registry";
 import { getSubclassRegistry } from "@/core/data/registries/subclasses.registry";
 import { FeatureGrant } from "@/core/entities/rules/feature-template";
+
+import { duplicateEffectKeys } from "@/core/rules/validation/action-effects";
 
 const mismatches = (reg: Record<string, { id: string }>) =>
   Object.entries(reg)
@@ -74,4 +77,12 @@ describe("resource templates", () => {
       void id;
     }
   });
+});
+
+it("effect keys are unique within each action", () => {
+  const bad = Object.entries(getActionRegistry())
+    .map(([id, a]) => [id, duplicateEffectKeys(a)] as const)
+    .filter(([, d]) => d.length)
+    .map(([id, d]) => `${id}: ${d.join(",")}`);
+  expect(bad).toEqual([]);
 });
