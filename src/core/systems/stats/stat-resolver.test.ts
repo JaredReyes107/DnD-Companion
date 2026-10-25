@@ -3,6 +3,15 @@ import {
   ModifierInstance,
   ModifierType,
 } from "../../entities/modifiers/Modifier";
+import { P } from "@/core/entities/rules/predicate/predicate";
+import { Character } from "../../entities/character/Character";
+
+const withHp = (currentHP: number) => ({
+  character: {
+    hitPoints: { currentHP, currentMaximumHP: 30, temporalHP: 0 },
+  } as Character,
+});
+const none = { character: {} as Character };
 
 // Minimal valid ModifierInstance — statModel replaces the old statId primitive.
 function mod(
@@ -21,7 +30,7 @@ function mod(
 
 describe("StatResolver", () => {
   it("should return base value when no modifiers exist", () => {
-    const result = resolveStat("ac", 10, []);
+    const result = resolveStat("ac", 10, [], none);
     expect(result.finalValue).toBe(10);
   });
 
@@ -30,7 +39,7 @@ describe("StatResolver", () => {
       mod({ id: "1", effectId: "shield", value: 2 }),
       mod({ id: "2", effectId: "ring", value: 1 }),
     ];
-    const result = resolveStat("ac", 10, modifiers);
+    const result = resolveStat("ac", 10, modifiers, none);
     expect(result.finalValue).toBe(13);
   });
 
@@ -70,19 +79,15 @@ describe("StatResolver", () => {
         id: "1",
         effectId: "situational_bonus",
         value: 5,
-        condition: { type: "hpBelowThreshold", threshold: 10 },
+        condition: P.hpBelow(10),
       }),
       mod({ id: "2", effectId: "permanent_bonus", value: 2 }),
     ];
 
     // HP is 20 (above threshold) — situational bonus does NOT apply.
-    expect(resolveStat("ac", 10, modifiers, { currentHp: 20 }).finalValue).toBe(
-      12,
-    );
+    expect(resolveStat("ac", 10, modifiers, withHp(20)).finalValue).toBe(12);
 
     // HP is 5 (below threshold) — situational bonus DOES apply.
-    expect(resolveStat("ac", 10, modifiers, { currentHp: 5 }).finalValue).toBe(
-      17,
-    );
+    expect(resolveStat("ac", 10, modifiers, withHp(5)).finalValue).toBe(17);
   });
 });

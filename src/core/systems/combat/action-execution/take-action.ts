@@ -28,6 +28,7 @@ import { StatusInstance } from "@/core/entities/combat/status-instance";
 import { ExprContext } from "@/core/rules/predicate/evaluate-predicate";
 import {
   buildResourceContext,
+  ResourceContext,
   resourceCurrent,
   resourceMax,
 } from "@/core/rules/character/resource-max";
@@ -37,7 +38,7 @@ export function applyResourceDelta(
   character: Character,
   resourceId: string,
   amount: number,
-  ctx: ExprContext = buildResourceContext(character),
+  ctx: ResourceContext = buildResourceContext(character),
 ): Character {
   const instance = character.resources[resourceId];
   if (!instance) return character;
@@ -52,7 +53,7 @@ export function applyResourceDelta(
 export function applyResourceConversion(
   character: Character,
   effect: ConvertResourceEffect,
-  ctx: ExprContext = buildResourceContext(character),
+  ctx: ResourceContext = buildResourceContext(character),
 ): Character {
   if (
     !character.resources[effect.from.resourceId] ||
@@ -134,7 +135,7 @@ export function applyRuntimeAdvantage(
 export function isActionAvailable(
   character: Character,
   action: ActionInstance,
-  ctx?: ExprContext,
+  ctx?: ResourceContext,
 ): boolean {
   if (!character.combatState) return false;
 

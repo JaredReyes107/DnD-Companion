@@ -1,21 +1,25 @@
 import { Character } from "@/core/entities/character/Character";
 import { buildCombatState } from "@/core/rules/combat/combat-helper";
 import { ResourceInstance } from "@/core/entities/resources/resource-instance";
-import { getResourceRegistry } from "../../data/registries/resources.registry";
 import { resetChoicesForTrigger } from "./choices-helper";
 import { onLongRest, onShortRest } from "@/core/systems/combat/combat-triggers";
+import {
+  buildResourceContext,
+  ResourceContext,
+  resourceRecharge,
+} from "./resource-max";
 
 function restoreResources(
   resources: Record<string, ResourceInstance>,
   rechargeTypes: string[],
+  ctx: ResourceContext,
 ): Record<string, ResourceInstance> {
-  const registry = getResourceRegistry();
   const updated: Record<string, ResourceInstance> = {};
   for (const [key, instance] of Object.entries(resources)) {
-    const definition = registry[instance.resourceId];
-    // TODO[RESOURCE_SAFETY]: missing definitions are left untouched
+    const recharge = resourceRecharge(instance.resourceId, ctx);
+    // TODO[RESOURCE_SAFETY]: unknown definitions are left untouched
     updated[key] =
-      definition && rechargeTypes.includes(definition.recharge)
+      recharge && rechargeTypes.includes(recharge)
         ? { ...instance, spent: 0 }
         : instance;
   }
@@ -23,6 +27,7 @@ function restoreResources(
 }
 
 export function takeLongRest(character: Character): Character {
+  const ctx = buildResourceContext(character);
   const rested: Character = {
     ...character,
     hitPoints: {
@@ -31,14 +36,12 @@ export function takeLongRest(character: Character): Character {
       currentHP: character.hitPoints.currentMaximumHP,
     },
     combatState: buildCombatState(character),
-    resources: restoreResources(character.resources, ["longRest", "shortRest"]),
-    featureChoices: resetChoicesForTrigger(
-      {
-        ...character,
-        featureChoices: resetChoicesForTrigger(character, "onShortRest"),
-      },
-      "onLongRest",
+    resources: restoreResources(
+      character.resources,
+      ["longRest", "shortRest"],
+      ctx,
     ),
+    featureChoices: resetChoicesForTrigger(character, "onLongRest"),
   };
   return onLongRest(rested);
 }
@@ -46,7 +49,11 @@ export function takeLongRest(character: Character): Character {
 export function takeShortRest(character: Character): Character {
   const rested: Character = {
     ...character,
-    resources: restoreResources(character.resources, ["shortRest"]),
+    resources: restoreResources(
+      character.resources,
+      ["shortRest"],
+      buildResourceContext(character),
+    ),
     featureChoices: resetChoicesForTrigger(character, "onShortRest"),
   };
   return onShortRest(rested);

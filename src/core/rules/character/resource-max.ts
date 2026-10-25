@@ -4,6 +4,23 @@ import { resolveBase } from "@/core/entities/rules/resolved-base";
 import type { ResolvedBase } from "@/core/entities/rules/resolved-base";
 import { getResourceRegistry } from "@/core/data/registries/resources.registry";
 import { ExprContext, evaluateExpr } from "../predicate/evaluate-predicate";
+import {
+  buildOverrideContext,
+  OverrideContext,
+} from "../overrides/active-overrides";
+import { resolveTemplateWith } from "../overrides/resolve-template";
+
+/** ExprContext plus the active overrides. Overrides are optional so pure callers/tests need none. */
+export type ResourceContext = ExprContext & { overrides?: OverrideContext };
+
+const NO_OVERRIDES: OverrideContext = { active: [] };
+
+/** Template after active overrides; undefined for unknown ids. */
+export function resolvedResource(id: string, ctx: ResourceContext) {
+  if (!(id in getResourceRegistry())) return undefined;
+  return resolveTemplateWith("resource", id, ctx.overrides ?? NO_OVERRIDES)
+    .template;
+}
 
 /** Pure max evaluation. Infinity (Rage 20) survives floor; see TODO(unlimited). */
 export function resolveResourceMax(
@@ -24,9 +41,9 @@ export function resolveResourceMax(
 export function resourceMax(
   character: Character,
   id: string,
-  ctx: ExprContext,
+  ctx: ResourceContext,
 ): number {
-  const template = getResourceRegistry()[id];
+  const template = resolvedResource(id, ctx);
   return template ? resolveResourceMax(template, ctx) : 0;
 }
 
@@ -34,7 +51,7 @@ export function resourceMax(
 export function resourceCurrent(
   character: Character,
   id: string,
-  ctx: ExprContext,
+  ctx: ResourceContext,
 ): number {
   const instance = character.resources[id];
   if (!instance) return 0;
@@ -45,8 +62,9 @@ export function resourceCurrent(
 export function createResourceContext(
   character: Character,
   resolved: ResolvedBase,
-): ExprContext {
-  const ctx: ExprContext = { character, resolved };
+  overrides?: OverrideContext,
+): ResourceContext {
+  const ctx: ResourceContext = { character, resolved, overrides };
   const visiting = new Set<string>();
   ctx.resolveResource = (id, field) => {
     if (!character.resources[id]) return 0;
@@ -66,7 +84,19 @@ export function createResourceContext(
   return ctx;
 }
 
-/** Build once per rebuild/render: resolveBase walks every modifier. */
-export function buildResourceContext(character: Character): ExprContext {
-  return createResourceContext(character, resolveBase(character).base);
+/** Build once per rebuild/render: walks modifiers and active features. */
+export function buildResourceContext(
+  character: Character,
+  extraOverrideIds: readonly string[] = [],
+): ResourceContext {
+  return createResourceContext(
+    character,
+    resolveBase(character).base,
+    buildOverrideContext(character, extraOverrideIds),
+  );
+}
+
+/** Resolved recharge for a resource id; undefined if unknown. */
+export function resourceRecharge(id: string, ctx: ResourceContext) {
+  return resolvedResource(id, ctx)?.recharge;
 }

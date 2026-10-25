@@ -4,6 +4,8 @@ import { getResourceById } from "@/core/data/registries/resources.registry";
 import { resolveResourceMax } from "@/core/rules/character/resource-max";
 import { buildSpellSlotResources } from "@/core/rules/character/resources-helper";
 import { getTotalCasterLevel } from "@/core/entities/spellcasting/spellcasting";
+import { createResourceContext } from "@/core/rules/character/resource-max.ts";
+import { resourceMax } from "@/core/rules/character/resource-max.ts";
 
 type ClassSpec = [string, number, string?];
 
@@ -75,14 +77,15 @@ describe("standard spell slots vs PHB table", () => {
     ).toEqual({});
   });
 
-  it("builds only the slot levels that exist, with current == max", () => {
-    const slots = buildSpellSlotResources(makeChar([["wizard", 3]]));
+  it("builds only the slot levels that exist, with nothing spent", () => {
+    const c = makeChar([["wizard", 3]]);
+    const slots = buildSpellSlotResources(c);
     expect(Object.keys(slots).sort()).toEqual(["spell_slot_1", "spell_slot_2"]);
     expect(slots.spell_slot_2).toEqual({
       resourceId: "spell_slot_2",
-      max: 2,
-      current: 2,
+      spent: 0,
     });
+    expect(resourceMax(c, "spell_slot_2", createResourceContext(c))).toBe(2);
   });
 });
 
@@ -117,18 +120,16 @@ describe("multiclass caster level", () => {
   });
 
   it("artificer 1 gets two first-level slots", () => {
-    expect(
-      buildSpellSlotResources(makeChar([["artificer", 1]])).spell_slot_1?.max,
-    ).toBe(2);
+    const c = makeChar([["artificer", 1]]);
+    expect(resourceMax(c, "spell_slot_1", createResourceContext(c))).toBe(2);
   });
   it("wizard 5 / paladin 4 uses caster level 7 (4th-level slots)", () => {
-    const slots = buildSpellSlotResources(
-      makeChar([
-        ["wizard", 5],
-        ["paladin", 4],
-      ]),
-    );
-    expect(slots.spell_slot_4?.max).toBe(1);
+    const c = makeChar([
+      ["wizard", 5],
+      ["paladin", 4],
+    ]);
+    const slots = buildSpellSlotResources(c);
+    expect(resourceMax(c, "spell_slot_4", createResourceContext(c))).toBe(1);
     expect(slots.spell_slot_5).toBeUndefined();
   });
 });
@@ -165,8 +166,9 @@ describe("pact magic", () => {
     expect(at(20)).toBe(1);
   });
   it("a warlock gets pact slots but no standard slots", () => {
-    const res = buildSpellSlotResources(makeChar([["warlock", 5]]));
-    expect(res.pact_slots?.max).toBe(2);
+    const c = makeChar([["warlock", 5]]);
+    const res = buildSpellSlotResources(c);
+    expect(resourceMax(c, "pact_slots", createResourceContext(c))).toBe(2);
     expect(res.spell_slot_1).toBeUndefined();
   });
 });

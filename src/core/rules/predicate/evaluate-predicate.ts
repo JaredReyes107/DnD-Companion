@@ -58,6 +58,13 @@ export function registerCustomPredicate(
   customPredicates.set(id, fn);
 }
 
+const warned = new Set<string>();
+function warnOnce(key: string, msg: string) {
+  if (process.env.NODE_ENV === "production" || warned.has(key)) return;
+  warned.add(key);
+  console.warn(`[predicate] ${msg}`);
+}
+
 function compare(a: number, op: Comparator, b: number): boolean {
   switch (op) {
     case "<":
@@ -165,7 +172,11 @@ export function evaluateExpr(e: Expr, ctx: ExprContext): number | undefined {
       return hit === undefined ? (e.below ?? 0) : e.steps[String(hit)];
     }
     default:
-      return undefined; // variant from a newer schema
+      warnOnce(
+        `expr:${(e as { type: string }).type}`,
+        `unknown expr type "${(e as { type: string }).type}"`,
+      );
+      return undefined;
   }
 }
 
@@ -237,11 +248,20 @@ export function evaluatePredicate(p: Predicate, ctx: PredicateContext): Tri {
 
     case "custom": {
       const fn = customPredicates.get(p.id);
+      if (!fn)
+        warnOnce(
+          `custom:${p.id}`,
+          `custom predicate "${p.id}" is not registered`,
+        );
       return fn ? fn(ctx) : undefined;
     }
 
     default:
-      return undefined; // variant from a newer schema: fail open, don't crash
+      warnOnce(
+        `pred:${(p as { type: string }).type}`,
+        `unknown predicate type "${(p as { type: string }).type}"`,
+      );
+      return undefined;
   }
 }
 

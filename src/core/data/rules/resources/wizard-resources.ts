@@ -41,7 +41,7 @@ export const WIZARD_RESOURCES: Record<string, ResourceTemplate> = {
     id: "arcane_recovery",
     sourceId: "wizard",
     category: "class_features",
-    max: E.div(E.classLevel("wizard"), E.n(2)),
+    max: E.div(E.classLevel("wizard"), E.n(2), "ceil"),
     recharge: "longRest", // TODO: Once per DAY
     tags: ["spells", "utility"],
   },
