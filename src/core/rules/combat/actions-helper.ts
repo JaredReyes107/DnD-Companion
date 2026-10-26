@@ -4,12 +4,17 @@ import { ActionSlot } from "@/core/entities/combat/action-economy";
 import { FeatureTemplate } from "@/core/entities/rules/feature-template";
 import { getActiveFeatures } from "../character/features-helper";
 import {
-  getActionById,
+  getActionRegistry,
   GroupedActions,
 } from "@/core/data/registries/actions.registry";
 import { getActionsFromChoices } from "@/core/rules/character/choices-helper";
 import { DEFAULT_ACTIONS } from "@/core/data/actions/default-actions";
 import { grantsOfType } from "../shared/grant-filters";
+import {
+  OverrideContext,
+  buildOverrideContext,
+} from "../overrides/active-overrides";
+import { resolveTemplateWith } from "../overrides/resolve-template";
 
 export function getActionsFromFeatures(
   features: FeatureTemplate[],
@@ -21,35 +26,34 @@ export function getActionsFromFeatures(
   return ids;
 }
 
-export function buildDefaultCharacterActions(): Record<string, ActionInstance> {
-  const defaultActions = DEFAULT_ACTIONS;
-
-  return defaultActions;
+/** Ids only. Defaults first, then feature grants, then choice grants. */
+export function getActiveActionIds(character: Character): string[] {
+  return [
+    ...new Set([
+      ...Object.keys(DEFAULT_ACTIONS),
+      ...getActionsFromFeatures(getActiveFeatures(character)),
+      ...getActionsFromChoices(character),
+    ]),
+  ];
 }
 
-export function buildCharacterClassActions(
+/** Active actions after overrides, keyed by registry id. Build the context once per render. */
+export function resolveActiveActions(
   character: Character,
+  overrides: OverrideContext = buildOverrideContext(character),
 ): Record<string, ActionInstance> {
-  const ids = new Set([
-    ...getActionsFromFeatures(getActiveFeatures(character)),
-    ...getActionsFromChoices(character),
-  ]);
-  const next: Record<string, ActionInstance> = {};
-  for (const id of ids) next[id] = getActionById(id);
-  return next;
-}
-
-export function buildCharacterActions(
-  character: Character,
-): Record<string, ActionInstance> {
-  let allActions = {};
-
-  const defaultActions = buildDefaultCharacterActions();
-  const classActions = buildCharacterClassActions(character);
-
-  allActions = { ...defaultActions, ...classActions };
-
-  return allActions;
+  const registry = getActionRegistry();
+  const out: Record<string, ActionInstance> = {};
+  for (const id of getActiveActionIds(character)) {
+    if (!(id in registry)) {
+      console.warn(
+        `[actions] granted action "${id}" is not registered; skipped`,
+      );
+      continue; // dangling grants used to crash the tab; commit 8 removes them
+    }
+    out[id] = resolveTemplateWith("action", id, overrides).template;
+  }
+  return out;
 }
 
 export type ActionSectionData = {

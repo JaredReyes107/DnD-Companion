@@ -13,6 +13,7 @@ import {
   TemplateKind,
 } from "@/core/entities/rules/override/override-template";
 import { OverrideContext, buildOverrideContext } from "./active-overrides";
+import { ActionEffect } from "@/core/entities/actions/action-instance";
 
 const LOOKUP: { [K in TemplateKind]: (id: string) => TemplateByKind[K] } = {
   resource: getResourceById,
@@ -40,6 +41,54 @@ function applyPatches<K extends TemplateKind>(
           mode: p.mode,
           text: p.text,
         });
+        continue;
+      }
+      if (p.op === "removeEffect" || p.op === "addEffect") {
+        if (kind !== "action") {
+          console.warn(
+            `[overrides] "${o.id}": ${p.op} only applies to actions; ignored`,
+          );
+          continue;
+        }
+        const effects = (template.effects as ActionEffect[] | undefined) ?? [];
+        if (p.op === "removeEffect") {
+          if (!effects.some((e) => e.key === p.key)) {
+            console.warn(
+              `[overrides] "${o.id}": no effect with key "${p.key}"; ignored`,
+            );
+            continue;
+          }
+          template = {
+            ...template,
+            effects: effects.filter((e) => e.key !== p.key),
+          };
+          trail.push({
+            overrideId: o.id,
+            sourceId: o.sourceId,
+            op: "removeEffect",
+            key: p.key,
+          });
+        } else {
+          if (effects.some((e) => e.key === p.effect.key)) {
+            console.warn(
+              `[overrides] "${o.id}": effect key "${p.effect.key}" already exists; ignored`,
+            );
+            continue;
+          }
+          template = {
+            ...template,
+            effects:
+              p.position === "start"
+                ? [p.effect, ...effects]
+                : [...effects, p.effect],
+          };
+          trail.push({
+            overrideId: o.id,
+            sourceId: o.sourceId,
+            op: "addEffect",
+            key: p.effect.key,
+          });
+        }
         continue;
       }
       if (!allowed.includes(p.field)) {

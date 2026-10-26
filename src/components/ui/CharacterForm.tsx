@@ -187,7 +187,6 @@ const CharacterForm = ({ initialCharacter, onSubmit, submitLabel }: Props) => {
       features: initialCharacter?.features ?? {},
       featureChoices: initialCharacter?.featureChoices ?? {},
       resources: {},
-      actions: {},
       statModifiers: initialCharacter?.statModifiers ?? {},
     };
 
