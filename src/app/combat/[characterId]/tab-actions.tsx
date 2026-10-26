@@ -3,13 +3,16 @@ import { ThemedView } from "@/components/ui/ThemedView";
 import { ThemedText } from "@/components/ui/ThemedText";
 import { useCharacter } from "@/utils/character-provider";
 import { useFocusEffect } from "expo-router";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { ActionSection } from "@/components/ui/ActionSection";
 
 import { cycleActionResource } from "@/core/entities/combat/action-economy";
 import { groupActionsBySlot } from "@/core/data/registries/actions.registry";
-import { groupedActionsAsArray } from "@/core/rules/combat/actions-helper";
+import {
+  groupedActionsAsArray,
+  resolveActiveActions,
+} from "@/core/rules/combat/actions-helper";
 import { resolveInCombat } from "@/core/systems/stats/stat-resolver";
 import { getCharacterSpellcastingSources } from "@/core/entities/spellcasting/spellcasting";
 
@@ -20,6 +23,7 @@ import genericStyles from "@/styles/generic.styles";
 import styles from "@/styles/combat/tab-actions";
 import { getLocalizedName } from "@/services/localization/localization-helper";
 import { onEndTurn, onStartTurn } from "@/core/systems/combat/combat-triggers";
+import { buildOverrideContext } from "@/core/rules/overrides/active-overrides";
 
 const TabActions = () => {
   const {
@@ -39,6 +43,15 @@ const TabActions = () => {
   );
 
   const [isMyTurn, setIsMyTurn] = useState(true);
+
+  const overrides = useMemo(
+    () => (character ? buildOverrideContext(character) : undefined),
+    [character],
+  );
+  const activeActions = useMemo(
+    () => (character ? resolveActiveActions(character, overrides) : {}),
+    [character, overrides],
+  );
 
   if (loading || !character || !encounter || !character.combatState) {
     return (
@@ -60,7 +73,7 @@ const TabActions = () => {
     setSpellcastingSourceIndex((i) => (i + 1) % spellcastingSources.length);
   };
 
-  const grouped = groupActionsBySlot(character.actions);
+  const grouped = groupActionsBySlot(activeActions);
   const sections = groupedActionsAsArray(grouped);
 
   const handleTurnButton = () => {

@@ -1,5 +1,4 @@
 import { Character } from "@/core/entities/character/Character";
-import { buildCharacterActions } from "../combat/actions-helper";
 import { buildCharacterAdvantageInstances } from "./advantage-helper";
 import { buildCharacterDerivedProficiencies } from "./checks-helper";
 import { bootstrapFeatureChoices } from "./choices-helper";
@@ -14,7 +13,6 @@ export function rebuildDerivedState(character: Character): Character {
     ...base,
     statModifiers: buildCharacterPassiveModifiers(base),
     resources: buildCharacterResources(base),
-    actions: buildCharacterActions(base),
     checks: {
       ...base.checks,
       proficiencies: buildCharacterDerivedProficiencies(base),
