@@ -1,35 +1,61 @@
+import { ModifierTemplate } from "@/core/entities/modifiers/Modifier";
+
 import { BARD_MODIFIERS } from "../rules/modifiers/by-class/bard-modifiers";
 import { WIZARD_MODIFIERS } from "../rules/modifiers/by-class/wizard-modifiers";
-import { StatModifierTemplate } from "@/core/entities/rules/stats.types";
+import { STATUS_MODIFIERS } from "../rules/modifiers/status-modifiers";
 
-const homebrewModifiers: Record<string, StatModifierTemplate> = {};
+import { buildExpertiseModifiers } from "../rules/modifiers/expertise-modifiers";
+import { getCheckNodeRegistryVersion } from "./check-nodes.registry";
 
-export const CLASS_MODIFIERS = {
+const homebrewModifiers: Record<string, ModifierTemplate> = {};
+
+export const CLASS_MODIFIERS: Record<string, ModifierTemplate> = {
   ...BARD_MODIFIERS,
   ...WIZARD_MODIFIERS,
 };
 
-export const BASE_MODIFIERS: Record<string, StatModifierTemplate> = {
+export const BASE_MODIFIERS: Record<string, ModifierTemplate> = {
+  ...STATUS_MODIFIERS,
+
   ...CLASS_MODIFIERS,
 };
 
-export function registerHomebrewAction(res: StatModifierTemplate) {
-  homebrewModifiers[res.id] = res;
+// Generated expertise templates, rebuilt only when the check registry changes
+let expertiseCache: {
+  version: number;
+  templates: Record<string, ModifierTemplate>;
+} | null = null;
+function getExpertiseTemplates(): Record<string, ModifierTemplate> {
+  const version = getCheckNodeRegistryVersion();
+  if (!expertiseCache || expertiseCache.version !== version) {
+    expertiseCache = { version, templates: buildExpertiseModifiers() };
+  }
+  return expertiseCache.templates;
 }
 
-export function getActionRegistry() {
+export function registerHomebrewModifier(template: ModifierTemplate) {
+  homebrewModifiers[template.id] = template;
+}
+
+// Precedence: homebrew > base > generated, so a table can replace expertise
+export function lookupModifierTemplate(
+  id: string,
+): ModifierTemplate | undefined {
+  return (
+    homebrewModifiers[id] ?? BASE_MODIFIERS[id] ?? getExpertiseTemplates()[id]
+  );
+}
+
+export function getModifierTemplateById(id: string): ModifierTemplate {
+  const template = lookupModifierTemplate(id);
+  if (!template) throw new Error(`ModifierTemplate not found: ${id}`);
+  return template;
+}
+
+export function getModifierRegistry(): Record<string, ModifierTemplate> {
   return {
+    ...getExpertiseTemplates(),
     ...BASE_MODIFIERS,
     ...homebrewModifiers,
   };
-}
-
-export function getStatModifierTemplateById(id: string): StatModifierTemplate {
-  const template = BASE_MODIFIERS[id];
-
-  if (!template) {
-    throw new Error(`StatModifierTemplate not found: ${id}`);
-  }
-
-  return template;
 }

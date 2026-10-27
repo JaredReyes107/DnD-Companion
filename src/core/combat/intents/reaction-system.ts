@@ -2,6 +2,7 @@ import { RuleContext } from "../../rules/execution/rule-handler";
 import { CombatIntent, IntentType } from "./combat-intent";
 import { IntentQueue } from "./intent-queue";
 import { RuleRegistry } from "../../rules/dsl/rule-registry";
+import * as Crypto from "expo-crypto";
 
 export class ReactionSystem {
   constructor(
@@ -22,7 +23,7 @@ export class ReactionSystem {
     for (const rule of this.ruleRegistry.getAllRules()) {
       if (rule.reaction && this.matchesTrigger(rule.id, ctx)) {
         matchedReactions.push({
-          id: crypto.randomUUID(),
+          id: Crypto.randomUUID(),
           type: IntentType.REACTION,
           actorId: ctx.targetId || "unknown",
           payload: { ruleId: rule.id },

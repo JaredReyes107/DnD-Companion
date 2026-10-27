@@ -2,11 +2,7 @@ import {
   Ability,
   ABILITIES,
 } from "@/core/entities/rules/ability/ability.types";
-import {
-  CharacterSavingThrows,
-  SavingThrowInstance,
-} from "@/core/entities/rules/saving-throw/saving-throw-instance";
-import { Character } from "@/core/entities/character/Character";
+import { CharacterSavingThrows } from "@/core/entities/rules/saving-throw/saving-throw-instance";
 
 export function buildSavingThrows(): CharacterSavingThrows {
   return ABILITIES.reduce((acc, ability) => {
@@ -17,22 +13,14 @@ export function buildSavingThrows(): CharacterSavingThrows {
   }, {} as CharacterSavingThrows);
 }
 
-type SavingThrowProficienciesView = {
-  id: string;
-  definition: Ability;
-  state: SavingThrowInstance;
+export type SavingThrowView = {
+  nodeId: string;
+  ability: Ability;
 };
 
-export function getCharacterSavingThrowsAsArray(
-  character: Character,
-): SavingThrowProficienciesView[] {
-  const savingThrowsList: SavingThrowProficienciesView[] = Object.entries(
-    ABILITIES,
-  ).map(([id, def]) => ({
-    id,
-    definition: def,
-    state: character.savingThrows[def],
+export function getCharacterSavingThrowsAsArray(): SavingThrowView[] {
+  return ABILITIES.map((ability) => ({
+    nodeId: `savingThrow.${ability}`,
+    ability,
   }));
-
-  return savingThrowsList;
 }

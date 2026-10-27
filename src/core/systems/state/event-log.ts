@@ -1,4 +1,5 @@
 import { QueuedEvent } from "../events/event-queue";
+import * as Crypto from "expo-crypto";
 
 export interface LoggedEvent {
   id: string;
@@ -12,7 +13,7 @@ export class EventLog {
 
   record(tickInfo: number, event: QueuedEvent) {
     this.log.push({
-      id: crypto.randomUUID(),
+      id: Crypto.randomUUID(),
       timestamp: Date.now(),
       tickInfo,
       event: structuredClone(event),

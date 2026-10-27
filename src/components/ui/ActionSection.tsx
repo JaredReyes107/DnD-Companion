@@ -38,11 +38,12 @@ export const ActionSection = ({
     const actionSlot =
       action.duration.kind === "economy" ? action.duration.slot : undefined;
 
+    let working = character;
     if (actionSlot) {
-      onUpdate(decreaseActionResource(character, actionSlot));
+      working = decreaseActionResource(working, actionSlot);
     }
 
-    executeAction(action, { character, dispatch: onUpdate });
+    executeAction(action, { character: working, dispatch: onUpdate });
   };
 
   return (

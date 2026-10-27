@@ -111,7 +111,7 @@ export const en = {
     instantaneous: "Instantaneous",
   },
   timeIntervals: {
-    startTurn: "Start New Turn",
+    startTurn: "Start Turn",
     endTurn: "End Turn",
     startRound: "Start New Round",
   },

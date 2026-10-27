@@ -2,6 +2,8 @@ import { Character } from "@/core/entities/character/Character";
 import { ActionDuration } from "./action-duration";
 import { ActionBoard } from "./action-board";
 import { ActionTrigger } from "./action-trigger";
+import { ExpiryCondition } from "../rules/duration/expiry-condition";
+import { AdvantagePolarity } from "../rules/advantage/advantage-instance";
 
 export type ModifyResourceEffect = {
   type: "modifyResource";
@@ -25,26 +27,44 @@ export type ConvertResourceEffect = {
 
 export type ApplyModifierEffect = {
   type: "applyModifier";
-
   modifiers: string[]; //modifierId
-
   durationRounds?: number;
-
+  endsAt?: "startOfTurn" | "endOfTurn"; // default "startOfTurn"
+  endsEarlyOn?: ExpiryCondition[]; // e.g. onZeroHp, onSpecificAction
   stacking?: "overlap" | "refresh" | "override" | "ignore";
+};
 
+export type ApplyAdvantageEffect = {
+  type: "applyAdvantage";
+  nodeIds: string[]; // CheckNode ids; a parent node covers its descendants
+  polarity: AdvantagePolarity;
+  durationRounds?: number;
+  endsAt?: "startOfTurn" | "endOfTurn";
+  endsEarlyOn?: ExpiryCondition[];
   concentration?: boolean;
 };
 
-export type LogEffect = {
-  type: "log";
-  text: string;
+export type ApplyStatusEffect = {
+  type: "applyStatus";
+  statusId: string;
+  durationRounds?: number;
+  endsAt?: "startOfTurn" | "endOfTurn";
+  endsEarlyOn?: ExpiryCondition[];
+};
+
+export type EndEffectsEffect = {
+  type: "endEffects";
+  sourceIds?: string[]; // everything these sources applied
+  statusIds?: string[]; // every instance of these statuses (cascades if bound)
 };
 
 export type ActionEffect =
   | ModifyResourceEffect
   | ConvertResourceEffect
   | ApplyModifierEffect
-  | LogEffect;
+  | ApplyAdvantageEffect
+  | ApplyStatusEffect
+  | EndEffectsEffect;
 
 export type ActionInstance = {
   id: string;

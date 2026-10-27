@@ -63,7 +63,7 @@ function findMatchingRule(
   return undefined;
 }
 
-function restoreResources(
+export function restoreResourcesByTrigger(
   resources: Record<string, ResourceInstance>,
   triggerPriority: TimingTrigger["type"][],
 ): Record<string, ResourceInstance> {
@@ -102,7 +102,10 @@ export function takeLongRest(character: Character): Character {
       currentHP: character.hitPoints.currentMaximumHP,
     },
     combatState: buildCombatState(character),
-    resources: restoreResources(character.resources, ["longRest", "shortRest"]),
+    resources: restoreResourcesByTrigger(character.resources, [
+      "longRest",
+      "shortRest",
+    ]),
     featureChoices: resetChoicesForTrigger(character, "longRest"),
   };
 }
@@ -110,7 +113,7 @@ export function takeLongRest(character: Character): Character {
 export function takeShortRest(character: Character): Character {
   return {
     ...character,
-    resources: restoreResources(character.resources, ["shortRest"]),
+    resources: restoreResourcesByTrigger(character.resources, ["shortRest"]),
     featureChoices: resetChoicesForTrigger(character, "shortRest"),
   };
 }
@@ -119,7 +122,7 @@ export function takeShortRest(character: Character): Character {
 export function startOwnTurn(character: Character): Character {
   return {
     ...character,
-    resources: restoreResources(character.resources, ["roundStart"]),
+    resources: restoreResourcesByTrigger(character.resources, ["roundStart"]),
     featureChoices: resetChoicesForTrigger(character, "roundStart"),
   };
 }
@@ -130,7 +133,7 @@ export function startOwnTurn(character: Character): Character {
 export function endOwnTurn(character: Character): Character {
   return {
     ...character,
-    resources: restoreResources(character.resources, ["turnEnd"]),
+    resources: restoreResourcesByTrigger(character.resources, ["turnEnd"]),
     featureChoices: resetChoicesForTrigger(character, "turnEnd"),
   };
 }
@@ -141,7 +144,7 @@ export function endOwnTurn(character: Character): Character {
 export function startAnyTurn(character: Character): Character {
   return {
     ...character,
-    resources: restoreResources(character.resources, ["turnStart"]),
+    resources: restoreResourcesByTrigger(character.resources, ["turnStart"]),
     featureChoices: resetChoicesForTrigger(character, "turnStart"),
   };
 }

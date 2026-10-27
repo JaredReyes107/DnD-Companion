@@ -1,8 +1,6 @@
-import { Character } from "@/core/entities/character/Character";
+import { ResolvedBase } from "@/core/entities/rules/resolved-base";
 import { getAbilityModifier } from "./abilities-modifiers";
 
-export function getArmorClass(character: Character): number {
-  const total = 10 + getAbilityModifier(character.baseAbilityScores.DEX);
-
-  return total;
+export function getArmorClass(base: ResolvedBase): number {
+  return 10 + getAbilityModifier(base.abilityScores.DEX);
 }

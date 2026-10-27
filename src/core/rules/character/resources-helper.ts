@@ -13,15 +13,14 @@ import {
   buildSpellSlots,
   hasSpellcasting,
 } from "@/core/entities/spellcasting/spellcasting";
+import { grantsOfType } from "../shared/grant-filters";
 
 export function getResourcesFromFeatures(
   features: FeatureTemplate[],
 ): Set<string> {
   const ids = new Set<string>();
   for (const feature of features) {
-    feature.grants
-      ?.filter((g) => g.type === "resource")
-      .forEach((g) => ids.add(g.id));
+    grantsOfType(feature.grants, "resource").forEach((g) => ids.add(g.id));
   }
   return ids;
 }

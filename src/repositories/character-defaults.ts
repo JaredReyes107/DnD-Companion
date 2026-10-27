@@ -59,7 +59,6 @@ export const defaultScalarFields: Partial<Character> = {
   baseSpeed: 30,
   hitPoints: defaultHitPoints,
   currentHitDice: {},
-  savingThrows: defaultSavingThrows,
   actionLimits: { actions: 1, bonusActions: 1, reactions: 1 },
   encounterId: "",
 };

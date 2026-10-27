@@ -1,12 +1,12 @@
 import { registerScaling } from "@/core/data/registries/resource-scaling.registry";
-import { getProficiencyBonus } from "@/core/rules/character/abilities-modifiers";
 import { getTotalCharacterLevel } from "@/core/rules/character/character-multiclassing";
 import { getClassInstanceByTemplateId } from "@/core/data/registries/classes.registry";
 import { getAbilityModifier } from "@/core/rules/character/abilities-modifiers";
+import { ABILITIES } from "@/core/entities/rules/ability/ability.types";
+import { resolveBase } from "@/core/entities/rules/resolved-base";
+import { Character } from "@/core/entities/character/Character";
 
 export function registerMainScalings() {
-  registerScaling("PB", ({ character }) => getProficiencyBonus(character));
-
   registerScaling("character-level", ({ character }) =>
     getTotalCharacterLevel(character.classes),
   );
@@ -31,34 +31,18 @@ export function registerMainScalings() {
     return sourceClass?.level ?? 0;
   });
 
-  //#region Ability Score Scalers
+  const resolvedBase = (character: Character) => resolveBase(character).base;
 
-  registerScaling("STR", ({ character }) =>
-    getAbilityModifier(character.baseAbilityScores.STR),
+  registerScaling(
+    "PB",
+    ({ character }) => resolvedBase(character).proficiencyBonus,
   );
-
-  registerScaling("DEX", ({ character }) =>
-    getAbilityModifier(character.baseAbilityScores.DEX),
+  ABILITIES.forEach((ability) =>
+    registerScaling(ability, ({ character }) =>
+      Math.max(
+        getAbilityModifier(resolvedBase(character).abilityScores[ability]),
+        1,
+      ),
+    ),
   );
-
-  registerScaling("CON", ({ character }) =>
-    getAbilityModifier(character.baseAbilityScores.CON),
-  );
-
-  registerScaling("INT", ({ character }) =>
-    getAbilityModifier(character.baseAbilityScores.INT),
-  );
-
-  registerScaling("WIS", ({ character }) =>
-    getAbilityModifier(character.baseAbilityScores.WIS),
-  );
-
-  registerScaling("CHA", ({ character }) =>
-    getAbilityModifier(character.baseAbilityScores.CHA),
-  );
-
-  registerScaling("spellcasting", ({ character }) =>
-    getAbilityModifier(character.baseAbilityScores.CHA),
-  );
-  //#endregion
 }
