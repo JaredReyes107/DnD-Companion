@@ -46,7 +46,6 @@ function getGrantsFromChoices(
  * (nodeId, polarity, condition). Used by buildCharacterAdvantageInstances to
  * include choice-driven passive advantages (e.g. rune passives).
  */
-// choices-helper.ts: replace getAdvantageGrantsFromChoices body, delete the local AdvantageGrant type
 export function getAdvantageGrantsFromChoices(
   character: Character,
 ): ExpandedAdvantage[] {
@@ -215,4 +214,8 @@ export function getEligibleOptionsForPool(
     (option) =>
       !option.eligibility || evaluateEligibility(character, option.eligibility),
   );
+}
+
+export function getOverridesFromChoices(c: Character): Set<string> {
+  return getGrantsFromChoices(c, "override");
 }

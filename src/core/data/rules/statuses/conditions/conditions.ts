@@ -34,7 +34,6 @@ export const CONDITION_STATUSES: Record<string, StatusTemplate> = {
   ),
 };
 
-// statuses/core.ts
 export const CORE_STATUSES: Record<string, StatusTemplate> = {
   concentrating: {
     id: "concentrating",
