@@ -1,5 +1,8 @@
 import { ResourceTemplate } from "../resource-template";
-import { ActionInstance } from "@/core/entities/actions/action-instance";
+import {
+  ActionEffect,
+  ActionInstance,
+} from "@/core/entities/actions/action-instance";
 import { ModifierTemplate } from "@/core/entities/modifiers/Modifier";
 import { StatusTemplate } from "../status/status-template";
 
@@ -44,7 +47,22 @@ export type DescriptionPatch = {
   text?: Record<string, string>;
 };
 
-export type Patch<K extends TemplateKind> = SetPatch<K> | DescriptionPatch;
+export type ActionEffectPatch =
+  | { op: "removeEffect"; key: string }
+  | {
+      op: "addEffect";
+      effect: ActionEffect & { key: string };
+      position?: "start" | "end";
+    };
+
+type CollectionPatch<K extends TemplateKind> = K extends "action"
+  ? ActionEffectPatch
+  : never;
+
+export type Patch<K extends TemplateKind> =
+  | SetPatch<K>
+  | DescriptionPatch
+  | CollectionPatch<K>;
 
 export type OverrideFor<K extends TemplateKind> = {
   id: string;
@@ -73,7 +91,9 @@ export type AppliedPatch =
       op: "describe";
       mode: DescriptionPatch["mode"];
       text?: Record<string, string>;
-    };
+    }
+  | { overrideId: string; sourceId?: string; op: "removeEffect"; key: string }
+  | { overrideId: string; sourceId?: string; op: "addEffect"; key: string };
 
 export type ResolvedTemplate<K extends TemplateKind> = {
   kind: K;
