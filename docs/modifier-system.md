@@ -253,3 +253,68 @@ Three storage locations:
 Two stacking modes:
 - `"raw"` (5e default): any advantage + any disadvantage = none, regardless of counts.
 - `"oneToOne"` (optional house rule): instances cancel one-for-one; the remainder polarity wins.
+
+# Modifier System and Expressions
+
+## Pipeline
+
+```text
+Template ──instantiate──▶ ModifierInstance ──refresh──▶ resolveStat ──▶ final value
+ (Expr values)             (numbers baked)              (filter, stack, order, apply)
+```
+
+- `ModifierTemplate.value` and `.priority` are `number | Expr`. Function values no longer exist.
+- `instantiateModifier` evaluates against the **raw** base. `refreshModifierInstance` re-evaluates
+  against the resolved base each time stats are resolved, so Expr values can depend on ability scores.
+- An Expr that cannot be evaluated falls back to a neutral value per type (additive 0, multiplicative
+  1, floor -1e9, cap 1e9, set 0) instead of throwing.
+
+## Resolution order
+
+`resolveStat`: filter by `condition` → apply stacking (`effectId` groups keep the strongest) → sort by
+`priority` ascending → apply.
+
+| Type | Default priority |
+|---|---|
+| SET | 100 |
+| MULTIPLICATIVE | 200 |
+| ADDITIVE | 300 |
+| FLOOR | 400 |
+| CAP | 500 |
+
+Final value is `Math.floor`ed.
+
+## Expr (`entities/rules/expr/expr.ts`, evaluated in `rules/predicate/evaluate-predicate.ts`)
+
+One expression language for modifier values, resource maximums and predicates.
+
+| Group | Nodes |
+|---|---|
+| Leaves | `const`, `abilityScore`, `abilityMod`, `proficiencyBonus`, `characterLevel`, `classLevel`, `casterLevel`, `resource`, `hp`, `stat` |
+| Operators | `add`, `sub`, `mul`, `div` (rounding), `min`, `max`, `clamp`, `if`, `table` |
+
+- `classLevel(classId, subclassId?)`: without a subclass it matches any subclass; with one it gates on it.
+- `table(by, steps, below=0)`: the value of the largest key `<= by`. Steps are constants. This is how
+  level progressions (Rage, Superiority Dice, spell slots) are data.
+- `casterLevel`: multiclass caster level. Full casters count fully, half and third round down, unless
+  the template sets `roundUp` (Artificer). Pact casters do not count.
+- Evaluation is three-valued: `number | undefined`. `undefined` means "cannot tell" and propagates.
+  `stat` leaves are unknown during stat resolution (circular), and `resource` leaves need an injected
+  resolver (`ExprContext.resolveResource`).
+- Unknown node types warn once in development and evaluate to `undefined`.
+
+## Predicates (`Condition = Predicate`)
+
+Composition (`all`, `any`, `not`), numeric `compare` over any Expr, status, build state, and
+target-dependent variants. Target-dependent ones are `undefined` outside an encounter.
+
+`isSatisfied(p, ctx, policy)`: an `undefined` result counts as satisfied under `"open"` (modifier
+conditions) and as not satisfied under `"closed"`. A condition with an unknown variant therefore
+**grants** its bonus, which is why unknown variants warn in development.
+
+Use the `P` and `E` builders in data files rather than raw objects.
+
+## Where this connects
+
+- Resource maximums: `engine.md`, "Resources".
+- Behaviour changes that are not numeric: `overrides.md`.

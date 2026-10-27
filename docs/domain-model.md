@@ -29,8 +29,7 @@ classDiagram
         +String encounterId
         +Record~String, FeatureInstance~ features
         +Record~String, ChoiceInstance~ featureChoices
-        +Record~String, ResourceInstance~ resources
-        +Record~String, ActionInstance~ actions
+        +Record~String, ResourceInstance~ resources // { resourceId, spent }
         +Record~String, ModifierInstance~ statModifiers
         +CombatState? combatState
     }
@@ -191,6 +190,41 @@ classDiagram
 `source` is `"class" | "subclass" | "race" | "feat" | "background" | "other"`.
 
 Always use `grantsOfType(feature.grants, "x")` from `src/core/rules/shared/grant-filters.ts` when filtering grants — it provides proper TypeScript narrowing for the full union including `proficiency` (which has `nodeId` instead of `id`).
+
+---
+
+## Resources and Overrides
+
+```mermaid
+classDiagram
+    class ResourceTemplate {
+        +String id
+        +ResourceCategory category
+        +Expr max
+        +Recharge recharge
+    }
+    class ResourceInstance {
+        +String resourceId
+        +int spent
+    }
+    class OverrideTemplate {
+        +String id
+        +TemplateKind kind
+        +Target target
+        +int priority
+        +Patch[] patches
+    }
+    class ResolvedTemplate {
+        +Template template
+        +AppliedPatch[] trail
+    }
+    ResourceInstance --> ResourceTemplate : resourceId
+    OverrideTemplate --> ResourceTemplate : patches (resolved at read time)
+    ResolvedTemplate ..> OverrideTemplate : trail
+```
+
+`ResourceInstance` holds only usage. `max` and `current` are derived (`engine.md`).
+`OverrideTemplate`s are granted by features and options and applied at read time (`overrides.md`).
 
 ---
 

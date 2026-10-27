@@ -174,6 +174,42 @@ All sweeps go through `sweepExpiredByEvent(combatState, event)` in `expiry-helpe
 
 Passive advantage instances are rebuilt on every character save by `buildCharacterAdvantageInstances(character)`, which merges feature-derived and choice-derived grants over the preserved manual instances. Feature/option-sourced instances are fully replaced (deterministic re-derive), manual instances are preserved.
 
+## 5. Resources: state vs derived
+
+`ResourceInstance` stores only `{ resourceId, spent }`.
+
+```text
+max     = evaluate(resolvedTemplate.max)      // Expr; class level, ability, tables, overrides
+current = max - spent  (floored at 0)
+```
+
+- Nothing derived is stored, so level-ups, modifier changes and overrides apply instantly and
+  there is no stale max.
+- Persistence is JSON-safe: `Infinity` (Rage 20) exists only at evaluation time.
+- `resourceMax`, `resourceCurrent` and `resourceRecharge` take a `ResourceContext`
+  (`ExprContext` plus the `OverrideContext`). Build it once per render or save with
+  `buildResourceContext(character)`. Pure callers can pass a context without overrides.
+- Spending and recovering is `applyResourceDelta`, clamped to `[0, max]` uses.
+- Rests set `spent = 0` for resources whose **resolved** `recharge` matches. A long rest restores
+  `longRest` and `shortRest`; a short rest restores `shortRest`.
+- Spell slots, pact slots and mystic arcanum are ordinary resources: tables over `casterLevel` or
+  warlock level. A slot instance is created when its max is above zero.
+- `resource` leaves in an Expr resolve through the context, with a cycle guard.
+
+## 6. Actions: derived
+
+`Character` does not store actions. `getActiveActionIds(character)` returns defaults, then feature
+grants, then choice grants. `resolveActiveActions(character, overrides?)` resolves each through
+`resolveTemplateWith("action", …)`. A granted id that is not registered warns and is skipped.
+
+`isActionAvailable` requires action economy **and** every resource effect to be satisfiable. A
+missing resource instance means unavailable, not an exception.
+
+## 7. Overrides
+
+See `overrides.md`. Consumers read resolved templates, never raw ones, wherever a behaviour can be
+overridden (currently resources and actions).
+
 ---
 
 ## 5. Resting

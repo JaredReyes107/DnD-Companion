@@ -34,7 +34,8 @@ src/
 │   │       ├── options.registry.ts
 │   │       ├── resources.registry.ts
 │   │       ├── status.registry.ts
-│   │       └── subclasses.registry.ts
+│   │       ├── subclasses.registry.ts
+|   |       └── overrides.registry.ts
 │   │   └── rules/     # Static rule content (templates and scaling data)
 │   │       ├── checks/              # CheckNode DAG definitions (skills, saves, tools)
 │   │       ├── choice-pools/        # ChoicePoolTemplate records
@@ -49,7 +50,6 @@ src/
 │   │       │   ├── <class>/         # One file per class/subclass
 │   │       │   └── options.ts       # Root aggregator → BASE_OPTIONS
 │   │       ├── resources/           # ResourceTemplate records
-│   │       ├── scaling/             # Proficiency bonus scaling, class-specific tables
 │   │       ├── statuses/            # StatusTemplate records (D&D conditions)
 │   │       └── XP_Table.ts
 │   ├── entities/      # Pure TypeScript types — zero logic, zero functions
@@ -99,7 +99,10 @@ src/
 │   │       ├── resolved-base.ts     # ResolvedBase + resolveBase() — Phase 1 stat resolution
 │   │       ├── resource-template.ts
 │   │       ├── stats.types.ts       # StatModel, DerivedStatKey, RuntimeModifierInstance
-│   │       └── subclass-template.ts
+│   │       ├── subclass-template.ts
+│   │   │   ├── expr/expr.ts                # Expr union (+ E builders, see Known Issues)
+│   │   │   ├── predicate/predicate.ts      # Predicate union (+ P builders)
+│   │   │   └── override/override-template.ts
 │   ├── rules/         # Pure functions — no side effects, no React
 │   │   ├── character/
 │   │   │   ├── abilities-modifiers.ts
@@ -116,7 +119,6 @@ src/
 │   │   │   ├── leveling.ts
 │   │   │   ├── modifiers-helper.ts      # instantiateModifier, refreshModifierInstance, buildCharacterPassiveModifiers
 │   │   │   ├── modifiers-pool.ts        # collectModifierPool, refreshModifierPool
-│   │   │   ├── resource-scaling.ts
 │   │   │   ├── resources-helper.ts
 │   │   │   ├── resting.ts
 │   │   │   ├── status-effects-helper.ts # getStatusModifierInstances, getStatusAdvantageInstances

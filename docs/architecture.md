@@ -166,6 +166,28 @@ Adding a new grant kind requires a one-line addition to the union and a new filt
 
 ---
 
+## Key Architectural Rule: Derived Over Stored
+
+State is stored only when it cannot be recomputed. Everything else is derived at read time.
+
+| Stored | Derived |
+|---|---|
+| `ResourceInstance.spent` | resource max and current |
+| `featureChoices`, `features`, classes | active actions, resources, modifiers, overrides |
+| `combatState` (owned by the encounter) | resolved stats |
+
+If a value can go stale when a level, feature or override changes, it must not be stored.
+
+## Key Architectural Rule: Behaviour Changes Are Overrides
+
+A feature that changes another feature's non-numeric behaviour grants an `OverrideTemplate`
+(`{ type: "override" }` grant) instead of containing conditional logic. Numeric changes remain
+modifiers. See `overrides.md`.
+
+`FeatureGrant` now also includes `{ type: "override"; id: string }`. Options inherit it.
+
+---
+
 ## Key Architectural Rule: Optional/Selectable Features
 
 Features that offer a pool of options the character picks from (Fighter Maneuvers/Runes, Eldritch Invocations, Metamagic, Fighting Styles) are modeled through three cooperating types:
@@ -219,3 +241,11 @@ The following confirmed misplacements predate the current architecture and are t
 - `src/core/rules/combat/combat-helper.ts` and `src/core/entities/combat/combat-helper.ts` — duplicate files, same content in two locations.
 - `src/core/rules/character/leveling.ts` and `src/core/entities/progression/leveling.ts` — duplicate files.
 - `src/core/data/rules/XP_Table.ts` and `src/core/entities/progression/XP_Table.ts` — duplicate data.
+
+- `E` and `P` (builder functions) live in `entities/rules/expr` and `entities/rules/predicate`, which
+  violates "entities contain no functions". They belong in `core/rules/expr/`.
+- `sourceId` is inconsistent across data (`storm` vs `storm_sorcery`, `whisper` vs `whispers`,
+  `guardian` on armorer actions). Provenance navigation depends on it being normalized.
+- Rage level 20 uses `Infinity` inside a template table. Fine at runtime, but not JSON-safe once
+  templates become editable homebrew.
+- Tests live in `src/core/rules/__tests__/`; keep new core tests there.
