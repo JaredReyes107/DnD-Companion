@@ -25,10 +25,23 @@ export const GLAMOUR_RESOURCES: Record<string, ResourceTemplate> = {
   },
   enthralling_performance: {
     id: "enthralling_performance",
-    sourceId: "glamour",
     category: "subclass_features",
-    scalingType: "fixed:1",
-    recharge: "longRest",
+    origin: { book: "XGE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "enthralling_performance",
+        obtainedVia: {
+          via: "subclass",
+          classId: "bard",
+          subclassId: "glamour",
+        },
+      },
+    ],
+
+    max: { kind: "value", amount: 1 },
+    min: { kind: "value", amount: 0 },
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["roleplay"],
   },
   unbreakable_majesty: {

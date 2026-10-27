@@ -13,7 +13,7 @@ import { LanguageProficiencyTree } from "@/components/ui/LanguageProficiencyTree
 // Character Functions
 import {
   getAbilityModifier,
-  getProficiencyBonus,
+  getBaseProficiencyBonus,
 } from "@/core/rules/character/abilities-modifiers";
 import { resolveInCombat } from "@/core/systems/stats/stat-resolver";
 import { getTotalCharacterLevel } from "@/core/rules/character/character-multiclassing";
@@ -246,7 +246,7 @@ const CharacterSheetScreen = () => {
             <View style={[styles.secondaryStatContainer, { width: "100%" }]}>
               <View style={styles.secondaryStatBox}>
                 {(() => {
-                  const value = `+${getProficiencyBonus(character)}`;
+                  const value = `+${getBaseProficiencyBonus(character)}`;
                   const [before, after] = ui("pb.segmented").split(" {value} ");
                   return (
                     <View style={styles.secondaryStatModifier}>
