@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Character } from "@/core/entities/character/Character";
 import {
   Ability,

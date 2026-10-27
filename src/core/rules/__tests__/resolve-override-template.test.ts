@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { E } from "@/core/entities/rules/expr/expr";
 import type { OverrideTemplate } from "@/core/entities/rules/override/override-template";
 import { getResourceById } from "@/core/data/registries/resources.registry";
