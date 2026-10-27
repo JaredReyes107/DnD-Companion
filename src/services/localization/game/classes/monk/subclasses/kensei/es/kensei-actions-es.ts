@@ -17,7 +17,7 @@ export const kensei_actions_es: GameLocalizationCategory = {
     name: "Afilar la Hoja",
     description: `Gastas hasta 3 puntos de ki para infundir un arma de kensei que toques con un bonificador a las tiradas de ataque y daño cuando ataques con ella. El bonificador es igual a los puntos de ki que gastes. Dura 1 minuto o hasta que vuelvas a usar este rasgo. No tiene efecto en un arma mágica que ya tenga un bonificador a las tiradas de ataque y daño.`,
   },
-  unerring_acurracy: {
+  unerring_accurracy: {
     name: "Precisión Infalible",
     description: `Repites una tirada de ataque fallida utilizando un arma de monje en tu turno.`,
   },

@@ -1,8 +1,10 @@
 import { Character } from "@/core/entities/character/Character";
+import { ResourceGrantor } from "@/core/entities/rules/grantor";
 
 export type ScalerContext = {
   character: Character;
-  sourceId: string; // class id, feature id, resource id, etc
+  grantor: ResourceGrantor;
+  param?: string;
 };
 
 export type Scaler = (context: ScalerContext) => number;

@@ -16,37 +16,72 @@ export const ARTIFICER_RESOURCES: Record<string, ResourceTemplate> = {
 
   magical_tinkering: {
     id: "magical_tinkering",
-    sourceId: "artificer",
     category: "class_features",
-    scalingType: "INT",
-    recharge: "none",
+    origin: { book: "TCE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "magical_tinkering",
+        obtainedVia: { via: "class", classId: "artificer" },
+      },
+    ],
+    max: { kind: "formula", formula: { base: { kind: "scaler", id: "INT" } } },
+    min: { kind: "value", amount: 0 },
+    recharge: [],
     tags: ["utility"],
   },
 
   infused_items: {
     id: "infused_items",
-    sourceId: "artificer",
     category: "class_features",
-    scalingType: "infused-items",
-    recharge: "none",
+    origin: { book: "TCE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "infused_items",
+        obtainedVia: { via: "class", classId: "artificer" },
+      },
+    ],
+    max: {
+      kind: "formula",
+      formula: { base: { kind: "scaler", id: "infused-items" } },
+    },
+    min: { kind: "value", amount: 0 },
+    recharge: [],
     tags: ["utility"],
   },
 
   flash_of_genius: {
     id: "flash_of_genius",
-    sourceId: "artificer",
     category: "class_features",
-    scalingType: "INT",
-    recharge: "longRest",
+    origin: { book: "TCE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "flash_of_genius",
+        obtainedVia: { via: "class", classId: "artificer" },
+      },
+    ],
+    max: { kind: "formula", formula: { base: { kind: "scaler", id: "INT" } } },
+    min: { kind: "value", amount: 0 },
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["utility"],
   },
 
   spell_storing_item_limit: {
     id: "spell_storing_item_limit",
-    sourceId: "artificer",
     category: "class_features",
-    scalingType: "fixed:1",
-    recharge: "longRest",
+    origin: { book: "TCE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "spell_storing_item_limit",
+        obtainedVia: { via: "class", classId: "artificer" },
+      },
+    ],
+    max: { kind: "value", amount: 1 },
+    min: { kind: "value", amount: 0 },
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["spells"],
   },
 };

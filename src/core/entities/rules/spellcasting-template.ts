@@ -6,5 +6,6 @@ export type SpellcastingTemplate = {
 
   ability: Ability;
 
-  progression?: "full" | "half" | "third"; // ONLY for standard
+  // Applies to "pact" as well as "standard. Warlock is always "full" by default
+  progression?: "full" | "half" | "third";
 };

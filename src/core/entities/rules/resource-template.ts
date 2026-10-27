@@ -1,3 +1,46 @@
+import { ContentOrigin } from "./content-origin";
+import { ResourceGrantor } from "./grantor";
+import { TimingTrigger } from "./trigger";
+import { Comparator } from "@/core/entities/rules/comparator";
+
+export type ScalingCondition = {
+  base: import("@/core/data/rules/scaling/scaling-formula").ScalingBase;
+  operator: Comparator;
+  value: number;
+};
+
+export type ResourceBound =
+  | { kind: "value"; amount: number }
+  | {
+      kind: "formula";
+      formula: import("@/core/data/rules/scaling/scaling-formula").ScalingFormula;
+    }
+  | { kind: "unbounded" }
+  | {
+      kind: "conditional";
+      when: ScalingCondition;
+      ifTrue: ResourceBound;
+      ifFalse: ResourceBound;
+    };
+
+export type RestoreAmount =
+  | "full"
+  | { kind: "reset"; value: number } // set current to this exact value
+  | { kind: "delta"; value: number }; // add this to current (negative = decay)
+
+export type ResourceRechargeCondition = {
+  operator: Comparator;
+  value: number;
+};
+
+export type RestoreRule = {
+  trigger: TimingTrigger;
+  amount: RestoreAmount;
+  when?: ResourceRechargeCondition;
+};
+
+export type Recharge = RestoreRule[]; // empty/only-"none" = never recharges on schedule
+
 export type ResourceCategory =
   | "spell_slots"
   | "pact_slots"
@@ -5,23 +48,17 @@ export type ResourceCategory =
   | "subclass_features"
   | "racial_features"
   | "background_features"
-  | "feats"
-  | "homebrew";
+  | "feats";
 
 export type ResourceTemplate = {
   id: string;
-  sourceId: string; // classId, featureId, raceId, etc
-  //origin: "Players Handbook", //For distinguishing official rules and homebrew
-  category: ResourceCategory; //For UI sections in the Dashboard
+  category: ResourceCategory;
+  origin: ContentOrigin;
+  grantors: ResourceGrantor[];
 
-  scalingType: string; // ej: "PB", "CHA", "class-level", "character-level","fixed:3", etc
-  recharge:
-    | "shortRest"
-    | "longRest"
-    | "perTurn"
-    | "perRound"
-    | "none"
-    | "custom";
+  min?: ResourceBound; // default: { kind: "value", amount: 0 } if omitted
+  max: ResourceBound; // required — explicit "unbounded" beats an implicit Infinity leak
 
-  tags?: string[]; // para UI ("combat", "spell", "defensive")
+  recharge: Recharge;
+  tags?: string[];
 };

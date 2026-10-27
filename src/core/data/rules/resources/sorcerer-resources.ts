@@ -1,6 +1,5 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
-import { DRACONIC_BLOODLINE_RESOURCES } from "./sorcerer/draconic-resources";
 import { WILD_MAGIC_SORCERER_RESOURCES } from "./sorcerer/wild-magic-resources";
 
 import { DIVINE_SOUL_RESOURCES } from "./sorcerer/divine-soul-resources";
@@ -12,7 +11,6 @@ import { CLOCKWORK_SOUL_RESOURCES } from "./sorcerer/clockwork-soul-resources";
 
 const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
   // PHB
-  ...DRACONIC_BLOODLINE_RESOURCES,
   ...WILD_MAGIC_SORCERER_RESOURCES,
 
   // XGE
@@ -30,11 +28,25 @@ export const SORCERER_RESOURCES: Record<string, ResourceTemplate> = {
 
   sorcery_points: {
     id: "sorcery_points",
-    //origin: "Players Handbook", //For distinguishing official rules and homebrew
-    sourceId: "sorcerer",
-    category: "class_features", //For UI
-    scalingType: "class-level",
-    recharge: "longRest",
+    category: "class_features",
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "sorcery_points",
+        obtainedVia: { via: "class", classId: "sorcerer" },
+      },
+    ],
+
+    max: {
+      kind: "formula",
+      formula: {
+        base: { kind: "scaler", id: "class-level", param: "sorcerer" },
+      },
+    },
+    min: { kind: "value", amount: 0 },
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["combat", "support"],
   },
 };

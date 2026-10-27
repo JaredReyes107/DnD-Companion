@@ -3,10 +3,24 @@ import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 export const LIGHT_RESOURCES: Record<string, ResourceTemplate> = {
   warding_flare: {
     id: "warding_flare",
-    sourceId: "light",
     category: "subclass_features",
-    scalingType: "WIS",
-    recharge: "longRest",
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "warding_flare",
+        obtainedVia: {
+          via: "subclass",
+          classId: "cleric",
+          subclassId: "light",
+        },
+      },
+    ],
+
+    max: { kind: "formula", formula: { base: { kind: "scaler", id: "WIS" } } },
+    min: { kind: "value", amount: 0 },
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["combat"],
   },
 };

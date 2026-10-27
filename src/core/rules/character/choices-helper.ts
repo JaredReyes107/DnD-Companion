@@ -1,5 +1,6 @@
 import { Character } from "@/core/entities/character/Character";
 import { ChoiceInstance } from "@/core/entities/character/choice-instance";
+import { TimingTrigger } from "@/core/entities/rules/trigger";
 import {
   OptionGrant,
   OptionTemplate,
@@ -94,7 +95,7 @@ export function getUnfilledChoices(
 
     // Only surface onLevelUp pools here — rest and activation pools
     // are handled by their respective flows
-    if (pool.selectionTrigger !== "onLevelUp") continue;
+    if (pool.selectionTrigger.type !== "levelUp") continue;
 
     const totalPicks = getTotalPicksForPool(character, poolId);
     const currentPicks = instance.selectedOptionIds.length;
@@ -159,19 +160,18 @@ export function bootstrapFeatureChoices(
 
 /**
  * Clears selectedOptionIds for all pools with the given selectionTrigger.
- * Called by takeLongRest / takeShortRest for onLongRest / onShortRest pools.
  * Returns a new featureChoices record (does not mutate).
  */
 export function resetChoicesForTrigger(
   character: Character,
-  trigger: "onLongRest" | "onShortRest",
+  trigger: TimingTrigger["type"],
 ): Record<string, ChoiceInstance> {
   const next = { ...character.featureChoices };
 
   for (const poolId of Object.keys(next)) {
     const pool = getChoicePoolById(poolId);
 
-    if (pool.selectionTrigger === trigger) {
+    if (pool.selectionTrigger.type === trigger) {
       next[poolId] = {
         ...next[poolId],
         selectedOptionIds: [],

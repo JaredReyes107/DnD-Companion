@@ -83,7 +83,7 @@ export const BARD: ClassTemplate = {
         id: "font_of_inspiration",
         source: "class",
         level: 5,
-        //TODO: Modify the recharge property of the appropiate ResourceInstance
+        //TODO: Override: Change recharge property to shortRest
       },
     ],
     6: [

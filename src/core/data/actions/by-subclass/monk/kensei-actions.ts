@@ -39,14 +39,14 @@ export const KENSEI_ACTIONS: Record<string, ActionInstance> = {
     effects: [{ type: "modifyResource", resourceId: "ki_points", amount: -1 }],
     //TODO: Modifier for weapon. +ki points to attack rolls and damage
   },
-  unerring_acurracy: {
-    id: "unerring_acurracy",
+  unerring_accurracy: {
+    id: "unerring_accurracy",
     sourceId: "kensei",
     boards: ["combat"],
     duration: { kind: "instantaneous" },
     trigger: ["onAttackMiss"], //TODO: With monk weapon
     effects: [
-      { type: "modifyResource", resourceId: "unerring_acurracy", amount: -1 },
+      { type: "modifyResource", resourceId: "unerring_accurracy", amount: -1 },
     ],
   },
 };

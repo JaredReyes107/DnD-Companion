@@ -13,20 +13,13 @@ import { SORCERER_RESOURCES } from "./resources/sorcerer-resources";
 import { WARLOCK_RESOURCES } from "./resources/warlock-resources";
 import { WIZARD_RESOURCES } from "./resources/wizard-resources";
 import { ARTIFICER_RESOURCES } from "./resources/artificer-resources";
+import { SHARED_RESOURCES } from "./resources/shared-resources";
 
-const FEATS: Record<string, ResourceTemplate> = {
-  luck_points: {
-    id: "luck_points",
-    sourceId: "sorcerer",
-    category: "feats",
-    scalingType: "fixed:3",
-    recharge: "longRest",
-    tags: ["utility"],
-  },
-};
+const FEATS: Record<string, ResourceTemplate> = {};
 
 export const BASE_RESOURCES: Record<string, ResourceTemplate> = {
   ...FEATS,
+  ...SHARED_RESOURCES,
 
   ...BARBARIAN_RESOURCES,
   ...BARD_RESOURCES,

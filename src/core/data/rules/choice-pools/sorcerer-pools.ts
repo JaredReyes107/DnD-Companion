@@ -5,7 +5,7 @@ export const SORCERER_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "metamagic",
     sourceId: "sorcerer",
     classId: "sorcerer",
-    selectionTrigger: "onLevelUp",
+    selectionTrigger: { type: "levelUp" },
     optionIds: [
       "careful_spell",
       "distant_spell",

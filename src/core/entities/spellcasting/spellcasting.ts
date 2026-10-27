@@ -157,6 +157,7 @@ function buildStandardSpellSlots(casterLevel: number): CharacterResources {
     slots[resourceId] = {
       resourceId,
       max,
+      min: 0,
       current: max,
     };
   });
@@ -198,31 +199,10 @@ function buildPactMagicSlots(warlockLevel: number): CharacterResources {
     ["pact_slots"]: {
       resourceId: "pact_slots",
       max: row.slots,
+      min: 0,
       current: row.slots,
     },
   };
-}
-
-function buildMysticArcanum(warlockLevel: number): CharacterResources {
-  const mysticArcanum: CharacterResources = {};
-
-  let leftoverLevels = warlockLevel - 10;
-  let counter = 6;
-
-  while (leftoverLevels > 0 && counter <= 9) {
-    const resourceId = "mystic_arcanum_" + counter;
-
-    mysticArcanum[resourceId] = {
-      resourceId,
-      max: 1,
-      current: 1,
-    };
-
-    leftoverLevels -= 2;
-    counter++;
-  }
-
-  return mysticArcanum;
 }
 
 export function buildSpellSlots(character: Character): CharacterResources {
@@ -265,7 +245,6 @@ export function buildSpellSlots(character: Character): CharacterResources {
       characterSpellSlots = {
         ...characterSpellSlots,
         ...buildPactMagicSlots(warlockInstance.level),
-        ...buildMysticArcanum(warlockInstance.level),
       };
     }
   }

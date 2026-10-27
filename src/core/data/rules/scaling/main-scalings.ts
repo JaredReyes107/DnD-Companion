@@ -11,17 +11,24 @@ export function registerMainScalings() {
     getTotalCharacterLevel(character.classes),
   );
 
-  registerScaling("class-level", ({ character, sourceId }) => {
-    if (sourceId === undefined) return 0;
+  registerScaling("class-level", ({ character, grantor, param }) => {
+    // Explicit param wins — lets homebrew resources target a class independent of how they were granted.
+    // Falls back to the grantor's own class/subclass when no param is given (the common case).
+    const classId =
+      param ??
+      (grantor.system === "feature" &&
+      (grantor.obtainedVia.via === "class" ||
+        grantor.obtainedVia.via === "subclass")
+        ? grantor.obtainedVia.classId
+        : undefined);
+
+    if (!classId) return 0;
 
     const sourceClass = getClassInstanceByTemplateId(
       character.classes,
-      sourceId,
+      classId,
     );
-
-    if (sourceClass === undefined) return 0;
-
-    return sourceClass.level;
+    return sourceClass?.level ?? 0;
   });
 
   const resolvedBase = (character: Character) => resolveBase(character).base;

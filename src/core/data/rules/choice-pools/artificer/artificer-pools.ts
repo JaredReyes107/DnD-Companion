@@ -5,7 +5,7 @@ export const ARTIFICER_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "infusions_known",
     sourceId: "artificer",
     classId: "artificer",
-    selectionTrigger: "onLevelUp",
+    selectionTrigger: { type: "levelUp" },
     optionIds: [
       "arcane_propulsion_armor",
       "armor_of_magical_strength",

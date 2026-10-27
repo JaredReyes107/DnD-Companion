@@ -5,7 +5,7 @@ export const BATTLE_MASTER_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "maneuvers",
     sourceId: "battle_master",
     classId: "fighter",
-    selectionTrigger: "onLevelUp",
+    selectionTrigger: { type: "levelUp" },
     optionIds: [
       "maneuver_ambush",
       "maneuver_bait_and_switch",
