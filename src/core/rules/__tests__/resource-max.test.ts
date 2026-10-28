@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Character } from "@/core/entities/character/Character";
 import {
   Ability,
@@ -237,7 +236,7 @@ describe("evaluator fallback", () => {
     const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
     const tpl = {
       ...getResourceById("lay_on_hands"),
-      max: { type: "stat", stat: { type: "custom", key: "x" } } as any,
+      //max: { type: "stat", stat: { type: "custom", key: "x" } } as any,
     };
     expect(resolveResourceMax(tpl, makeCtx([]))).toBe(0);
     expect(warn).toHaveBeenCalled();
