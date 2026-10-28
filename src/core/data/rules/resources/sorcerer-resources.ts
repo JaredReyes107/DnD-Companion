@@ -1,6 +1,5 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
-import { DRACONIC_BLOODLINE_RESOURCES } from "./sorcerer/draconic-resources";
 import { WILD_MAGIC_SORCERER_RESOURCES } from "./sorcerer/wild-magic-resources";
 
 import { DIVINE_SOUL_RESOURCES } from "./sorcerer/divine-soul-resources";
@@ -13,7 +12,6 @@ import { E } from "@/core/entities/rules/expr/expr";
 
 const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
   // PHB
-  ...DRACONIC_BLOODLINE_RESOURCES,
   ...WILD_MAGIC_SORCERER_RESOURCES,
 
   // XGE
@@ -35,7 +33,17 @@ export const SORCERER_RESOURCES: Record<string, ResourceTemplate> = {
     sourceId: "sorcerer",
     category: "class_features", //For UI
     max: E.classLevel("sorcerer"),
-    recharge: "longRest",
+
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "sorcery_points",
+        obtainedVia: { via: "class", classId: "sorcerer" },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["combat", "support"],
   },
 };

@@ -7,9 +7,10 @@ const slot = (
 ): ResourceTemplate => ({
   id: `spell_slot_${level}`,
   sourceId: "spellcasting", //TODO: Change depending on the source of the Spellcasting feature
+  origin: { book: "PHB" },
   category: "spell_slots",
   max: E.table(E.casterLevel(), steps),
-  recharge: "longRest",
+  recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
   tags: ["spellcasting"],
 });
 

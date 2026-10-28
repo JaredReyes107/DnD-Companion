@@ -4,18 +4,44 @@ import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 export const ENCHANTMENT_RESOURCES: Record<string, ResourceTemplate> = {
   hypnotic_gaze: {
     id: "hypnotic_gaze",
-    sourceId: "enchantment",
     category: "subclass_features",
     max: E.n(1),
-    recharge: "longRest",
+
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "hypnotic_gaze",
+        obtainedVia: {
+          via: "subclass",
+          classId: "wizard",
+          subclassId: "enchantment",
+        },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: [],
   },
   instinctive_charm: {
     id: "instinctive_charm",
-    sourceId: "enchantment",
     category: "subclass_features",
     max: E.n(1),
-    recharge: "longRest",
+
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "instinctive_charm",
+        obtainedVia: {
+          via: "subclass",
+          classId: "wizard",
+          subclassId: "enchantment",
+        },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: [],
   },
 };

@@ -4,18 +4,44 @@ import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 export const ELOQUENCE_RESOURCES: Record<string, ResourceTemplate> = {
   universal_speech: {
     id: "universal_speech",
-    sourceId: "eloquence",
     category: "subclass_features",
     max: E.n(1),
-    recharge: "longRest",
+
+    origin: { book: "TCE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "universal_speech",
+        obtainedVia: {
+          via: "subclass",
+          classId: "bard",
+          subclassId: "eloquence",
+        },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: [],
   },
   infectious_inspiration: {
     id: "infectious_inspiration",
-    sourceId: "eloquence",
     category: "subclass_features",
     max: E.max(E.n(1), E.mod("CHA")),
-    recharge: "longRest",
+
+    origin: { book: "TCE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "infectious_inspiration",
+        obtainedVia: {
+          via: "subclass",
+          classId: "bard",
+          subclassId: "eloquence",
+        },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: [],
   },
 };

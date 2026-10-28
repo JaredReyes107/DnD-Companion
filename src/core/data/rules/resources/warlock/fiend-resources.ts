@@ -4,19 +4,44 @@ import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 export const FIEND_RESOURCES: Record<string, ResourceTemplate> = {
   dark_ones_own_luck: {
     id: "dark_ones_own_luck",
-    sourceId: "fiend",
     category: "subclass_features",
     max: E.n(1),
-    recharge: "shortRest",
+
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "dark_ones_own_luck",
+        obtainedVia: {
+          via: "subclass",
+          classId: "warlock",
+          subclassId: "fiend",
+        },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["utility"],
   },
-
   hurl_through_hell: {
     id: "hurl_through_hell",
-    sourceId: "fiend",
     category: "subclass_features",
     max: E.n(1),
-    recharge: "longRest",
+
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "hurl_through_hell",
+        obtainedVia: {
+          via: "subclass",
+          classId: "warlock",
+          subclassId: "fiend",
+        },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["combat", "control"],
   },
 };

@@ -5,7 +5,7 @@ export const PALADIN_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "maneuvers",
     sourceId: "fighter",
     classId: "fighter",
-    selectionTrigger: "onLevelUp",
+    selectionTrigger: { type: "levelUp" },
     optionIds: [
       "fighting_style_defense",
       "fighting_style_dueling",

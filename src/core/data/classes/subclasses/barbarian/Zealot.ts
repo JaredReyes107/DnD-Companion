@@ -34,6 +34,7 @@ export const ZEALOT: SubclassTemplate = {
           { type: "resource", id: "fanatical_focus" },
         ],
         tags: ["defense"],
+        //TODO: Override. Rage now grants +1 fanatical_focus
       },
     ],
     10: [

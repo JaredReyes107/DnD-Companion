@@ -7,7 +7,7 @@ export const ANCESTRAL_GUARDIAN_RESOURCES: Record<string, ResourceTemplate> = {
     sourceId: "ancestral_guardian",
     category: "subclass_features",
     max: E.n(1),
-    recharge: "perTurn",
+
     tags: ["combat"],
   },
   consult_the_spirits: {
@@ -15,7 +15,7 @@ export const ANCESTRAL_GUARDIAN_RESOURCES: Record<string, ResourceTemplate> = {
     sourceId: "ancestral_guardian",
     category: "subclass_features",
     max: E.n(1),
-    recharge: "shortRest",
+
     tags: ["spellcasting", "utility"],
   },
 };

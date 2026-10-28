@@ -11,7 +11,7 @@ export const CHANNEL_DIVINITY_RESOURCES: Record<string, ResourceTemplate> = {
       E.table(E.classLevel("cleric"), { 1: 1, 6: 2, 18: 3 }),
       E.table(E.classLevel("paladin"), { 3: 1 }),
     ),
-    recharge: "longRest", // TODO: RAW is short rest; see restoreResources review
+    // TODO: RAW is short rest; see restoreResources review
     tags: ["combat", "utility"],
   },
 };

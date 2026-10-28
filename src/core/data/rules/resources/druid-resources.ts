@@ -2,7 +2,6 @@ import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 import { LAND_RESOURCES } from "./druid/land-resources";
-import { MOON_RESOURCES } from "./druid/moon-resources";
 
 import { DREAMS_RESOURCES } from "./druid/dreams-resources";
 import { SHEPHERD_RESOURCES } from "./druid/shepherd-resources";
@@ -13,7 +12,6 @@ import { WILDFIRE_RESOURCES } from "./druid/wildfire-resources";
 
 export const SUBCLASS_RESOURCES: Record<string, ResourceTemplate> = {
   ...LAND_RESOURCES,
-  ...MOON_RESOURCES,
 
   ...DREAMS_RESOURCES,
   ...SHEPHERD_RESOURCES,
@@ -28,10 +26,20 @@ export const DRUID_RESOURCES: Record<string, ResourceTemplate> = {
 
   wild_shape: {
     id: "wild_shape",
-    sourceId: "druid",
     category: "class_features",
     max: E.n(2),
-    recharge: "longRest",
+
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "wild_shape",
+        obtainedVia: { via: "class", classId: "druid" },
+      },
+    ],
+
+    // NOTE: RAW recovers on short OR long rest — currently modeled as longRest only.
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["combat", "utility"],
   },
 };

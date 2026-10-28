@@ -44,7 +44,10 @@ export const EVOCATION: SubclassTemplate = {
         id: "overchannel",
         source: "subclass" as const,
         level: 14,
-        grants: [{ type: "action", id: "overchannel" }],
+        grants: [
+          { type: "action", id: "overchannel" },
+          { type: "resource", id: "overchannel" },
+        ],
         tags: ["combat", "damage"],
       },
     ],

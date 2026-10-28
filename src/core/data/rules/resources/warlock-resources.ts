@@ -1,5 +1,6 @@
 import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
+
 import { ELDRITCH_INVOCATIONS_RESOURCES } from "./warlock/eldritch-invocations-resources";
 
 import { ARCHFEY_RESOURCES } from "./warlock/archfey-resources";
@@ -30,10 +31,23 @@ const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
 const PACT_BOON_RESOURCES: Record<string, ResourceTemplate> = {
   pact_of_the_talisman_aid: {
     id: "pact_of_the_talisman_aid",
-    sourceId: "pact_of_the_talisman",
     category: "class_features",
     max: E.pb(),
-    recharge: "longRest",
+
+    origin: { book: "TCE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "pact_of_the_talisman_aid",
+        obtainedVia: {
+          via: "choice",
+          poolId: "pact_boon",
+          grantedBy: { via: "class", classId: "warlock" },
+        },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["skill", "bonus"],
   },
 };
@@ -43,51 +57,115 @@ export const WARLOCK_RESOURCES: Record<string, ResourceTemplate> = {
   ...ELDRITCH_INVOCATIONS_RESOURCES,
   ...PACT_BOON_RESOURCES,
 
+  /*
   pact_slots: {
     id: "pact_slots",
-    sourceId: "pact_magic",
     category: "pact_slots",
     max: E.table(E.classLevel("warlock"), { 1: 1, 2: 2, 11: 3, 17: 4 }),
-    recharge: "shortRest",
+    
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "pact_slots",
+        obtainedVia: { via: "class", classId: "warlock" },
+      },
+    ],
+
+    max: {
+      kind: "formula",
+      formula: { base: { kind: "scaler", id: "spellcasting" } },
+    },
+    
+
+    recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["spellcasting"],
   },
+  */
+  //
   mystic_arcanum_6: {
     id: "mystic_arcanum_6",
-    sourceId: "mystic_arcanum",
     category: "pact_slots",
     max: E.table(E.classLevel("warlock"), { 11: 1 }),
-    recharge: "longRest",
+
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "mystic_arcanum_6",
+        obtainedVia: { via: "class", classId: "warlock" },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["spellcasting"],
   },
   mystic_arcanum_7: {
     id: "mystic_arcanum_7",
-    sourceId: "mystic_arcanum",
     category: "pact_slots",
     max: E.table(E.classLevel("warlock"), { 13: 1 }),
-    recharge: "longRest",
+
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "mystic_arcanum_7",
+        obtainedVia: { via: "class", classId: "warlock" },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["spellcasting"],
   },
   mystic_arcanum_8: {
     id: "mystic_arcanum_8",
-    sourceId: "mystic_arcanum",
     category: "pact_slots",
     max: E.table(E.classLevel("warlock"), { 15: 1 }),
-    recharge: "longRest",
+
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "mystic_arcanum_8",
+        obtainedVia: { via: "class", classId: "warlock" },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["spellcasting"],
   },
   mystic_arcanum_9: {
     id: "mystic_arcanum_9",
-    sourceId: "mystic_arcanum",
     category: "pact_slots",
     max: E.table(E.classLevel("warlock"), { 17: 1 }),
-    recharge: "longRest",
+
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "mystic_arcanum_9",
+        obtainedVia: { via: "class", classId: "warlock" },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["spellcasting"],
   },
   eldritch_master: {
     id: "eldritch_master",
-    sourceId: "eldritch_master",
     category: "class_features",
     max: E.n(1),
-    recharge: "longRest",
+
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "eldritch_master",
+        obtainedVia: { via: "class", classId: "warlock" },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
+    tags: [],
   },
 };

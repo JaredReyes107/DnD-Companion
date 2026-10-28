@@ -5,7 +5,7 @@ export const RUNE_KNIGHT_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "rune_knight_runes",
     sourceId: "rune_carver",
     classId: "fighter",
-    selectionTrigger: "onLevelUp",
+    selectionTrigger: { type: "levelUp" },
     optionIds: [
       "cloud_rune",
       "fire_rune",

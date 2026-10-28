@@ -20,7 +20,6 @@ const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
 export const BARBARIAN_RESOURCES: Record<string, ResourceTemplate> = {
   rage: {
     id: "rage",
-    sourceId: "barbarian",
     category: "class_features",
     // TODO(unlimited): Infinity isn't JSON-safe; persistence fix deferred.
     max: E.table(E.classLevel("barbarian"), {
@@ -31,8 +30,18 @@ export const BARBARIAN_RESOURCES: Record<string, ResourceTemplate> = {
       17: 6,
       20: Infinity,
     }),
-    recharge: "longRest",
+
     tags: ["combat", "damage", "resistance"],
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "rage",
+        obtainedVia: { via: "class", classId: "barbarian" },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
   },
 
   ...SUBCLASSES_RESOURCES,

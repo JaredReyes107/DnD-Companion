@@ -13,7 +13,7 @@ import { TRANSMUTATION_RESOURCES } from "./wizard/transmutation-resources";
 import { WAR_MAGIC_RESOURCES } from "./wizard/war-magic-resources";
 
 import { BLADESINGING_RESOURCES } from "./wizard/bladesinging-resources";
-import { ORDER_OF_SCRIBES_RESOURCES } from "./wizard/scribes-resources";
+import { SCRIBES_RESOURCES } from "./wizard/scribes-resources";
 
 const SUBCLASS_RESOURCES: Record<string, ResourceTemplate> = {
   //PHB
@@ -31,7 +31,7 @@ const SUBCLASS_RESOURCES: Record<string, ResourceTemplate> = {
 
   //TCE
   ...BLADESINGING_RESOURCES,
-  ...ORDER_OF_SCRIBES_RESOURCES,
+  ...SCRIBES_RESOURCES,
 };
 
 export const WIZARD_RESOURCES: Record<string, ResourceTemplate> = {
@@ -39,27 +39,54 @@ export const WIZARD_RESOURCES: Record<string, ResourceTemplate> = {
 
   arcane_recovery: {
     id: "arcane_recovery",
-    sourceId: "wizard",
     category: "class_features",
     max: E.div(E.classLevel("wizard"), E.n(2), "ceil"),
-    recharge: "longRest", // TODO: Once per DAY
+    // TODO: Once per DAY
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "arcane_recovery",
+        obtainedVia: { via: "class", classId: "wizard" },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["spells", "utility"],
   },
 
   signature_spell_1: {
     id: "signature_spell_1",
-    sourceId: "wizard",
     category: "class_features",
     max: E.n(1),
-    recharge: "shortRest",
+
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "signature_spell_1",
+        obtainedVia: { via: "class", classId: "wizard" },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["spellcasting"],
   },
   signature_spell_2: {
     id: "signature_spell_2",
-    sourceId: "wizard",
     category: "class_features",
     max: E.n(1),
-    recharge: "shortRest",
+
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "signature_spell_2",
+        obtainedVia: { via: "class", classId: "wizard" },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["spellcasting"],
   },
 };

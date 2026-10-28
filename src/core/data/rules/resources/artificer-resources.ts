@@ -18,16 +18,24 @@ export const ARTIFICER_RESOURCES: Record<string, ResourceTemplate> = {
 
   magical_tinkering: {
     id: "magical_tinkering",
-    sourceId: "artificer",
     category: "class_features",
     max: E.max(E.n(1), E.mod("INT")),
-    recharge: "none",
+
+    origin: { book: "TCE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "magical_tinkering",
+        obtainedVia: { via: "class", classId: "artificer" },
+      },
+    ],
+
+    recharge: [],
     tags: ["utility"],
   },
 
   infused_items: {
     id: "infused_items",
-    sourceId: "artificer",
     category: "class_features",
     max: E.table(E.classLevel("artificer"), {
       1: 2,
@@ -36,25 +44,53 @@ export const ARTIFICER_RESOURCES: Record<string, ResourceTemplate> = {
       14: 5,
       18: 6,
     }),
-    recharge: "none",
+
+    origin: { book: "TCE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "infused_items",
+        obtainedVia: { via: "class", classId: "artificer" },
+      },
+    ],
+
+    recharge: [],
     tags: ["utility"],
   },
 
   flash_of_genius: {
     id: "flash_of_genius",
-    sourceId: "artificer",
     category: "class_features",
     max: E.max(E.n(1), E.mod("INT")),
-    recharge: "longRest",
+
+    origin: { book: "TCE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "flash_of_genius",
+        obtainedVia: { via: "class", classId: "artificer" },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["utility"],
   },
 
   spell_storing_item_limit: {
     id: "spell_storing_item_limit",
-    sourceId: "artificer",
     category: "class_features",
     max: E.n(1),
-    recharge: "longRest",
+
+    origin: { book: "TCE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "spell_storing_item_limit",
+        obtainedVia: { via: "class", classId: "artificer" },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["spells"],
   },
 };

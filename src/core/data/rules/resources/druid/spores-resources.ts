@@ -4,10 +4,23 @@ import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 export const SPORES_RESOURCES: Record<string, ResourceTemplate> = {
   fungal_infestation: {
     id: "fungal_infestation",
-    sourceId: "spores",
     category: "subclass_features",
     max: E.max(E.n(1), E.mod("WIS")),
-    recharge: "longRest",
+
+    origin: { book: "TCE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "fungal_infestation",
+        obtainedVia: {
+          via: "subclass",
+          classId: "druid",
+          subclassId: "spores",
+        },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: [],
   },
 };

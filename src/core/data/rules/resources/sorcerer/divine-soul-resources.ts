@@ -4,28 +4,67 @@ import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 export const DIVINE_SOUL_RESOURCES: Record<string, ResourceTemplate> = {
   favored_by_the_gods: {
     id: "favored_by_the_gods",
-    sourceId: "divine_soul",
     category: "subclass_features",
     max: E.n(1),
-    recharge: "shortRest",
+
+    origin: { book: "XGE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "favored_by_the_gods",
+        obtainedVia: {
+          via: "subclass",
+          classId: "sorcerer",
+          subclassId: "divine_soul",
+        },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["utility", "bonus", "saving-throw", "attack-roll"],
   },
 
   empowered_healing: {
     id: "empowered_healing",
-    sourceId: "divine_soul",
     category: "subclass_features",
     max: E.n(1),
-    recharge: "perTurn",
+
+    origin: { book: "XGE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "empowered_healing",
+        obtainedVia: {
+          via: "subclass",
+          classId: "sorcerer",
+          subclassId: "divine_soul",
+        },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "turnStart" }, amount: "full" }],
     tags: ["healing"],
   },
 
   unearthly_recovery: {
     id: "unearthly_recovery",
-    sourceId: "divine_soul",
     category: "subclass_features",
     max: E.n(1),
-    recharge: "longRest",
+
+    origin: { book: "XGE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "unearthly_recovery",
+        obtainedVia: {
+          via: "subclass",
+          classId: "sorcerer",
+          subclassId: "divine_soul",
+        },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["healing"],
   },
 };

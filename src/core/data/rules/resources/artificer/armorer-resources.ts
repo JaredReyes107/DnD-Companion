@@ -1,31 +1,78 @@
 import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
+const ARMORER_OBTENTION = {
+  via: "subclass" as const,
+  classId: "artificer",
+  subclassId: "armorer",
+};
+
 export const ARMORER_RESOURCES: Record<string, ResourceTemplate> = {
   defensive_field: {
     id: "defensive_field",
-    sourceId: "guardian",
     category: "subclass_features",
     max: E.pb(),
-    recharge: "shortRest",
+
+    origin: { book: "TCE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "defensive_field",
+        obtainedVia: {
+          via: "choice",
+          poolId: "armor_model",
+          grantedBy: ARMORER_OBTENTION,
+        },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["defense"],
   },
 
   lightning_launcher_burst: {
     id: "lightning_launcher_burst",
-    sourceId: "infiltrator",
     category: "subclass_features",
     max: E.n(1),
-    recharge: "perRound",
+
+    origin: { book: "TCE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "lightning_launcher_burst",
+        obtainedVia: {
+          via: "choice",
+          poolId: "armor_model",
+          grantedBy: ARMORER_OBTENTION,
+        },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "roundStart" }, amount: "full" }],
     tags: ["utility"],
   },
 
+  // Only a Guardian-specific version found in source data — see flag above
+  // regarding a possible missing Infiltrator counterpart.
   perfected_armor_guardian: {
     id: "perfected_armor_guardian",
-    sourceId: "guardian",
     category: "subclass_features",
     max: E.pb(),
-    recharge: "longRest",
+
+    origin: { book: "TCE" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "perfected_armor_guardian",
+        obtainedVia: {
+          via: "choice",
+          poolId: "armor_model",
+          grantedBy: ARMORER_OBTENTION,
+        },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["utility"],
   },
 };

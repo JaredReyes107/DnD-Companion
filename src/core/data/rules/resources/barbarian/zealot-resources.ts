@@ -7,23 +7,40 @@ export const ZEALOT_RESOURCES: Record<string, ResourceTemplate> = {
     sourceId: "zealot",
     category: "subclass_features",
     max: E.n(1),
-    recharge: "perTurn",
+
     tags: ["combat"],
-  },
-  fanatical_focus: {
-    id: "fanatical_focus",
-    sourceId: "zealot",
-    category: "subclass_features",
-    max: E.n(1),
-    recharge: "custom",
-    tags: ["defense"],
+    origin: { book: "XGE" },
+    recharge: [],
   },
   zealous_presence: {
     id: "zealous_presence",
-    sourceId: "zealot",
+    category: "subclass_features",
+    origin: { book: "XGE" },
+    max: E.n(1),
+    grantors: [
+      {
+        system: "feature",
+        featureId: "zealous_presence",
+        obtainedVia: {
+          via: "subclass",
+          classId: "barbarian",
+          subclassId: "zealot",
+        },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
+    tags: ["combat", "support"],
+  },
+  fanatical_focus: {
+    id: "fanatical_focus",
     category: "subclass_features",
     max: E.n(1),
-    recharge: "longRest",
-    tags: ["combat", "support"],
+
+    tags: ["defense"],
+    origin: {
+      book: "XGE",
+    },
+    recharge: [],
   },
 };

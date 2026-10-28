@@ -5,7 +5,7 @@ export const FOUR_ELEMENTS_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "four_elements_disciplines",
     sourceId: "four_elements",
     classId: "monk",
-    selectionTrigger: "onLevelUp",
+    selectionTrigger: { type: "levelUp" },
     optionIds: [
       "breath_of_winter",
       "clench_of_the_north_wind",

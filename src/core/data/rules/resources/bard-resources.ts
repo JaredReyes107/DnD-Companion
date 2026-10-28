@@ -2,6 +2,7 @@ import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 import { GLAMOUR_RESOURCES } from "./bard/glamour-resources";
 import { WHISPERS_RESOURCES } from "./bard/whispers-resources";
+
 import { CREATION_RESOURCES } from "./bard/creation-resources";
 import { ELOQUENCE_RESOURCES } from "./bard/eloquence-resources";
 import { E } from "@/core/entities/rules/expr/expr";
@@ -17,10 +18,19 @@ const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
 export const BARD_RESOURCES: Record<string, ResourceTemplate> = {
   bardic_inspiration: {
     id: "bardic_inspiration",
-    sourceId: "bard",
     category: "class_features",
     max: E.max(E.n(1), E.mod("CHA")),
-    recharge: "longRest",
+
+    origin: { book: "PHB" },
+    grantors: [
+      {
+        system: "feature",
+        featureId: "bardic_inspiration",
+        obtainedVia: { via: "class", classId: "bard" },
+      },
+    ],
+
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: [
       "combat",
       "utility",

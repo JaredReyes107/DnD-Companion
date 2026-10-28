@@ -176,7 +176,7 @@ export const MONK: ClassTemplate = {
         source: "class",
         level: 20,
         tags: ["resource"],
-        // TODO: Trigger. Regain on initiative if 0 ki points
+        // TODO: Override. Regain 4 ki on initiative if 0 ki points
       },
     ],
   },
