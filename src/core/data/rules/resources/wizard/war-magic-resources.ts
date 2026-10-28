@@ -1,9 +1,14 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const WAR_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
   power_surge: {
     id: "power_surge",
     category: "subclass_features",
+    max: E.max(E.n(1), E.mod("INT")),
+    // TODO: Resets to 1 on longRest, not max
+    // TODO: Gains 1 if = 0 on shortRest
+
     origin: { book: "XGE" },
     grantors: [
       {
@@ -16,9 +21,6 @@ export const WAR_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "INT" } } },
-    min: { kind: "value", amount: 0 },
 
     recharge: [
       { trigger: { type: "longRest" }, amount: { kind: "reset", value: 1 } },
@@ -33,6 +35,8 @@ export const WAR_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
   power_surge_turn_uses: {
     id: "power_surge_turn_uses",
     category: "subclass_features",
+    max: E.max(E.n(1), E.mod("INT")),
+
     origin: { book: "XGE" },
     grantors: [
       {
@@ -45,9 +49,6 @@ export const WAR_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "turnStart" }, amount: "full" }],
     tags: ["combat", "damage"],

@@ -1,17 +1,19 @@
-import { Character } from "@/core/entities/character/Character";
 import { ActionDuration } from "./action-duration";
 import { ActionBoard } from "./action-board";
 import { ActionTrigger } from "./action-trigger";
 import { ExpiryCondition } from "../rules/duration/expiry-condition";
 import { AdvantagePolarity } from "../rules/advantage/advantage-instance";
+import { Predicate } from "../rules/predicate/predicate";
 
-export type ModifyResourceEffect = {
+type EffectBase = { key?: string };
+
+export type ModifyResourceEffect = EffectBase & {
   type: "modifyResource";
   resourceId: string;
-  amount: number; // puede ser negativo
+  amount: number;
 };
 
-export type ConvertResourceEffect = {
+export type ConvertResourceEffect = EffectBase & {
   type: "convertResource";
 
   from: {
@@ -25,7 +27,8 @@ export type ConvertResourceEffect = {
   };
 };
 
-export type ApplyModifierEffect = {
+/** @deprecated Apply a status that grants the modifier/advantage instead. */
+export type ApplyModifierEffect = EffectBase & {
   type: "applyModifier";
   modifiers: string[]; //modifierId
   durationRounds?: number;
@@ -34,7 +37,8 @@ export type ApplyModifierEffect = {
   stacking?: "overlap" | "refresh" | "override" | "ignore";
 };
 
-export type ApplyAdvantageEffect = {
+/** @deprecated Apply a status that grants the modifier/advantage instead. */
+export type ApplyAdvantageEffect = EffectBase & {
   type: "applyAdvantage";
   nodeIds: string[]; // CheckNode ids; a parent node covers its descendants
   polarity: AdvantagePolarity;
@@ -44,7 +48,7 @@ export type ApplyAdvantageEffect = {
   concentration?: boolean;
 };
 
-export type ApplyStatusEffect = {
+export type ApplyStatusEffect = EffectBase & {
   type: "applyStatus";
   statusId: string;
   durationRounds?: number;
@@ -52,7 +56,7 @@ export type ApplyStatusEffect = {
   endsEarlyOn?: ExpiryCondition[];
 };
 
-export type EndEffectsEffect = {
+export type EndEffectsEffect = EffectBase & {
   type: "endEffects";
   sourceIds?: string[]; // everything these sources applied
   statusIds?: string[]; // every instance of these statuses (cascades if bound)
@@ -78,5 +82,5 @@ export type ActionInstance = {
   boards: ActionBoard[]; // where it renders today; ignored by economy logic entirely
 
   effects: ActionEffect[];
-  canExecute?: (character: Character) => boolean;
+  requires?: Predicate;
 };

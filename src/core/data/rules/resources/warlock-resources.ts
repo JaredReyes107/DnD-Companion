@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 import { ELDRITCH_INVOCATIONS_RESOURCES } from "./warlock/eldritch-invocations-resources";
@@ -31,6 +32,8 @@ const PACT_BOON_RESOURCES: Record<string, ResourceTemplate> = {
   pact_of_the_talisman_aid: {
     id: "pact_of_the_talisman_aid",
     category: "class_features",
+    max: E.pb(),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -43,12 +46,6 @@ const PACT_BOON_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-
-    max: {
-      kind: "formula",
-      formula: { base: { kind: "scaler", id: "PB" } },
-    },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["skill", "bonus"],
@@ -64,6 +61,8 @@ export const WARLOCK_RESOURCES: Record<string, ResourceTemplate> = {
   pact_slots: {
     id: "pact_slots",
     category: "pact_slots",
+    max: E.table(E.classLevel("warlock"), { 1: 1, 2: 2, 11: 3, 17: 4 }),
+    
     origin: { book: "PHB" },
     grantors: [
       {
@@ -77,7 +76,7 @@ export const WARLOCK_RESOURCES: Record<string, ResourceTemplate> = {
       kind: "formula",
       formula: { base: { kind: "scaler", id: "spellcasting" } },
     },
-    min: { kind: "value", amount: 0 },
+    
 
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["spellcasting"],
@@ -87,6 +86,8 @@ export const WARLOCK_RESOURCES: Record<string, ResourceTemplate> = {
   mystic_arcanum_6: {
     id: "mystic_arcanum_6",
     category: "pact_slots",
+    max: E.table(E.classLevel("warlock"), { 11: 1 }),
+
     origin: { book: "PHB" },
     grantors: [
       {
@@ -96,15 +97,14 @@ export const WARLOCK_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["spellcasting"],
   },
   mystic_arcanum_7: {
     id: "mystic_arcanum_7",
     category: "pact_slots",
+    max: E.table(E.classLevel("warlock"), { 13: 1 }),
+
     origin: { book: "PHB" },
     grantors: [
       {
@@ -114,15 +114,14 @@ export const WARLOCK_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["spellcasting"],
   },
   mystic_arcanum_8: {
     id: "mystic_arcanum_8",
     category: "pact_slots",
+    max: E.table(E.classLevel("warlock"), { 15: 1 }),
+
     origin: { book: "PHB" },
     grantors: [
       {
@@ -132,15 +131,14 @@ export const WARLOCK_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["spellcasting"],
   },
   mystic_arcanum_9: {
     id: "mystic_arcanum_9",
     category: "pact_slots",
+    max: E.table(E.classLevel("warlock"), { 17: 1 }),
+
     origin: { book: "PHB" },
     grantors: [
       {
@@ -150,15 +148,14 @@ export const WARLOCK_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["spellcasting"],
   },
   eldritch_master: {
     id: "eldritch_master",
     category: "class_features",
+    max: E.n(1),
+
     origin: { book: "PHB" },
     grantors: [
       {
@@ -167,9 +164,6 @@ export const WARLOCK_RESOURCES: Record<string, ResourceTemplate> = {
         obtainedVia: { via: "class", classId: "warlock" },
       },
     ],
-
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: [],

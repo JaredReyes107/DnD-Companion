@@ -8,6 +8,7 @@ import { STORM_SORCERY_RESOURCES } from "./sorcerer/storm-resources";
 
 import { ABERRANT_MIND_RESOURCES } from "./sorcerer/aberrant-mind-resources";
 import { CLOCKWORK_SOUL_RESOURCES } from "./sorcerer/clockwork-soul-resources";
+import { E } from "@/core/entities/rules/expr/expr";
 
 const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
   // PHB
@@ -28,7 +29,11 @@ export const SORCERER_RESOURCES: Record<string, ResourceTemplate> = {
 
   sorcery_points: {
     id: "sorcery_points",
-    category: "class_features",
+    //origin: "Players Handbook", //For distinguishing official rules and homebrew
+    sourceId: "sorcerer",
+    category: "class_features", //For UI
+    max: E.classLevel("sorcerer"),
+
     origin: { book: "PHB" },
     grantors: [
       {
@@ -37,14 +42,6 @@ export const SORCERER_RESOURCES: Record<string, ResourceTemplate> = {
         obtainedVia: { via: "class", classId: "sorcerer" },
       },
     ],
-
-    max: {
-      kind: "formula",
-      formula: {
-        base: { kind: "scaler", id: "class-level", param: "sorcerer" },
-      },
-    },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["combat", "support"],

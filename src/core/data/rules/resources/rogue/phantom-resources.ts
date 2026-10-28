@@ -1,9 +1,12 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const PHANTOM_RESOURCES: Record<string, ResourceTemplate> = {
   wails_from_the_grave: {
     id: "wails_from_the_grave",
     category: "subclass_features",
+    max: E.pb(),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -17,9 +20,6 @@ export const PHANTOM_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["combat", "damage"],
   },
@@ -27,6 +27,8 @@ export const PHANTOM_RESOURCES: Record<string, ResourceTemplate> = {
   soul_trinkets: {
     id: "soul_trinkets",
     category: "subclass_features",
+    max: E.pb(),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -40,9 +42,6 @@ export const PHANTOM_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
-    min: { kind: "value", amount: 0 },
-
     // Gained via action effects (trinket collection), not a scheduled trigger.
     recharge: [],
     tags: ["utility", "consumable"],
@@ -51,6 +50,8 @@ export const PHANTOM_RESOURCES: Record<string, ResourceTemplate> = {
   ghost_walk: {
     id: "ghost_walk",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -63,9 +64,6 @@ export const PHANTOM_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["movement", "transformation"],

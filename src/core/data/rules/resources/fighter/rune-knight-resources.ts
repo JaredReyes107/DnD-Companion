@@ -1,9 +1,12 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
   giants_might: {
     id: "giants_might",
     category: "subclass_features",
+    max: E.pb(),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -17,15 +20,14 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: [],
   },
   runic_shield: {
     id: "runic_shield",
     category: "subclass_features",
+    max: E.pb(),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -39,9 +41,6 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: [],
   },
@@ -50,6 +49,8 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
   cloud_rune: {
     id: "cloud_rune",
     category: "subclass_features",
+    max: E.table(E.classLevel("fighter", "rune_knight"), { 1: 1, 15: 2 }),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -67,15 +68,14 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: [],
   },
   fire_rune: {
     id: "fire_rune",
     category: "subclass_features",
+    max: E.table(E.classLevel("fighter", "rune_knight"), { 1: 1, 15: 2 }),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -93,15 +93,14 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: [],
   },
   frost_rune: {
     id: "frost_rune",
     category: "subclass_features",
+    max: E.table(E.classLevel("fighter", "rune_knight"), { 1: 1, 15: 2 }),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -119,15 +118,14 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: [],
   },
   stone_rune: {
     id: "stone_rune",
     category: "subclass_features",
+    max: E.table(E.classLevel("fighter", "rune_knight"), { 1: 1, 15: 2 }),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -145,15 +143,14 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: [],
   },
   hill_rune: {
     id: "hill_rune",
     category: "subclass_features",
+    max: E.table(E.classLevel("fighter", "rune_knight"), { 1: 1, 15: 2 }),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -171,15 +168,14 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: [],
   },
   storm_rune: {
     id: "storm_rune",
     category: "subclass_features",
+    max: E.table(E.classLevel("fighter", "rune_knight"), { 1: 1, 15: 2 }),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -196,9 +192,6 @@ export const RUNE_KNIGHT_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: [],

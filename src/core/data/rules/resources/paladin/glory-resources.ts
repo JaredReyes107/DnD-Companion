@@ -1,9 +1,12 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const GLORY_RESOURCES: Record<string, ResourceTemplate> = {
   glorious_defense: {
     id: "glorious_defense",
     category: "subclass_features",
+    max: E.max(E.n(1), E.mod("CHA")),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -17,15 +20,14 @@ export const GLORY_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "CHA" } } },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: [],
   },
   living_legend: {
     id: "living_legend",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -39,15 +41,14 @@ export const GLORY_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: [],
   },
   living_legend_precise_attack: {
     id: "living_legend_precise_attack",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -60,9 +61,6 @@ export const GLORY_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "roundStart" }, amount: "full" }],
     tags: [],

@@ -1,9 +1,12 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const GLAMOUR_RESOURCES: Record<string, ResourceTemplate> = {
   mantle_of_majesty: {
     id: "mantle_of_majesty",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "XGE" },
     grantors: [
       {
@@ -17,15 +20,14 @@ export const GLAMOUR_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["combat", "support"],
   },
   enthralling_performance: {
     id: "enthralling_performance",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "XGE" },
     grantors: [
       {
@@ -39,14 +41,14 @@ export const GLAMOUR_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["roleplay"],
   },
   unbreakable_majesty: {
     id: "unbreakable_majesty",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "XGE" },
     grantors: [
       {
@@ -59,9 +61,6 @@ export const GLAMOUR_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["combat"],

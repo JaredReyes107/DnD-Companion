@@ -2,7 +2,7 @@ import {
   ModifierTemplate,
   ModifierType,
 } from "@/core/entities/modifiers/Modifier";
-import { getAbilityModifier } from "@/core/rules/character/abilities-modifiers";
+import { E } from "@/core/entities/rules/expr/expr";
 
 export const WIZARD_MODIFIERS: Record<string, ModifierTemplate> = {
   bladesong_ac_bonus: {
@@ -10,8 +10,7 @@ export const WIZARD_MODIFIERS: Record<string, ModifierTemplate> = {
     sourceId: "bladesong",
     statModel: { type: "derived", key: "ac" },
     type: ModifierType.ADDITIVE,
-    value: (context) =>
-      getAbilityModifier(context.character.baseAbilityScores.INT),
+    value: E.max(E.n(1), E.mod("INT")),
   },
 
   bladesong_speed_bonus: {

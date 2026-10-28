@@ -1,7 +1,7 @@
 import { ChoicePoolTemplate } from "@/core/entities/rules/choice-pool-template";
 
 export const BEAST_POOLS: Record<string, ChoicePoolTemplate> = {
-  // Stub — onActivation not yet supported
+  // TODO: Stub — onActivation not yet supported
   form_of_the_beast_weapon: {
     id: "form_of_the_beast_weapon",
     sourceId: "beast",
@@ -16,7 +16,7 @@ export const BEAST_POOLS: Record<string, ChoicePoolTemplate> = {
     sourceId: "beast",
     classId: "barbarian",
     selectionTrigger: { type: "levelUp" },
-    optionIds: ["bestial_soul_climb", "bestial_soul_swim", "bestial_soul_fly"],
+    optionIds: ["bestial_soul_swim", "bestial_soul_climb", "bestial_soul_jump"],
     picksAtLevel: { 6: 1 },
   },
 };

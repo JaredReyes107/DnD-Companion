@@ -1,4 +1,5 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
+import { E } from "@/core/entities/rules/expr/expr";
 
 import { ABJURATION_RESOURCES } from "./wizard/abjuration-resources";
 import { CONJURATION_RESOURCES } from "./wizard/conjuration-resources";
@@ -39,6 +40,8 @@ export const WIZARD_RESOURCES: Record<string, ResourceTemplate> = {
   arcane_recovery: {
     id: "arcane_recovery",
     category: "class_features",
+    max: E.div(E.classLevel("wizard"), E.n(2), "ceil"),
+    // TODO: Once per DAY
     origin: { book: "PHB" },
     grantors: [
       {
@@ -48,16 +51,6 @@ export const WIZARD_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: {
-      kind: "formula",
-      formula: {
-        base: { kind: "scaler", id: "class-level", param: "wizard" },
-        steps: [{ op: "divide", value: 2 }],
-        rounding: "round", // explicit — default "floor" would under-count on odd levels
-      },
-    },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["spells", "utility"],
   },
@@ -65,6 +58,8 @@ export const WIZARD_RESOURCES: Record<string, ResourceTemplate> = {
   signature_spell_1: {
     id: "signature_spell_1",
     category: "class_features",
+    max: E.n(1),
+
     origin: { book: "PHB" },
     grantors: [
       {
@@ -74,15 +69,14 @@ export const WIZARD_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["spellcasting"],
   },
   signature_spell_2: {
     id: "signature_spell_2",
     category: "class_features",
+    max: E.n(1),
+
     origin: { book: "PHB" },
     grantors: [
       {
@@ -91,9 +85,6 @@ export const WIZARD_RESOURCES: Record<string, ResourceTemplate> = {
         obtainedVia: { via: "class", classId: "wizard" },
       },
     ],
-
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["spellcasting"],

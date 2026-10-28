@@ -1,9 +1,12 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const SWARMKEEPER_RESOURCES: Record<string, ResourceTemplate> = {
   gathered_swarm: {
     id: "gathered_swarm",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -17,15 +20,14 @@ export const SWARMKEEPER_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "roundStart" }, amount: "full" }],
     tags: ["combat"],
   },
   writhing_tide: {
     id: "writhing_tide",
     category: "subclass_features",
+    max: E.pb(),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -39,15 +41,14 @@ export const SWARMKEEPER_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["movement", "utility"],
   },
   swarming_dispersal: {
     id: "swarming_dispersal",
     category: "subclass_features",
+    max: E.pb(),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -60,9 +61,6 @@ export const SWARMKEEPER_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["defense", "movement"],

@@ -7,7 +7,6 @@ import {
   getLocalizedName,
   getLocalizedShortName,
 } from "@/services/localization/localization-helper";
-import { ui } from "@/services/localization/ui-localization-resolver";
 
 type Props = {
   label: string;
@@ -26,9 +25,7 @@ export const ResourceElement = ({ label, current, max, onChange }: Props) => {
       </ThemedText>
 
       <ThemedText style={styles.resourceElementValues}>
-        {max == "unbounded"
-          ? ui("resourceValues.unbounded")
-          : current + " / " + max}
+        {Number.isFinite(max) ? `${current} / ${max}` : "∞"}
       </ThemedText>
 
       <View style={styles.resourceElementButtonsContainer}>

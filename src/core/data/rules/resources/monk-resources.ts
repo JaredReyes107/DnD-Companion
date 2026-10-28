@@ -5,6 +5,7 @@ import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 import { OPEN_HAND_RESOURCES } from "./monk/open-hand-resources";
 import { KENSEI_RESOURCES } from "./monk/kensei-resources";
 import { MERCY_RESOURCES } from "./monk/mercy-resources";
+import { E } from "@/core/entities/rules/expr/expr";
 
 const RESOURCES_SUBCLASSES: Record<string, ResourceTemplate> = {
   ...OPEN_HAND_RESOURCES,
@@ -18,6 +19,8 @@ export const MONK_RESOURCES: Record<string, ResourceTemplate> = {
   ki_points: {
     id: "ki_points",
     category: "class_features",
+    max: E.classLevel("monk"),
+
     origin: { book: "PHB" },
     grantors: [
       {
@@ -26,12 +29,6 @@ export const MONK_RESOURCES: Record<string, ResourceTemplate> = {
         obtainedVia: { via: "class", classId: "monk" },
       },
     ],
-
-    max: {
-      kind: "formula",
-      formula: { base: { kind: "scaler", id: "class-level", param: "monk" } },
-    },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["combat", "mobility"],

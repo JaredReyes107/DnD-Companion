@@ -1,9 +1,12 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const SCRIBES_RESOURCES: Record<string, ResourceTemplate> = {
   awakened_spellbook_fast_ritual: {
     id: "awakened_spellbook_fast_ritual",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -17,9 +20,6 @@ export const SCRIBES_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["spellcasting"],
   },
@@ -27,6 +27,8 @@ export const SCRIBES_RESOURCES: Record<string, ResourceTemplate> = {
   manifest_mind: {
     id: "manifest_mind",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -40,15 +42,14 @@ export const SCRIBES_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["utility"],
   },
   manifest_mind_cast_through: {
     id: "manifest_mind_cast_through",
     category: "subclass_features",
+    max: E.pb(),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -62,9 +63,6 @@ export const SCRIBES_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["utility"],
   },
@@ -72,6 +70,8 @@ export const SCRIBES_RESOURCES: Record<string, ResourceTemplate> = {
   master_scrivener: {
     id: "master_scrivener",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -84,9 +84,6 @@ export const SCRIBES_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["utility", "spellcasting"],

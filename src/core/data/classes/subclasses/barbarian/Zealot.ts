@@ -11,20 +11,19 @@ export const ZEALOT: SubclassTemplate = {
         id: "divine_fury",
         source: "subclass",
         level: 3,
+        grants: [
+          { type: "action", id: "divine_fury" },
+          { type: "resource", id: "divine_fury" },
+        ],
         tags: ["combat"],
-        // TODO: rage hook + on-hit damage bonus
-        // TODO: build-choice (damage type selection)
-        // TODO: scaling (1d6 + half level)
       },
       {
         id: "warrior_of_the_gods",
         source: "subclass",
         level: 3,
         tags: ["passive"],
-        // NOTE: purely narrative, no mechanical tracking needed
       },
     ],
-
     6: [
       {
         id: "fanatical_focus",
@@ -38,7 +37,6 @@ export const ZEALOT: SubclassTemplate = {
         //TODO: Override. Rage now grants +1 fanatical_focus
       },
     ],
-
     10: [
       {
         id: "zealous_presence",
@@ -49,18 +47,15 @@ export const ZEALOT: SubclassTemplate = {
           { type: "resource", id: "zealous_presence" },
         ],
         tags: ["support", "combat"],
-        // TODO: action + advantage application to multiple targets
       },
     ],
-
     14: [
       {
         id: "rage_beyond_death",
         source: "subclass",
         level: 14,
         tags: ["passive", "combat", "last-stand"],
-        // TODO: rage hook + death save override
       },
-    ],
+    ], // see gaps
   },
 };

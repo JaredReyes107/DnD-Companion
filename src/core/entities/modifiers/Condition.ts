@@ -1,14 +1,5 @@
-export enum ConditionType {
-  ALWAYS,
-  TARGET_IS_RANGED_ATTACK,
-  TARGET_IS_MELEE_ATTACK,
-  HP_BELOW_THRESHOLD,
-  TARGET_HAS_STATUS,
-  WITHIN_RANGE,
-}
+import { Predicate } from "@/core/entities/rules/predicate/predicate";
 
-export interface Condition {
-  type: ConditionType;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  params?: any;
-}
+/** Alias kept so existing `condition?: Condition` fields keep compiling.
+ *  New code should import Predicate directly. */
+export type Condition = Predicate;

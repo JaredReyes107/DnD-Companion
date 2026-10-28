@@ -13,6 +13,7 @@ export const ARTIFICER: ClassTemplate = {
     ability: "INT",
     kind: "standard",
     progression: "half",
+    roundUp: true,
   },
 
   featuresByLevel: {

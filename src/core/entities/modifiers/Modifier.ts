@@ -1,8 +1,7 @@
 import { ExpiryCondition } from "../rules/duration/expiry-condition";
-import { ResolvedBase } from "../rules/resolved-base";
+import { Expr } from "../rules/expr/expr";
 import { StatModel } from "../rules/stats.types";
 import { Condition } from "./Condition";
-import { Character } from "@/core/entities/character/Character";
 
 export enum ModifierType {
   ADDITIVE = "additive",
@@ -12,13 +11,7 @@ export enum ModifierType {
   CAP = "cap",
 }
 
-export type ModifierValue = number | ((context: ModifierEvalContext) => number);
-
-export type ModifierEvalContext = {
-  character: Character;
-  resolved: ResolvedBase;
-  [key: string]: unknown;
-};
+export type ModifierValue = number | Expr;
 
 export interface ModifierTemplate {
   id: string;

@@ -6,6 +6,7 @@ export type SpellcastingTemplate = {
 
   ability: Ability;
 
-  // Applies to "pact" as well as "standard. Warlock is always "full" by default
-  progression?: "full" | "half" | "third";
+  progression?: "full" | "half" | "third"; // ONLY for standard
+  /** Multiclass caster level rounds this class's contribution up (Artificer). Default: down. */
+  roundUp?: boolean;
 };

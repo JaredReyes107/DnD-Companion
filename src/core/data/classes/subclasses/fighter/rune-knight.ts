@@ -11,6 +11,14 @@ export const RUNE_KNIGHT: SubclassTemplate = {
         source: "subclass",
         level: 3,
         tags: ["tools", "proficiency", "language"],
+        grants: [
+          { type: "proficiency", nodeId: "tool.smithsTools" },
+          {
+            type: "language",
+            nodeId: "language.giant",
+            modes: ["speak", "readWrite", "understand"],
+          },
+        ],
       },
       {
         id: "rune_carver",
@@ -27,7 +35,7 @@ export const RUNE_KNIGHT: SubclassTemplate = {
           { type: "action", id: "giants_might" },
           { type: "resource", id: "giants_might" },
         ],
-        tags: ["combat", "buff", "damage", "bonus-action"],
+        tags: ["combat", "buff", "bonus-action"],
       },
     ],
 
@@ -40,7 +48,7 @@ export const RUNE_KNIGHT: SubclassTemplate = {
           { type: "action", id: "runic_shield" },
           { type: "resource", id: "runic_shield" },
         ],
-        tags: ["reaction", "defense", "reroll"],
+        tags: ["reaction", "defense"],
       },
     ],
 
@@ -50,7 +58,7 @@ export const RUNE_KNIGHT: SubclassTemplate = {
         source: "subclass",
         level: 10,
         tags: ["passive", "combat"],
-        // TODO: Improve Giant's Might (Damage -> 1d8) / Replace modifier
+        // Extra damage upgrade 1d6 -> 1d8: not modeled
       },
     ],
 
@@ -60,7 +68,6 @@ export const RUNE_KNIGHT: SubclassTemplate = {
         source: "subclass",
         level: 15,
         tags: ["passive", "resource"],
-        // TODO: Scales every rune. Change to short rest. Override System
       },
     ],
 
@@ -69,8 +76,10 @@ export const RUNE_KNIGHT: SubclassTemplate = {
         id: "runic_juggernaut",
         source: "subclass",
         level: 18,
-        // TODO: Improve Giant's Might (Damage -> 1d8, Size -> Huge) / Replace modifier
         tags: ["damage"],
+        // Extra damage upgrade 1d8 -> 1d10: not modeled.
+        // Reach +5 ft: not modeled.
+        // Size -> Huge: not modeled.
       },
     ],
   },

@@ -13,6 +13,10 @@ import { getChoicePoolById } from "@/core/data/registries/choice-pools.registry"
 import { getActiveFeatures } from "./features-helper";
 import { grantsOfType, optionGrantsOfType } from "../shared/grant-filters";
 import { evaluateEligibility } from "./eligibility-helper";
+import {
+  ExpandedAdvantage,
+  expandAdvantageTemplate,
+} from "@/core/data/registries/advantage.registry";
 
 /**
  * Returns all OptionGrants earned by the character's current selections,
@@ -38,6 +42,23 @@ function getGrantsFromChoices(
   return ids;
 }
 
+/**
+ * Returns all advantage grants from selected options with their full shape
+ * (nodeId, polarity, condition). Used by buildCharacterAdvantageInstances to
+ * include choice-driven passive advantages (e.g. rune passives).
+ */
+export function getAdvantageGrantsFromChoices(
+  character: Character,
+): ExpandedAdvantage[] {
+  return Object.values(character.featureChoices).flatMap((inst) =>
+    inst.selectedOptionIds.flatMap((optionId) =>
+      optionGrantsOfType(getOptionById(optionId).grants, "advantage").flatMap(
+        (g) => expandAdvantageTemplate(g.id, optionId),
+      ),
+    ),
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Grant resolution — consumed by build functions
 // ---------------------------------------------------------------------------
@@ -53,6 +74,9 @@ export function getActionsFromChoices(character: Character): Set<string> {
 export function getModifiersFromChoices(character: Character): Set<string> {
   return getGrantsFromChoices(character, "modifier");
 }
+
+export const getProficienciesFromChoices = (c: Character) =>
+  getGrantsFromChoices(c, "proficiency");
 
 /**
  * Returns how many picks a character is entitled to for a given pool
@@ -190,4 +214,8 @@ export function getEligibleOptionsForPool(
     (option) =>
       !option.eligibility || evaluateEligibility(character, option.eligibility),
   );
+}
+
+export function getOverridesFromChoices(c: Character): Set<string> {
+  return getGrantsFromChoices(c, "override");
 }

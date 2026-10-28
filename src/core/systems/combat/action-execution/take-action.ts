@@ -25,51 +25,54 @@ import {
 import { resolveStatValue } from "../../stats/stat-resolver";
 import { getStatusTemplateById } from "@/core/data/registries/status.registry";
 import { StatusInstance } from "@/core/entities/combat/status-instance";
+import { ExprContext } from "@/core/rules/predicate/evaluate-predicate";
+import {
+  buildResourceContext,
+  ResourceContext,
+  resourceCurrent,
+  resourceMax,
+} from "@/core/rules/character/resource-max";
 
+/** amount < 0 spends, > 0 recovers. Clamped to [0, max] uses. */
 export function applyResourceDelta(
   character: Character,
   resourceId: string,
   amount: number,
+  ctx: ResourceContext = buildResourceContext(character),
 ): Character {
-  const current = character.resources[resourceId];
-
-  if (!current) return character;
-
+  const instance = character.resources[resourceId];
+  if (!instance) return character;
+  const max = resourceMax(character, resourceId, ctx);
+  const spent = Math.min(max, Math.max(0, instance.spent - amount));
   return {
     ...character,
-    resources: {
-      ...character.resources,
-      [resourceId]: {
-        ...current,
-        current: current.current + amount,
-      },
-    },
+    resources: { ...character.resources, [resourceId]: { ...instance, spent } },
   };
 }
 
 export function applyResourceConversion(
   character: Character,
   effect: ConvertResourceEffect,
+  ctx: ResourceContext = buildResourceContext(character),
 ): Character {
-  const from = character.resources[effect.from.resourceId];
-  const to = character.resources[effect.to.resourceId];
-
-  if (!from || !to) return character;
-
-  return {
-    ...character,
-    resources: {
-      ...character.resources,
-      [effect.from.resourceId]: {
-        ...from,
-        current: from.current - effect.from.amount,
-      },
-      [effect.to.resourceId]: {
-        ...to,
-        current: to.current + effect.to.amount,
-      },
-    },
-  };
+  if (
+    !character.resources[effect.from.resourceId] ||
+    !character.resources[effect.to.resourceId]
+  ) {
+    return character;
+  }
+  const afterFrom = applyResourceDelta(
+    character,
+    effect.from.resourceId,
+    -effect.from.amount,
+    ctx,
+  );
+  return applyResourceDelta(
+    afterFrom,
+    effect.to.resourceId,
+    effect.to.amount,
+    ctx,
+  );
 }
 
 export function applyRuntimeModifier(
@@ -132,58 +135,41 @@ export function applyRuntimeAdvantage(
 export function isActionAvailable(
   character: Character,
   action: ActionInstance,
+  ctx?: ResourceContext,
 ): boolean {
   if (!character.combatState) return false;
 
-  let hasActionEconomy = false;
+  const eco = character.combatState.actionEconomy;
+  const hasActionEconomy =
+    action.duration.kind !== "economy" ||
+    {
+      action: eco.actions,
+      bonusAction: eco.bonusActions,
+      reaction: eco.reactions,
+    }[action.duration.slot].current > 0;
+  if (!hasActionEconomy) return false;
 
-  if (action.duration.kind === "economy") {
-    switch (action.duration.slot) {
-      case "action":
-        hasActionEconomy =
-          character.combatState.actionEconomy.actions.current > 0;
-        break;
-      case "bonusAction":
-        hasActionEconomy =
-          character.combatState.actionEconomy.bonusActions.current > 0;
-        break;
-      case "reaction":
-        hasActionEconomy =
-          character.combatState.actionEconomy.reactions.current > 0;
-        break;
+  let rc = ctx;
+  const resourceCtx = () => (rc ??= buildResourceContext(character));
+
+  // Every resource effect must be satisfiable. A missing instance means unavailable, not a throw.
+  return action.effects.every((effect) => {
+    switch (effect.type) {
+      case "modifyResource":
+        return (
+          effect.amount >= 0 ||
+          resourceCurrent(character, effect.resourceId, resourceCtx()) >=
+            -effect.amount
+        );
+      case "convertResource":
+        return (
+          resourceCurrent(character, effect.from.resourceId, resourceCtx()) >=
+          effect.from.amount
+        );
+      default:
+        return true;
     }
-  } else {
-    hasActionEconomy = true;
-  }
-
-  let hasResource = true;
-  if (
-    action.effects.some((effect) => effect.type === "modifyResource") ||
-    action.effects.some((effect) => effect.type === "convertResource")
-  ) {
-    for (const effect of action.effects) {
-      switch (effect.type) {
-        case "modifyResource":
-          if (effect.amount < 0 && hasResource) {
-            hasResource =
-              character.resources[effect.resourceId].current >=
-              Math.abs(effect.amount);
-          } else {
-            hasResource = true;
-          }
-          break;
-        case "convertResource":
-          hasResource =
-            character.resources[effect.from.resourceId].current >=
-            effect.from.amount;
-          break;
-      }
-    }
-  }
-
-  const isAvailable = hasActionEconomy && hasResource; //&& canExecute
-
-  return isAvailable;
+  });
 }
 
 export function executeAction(
@@ -196,6 +182,9 @@ export function executeAction(
     updatedCharacter = onActionTaken(updatedCharacter, action.id);
   }
 
+  let resourceCtx: ExprContext | undefined;
+  const rc = () => (resourceCtx ??= buildResourceContext(updatedCharacter));
+
   for (const effect of action.effects) {
     switch (effect.type) {
       case "modifyResource":
@@ -203,11 +192,15 @@ export function executeAction(
           updatedCharacter,
           effect.resourceId,
           effect.amount,
+          rc(),
         );
         break;
-
       case "convertResource":
-        updatedCharacter = applyResourceConversion(updatedCharacter, effect);
+        updatedCharacter = applyResourceConversion(
+          updatedCharacter,
+          effect,
+          rc(),
+        );
         break;
 
       case "applyModifier": {

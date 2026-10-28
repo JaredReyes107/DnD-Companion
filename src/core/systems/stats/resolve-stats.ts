@@ -23,7 +23,7 @@ export function resolveStat(
   statId: string,
   baseValue: number,
   modifiers: ModifierInstance[],
-  context: EvaluationContext = {},
+  context: EvaluationContext,
 ): ResolvedStat {
   const activeModifiers = modifiers.filter((mod) =>
     evaluateCondition(mod.condition, context),
@@ -64,11 +64,5 @@ export function resolveStat(
 export function buildEvaluationContext(
   character: Character,
 ): EvaluationContext {
-  return {
-    currentHp: character.hitPoints.currentHP,
-    maxHp: character.hitPoints.currentMaximumHP,
-    // targetIsRanged/targetIsMelee/targetStatuses/distanceToTarget intentionally
-    // left unset here — those depend on a specific target in combat, which
-    // isn't resolvable from the character alone. Out of scope for now
-  };
+  return { character };
 }

@@ -1,9 +1,12 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const BLADESINGING_RESOURCES: Record<string, ResourceTemplate> = {
   bladesong: {
     id: "bladesong",
     category: "subclass_features",
+    max: E.pb(),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -16,9 +19,6 @@ export const BLADESINGING_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["combat", "buff"],

@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 import { LAND_RESOURCES } from "./druid/land-resources";
@@ -26,6 +27,8 @@ export const DRUID_RESOURCES: Record<string, ResourceTemplate> = {
   wild_shape: {
     id: "wild_shape",
     category: "class_features",
+    max: E.n(2),
+
     origin: { book: "PHB" },
     grantors: [
       {
@@ -34,9 +37,6 @@ export const DRUID_RESOURCES: Record<string, ResourceTemplate> = {
         obtainedVia: { via: "class", classId: "druid" },
       },
     ],
-
-    max: { kind: "value", amount: 2 },
-    min: { kind: "value", amount: 0 },
 
     // NOTE: RAW recovers on short OR long rest — currently modeled as longRest only.
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],

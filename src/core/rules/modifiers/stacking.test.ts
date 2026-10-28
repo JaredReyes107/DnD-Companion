@@ -1,6 +1,6 @@
 import {
   applyStackingRules,
-  MODIFIER_PRIORITY,
+  DEFAULT_MODIFIER_PRIORITY,
   resolveModifierValue,
   sortModifiersByPriority,
 } from "./stacking";
@@ -9,63 +9,56 @@ import {
   ModifierType,
 } from "../../entities/modifiers/Modifier";
 
+// Minimal valid ModifierInstance for stacking tests.
+// value and priority are baked numbers (functions live on ModifierTemplate only).
+function mod(
+  overrides: Partial<ModifierInstance> & { id: string },
+): ModifierInstance {
+  return {
+    templateId: "test-template",
+    sourceId: "test-source",
+    statModel: { type: "derived", key: "ac" },
+    type: ModifierType.ADDITIVE,
+    value: 0,
+    priority: DEFAULT_MODIFIER_PRIORITY[ModifierType.ADDITIVE],
+    ...overrides,
+  };
+}
+
 describe("Stacking Rules", () => {
   describe("resolveModifierValue", () => {
-    it("should resolve static number payloads natively", () => {
-      const mod: ModifierInstance = {
-        id: "1",
-        effectId: "test-effect",
-        statId: "ac",
-        type: ModifierType.ADDITIVE,
-        priority: MODIFIER_PRIORITY[ModifierType.ADDITIVE],
-        value: 5,
-      };
-
-      expect(resolveModifierValue(mod)).toBe(5);
+    it("should return the baked numeric value on a ModifierInstance", () => {
+      const m = mod({ id: "1", value: 5 });
+      expect(resolveModifierValue(m)).toBe(5);
     });
 
-    it("should resolve dynamic function payloads using context", () => {
-      const mod: ModifierInstance = {
-        id: "2",
-        effectId: "test-effect",
-        statId: "ac",
-        type: ModifierType.ADDITIVE,
-        priority: MODIFIER_PRIORITY[ModifierType.ADDITIVE],
-        value: (ctx: { bonus: number }) => 10 + ctx.bonus,
-      };
-
-      expect(resolveModifierValue(mod, { bonus: 2 })).toBe(12);
+    it("should return zero for a zero-valued modifier", () => {
+      const m = mod({ id: "2", value: 0 });
+      expect(resolveModifierValue(m)).toBe(0);
     });
   });
 
   describe("sortModifiersByPriority", () => {
-    it("should sort modifiers by priority (highest priority value first theoretically, but logic does a-b so lowest first)", () => {
-      // The application actually applies modifiers in order, so SET (100) should apply before ADD (300)
+    it("should order SET (100) before MULTIPLICATIVE (200) before ADDITIVE (300)", () => {
       const mods: ModifierInstance[] = [
-        {
+        mod({
           id: "1",
-          effectId: "",
-          statId: "ac",
           type: ModifierType.ADDITIVE,
-          priority: MODIFIER_PRIORITY[ModifierType.ADDITIVE],
+          priority: DEFAULT_MODIFIER_PRIORITY[ModifierType.ADDITIVE],
           value: 2,
-        },
-        {
+        }),
+        mod({
           id: "2",
-          effectId: "",
-          statId: "ac",
           type: ModifierType.SET,
-          priority: MODIFIER_PRIORITY[ModifierType.SET],
+          priority: DEFAULT_MODIFIER_PRIORITY[ModifierType.SET],
           value: 15,
-        },
-        {
+        }),
+        mod({
           id: "3",
-          effectId: "",
-          statId: "ac",
           type: ModifierType.MULTIPLICATIVE,
-          priority: MODIFIER_PRIORITY[ModifierType.MULTIPLICATIVE],
+          priority: DEFAULT_MODIFIER_PRIORITY[ModifierType.MULTIPLICATIVE],
           value: 2,
-        },
+        }),
       ];
 
       const sorted = sortModifiersByPriority(mods);
@@ -77,134 +70,71 @@ describe("Stacking Rules", () => {
   });
 
   describe("applyStackingRules", () => {
-    it("should preserve all modifiers if they have no effectId (independent)", () => {
+    it("should preserve all modifiers when they have no effectId (independent)", () => {
       const mods: ModifierInstance[] = [
-        {
-          id: "1",
-          effectId: "",
-          statId: "ac",
-          type: ModifierType.ADDITIVE,
-          priority: 1,
-          value: 2,
-        },
-        {
-          id: "2",
-          effectId: "",
-          statId: "ac",
-          type: ModifierType.ADDITIVE,
-          priority: 1,
-          value: 3,
-        },
+        mod({ id: "1", value: 2 }),
+        mod({ id: "2", value: 3 }),
       ];
 
-      const result = applyStackingRules(mods);
-      expect(result.length).toBe(2);
+      expect(applyStackingRules(mods)).toHaveLength(2);
     });
 
-    it("should stack modifiers with different effectIds", () => {
+    it("should keep both modifiers when effectIds differ", () => {
       const mods: ModifierInstance[] = [
-        {
-          id: "1",
-          effectId: "shield_spell",
-          statId: "ac",
-          type: ModifierType.ADDITIVE,
-          priority: 1,
-          value: 5,
-        },
-        {
-          id: "2",
-          effectId: "haste_spell",
-          statId: "ac",
-          type: ModifierType.ADDITIVE,
-          priority: 1,
-          value: 2,
-        },
+        mod({ id: "1", effectId: "shield_spell", value: 5 }),
+        mod({ id: "2", effectId: "haste_spell", value: 2 }),
       ];
 
-      const result = applyStackingRules(mods);
-      expect(result.length).toBe(2);
+      expect(applyStackingRules(mods)).toHaveLength(2);
     });
 
-    it("should NOT stack modifiers with the exact same effectId, keeping only the highest resolved value", () => {
+    it("should collapse same effectId to the highest value (no-stack rule)", () => {
       const mods: ModifierInstance[] = [
-        {
-          id: "1",
-          effectId: "bless_spell",
-          statId: "attack",
-          type: ModifierType.ADDITIVE,
-          priority: 1,
-          value: 1,
-        },
-        {
-          id: "2",
-          effectId: "bless_spell",
-          statId: "attack",
-          type: ModifierType.ADDITIVE,
-          priority: 1,
-          value: 4,
-        }, // Highest
-        {
-          id: "3",
-          effectId: "bless_spell",
-          statId: "attack",
-          type: ModifierType.ADDITIVE,
-          priority: 1,
-          value: 2,
-        },
+        mod({ id: "1", effectId: "bless_spell", value: 1 }),
+        mod({ id: "2", effectId: "bless_spell", value: 4 }), // highest
+        mod({ id: "3", effectId: "bless_spell", value: 2 }),
       ];
 
       const result = applyStackingRules(mods);
-      expect(result.length).toBe(1);
+      expect(result).toHaveLength(1);
       expect(result[0].value).toBe(4);
       expect(result[0].id).toBe("2");
     });
 
-    it("should combine independent and grouped overrides properly", () => {
+    it("should correctly combine independent and grouped modifiers", () => {
       const mods: ModifierInstance[] = [
-        {
-          id: "1",
-          effectId: "shield_spell",
-          statId: "ac",
-          type: ModifierType.ADDITIVE,
-          priority: 1,
-          value: 5,
-        }, // Stays
-        {
-          id: "2",
-          effectId: "bless_spell",
-          statId: "attack",
-          type: ModifierType.ADDITIVE,
-          priority: 1,
-          value: 2,
-        }, // Drops
-        {
-          id: "3",
-          effectId: "bless_spell",
-          statId: "attack",
-          type: ModifierType.ADDITIVE,
-          priority: 1,
-          value: 3,
-        }, // Stays
-        {
-          id: "4",
-          effectId: "",
-          statId: "ac",
-          type: ModifierType.ADDITIVE,
-          priority: 1,
-          value: 1,
-        }, // Stays
+        mod({ id: "1", effectId: "shield_spell", value: 5 }), // stays
+        mod({ id: "2", effectId: "bless_spell", value: 2 }), // drops — lower
+        mod({ id: "3", effectId: "bless_spell", value: 3 }), // stays — higher
+        mod({ id: "4", value: 1 }), // independent (no effectId), stays
       ];
 
       const result = applyStackingRules(mods);
-      expect(result.length).toBe(3);
+      expect(result).toHaveLength(3);
+      expect(result.find((m) => m.effectId === "shield_spell")).toBeDefined();
+      expect(result.find((m) => m.effectId === "bless_spell")?.value).toBe(3);
+      expect(result.find((m) => !m.effectId)).toBeDefined();
+    });
 
-      const shield = result.find((m) => m.effectId === "shield_spell");
-      const bless = result.find((m) => m.effectId === "bless_spell");
-      const unlinked = result.find((m) => m.effectId === "");
+    it("should keep the lower value for CAP modifiers (smallest cap wins)", () => {
+      const mods: ModifierInstance[] = [
+        mod({
+          id: "1",
+          effectId: "speed_cap",
+          type: ModifierType.CAP,
+          value: 30,
+        }),
+        mod({
+          id: "2",
+          effectId: "speed_cap",
+          type: ModifierType.CAP,
+          value: 20,
+        }), // stricter cap
+      ];
 
-      expect(shield).toBeDefined();
-      expect(bless?.value).toBe(3);
-      expect(unlinked).toBeDefined();
+      const result = applyStackingRules(mods);
+      expect(result).toHaveLength(1);
+      expect(result[0].value).toBe(20);
     });
   });
 });

@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 import { HUNTER_RESOURCES } from "./ranger/hunter-resources";
@@ -26,6 +27,8 @@ export const RANGER_RESOURCES: Record<string, ResourceTemplate> = {
   foe_slayer: {
     id: "foe_slayer",
     category: "class_features",
+    max: E.n(1),
+    recharge: [{ trigger: { type: "turnStart" }, amount: "full" }],
     origin: { book: "PHB" },
     grantors: [
       {
@@ -35,10 +38,6 @@ export const RANGER_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
-    recharge: [{ trigger: { type: "turnStart" }, amount: "full" }],
     tags: ["senses"],
   },
 };

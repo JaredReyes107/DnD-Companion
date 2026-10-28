@@ -1,6 +1,8 @@
-import { FeatureGrant } from "@/core/entities/rules/feature-template";
-import { ExpiryCondition } from "@/core/entities/rules/duration/expiry-condition";
-import { DerivedStatKey } from "@/core/entities/rules/stats.types";
+import { FeatureGrant } from "../feature-template";
+import { ExpiryCondition } from "../duration/expiry-condition";
+import { DerivedStatKey } from "../stats.types";
+
+export type StatusKind = "condition" | "buff" | "debuff" | "aura";
 
 export type StatusGrant = Extract<
   FeatureGrant,
@@ -9,9 +11,11 @@ export type StatusGrant = Extract<
 
 export type StatusTemplate = {
   id: string;
+  kind?: StatusKind; // default "buff"; drives grouping in the Effects tab
   tags?: string[];
-  grants?: StatusGrant[]; // applied while the status is active
-  defaultExpiry?: ExpiryCondition[]; // early-end conditions every instance carries
-  limitStat?: DerivedStatKey; // max simultaneous instances; oldest is evicted
-  bindsSourceEffects?: boolean; // removing it ends everything its source applied
+  grants?: StatusGrant[]; // modifier / advantage template ids; may be empty (descriptive)
+  defaultExpiry?: ExpiryCondition[];
+  limitStat?: DerivedStatKey;
+  dependsOn?: string;
+  bindsSourceEffects?: boolean; // legacy; only needed for the deprecated runtime paths
 };

@@ -1,6 +1,7 @@
 import { CheckNode } from "@/core/entities/rules/check/check-node";
 import { BASE_CHECK_NODES } from "@/core/data/rules/checks/checks";
 import { CheckCategory } from "@/core/entities/rules/check/check-category";
+import { Ability } from "@/core/entities/rules/ability/ability.types";
 
 const homebrewCheckNodes: Record<string, CheckNode> = {};
 
@@ -66,4 +67,38 @@ export function getAllCheckNodeIdsByCategory(
   return Object.values(getCheckNodeRegistry())
     .filter((n) => n.category === category)
     .map((n) => n.id);
+}
+
+/**
+ * Character-aware ancestry chain for a check node. Identical to
+ * getCheckNodeAncestryChain but appends the ability-scoped parent node
+ * (`skillCheck.STR`, `savingThrow.DEX`, etc.) that corresponds to the
+ * character's current ability assignment for this node.
+ *
+ * This means a modifier targeting `skillCheck.STR` will match Deception
+ * if the character has overridden Deception's ability to STR — which is
+ * exactly what Frost Rune's active effect requires.
+ *
+ * Pass `resolvedAbility` from resolveCheckAbility(character, nodeId).
+ * When undefined (unset tool with no override), the chain is unchanged.
+ */
+export function resolveCheckNodeAncestryChain(
+  nodeId: string,
+  resolvedAbility: Ability | undefined,
+): string[] {
+  const chain = getCheckNodeAncestryChain(nodeId);
+  if (!resolvedAbility) return chain;
+
+  const node = getCheckNodeRegistry()[nodeId];
+  if (!node) return chain;
+
+  const abilityParentId =
+    node.category === "skillCheck"
+      ? `skillCheck.${resolvedAbility}`
+      : node.category === "savingThrow"
+        ? `savingThrow.${resolvedAbility}`
+        : undefined;
+
+  if (!abilityParentId || chain.includes(abilityParentId)) return chain;
+  return [...chain, abilityParentId];
 }

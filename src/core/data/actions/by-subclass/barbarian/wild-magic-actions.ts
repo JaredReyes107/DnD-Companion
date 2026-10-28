@@ -4,8 +4,6 @@ export const WILD_MAGIC_ACTIONS: Record<string, ActionInstance> = {
   magic_awareness: {
     id: "magic_awareness",
     sourceId: "wild_magic",
-    // RAW lets you sense magic within 60ft as an out-of-combat detection
-    // tool (e.g. scouting a room before entering), not just a combat option.
     boards: ["combat", "exploration"],
     duration: { kind: "economy", slot: "action" },
     effects: [
@@ -15,7 +13,7 @@ export const WILD_MAGIC_ACTIONS: Record<string, ActionInstance> = {
         amount: -1,
       },
     ],
-    // TODO: detection system within 60ft
+    // TODO: Senses. Magic Detection
   },
   bolstering_magic: {
     id: "bolstering_magic",
@@ -29,7 +27,7 @@ export const WILD_MAGIC_ACTIONS: Record<string, ActionInstance> = {
         amount: -1,
       },
     ],
-    // TODO: apply d3 bonus to attack/ability checks or recover spell slot
+    // TODO: Apply runtime status
   },
   unstable_backlash: {
     id: "unstable_backlash",

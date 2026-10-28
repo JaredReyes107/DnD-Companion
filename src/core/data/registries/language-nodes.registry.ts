@@ -49,3 +49,11 @@ export function getLanguageNodeRoots(): string[] {
     .filter((n) => n.parentIds.length === 0)
     .map((n) => n.id);
 }
+
+export function getLanguageNodesByClassification(
+  classification: import("@/core/entities/rules/language/language-node").LanguageClassification,
+): LanguageNode[] {
+  return Object.values(getLanguageNodeRegistry()).filter(
+    (n) => n.classification === classification,
+  );
+}

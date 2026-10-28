@@ -15,7 +15,20 @@ import { WIZARD_RESOURCES } from "./resources/wizard-resources";
 import { ARTIFICER_RESOURCES } from "./resources/artificer-resources";
 import { SHARED_RESOURCES } from "./resources/shared-resources";
 
-const FEATS: Record<string, ResourceTemplate> = {};
+import { E } from "@/core/entities/rules/expr/expr";
+
+const FEATS: Record<string, ResourceTemplate> = {
+  luck_points: {
+    id: "luck_points",
+    category: "feats",
+    max: E.n(3),
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
+    tags: ["utility"],
+    origin: {
+      book: "PHB",
+    },
+  },
+};
 
 export const BASE_RESOURCES: Record<string, ResourceTemplate> = {
   ...FEATS,

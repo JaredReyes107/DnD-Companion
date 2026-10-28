@@ -1,9 +1,13 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const ORDER_RESOURCES: Record<string, ResourceTemplate> = {
   awakened_spellbook_fast_ritual: {
     id: "awakened_spellbook_fast_ritual",
     category: "subclass_features",
+    max: E.max(E.n(1), E.mod("WIS")),
+
+    tags: [],
     origin: { book: "TCE" },
     grantors: [
       {
@@ -16,9 +20,6 @@ export const ORDER_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["spellcasting"],
@@ -40,9 +41,6 @@ export const ORDER_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["utility"],
   },
@@ -61,9 +59,6 @@ export const ORDER_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["utility"],
@@ -84,9 +79,6 @@ export const ORDER_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["utility", "spellcasting"],

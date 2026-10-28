@@ -11,10 +11,7 @@ import { AbilityCheckTree } from "@/components/ui/AbilityCheckTree";
 import { LanguageProficiencyTree } from "@/components/ui/LanguageProficiencyTree";
 
 // Character Functions
-import {
-  getAbilityModifier,
-  getBaseProficiencyBonus,
-} from "@/core/rules/character/abilities-modifiers";
+import { getAbilityModifier } from "@/core/rules/character/abilities-modifiers";
 import { resolveInCombat } from "@/core/systems/stats/stat-resolver";
 import { getTotalCharacterLevel } from "@/core/rules/character/character-multiclassing";
 import { getNextXPThreshold } from "@/core/entities/progression/leveling";
@@ -48,6 +45,7 @@ import styles from "@/styles/character-sheet.styles";
 import { Montserrat_500Medium, useFonts } from "@expo-google-fonts/montserrat";
 
 import { ui } from "@/services/localization/ui-localization-resolver";
+import { resolveBase } from "@/core/entities/rules/resolved-base";
 
 const CharacterSheetScreen = () => {
   const characterNavigator = useCharacterNavigator();
@@ -246,7 +244,8 @@ const CharacterSheetScreen = () => {
             <View style={[styles.secondaryStatContainer, { width: "100%" }]}>
               <View style={styles.secondaryStatBox}>
                 {(() => {
-                  const value = `+${getBaseProficiencyBonus(character)}`;
+                  // Probably needs to pass the runtime modifiers
+                  const value = `+${resolveBase(character).base.proficiencyBonus}`;
                   const [before, after] = ui("pb.segmented").split(" {value} ");
                   return (
                     <View style={styles.secondaryStatModifier}>

@@ -1,4 +1,4 @@
-import { ScalingFormula } from "@/core/data/rules/scaling/scaling-formula";
+import { Expr } from "./expr/expr";
 
 export type TimingTrigger =
   | { type: "longRest" }
@@ -10,6 +10,6 @@ export type TimingTrigger =
   | { type: "onActivation" }
   | {
       type: "interval";
-      formula: ScalingFormula;
+      formula: Expr;
     }
   | { type: "none" };

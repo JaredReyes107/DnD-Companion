@@ -1,10 +1,11 @@
+import { Expr } from "./expr/expr";
 import { ContentOrigin } from "./content-origin";
 import { ResourceGrantor } from "./grantor";
 import { TimingTrigger } from "./trigger";
 import { Comparator } from "@/core/entities/rules/comparator";
 
 export type ScalingCondition = {
-  base: import("@/core/data/rules/scaling/scaling-formula").ScalingBase;
+  base: Expr;
   operator: Comparator;
   value: number;
 };
@@ -13,7 +14,7 @@ export type ResourceBound =
   | { kind: "value"; amount: number }
   | {
       kind: "formula";
-      formula: import("@/core/data/rules/scaling/scaling-formula").ScalingFormula;
+      formula: Expr;
     }
   | { kind: "unbounded" }
   | {
@@ -53,12 +54,13 @@ export type ResourceCategory =
 export type ResourceTemplate = {
   id: string;
   category: ResourceCategory;
+  sourceId?: string;
   origin: ContentOrigin;
-  grantors: ResourceGrantor[];
+  grantors?: ResourceGrantor[];
 
-  min?: ResourceBound; // default: { kind: "value", amount: 0 } if omitted
-  max: ResourceBound; // required — explicit "unbounded" beats an implicit Infinity leak
-
+  max: Expr;
+  min?: Expr; // default: { kind: "value", amount: 0 } if omitted
   recharge: Recharge;
+
   tags?: string[];
 };

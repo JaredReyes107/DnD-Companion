@@ -21,10 +21,17 @@ export const WILD_MAGIC: SubclassTemplate = {
         id: "wild_surge",
         source: "subclass",
         level: 3,
+        grants: [
+          ...[1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({
+            type: "action" as const,
+            id: `wild_surge_${n}`,
+          })),
+          { type: "action", id: "wild_surge_teleport" },
+          { type: "action", id: "wild_surge_spirit" },
+          { type: "action", id: "wild_surge_light_bolt" },
+        ],
         tags: ["combat"],
-        // TODO: wild magic table — random effect system
-        // TODO: rage hook
-      },
+      }, // the d8 roll is physical; the player taps the result
     ],
 
     6: [
@@ -33,14 +40,13 @@ export const WILD_MAGIC: SubclassTemplate = {
         source: "subclass",
         level: 6,
         grants: [
-          { type: "action", id: "bolstering_magic" },
+          { type: "action", id: "bolstering_magic_bonus" },
+          { type: "action", id: "bolstering_magic_slot" },
           { type: "resource", id: "bolstering_magic" },
         ],
         tags: ["support", "utility"],
-        // TODO: buff application + spell slot recovery hook
       },
     ],
-
     10: [
       {
         id: "unstable_backlash",
@@ -48,17 +54,14 @@ export const WILD_MAGIC: SubclassTemplate = {
         level: 10,
         grants: [{ type: "action", id: "unstable_backlash" }],
         tags: ["reaction", "combat"],
-        // TODO: reaction hook + wild magic table reroll
       },
     ],
-
     14: [
       {
         id: "controlled_surge",
         source: "subclass",
         level: 14,
         tags: ["passive"],
-        // TODO: extends wild_surge — roll modifier system
       },
     ],
   },

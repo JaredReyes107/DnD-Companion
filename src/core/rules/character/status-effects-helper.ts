@@ -5,6 +5,7 @@ import { getStatusTemplateById } from "@/core/data/registries/status.registry";
 import { getModifierTemplateById } from "@/core/data/registries/modifiers.registry";
 import { instantiateModifier } from "./modifiers-helper";
 import { grantsOfType } from "@/core/rules/shared/grant-filters";
+import { expandAdvantageTemplate } from "@/core/data/registries/advantage.registry";
 
 // A Set: conditions don't stack. Grappled from two sources is still one grapple.
 function activeStatusIds(character: Character): Set<string> {
@@ -43,12 +44,15 @@ export function getStatusAdvantageInstances(
       getStatusTemplateById(statusId).grants,
       "advantage",
     )) {
-      out.push({
-        id: `status:${statusId}:${g.nodeId}:${g.polarity}`,
-        nodeId: g.nodeId,
-        polarity: g.polarity,
-        sourceId: `status:${statusId}`,
-      });
+      for (const a of expandAdvantageTemplate(g.id, `status:${statusId}`)) {
+        out.push({
+          id: `status:${statusId}:${a.nodeId}:${a.polarity}`,
+          nodeId: a.nodeId,
+          polarity: a.polarity,
+          sourceId: a.sourceId,
+          condition: a.condition,
+        });
+      }
     }
   }
   return out;

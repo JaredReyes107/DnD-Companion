@@ -1,5 +1,4 @@
 import { LanguageMode } from "../character/language-state";
-import { AdvantagePolarity } from "@/core/entities/rules/advantage/advantage-instance";
 
 export type FeatureGrant =
   | { type: "resource"; id: string }
@@ -8,7 +7,8 @@ export type FeatureGrant =
   | { type: "choice"; id: string }
   | { type: "proficiency"; nodeId: string }
   | { type: "language"; nodeId: string; modes: LanguageMode[] }
-  | { type: "advantage"; nodeId: string; polarity: AdvantagePolarity };
+  | { type: "advantage"; id: string }
+  | { type: "override"; id: string };
 
 export type FeatureTemplate = {
   id: string;
@@ -17,5 +17,6 @@ export type FeatureTemplate = {
   level?: number;
   tags?: string[];
 
+  appliesTo?: "primary" | "multiclass";
   grants?: FeatureGrant[];
 };

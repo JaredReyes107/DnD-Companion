@@ -1,4 +1,14 @@
 import { ClassTemplate } from "@/core/entities/rules/class-template";
+import { abilityScoreImprovement } from "../rules/features/feats";
+
+// NOTES:
+/* AUTO:
+  3. Make TCE subclasses
+  N. "Partial" Advantages. Different color, inspect description. Not complete model
+
+  MANUAL
+  1. Localize root.tools
+*/
 
 export const BARBARIAN: ClassTemplate = {
   id: "barbarian",
@@ -11,11 +21,41 @@ export const BARBARIAN: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
+        id: "proficiencies_barbarian",
+        source: "class",
+        level: 1,
+        appliesTo: "primary",
+        grants: [
+          { type: "proficiency", nodeId: "armor.light" },
+          { type: "proficiency", nodeId: "armor.medium" },
+          { type: "proficiency", nodeId: "armor.shield" },
+          { type: "proficiency", nodeId: "weapon.simple" },
+          { type: "proficiency", nodeId: "weapon.martial" },
+          { type: "proficiency", nodeId: "savingThrow.STR" },
+          { type: "proficiency", nodeId: "savingThrow.CON" },
+          { type: "choice", id: "barbarian_skills" },
+        ],
+        tags: ["proficiency"],
+      },
+      {
+        id: "multiclass_proficiencies_barbarian",
+        source: "class",
+        level: 1,
+        appliesTo: "multiclass",
+        grants: [
+          { type: "proficiency", nodeId: "armor.shield" },
+          { type: "proficiency", nodeId: "weapon.simple" },
+          { type: "proficiency", nodeId: "weapon.martial" },
+        ],
+        tags: ["proficiency"],
+      },
+      {
         id: "rage",
         source: "class",
         level: 1,
         grants: [
           { type: "action", id: "rage" },
+          { type: "action", id: "end_rage" },
           { type: "resource", id: "rage" },
         ],
         tags: ["combat"],
@@ -24,6 +64,7 @@ export const BARBARIAN: ClassTemplate = {
         id: "unarmored_defense",
         source: "class",
         level: 1,
+        grants: [{ type: "modifier", id: "barbarian_unarmored_defense" }],
         tags: ["combat", "ac"],
       },
     ],
@@ -31,12 +72,14 @@ export const BARBARIAN: ClassTemplate = {
       {
         id: "reckless_attack",
         source: "class",
+        grants: [{ type: "action", id: "reckless_attack" }],
         level: 2,
       },
       {
         id: "danger_sense",
         source: "class",
         level: 2,
+        grants: [{ type: "advantage", id: "danger_sense_dex_saves" }],
         tags: ["combat", "advantage"],
       },
     ],
@@ -48,29 +91,33 @@ export const BARBARIAN: ClassTemplate = {
         tags: ["subclass"],
       },
     ],
+    4: [abilityScoreImprovement(4)],
     5: [
       {
         id: "extra_attack",
         source: "class",
         level: 5,
-        //TODO: ¿Replace behaviour of attack? "actions: [],"
+        //TODO: Override.
         tags: ["combat", "extra-attack"],
       },
       {
         id: "fast_movement",
         source: "class",
         level: 5,
+        grants: [{ type: "modifier", id: "barbarian_fast_movement" }],
         tags: ["movement"],
       },
     ],
-    6: [
+    7: [
       {
         id: "feral_instinct",
         source: "class",
         level: 7,
+        grants: [{ type: "advantage", id: "feral_instinct_initiative" }],
         tags: ["initiative", "advantage"],
       },
     ],
+    8: [abilityScoreImprovement(8)],
     9: [
       {
         id: "brutal_critical",
@@ -84,7 +131,8 @@ export const BARBARIAN: ClassTemplate = {
         id: "relentless_rage",
         source: "class",
         level: 11,
-        //TODO: Add property with Id's "actions: [],"
+        // TODO: Resource/Counter. Track DC increases
+        grants: [{ type: "action", id: "relentless_rage" }],
         tags: ["last-stand"],
       },
     ],
@@ -93,7 +141,7 @@ export const BARBARIAN: ClassTemplate = {
         id: "persistent_rage",
         source: "class",
         level: 15,
-        //TODO: Replace beheaviour of: "rage", "actions: [],"
+        //TODO: Override. Description append/change behaviour based on log
         tags: ["combat"],
       },
     ],
@@ -110,6 +158,10 @@ export const BARBARIAN: ClassTemplate = {
         id: "primal_champion",
         source: "class",
         level: 20,
+        grants: [
+          { type: "modifier", id: "barbarian_primal_champion_str" },
+          { type: "modifier", id: "barbarian_primal_champion_con" },
+        ],
         tags: ["ability-score"],
       },
     ],

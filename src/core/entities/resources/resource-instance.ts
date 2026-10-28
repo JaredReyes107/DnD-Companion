@@ -1,6 +1,5 @@
 export type ResourceInstance = {
   resourceId: string;
-  current: number;
-  max: number | "unbounded"; // resolved snapshot, recomputed on level/stat change — never hand-edited
-  min: number; // resolved snapshot
+  /** Uses consumed. current = max - spent; max is derived from the template (never stored). */
+  spent: number;
 };

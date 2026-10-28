@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 import { BATTLE_MASTER_RESOURCES } from "./fighter/battle-master-resources";
@@ -26,6 +27,8 @@ export const FIGHTER_RESOURCES: Record<string, ResourceTemplate> = {
   second_wind: {
     id: "second_wind",
     category: "class_features",
+    max: E.n(1),
+
     origin: { book: "PHB" },
     grantors: [
       {
@@ -35,15 +38,14 @@ export const FIGHTER_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["combat", "healing"],
   },
   action_surge: {
     id: "action_surge",
     category: "class_features",
+    max: E.table(E.classLevel("fighter"), { 1: 1, 17: 2 }),
+
     origin: { book: "PHB" },
     grantors: [
       {
@@ -53,18 +55,14 @@ export const FIGHTER_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: {
-      kind: "formula",
-      formula: { base: { kind: "scaler", id: "action-surge" } },
-    },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["combat", "damage", "resistance"],
   },
   indomitable: {
     id: "indomitable",
     category: "class_features",
+    max: E.table(E.classLevel("fighter"), { 1: 1, 13: 2, 17: 3 }),
+
     origin: { book: "PHB" },
     grantors: [
       {
@@ -73,12 +71,6 @@ export const FIGHTER_RESOURCES: Record<string, ResourceTemplate> = {
         obtainedVia: { via: "class", classId: "fighter" },
       },
     ],
-
-    max: {
-      kind: "formula",
-      formula: { base: { kind: "scaler", id: "indomitable" } },
-    },
-    min: { kind: "value", amount: 0 },
 
     // NOTE: RAW recovers on long rest only — currently modeled as shortRest.
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],

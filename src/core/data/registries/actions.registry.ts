@@ -15,6 +15,7 @@ import { ROGUE_ACTIONS } from "../actions/by-class/rogue-actions";
 import { SORCERER_ACTIONS } from "../actions/by-class/sorcerer-actions";
 import { WARLOCK_ACTIONS } from "../actions/by-class/warlock-actions";
 import { WIZARD_ACTIONS } from "../actions/by-class/wizard-actions";
+import { duplicateEffectKeys } from "@/rules/validation/action-effects";
 
 const homebrewActions: Record<string, ActionInstance> = {};
 
@@ -41,6 +42,11 @@ export const BASE_ACTIONS: Record<string, ActionInstance> = {
 };
 
 export function registerHomebrewAction(res: ActionInstance) {
+  const dup = duplicateEffectKeys(res);
+  if (dup.length)
+    throw new Error(
+      `Action ${res.id} has duplicate effect keys: ${dup.join(", ")}`,
+    );
   homebrewActions[res.id] = res;
 }
 

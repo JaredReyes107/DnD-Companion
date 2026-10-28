@@ -1,9 +1,13 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const LAND_RESOURCES: Record<string, ResourceTemplate> = {
   natural_recovery: {
     id: "natural_recovery",
     category: "subclass_features",
+    max: E.n(1),
+
+    tags: ["spellcasting"],
     origin: { book: "PHB" },
     grantors: [
       {
@@ -12,9 +16,6 @@ export const LAND_RESOURCES: Record<string, ResourceTemplate> = {
         obtainedVia: { via: "subclass", classId: "druid", subclassId: "land" },
       },
     ],
-
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
 
     // NOTE: tracks the once-per-day USE of the feature, not the slot levels
     // recovered. The actual spell-level math (half druid level, rounded up)

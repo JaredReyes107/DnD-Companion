@@ -5,6 +5,7 @@ import { WHISPERS_RESOURCES } from "./bard/whispers-resources";
 
 import { CREATION_RESOURCES } from "./bard/creation-resources";
 import { ELOQUENCE_RESOURCES } from "./bard/eloquence-resources";
+import { E } from "@/core/entities/rules/expr/expr";
 
 const SUBCLASSES_RESOURCES: Record<string, ResourceTemplate> = {
   ...GLAMOUR_RESOURCES,
@@ -18,6 +19,8 @@ export const BARD_RESOURCES: Record<string, ResourceTemplate> = {
   bardic_inspiration: {
     id: "bardic_inspiration",
     category: "class_features",
+    max: E.max(E.n(1), E.mod("CHA")),
+
     origin: { book: "PHB" },
     grantors: [
       {
@@ -26,9 +29,6 @@ export const BARD_RESOURCES: Record<string, ResourceTemplate> = {
         obtainedVia: { via: "class", classId: "bard" },
       },
     ],
-
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "CHA" } } },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: [

@@ -1,9 +1,12 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const KENSEI_RESOURCES: Record<string, ResourceTemplate> = {
   deft_strike: {
     id: "deft_strike",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "XGE" },
     grantors: [
       {
@@ -13,15 +16,14 @@ export const KENSEI_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "roundStart" }, amount: "full" }],
     tags: [],
   },
   unerring_accurracy: {
     id: "unerring_accurracy",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "XGE" },
     grantors: [
       {
@@ -30,9 +32,6 @@ export const KENSEI_RESOURCES: Record<string, ResourceTemplate> = {
         obtainedVia: { via: "subclass", classId: "monk", subclassId: "kensei" },
       },
     ],
-
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "roundStart" }, amount: "full" }],
     tags: [],

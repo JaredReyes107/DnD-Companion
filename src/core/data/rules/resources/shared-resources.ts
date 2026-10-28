@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const SHARED_RESOURCES: Record<string, ResourceTemplate> = {
@@ -18,11 +19,11 @@ export const SHARED_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: {
-      kind: "formula",
-      formula: { base: { kind: "scaler", id: "channel-divinity" } },
-    },
-    min: { kind: "value", amount: 0 },
+    // Multiclass: one pool, the better of the two class tables (not summed).
+    max: E.max(
+      E.table(E.classLevel("cleric"), { 1: 1, 6: 2, 18: 3 }),
+      E.table(E.classLevel("paladin"), { 3: 1 }),
+    ),
 
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["combat", "utility"],

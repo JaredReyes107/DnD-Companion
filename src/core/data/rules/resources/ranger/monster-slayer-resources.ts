@@ -1,9 +1,12 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const MONSTER_SLAYER_RESOURCES: Record<string, ResourceTemplate> = {
   hunters_sense: {
     id: "hunters_sense",
     category: "subclass_features",
+    max: E.max(E.n(1), E.mod("WIS")),
+
     origin: { book: "XGE" },
     grantors: [
       {
@@ -17,15 +20,14 @@ export const MONSTER_SLAYER_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "WIS" } } },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: [],
   },
   magic_users_nemesis: {
     id: "magic_users_nemesis",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "XGE" },
     grantors: [
       {
@@ -38,9 +40,6 @@ export const MONSTER_SLAYER_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: [],

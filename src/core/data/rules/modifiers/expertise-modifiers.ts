@@ -3,7 +3,7 @@ import {
   ModifierType,
 } from "@/core/entities/modifiers/Modifier";
 import { getCheckNodeRegistry } from "@/core/data/registries/check-nodes.registry";
-import { resolveCheckProficiency } from "@/core/rules/character/checks-helper";
+import { E } from "@/core/entities/rules/expr/expr";
 
 export function buildExpertiseModifiers(): Record<string, ModifierTemplate> {
   const nodes = Object.values(getCheckNodeRegistry()).filter(
@@ -19,10 +19,7 @@ export function buildExpertiseModifiers(): Record<string, ModifierTemplate> {
         statModel: { type: "check", nodeId: node.id },
         type: ModifierType.ADDITIVE,
         tags: ["expertise"],
-        value: (ctx) =>
-          resolveCheckProficiency(ctx.character, node.id)
-            ? ctx.resolved.proficiencyBonus
-            : 0,
+        value: E.when({ type: "proficiency", nodeId: node.id }, E.pb(), E.n(0)),
       } satisfies ModifierTemplate,
     ]),
   );

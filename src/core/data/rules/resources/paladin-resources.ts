@@ -12,6 +12,7 @@ import { CONQUEST_RESOURCES } from "./paladin/conquest-resources";
 
 import { GLORY_RESOURCES } from "./paladin/glory-resources";
 import { WATCHERS_RESOURCES } from "./paladin/watchers-resources";
+import { E } from "@/core/entities/rules/expr/expr";
 
 const RESOURCES_SUBCLASSES: Record<string, ResourceTemplate> = {
   ...DEVOTION_RESOURCES,
@@ -33,6 +34,8 @@ export const PALADIN_RESOURCES: Record<string, ResourceTemplate> = {
   divine_sense: {
     id: "divine_sense",
     category: "class_features",
+    max: E.max(E.n(1), E.add(E.mod("CHA"), E.n(1))),
+
     origin: { book: "PHB" },
     grantors: [
       {
@@ -42,21 +45,15 @@ export const PALADIN_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: {
-      kind: "formula",
-      formula: {
-        base: { kind: "scaler", id: "CHA" },
-        steps: [{ op: "add", value: 1 }],
-      },
-    },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["senses"],
   },
   lay_on_hands: {
     id: "lay_on_hands",
     category: "class_features",
+    max: E.mul(E.classLevel("paladin"), E.n(5)),
+
+    tags: ["combat", "healing", "cleansing"],
     origin: { book: "PHB" },
     grantors: [
       {
@@ -66,22 +63,14 @@ export const PALADIN_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: {
-      kind: "formula",
-      formula: {
-        base: { kind: "scaler", id: "class-level", param: "paladin" },
-        steps: [{ op: "multiply", value: 5 }],
-      },
-    },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
-    tags: ["combat", "healing", "cleansing"],
   },
 
   cleansing_touch: {
     id: "cleansing_touch",
     category: "class_features",
+    max: E.max(E.n(1), E.mod("CHA")),
+
     origin: { book: "PHB" },
     grantors: [
       {
@@ -90,9 +79,6 @@ export const PALADIN_RESOURCES: Record<string, ResourceTemplate> = {
         obtainedVia: { via: "class", classId: "paladin" },
       },
     ],
-
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "CHA" } } },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["cleansing"],

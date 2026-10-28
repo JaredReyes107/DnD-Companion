@@ -3,17 +3,14 @@ import { CharacterResources } from "@/core/entities/resources/character-resource
 import { FeatureTemplate } from "@/core/entities/rules/feature-template";
 import { getActiveFeatures } from "./features-helper";
 import {
-  getResourceById,
+  getResourceRegistry,
   GroupedResources,
 } from "@/core/data/registries/resources.registry";
 import { getResourcesFromChoices } from "./choices-helper";
-import { resolveBound } from "./resource-scaling";
 import { ResourceCategory } from "@/core/entities/rules/resource-template";
-import {
-  buildSpellSlots,
-  hasSpellcasting,
-} from "@/core/entities/spellcasting/spellcasting";
 import { grantsOfType } from "../shared/grant-filters";
+import { buildResourceContext, resourceMax } from "./resource-max";
+import { ExprContext } from "../predicate/evaluate-predicate";
 
 export function getResourcesFromFeatures(
   features: FeatureTemplate[],
@@ -28,48 +25,39 @@ export function getResourcesFromFeatures(
 export function buildCharacterClassResources(
   character: Character,
 ): CharacterResources {
-  const characterFeatures = getActiveFeatures(character);
-  const featureResourceIds = getResourcesFromFeatures(characterFeatures);
-
-  const choiceResourceIds = getResourcesFromChoices(character);
-  const resourceIds = new Set([...featureResourceIds, ...choiceResourceIds]);
-
-  const nextResources = { ...character.resources };
-
-  for (const id of resourceIds) {
-    if (!nextResources[id]) {
-      const template = getResourceById(id);
-
-      const max = resolveBound(template.max, character, template.grantors);
-      const resolvedMin = template.min
-        ? resolveBound(template.min, character, template.grantors)
-        : 0;
-      const min = resolvedMin === "unbounded" ? 0 : resolvedMin; // min should never realistically be unbounded
-
-      // Unbounded resources start at 0 spent (nothing to "fill"); bounded resources start full.
-      const current = max === "unbounded" ? 0 : max;
-
-      nextResources[id] = { resourceId: id, max, current, min };
-    }
+  const ids = new Set([
+    ...getResourcesFromFeatures(getActiveFeatures(character)),
+    ...getResourcesFromChoices(character),
+  ]);
+  const next = { ...character.resources };
+  for (const id of ids) {
+    if (!next[id]) next[id] = { resourceId: id, spent: 0 };
   }
+  return next;
+}
 
-  return nextResources;
+/** Slot resources are data: tables over casterLevel / class level. Zero-max slots are skipped. */
+export function buildSpellSlotResources(
+  character: Character,
+  ctx: ExprContext = buildResourceContext(character),
+): CharacterResources {
+  const next = { ...character.resources };
+  for (const r of Object.values(getResourceRegistry())) {
+    if (r.category !== "spell_slots" && r.category !== "pact_slots") continue;
+    if (next[r.id]) continue;
+    if (resourceMax(character, r.id, ctx) === 0) continue;
+    next[r.id] = { resourceId: r.id, spent: 0 };
+  }
+  return next;
 }
 
 export function buildCharacterResources(
   character: Character,
 ): CharacterResources {
-  let allResources: CharacterResources = {};
-
-  if (hasSpellcasting(character)) {
-    allResources = buildSpellSlots(character);
-  }
-
-  const classResources = buildCharacterClassResources(character);
-
-  allResources = { ...allResources, ...classResources };
-
-  return allResources;
+  return {
+    ...buildSpellSlotResources(character),
+    ...buildCharacterClassResources(character),
+  };
 }
 
 export type ResourceSectionData = {

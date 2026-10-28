@@ -1,9 +1,12 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 export const ALCHEMIST_RESOURCES: Record<string, ResourceTemplate> = {
   experimental_elixir_fabricate: {
     id: "experimental_elixir_fabricate",
     category: "subclass_features",
+    max: E.table(E.classLevel("artificer", "alchemist"), { 1: 1, 6: 2, 15: 3 }),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -16,11 +19,7 @@ export const ALCHEMIST_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-    max: {
-      kind: "formula",
-      formula: { base: { kind: "scaler", id: "experimental-elixir" } },
-    },
-    min: { kind: "value", amount: 0 },
+
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["utility"],
   },
@@ -28,6 +27,8 @@ export const ALCHEMIST_RESOURCES: Record<string, ResourceTemplate> = {
   cast_lesser_restoration_free: {
     id: "cast_lesser_restoration_free",
     category: "subclass_features",
+    max: E.max(E.n(1), E.mod("INT")),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -40,8 +41,7 @@ export const ALCHEMIST_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "INT" } } },
-    min: { kind: "value", amount: 0 },
+
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["healing"],
   },
@@ -49,6 +49,8 @@ export const ALCHEMIST_RESOURCES: Record<string, ResourceTemplate> = {
   cast_greater_restoration_free: {
     id: "cast_greater_restoration_free",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -61,8 +63,7 @@ export const ALCHEMIST_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
+
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["healing"],
   },
@@ -70,6 +71,8 @@ export const ALCHEMIST_RESOURCES: Record<string, ResourceTemplate> = {
   cast_heal_free: {
     id: "cast_heal_free",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -82,8 +85,7 @@ export const ALCHEMIST_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
+
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["healing"],
   },

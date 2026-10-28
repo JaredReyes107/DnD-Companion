@@ -3,7 +3,7 @@ import { ChoicePoolTemplate } from "@/core/entities/rules/choice-pool-template";
 export const RUNE_KNIGHT_POOLS: Record<string, ChoicePoolTemplate> = {
   rune_knight_runes: {
     id: "rune_knight_runes",
-    sourceId: "rune_knight",
+    sourceId: "rune_carver",
     classId: "fighter",
     selectionTrigger: { type: "levelUp" },
     optionIds: [

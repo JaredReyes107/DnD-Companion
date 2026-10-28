@@ -9,26 +9,47 @@ import { grantsOfType } from "../shared/grant-filters";
 import { getActiveFeatures } from "./features-helper";
 import { ExpiryCondition } from "@/core/entities/rules/duration/expiry-condition";
 import * as Crypto from "expo-crypto";
-import { getCheckNodeAncestryChain } from "@/core/data/registries/check-nodes.registry";
 import { getStatusAdvantageInstances } from "./status-effects-helper";
+import {
+  EvaluationContext,
+  evaluateCondition,
+} from "@/core/rules/modifiers/condition-evaluator";
+import { buildEvaluationContext } from "@/core/systems/stats/resolve-stats";
+import { getAdvantageGrantsFromChoices } from "./choices-helper";
+import { Condition } from "@/core/entities/modifiers/Condition";
+import { resolveCheckNodeAncestryChain } from "@/core/data/registries/check-nodes.registry";
+import { resolveCheckAbility } from "./checks-helper";
+import {
+  ExpandedAdvantage,
+  expandAdvantageTemplate,
+} from "@/core/data/registries/advantage.registry";
 
 function collectInstancesForNode(
   character: Character,
   nodeId: string,
+  ctx: EvaluationContext,
 ): AdvantageInstance[] {
-  const chain = new Set(getCheckNodeAncestryChain(nodeId));
+  const chain = new Set(
+    resolveCheckNodeAncestryChain(
+      nodeId,
+      resolveCheckAbility(character, nodeId),
+    ),
+  );
+
+  const filterByChainAndCondition = (i: AdvantageInstance) =>
+    chain.has(i.nodeId) && evaluateCondition(i.condition, ctx);
 
   const passive = Object.values(
     character.checks.passiveAdvantageInstances,
-  ).filter((i) => chain.has(i.nodeId));
+  ).filter(filterByChainAndCondition);
   const combat = character.combatState
     ? Object.values(character.combatState.runtimeAdvantageInstances).filter(
-        (i) => chain.has(i.nodeId),
+        filterByChainAndCondition,
       )
     : [];
 
-  const status = getStatusAdvantageInstances(character).filter((i) =>
-    chain.has(i.nodeId),
+  const status = getStatusAdvantageInstances(character).filter(
+    filterByChainAndCondition,
   );
   return [...passive, ...combat, ...status];
 }
@@ -37,7 +58,8 @@ export function resolveAdvantageState(
   character: Character,
   nodeId: string,
 ): AdvantageState {
-  const instances = collectInstancesForNode(character, nodeId);
+  const ctx = buildEvaluationContext(character);
+  const instances = collectInstancesForNode(character, nodeId, ctx);
   if (instances.length === 0) return "none";
 
   const advantageCount = instances.filter(
@@ -97,22 +119,25 @@ export function revokeAdvantageBySource(
 
 export function getAdvantageGrantsFromFeatures(
   features: FeatureTemplate[],
-): { nodeId: string; polarity: AdvantagePolarity; sourceId: string }[] {
-  const grants: {
-    nodeId: string;
-    polarity: AdvantagePolarity;
-    sourceId: string;
-  }[] = [];
-  for (const feature of features) {
-    grantsOfType(feature.grants, "advantage").forEach((g) =>
-      grants.push({
-        nodeId: g.nodeId,
-        polarity: g.polarity,
-        sourceId: feature.id,
-      }),
-    );
-  }
-  return grants;
+): ExpandedAdvantage[] {
+  return features.flatMap((f) =>
+    grantsOfType(f.grants, "advantage").flatMap((g) =>
+      expandAdvantageTemplate(g.id, f.id),
+    ),
+  );
+}
+
+const FEATURE_PREFIX = "feature:";
+const CHOICE_PREFIX = "choice:";
+
+// Derived instances are namespaced. Legacy derived instances (saved before
+// namespacing) are recognizable by their deterministic id; manual ones use a UUID.
+function isDerivedInstance(i: AdvantageInstance): boolean {
+  return (
+    i.sourceId.startsWith(FEATURE_PREFIX) ||
+    i.sourceId.startsWith(CHOICE_PREFIX) ||
+    i.id === `${i.sourceId}:${i.nodeId}:${i.polarity}`
+  );
 }
 
 /**
@@ -129,30 +154,37 @@ export function getAdvantageGrantsFromFeatures(
 export function buildCharacterAdvantageInstances(
   character: Character,
 ): Record<string, AdvantageInstance> {
-  // Keep only manual and non-feature-sourced instances; feature-sourced
-  // ones are fully recomputed below to avoid duplicate instances piling
-  // up across repeated saves.
-  const featureIds = new Set(getActiveFeatures(character).map((f) => f.id));
-
-  const preserved = Object.fromEntries(
+  // Everything derived is dropped and recomputed; only manual grants survive.
+  const next: Record<string, AdvantageInstance> = Object.fromEntries(
     Object.entries(character.checks.passiveAdvantageInstances).filter(
-      ([, instance]) =>
-        !featureIds.has(instance.sourceId) || instance.sourceId === "manual",
+      ([, i]) => !isDerivedInstance(i),
     ),
   );
 
-  const next = { ...preserved };
-  for (const grant of getAdvantageGrantsFromFeatures(
-    getActiveFeatures(character),
-  )) {
-    const id = `${grant.sourceId}:${grant.nodeId}:${grant.polarity}`;
+  const install = (
+    grant: {
+      nodeId: string;
+      polarity: AdvantagePolarity;
+      sourceId: string;
+      condition?: Condition;
+    },
+    prefix: string,
+  ) => {
+    const sourceId = `${prefix}${grant.sourceId}`;
+    const id = `${sourceId}:${grant.nodeId}:${grant.polarity}`;
     next[id] = {
       id,
       nodeId: grant.nodeId,
       polarity: grant.polarity,
-      sourceId: grant.sourceId,
+      sourceId,
+      condition: grant.condition,
     };
-  }
+  };
+
+  for (const g of getAdvantageGrantsFromFeatures(getActiveFeatures(character)))
+    install(g, FEATURE_PREFIX);
+  for (const g of getAdvantageGrantsFromChoices(character))
+    install(g, CHOICE_PREFIX);
 
   return next;
 }

@@ -1,3 +1,4 @@
+import { E } from "@/core/entities/rules/expr/expr";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 
 const ARMORER_OBTENTION = {
@@ -10,6 +11,8 @@ export const ARMORER_RESOURCES: Record<string, ResourceTemplate> = {
   defensive_field: {
     id: "defensive_field",
     category: "subclass_features",
+    max: E.pb(),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -22,8 +25,7 @@ export const ARMORER_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
-    min: { kind: "value", amount: 0 },
+
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["defense"],
   },
@@ -31,6 +33,8 @@ export const ARMORER_RESOURCES: Record<string, ResourceTemplate> = {
   lightning_launcher_burst: {
     id: "lightning_launcher_burst",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -43,8 +47,7 @@ export const ARMORER_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
+
     recharge: [{ trigger: { type: "roundStart" }, amount: "full" }],
     tags: ["utility"],
   },
@@ -54,6 +57,8 @@ export const ARMORER_RESOURCES: Record<string, ResourceTemplate> = {
   perfected_armor_guardian: {
     id: "perfected_armor_guardian",
     category: "subclass_features",
+    max: E.pb(),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -66,8 +71,7 @@ export const ARMORER_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-    max: { kind: "formula", formula: { base: { kind: "scaler", id: "PB" } } },
-    min: { kind: "value", amount: 0 },
+
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["utility"],
   },

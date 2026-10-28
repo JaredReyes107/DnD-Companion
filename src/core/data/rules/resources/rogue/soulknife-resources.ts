@@ -1,9 +1,12 @@
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
+import { E } from "@/core/entities/rules/expr/expr";
 
 export const SOULKNIFE_RESOURCES: Record<string, ResourceTemplate> = {
   psionic_energy_dice: {
     id: "psionic_energy_dice",
     category: "subclass_features",
+    max: E.mul(E.pb(), E.n(2)),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -17,21 +20,14 @@ export const SOULKNIFE_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: {
-      kind: "formula",
-      formula: {
-        base: { kind: "scaler", id: "PB" },
-        steps: [{ op: "multiply", value: 2 }],
-      },
-    },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["resource-pool"],
   },
   psionic_energy_die_recover: {
     id: "psionic_energy_die_recover",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -45,15 +41,14 @@ export const SOULKNIFE_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: [],
   },
   psychic_whispers: {
     id: "psychic_whispers",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -67,9 +62,6 @@ export const SOULKNIFE_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["resource-pool"],
     // TODO: alternate cost — expend 1 psionic_energy_dice (action-layer concern)
@@ -78,6 +70,8 @@ export const SOULKNIFE_RESOURCES: Record<string, ResourceTemplate> = {
   psychic_veil: {
     id: "psychic_veil",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -91,9 +85,6 @@ export const SOULKNIFE_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
-
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["defense", "utility"],
     // TODO: alternate cost — expend 1 psionic_energy_dice (action-layer concern)
@@ -102,6 +93,8 @@ export const SOULKNIFE_RESOURCES: Record<string, ResourceTemplate> = {
   rend_mind: {
     id: "rend_mind",
     category: "subclass_features",
+    max: E.n(1),
+
     origin: { book: "TCE" },
     grantors: [
       {
@@ -114,9 +107,6 @@ export const SOULKNIFE_RESOURCES: Record<string, ResourceTemplate> = {
         },
       },
     ],
-
-    max: { kind: "value", amount: 1 },
-    min: { kind: "value", amount: 0 },
 
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["combat", "control"],
