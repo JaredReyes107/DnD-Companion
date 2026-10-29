@@ -1,150 +1,90 @@
 import { Character } from "@/core/entities/character/Character";
-import { buildCombatState } from "@/core/rules/combat/combat-helper";
-import { ResourceInstance } from "@/core/entities/resources/resource-instance";
 import {
-  RestoreRule,
   RestoreAmount,
+  RestoreRule,
 } from "@/core/entities/rules/resource-template";
-import { getResourceRegistry } from "../../data/registries/resources.registry";
 import { TimingTrigger } from "@/core/entities/rules/trigger";
+import { evaluateExpr } from "@/core/rules/predicate/evaluate-predicate";
 import { evaluateComparator } from "@/core/rules/shared/comparator-helper";
+import {
+  buildResourceContext,
+  ResourceContext,
+  resourceCurrent,
+  resourceMax,
+  resourceRecharge,
+} from "./resource-max";
 import { resetChoicesForTrigger } from "./choices-helper";
 
-/**
- * Resolves what an instance's `current` becomes after applying one
- * RestoreAmount. Handles the "unbounded" max sentinel (never clamps
- * upward against it) and clamps delta/reset results within [min, max].
- */
-function applyRestoreAmount(
-  instance: ResourceInstance,
+export type TriggerType = TimingTrigger["type"];
+
+function restoredCurrent(
   amount: RestoreAmount,
+  current: number,
+  max: number,
+  ctx: ResourceContext,
 ): number {
-  if (amount === "full") {
-    return instance.max === "unbounded" ? instance.current : instance.max;
+  if (amount === "full") return max;
+  const value = evaluateExpr(amount.value, ctx);
+  if (value === undefined) {
+    console.warn("[resources] restore amount is unresolvable; skipped");
+    return current;
   }
-
-  if (amount.kind === "reset") {
-    return instance.max === "unbounded"
-      ? amount.value
-      : Math.min(amount.value, instance.max);
-  }
-
-  // delta — negative values model decay
-  const next = instance.current + amount.value;
-  const upperClamped =
-    instance.max === "unbounded" ? next : Math.min(next, instance.max);
-  return Math.max(upperClamped, instance.min);
+  const next = amount.kind === "reset" ? value : current + value;
+  return Math.min(max, Math.max(0, Math.floor(next)));
 }
 
-/**
- * Finds the first RestoreRule matching a trigger type in `priority`, checked
- * in order. This is what lets a long rest prefer a resource's own "longRest"
- * rule over a "shortRest" rule when both exist, instead of applying both or
- * applying the wrong one.
- */
-
-function findMatchingRule(
+/** First rule matching a trigger, tried in `priority` order (a long rest prefers a resource's own longRest rule). */
+function findRule(
   rules: RestoreRule[],
-  priority: TimingTrigger["type"][],
-  currentValue: number,
+  priority: TriggerType[],
+  current: number,
 ): RestoreRule | undefined {
-  for (const triggerType of priority) {
-    const candidate = rules.find((rule) => {
-      if (rule.trigger.type !== triggerType) return false;
-      if (!rule.when) return true;
-      return evaluateComparator(
-        currentValue,
-        rule.when.operator,
-        rule.when.value,
-      );
-    });
-    if (candidate) return candidate;
+  for (const type of priority) {
+    const hit = rules.find(
+      (r) =>
+        r.trigger.type === type &&
+        (!r.when || evaluateComparator(current, r.when.operator, r.when.value)),
+    );
+    if (hit) return hit;
   }
   return undefined;
 }
 
-export function restoreResourcesByTrigger(
-  resources: Record<string, ResourceInstance>,
-  triggerPriority: TimingTrigger["type"][],
-): Record<string, ResourceInstance> {
-  const updated: Record<string, ResourceInstance> = {};
-  const RESOURCE_DEFINITIONS = getResourceRegistry();
+/** Uses the RESOLVED recharge, so overrides apply. The ctx is built once, so `resource` leaves read pre-restore state. */
+export function restoreResources(
+  character: Character,
+  priority: TriggerType[],
+  ctx: ResourceContext = buildResourceContext(character),
+): Character {
+  const next = { ...character.resources };
+  let changed = false;
 
-  for (const [key, instance] of Object.entries(resources)) {
-    const definition = RESOURCE_DEFINITIONS[instance.resourceId];
-
-    if (!definition) {
-      // TODO[RESOURCE_SAFETY]: Decide how to handle missing definitions
-      updated[key] = instance;
-      continue;
+  for (const [id, instance] of Object.entries(character.resources)) {
+    const recharge = resourceRecharge(id, ctx);
+    if (!recharge) continue; // content no longer registered: leave it alone
+    const max = resourceMax(character, id, ctx);
+    if (!Number.isFinite(max)) continue; // unbounded: nothing to track
+    const current = resourceCurrent(character, id, ctx);
+    const rule = findRule(recharge, priority, current);
+    if (!rule) continue;
+    const spent = max - restoredCurrent(rule.amount, current, max, ctx);
+    if (spent !== instance.spent) {
+      next[id] = { ...instance, spent };
+      changed = true;
     }
-
-    const rule = findMatchingRule(
-      definition.recharge,
-      triggerPriority,
-      instance.current,
-    );
-
-    updated[key] = rule
-      ? { ...instance, current: applyRestoreAmount(instance, rule.amount) }
-      : instance;
   }
-
-  return updated;
+  return changed ? { ...character, resources: next } : character;
 }
 
-export function takeLongRest(character: Character): Character {
-  return {
-    ...character,
-    hitPoints: {
-      ...character.hitPoints,
-      temporalHP: 0,
-      currentHP: character.hitPoints.currentMaximumHP,
-    },
-    combatState: buildCombatState(character),
-    resources: restoreResourcesByTrigger(character.resources, [
-      "longRest",
-      "shortRest",
-    ]),
-    featureChoices: resetChoicesForTrigger(character, "longRest"),
-  };
-}
-
-export function takeShortRest(character: Character): Character {
-  return {
-    ...character,
-    resources: restoreResourcesByTrigger(character.resources, ["shortRest"]),
-    featureChoices: resetChoicesForTrigger(character, "shortRest"),
-  };
-}
-
-/** "roundStart" — start of this character's own turn. */
-export function startOwnTurn(character: Character): Character {
-  return {
-    ...character,
-    resources: restoreResourcesByTrigger(character.resources, ["roundStart"]),
-    featureChoices: resetChoicesForTrigger(character, "roundStart"),
-  };
-}
-
-/**
- * "turnEnd" — end of this character's own turn. Currently simulated
- */
-export function endOwnTurn(character: Character): Character {
-  return {
-    ...character,
-    resources: restoreResourcesByTrigger(character.resources, ["turnEnd"]),
-    featureChoices: resetChoicesForTrigger(character, "turnEnd"),
-  };
-}
-
-/**
- * "turnStart" — start of any entity's turn
- */
-export function startAnyTurn(character: Character): Character {
-  return {
-    ...character,
-    resources: restoreResourcesByTrigger(character.resources, ["turnStart"]),
-    featureChoices: resetChoicesForTrigger(character, "turnStart"),
-  };
+/** Resources AND choice pools for every trigger in the list. */
+export function applyTimingTriggers(
+  character: Character,
+  triggers: TriggerType[],
+): Character {
+  const restored = restoreResources(character, triggers);
+  const featureChoices = triggers.reduce(
+    (acc, t) => resetChoicesForTrigger({ ...restored, featureChoices: acc }, t),
+    restored.featureChoices,
+  );
+  return { ...restored, featureChoices };
 }

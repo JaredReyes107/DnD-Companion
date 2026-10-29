@@ -1,4 +1,4 @@
-import { Comparator } from "@/core/entities/rules/comparator";
+import { Comparator } from "@/core/entities/rules/predicate/predicate";
 
 export function evaluateComparator(
   observed: number,
@@ -16,5 +16,7 @@ export function evaluateComparator(
       return observed < threshold;
     case "==":
       return observed === threshold;
+    case "!=":
+      return observed !== threshold;
   }
 }

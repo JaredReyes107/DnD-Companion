@@ -2,15 +2,29 @@ import { Character } from "@/core/entities/character/Character";
 import { CharacterResources } from "@/core/entities/resources/character-resources";
 import { FeatureTemplate } from "@/core/entities/rules/feature-template";
 import { getActiveFeatures } from "./features-helper";
-import {
-  getResourceRegistry,
-  GroupedResources,
-} from "@/core/data/registries/resources.registry";
+import { getResourceRegistry } from "@/core/data/registries/resources.registry";
 import { getResourcesFromChoices } from "./choices-helper";
-import { ResourceCategory } from "@/core/entities/rules/resource-template";
+import {
+  ResourceCategory,
+  ResourceTemplate,
+} from "@/core/entities/rules/resource-template";
 import { grantsOfType } from "../shared/grant-filters";
-import { buildResourceContext, resourceMax } from "./resource-max";
+import {
+  buildResourceContext,
+  resolvedResource,
+  ResourceContext,
+  resourceMax,
+} from "./resource-max";
 import { ExprContext } from "../predicate/evaluate-predicate";
+import { ResourceInstance } from "@/core/entities/resources/resource-instance";
+
+export type ResourceEntry = {
+  template: ResourceTemplate;
+  instance: ResourceInstance;
+};
+export type GroupedResources = Partial<
+  Record<ResourceCategory, ResourceEntry[]>
+>;
 
 export function getResourcesFromFeatures(
   features: FeatureTemplate[],
@@ -60,16 +74,27 @@ export function buildCharacterResources(
   };
 }
 
+export function groupResourcesByCategory(
+  resources: CharacterResources,
+  ctx: ResourceContext,
+): GroupedResources {
+  const grouped: GroupedResources = {};
+  for (const [id, instance] of Object.entries(resources)) {
+    const template = resolvedResource(id, ctx);
+    if (!template) continue; // instance of removed content
+    (grouped[template.category] ??= []).push({ template, instance });
+  }
+  return grouped;
+}
+
 export type ResourceSectionData = {
   category: ResourceCategory;
-  resources: GroupedResources[ResourceCategory];
+  resources: ResourceEntry[];
 };
-
 export function groupedResourcesAsArray(
   grouped: GroupedResources,
 ): ResourceSectionData[] {
-  return Object.entries(grouped).map(([category, resources]) => ({
-    category: category as ResourceCategory,
-    resources,
-  }));
+  return (Object.entries(grouped) as [ResourceCategory, ResourceEntry[]][]).map(
+    ([category, resources]) => ({ category, resources }),
+  );
 }

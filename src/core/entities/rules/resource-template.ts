@@ -2,33 +2,14 @@ import { Expr } from "./expr/expr";
 import { ContentOrigin } from "./content-origin";
 import { ResourceGrantor } from "./grantor";
 import { TimingTrigger } from "./trigger";
-import { Comparator } from "@/core/entities/rules/comparator";
-
-export type ScalingCondition = {
-  base: Expr;
-  operator: Comparator;
-  value: number;
-};
-
-export type ResourceBound =
-  | { kind: "value"; amount: number }
-  | {
-      kind: "formula";
-      formula: Expr;
-    }
-  | { kind: "unbounded" }
-  | {
-      kind: "conditional";
-      when: ScalingCondition;
-      ifTrue: ResourceBound;
-      ifFalse: ResourceBound;
-    };
+import { Comparator } from "./predicate/predicate";
 
 export type RestoreAmount =
   | "full"
-  | { kind: "reset"; value: number } // set current to this exact value
-  | { kind: "delta"; value: number }; // add this to current (negative = decay)
+  | { kind: "reset"; value: Expr } // current := value
+  | { kind: "delta"; value: Expr }; // current += value (negative = decay)
 
+/** Compares the resource's own current value, before the restore. */
 export type ResourceRechargeCondition = {
   operator: Comparator;
   value: number;
@@ -40,7 +21,7 @@ export type RestoreRule = {
   when?: ResourceRechargeCondition;
 };
 
-export type Recharge = RestoreRule[]; // empty/only-"none" = never recharges on schedule
+export type Recharge = RestoreRule[]; // empty = never recharges on a schedule
 
 export type ResourceCategory =
   | "spell_slots"

@@ -30,25 +30,9 @@ import {
   buildResourceContext,
   ResourceContext,
   resourceCurrent,
-  resourceMax,
 } from "@/core/rules/character/resource-max";
-
-/** amount < 0 spends, > 0 recovers. Clamped to [0, max] uses. */
-export function applyResourceDelta(
-  character: Character,
-  resourceId: string,
-  amount: number,
-  ctx: ResourceContext = buildResourceContext(character),
-): Character {
-  const instance = character.resources[resourceId];
-  if (!instance) return character;
-  const max = resourceMax(character, resourceId, ctx);
-  const spent = Math.min(max, Math.max(0, instance.spent - amount));
-  return {
-    ...character,
-    resources: { ...character.resources, [resourceId]: { ...instance, spent } },
-  };
-}
+import { applyResourceDelta } from "@/core/rules/character/resource-spend";
+export { applyResourceDelta };
 
 export function applyResourceConversion(
   character: Character,

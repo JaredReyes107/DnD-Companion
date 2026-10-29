@@ -1,9 +1,6 @@
 import { Character } from "@/core/entities/character/Character";
 import { StatModel } from "@/core/entities/rules/stats.types";
-import {
-  Predicate,
-  Comparator,
-} from "@/core/entities/rules/predicate/predicate";
+import { Predicate } from "@/core/entities/rules/predicate/predicate";
 import { getTotalCharacterLevel } from "./../character/character-multiclassing";
 import { resolveCheckProficiency } from "../character/checks-helper";
 import { getActiveFeatures } from "../character/features-helper";
@@ -14,6 +11,7 @@ import {
   getAbilityModifier,
 } from "../character/abilities-modifiers";
 import { getTotalCasterLevel } from "@/core/entities/spellcasting/spellcasting";
+import { evaluateComparator } from "../shared/comparator-helper";
 
 export interface ExprContext {
   character: Character;
@@ -63,23 +61,6 @@ function warnOnce(key: string, msg: string) {
   if (process.env.NODE_ENV === "production" || warned.has(key)) return;
   warned.add(key);
   console.warn(`[predicate] ${msg}`);
-}
-
-function compare(a: number, op: Comparator, b: number): boolean {
-  switch (op) {
-    case "<":
-      return a < b;
-    case "<=":
-      return a <= b;
-    case "==":
-      return a === b;
-    case "!=":
-      return a !== b;
-    case ">=":
-      return a >= b;
-    case ">":
-      return a > b;
-  }
 }
 
 export function evaluateExpr(e: Expr, ctx: ExprContext): number | undefined {
@@ -206,7 +187,7 @@ export function evaluatePredicate(p: Predicate, ctx: PredicateContext): Tri {
       const b = evaluateExpr(p.right, ctx);
       return a === undefined || b === undefined
         ? undefined
-        : compare(a, p.op, b);
+        : evaluateComparator(a, p.op, b);
     }
 
     case "status": {
