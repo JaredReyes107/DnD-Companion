@@ -38,8 +38,7 @@ export const DRUID_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    // NOTE: RAW recovers on short OR long rest — currently modeled as longRest only.
-    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
+    recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["combat", "utility"],
   },
 };

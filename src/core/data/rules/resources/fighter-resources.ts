@@ -72,8 +72,7 @@ export const FIGHTER_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    // NOTE: RAW recovers on long rest only — currently modeled as shortRest.
-    recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
+    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
     tags: ["combat", "damage", "resistance"],
   },
 

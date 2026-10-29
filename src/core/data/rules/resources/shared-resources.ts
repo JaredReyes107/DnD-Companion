@@ -25,7 +25,7 @@ export const SHARED_RESOURCES: Record<string, ResourceTemplate> = {
       E.table(E.classLevel("paladin"), { 3: 1 }),
     ),
 
-    recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
+    recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
     tags: ["combat", "utility"],
   },
 };

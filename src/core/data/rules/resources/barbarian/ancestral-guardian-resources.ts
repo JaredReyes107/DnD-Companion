@@ -9,6 +9,10 @@ export const ANCESTRAL_GUARDIAN_RESOURCES: Record<string, ResourceTemplate> = {
     max: E.n(1),
 
     tags: ["combat"],
+    origin: {
+      book: "XGE",
+    },
+    recharge: [{ trigger: { type: "roundStart" }, amount: "full" }],
   },
   consult_the_spirits: {
     id: "consult_the_spirits",
@@ -17,5 +21,9 @@ export const ANCESTRAL_GUARDIAN_RESOURCES: Record<string, ResourceTemplate> = {
     max: E.n(1),
 
     tags: ["spellcasting", "utility"],
+    origin: {
+      book: "XGE",
+    },
+    recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
   },
 };
