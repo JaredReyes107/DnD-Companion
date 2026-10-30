@@ -6,9 +6,11 @@ const slot = (
   steps: Record<number, number>,
 ): ResourceTemplate => ({
   id: `spell_slot_${level}`,
-  sourceId: "spellcasting", //TODO: Change depending on the source of the Spellcasting feature
+  sourceId: "spellcasting",
   origin: { book: "PHB" },
   category: "spell_slots",
+  group: "spell_slot",
+  rank: E.n(level),
   max: E.table(E.casterLevel(), steps),
   recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
   tags: ["spellcasting"],

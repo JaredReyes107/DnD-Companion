@@ -37,11 +37,17 @@ export type ResourceTemplate = {
   category: ResourceCategory;
   sourceId?: string;
   origin: ContentOrigin;
+
   grantors?: ResourceGrantor[];
 
   max: Expr;
   min?: Expr; // default: { kind: "value", amount: 0 } if omitted
   recharge: Recharge;
+
+  /** Resources that can pay the same ParamDef (e.g. "spell_slot"). Not overridable. */
+  group?: string;
+  /** Position inside the group. An Expr, so pact slots can derive it from warlock level. */
+  rank?: Expr;
 
   tags?: string[];
 };

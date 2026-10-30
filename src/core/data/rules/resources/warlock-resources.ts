@@ -60,9 +60,9 @@ export const WARLOCK_RESOURCES: Record<string, ResourceTemplate> = {
   pact_slots: {
     id: "pact_slots",
     category: "pact_slots",
+    origin: { book: "PHB" },
     max: E.table(E.classLevel("warlock"), { 1: 1, 2: 2, 11: 3, 17: 4 }),
 
-    origin: { book: "PHB" },
     grantors: [
       {
         system: "feature",
@@ -72,6 +72,10 @@ export const WARLOCK_RESOURCES: Record<string, ResourceTemplate> = {
     ],
 
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
+
+    group: "spell_slot",
+    rank: E.table(E.classLevel("warlock"), { 1: 1, 3: 2, 5: 3, 7: 4, 9: 5 }),
+
     tags: ["spellcasting"],
   },
 
