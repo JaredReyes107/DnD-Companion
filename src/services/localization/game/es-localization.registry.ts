@@ -11,6 +11,7 @@ import { subclasses_es } from "./classes/subclasses-es";
 import { features_es } from "./features/features-es.registry";
 import { resources_es } from "./resources/resources-es";
 import { actions_es } from "./actions/actions-es.registry";
+import { cost_options_es } from "./cost-options/cost-options-es";
 
 export const game_es: GameLocalization = {
   ...abilities_es,
@@ -24,4 +25,5 @@ export const game_es: GameLocalization = {
   ...features_es,
   ...resources_es,
   ...actions_es,
+  ...cost_options_es,
 };
