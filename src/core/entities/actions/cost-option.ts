@@ -1,6 +1,5 @@
 import { Expr } from "../rules/expr/expr";
 import { Predicate } from "../rules/predicate/predicate";
-import { ResourceCategory } from "../rules/resource-template";
 
 /** What the player picked on the board. */
 export type PaymentChoice = { optionId: string; params: ParamAssignment };
@@ -13,8 +12,6 @@ export type ResourceParamDef = {
   id: string;
   kind: "resource";
   group: string;
-  /** Restricts candidates further, e.g. "spell_slots" excludes pact slots. */
-  category?: ResourceCategory;
   minRank?: Expr;
   maxRank?: Expr;
 };

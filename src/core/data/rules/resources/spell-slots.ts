@@ -9,7 +9,7 @@ const slot = (
   sourceId: "spellcasting",
   origin: { book: "PHB" },
   category: "spell_slots",
-  group: "spell_slot",
+  groups: ["spell_slot", "standard_slot"],
   rank: E.n(level),
   max: E.table(E.casterLevel(), steps),
   recharge: [{ trigger: { type: "longRest" }, amount: "full" }],

@@ -73,7 +73,7 @@ export const WARLOCK_RESOURCES: Record<string, ResourceTemplate> = {
 
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
 
-    group: "spell_slot",
+    groups: ["spell_slot", "pact_slot"],
     rank: E.table(E.classLevel("warlock"), { 1: 1, 3: 2, 5: 3, 7: 4, 9: 5 }),
 
     tags: ["spellcasting"],

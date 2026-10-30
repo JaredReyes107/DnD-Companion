@@ -231,21 +231,101 @@ describe("Lay on Hands: a quantity param", () => {
   });
 
   it("a category filter excludes pact slots", () => {
-    const c = makeChar(
-      [
-        ["warlock", 5],
-        ["wizard", 1],
+    const homebrewSlot = (id: string, rank: number) => ({
+      id,
+      category: "spell_slots" as const,
+      groups: ["spell_slot"],
+      rank: E.n(rank),
+      max: E.n(1),
+      origin: { book: "homebrew" as const, setId: "t" },
+      recharge: [
+        { trigger: { type: "longRest" as const }, amount: "full" as const },
       ],
-      { pact_slots: 0, spell_slot_1: 0 },
-    );
-    const ctx = buildResourceContext(c);
-    const def = { id: "slot", kind: "resource", group: "spell_slot" } as const;
-    expect(candidateResources(c, def, ctx)).toEqual([
-      "spell_slot_1",
-      "pact_slots",
-    ]); // ranks 1, 3
-    expect(
-      candidateResources(c, { ...def, category: "spell_slots" }, ctx),
-    ).toEqual(["spell_slot_1"]);
+    });
+
+    describe("candidate groups", () => {
+      const def = {
+        id: "slot",
+        kind: "resource",
+        group: "spell_slot",
+      } as const;
+
+      it("standard and pact slots share spell_slot but split on their own groups", () => {
+        const c = makeChar(
+          [
+            ["warlock", 5],
+            ["wizard", 1],
+          ],
+          { pact_slots: 0, spell_slot_1: 0 },
+        );
+        const ctx = buildResourceContext(c);
+        expect(candidateResources(c, def, ctx)).toEqual([
+          "spell_slot_1",
+          "pact_slots",
+        ]); // ranks 1, 3
+        expect(
+          candidateResources(c, { ...def, group: "standard_slot" }, ctx),
+        ).toEqual(["spell_slot_1"]);
+        expect(
+          candidateResources(c, { ...def, group: "pact_slot" }, ctx),
+        ).toEqual(["pact_slots"]);
+      });
+
+      it("a homebrew slot joins an existing group by declaration alone", () => {
+        registerHomebrewResource(homebrewSlot("t8b_prismatic", 10));
+        const c = makeChar([["wizard", 1]], {
+          spell_slot_1: 0,
+          t8b_prismatic: 0,
+        });
+        expect(candidateResources(c, def, buildResourceContext(c))).toEqual([
+          "spell_slot_1",
+          "t8b_prismatic",
+        ]);
+        // not in standard_slot: Font of Magic creation will never offer it
+        expect(
+          candidateResources(
+            c,
+            { ...def, group: "standard_slot" },
+            buildResourceContext(c),
+          ),
+        ).toEqual(["spell_slot_1"]);
+      });
+
+      it("a brand-new group made of homebrew resources works", () => {
+        for (const [id, rank] of [
+          ["t8b_gem_a", 1],
+          ["t8b_gem_b", 2],
+        ] as const)
+          registerHomebrewResource({
+            ...homebrewSlot(id, rank),
+            category: "feats",
+            groups: ["t8b_gems"],
+          });
+        const c = makeChar([["wizard", 1]], { t8b_gem_b: 0, t8b_gem_a: 0 });
+        expect(
+          candidateResources(
+            c,
+            { ...def, group: "t8b_gems" },
+            buildResourceContext(c),
+          ),
+        ).toEqual(["t8b_gem_a", "t8b_gem_b"]);
+      });
+    });
+
+    describe("group validation", () => {
+      it("rejects groups without a rank at registration", () => {
+        const bad = { ...homebrewSlot("t8b_bad", 1), rank: undefined };
+        expect(validateResourceTemplate(bad)).toEqual([
+          "belongs to groups but has no rank",
+        ]);
+        expect(() => registerHomebrewResource(bad)).toThrow(/no rank/);
+      });
+      it("every base resource with groups has a rank", () => {
+        const bad = Object.values(getResourceRegistry()).filter(
+          (r) => validateResourceTemplate(r).length,
+        );
+        expect(bad.map((r) => r.id)).toEqual([]);
+      });
+    });
   });
 });

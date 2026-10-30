@@ -24,8 +24,7 @@ export function candidateResources(
   return Object.keys(character.resources)
     .flatMap((id) => {
       const template = resolvedResource(id, ctx);
-      if (!template || template.group !== def.group) return [];
-      if (def.category && template.category !== def.category) return [];
+      if (!template?.groups?.includes(def.group)) return [];
       const rank = resourceRank(id, ctx);
       if (rank === undefined || resourceMax(character, id, ctx) <= 0) return [];
       if (min !== null && rank < min) return [];

@@ -44,9 +44,9 @@ export type ResourceTemplate = {
   min?: Expr; // default: { kind: "value", amount: 0 } if omitted
   recharge: Recharge;
 
-  /** Resources that can pay the same ParamDef (e.g. "spell_slot"). Not overridable. */
-  group?: string;
-  /** Position inside the group. An Expr, so pact slots can derive it from warlock level. */
+  /** Pools of interchangeable payers (e.g. "spell_slot", "standard_slot"). Requires `rank`. */
+  groups?: string[];
+  /** Position inside every group it belongs to. An Expr, so pact slots can derive it from level. */
   rank?: Expr;
 
   tags?: string[];
