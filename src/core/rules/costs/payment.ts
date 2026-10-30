@@ -15,7 +15,7 @@ import {
 } from "@/core/rules/character/resource-max";
 import { applyResourceDelta } from "@/core/rules/character/resource-spend";
 import { withParams } from "./payment-context";
-import { candidateResources, rangeBounds } from "./resolve-costs-choices";
+import { candidateResources, rangeBounds } from "./cost-params";
 
 const fail = (
   failure: Extract<PaymentCheck, { ok: false }>["failure"],

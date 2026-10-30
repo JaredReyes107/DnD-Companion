@@ -1,5 +1,6 @@
 import { Expr } from "../rules/expr/expr";
 import { Predicate } from "../rules/predicate/predicate";
+import { ResourceCategory } from "../rules/resource-template";
 
 /** QUANTITY: the player picks an integer in [min, max]. */
 export type RangeParamDef = { id: string; kind: "range"; min: Expr; max: Expr };
@@ -9,6 +10,8 @@ export type ResourceParamDef = {
   id: string;
   kind: "resource";
   group: string;
+  /** Restricts candidates further, e.g. "spell_slots" excludes pact slots. */
+  category?: ResourceCategory;
   minRank?: Expr;
   maxRank?: Expr;
 };
