@@ -198,4 +198,15 @@ describe("turn boundaries sweep and recharge", () => {
     expect(r.resources.sneak_attack.spent).toBe(0); // turnStart
     expect(r.resources.gathered_swarm.spent).toBe(0); // roundStart
   });
+
+  it("a new turn restores homebrew action limits", () => {
+    const c = {
+      ...setup(),
+      actionLimits: { actions: 1, bonusActions: 1, reactions: 2 },
+    };
+    expect(onStartTurn(c).combatState!.actionEconomy.reactions).toEqual({
+      max: 2,
+      current: 2,
+    });
+  });
 });

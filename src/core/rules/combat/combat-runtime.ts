@@ -5,20 +5,18 @@ import { isExpiredByEvent } from "./expiry-helper";
 
 export function startNewTurn(character: Character): Character {
   if (!character.combatState) return character;
-
-  const updatedCombatState = {
-    ...character.combatState,
-    actionEconomy: {
-      actions: { max: 1, current: 1 },
-      bonusActions: { max: 1, current: 1 },
-      reactions: { max: 1, current: 1 },
-    },
-    round: character.combatState.round + 1,
-  };
-
+  const { actions, bonusActions, reactions } = character.actionLimits;
   return {
     ...character,
-    combatState: updatedCombatState,
+    combatState: {
+      ...character.combatState,
+      actionEconomy: {
+        actions: { max: actions, current: actions },
+        bonusActions: { max: bonusActions, current: bonusActions },
+        reactions: { max: reactions, current: reactions },
+      },
+      round: character.combatState.round + 1,
+    },
   };
 }
 
