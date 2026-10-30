@@ -26,7 +26,9 @@ export type Expr =
   | { type: "clamp"; value: Expr; min: Expr; max: Expr }
   | { type: "if"; when: Predicate; then: Expr; else: Expr }
   // level-style lookup: largest key <= `by`; below the first key uses `below` (default 0)
-  | { type: "table"; by: Expr; steps: Record<string, number>; below?: number };
+  | { type: "table"; by: Expr; steps: Record<string, number>; below?: number }
+  // only known while paying
+  | { type: "param"; id: string; field?: "value" | "rank" };
 
 export const E = {
   n: (value: number): Expr => ({ type: "const", value }),
@@ -73,5 +75,10 @@ export const E = {
     by,
     steps: Object.fromEntries(Object.entries(steps)),
     below,
+  }),
+  param: (id: string, field: "value" | "rank" = "value"): Expr => ({
+    type: "param",
+    id,
+    field,
   }),
 };

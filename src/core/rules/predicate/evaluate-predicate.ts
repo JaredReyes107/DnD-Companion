@@ -26,6 +26,8 @@ export interface ExprContext {
     resourceId: string,
     field: "current" | "max",
   ) => number | undefined;
+  /** Present only while evaluating a payment. "value" = range value, "rank" = chosen resource's rank. */
+  resolveParam?: (id: string, field: "value" | "rank") => number | undefined;
 }
 
 export interface PredicateContext extends ExprContext {
@@ -152,6 +154,8 @@ export function evaluateExpr(e: Expr, ctx: ExprContext): number | undefined {
         .sort((a, b) => b - a)[0];
       return hit === undefined ? (e.below ?? 0) : e.steps[String(hit)];
     }
+    case "param":
+      return ctx.resolveParam?.(e.id, e.field ?? "value");
     default:
       warnOnce(
         `expr:${(e as { type: string }).type}`,
