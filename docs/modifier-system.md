@@ -10,7 +10,7 @@ The modifier system is the mechanism by which features, choices, statuses, actio
 
 1. **`ModifierTemplate`** — static declaration of what a modifier does (registered in `modifiers.registry.ts`)
 2. **`ModifierInstance`** — a resolved snapshot of a template at a point in time, with concrete numeric values
-3. **`Condition`** — a runtime gate that determines if an instance is active during a given context
+3. **`Condition`** — an alias of `Predicate`, and a runtime gate that determines if an instance is active during a given context
 4. **`StatModel`** — what stat the modifier targets, expressed as a discriminated union that supports hierarchical targeting
 
 ---
@@ -39,7 +39,7 @@ interface ModifierTemplate {
   sourceId: string;
   statModel: StatModel;    // what stat this targets
   type: ModifierType;
-  value: ModifierValue;    // number OR (context) => number
+  value: ModifierValue; // number | Expr
   priority?: ModifierValue; // falls back to DEFAULT_MODIFIER_PRIORITY[type]
   condition?: Condition;   // runtime gate
   effectId?: string;       // stacking group key
@@ -49,25 +49,7 @@ interface ModifierTemplate {
 type ModifierValue = number | ((context: ModifierEvalContext) => number);
 ```
 
-`ModifierValue` can be a formula function. Formula functions receive `ModifierEvalContext`:
-
-```typescript
-type ModifierEvalContext = {
-  character: Character;
-  resolved: ResolvedBase;   // ability scores + PB after Phase 1 resolution
-  targetNodeId?: string;    // injected per check-node by the stat resolver
-  [key: string]: unknown;
-};
-```
-
-The `targetNodeId` field enables per-node formulas. Example from Fire Rune:
-```typescript
-// Add PB only for tool checks the character is proficient in:
-value: (ctx) =>
-  ctx.targetNodeId && resolveCheckProficiency(ctx.character, ctx.targetNodeId)
-    ? ctx.resolved.proficiencyBonus
-    : 0,
-```
+Expr values are evaluated against an ExprContext (character, resolved, targetNodeId?, resolveResource?). targetNodeId is injected per check node by the stat resolver.
 
 Templates are registered in `src/core/data/registries/modifiers.registry.ts`. Precedence: homebrew > base > generated expertise. `getModifierTemplateById(id)` throws if the template is not found.
 
@@ -139,34 +121,7 @@ The `resolvedAbility` context parameter is critical for ability-scoped modifiers
 
 ## `Condition` — Runtime Gates
 
-Defined in `src/core/entities/modifiers/Condition.ts`. Applied to `ModifierTemplate.condition`, `AdvantageInstance.condition`, and modifier filtering in `resolveStat`.
-
-```typescript
-type Condition =
-  | { type: "always" }
-  | { type: "targetIsRangedAttack" }
-  | { type: "targetIsMeleeAttack" }
-  | { type: "hpBelowThreshold"; threshold: number }
-  | { type: "targetHasStatus"; status: number }
-  | { type: "withinRange"; range: number }
-  | { type: "resourceAtLeast"; resourceId: string; minimum: number };
-```
-
-`evaluateCondition(condition, context)` in `condition-evaluator.ts` evaluates the condition against an `EvaluationContext`:
-
-```typescript
-interface EvaluationContext {
-  targetIsRanged?: boolean;
-  targetIsMelee?: boolean;
-  currentHp?: number;
-  maxHp?: number;
-  targetStatuses?: Set<number>;
-  distanceToTarget?: number;
-  resources?: Record<string, number>; // resourceId → current value
-}
-```
-
-`buildEvaluationContext(character)` populates `currentHp`, `maxHp`, and `resources` from the character. The combat-specific fields (`targetIsRanged`, `targetStatuses`, etc.) are left unset during out-of-combat resolution.
+Condition is an alias of Predicate. See Predicates in the second half. Use the P builders. evaluateCondition calls `isSatisfied(..., "open")`.
 
 **`resourceAtLeast` is the key pattern for resource-gated passive modifiers.** Example from Rune Knight: a rune's passive modifier has `condition: { type: "resourceAtLeast", resourceId: "fire_rune", minimum: 1 }` — the modifier is active while the resource has at least 1 charge and automatically deactivates when the resource is spent, with no lifecycle management needed.
 
@@ -221,12 +176,13 @@ Keys are `"${feature.id}:${modifier.id}"` for feature grants and `"choice:${modi
 
 Expertise modifiers are generated dynamically by `buildExpertiseModifiers()` in `src/core/data/rules/modifiers/expertise-modifiers.ts`. One `ADDITIVE` modifier template is created per `CheckNode` in the registry (adding PB a second time). These are lazily cached in `modifiers.registry.ts` and regenerated only when the check registry version changes (i.e. when homebrew nodes are registered).
 
-Expertise modifier instances use `tags: ["expertise"]` and the same `effectId` as Fire Rune's tool modifier (`"fire_rune_tool_pb"`), ensuring they participate in the same `effectId` stacking group — only the strongest one wins, so Fire Rune and Expertise don't double-stack on the same tool.
+Expertise templates are E.when(proficiency, E.pb(), E.n(0)), tagged "expertise", with no effectId.
 
 ---
 
 ## Advantage System
 
+Templates (AdvantageTemplate) are granted by { type: "advantage"; id } and expanded per node by expandAdvantageTemplate.
 Advantage/disadvantage is tracked separately from numeric modifiers. `AdvantageInstance` in `src/core/entities/rules/advantage/advantage-instance.ts`:
 
 ```typescript
@@ -254,7 +210,7 @@ Two stacking modes:
 - `"raw"` (5e default): any advantage + any disadvantage = none, regardless of counts.
 - `"oneToOne"` (optional house rule): instances cancel one-for-one; the remainder polarity wins.
 
-# Modifier System and Expressions
+## Modifier System and Expressions
 
 ## Pipeline
 

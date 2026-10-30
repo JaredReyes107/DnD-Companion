@@ -225,8 +225,7 @@ Stats are resolved in two phases to handle circular dependency between ability s
 ## Key Architectural Rule: Initialization
 
 `initializeCoreSystems()` in `src/core/init.ts` must be called exactly once at app startup before any registry lookup or rule resolution. It:
-1. Registers main and class scaling tables.
-2. Loads all `RuleDefinition`s from `src/rules/rules.generated.ts` into the `ruleRegistry`.
+1. Loads all `RuleDefinition`s from `src/rules/rules.generated.ts` into the `ruleRegistry`.
 
 It is guarded by an `initialized` flag so calling it twice is safe, but the first call **must** happen before any game logic runs.
 
