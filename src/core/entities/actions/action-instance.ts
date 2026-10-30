@@ -4,6 +4,7 @@ import { ActionTrigger } from "./action-trigger";
 import { ExpiryCondition } from "../rules/duration/expiry-condition";
 import { AdvantagePolarity } from "../rules/advantage/advantage-instance";
 import { Predicate } from "../rules/predicate/predicate";
+import { CostOption } from "./cost-option";
 
 type EffectBase = { key?: string };
 
@@ -83,4 +84,7 @@ export type ActionInstance = {
 
   effects: ActionEffect[];
   requires?: Predicate;
+
+  /** Payment alternatives. When present, the action must not also carry modifyResource effects. */
+  costOptions?: CostOption[];
 };
