@@ -25,7 +25,6 @@ import {
 import { resolveStatValue } from "../../stats/stat-resolver";
 import { getStatusTemplateById } from "@/core/data/registries/status.registry";
 import { StatusInstance } from "@/core/entities/combat/status-instance";
-import { ExprContext } from "@/core/rules/predicate/evaluate-predicate";
 import {
   buildResourceContext,
   ResourceContext,
@@ -33,6 +32,13 @@ import {
 } from "@/core/rules/character/resource-max";
 import { applyResourceDelta } from "@/core/rules/character/resource-spend";
 export { applyResourceDelta };
+import {
+  PaymentChoice,
+  PaymentFailure,
+} from "@/core/entities/actions/cost-option";
+import { pay } from "@/core/rules/costs/payment";
+import { resolveCostChoices } from "@/core/rules/costs/resolve-cost-choices";
+import { splitActionCost } from "@/core/rules/costs/split-action-cost";
 
 export function applyResourceConversion(
   character: Character,
@@ -136,40 +142,65 @@ export function isActionAvailable(
   let rc = ctx;
   const resourceCtx = () => (rc ??= buildResourceContext(character));
 
-  // Every resource effect must be satisfiable. A missing instance means unavailable, not a throw.
-  return action.effects.every((effect) => {
-    switch (effect.type) {
-      case "modifyResource":
-        return (
-          effect.amount >= 0 ||
-          resourceCurrent(character, effect.resourceId, resourceCtx()) >=
-            -effect.amount
-        );
-      case "convertResource":
-        return (
-          resourceCurrent(character, effect.from.resourceId, resourceCtx()) >=
-          effect.from.amount
-        );
-      default:
-        return true;
-    }
-  });
+  const { options, effects } = splitActionCost(action);
+  if (
+    options.length > 0 &&
+    !resolveCostChoices(character, options, resourceCtx()).some(
+      (c) => c.affordable,
+    )
+  )
+    return false;
+
+  // Legacy conversions still declare their cost as an effect.
+  return effects.every(
+    (e) =>
+      e.type !== "convertResource" ||
+      resourceCurrent(character, e.from.resourceId, resourceCtx()) >=
+        e.from.amount,
+  );
 }
+
+export type ExecuteResult =
+  | { ok: true }
+  | { ok: false; failure: PaymentFailure };
 
 export function executeAction(
   action: ActionInstance,
-  ctx: { character: Character; dispatch: (update: Character) => void },
-) {
+  ctx: {
+    character: Character;
+    dispatch: (update: Character) => void;
+    payment?: PaymentChoice;
+  },
+): ExecuteResult {
+  const { options, effects } = splitActionCost(action);
   let updatedCharacter = ctx.character;
 
   if (updatedCharacter.combatState) {
     updatedCharacter = onActionTaken(updatedCharacter, action.id);
   }
 
-  let resourceCtx: ExprContext | undefined;
+  // Pay first. Everything above is local: a failure returns before anything is dispatched.
+  if (options.length > 0) {
+    const option = ctx.payment
+      ? options.find((o) => o.id === ctx.payment!.optionId)
+      : options.length === 1
+        ? options[0]
+        : undefined;
+    if (!option) return { ok: false, failure: { kind: "unknownOption" } };
+    const paid = pay(
+      updatedCharacter,
+      option,
+      ctx.payment?.params ?? {},
+      buildResourceContext(updatedCharacter),
+    );
+    if (!paid.ok) return paid;
+    updatedCharacter = paid.character;
+  }
+
+  let resourceCtx: ResourceContext | undefined;
   const rc = () => (resourceCtx ??= buildResourceContext(updatedCharacter));
 
-  for (const effect of action.effects) {
+  for (const effect of effects) {
     switch (effect.type) {
       case "modifyResource":
         updatedCharacter = applyResourceDelta(
@@ -300,4 +331,5 @@ export function executeAction(
   }
 
   ctx.dispatch(updatedCharacter);
+  return { ok: true };
 }

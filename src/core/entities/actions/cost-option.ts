@@ -2,6 +2,9 @@ import { Expr } from "../rules/expr/expr";
 import { Predicate } from "../rules/predicate/predicate";
 import { ResourceCategory } from "../rules/resource-template";
 
+/** What the player picked on the board. */
+export type PaymentChoice = { optionId: string; params: ParamAssignment };
+
 /** QUANTITY: the player picks an integer in [min, max]. */
 export type RangeParamDef = { id: string; kind: "range"; min: Expr; max: Expr };
 
@@ -45,7 +48,8 @@ export type PaymentFailure =
   | { kind: "missingResource"; resourceId: string }
   | { kind: "insufficient"; resourceId: string }
   | { kind: "overflow"; resourceId: string }
-  | { kind: "unresolvable" };
+  | { kind: "unresolvable" }
+  | { kind: "unknownOption" };
 
 export type PaymentCheck =
   | { ok: true; changes: ResourceChange[] }
