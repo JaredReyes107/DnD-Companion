@@ -29,18 +29,17 @@ export function onZeroHp(character: Character): Character {
 }
 
 export function onStartTurn(character: Character): Character {
-  const advanced = applyTimingTriggers(startNewTurn(character), [
-    "roundStart",
-    "turnStart",
-  ]);
-  if (!advanced.combatState) return advanced;
-  return {
-    ...advanced,
-    combatState: sweepExpiredByEvent(advanced.combatState, {
-      type: "turnStarted",
-      newRound: advanced.combatState.round,
-    }),
-  };
+  const advanced = startNewTurn(character);
+  const swept: Character = advanced.combatState
+    ? {
+        ...advanced,
+        combatState: sweepExpiredByEvent(advanced.combatState, {
+          type: "turnStarted",
+          newRound: advanced.combatState.round,
+        }),
+      }
+    : advanced;
+  return applyTimingTriggers(swept, ["roundStart", "turnStart"]);
 }
 
 export function onEndTurn(character: Character): Character {
