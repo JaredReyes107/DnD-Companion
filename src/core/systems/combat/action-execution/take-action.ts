@@ -1,7 +1,4 @@
-import {
-  ActionInstance,
-  ConvertResourceEffect,
-} from "@/core/entities/actions/action-instance";
+import { ActionInstance } from "@/core/entities/actions/action-instance";
 import { Character } from "@/core/entities/character/Character";
 import { RuntimeModifierInstance } from "@/core/entities/rules/stats.types";
 import { decreaseActionResource } from "@/core/entities/combat/action-economy";
@@ -28,7 +25,6 @@ import { StatusInstance } from "@/core/entities/combat/status-instance";
 import {
   buildResourceContext,
   ResourceContext,
-  resourceCurrent,
 } from "@/core/rules/character/resource-max";
 import { applyResourceDelta } from "@/core/rules/character/resource-spend";
 export { applyResourceDelta };
@@ -38,32 +34,7 @@ import {
 } from "@/core/entities/actions/cost-option";
 import { pay } from "@/core/rules/costs/payment";
 import { resolveCostChoices } from "@/core/rules/costs/resolve-cost-choices";
-import { splitActionCost } from "@/core/rules/costs/split-action-cost";
-
-export function applyResourceConversion(
-  character: Character,
-  effect: ConvertResourceEffect,
-  ctx: ResourceContext = buildResourceContext(character),
-): Character {
-  if (
-    !character.resources[effect.from.resourceId] ||
-    !character.resources[effect.to.resourceId]
-  ) {
-    return character;
-  }
-  const afterFrom = applyResourceDelta(
-    character,
-    effect.from.resourceId,
-    -effect.from.amount,
-    ctx,
-  );
-  return applyResourceDelta(
-    afterFrom,
-    effect.to.resourceId,
-    effect.to.amount,
-    ctx,
-  );
-}
+import { evalNum } from "@/core/rules/predicate/evaluate-predicate";
 
 export function applyRuntimeModifier(
   character: Character,
@@ -139,25 +110,11 @@ export function isActionAvailable(
     }[action.duration.slot].current > 0;
   if (!hasActionEconomy) return false;
 
+  const options = action.costOptions ?? [];
+  if (options.length === 0) return true;
   let rc = ctx;
-  const resourceCtx = () => (rc ??= buildResourceContext(character));
-
-  const { options, effects } = splitActionCost(action);
-  if (
-    options.length > 0 &&
-    !resolveCostChoices(character, options, resourceCtx()).some(
-      (c) => c.affordable,
-    )
-  )
-    return false;
-
-  // Legacy conversions still declare their cost as an effect.
-  return effects.every(
-    (e) =>
-      e.type !== "convertResource" ||
-      resourceCurrent(character, e.from.resourceId, resourceCtx()) >=
-        e.from.amount,
-  );
+  rc ??= buildResourceContext(character);
+  return resolveCostChoices(character, options, rc).some((c) => c.affordable);
 }
 
 export type ExecuteResult =
@@ -172,7 +129,7 @@ export function executeAction(
     payment?: PaymentChoice;
   },
 ): ExecuteResult {
-  const { options, effects } = splitActionCost(action);
+  const options = action.costOptions ?? [];
   let updatedCharacter = ctx.character;
 
   if (updatedCharacter.combatState) {
@@ -200,24 +157,20 @@ export function executeAction(
   let resourceCtx: ResourceContext | undefined;
   const rc = () => (resourceCtx ??= buildResourceContext(updatedCharacter));
 
-  for (const effect of effects) {
+  for (const effect of action.effects) {
     switch (effect.type) {
-      case "modifyResource":
+      case "modifyResource": {
+        // Only gains reach here (spends are normalized into costOptions). Gains clamp and never block.
+        const amount = evalNum(effect.amount, rc());
+        if (amount === undefined) break; // unresolvable: skip, never throw
         updatedCharacter = applyResourceDelta(
           updatedCharacter,
           effect.resourceId,
-          effect.amount,
+          Math.trunc(amount),
           rc(),
         );
         break;
-      case "convertResource":
-        updatedCharacter = applyResourceConversion(
-          updatedCharacter,
-          effect,
-          rc(),
-        );
-        break;
-
+      }
       case "applyModifier": {
         if (!updatedCharacter.combatState) break;
 

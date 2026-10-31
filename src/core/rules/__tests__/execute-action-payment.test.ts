@@ -6,15 +6,17 @@ import {
   isActionAvailable,
 } from "@/core/systems/combat/action-execution/take-action";
 import { makeChar } from "./fixtures";
+import { normalizeAction } from "@/core/rules/costs/normalize-action";
 
-const act = (over: Partial<ActionInstance>): ActionInstance => ({
-  id: "t",
-  sourceId: "t",
-  boards: ["combat"],
-  duration: { kind: "economy", slot: "action" },
-  effects: [],
-  ...over,
-});
+const act = (over: Partial<ActionInstance>): ActionInstance =>
+  normalizeAction({
+    id: "t",
+    sourceId: "t",
+    boards: ["combat"],
+    duration: { kind: "economy", slot: "action" },
+    effects: [],
+    ...over,
+  });
 const spend = {
   type: "modifyResource",
   resourceId: "second_wind",

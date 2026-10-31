@@ -45,7 +45,7 @@ export const WIZARD_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "convertResource",
-        from: { resourceId: "arcane_recovery", amount: -1 },
+        from: { resourceId: "arcane_recovery", amount: 1 },
         to: { resourceId: "spell_slot_1", amount: 1 },
       },
     ],

@@ -101,23 +101,20 @@ describe("derived actions", () => {
 describe("removing an effect from an action (Emboldening Bond: concentration)", () => {
   it("baseline: the bond has three effects including the concentration status", () => {
     const a = resolveActiveActions(peaceCleric()).emboldening_bond;
-    expect(a.effects).toHaveLength(3);
+    expect(a.effects).toHaveLength(2);
     expect(hasStatus(a)).toBe(true);
   });
 
   it("an active override removes only the keyed effect", () => {
     const a = resolveActiveActions(peaceCleric(["t6b_f"])).emboldening_bond;
-    expect(a.effects).toHaveLength(2);
+    expect(a.effects).toHaveLength(1);
     expect(hasStatus(a)).toBe(false);
-    expect(a.effects.map((e) => e.type)).toEqual([
-      "modifyResource",
-      "applyModifier",
-    ]);
+    expect(a.effects.map((e) => e.type)).toEqual(["applyModifier"]);
   });
 
   it("does not mutate the registry action", () => {
     resolveActiveActions(peaceCleric(["t6b_f"]));
-    expect(getActionById("emboldening_bond").effects).toHaveLength(3);
+    expect(getActionById("emboldening_bond").effects).toHaveLength(2);
   });
 
   it("removing the granting feature restores the effect", () => {
@@ -159,7 +156,7 @@ describe("removing an effect from an action (Emboldening Bond: concentration)", 
         }),
       ],
     });
-    expect(r.template.effects).toHaveLength(3);
+    expect(r.template.effects).toHaveLength(2);
     expect(r.trail).toEqual([]);
     expect(warn).toHaveBeenCalledTimes(1);
     warn.mockRestore();
@@ -177,7 +174,7 @@ describe("removing an effect from an action (Emboldening Bond: concentration)", 
           effect: {
             type: "endEffects",
             statusIds: ["charmed"],
-            key: "cleanse",
+            key: [undefined, "cleanse"],
           },
         },
       ],
@@ -194,7 +191,7 @@ describe("removing an effect from an action (Emboldening Bond: concentration)", 
     expect(r.template.effects.map((e) => e.key)).toEqual([
       undefined,
       undefined,
-      "cleanse",
+      ["cleanse"],
     ]);
     expect(warn).toHaveBeenCalledTimes(1); // second add: duplicate key
     warn.mockRestore();
