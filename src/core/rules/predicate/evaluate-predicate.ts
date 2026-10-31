@@ -5,7 +5,7 @@ import { getTotalCharacterLevel } from "./../character/character-multiclassing";
 import { resolveCheckProficiency } from "../character/checks-helper";
 import { getActiveFeatures } from "../character/features-helper";
 import { ResolvedBase } from "@/core/entities/rules/resolved-base";
-import { Expr, Rounding } from "@/core/entities/rules/expr/expr";
+import { Expr, Num, Rounding } from "@/core/entities/rules/expr/expr";
 import {
   getRawBase,
   getAbilityModifier,
@@ -63,6 +63,11 @@ function warnOnce(key: string, msg: string) {
   if (process.env.NODE_ENV === "production" || warned.has(key)) return;
   warned.add(key);
   console.warn(`[predicate] ${msg}`);
+}
+
+/** A literal passes through; an Expr is evaluated. undefined = unresolvable. */
+export function evalNum(n: Num, ctx: ExprContext): number | undefined {
+  return typeof n === "number" ? n : evaluateExpr(n, ctx);
 }
 
 export function evaluateExpr(e: Expr, ctx: ExprContext): number | undefined {
@@ -153,6 +158,10 @@ export function evaluateExpr(e: Expr, ctx: ExprContext): number | undefined {
         .filter((k) => k <= v)
         .sort((a, b) => b - a)[0];
       return hit === undefined ? (e.below ?? 0) : e.steps[String(hit)];
+    }
+    case "lookup": {
+      const v = evaluateExpr(e.by, ctx);
+      return v === undefined ? undefined : e.entries[String(v)];
     }
     case "param":
       return ctx.resolveParam?.(e.id, e.field ?? "value");
