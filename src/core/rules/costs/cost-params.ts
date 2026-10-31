@@ -3,7 +3,8 @@ import {
   RangeParamDef,
   ResourceParamDef,
 } from "@/core/entities/actions/cost-option";
-import { evaluateExpr } from "@/core/rules/predicate/evaluate-predicate";
+import { Num } from "@/core/entities/rules/expr/expr";
+import { evalNum } from "@/core/rules/predicate/evaluate-predicate";
 import {
   ResourceContext,
   resolvedResource,
@@ -17,14 +18,16 @@ export function candidateResources(
   def: ResourceParamDef,
   ctx: ResourceContext,
 ): string[] {
-  const min = def.minRank ? evaluateExpr(def.minRank, ctx) : null;
-  const max = def.maxRank ? evaluateExpr(def.maxRank, ctx) : null;
+  // `!== undefined`, never truthiness: a literal 0 is a valid bound.
+  const bound = (n: Num | undefined) =>
+    n === undefined ? null : evalNum(n, ctx);
+  const min = bound(def.minRank);
+  const max = bound(def.maxRank);
   if (min === undefined || max === undefined) return []; // unresolvable bound
 
   return Object.keys(character.resources)
     .flatMap((id) => {
-      const template = resolvedResource(id, ctx);
-      if (!template?.groups?.includes(def.group)) return [];
+      if (!resolvedResource(id, ctx)?.groups?.includes(def.group)) return [];
       const rank = resourceRank(id, ctx);
       if (rank === undefined || resourceMax(character, id, ctx) <= 0) return [];
       if (min !== null && rank < min) return [];
@@ -39,8 +42,8 @@ export function rangeBounds(
   def: RangeParamDef,
   ctx: ResourceContext,
 ): { min: number; max: number } | undefined {
-  const min = evaluateExpr(def.min, ctx);
-  const max = evaluateExpr(def.max, ctx);
+  const min = evalNum(def.min, ctx);
+  const max = evalNum(def.max, ctx);
   return min === undefined || max === undefined
     ? undefined
     : { min: Math.floor(min), max: Math.floor(max) };

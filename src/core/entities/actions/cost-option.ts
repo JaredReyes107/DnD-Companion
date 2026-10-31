@@ -1,27 +1,30 @@
-import { Expr } from "../rules/expr/expr";
 import { Predicate } from "../rules/predicate/predicate";
+import { Num } from "../rules/expr/expr";
 
 /** What the player picked on the board. */
 export type PaymentChoice = { optionId: string; params: ParamAssignment };
 
 /** QUANTITY: the player picks an integer in [min, max]. */
-export type RangeParamDef = { id: string; kind: "range"; min: Expr; max: Expr };
+export type RangeParamDef = { id: string; kind: "range"; min: Num; max: Num };
 
-/** IDENTITY: the player picks one resource of a group, optionally within a rank window. */
 export type ResourceParamDef = {
   id: string;
   kind: "resource";
   group: string;
-  minRank?: Expr;
-  maxRank?: Expr;
+  minRank?: Num;
+  maxRank?: Num;
 };
 
 export type ParamDef = RangeParamDef | ResourceParamDef;
 
 export type ResourceRef = { resourceId: string } | { param: string };
 
-/** Signed like modifyResource: negative spends, positive gains. */
-export type CostLine = { resource: ResourceRef; delta: Expr };
+export type CostLine = {
+  /** Override address. Defaults to the resource id, or "param:<id>". Explicit when two lines share a default. */
+  key?: string;
+  resource: ResourceRef;
+  delta: Num;
+};
 
 export type CostOption = {
   id: string; // global (localized under costOptions), like action ids

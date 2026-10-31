@@ -4,6 +4,7 @@ import { buildResourceContext } from "@/core/rules/character/resource-max";
 import { resolveCostChoices } from "@/core/rules/costs/resolve-cost-choices";
 import { pay, validatePayment } from "@/core/rules/costs/payment";
 import { candidateResources } from "@/core/rules/costs/cost-params";
+import { lineKey } from "@/core/rules/costs/cost-keys";
 
 const slotParam = (minRank: number, maxRank?: number) =>
   ({
@@ -327,5 +328,40 @@ describe("Lay on Hands: a quantity param", () => {
         expect(bad.map((r) => r.id)).toEqual([]);
       });
     });
+  });
+});
+
+describe("Num fields", () => {
+  const option: CostOption = {
+    id: "t10_plain",
+    params: [{ id: "slot", kind: "resource", group: "spell_slot", minRank: 2 }],
+    lines: [{ resource: { param: "slot" }, delta: -2 }],
+  };
+
+  it("plain numbers work anywhere an Expr did", () => {
+    const c = makeChar([["wizard", 5]], {
+      spell_slot_1: 0,
+      spell_slot_2: 0,
+      spell_slot_3: 0,
+    });
+    const ctx = buildResourceContext(c);
+    expect(resolveCostChoices(c, [option], ctx).map((x) => x.key)).toEqual([
+      "t10_plain|slot=spell_slot_2",
+      "t10_plain|slot=spell_slot_3",
+    ]);
+    const r = pay(c, option, { slot: slotRes("spell_slot_2") }, ctx);
+    expect(r.ok && r.character.resources.spell_slot_2.spent).toBe(2);
+  });
+
+  it("line keys default to the resource id or the param, and explicit keys win", () => {
+    expect(lineKey({ resource: { resourceId: "ki_points" }, delta: -1 })).toBe(
+      "ki_points",
+    );
+    expect(lineKey({ resource: { param: "slot" }, delta: -1 })).toBe(
+      "param:slot",
+    );
+    expect(
+      lineKey({ key: "price", resource: { resourceId: "x" }, delta: -1 }),
+    ).toBe("price");
   });
 });

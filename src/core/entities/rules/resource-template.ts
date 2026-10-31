@@ -1,4 +1,4 @@
-import { Expr } from "./expr/expr";
+import { Expr, Num } from "./expr/expr";
 import { ContentOrigin } from "./content-origin";
 import { ResourceGrantor } from "./grantor";
 import { TimingTrigger } from "./trigger";
@@ -47,7 +47,7 @@ export type ResourceTemplate = {
   /** Pools of interchangeable payers (e.g. "spell_slot", "standard_slot"). Requires `rank`. */
   groups?: string[];
   /** Position inside every group it belongs to. An Expr, so pact slots can derive it from level. */
-  rank?: Expr;
+  rank?: Num;
 
   tags?: string[];
 };

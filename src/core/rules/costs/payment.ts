@@ -5,7 +5,7 @@ import {
   PaymentCheck,
 } from "@/core/entities/actions/cost-option";
 import {
-  evaluateExpr,
+  evalNum,
   isSatisfied,
 } from "@/core/rules/predicate/evaluate-predicate";
 import {
@@ -60,7 +60,7 @@ export function validatePayment(
         : p?.kind === "resource"
           ? p.resourceId
           : undefined;
-    const raw = evaluateExpr(line.delta, pctx);
+    const raw = evalNum(line.delta, pctx);
     if (!id || raw === undefined) return fail({ kind: "unresolvable" });
     totals.set(id, (totals.get(id) ?? 0) + Math.trunc(raw));
   }

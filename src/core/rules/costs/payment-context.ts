@@ -1,5 +1,5 @@
 import { ParamAssignment } from "@/core/entities/actions/cost-option";
-import { evaluateExpr } from "@/core/rules/predicate/evaluate-predicate";
+import { evalNum } from "@/core/rules/predicate/evaluate-predicate";
 import {
   ResourceContext,
   resolvedResource,
@@ -10,8 +10,8 @@ export function resourceRank(
   ctx: ResourceContext,
 ): number | undefined {
   const rank = resolvedResource(id, ctx)?.rank;
-  if (!rank) return undefined;
-  const value = evaluateExpr(rank, ctx);
+  if (rank === undefined) return undefined;
+  const value = evalNum(rank, ctx);
   return value === undefined ? undefined : Math.floor(value);
 }
 

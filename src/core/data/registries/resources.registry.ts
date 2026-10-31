@@ -11,7 +11,7 @@ let cached: Record<string, ResourceTemplate> | null = null;
 export function validateResourceTemplate(t: ResourceTemplate): string[] {
   const errors: string[] = [];
   if (t.groups?.some((g) => g.trim() === "")) errors.push("empty group name");
-  if (t.groups?.length && !t.rank)
+  if (t.groups?.length && t.rank === undefined)
     errors.push("belongs to groups but has no rank");
   return errors;
 }
