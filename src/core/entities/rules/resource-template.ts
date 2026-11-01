@@ -6,13 +6,13 @@ import { Comparator } from "./predicate/predicate";
 
 export type RestoreAmount =
   | "full"
-  | { kind: "reset"; value: Expr } // current := value
-  | { kind: "delta"; value: Expr }; // current += value (negative = decay)
+  | { kind: "reset"; value: Num } // current := value
+  | { kind: "delta"; value: Num }; // current += value (negative = decay)
 
 /** Compares the resource's own current value, before the restore. */
 export type ResourceRechargeCondition = {
   operator: Comparator;
-  value: number;
+  value: Num;
 };
 
 export type RestoreRule = {

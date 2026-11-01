@@ -28,7 +28,7 @@ export type ConvertResourceEffect = EffectBase & {
 export type ApplyModifierEffect = EffectBase & {
   type: "applyModifier";
   modifiers: string[]; //modifierId
-  durationRounds?: number;
+  durationRounds?: Num;
   endsAt?: "startOfTurn" | "endOfTurn"; // default "startOfTurn"
   endsEarlyOn?: ExpiryCondition[]; // e.g. onZeroHp, onSpecificAction
   stacking?: "overlap" | "refresh" | "override" | "ignore";
@@ -39,7 +39,7 @@ export type ApplyAdvantageEffect = EffectBase & {
   type: "applyAdvantage";
   nodeIds: string[]; // CheckNode ids; a parent node covers its descendants
   polarity: AdvantagePolarity;
-  durationRounds?: number;
+  durationRounds?: Num;
   endsAt?: "startOfTurn" | "endOfTurn";
   endsEarlyOn?: ExpiryCondition[];
   concentration?: boolean;
@@ -48,7 +48,7 @@ export type ApplyAdvantageEffect = EffectBase & {
 export type ApplyStatusEffect = EffectBase & {
   type: "applyStatus";
   statusId: string;
-  durationRounds?: number;
+  durationRounds?: Num;
   endsAt?: "startOfTurn" | "endOfTurn";
   endsEarlyOn?: ExpiryCondition[];
 };

@@ -4,7 +4,7 @@ import {
   RestoreRule,
 } from "@/core/entities/rules/resource-template";
 import { TimingTrigger } from "@/core/entities/rules/trigger";
-import { evaluateExpr } from "@/core/rules/predicate/evaluate-predicate";
+import { evalNum } from "@/core/rules/predicate/evaluate-predicate";
 import { evaluateComparator } from "@/core/rules/shared/comparator-helper";
 import {
   buildResourceContext,
@@ -24,7 +24,7 @@ function restoredCurrent(
   ctx: ResourceContext,
 ): number {
   if (amount === "full") return max;
-  const value = evaluateExpr(amount.value, ctx);
+  const value = evalNum(amount.value, ctx);
   if (value === undefined) {
     console.warn("[resources] restore amount is unresolvable; skipped");
     return current;
@@ -33,18 +33,23 @@ function restoredCurrent(
   return Math.min(max, Math.max(0, Math.floor(next)));
 }
 
-/** First rule matching a trigger, tried in `priority` order (a long rest prefers a resource's own longRest rule). */
 function findRule(
   rules: RestoreRule[],
   priority: TriggerType[],
   current: number,
+  ctx: ResourceContext,
 ): RestoreRule | undefined {
   for (const type of priority) {
-    const hit = rules.find(
-      (r) =>
-        r.trigger.type === type &&
-        (!r.when || evaluateComparator(current, r.when.operator, r.when.value)),
-    );
+    const hit = rules.find((r) => {
+      if (r.trigger.type !== type) return false;
+      if (!r.when) return true;
+      const threshold = evalNum(r.when.value, ctx);
+      // An unresolvable threshold never matches: nothing is restored on a guess.
+      return (
+        threshold !== undefined &&
+        evaluateComparator(current, r.when.operator, threshold)
+      );
+    });
     if (hit) return hit;
   }
   return undefined;
@@ -65,7 +70,7 @@ export function restoreResources(
     const max = resourceMax(character, id, ctx);
     if (!Number.isFinite(max)) continue; // unbounded: nothing to track
     const current = resourceCurrent(character, id, ctx);
-    const rule = findRule(recharge, priority, current);
+    const rule = findRule(recharge, priority, current, ctx);
     if (!rule) continue;
     const spent = max - restoredCurrent(rule.amount, current, max, ctx);
     if (spent !== instance.spent) {

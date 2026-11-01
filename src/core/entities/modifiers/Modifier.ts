@@ -1,5 +1,5 @@
 import { ExpiryCondition } from "../rules/duration/expiry-condition";
-import { Expr } from "../rules/expr/expr";
+import { Num } from "../rules/expr/expr";
 import { StatModel } from "../rules/stats.types";
 import { Condition } from "./Condition";
 
@@ -11,7 +11,7 @@ export enum ModifierType {
   CAP = "cap",
 }
 
-export type ModifierValue = number | Expr;
+export type ModifierValue = Num;
 
 export interface ModifierTemplate {
   id: string;

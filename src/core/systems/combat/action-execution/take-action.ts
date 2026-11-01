@@ -35,6 +35,17 @@ import {
 import { pay } from "@/core/rules/costs/payment";
 import { resolveCostChoices } from "@/core/rules/costs/resolve-cost-choices";
 import { evalNum } from "@/core/rules/predicate/evaluate-predicate";
+import { Num } from "@/core/entities/rules/expr/expr";
+
+/** undefined = no duration given; null = given but unresolvable. */
+function resolveRounds(
+  n: Num | undefined,
+  ctx: ResourceContext,
+): number | undefined | null {
+  if (n === undefined) return undefined;
+  const v = evalNum(n, ctx);
+  return v === undefined ? null : Math.max(0, Math.floor(v));
+}
 
 export function applyRuntimeModifier(
   character: Character,
@@ -176,6 +187,14 @@ export function executeAction(
 
         const currentRound = updatedCharacter.combatState.round;
 
+        const rounds = resolveRounds(effect.durationRounds, rc());
+        if (rounds === null) {
+          console.warn(
+            `[actions] "${action.id}": unresolvable duration; ${effect.type} skipped`,
+          );
+          break;
+        }
+
         for (const modifierId of effect.modifiers) {
           const template = getModifierTemplateById(modifierId);
           const modifierInstance = instantiateModifier(
@@ -192,7 +211,7 @@ export function executeAction(
 
           const expiryConditions = buildExpiryConditions(
             currentRound,
-            effect.durationRounds,
+            rounds,
             effect.endsAt,
             effect.endsEarlyOn,
           );
@@ -209,9 +228,17 @@ export function executeAction(
         if (!updatedCharacter.combatState) break;
 
         const currentRound = updatedCharacter.combatState.round;
+        const rounds = resolveRounds(effect.durationRounds, rc());
+        if (rounds === null) {
+          console.warn(
+            `[actions] "${action.id}": unresolvable duration; ${effect.type} skipped`,
+          );
+          break;
+        }
+
         const expiryConditions = buildExpiryConditions(
           currentRound,
-          effect.durationRounds,
+          rounds,
           effect.endsAt,
           effect.endsEarlyOn,
         );
@@ -230,6 +257,15 @@ export function executeAction(
       case "applyStatus": {
         if (!updatedCharacter.combatState) break;
         const template = getStatusTemplateById(effect.statusId);
+
+        const rounds = resolveRounds(effect.durationRounds, rc());
+        if (rounds === null) {
+          console.warn(
+            `[actions] "${action.id}": unresolvable duration; ${effect.type} skipped`,
+          );
+          break;
+        }
+
         const limit =
           template.limitStat !== undefined
             ? resolveStatValue(updatedCharacter, {
@@ -239,7 +275,7 @@ export function executeAction(
             : undefined;
         const timed = buildExpiryConditions(
           updatedCharacter.combatState.round,
-          effect.durationRounds,
+          rounds,
           effect.endsAt,
           effect.endsEarlyOn,
         );
