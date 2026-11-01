@@ -11,6 +11,13 @@ import { resolveCostChoices } from "@/core/rules/costs/resolve-cost-choices";
 import { pay } from "@/core/rules/costs/payment";
 import { isActionAvailable } from "@/core/systems/combat/action-execution/take-action";
 import { makeChar } from "./fixtures";
+import { Character } from "@/core/entities/character/Character";
+import {
+  defaultRangeValues,
+  withRangeValues,
+} from "@/core/rules/costs/resolve-cost-choices";
+import { validatePayment } from "@/core/rules/costs/payment";
+import { executeAction } from "@/core/systems/combat/action-execution/take-action";
 
 type Char = ReturnType<typeof makeChar>;
 const optionsOf = (id: string) => getActionById(id).costOptions ?? [];
@@ -140,5 +147,63 @@ describe("Font of Magic", () => {
     const [choice] = resolveCostChoices(c, [homebrew], buildResourceContext(c));
     expect(choice.key).toBe("t12_font6|slot=spell_slot_6");
     expect(choice.failure).toEqual({ kind: "unresolvable" });
+  });
+});
+
+describe("Lay on Hands", () => {
+  const paladin = (spent: number) =>
+    makeChar([["paladin", 5]], { lay_on_hands: spent }, true); // pool 25
+  const byOption = (c: Char) =>
+    Object.fromEntries(
+      choicesOf("lay_on_hands", c).map((x) => [x.optionId, x]),
+    );
+
+  it("heal ranges from 1 to what is left; cleanse costs a fixed 5", () => {
+    const { lay_on_hands_heal: heal, lay_on_hands_cleanse: cleanse } = byOption(
+      paladin(5),
+    ); // 20 left
+    expect(heal.ranges).toEqual([{ id: "amount", min: 1, max: 20 }]);
+    expect(defaultRangeValues(heal)).toEqual({ amount: 1 });
+    expect(cleanse.ranges).toEqual([]);
+    expect(cleanse.affordable).toBe(true);
+  });
+
+  it("cleanse is unaffordable below 5, heal below 1", () => {
+    expect(byOption(paladin(22)).lay_on_hands_cleanse.affordable).toBe(false);
+    expect(byOption(paladin(25)).lay_on_hands_heal.affordable).toBe(false);
+  });
+
+  it("withRangeValues builds the payment and validation catches a bad amount", () => {
+    const c = paladin(0);
+    const heal = byOption(c).lay_on_hands_heal;
+    const option = optionsOf("lay_on_hands")[0];
+    const ctx = buildResourceContext(c);
+    expect(
+      validatePayment(c, option, withRangeValues(heal, { amount: 12 }), ctx).ok,
+    ).toBe(true);
+    expect(
+      validatePayment(c, option, withRangeValues(heal, { amount: 26 }), ctx),
+    ).toEqual({
+      ok: false,
+      failure: { kind: "outOfRange", paramId: "amount", min: 1, max: 25 },
+    });
+  });
+
+  it("executeAction pays the chosen amount and charges the economy slot once", () => {
+    const c = paladin(0);
+    const heal = byOption(c).lay_on_hands_heal;
+    const dispatch = jest.fn();
+    const result = executeAction(getActionById("lay_on_hands"), {
+      character: c,
+      dispatch,
+      payment: {
+        optionId: heal.optionId,
+        params: withRangeValues(heal, { amount: 12 }),
+      },
+    });
+    expect(result).toEqual({ ok: true });
+    const out = dispatch.mock.calls[0][0] as Character;
+    expect(out.resources.lay_on_hands.spent).toBe(12);
+    expect(out.combatState!.actionEconomy.actions.current).toBe(0);
   });
 });

@@ -1,6 +1,6 @@
-import { anySlot, spendSlot } from "../cost-builders";
-
 import { ActionInstance } from "@/core/entities/actions/action-instance";
+import { E } from "@/core/entities/rules/expr/expr";
+import { anySlot, spendSlot, spend } from "../cost-builders";
 
 import { DEVOTION_ACTIONS } from "../by-subclass/paladin/devotion-actions";
 import { ANCIENTS_ACTIONS } from "../by-subclass/paladin/ancients-actions";
@@ -49,14 +49,26 @@ export const PALADIN_ACTIONS: Record<string, ActionInstance> = {
     sourceId: "paladin",
     boards: ["combat", "roleplay", "exploration"],
     duration: { kind: "economy", slot: "action" },
-    //TODO: Make the amount an argument / variable resource
-    effects: [
+    costOptions: [
       {
-        type: "modifyResource",
-        resourceId: "lay_on_hands",
-        amount: -5,
+        id: "lay_on_hands_heal",
+        // 1 up to everything left in the pool
+        params: [
+          {
+            id: "amount",
+            kind: "range",
+            min: 1,
+            max: E.resource("lay_on_hands"),
+          },
+        ],
+        lines: [{ ...spend("lay_on_hands", E.param("amount")), key: "pool" }],
+      },
+      {
+        id: "lay_on_hands_cleanse",
+        lines: [{ ...spend("lay_on_hands", 5), key: "pool" }],
       },
     ],
+    effects: [],
   },
   divine_smite: {
     id: "divine_smite",
@@ -73,7 +85,6 @@ export const PALADIN_ACTIONS: Record<string, ActionInstance> = {
     sourceId: "paladin",
     boards: ["combat"],
     duration: { kind: "instantaneous" },
-    //TODO: Make the spell_slot level an argument
     effects: [],
   },
   cleansing_touch: {

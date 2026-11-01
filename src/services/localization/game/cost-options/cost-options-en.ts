@@ -9,5 +9,6 @@ export const cost_options_en: GameLocalization = {
     font_of_magic_to_points: { name: "Convert slot" },
     lay_on_hands_heal: { name: "Heal" },
     lay_on_hands_cleanse: { name: "Cleanse" },
+    "lay_on_hands_heal.amount": { name: "Points" },
   },
 };

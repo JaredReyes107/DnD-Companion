@@ -9,5 +9,6 @@ export const cost_options_es: GameLocalization = {
     font_of_magic_to_points: { name: "Convertir Espacio de Conjuro" },
     lay_on_hands_heal: { name: "Curar" },
     lay_on_hands_cleanse: { name: "Purificar" },
+    "lay_on_hands_heal.amount": { name: "Puntos" },
   },
 };

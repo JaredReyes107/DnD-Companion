@@ -102,3 +102,21 @@ export function resolveCostChoices(
     ),
   );
 }
+
+/** Starting value for each range param on the stepper. */
+export function defaultRangeValues(
+  choice: ResolvedCostChoice,
+): Record<string, number> {
+  return Object.fromEntries(choice.ranges.map((r) => [r.id, r.min]));
+}
+
+/** The full assignment: the choice's resource params plus the player's range values. */
+export function withRangeValues(
+  choice: ResolvedCostChoice,
+  values: Record<string, number>,
+): ParamAssignment {
+  const out: ParamAssignment = { ...choice.params };
+  for (const r of choice.ranges)
+    out[r.id] = { kind: "range", value: values[r.id] ?? r.min };
+  return out;
+}
