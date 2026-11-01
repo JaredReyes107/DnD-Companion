@@ -1,3 +1,5 @@
+import { anySlot, spendSlot } from "../cost-builders";
+
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 
 import { DEVOTION_ACTIONS } from "../by-subclass/paladin/devotion-actions";
@@ -61,14 +63,10 @@ export const PALADIN_ACTIONS: Record<string, ActionInstance> = {
     sourceId: "paladin",
     boards: ["combat"],
     duration: { kind: "instantaneous" },
-    //TODO: Make the spell_slot level an argument / variable resource
-    effects: [
-      {
-        type: "modifyResource",
-        resourceId: "spell_slot_1",
-        amount: -1,
-      },
+    costOptions: [
+      { id: "divine_smite_slot", params: [anySlot()], lines: [spendSlot] },
     ],
+    effects: [], // damage scaling is rolled physically
   },
   improved_divine_smite: {
     id: "improved_divine_smite",

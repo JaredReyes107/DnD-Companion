@@ -1,4 +1,5 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
+import { spend, anySlot, spendSlot } from "../../cost-builders";
 
 export const STARS_ACTIONS: Record<string, ActionInstance> = {
   star_map_guiding_bolt: {
@@ -6,13 +7,18 @@ export const STARS_ACTIONS: Record<string, ActionInstance> = {
     sourceId: "stars",
     duration: { kind: "economy", slot: "action" },
     boards: ["combat"],
-    effects: [
+    costOptions: [
       {
-        type: "modifyResource",
-        resourceId: "star_map_guiding_bolt",
-        amount: -1,
+        id: "star_map_guiding_bolt_charge",
+        lines: [spend("star_map_guiding_bolt")],
+      },
+      {
+        id: "star_map_guiding_bolt_slot",
+        params: [anySlot()],
+        lines: [spendSlot],
       },
     ],
+    effects: [],
   },
   starry_form: {
     id: "starry_form",
