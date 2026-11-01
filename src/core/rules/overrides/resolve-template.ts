@@ -4,6 +4,7 @@ import { getResourceById } from "@/core/data/registries/resources.registry";
 import { getStatusTemplateById } from "@/core/data/registries/status.registry";
 import { Character } from "@/core/entities/character/Character";
 import {
+  ADJUSTABLE_FIELDS,
   AppliedPatch,
   OverrideFor,
   OverrideTemplate,
@@ -15,6 +16,11 @@ import {
 } from "@/core/entities/rules/override/override-template";
 import { OverrideContext, buildOverrideContext } from "./active-overrides";
 import { ActionEffect } from "@/core/entities/actions/action-instance";
+import { ModifierType } from "@/core/entities/modifiers/Modifier";
+import { Num } from "@/core/entities/rules/expr/expr";
+import { adjustNum, toExpr } from "@/core/entities/rules/override/adjust-num";
+import { ResourceTemplate } from "@/core/entities/rules/resource-template";
+import { DEFAULT_MODIFIER_PRIORITY } from "../modifiers/stacking";
 
 const LOOKUP: { [K in TemplateKind]: (id: string) => TemplateByKind[K] } = {
   resource: getResourceById,
@@ -90,6 +96,41 @@ function applyPatches<K extends TemplateKind>(
             key: p.effect.key,
           });
         }
+        continue;
+      }
+      if (p.op === "adjust") {
+        if (!(ADJUSTABLE_FIELDS[kind] as readonly string[]).includes(p.field)) {
+          console.warn(
+            `[overrides] "${o.id}" adjusts non-adjustable ${kind}.${p.field}; ignored`,
+          );
+          continue;
+        }
+        // A modifier without its own priority uses the default for its type.
+        const current =
+          kind === "modifier" &&
+          p.field === "priority" &&
+          template.priority === undefined
+            ? DEFAULT_MODIFIER_PRIORITY[template.type as ModifierType]
+            : (template[p.field] as Num | undefined);
+        const next = adjustNum(current, p.mode, p.value);
+        if (next === undefined) {
+          console.warn(
+            `[overrides] "${o.id}": ${kind}.${p.field} has no value to ${p.mode}; ignored`,
+          );
+          continue;
+        }
+        const after =
+          kind === "resource" && p.field === "max" ? toExpr(next) : next; // max is always an Expr
+        trail.push({
+          overrideId: o.id,
+          sourceId: o.sourceId,
+          op: "adjust",
+          field: p.field,
+          mode: p.mode,
+          before: template[p.field],
+          after,
+        });
+        template = { ...template, [p.field]: after };
         continue;
       }
       if (!allowed.includes(p.field)) {

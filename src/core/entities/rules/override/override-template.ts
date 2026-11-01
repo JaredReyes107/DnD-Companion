@@ -5,6 +5,7 @@ import {
 } from "@/core/entities/actions/action-instance";
 import { ModifierTemplate } from "@/core/entities/modifiers/Modifier";
 import { StatusTemplate } from "../status/status-template";
+import { Num } from "@/core/entities/rules/expr/expr";
 
 export type TemplateKind = "resource" | "action" | "modifier" | "status";
 
@@ -59,11 +60,6 @@ type CollectionPatch<K extends TemplateKind> = K extends "action"
   ? ActionEffectPatch
   : never;
 
-export type Patch<K extends TemplateKind> =
-  | SetPatch<K>
-  | DescriptionPatch
-  | CollectionPatch<K>;
-
 export type IdSelector = { id: string };
 export type GroupSelector = { group: string };
 /** Only resources have groups. */
@@ -80,6 +76,36 @@ export type OverrideFor<K extends TemplateKind> = {
 export type OverrideTemplate = {
   [K in TemplateKind]: OverrideFor<K>;
 }[TemplateKind];
+
+export type AdjustMode = "set" | "add" | "mul";
+
+export type AdjustableFields = {
+  resource: "max" | "rank";
+  action: never;
+  modifier: "value" | "priority";
+  status: never;
+};
+export const ADJUSTABLE_FIELDS: {
+  [K in TemplateKind]: readonly AdjustableFields[K][];
+} = {
+  resource: ["max", "rank"],
+  action: [],
+  modifier: ["value", "priority"],
+  status: [],
+};
+
+export type AdjustPatch<K extends TemplateKind> = {
+  op: "adjust";
+  field: AdjustableFields[K];
+  mode: AdjustMode;
+  value: Num;
+};
+
+export type Patch<K extends TemplateKind> =
+  | SetPatch<K>
+  | AdjustPatch<K>
+  | DescriptionPatch
+  | CollectionPatch<K>;
 
 export type AppliedPatch =
   | {
@@ -98,7 +124,16 @@ export type AppliedPatch =
       text?: Record<string, string>;
     }
   | { overrideId: string; sourceId?: string; op: "removeEffect"; key: string }
-  | { overrideId: string; sourceId?: string; op: "addEffect"; key: string };
+  | { overrideId: string; sourceId?: string; op: "addEffect"; key: string }
+  | {
+      overrideId: string;
+      sourceId?: string;
+      op: "adjust";
+      field: string;
+      mode: AdjustMode;
+      before: unknown;
+      after: unknown;
+    };
 
 export type ResolvedTemplate<K extends TemplateKind> = {
   kind: K;
