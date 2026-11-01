@@ -19,7 +19,13 @@ beforeAll(() => {
       id: "t6_surge_long",
       kind: "resource",
       target: { id: "action_surge" },
-      patches: [{ op: "set", field: "recharge", value: "longRest" }],
+      patches: [
+        {
+          op: "set",
+          field: "recharge",
+          value: [{ trigger: { type: "longRest" }, amount: "full" }],
+        },
+      ],
     }),
   );
   registerHomebrewOverride(

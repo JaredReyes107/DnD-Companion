@@ -9,6 +9,7 @@ import {
   OverrideTemplate,
   PATCHABLE_FIELDS,
   ResolvedTemplate,
+  Selector,
   TemplateByKind,
   TemplateKind,
 } from "@/core/entities/rules/override/override-template";
@@ -117,8 +118,9 @@ export function resolveTemplateWith<K extends TemplateKind>(
   ctx: OverrideContext,
 ): ResolvedTemplate<K> {
   const base = LOOKUP[kind](id);
+  const groups = groupsOf(kind, base);
   const matching = orderOverrides(ctx.active, kind, (o) =>
-    matchesTarget(o.target, id),
+    matchesTarget(o.target as Selector, id, groups),
   );
   return { kind, id, ...applyPatches(kind, base, matching) };
 }
@@ -144,4 +146,11 @@ export const resolveTemplate = <K extends TemplateKind>(
   character: Character,
 ) => resolveTemplateWith(kind, id, buildOverrideContext(character));
 
-const matchesTarget = (t: { id: string }, id: string) => t.id === id;
+function groupsOf(kind: TemplateKind, template: unknown): readonly string[] {
+  return kind === "resource"
+    ? ((template as ResourceTemplate).groups ?? [])
+    : [];
+}
+
+const matchesTarget = (t: Selector, id: string, groups: readonly string[]) =>
+  "group" in t ? groups.includes(t.group) : t.id === id;

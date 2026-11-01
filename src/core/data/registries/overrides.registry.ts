@@ -7,6 +7,10 @@ export const BASE_OVERRIDES: Record<string, OverrideTemplate> = {};
 export function registerHomebrewOverride(o: OverrideTemplate) {
   if (o.patches.length === 0)
     throw new Error(`Override ${o.id} has no patches`);
+  if ("group" in o.target && o.kind !== "resource")
+    throw new Error(
+      `Override ${o.id}: group selectors only apply to resources`,
+    );
   homebrewOverrides[o.id] = o;
 }
 

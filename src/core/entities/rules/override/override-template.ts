@@ -64,12 +64,17 @@ export type Patch<K extends TemplateKind> =
   | DescriptionPatch
   | CollectionPatch<K>;
 
+export type IdSelector = { id: string };
+export type GroupSelector = { group: string };
+/** Only resources have groups. */
+export type Selector = IdSelector | GroupSelector;
+
 export type OverrideFor<K extends TemplateKind> = {
   id: string;
   kind: K;
-  sourceId?: string; // who authored it: feature id, homebrew pack
-  target: { id: string }; // widened to Selector in commit 5
-  priority?: number; // default 0; higher applies later and wins
+  sourceId?: string;
+  target: K extends "resource" ? Selector : IdSelector;
+  priority?: number;
   patches: Patch<K>[];
 };
 export type OverrideTemplate = {
