@@ -13,6 +13,8 @@ import {
   duplicateParamIds,
   lineKey,
 } from "@/core/rules/costs/cost-keys";
+import { Num } from "../expr/expr";
+import { adjustNum } from "./adjust-num";
 
 export type StructuralPatch = CostPatch; // widened in 18 and 19
 
@@ -24,10 +26,17 @@ export type Applied =
     : never;
 
 export type StructuralResult =
-  | { template: Record<string, unknown>; applied: Applied | AppliedAdjust }
+  | {
+      template: Record<string, unknown>;
+      applied: Applied | AppliedAdjust | AppliedAdjustCost;
+    }
   | undefined;
 type AppliedAdjust = Omit<
   Extract<AppliedPatch, { op: "adjust" }>,
+  "overrideId" | "sourceId"
+>;
+type AppliedAdjustCost = Omit<
+  Extract<AppliedPatch, { op: "adjustCost" }>,
   "overrideId" | "sourceId"
 >;
 
@@ -37,6 +46,7 @@ export const STRUCTURAL_OPS: ReadonlySet<string> = new Set([
   "removeCostLine",
   "addCostLine",
   "setCostParamGroup",
+  "adjustCost",
 ]);
 
 export const isStructural = (p: { op: string }): p is StructuralPatch =>
@@ -125,6 +135,64 @@ export function applyStructural(
       return done(
         replace({ ...o, lines: insert(o.lines, line, p.position) }),
         `${p.option}.${p.line.key}`,
+      );
+    }
+
+    case "adjustCost": {
+      const o = find(p.path.option);
+      if (!o) return fail(`no cost option "${p.path.option}"`);
+      const path = p.path;
+      const finish = (
+        next: CostOption,
+        label: string,
+        before: unknown,
+        after: unknown,
+      ): StructuralResult => ({
+        template: { ...template, costOptions: replace(next) },
+        applied: { op: "adjustCost", path: label, mode: p.mode, before, after },
+      });
+
+      if ("line" in path) {
+        const line = o.lines.find((l) => lineKey(l) === path.line);
+        if (!line) return fail(`no line "${path.line}" in "${o.id}"`);
+        const after = adjustNum(line.delta, p.mode, p.value);
+        if (after === undefined)
+          return fail(`line "${path.line}" has no value to ${p.mode}`);
+        return finish(
+          {
+            ...o,
+            lines: o.lines.map((l) =>
+              l === line ? { ...l, delta: after } : l,
+            ),
+          },
+          `${o.id}.${path.line}`,
+          line.delta,
+          after,
+        );
+      }
+
+      const param = o.params?.find((x) => x.id === path.param);
+      if (!param) return fail(`no param "${path.param}" in "${o.id}"`);
+      const allowed: readonly string[] =
+        param.kind === "range" ? ["min", "max"] : ["minRank", "maxRank"];
+      if (!allowed.includes(path.field))
+        return fail(`${param.kind} params have no "${path.field}"`);
+      const current = (param as Record<string, unknown>)[path.field] as
+        | Num
+        | undefined;
+      const after = adjustNum(current, p.mode, p.value);
+      if (after === undefined)
+        return fail(`"${path.param}.${path.field}" has no value to ${p.mode}`);
+      return finish(
+        {
+          ...o,
+          params: o.params!.map((x) =>
+            x === param ? ({ ...x, [path.field]: after } as ParamDef) : x,
+          ),
+        },
+        `${o.id}.${path.param}.${path.field}`,
+        current,
+        after,
       );
     }
 

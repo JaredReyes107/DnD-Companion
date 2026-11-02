@@ -57,6 +57,15 @@ export type ActionEffectPatch =
       position?: "start" | "end";
     };
 
+/** Where a cost adjustment lands. */
+export type CostPath =
+  | { option: string; line: string } // adjusts the line's signed delta
+  | {
+      option: string;
+      param: string;
+      field: "min" | "max" | "minRank" | "maxRank";
+    };
+
 export type CostPatch =
   | { op: "removeCostOption"; option: string }
   | { op: "addCostOption"; option: CostOption; position?: "start" | "end" }
@@ -67,7 +76,8 @@ export type CostPatch =
       line: CostLine & { key: string }; // addressable on purpose
       position?: "start" | "end";
     }
-  | { op: "setCostParamGroup"; option: string; param: string; group: string };
+  | { op: "setCostParamGroup"; option: string; param: string; group: string }
+  | { op: "adjustCost"; path: CostPath; mode: AdjustMode; value: Num };
 
 type CollectionPatch<K extends TemplateKind> = K extends "action"
   ? ActionEffectPatch | CostPatch
@@ -152,6 +162,15 @@ export type AppliedPatch =
       sourceId?: string;
       op: CostPatch["op"];
       target: string;
+    }
+  | {
+      overrideId: string;
+      sourceId?: string;
+      op: "adjustCost";
+      path: string;
+      mode: AdjustMode;
+      before: unknown;
+      after: unknown;
     };
 
 export type ResolvedTemplate<K extends TemplateKind> = {
