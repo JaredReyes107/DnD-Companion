@@ -6,6 +6,7 @@ import {
 import { ModifierTemplate } from "@/core/entities/modifiers/Modifier";
 import { StatusTemplate } from "../status/status-template";
 import { Num } from "@/core/entities/rules/expr/expr";
+import { CostLine, CostOption } from "../../actions/cost-option";
 
 export type TemplateKind = "resource" | "action" | "modifier" | "status";
 
@@ -56,8 +57,20 @@ export type ActionEffectPatch =
       position?: "start" | "end";
     };
 
+export type CostPatch =
+  | { op: "removeCostOption"; option: string }
+  | { op: "addCostOption"; option: CostOption; position?: "start" | "end" }
+  | { op: "removeCostLine"; option: string; line: string }
+  | {
+      op: "addCostLine";
+      option: string;
+      line: CostLine & { key: string }; // addressable on purpose
+      position?: "start" | "end";
+    }
+  | { op: "setCostParamGroup"; option: string; param: string; group: string };
+
 type CollectionPatch<K extends TemplateKind> = K extends "action"
-  ? ActionEffectPatch
+  ? ActionEffectPatch | CostPatch
   : never;
 
 export type IdSelector = { id: string };
@@ -133,6 +146,12 @@ export type AppliedPatch =
       mode: AdjustMode;
       before: unknown;
       after: unknown;
+    }
+  | {
+      overrideId: string;
+      sourceId?: string;
+      op: CostPatch["op"];
+      target: string;
     };
 
 export type ResolvedTemplate<K extends TemplateKind> = {

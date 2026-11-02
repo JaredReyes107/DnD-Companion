@@ -21,6 +21,10 @@ import { Num } from "@/core/entities/rules/expr/expr";
 import { adjustNum, toExpr } from "@/core/entities/rules/override/adjust-num";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 import { DEFAULT_MODIFIER_PRIORITY } from "../modifiers/stacking";
+import {
+  isStructural,
+  applyStructural,
+} from "@/core/entities/rules/override/apply-structural";
 
 const LOOKUP: { [K in TemplateKind]: (id: string) => TemplateByKind[K] } = {
   resource: getResourceById,
@@ -133,6 +137,17 @@ function applyPatches<K extends TemplateKind>(
         template = { ...template, [p.field]: after };
         continue;
       }
+      if (isStructural(p)) {
+        const r = applyStructural(kind, template, p, o.id);
+        if (!r) continue;
+        template = r.template;
+        trail.push({
+          overrideId: o.id,
+          sourceId: o.sourceId,
+          ...r.applied,
+        } as AppliedPatch);
+        continue;
+      }
       if (!allowed.includes(p.field)) {
         console.warn(
           `[overrides] "${o.id}" patches non-patchable ${kind}.${p.field}; ignored`,
@@ -159,6 +174,10 @@ export function resolveTemplateWith<K extends TemplateKind>(
   ctx: OverrideContext,
 ): ResolvedTemplate<K> {
   const base = LOOKUP[kind](id);
+  // group selectors match the BASE template's groups, never groups
+  // patched by another override. Which overrides apply must not depend on
+  // override order. Revisit if a real case needs "everything in the group
+  // after patches".
   const groups = groupsOf(kind, base);
   const matching = orderOverrides(ctx.active, kind, (o) =>
     matchesTarget(o.target as Selector, id, groups),

@@ -1,8 +1,17 @@
 import { OverrideTemplate } from "@/core/entities/rules/override/override-template";
 
-const homebrewOverrides: Record<string, OverrideTemplate> = {};
-
 export const BASE_OVERRIDES: Record<string, OverrideTemplate> = {};
+
+const COST_OPS = new Set([
+  "removeCostOption",
+  "addCostOption",
+  "removeCostLine",
+  "addCostLine",
+  "setCostParamGroup",
+  "adjustCost",
+]);
+
+const homebrewOverrides: Record<string, OverrideTemplate> = {};
 
 export function registerHomebrewOverride(o: OverrideTemplate) {
   if (o.patches.length === 0)
@@ -11,6 +20,11 @@ export function registerHomebrewOverride(o: OverrideTemplate) {
     throw new Error(
       `Override ${o.id}: group selectors only apply to resources`,
     );
+  if (
+    o.kind !== "action" &&
+    (o.patches as { op: string }[]).some((p) => COST_OPS.has(p.op))
+  )
+    throw new Error(`Override ${o.id}: cost ops only apply to actions`);
   homebrewOverrides[o.id] = o;
 }
 
