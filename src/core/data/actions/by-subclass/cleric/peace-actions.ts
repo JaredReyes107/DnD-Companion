@@ -16,7 +16,6 @@ export const PEACE_ACTIONS: Record<string, ActionInstance> = {
         type: "applyModifier",
         modifiers: ["emboldening_bond_active"],
       },
-      { type: "applyStatus", statusId: "concentrating", durationRounds: 100 },
     ],
   },
   channel_divinity_balm_of_peace: {

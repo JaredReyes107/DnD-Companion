@@ -14,7 +14,7 @@ import {
   lineKey,
 } from "@/core/rules/costs/cost-keys";
 import { Num } from "../expr/expr";
-import { adjustNum } from "./adjust-num";
+import { adjustNum } from "../../../rules/overrides/adjust-num";
 
 export type StructuralPatch = CostPatch; // widened in 18 and 19
 

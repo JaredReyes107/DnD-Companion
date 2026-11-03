@@ -7,6 +7,7 @@ import { getResourceById } from "@/core/data/registries/resources.registry";
 import { getAbilityModifier } from "@/core/rules/character/abilities-modifiers";
 import { resolveResourceMax } from "@/core/rules/character/resource-max";
 import { ExprContext } from "@/core/rules/predicate/evaluate-predicate";
+import { ResourceTemplate } from "src/core/entities/rules/resource-template.ts";
 
 type ClassSpec = [classId: string, level: number, subclassId?: string];
 
@@ -236,7 +237,10 @@ describe("evaluator fallback", () => {
     const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
     const tpl = {
       ...getResourceById("lay_on_hands"),
-      //max: { type: "stat", stat: { type: "custom", key: "x" } } as any,
+      max: {
+        type: "stat",
+        stat: { type: "custom", key: "x" },
+      } as unknown as ResourceTemplate["max"],
     };
     expect(resolveResourceMax(tpl, makeCtx([]))).toBe(0);
     expect(warn).toHaveBeenCalled();

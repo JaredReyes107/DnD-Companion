@@ -15,7 +15,7 @@ import { ROGUE_ACTIONS } from "../actions/by-class/rogue-actions";
 import { SORCERER_ACTIONS } from "../actions/by-class/sorcerer-actions";
 import { WARLOCK_ACTIONS } from "../actions/by-class/warlock-actions";
 import { WIZARD_ACTIONS } from "../actions/by-class/wizard-actions";
-import { duplicateEffectKeys } from "@/rules/validation/action-effects";
+import { duplicateEffectKeys } from "@/core/rules/validation/action-effects";
 import { normalizeAction } from "@/core/rules/costs/normalize-action";
 import {
   duplicateOptionIds,

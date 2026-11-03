@@ -8,6 +8,13 @@ import { StatusTemplate } from "../status/status-template";
 import { Num } from "@/core/entities/rules/expr/expr";
 import { CostLine, CostOption } from "../../actions/cost-option";
 
+// TODO:
+/*
+Commit 19 and 20 not implemented.
+Fix 1, 2, 3 and 4 done.
+Closing error (5) manually fixed
+ */
+
 export type TemplateKind = "resource" | "action" | "modifier" | "status";
 
 export type TemplateByKind = {
@@ -79,9 +86,13 @@ export type CostPatch =
   | { op: "setCostParamGroup"; option: string; param: string; group: string }
   | { op: "adjustCost"; path: CostPath; mode: AdjustMode; value: Num };
 
+export type GroupPatch = { op: "addGroup" | "removeGroup"; group: string };
+
 type CollectionPatch<K extends TemplateKind> = K extends "action"
   ? ActionEffectPatch | CostPatch
-  : never;
+  : K extends "resource"
+    ? GroupPatch
+    : never;
 
 export type IdSelector = { id: string };
 export type GroupSelector = { group: string };
@@ -171,6 +182,12 @@ export type AppliedPatch =
       mode: AdjustMode;
       before: unknown;
       after: unknown;
+    }
+  | {
+      overrideId: string;
+      sourceId?: string;
+      op: GroupPatch["op"];
+      target: string;
     };
 
 export type ResolvedTemplate<K extends TemplateKind> = {

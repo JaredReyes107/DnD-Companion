@@ -17,7 +17,8 @@
   "jest": {
     "preset": "jest-expo",
     "setupFiles": ["<rootDir>/jest.setup.ts"],
-    "moduleNameMapper": { "^@/(.*)$": "<rootDir>/src/$1" }
+    "moduleNameMapper": { "^@/(.*)$": "<rootDir>/src/$1" },
+    "testPathIgnorePatterns": ["/fixtures\\.ts$"]
   },
   "dependencies": {
     "@expo-google-fonts/montserrat": "^0.2.3",

@@ -5,7 +5,7 @@ import {
   gainSlot,
   spend,
   standardSlot,
-} from "@/core/data/actions/shared/cost-builders";
+} from "@/core/data/actions/cost-builders";
 import { buildResourceContext } from "@/core/rules/character/resource-max";
 import { resolveCostChoices } from "@/core/rules/costs/resolve-cost-choices";
 import { pay } from "@/core/rules/costs/payment";

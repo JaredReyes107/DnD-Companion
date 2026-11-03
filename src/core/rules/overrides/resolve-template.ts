@@ -18,7 +18,7 @@ import { OverrideContext, buildOverrideContext } from "./active-overrides";
 import { ActionEffect } from "@/core/entities/actions/action-instance";
 import { ModifierType } from "@/core/entities/modifiers/Modifier";
 import { Num } from "@/core/entities/rules/expr/expr";
-import { adjustNum, toExpr } from "@/core/entities/rules/override/adjust-num";
+import { adjustNum, toExpr } from "@/core/rules/overrides/adjust-num";
 import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 import { DEFAULT_MODIFIER_PRIORITY } from "../modifiers/stacking";
 import {

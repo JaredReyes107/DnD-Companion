@@ -48,7 +48,7 @@ describe("adjust a cost line", () => {
   });
 
   it("add on a signed delta: add -1 costs one more", () => {
-    const [opt] = options(
+    const opt = options(
       "lay_on_hands",
       adjust(
         "lay_on_hands",
@@ -56,9 +56,8 @@ describe("adjust a cost line", () => {
         "add",
         -1,
       ),
-    );
-    const line = opt.lines[0];
-    expect(line.delta).toBe(-6);
+    ).find((o) => o.id === "lay_on_hands_cleanse")!;
+    expect(opt.lines[0].delta).toBe(-6);
   });
 
   it("the Font conversion rate can be set from an Expr", () => {
@@ -138,11 +137,15 @@ describe("invalid adjustments warn and change nothing", () => {
     ],
     [
       "absent bound with add",
-      { option: "font_of_magic_to_slot", param: "slot", field: "minRank" },
+      [
+        "absent bound",
+        { option: "font_of_magic_to_points", param: "slot", field: "maxRank" },
+      ],
     ],
   ])("%s", (_n, path) => {
     const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
-    const action = (path as { option: string }).option.startsWith("font")
+    const { option } = path as { option?: string };
+    const action = option?.startsWith("font")
       ? "font_of_magic_to_spellslots"
       : "lay_on_hands";
     const r = resolveTemplateWith("action", action, {

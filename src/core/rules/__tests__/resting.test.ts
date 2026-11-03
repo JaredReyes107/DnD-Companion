@@ -6,12 +6,13 @@ import { ABILITIES } from "@/core/entities/rules/ability/ability.types";
 import { registerHomebrewPool } from "@/core/data/registries/choice-pools.registry";
 import { buildCombatState } from "@/core/rules/combat/combat-helper";
 import {
-  endCombat,
   takeLongRest,
   takeNaturalLongRest,
   takeShortRest,
 } from "@/core/rules/character/resting";
+import { endCombat } from "@/core/rules/combat/combat-helper";
 import { onEndTurn, onStartTurn } from "@/core/systems/combat/combat-triggers";
+import { registerHomebrewOption } from "@/core/data/registries/options.registry";
 
 const pool = (id: string, type: "longRest" | "shortRest" | "levelUp") =>
   registerHomebrewPool({
@@ -27,6 +28,7 @@ beforeAll(() => {
   pool("t_rest_long", "longRest");
   pool("t_rest_short", "shortRest");
   pool("t_rest_levelup", "levelUp");
+  registerHomebrewOption({ id: "x", poolIds: [] });
 });
 
 function makeChar(spent: Record<string, number> = {}): Character {

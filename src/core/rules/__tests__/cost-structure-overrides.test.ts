@@ -1,7 +1,7 @@
 import type { OverrideTemplate } from "@/core/entities/rules/override/override-template";
 import { registerHomebrewOverride } from "@/core/data/registries/overrides.registry";
 import { getActionById } from "@/core/data/registries/actions.registry";
-import { spend } from "@/core/data/actions/shared/cost-builders";
+import { spend } from "@/core/data/actions/cost-builders";
 import { buildResourceContext } from "@/core/rules/character/resource-max";
 import { resolveCostChoices } from "@/core/rules/costs/resolve-cost-choices";
 import { resolveTemplateWith } from "@/core/rules/overrides/resolve-template";
