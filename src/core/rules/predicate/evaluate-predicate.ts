@@ -1,19 +1,17 @@
 import { Character } from "@/core/entities/character/Character";
 import { StatModel } from "@/core/entities/rules/stats.types";
-import {
-  Predicate,
-  Comparator,
-} from "@/core/entities/rules/predicate/predicate";
+import { Predicate } from "@/core/entities/rules/predicate/predicate";
 import { getTotalCharacterLevel } from "./../character/character-multiclassing";
 import { resolveCheckProficiency } from "../character/checks-helper";
 import { getActiveFeatures } from "../character/features-helper";
 import { ResolvedBase } from "@/core/entities/rules/resolved-base";
-import { Expr, Rounding } from "@/core/entities/rules/expr/expr";
+import { Expr, Num, Rounding } from "@/core/entities/rules/expr/expr";
 import {
   getRawBase,
   getAbilityModifier,
 } from "../character/abilities-modifiers";
 import { getTotalCasterLevel } from "@/core/entities/spellcasting/spellcasting";
+import { evaluateComparator } from "../shared/comparator-helper";
 
 export interface ExprContext {
   character: Character;
@@ -28,6 +26,8 @@ export interface ExprContext {
     resourceId: string,
     field: "current" | "max",
   ) => number | undefined;
+  /** Present only while evaluating a payment. "value" = range value, "rank" = chosen resource's rank. */
+  resolveParam?: (id: string, field: "value" | "rank") => number | undefined;
 }
 
 export interface PredicateContext extends ExprContext {
@@ -65,21 +65,9 @@ function warnOnce(key: string, msg: string) {
   console.warn(`[predicate] ${msg}`);
 }
 
-function compare(a: number, op: Comparator, b: number): boolean {
-  switch (op) {
-    case "<":
-      return a < b;
-    case "<=":
-      return a <= b;
-    case "==":
-      return a === b;
-    case "!=":
-      return a !== b;
-    case ">=":
-      return a >= b;
-    case ">":
-      return a > b;
-  }
+/** A literal passes through; an Expr is evaluated. undefined = unresolvable. */
+export function evalNum(n: Num, ctx: ExprContext): number | undefined {
+  return typeof n === "number" ? n : evaluateExpr(n, ctx);
 }
 
 export function evaluateExpr(e: Expr, ctx: ExprContext): number | undefined {
@@ -171,6 +159,12 @@ export function evaluateExpr(e: Expr, ctx: ExprContext): number | undefined {
         .sort((a, b) => b - a)[0];
       return hit === undefined ? (e.below ?? 0) : e.steps[String(hit)];
     }
+    case "lookup": {
+      const v = evaluateExpr(e.by, ctx);
+      return v === undefined ? undefined : e.entries[String(v)];
+    }
+    case "param":
+      return ctx.resolveParam?.(e.id, e.field ?? "value");
     default:
       warnOnce(
         `expr:${(e as { type: string }).type}`,
@@ -206,7 +200,7 @@ export function evaluatePredicate(p: Predicate, ctx: PredicateContext): Tri {
       const b = evaluateExpr(p.right, ctx);
       return a === undefined || b === undefined
         ? undefined
-        : compare(a, p.op, b);
+        : evaluateComparator(a, p.op, b);
     }
 
     case "status": {

@@ -36,3 +36,13 @@ export function buildCombatState(character: Character): CombatState {
 
   return characterInstance;
 }
+
+/**
+ * Ends this character's runtime combat state (statuses, runtime modifiers and
+ * advantage, action economy, death saves, round). No rest effects. A no-op when
+ * the character isn't in an encounter. Standalone hook for "end encounter".
+ */
+export function endCombat(character: Character): Character {
+  if (!character.combatState) return character;
+  return { ...character, combatState: buildCombatState(character) };
+}

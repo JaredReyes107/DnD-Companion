@@ -1,24 +1,35 @@
 import { BASE_RESOURCES } from "@/core/data/rules/resources";
-import {
-  ResourceCategory,
-  ResourceTemplate,
-} from "@/core/entities/rules/resource-template";
+import { ResourceTemplate } from "@/core/entities/rules/resource-template";
 import { ResourceInstance } from "@/core/entities/resources/resource-instance";
-import { CharacterResources } from "@/core/entities/resources/character-resources";
 import { SPELL_SLOTS } from "../rules/resources/spell-slots";
 
 const homebrewResources: Record<string, ResourceTemplate> = {};
 
-export function registerHomebrewResource(res: ResourceTemplate) {
-  homebrewResources[res.id] = res;
+let cached: Record<string, ResourceTemplate> | null = null;
+
+/** Structural problems that would otherwise fail silently (a group member without a rank is never a candidate). */
+export function validateResourceTemplate(t: ResourceTemplate): string[] {
+  const errors: string[] = [];
+  if (t.groups?.some((g) => g.trim() === "")) errors.push("empty group name");
+  if (t.groups?.length && t.rank === undefined)
+    errors.push("belongs to groups but has no rank");
+  return errors;
 }
 
-export function getResourceRegistry() {
-  return {
+export function registerHomebrewResource(res: ResourceTemplate) {
+  const errors = validateResourceTemplate(res);
+  if (errors.length)
+    throw new Error(`Resource ${res.id} is invalid: ${errors.join("; ")}`);
+  homebrewResources[res.id] = res;
+  cached = null;
+}
+
+export function getResourceRegistry(): Record<string, ResourceTemplate> {
+  return (cached ??= {
     ...SPELL_SLOTS,
     ...BASE_RESOURCES,
     ...homebrewResources,
-  };
+  });
 }
 
 export function getResourceById(id: string): ResourceTemplate {
@@ -33,48 +44,4 @@ export function resolveClassInstance(
   instance: ResourceInstance,
 ): ResourceTemplate {
   return getResourceById(instance.resourceId);
-}
-
-// ? Currently not in use
-export function getResourcesByCategory(category: string) {
-  return Object.values(getResourceRegistry()).filter(
-    (r) => r.category === category,
-  );
-}
-
-export type GroupedResources = Record<
-  ResourceCategory,
-  Array<{
-    template: ResourceTemplate;
-    instance: ResourceInstance;
-  }>
->;
-
-export function groupResourcesByCategory(
-  resources: CharacterResources,
-): GroupedResources {
-  const grouped = {} as GroupedResources;
-
-  const resourceTemplates = getResourceRegistry();
-
-  for (const resourceId in resources) {
-    const instance = resources[resourceId];
-    const template = resourceTemplates[resourceId];
-
-    // Defensive: resource without template = ignore or log
-    if (!template) continue;
-
-    const category = template.category;
-
-    if (!grouped[category]) {
-      grouped[category] = [];
-    }
-
-    grouped[category].push({
-      template,
-      instance,
-    });
-  }
-
-  return grouped;
 }

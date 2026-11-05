@@ -225,10 +225,17 @@ Stats are resolved in two phases to handle circular dependency between ability s
 ## Key Architectural Rule: Initialization
 
 `initializeCoreSystems()` in `src/core/init.ts` must be called exactly once at app startup before any registry lookup or rule resolution. It:
-1. Registers main and class scaling tables.
-2. Loads all `RuleDefinition`s from `src/rules/rules.generated.ts` into the `ruleRegistry`.
+1. Loads all `RuleDefinition`s from `src/rules/rules.generated.ts` into the `ruleRegistry`.
 
 It is guarded by an `initialized` flag so calling it twice is safe, but the first call **must** happen before any game logic runs.
+
+---
+
+## Key Architectural Rule: Costs Are Normalized at the Registry
+
+Actions are authored with `costOptions` (or legacy negative spends). `getActionRegistry()`
+normalizes everything to `costOptions`, so consumers never see legacy spends. Payment is a pure
+validate-then-apply pipeline (`costs.md`).
 
 ---
 
@@ -248,4 +255,11 @@ The following confirmed misplacements predate the current architecture and are t
   `guardian` on armorer actions). Provenance navigation depends on it being normalized.
 - Rage level 20 uses `Infinity` inside a template table. Fine at runtime, but not JSON-safe once
   templates become editable homebrew.
-- Tests live in `src/core/rules/__tests__/`; keep new core tests there.
+
+- Resource-gated passives don’t deactivate: buildEvaluationContext has no resolveResource, so resource leaves are unknown and the “open” policy grants the bonus (Cloud Rune, Fire Rune always on).
+- ActionInstance.requires is never enforced in isActionAvailable.
+- Single-class half casters get wrong slot counts (getTotalCasterLevel floors).
+- Expertise and Fire Rune share no effectId, so they can stack.
+- Hit dice are not recovered on a long rest.
+- fighting_style_fighter/ranger/paladin pools all use id: "maneuvers".
+- storm-herald-pools and buildProficiencyPool use the string "onLevelUp" instead of { type: "levelUp" }.

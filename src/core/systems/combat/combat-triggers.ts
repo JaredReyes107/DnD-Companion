@@ -1,4 +1,5 @@
 import { Character } from "@/core/entities/character/Character";
+import { applyTimingTriggers } from "@/core/rules/character/resource-recharge";
 import { startNewTurn } from "@/core/rules/combat/combat-runtime";
 import {
   sweepExpiredByEvent,
@@ -29,25 +30,28 @@ export function onZeroHp(character: Character): Character {
 
 export function onStartTurn(character: Character): Character {
   const advanced = startNewTurn(character);
-  if (!advanced.combatState) return advanced;
-  return {
-    ...advanced,
-    combatState: sweepExpiredByEvent(advanced.combatState, {
-      type: "turnStarted",
-      newRound: advanced.combatState.round,
-    }),
-  };
+  const swept: Character = advanced.combatState
+    ? {
+        ...advanced,
+        combatState: sweepExpiredByEvent(advanced.combatState, {
+          type: "turnStarted",
+          newRound: advanced.combatState.round,
+        }),
+      }
+    : advanced;
+  return applyTimingTriggers(swept, ["roundStart", "turnStart"]);
 }
 
 export function onEndTurn(character: Character): Character {
   if (!character.combatState) return character;
-  return {
+  const swept: Character = {
     ...character,
     combatState: sweepExpiredByEvent(character.combatState, {
       type: "turnEnded",
       round: character.combatState.round,
     }),
   };
+  return applyTimingTriggers(swept, ["turnEnd"]);
 }
 
 export function onLongRest(character: Character): Character {

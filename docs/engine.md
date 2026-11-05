@@ -97,7 +97,6 @@ flowchart TD
     ActionEconomy[onActionTaken — sweeps expiry for onAnyAction]
     EffectsLoop{For each effect}
     ModRes[modifyResource — applyResourceDelta]
-    ConvRes[convertResource — applyResourceConversion]
     ApplyMod[applyModifier — instantiateModifier → applyStackingRule → buildExpiryConditions → applyRuntimeModifier]
     ApplyAdv[applyAdvantage — buildExpiryConditions → applyRuntimeAdvantage]
     ApplyStatus[applyStatus — getStatusTemplate → buildExpiryConditions → applyStatus]
@@ -127,7 +126,6 @@ flowchart TD
 | Effect type | What it does |
 |---|---|
 | `modifyResource` | Adds/subtracts from `character.resources[resourceId].current` |
-| `convertResource` | Transfers an amount from one resource to another |
 | `applyModifier` | Instantiates `ModifierTemplate`(s), applies stacking policy, injects into `combatState.runtimeModifiers` with expiry |
 | `applyAdvantage` | Injects `AdvantageInstance`(s) into `combatState.runtimeAdvantageInstances` with expiry |
 | `applyStatus` | Applies a `StatusInstance` to `combatState.statuses`; respects `limitStat` cap |
@@ -183,18 +181,7 @@ max     = evaluate(resolvedTemplate.max)      // Expr; class level, ability, tab
 current = max - spent  (floored at 0)
 ```
 
-- Nothing derived is stored, so level-ups, modifier changes and overrides apply instantly and
-  there is no stale max.
-- Persistence is JSON-safe: `Infinity` (Rage 20) exists only at evaluation time.
-- `resourceMax`, `resourceCurrent` and `resourceRecharge` take a `ResourceContext`
-  (`ExprContext` plus the `OverrideContext`). Build it once per render or save with
-  `buildResourceContext(character)`. Pure callers can pass a context without overrides.
-- Spending and recovering is `applyResourceDelta`, clamped to `[0, max]` uses.
-- Rests set `spent = 0` for resources whose **resolved** `recharge` matches. A long rest restores
-  `longRest` and `shortRest`; a short rest restores `shortRest`.
-- Spell slots, pact slots and mystic arcanum are ordinary resources: tables over `casterLevel` or
-  warlock level. A slot instance is created when its max is above zero.
-- `resource` leaves in an Expr resolve through the context, with a cycle guard.
+Rests and turn triggers call restoreResources(character, triggers). For each instance it reads the resolved recharge, picks the first rule matching a trigger (in priority order; a long rest tries longRest first, then shortRest), checks when against the resource’s current value, then sets spent = max - newCurrent. Unbounded resources are skipped. applyTimingTriggers also clears matching choice pools.
 
 ## 6. Actions: derived
 
@@ -212,8 +199,12 @@ overridden (currently resources and actions).
 
 ---
 
-## 5. Resting
+## 8. Resting and turns
 
-`takeLongRest(character)` and `takeShortRest(character)` in `src/core/rules/character/resting.ts` produce a new `Character` (no mutation). Long rest resets HP, hit dice, and all `onLongRest` choice pools. Short rest resets `onShortRest` choice pools and optionally hit dice.
-
-`sweepExpiredByEvent(combatState, { type: "longRest" })` and `{ type: "shortRest" }` must be called on the active `CombatState` as part of the rest flow to clear any combat effects scoped to the rest type.
+- `takeLongRest` and `takeShortRest` (`core/rules/character/resting.ts`) and
+  `takeNaturalLongRest` restore resources by trigger via `applyTimingTriggers` /
+  `restoreResources`. A long rest restores `longRest` and `shortRest` rules.
+- `endCombat` lives in `core/rules/combat/combat-helper.ts`.
+- Turn boundaries: `onStartTurn` sweeps expired effects, then recharges `roundStart`/`turnStart`;
+  `onEndTurn` sweeps, then recharges `turnEnd`.
+- Hit dice are not yet recovered on a long rest (open).

@@ -201,7 +201,9 @@ classDiagram
         +String id
         +ResourceCategory category
         +Expr max
+        +Num rank
         +Recharge recharge
+        +String[] groups
     }
     class ResourceInstance {
         +String resourceId

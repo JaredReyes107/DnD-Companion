@@ -1,7 +1,4 @@
-import {
-  ActionInstance,
-  ConvertResourceEffect,
-} from "@/core/entities/actions/action-instance";
+import { ActionInstance } from "@/core/entities/actions/action-instance";
 import { Character } from "@/core/entities/character/Character";
 import { RuntimeModifierInstance } from "@/core/entities/rules/stats.types";
 import { decreaseActionResource } from "@/core/entities/combat/action-economy";
@@ -25,54 +22,29 @@ import {
 import { resolveStatValue } from "../../stats/stat-resolver";
 import { getStatusTemplateById } from "@/core/data/registries/status.registry";
 import { StatusInstance } from "@/core/entities/combat/status-instance";
-import { ExprContext } from "@/core/rules/predicate/evaluate-predicate";
 import {
   buildResourceContext,
   ResourceContext,
-  resourceCurrent,
-  resourceMax,
 } from "@/core/rules/character/resource-max";
+import { applyResourceDelta } from "@/core/rules/character/resource-spend";
+export { applyResourceDelta };
+import {
+  PaymentChoice,
+  PaymentFailure,
+} from "@/core/entities/actions/cost-option";
+import { pay } from "@/core/rules/costs/payment";
+import { resolveCostChoices } from "@/core/rules/costs/resolve-cost-choices";
+import { evalNum } from "@/core/rules/predicate/evaluate-predicate";
+import { Num } from "@/core/entities/rules/expr/expr";
 
-/** amount < 0 spends, > 0 recovers. Clamped to [0, max] uses. */
-export function applyResourceDelta(
-  character: Character,
-  resourceId: string,
-  amount: number,
-  ctx: ResourceContext = buildResourceContext(character),
-): Character {
-  const instance = character.resources[resourceId];
-  if (!instance) return character;
-  const max = resourceMax(character, resourceId, ctx);
-  const spent = Math.min(max, Math.max(0, instance.spent - amount));
-  return {
-    ...character,
-    resources: { ...character.resources, [resourceId]: { ...instance, spent } },
-  };
-}
-
-export function applyResourceConversion(
-  character: Character,
-  effect: ConvertResourceEffect,
-  ctx: ResourceContext = buildResourceContext(character),
-): Character {
-  if (
-    !character.resources[effect.from.resourceId] ||
-    !character.resources[effect.to.resourceId]
-  ) {
-    return character;
-  }
-  const afterFrom = applyResourceDelta(
-    character,
-    effect.from.resourceId,
-    -effect.from.amount,
-    ctx,
-  );
-  return applyResourceDelta(
-    afterFrom,
-    effect.to.resourceId,
-    effect.to.amount,
-    ctx,
-  );
+/** undefined = no duration given; null = given but unresolvable. */
+function resolveRounds(
+  n: Num | undefined,
+  ctx: ResourceContext,
+): number | undefined | null {
+  if (n === undefined) return undefined;
+  const v = evalNum(n, ctx);
+  return v === undefined ? null : Math.max(0, Math.floor(v));
 }
 
 export function applyRuntimeModifier(
@@ -149,64 +121,79 @@ export function isActionAvailable(
     }[action.duration.slot].current > 0;
   if (!hasActionEconomy) return false;
 
+  const options = action.costOptions ?? [];
+  if (options.length === 0) return true;
   let rc = ctx;
-  const resourceCtx = () => (rc ??= buildResourceContext(character));
-
-  // Every resource effect must be satisfiable. A missing instance means unavailable, not a throw.
-  return action.effects.every((effect) => {
-    switch (effect.type) {
-      case "modifyResource":
-        return (
-          effect.amount >= 0 ||
-          resourceCurrent(character, effect.resourceId, resourceCtx()) >=
-            -effect.amount
-        );
-      case "convertResource":
-        return (
-          resourceCurrent(character, effect.from.resourceId, resourceCtx()) >=
-          effect.from.amount
-        );
-      default:
-        return true;
-    }
-  });
+  rc ??= buildResourceContext(character);
+  return resolveCostChoices(character, options, rc).some((c) => c.affordable);
 }
+
+export type ExecuteResult =
+  | { ok: true }
+  | { ok: false; failure: PaymentFailure };
 
 export function executeAction(
   action: ActionInstance,
-  ctx: { character: Character; dispatch: (update: Character) => void },
-) {
+  ctx: {
+    character: Character;
+    dispatch: (update: Character) => void;
+    payment?: PaymentChoice;
+  },
+): ExecuteResult {
+  const options = action.costOptions ?? [];
   let updatedCharacter = ctx.character;
 
   if (updatedCharacter.combatState) {
     updatedCharacter = onActionTaken(updatedCharacter, action.id);
   }
 
-  let resourceCtx: ExprContext | undefined;
+  // Pay first. Everything above is local: a failure returns before anything is dispatched.
+  if (options.length > 0) {
+    const option = ctx.payment
+      ? options.find((o) => o.id === ctx.payment!.optionId)
+      : options.length === 1
+        ? options[0]
+        : undefined;
+    if (!option) return { ok: false, failure: { kind: "unknownOption" } };
+    const paid = pay(
+      updatedCharacter,
+      option,
+      ctx.payment?.params ?? {},
+      buildResourceContext(updatedCharacter),
+    );
+    if (!paid.ok) return paid;
+    updatedCharacter = paid.character;
+  }
+
+  let resourceCtx: ResourceContext | undefined;
   const rc = () => (resourceCtx ??= buildResourceContext(updatedCharacter));
 
   for (const effect of action.effects) {
     switch (effect.type) {
-      case "modifyResource":
+      case "modifyResource": {
+        // Only gains reach here (spends are normalized into costOptions). Gains clamp and never block.
+        const amount = evalNum(effect.amount, rc());
+        if (amount === undefined) break; // unresolvable: skip, never throw
         updatedCharacter = applyResourceDelta(
           updatedCharacter,
           effect.resourceId,
-          effect.amount,
+          Math.trunc(amount),
           rc(),
         );
         break;
-      case "convertResource":
-        updatedCharacter = applyResourceConversion(
-          updatedCharacter,
-          effect,
-          rc(),
-        );
-        break;
-
+      }
       case "applyModifier": {
         if (!updatedCharacter.combatState) break;
 
         const currentRound = updatedCharacter.combatState.round;
+
+        const rounds = resolveRounds(effect.durationRounds, rc());
+        if (rounds === null) {
+          console.warn(
+            `[actions] "${action.id}": unresolvable duration; ${effect.type} skipped`,
+          );
+          break;
+        }
 
         for (const modifierId of effect.modifiers) {
           const template = getModifierTemplateById(modifierId);
@@ -224,7 +211,7 @@ export function executeAction(
 
           const expiryConditions = buildExpiryConditions(
             currentRound,
-            effect.durationRounds,
+            rounds,
             effect.endsAt,
             effect.endsEarlyOn,
           );
@@ -241,9 +228,17 @@ export function executeAction(
         if (!updatedCharacter.combatState) break;
 
         const currentRound = updatedCharacter.combatState.round;
+        const rounds = resolveRounds(effect.durationRounds, rc());
+        if (rounds === null) {
+          console.warn(
+            `[actions] "${action.id}": unresolvable duration; ${effect.type} skipped`,
+          );
+          break;
+        }
+
         const expiryConditions = buildExpiryConditions(
           currentRound,
-          effect.durationRounds,
+          rounds,
           effect.endsAt,
           effect.endsEarlyOn,
         );
@@ -262,6 +257,15 @@ export function executeAction(
       case "applyStatus": {
         if (!updatedCharacter.combatState) break;
         const template = getStatusTemplateById(effect.statusId);
+
+        const rounds = resolveRounds(effect.durationRounds, rc());
+        if (rounds === null) {
+          console.warn(
+            `[actions] "${action.id}": unresolvable duration; ${effect.type} skipped`,
+          );
+          break;
+        }
+
         const limit =
           template.limitStat !== undefined
             ? resolveStatValue(updatedCharacter, {
@@ -271,7 +275,7 @@ export function executeAction(
             : undefined;
         const timed = buildExpiryConditions(
           updatedCharacter.combatState.round,
-          effect.durationRounds,
+          rounds,
           effect.endsAt,
           effect.endsEarlyOn,
         );
@@ -316,4 +320,5 @@ export function executeAction(
   }
 
   ctx.dispatch(updatedCharacter);
+  return { ok: true };
 }

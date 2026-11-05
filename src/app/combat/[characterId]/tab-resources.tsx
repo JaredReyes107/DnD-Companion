@@ -1,15 +1,18 @@
 import { useCharacter } from "@/utils/character-provider";
 import { useFocusEffect } from "expo-router";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 import { ThemedView } from "@/components/ui/ThemedView";
 import { FlatList } from "react-native";
 import { ResourceSection } from "@/components/ui/ResourceSection";
 
-import { groupResourcesByCategory } from "@/core/data/registries/resources.registry";
-import { groupedResourcesAsArray } from "@/core/rules/character/resources-helper";
+import {
+  groupedResourcesAsArray,
+  groupResourcesByCategory,
+} from "@/core/rules/character/resources-helper";
 
 import genericStyles from "@/styles/generic.styles";
+import { buildResourceContext } from "@/core/rules/character/resource-max";
 
 const ResourcesDashboard = () => {
   const { character, saveCharacter, loading, loadCharacterById } =
@@ -22,10 +25,14 @@ const ResourcesDashboard = () => {
     }, [characterId, loadCharacterById]),
   );
 
-  if (loading || !character) return null;
-
-  const grouped = groupResourcesByCategory(character.resources);
-  const sections = groupedResourcesAsArray(grouped);
+  const ctx = useMemo(
+    () => (character ? buildResourceContext(character) : null),
+    [character],
+  );
+  if (loading || !character || !ctx) return null;
+  const sections = groupedResourcesAsArray(
+    groupResourcesByCategory(character.resources, ctx),
+  );
 
   return (
     <ThemedView
@@ -43,6 +50,7 @@ const ResourcesDashboard = () => {
             resources={item.resources}
             character={character}
             onUpdate={saveCharacter}
+            ctx={ctx}
           />
         )}
       />

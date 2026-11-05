@@ -23,11 +23,14 @@ export const WAR_MAGIC_RESOURCES: Record<string, ResourceTemplate> = {
     ],
 
     recharge: [
-      { trigger: { type: "longRest" }, amount: { kind: "reset", value: 1 } },
+      {
+        trigger: { type: "longRest" },
+        amount: { kind: "reset", value: E.n(1) },
+      },
       {
         trigger: { type: "shortRest" },
         when: { operator: "==", value: 0 },
-        amount: { kind: "reset", value: 1 },
+        amount: { kind: "reset", value: E.n(1) },
       },
     ],
     tags: ["combat", "damage"],

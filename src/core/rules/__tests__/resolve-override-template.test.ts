@@ -2,11 +2,15 @@
 import { E } from "@/core/entities/rules/expr/expr";
 import type { OverrideTemplate } from "@/core/entities/rules/override/override-template";
 import { getResourceById } from "@/core/data/registries/resources.registry";
-import { resolveTemplateWith } from "@/core/rules/overrides/resolve-template.ts";
+import { resolveTemplateWith } from "@/core/rules/overrides/resolve-template";
 
 // Test helper: the cast keeps fixtures short; real data is type-checked by OverrideTemplate.
 const ov = (o: Record<string, unknown>) => o as unknown as OverrideTemplate;
 const ctxOf = (...active: OverrideTemplate[]) => ({ active });
+
+// recharge is a RestoreRule[], not a string.
+const on = (type: string) => [{ trigger: { type }, amount: "full" }];
+const NEVER: never[] = [];
 
 describe("resolveTemplateWith", () => {
   it("returns the base template and an empty trail when nothing is active", () => {
@@ -16,6 +20,7 @@ describe("resolveTemplateWith", () => {
   });
 
   it("patches a scalar field and records before/after in the trail", () => {
+    const base = getResourceById("bardic_inspiration").recharge;
     const r = resolveTemplateWith(
       "resource",
       "bardic_inspiration",
@@ -25,19 +30,19 @@ describe("resolveTemplateWith", () => {
           sourceId: "bard",
           kind: "resource",
           target: { id: "bardic_inspiration" },
-          patches: [{ op: "set", field: "recharge", value: "shortRest" }],
+          patches: [{ op: "set", field: "recharge", value: on("shortRest") }],
         }),
       ),
     );
-    expect(r.template.recharge).toBe("shortRest");
+    expect(r.template.recharge).toEqual(on("shortRest"));
     expect(r.trail).toEqual([
       {
         overrideId: "font_of_inspiration",
         sourceId: "bard",
         op: "set",
         field: "recharge",
-        before: "longRest",
-        after: "shortRest",
+        before: base,
+        after: on("shortRest"),
       },
     ]);
   });
@@ -53,7 +58,7 @@ describe("resolveTemplateWith", () => {
           id: "x",
           kind: "resource",
           target: { id: "rage" },
-          patches: [{ op: "set", field: "recharge", value: "none" }],
+          patches: [{ op: "set", field: "recharge", value: NEVER }],
         }),
       ),
     );
@@ -70,7 +75,7 @@ describe("resolveTemplateWith", () => {
           id: "other-target",
           kind: "resource",
           target: { id: "ki_points" },
-          patches: [{ op: "set", field: "recharge", value: "none" }],
+          patches: [{ op: "set", field: "recharge", value: NEVER }],
         }),
         ov({
           id: "other-kind",
@@ -108,7 +113,7 @@ describe("resolveTemplateWith", () => {
   });
 
   it("a higher priority applies later and wins, regardless of activation order", () => {
-    const mk = (id: string, priority: number, value: string) =>
+    const mk = (id: string, priority: number, value: unknown) =>
       ov({
         id,
         kind: "resource",
@@ -119,14 +124,14 @@ describe("resolveTemplateWith", () => {
     const r = resolveTemplateWith(
       "resource",
       "rage",
-      ctxOf(mk("hi", 10, "none"), mk("lo", -5, "perTurn")),
+      ctxOf(mk("hi", 10, NEVER), mk("lo", -5, on("turnStart"))),
     );
-    expect(r.template.recharge).toBe("none");
+    expect(r.template.recharge).toEqual(NEVER);
     expect(r.trail.map((t) => t.overrideId)).toEqual(["lo", "hi"]);
   });
 
   it("equal priority keeps activation order (last activated wins)", () => {
-    const mk = (id: string, value: string) =>
+    const mk = (id: string, value: unknown) =>
       ov({
         id,
         kind: "resource",
@@ -136,12 +141,13 @@ describe("resolveTemplateWith", () => {
     const r = resolveTemplateWith(
       "resource",
       "rage",
-      ctxOf(mk("first", "perTurn"), mk("second", "none")),
+      ctxOf(mk("first", on("turnStart")), mk("second", NEVER)),
     );
-    expect(r.template.recharge).toBe("none");
+    expect(r.template.recharge).toEqual(NEVER);
   });
 
   it("patches within one override apply in order, and each sees the previous result", () => {
+    const base = getResourceById("rage").recharge;
     const r = resolveTemplateWith(
       "resource",
       "rage",
@@ -151,16 +157,16 @@ describe("resolveTemplateWith", () => {
           kind: "resource",
           target: { id: "rage" },
           patches: [
-            { op: "set", field: "recharge", value: "shortRest" },
-            { op: "set", field: "recharge", value: "perRound" },
+            { op: "set", field: "recharge", value: on("shortRest") },
+            { op: "set", field: "recharge", value: on("roundStart") },
           ],
         }),
       ),
     );
-    expect(r.template.recharge).toBe("perRound");
+    expect(r.template.recharge).toEqual(on("roundStart"));
     expect(r.trail.map((t) => (t as any).before)).toEqual([
-      "longRest",
-      "shortRest",
+      base,
+      on("shortRest"),
     ]);
   });
 

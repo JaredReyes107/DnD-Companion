@@ -139,9 +139,7 @@ function dispatchEvent(state, event): EncounterState
 
 ---
 
-## 6. Action Economy (`src/core/systems/combat/action-economy/`)
-
-`economy-manager.ts` handles reading and decrementing action economy slots (`action`, `bonusAction`, `reaction`) on `CombatState.actionEconomy`. It is called by `executeAction` after all effects are applied.
+## 6. Action Economy
 
 `combat-triggers.ts` contains `onActionTaken(character, actionId)` which fires `sweepExpiredByEvent` for the `{ type: "actionTaken", actionId }` event — this handles `onAnyAction` and `onSpecificAction` expiry conditions.
 
@@ -157,8 +155,8 @@ All helpers in `take-action.ts` return a new `Character` (immutable — no mutat
 
 | Helper | What it modifies |
 |---|---|
-| `applyResourceDelta(character, resourceId, amount)` | `character.resources[id].current` |
-| `applyResourceConversion(character, effect)` | Two resource currents atomically |
+| `applyResourceDelta(character, resourceId, amount)` | `character.resources[id].spent` |
+| `applyResourceConversion(character, effect)` | Two resource spent atomically |
 | `applyRuntimeModifier(character, modifier, expiry?)` | `combatState.runtimeModifiers` |
 | `applyRuntimeAdvantage(character, nodeId, polarity, sourceId, expiry?)` | `combatState.runtimeAdvantageInstances` |
 | `isActionAvailable(character, action)` | (read-only) checks economy + resource cost |

@@ -41,6 +41,7 @@ export const ZEALOT_RESOURCES: Record<string, ResourceTemplate> = {
     origin: {
       book: "XGE",
     },
+    // TODO: Once per rage
     recharge: [],
   },
 };

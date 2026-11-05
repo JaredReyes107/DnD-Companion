@@ -28,7 +28,6 @@ export function hydrateCharacter(raw: unknown): Character {
     featureChoices: hydrateMap(record.featureChoices),
     resources: hydrateMap(record.resources),
     statModifiers: hydrateMap(record.statModifiers),
-    skills: hydrateMap(record.skills),
   } as Character;
 }
 

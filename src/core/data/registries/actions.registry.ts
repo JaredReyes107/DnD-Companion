@@ -15,9 +15,14 @@ import { ROGUE_ACTIONS } from "../actions/by-class/rogue-actions";
 import { SORCERER_ACTIONS } from "../actions/by-class/sorcerer-actions";
 import { WARLOCK_ACTIONS } from "../actions/by-class/warlock-actions";
 import { WIZARD_ACTIONS } from "../actions/by-class/wizard-actions";
-import { duplicateEffectKeys } from "@/rules/validation/action-effects";
+import { duplicateEffectKeys } from "@/core/rules/validation/action-effects";
+import { normalizeAction } from "@/core/rules/costs/normalize-action";
+import {
+  duplicateOptionIds,
+  duplicateLineKeys,
+} from "@/core/rules/costs/cost-keys";
 
-const homebrewActions: Record<string, ActionInstance> = {};
+let cached: Record<string, ActionInstance> | null = null;
 
 export const CLASS_ACTIONS = {
   ...ARTIFICER_ACTIONS,
@@ -41,20 +46,39 @@ export const BASE_ACTIONS: Record<string, ActionInstance> = {
   ...CLASS_ACTIONS,
 };
 
+const homebrewActions: Record<string, ActionInstance> = {};
+
 export function registerHomebrewAction(res: ActionInstance) {
-  const dup = duplicateEffectKeys(res);
-  if (dup.length)
-    throw new Error(
-      `Action ${res.id} has duplicate effect keys: ${dup.join(", ")}`,
-    );
-  homebrewActions[res.id] = res;
+  const errors: string[] = [];
+  const dupEffects = duplicateEffectKeys(res);
+  if (dupEffects.length)
+    errors.push(`duplicate effect keys: ${dupEffects.join(", ")}`);
+
+  const options = normalizeAction(res).costOptions ?? []; // throws on a legacy/explicit mix
+  const dupOptions = duplicateOptionIds(options);
+  if (dupOptions.length)
+    errors.push(`duplicate option ids: ${dupOptions.join(", ")}`);
+  for (const o of options) {
+    const dupLines = duplicateLineKeys(o);
+    if (dupLines.length)
+      errors.push(
+        `option ${o.id} has duplicate line keys: ${dupLines.join(", ")}`,
+      );
+  }
+
+  if (errors.length)
+    throw new Error(`Action ${res.id} is invalid: ${errors.join("; ")}`);
+  homebrewActions[res.id] = res; // stored raw, normalized on read
+  cached = null;
 }
 
-export function getActionRegistry() {
-  return {
-    ...BASE_ACTIONS,
-    ...homebrewActions,
-  };
+export function getActionRegistry(): Record<string, ActionInstance> {
+  return (cached ??= Object.fromEntries(
+    Object.entries({ ...BASE_ACTIONS, ...homebrewActions }).map(([id, a]) => [
+      id,
+      normalizeAction(a),
+    ]),
+  ));
 }
 
 export function getActionById(id: string): ActionInstance {

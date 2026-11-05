@@ -57,13 +57,12 @@ export const WARLOCK_RESOURCES: Record<string, ResourceTemplate> = {
   ...ELDRITCH_INVOCATIONS_RESOURCES,
   ...PACT_BOON_RESOURCES,
 
-  /*
   pact_slots: {
     id: "pact_slots",
     category: "pact_slots",
-    max: E.table(E.classLevel("warlock"), { 1: 1, 2: 2, 11: 3, 17: 4 }),
-    
     origin: { book: "PHB" },
+    max: E.table(E.classLevel("warlock"), { 1: 1, 2: 2, 11: 3, 17: 4 }),
+
     grantors: [
       {
         system: "feature",
@@ -72,17 +71,14 @@ export const WARLOCK_RESOURCES: Record<string, ResourceTemplate> = {
       },
     ],
 
-    max: {
-      kind: "formula",
-      formula: { base: { kind: "scaler", id: "spellcasting" } },
-    },
-    
-
     recharge: [{ trigger: { type: "shortRest" }, amount: "full" }],
+
+    groups: ["spell_slot", "pact_slot"],
+    rank: E.table(E.classLevel("warlock"), { 1: 1, 3: 2, 5: 3, 7: 4, 9: 5 }),
+
     tags: ["spellcasting"],
   },
-  */
-  //
+
   mystic_arcanum_6: {
     id: "mystic_arcanum_6",
     category: "pact_slots",

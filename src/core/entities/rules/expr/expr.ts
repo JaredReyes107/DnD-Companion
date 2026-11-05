@@ -4,6 +4,9 @@ import type { Predicate } from "@/core/entities/rules/predicate/predicate";
 
 export type Rounding = "floor" | "ceil" | "round" | "trunc";
 
+/** An authored numeric field. A literal keeps data files terse; an Expr makes it homebrew-editable. */
+export type Num = number | Expr;
+
 export type Expr =
   // leaves
   | { type: "const"; value: number }
@@ -26,7 +29,11 @@ export type Expr =
   | { type: "clamp"; value: Expr; min: Expr; max: Expr }
   | { type: "if"; when: Predicate; then: Expr; else: Expr }
   // level-style lookup: largest key <= `by`; below the first key uses `below` (default 0)
-  | { type: "table"; by: Expr; steps: Record<string, number>; below?: number };
+  | { type: "table"; by: Expr; steps: Record<string, number>; below?: number }
+  // exact-key lookup: unlike `table`, a missing key is UNKNOWN, never clamped or defaulted
+  | { type: "lookup"; by: Expr; entries: Record<string, number> }
+  // only known while paying
+  | { type: "param"; id: string; field?: "value" | "rank" };
 
 export const E = {
   n: (value: number): Expr => ({ type: "const", value }),
@@ -74,4 +81,19 @@ export const E = {
     steps: Object.fromEntries(Object.entries(steps)),
     below,
   }),
+  lookup: (by: Expr, entries: Record<number, number>): Expr => ({
+    type: "lookup",
+    by,
+    entries: Object.fromEntries(Object.entries(entries)),
+  }),
+  param: (id: string, field: "value" | "rank" = "value"): Expr => ({
+    type: "param",
+    id,
+    field,
+  }),
 };
+
+export const negate = (n: Num): Num =>
+  typeof n === "number"
+    ? -n
+    : { type: "mul", of: [{ type: "const", value: -1 }, n] };

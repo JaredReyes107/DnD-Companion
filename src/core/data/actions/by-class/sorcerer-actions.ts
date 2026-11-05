@@ -1,4 +1,13 @@
 import { ActionInstance } from "@/core/entities/actions/action-instance";
+import { E } from "@/core/entities/rules/expr/expr";
+import {
+  anySlot,
+  gain,
+  gainSlot,
+  spend,
+  spendSlot,
+  standardSlot,
+} from "../cost-builders";
 
 import { SORCERER_METAMAGIC_ACTIONS } from "./sorcerer-metamagic-actions";
 
@@ -27,6 +36,14 @@ const SUBCLASS_ACTIONS: Record<string, ActionInstance> = {
   ...CLOCKWORK_SOUL_ACTIONS,
 };
 
+const SLOT_PRICE = E.lookup(E.param("slot", "rank"), {
+  1: 2,
+  2: 3,
+  3: 5,
+  4: 6,
+  5: 7,
+});
+
 export const SORCERER_ACTIONS: Record<string, ActionInstance> = {
   ...SORCERER_METAMAGIC_ACTIONS,
   ...SUBCLASS_ACTIONS,
@@ -36,27 +53,33 @@ export const SORCERER_ACTIONS: Record<string, ActionInstance> = {
     sourceId: "sorcerer",
     boards: ["combat", "exploration", "roleplay"],
     duration: { kind: "economy", slot: "bonusAction" },
-    //TODO: Add argument for deciding what spellslot level to recover
-    effects: [
+    costOptions: [
       {
-        type: "convertResource",
-        to: { resourceId: "spell_slot_1", amount: 1 },
-        from: { resourceId: "sorcery_points", amount: 2 },
+        id: "font_of_magic_to_slot",
+        params: [standardSlot(5)], // pact slots can't be created
+        lines: [
+          { ...spend("sorcery_points", SLOT_PRICE), key: "price" },
+          gainSlot,
+        ],
       },
     ],
+    effects: [],
   },
   font_of_magic_from_spellslots: {
     id: "font_of_magic_from_spellslots",
     sourceId: "sorcerer",
     boards: ["combat", "exploration", "roleplay"],
     duration: { kind: "economy", slot: "bonusAction" },
-    //TODO: Add argument for deciding what spellslot level to spend
-    effects: [
+    costOptions: [
       {
-        type: "convertResource",
-        from: { resourceId: "spell_slot_1", amount: 1 },
-        to: { resourceId: "sorcery_points", amount: 1 },
+        id: "font_of_magic_to_points",
+        params: [anySlot()], // pact slots can be converted
+        lines: [
+          spendSlot,
+          { ...gain("sorcery_points", E.param("slot", "rank")), key: "points" },
+        ],
       },
     ],
+    effects: [],
   },
 };

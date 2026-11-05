@@ -4,34 +4,31 @@ import { ActionTrigger } from "./action-trigger";
 import { ExpiryCondition } from "../rules/duration/expiry-condition";
 import { AdvantagePolarity } from "../rules/advantage/advantage-instance";
 import { Predicate } from "../rules/predicate/predicate";
+import { CostOption } from "./cost-option";
+import { Num } from "../rules/expr/expr";
 
 type EffectBase = { key?: string };
 
 export type ModifyResourceEffect = EffectBase & {
   type: "modifyResource";
   resourceId: string;
-  amount: number;
+  /** A literal negative amount is authoring sugar for a cost (normalized into costOptions at the registry).
+   *  Any formula, or a positive literal, is a clamped gain and is never a cost. */
+  amount: Num;
 };
 
+/** Authoring sugar: normalized into a strict two-line cost option at the registry. */
 export type ConvertResourceEffect = EffectBase & {
   type: "convertResource";
-
-  from: {
-    resourceId: string;
-    amount: number;
-  };
-
-  to: {
-    resourceId: string;
-    amount: number;
-  };
+  from: { resourceId: string; amount: Num }; // positive = spent
+  to: { resourceId: string; amount: Num };
 };
 
 /** @deprecated Apply a status that grants the modifier/advantage instead. */
 export type ApplyModifierEffect = EffectBase & {
   type: "applyModifier";
   modifiers: string[]; //modifierId
-  durationRounds?: number;
+  durationRounds?: Num;
   endsAt?: "startOfTurn" | "endOfTurn"; // default "startOfTurn"
   endsEarlyOn?: ExpiryCondition[]; // e.g. onZeroHp, onSpecificAction
   stacking?: "overlap" | "refresh" | "override" | "ignore";
@@ -42,7 +39,7 @@ export type ApplyAdvantageEffect = EffectBase & {
   type: "applyAdvantage";
   nodeIds: string[]; // CheckNode ids; a parent node covers its descendants
   polarity: AdvantagePolarity;
-  durationRounds?: number;
+  durationRounds?: Num;
   endsAt?: "startOfTurn" | "endOfTurn";
   endsEarlyOn?: ExpiryCondition[];
   concentration?: boolean;
@@ -51,7 +48,7 @@ export type ApplyAdvantageEffect = EffectBase & {
 export type ApplyStatusEffect = EffectBase & {
   type: "applyStatus";
   statusId: string;
-  durationRounds?: number;
+  durationRounds?: Num;
   endsAt?: "startOfTurn" | "endOfTurn";
   endsEarlyOn?: ExpiryCondition[];
 };
@@ -83,4 +80,7 @@ export type ActionInstance = {
 
   effects: ActionEffect[];
   requires?: Predicate;
+
+  /** Payment alternatives. When present, the action must not also carry modifyResource effects. */
+  costOptions?: CostOption[];
 };

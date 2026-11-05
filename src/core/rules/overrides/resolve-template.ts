@@ -4,16 +4,27 @@ import { getResourceById } from "@/core/data/registries/resources.registry";
 import { getStatusTemplateById } from "@/core/data/registries/status.registry";
 import { Character } from "@/core/entities/character/Character";
 import {
+  ADJUSTABLE_FIELDS,
   AppliedPatch,
   OverrideFor,
   OverrideTemplate,
   PATCHABLE_FIELDS,
   ResolvedTemplate,
+  Selector,
   TemplateByKind,
   TemplateKind,
 } from "@/core/entities/rules/override/override-template";
 import { OverrideContext, buildOverrideContext } from "./active-overrides";
 import { ActionEffect } from "@/core/entities/actions/action-instance";
+import { ModifierType } from "@/core/entities/modifiers/Modifier";
+import { Num } from "@/core/entities/rules/expr/expr";
+import { adjustNum, toExpr } from "@/core/rules/overrides/adjust-num";
+import { ResourceTemplate } from "@/core/entities/rules/resource-template";
+import { DEFAULT_MODIFIER_PRIORITY } from "../modifiers/stacking";
+import {
+  isStructural,
+  applyStructural,
+} from "@/core/entities/rules/override/apply-structural";
 
 const LOOKUP: { [K in TemplateKind]: (id: string) => TemplateByKind[K] } = {
   resource: getResourceById,
@@ -91,6 +102,52 @@ function applyPatches<K extends TemplateKind>(
         }
         continue;
       }
+      if (p.op === "adjust") {
+        if (!(ADJUSTABLE_FIELDS[kind] as readonly string[]).includes(p.field)) {
+          console.warn(
+            `[overrides] "${o.id}" adjusts non-adjustable ${kind}.${p.field}; ignored`,
+          );
+          continue;
+        }
+        // A modifier without its own priority uses the default for its type.
+        const current =
+          kind === "modifier" &&
+          p.field === "priority" &&
+          template.priority === undefined
+            ? DEFAULT_MODIFIER_PRIORITY[template.type as ModifierType]
+            : (template[p.field] as Num | undefined);
+        const next = adjustNum(current, p.mode, p.value);
+        if (next === undefined) {
+          console.warn(
+            `[overrides] "${o.id}": ${kind}.${p.field} has no value to ${p.mode}; ignored`,
+          );
+          continue;
+        }
+        const after =
+          kind === "resource" && p.field === "max" ? toExpr(next) : next; // max is always an Expr
+        trail.push({
+          overrideId: o.id,
+          sourceId: o.sourceId,
+          op: "adjust",
+          field: p.field,
+          mode: p.mode,
+          before: template[p.field],
+          after,
+        });
+        template = { ...template, [p.field]: after };
+        continue;
+      }
+      if (isStructural(p)) {
+        const r = applyStructural(kind, template, p, o.id);
+        if (!r) continue;
+        template = r.template;
+        trail.push({
+          overrideId: o.id,
+          sourceId: o.sourceId,
+          ...r.applied,
+        } as AppliedPatch);
+        continue;
+      }
       if (!allowed.includes(p.field)) {
         console.warn(
           `[overrides] "${o.id}" patches non-patchable ${kind}.${p.field}; ignored`,
@@ -117,8 +174,13 @@ export function resolveTemplateWith<K extends TemplateKind>(
   ctx: OverrideContext,
 ): ResolvedTemplate<K> {
   const base = LOOKUP[kind](id);
+  // group selectors match the BASE template's groups, never groups
+  // patched by another override. Which overrides apply must not depend on
+  // override order. Revisit if a real case needs "everything in the group
+  // after patches".
+  const groups = groupsOf(kind, base);
   const matching = orderOverrides(ctx.active, kind, (o) =>
-    matchesTarget(o.target, id),
+    matchesTarget(o.target as Selector, id, groups),
   );
   return { kind, id, ...applyPatches(kind, base, matching) };
 }
@@ -144,4 +206,11 @@ export const resolveTemplate = <K extends TemplateKind>(
   character: Character,
 ) => resolveTemplateWith(kind, id, buildOverrideContext(character));
 
-const matchesTarget = (t: { id: string }, id: string) => t.id === id;
+function groupsOf(kind: TemplateKind, template: unknown): readonly string[] {
+  return kind === "resource"
+    ? ((template as ResourceTemplate).groups ?? [])
+    : [];
+}
+
+const matchesTarget = (t: Selector, id: string, groups: readonly string[]) =>
+  "group" in t ? groups.includes(t.group) : t.id === id;

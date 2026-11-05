@@ -10,7 +10,7 @@ export const ABJURATION_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "arcane_ward_charge",
+        resourceId: "arcane_ward_create",
         amount: -1,
       },
       {

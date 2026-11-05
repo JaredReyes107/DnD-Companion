@@ -11,40 +11,34 @@ import {
 type Props = {
   label: string;
   current: number;
-  max: number | "unbounded";
-  onChange: (newUsed: number) => void;
+  max: number;
+  onChange: (current: number) => void;
 };
 
 export const ResourceElement = ({ label, current, max, onChange }: Props) => {
+  const bounded = Number.isFinite(max);
   return (
     <View style={styles.resourceElementContainer}>
       <ThemedText style={styles.resourceElementName}>
-        {getLocalizedShortName("resources", label)
-          ? getLocalizedShortName("resources", label)
-          : getLocalizedName("resources", label)}
+        {getLocalizedShortName("resources", label) ??
+          getLocalizedName("resources", label)}
       </ThemedText>
-
       <ThemedText style={styles.resourceElementValues}>
-        {Number.isFinite(max) ? `${current} / ${max}` : "∞"}
+        {bounded ? `${current} / ${max}` : "∞"}
       </ThemedText>
-
       <View style={styles.resourceElementButtonsContainer}>
-        <TouchableOpacity onPress={() => current > 0 && onChange(current - 1)}>
+        <TouchableOpacity
+          disabled={!bounded || current <= 0}
+          onPress={() => onChange(current - 1)}
+        >
           <MaterialIcons name="remove" size={18} color="white" />
         </TouchableOpacity>
-
-        {max == "unbounded" && (
-          <TouchableOpacity>
-            <MaterialIcons name="add" size={18} color="white" />
-          </TouchableOpacity>
-        )}
-        {max != "unbounded" && (
-          <TouchableOpacity
-            onPress={() => current < max && onChange(current + 1)}
-          >
-            <MaterialIcons name="add" size={18} color="white" />
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity
+          disabled={!bounded || current >= max}
+          onPress={() => onChange(current + 1)}
+        >
+          <MaterialIcons name="add" size={18} color="white" />
+        </TouchableOpacity>
       </View>
     </View>
   );
