@@ -39,14 +39,12 @@ interface ModifierTemplate {
   sourceId: string;
   statModel: StatModel;    // what stat this targets
   type: ModifierType;
-  value: ModifierValue; // number | Expr
+  value: ModifierValue; // Num = number | Expr
   priority?: ModifierValue; // falls back to DEFAULT_MODIFIER_PRIORITY[type]
-  condition?: Condition;   // runtime gate
+  condition?: Condition;   // Condition = Predicate. Runtime gate
   effectId?: string;       // stacking group key
   tags?: string[];
 }
-
-type ModifierValue = number | ((context: ModifierEvalContext) => number);
 ```
 
 Expr values are evaluated against an ExprContext (character, resolved, targetNodeId?, resolveResource?). targetNodeId is injected per check node by the stat resolver.
@@ -122,8 +120,6 @@ The `resolvedAbility` context parameter is critical for ability-scoped modifiers
 ## `Condition` — Runtime Gates
 
 Condition is an alias of Predicate. See Predicates in the second half. Use the P builders. evaluateCondition calls `isSatisfied(..., "open")`.
-
-**`resourceAtLeast` is the key pattern for resource-gated passive modifiers.** Example from Rune Knight: a rune's passive modifier has `condition: { type: "resourceAtLeast", resourceId: "fire_rune", minimum: 1 }` — the modifier is active while the resource has at least 1 charge and automatically deactivates when the resource is spent, with no lifecycle management needed.
 
 ---
 
@@ -210,7 +206,7 @@ Two stacking modes:
 - `"raw"` (5e default): any advantage + any disadvantage = none, regardless of counts.
 - `"oneToOne"` (optional house rule): instances cancel one-for-one; the remainder polarity wins.
 
-## Modifier System and Expressions
+## Expressions and Predicates
 
 ## Pipeline
 

@@ -30,14 +30,12 @@ Template (static, in a registry)
 
 Patchable fields today:
 
-| Kind | Fields |
-|---|---|
-| resource | `recharge`, `max` (an `Expr`), `category` |
-| action | `duration` (plus effect add/remove) |
-| modifier | `value`, `priority` (`number \| Expr`) |
-| status | `limitStat`, `bindsSourceEffects` |
-
-Widen this list per real need, not speculatively.
+| Kind | `PATCHABLE_FIELDS` | `ADJUSTABLE_FIELDS` |
+|---|---|---|
+| resource | `recharge`, `max`, `category` | `max`, `rank` |
+| action | `duration` | none |
+| modifier | `value`, `priority` | `value`, `priority` |
+| status | `limitStat`, `bindsSourceEffects` | none |
 
 ## Activation
 
@@ -82,12 +80,52 @@ override target, not in bulk.
 Example (`emboldening_bond`): its `applyStatus: concentrating` effect has `key: "concentration"`,
 so a homebrew override can use `{ op: "removeEffect", key: "concentration" }`.
 
+## Selectors
+
+`target` is `{ id }` or `{ group }`. Group selectors apply to **resources only** and are rejected
+at registration for other kinds. A group selector matches the **base** template's groups, never
+groups added by another override, so override order cannot change which overrides apply.
+
+## Operations
+
+| Op | Applies to | Effect |
+|---|---|---|
+| `set` | allow-listed scalar (`PATCHABLE_FIELDS`) | replace the value |
+| `adjust` | `ADJUSTABLE_FIELDS` | `mode: set \| add \| mul` on a Num; literals fold, mixed becomes an Expr |
+| `describe` | any | trail only |
+| `addEffect` / `removeEffect` | action | keyed effects |
+| `addCostOption` / `removeCostOption` | action | cannot remove the last option |
+| `addCostLine` / `removeCostLine` | action | added line needs a key; its param must be declared |
+| `setCostParamGroup` | action | resource params only |
+| `adjustCost` | action | on a line's `delta` or a param bound (`min`, `max`, `minRank`, `maxRank`) |
+| `addGroup` / `removeGroup` | resource | `addGroup` requires a `rank`; patch it first |
+
+Tables:
+
+| Kind | `PATCHABLE_FIELDS` | `ADJUSTABLE_FIELDS` |
+|---|---|---|
+| resource | `recharge`, `max`, `category` | `max`, `rank` |
+| action | `duration` | none |
+| modifier | `value`, `priority` | `value`, `priority` |
+| status | `limitStat`, `bindsSourceEffects` | none |
+
+**Sign convention:** cost deltas are signed, spend is negative. `adjustCost` with `mul: 2`
+doubles a cost; `add: -1` makes it one more expensive.
+
+**Failure policy:** structural ops that cannot apply (unknown key, duplicate key, last option,
+undeclared param, missing rank, wrong kind) warn and are skipped; they never throw at read time.
+Registration rejects cost ops on non-action overrides, group ops and group selectors on
+non-resource overrides.
+
+`removeGroup` leaves `rank` in place. Order within an override matters (rank before `addGroup`).
+
 ## Who consumes resolved templates
 
 | Consumer | Status |
 |---|---|
 | Resources (`resourceMax`, `resourceRecharge`, `restoreResources`) | Resolved. `ResourceContext` carries the `OverrideContext`. |
 | Actions (`resolveActiveActions`, `tab-actions`) | Resolved. Actions are derived from features, choices and defaults. |
+| Cost pipeline (`candidateResources`, `resourceRank`, `CostLine`) | Resolved |
 | Modifiers, statuses | Resolver supports them. No consumer is wired yet. |
 | UI trail / description sheet | **Not built.** `describe` patches are only recorded in the trail. |
 
