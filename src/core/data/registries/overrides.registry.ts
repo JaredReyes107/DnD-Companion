@@ -16,10 +16,17 @@ const homebrewOverrides: Record<string, OverrideTemplate> = {};
 export function registerHomebrewOverride(o: OverrideTemplate) {
   if (o.patches.length === 0)
     throw new Error(`Override ${o.id} has no patches`);
-  if ("group" in o.target && o.kind !== "resource")
+  if (o.kind !== "resource" && "group" in o.target)
     throw new Error(
       `Override ${o.id}: group selectors only apply to resources`,
     );
+  if (
+    (o.patches as { op: string }[]).some(
+      (p) => p.op === "addGroup" || p.op === "removeGroup",
+    ) &&
+    o.kind !== "resource"
+  )
+    throw new Error(`Override ${o.id}: group ops only apply to resources`);
   if (
     o.kind !== "action" &&
     (o.patches as { op: string }[]).some((p) => COST_OPS.has(p.op))
