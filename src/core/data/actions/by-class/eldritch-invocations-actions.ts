@@ -38,12 +38,12 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_bewitching_whispers",
+        resourceId: "invocation_bewitching_whispers",
         amount: -1,
       },
       {
         type: "modifyResource",
-        resourceId: "invocation_pact_slots",
+        resourceId: "pact_slots",
         amount: -1,
       },
     ],
@@ -67,7 +67,7 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_chains_of_carceri",
+        resourceId: "invocation_chains_of_carceri",
         amount: -1,
       },
     ],
@@ -81,12 +81,12 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_dreadful_word",
+        resourceId: "invocation_dreadful_word",
         amount: -1,
       },
       {
         type: "modifyResource",
-        resourceId: "invocation_pact_slots",
+        resourceId: "pact_slots",
         amount: -1,
       },
     ],
@@ -155,12 +155,12 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_minions_of_chaos",
+        resourceId: "invocation_minions_of_chaos",
         amount: -1,
       },
       {
         type: "modifyResource",
-        resourceId: "invocation_pact_slots",
+        resourceId: "pact_slots",
         amount: -1,
       },
     ],
@@ -175,7 +175,7 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_mire_the_mind",
+        resourceId: "invocation_mire_the_mind",
         amount: -1,
       },
     ],
@@ -226,12 +226,12 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_sculptor_of_flesh",
+        resourceId: "invocation_sculptor_of_flesh",
         amount: -1,
       },
       {
         type: "modifyResource",
-        resourceId: "invocation_pact_slots",
+        resourceId: "pact_slots",
         amount: -1,
       },
     ],
@@ -246,12 +246,12 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_sign_of_ill_omen",
+        resourceId: "invocation_sign_of_ill_omen",
         amount: -1,
       },
       {
         type: "modifyResource",
-        resourceId: "invocation_pact_slots",
+        resourceId: "pact_slots",
         amount: -1,
       },
     ],
@@ -266,12 +266,12 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_thief_of_five_fates",
+        resourceId: "invocation_thief_of_five_fates",
         amount: -1,
       },
       {
         type: "modifyResource",
-        resourceId: "invocation_pact_slots",
+        resourceId: "pact_slots",
         amount: -1,
       },
     ],
@@ -323,7 +323,7 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_cloak_of_flies",
+        resourceId: "invocation_cloak_of_flies",
         amount: -1,
       },
     ],
@@ -341,7 +341,7 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_eldritch_smite",
+        resourceId: "invocation_eldritch_smite",
         amount: -1,
       },
       // TODO: also spends a variable warlock spell slot — deferred
@@ -357,7 +357,7 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_ghostly_gaze",
+        resourceId: "invocation_ghostly_gaze",
         amount: -1,
       },
     ],
@@ -371,7 +371,7 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_gift_of_the_depths",
+        resourceId: "invocation_gift_of_the_depths_water_breathing",
         amount: -1,
       },
     ],
@@ -395,7 +395,7 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_grasp_of_hadar",
+        resourceId: "invocation_grasp_of_hadar",
         amount: -1,
       },
     ],
@@ -420,7 +420,7 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_lance_of_lethargy",
+        resourceId: "invocation_lance_of_lethargy",
         amount: -1,
       },
     ],
@@ -462,7 +462,7 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_tomb_of_levistus",
+        resourceId: "invocation_tomb_of_levistus",
         amount: -1,
       },
     ],
@@ -478,7 +478,7 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_trickster_escape",
+        resourceId: "invocation_trickster_escape",
         amount: -1,
       },
     ],
@@ -494,7 +494,7 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_bond_of_the_talisman",
+        resourceId: "invocation_bond_of_the_talisman",
         amount: -1,
       },
     ],
@@ -608,7 +608,7 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_protection_of_the_talisman",
+        resourceId: "invocation_protection_of_the_talisman",
         amount: -1,
       },
     ],
@@ -632,7 +632,7 @@ export const ELDRITCH_INVOCATIONS_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "invocation_invocation_undying_servitude",
+        resourceId: "invocation_undying_servitude",
         amount: -1,
       },
     ],

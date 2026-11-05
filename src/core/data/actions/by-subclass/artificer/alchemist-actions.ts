@@ -10,7 +10,7 @@ export const ALCHEMIST_ACTIONS: Record<string, ActionInstance> = {
     effects: [
       {
         type: "modifyResource",
-        resourceId: "experimental_elixir",
+        resourceId: "experimental_elixir_fabricate",
         amount: -1,
       },
     ],
