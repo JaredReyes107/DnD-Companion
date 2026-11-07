@@ -11,7 +11,7 @@ export const MASTERMIND: SubclassTemplate = {
         id: "master_of_intrigue",
         source: "subclass" as const,
         level: 3,
-        grants: [{ type: "action", id: "mimic_speech_patterns" }],
+        grants: [{ type: "action", id: "master_of_intrigue" }],
         tags: ["proficiency", "tool", "language", "roleplay"],
       },
       {

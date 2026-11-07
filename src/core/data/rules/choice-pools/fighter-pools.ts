@@ -10,7 +10,7 @@ export const FIGHTER_POOLS: Record<string, ChoicePoolTemplate> = {
   ...RUNE_KNIGHT_POOLS,
 
   fighting_style_fighter: {
-    id: "maneuvers",
+    id: "fighting_style_fighter",
     sourceId: "fighter",
     classId: "fighter",
     selectionTrigger: { type: "levelUp" },

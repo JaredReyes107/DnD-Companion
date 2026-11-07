@@ -21,15 +21,6 @@ export const WILD_MAGIC: SubclassTemplate = {
         id: "wild_surge",
         source: "subclass",
         level: 3,
-        grants: [
-          ...[1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({
-            type: "action" as const,
-            id: `wild_surge_${n}`,
-          })),
-          { type: "action", id: "wild_surge_teleport" },
-          { type: "action", id: "wild_surge_spirit" },
-          { type: "action", id: "wild_surge_light_bolt" },
-        ],
         tags: ["combat"],
       }, // the d8 roll is physical; the player taps the result
     ],
@@ -40,8 +31,7 @@ export const WILD_MAGIC: SubclassTemplate = {
         source: "subclass",
         level: 6,
         grants: [
-          { type: "action", id: "bolstering_magic_bonus" },
-          { type: "action", id: "bolstering_magic_slot" },
+          { type: "action", id: "bolstering_magic" },
           { type: "resource", id: "bolstering_magic" },
         ],
         tags: ["support", "utility"],

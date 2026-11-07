@@ -50,7 +50,7 @@ export const ENCHANTMENT: SubclassTemplate = {
         id: "alter_memories",
         source: "subclass" as const,
         level: 14,
-        grants: [{ type: "action", id: "alter_memories" }],
+        grants: [{ type: "action", id: "alter_memories_erase" }],
         tags: ["control", "utility"],
       },
     ],

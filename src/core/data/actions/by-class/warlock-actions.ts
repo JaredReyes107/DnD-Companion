@@ -70,7 +70,7 @@ const PACT_BOON_ACTIONS: Record<string, ActionInstance> = {
   },
 
   pact_of_the_talisman_aid: {
-    id: "eldritch_master",
+    id: "pact_of_the_talisman_aid",
     sourceId: "warlock",
     boards: ["combat", "exploration"],
     duration: { kind: "economy", slot: "action" },
@@ -83,7 +83,7 @@ const PACT_BOON_ACTIONS: Record<string, ActionInstance> = {
     ],
   },
   pact_of_the_talisman_replace: {
-    id: "eldritch_master",
+    id: "pact_of_the_talisman_replace",
     sourceId: "warlock",
     boards: ["combat", "exploration"],
     duration: { kind: "economy", slot: "action" },

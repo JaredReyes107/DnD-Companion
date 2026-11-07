@@ -24,8 +24,7 @@ export const CAVALIER: SubclassTemplate = {
         level: 3,
         grants: [
           { type: "action", id: "unwavering_mark" },
-          { type: "action", id: "unwavering_mark_attack" },
-          { type: "resource", id: "unwavering_mark_attack" },
+          { type: "action", id: "unwavering_mark_retaliate" },
         ],
         tags: ["combat", "tank", "debuff"],
       },

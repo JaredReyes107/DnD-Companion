@@ -18,7 +18,7 @@ const PHB_SUBCLASSES: Record<string, SubclassTemplate> = {
 const XANATHAR_SUBCLASSES: Record<string, SubclassTemplate> = {
   divine_soul: DIVINE_SOUL,
   shadow_magic: SHADOW_MAGIC,
-  storm: STORM_SORCERY,
+  storm_sorcery: STORM_SORCERY,
 };
 
 const TASHA_SUBCLASSES: Record<string, SubclassTemplate> = {

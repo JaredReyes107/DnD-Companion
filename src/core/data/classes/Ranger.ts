@@ -149,10 +149,7 @@ export const RANGER: ClassTemplate = {
         id: "foe_slayer",
         source: "class" as const,
         level: 20,
-        grants: [
-          { type: "resource", id: "foe_slayer" },
-          { type: "action", id: "foe_slayer" },
-        ],
+        grants: [{ type: "resource", id: "foe_slayer" }],
         tags: [],
       },
     ],

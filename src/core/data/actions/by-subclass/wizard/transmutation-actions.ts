@@ -38,7 +38,7 @@ export const TRANSMUTATION_ACTIONS: Record<string, ActionInstance> = {
   },
 
   master_transmuter: {
-    id: "shapechanger",
+    id: "master_transmuter",
     sourceId: "transmutation",
     boards: ["combat", "exploration"],
     duration: { kind: "economy", slot: "action" },

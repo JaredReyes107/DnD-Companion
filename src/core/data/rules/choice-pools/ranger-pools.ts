@@ -6,9 +6,9 @@ export const RANGER_POOLS: Record<string, ChoicePoolTemplate> = {
   ...HUNTER_POOLS,
 
   fighting_style_ranger: {
-    id: "maneuvers",
-    sourceId: "fighter",
-    classId: "fighter",
+    id: "fighting_style_ranger",
+    sourceId: "ranger",
+    classId: "ranger",
     selectionTrigger: { type: "levelUp" },
     optionIds: [
       "fighting_style_archery",

@@ -13,9 +13,9 @@ export const SWARMKEEPER: SubclassTemplate = {
         level: 3,
         grants: [
           { type: "resource", id: "gathered_swarm" },
-          { type: "action", id: "gathered_swarm_attack" },
+          { type: "action", id: "gathered_swarm_damage" },
           { type: "action", id: "gathered_swarm_push" },
-          { type: "action", id: "gathered_swarm_move" },
+          { type: "action", id: "gathered_swarm_self_move" },
         ],
         tags: ["combat"],
       },

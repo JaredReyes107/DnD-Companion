@@ -2,9 +2,9 @@ import { ChoicePoolTemplate } from "@/core/entities/rules/choice-pool-template";
 
 export const PALADIN_POOLS: Record<string, ChoicePoolTemplate> = {
   fighting_style_paladin: {
-    id: "maneuvers",
-    sourceId: "fighter",
-    classId: "fighter",
+    id: "fighting_style_paladin",
+    sourceId: "paladin",
+    classId: "paladin",
     selectionTrigger: { type: "levelUp" },
     optionIds: [
       "fighting_style_defense",

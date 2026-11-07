@@ -38,7 +38,6 @@ export const SAMURAI: SubclassTemplate = {
         id: "tireless_spirit",
         source: "subclass" as const,
         level: 10,
-        grants: [{ type: "action", id: "tireless_spirit" }],
         tags: [],
       },
     ],

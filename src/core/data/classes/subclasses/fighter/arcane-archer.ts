@@ -47,7 +47,6 @@ export const ARCANE_ARCHER: SubclassTemplate = {
         id: "ever_ready_shot",
         source: "subclass",
         level: 15,
-        grants: [{ type: "action", id: "ever_ready_shot" }],
         tags: ["resource"],
       },
     ],

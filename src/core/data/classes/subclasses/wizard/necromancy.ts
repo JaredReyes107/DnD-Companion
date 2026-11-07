@@ -48,10 +48,7 @@ export const NECROMANCY: SubclassTemplate = {
         id: "command_undead",
         source: "subclass" as const,
         level: 14,
-        grants: [
-          { type: "resource", id: "command_undead" },
-          { type: "action", id: "command_undead" },
-        ],
+        grants: [{ type: "action", id: "command_undead" }],
         tags: ["control"],
       },
     ],

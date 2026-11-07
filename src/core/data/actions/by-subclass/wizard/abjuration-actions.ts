@@ -21,7 +21,7 @@ export const ABJURATION_ACTIONS: Record<string, ActionInstance> = {
     ],
   },
   arcane_ward_recharge: {
-    id: "arcane_ward_create",
+    id: "arcane_ward_recharge",
     sourceId: "abjuration",
     boards: ["combat"],
     duration: { kind: "instantaneous" },

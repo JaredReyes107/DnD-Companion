@@ -59,7 +59,6 @@ export const SORCERER: ClassTemplate = {
         id: "sorcerous_restoration",
         source: "class",
         level: 20,
-        grants: [{ type: "action", id: "sorcerous_restoration" }],
         tags: ["resource"],
         // TODO: Override. Add resource trigger (4 sp on shortRest)
       },

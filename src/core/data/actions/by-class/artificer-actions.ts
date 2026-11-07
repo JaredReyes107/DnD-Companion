@@ -71,7 +71,7 @@ export const ARTIFICER_ACTIONS: Record<string, ActionInstance> = {
     ],
   },
   soul_of_artifice: {
-    id: "flash_of_genius",
+    id: "soul_of_artifice",
     sourceId: "artificer",
     duration: { kind: "economy", slot: "reaction" },
     boards: ["combat"],

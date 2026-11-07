@@ -1,4 +1,7 @@
-import { ModifierTemplate } from "@/core/entities/modifiers/Modifier";
+import {
+  ModifierTemplate,
+  ModifierType,
+} from "@/core/entities/modifiers/Modifier";
 
 import { BARBARIAN_MODIFIERS } from "../rules/modifiers/by-class/barbarian/barbarian-modifiers";
 import { BARD_MODIFIERS } from "../rules/modifiers/by-class/bard-modifiers";
@@ -18,8 +21,33 @@ export const CLASS_MODIFIERS: Record<string, ModifierTemplate> = {
   ...RUNE_KNIGHT_MODIFIERS,
 };
 
+export const FIGHTING_STYLE_MODIFIERS: Record<string, ModifierTemplate> = {
+  fighting_style_archery_attack: {
+    id: "fighting_style_archery_attack",
+    sourceId: "fighting_style_archery",
+    statModel: { type: "custom", key: "attack" },
+    type: ModifierType.ADDITIVE,
+    value: 2,
+  },
+  fighting_style_defense_ac: {
+    id: "fighting_style_defense_ac",
+    sourceId: "fighting_style_defense",
+    statModel: { type: "derived", key: "ac" },
+    type: ModifierType.ADDITIVE,
+    value: 1,
+  },
+  fighting_style_dueling_damage: {
+    id: "fighting_style_dueling_damage",
+    sourceId: "fighting_style_dueling",
+    statModel: { type: "custom", key: "damage" },
+    type: ModifierType.ADDITIVE,
+    value: 2,
+  },
+};
+
 export const BASE_MODIFIERS: Record<string, ModifierTemplate> = {
   ...STATUS_MODIFIERS,
+  ...FIGHTING_STYLE_MODIFIERS,
 
   ...CLASS_MODIFIERS,
 };

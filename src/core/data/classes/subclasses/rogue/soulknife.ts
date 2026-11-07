@@ -13,7 +13,6 @@ export const SOULKNIFE: SubclassTemplate = {
         level: 3,
         grants: [
           { type: "resource", id: "psionic_energy_dice" },
-          { type: "resource", id: "regain_psionic_energy_die" },
           { type: "action", id: "psionic_energy_die_recover" },
           { type: "resource", id: "psychic_whispers" },
           { type: "action", id: "psychic_whispers" },

@@ -45,7 +45,6 @@ export const ARCANE_TRICKSTER: SubclassTemplate = {
         id: "versatile_trickster",
         source: "subclass" as const,
         level: 13,
-        grants: [{ type: "action", id: "versatile_trickster" }],
         tags: ["combat", "advantage", "bonus-action"],
       },
     ],

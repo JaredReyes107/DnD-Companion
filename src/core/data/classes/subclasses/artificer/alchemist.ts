@@ -27,7 +27,6 @@ export const ALCHEMIST: SubclassTemplate = {
         grants: [
           { type: "action", id: "experimental_elixir_fabricate" },
           { type: "action", id: "experimental_elixir_create" },
-          { type: "resource", id: "experimental_elixir" },
         ],
         tags: ["utility", "healing", "combat"],
       },

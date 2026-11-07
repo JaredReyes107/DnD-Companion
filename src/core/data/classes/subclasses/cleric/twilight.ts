@@ -56,10 +56,7 @@ export const TWILIGHT: SubclassTemplate = {
         id: "steps_of_night",
         source: "subclass" as const,
         level: 6,
-        grants: [
-          { type: "action", id: "steps_of_night" },
-          { type: "resource", id: "steps_of_night" },
-        ],
+        grants: [{ type: "resource", id: "steps_of_the_night" }],
         tags: ["movement"],
       },
     ],

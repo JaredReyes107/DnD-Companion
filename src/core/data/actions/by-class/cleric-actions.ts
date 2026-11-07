@@ -10,6 +10,7 @@ import { WAR_ACTIONS } from "../by-subclass/cleric/war-actions";
 
 import { FORGE_ACTIONS } from "../by-subclass/cleric/forge-actions";
 import { GRAVE_ACTIONS } from "../by-subclass/cleric/grave-actions";
+import { DEATH_ACTIONS } from "../by-subclass/cleric/death-actions";
 
 import { ORDER_ACTIONS } from "../by-subclass/cleric/order-actions";
 import { PEACE_ACTIONS } from "../by-subclass/cleric/peace-actions";
@@ -28,6 +29,7 @@ export const subclass_actions: Record<string, ActionInstance> = {
   // Xanathar's
   ...FORGE_ACTIONS,
   ...GRAVE_ACTIONS,
+  ...DEATH_ACTIONS,
 
   // Tasha's
   ...ORDER_ACTIONS,

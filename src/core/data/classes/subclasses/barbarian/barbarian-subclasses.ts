@@ -21,7 +21,7 @@ const XANATHAR_SUBCLASSES: Record<string, SubclassTemplate> = {
 
 const TASHA_SUBCLASSES: Record<string, SubclassTemplate> = {
   beast: BEAST,
-  wild_magic: WILD_MAGIC,
+  wild_magic_barbarian: WILD_MAGIC,
 };
 
 export const BARBARIAN_SUBCLASSES: Record<string, SubclassTemplate> = {

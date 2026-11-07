@@ -20,8 +20,8 @@ export const SHEPHERD: SubclassTemplate = {
         level: 2,
         grants: [
           { type: "resource", id: "spirit_totem" },
-          { type: "resource", id: "spirit_totem_summon" },
-          { type: "resource", id: "spirit_totem_move" },
+          { type: "action", id: "spirit_totem_summon" },
+          { type: "action", id: "spirit_totem_move" },
         ],
         tags: ["support", "build-choice"],
         // TODO: Totem choice system (Bear/Hawk/Unicorn)

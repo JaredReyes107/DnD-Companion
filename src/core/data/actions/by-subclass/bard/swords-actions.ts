@@ -16,7 +16,7 @@ export const SWORDS_ACTIONS: Record<string, ActionInstance> = {
     ],
   },
   slashing_flourish: {
-    id: "defensive_flourish",
+    id: "slashing_flourish",
     sourceId: "swords",
     boards: ["combat"],
     duration: { kind: "instantaneous" },
@@ -29,7 +29,7 @@ export const SWORDS_ACTIONS: Record<string, ActionInstance> = {
     ],
   },
   mobile_flourish: {
-    id: "defensive_flourish",
+    id: "mobile_flourish",
     sourceId: "swords",
     boards: ["combat"],
     duration: { kind: "instantaneous" },
