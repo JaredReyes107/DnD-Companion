@@ -1,7 +1,7 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 import { draconic_actions_es } from "../subclasses/draconic/es/draconic-actions-es";
-import { wild_magic_sorcerer_actions_es } from "../subclasses/wild/es/wild-magic-actions-es";
+import { wild_magic_sorcerer_actions_es } from "../subclasses/wild-magic/es/wild-magic-actions-es";
 
 import { divine_soul_actions_es } from "../subclasses/divine-soul/es/divine-soul-actions-es";
 import { shadow_magic_actions_es } from "../subclasses/shadow/es/shadow-magic-actions-es";

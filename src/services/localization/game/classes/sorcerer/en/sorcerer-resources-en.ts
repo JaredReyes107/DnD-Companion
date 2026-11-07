@@ -1,7 +1,7 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 import { draconic_resources_en } from "../subclasses/draconic/en/draconic-resources-en";
-import { wild_magic_sorcerer_resources_en } from "../subclasses/wild/en/wild-magic-resources-en";
+import { wild_magic_sorcerer_resources_en } from "../subclasses/wild-magic/en/wild-magic-resources-en";
 
 import { divine_soul_resources_en } from "../subclasses/divine-soul/en/divine-soul-resources-en";
 import { shadow_magic_resources_en } from "../subclasses/shadow/en/shadow-magic-resources-en";

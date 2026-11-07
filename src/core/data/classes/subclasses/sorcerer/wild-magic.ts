@@ -1,7 +1,7 @@
 import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 
 export const WILD_MAGIC_SORCERER: SubclassTemplate = {
-  id: "wild_magic",
+  id: "wild_magic_sorcerer",
   classId: "sorcerer",
   source: "Player's Handbook",
 

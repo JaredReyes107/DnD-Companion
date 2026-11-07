@@ -1,7 +1,7 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 import { draconic_features_en } from "../subclasses/draconic/en/draconic-features-en";
-import { wild_magic_sorcerer_features_en } from "../subclasses/wild/en/wild-magic-features-en";
+import { wild_magic_sorcerer_features_en } from "../subclasses/wild-magic/en/wild-magic-features-en";
 
 import { divine_soul_features_en } from "../subclasses/divine-soul/en/divine-soul-features-en";
 import { shadow_features_en } from "../../monk/subclasses/shadow/en/shadow-features-en";
