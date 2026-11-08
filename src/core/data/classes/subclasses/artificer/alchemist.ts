@@ -8,20 +8,20 @@ export const ALCHEMIST: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "tool_proficiency_alchemist",
+        id: "artificer.alchemist.tool_proficiency_alchemist",
         source: "subclass" as const,
         level: 3,
         tags: ["proficiency", "tool"],
         // TODO: Choice. Tool. Grant proficiency
       },
       {
-        id: "alchemist_spells",
+        id: "artificer.alchemist.alchemist_spells",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],
       },
       {
-        id: "experimental_elixir",
+        id: "artificer.alchemist.experimental_elixir",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -34,7 +34,7 @@ export const ALCHEMIST: SubclassTemplate = {
 
     5: [
       {
-        id: "alchemical_savant",
+        id: "artificer.alchemist.alchemical_savant",
         source: "subclass" as const,
         level: 5,
         tags: ["combat", "healing"],
@@ -43,7 +43,7 @@ export const ALCHEMIST: SubclassTemplate = {
 
     9: [
       {
-        id: "restorative_reagents",
+        id: "artificer.alchemist.restorative_reagents",
         source: "subclass" as const,
         level: 9,
         grants: [
@@ -56,7 +56,7 @@ export const ALCHEMIST: SubclassTemplate = {
 
     15: [
       {
-        id: "chemical_mastery",
+        id: "artificer.alchemist.chemical_mastery",
         source: "subclass" as const,
         level: 15,
         grants: [

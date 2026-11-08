@@ -1,22 +1,22 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const armorer_features_en: GameLocalizationCategory = {
-  tools_of_the_trade: {
+  "artificer.armorer.tools_of_the_trade": {
     name: "Tools of the Trade",
     description:
       "You gain proficiency with heavy armor. You also gain proficiency with smith's tools. If you already have this tool proficiency, you gain proficiency with one other type of artisan's tools of your choice.",
   },
-  armorer_spells: {
+  "artificer.armorer.armorer_spells": {
     name: "Armorer Spells",
     description:
       "You always have certain spells prepared after you reach particular levels in this class, as shown in the Armorer Spells table. These spells count as artificer spells for you, but they don't count against the number of artificer spells you prepare.",
   },
-  arcane_armor: {
+  "artificer.armorer.arcane_armor": {
     name: "Arcane Armor",
     description:
       "Your metallurgical pursuits have led to you making armor a conduit for your magic. As an action, you can turn a suit of armor you are wearing into Arcane Armor, provided you have smith's tools in hand. You gain the following benefits while wearing this armor: If the armor normally has a Strength requirement, the arcane armor lacks this requirement for you. You can use the arcane armor as a spellcasting focus for your artificer spells. The armor attaches to you and can't be removed against your will. It also expands to cover your entire body, although you can retract or deploy the helmet as a bonus action. The armor replaces any missing limbs, functioning identically to a limb it replaces. You can doff or don the armor as an action. The armor continues to be Arcane Armor until you don another suit of armor or you die.",
   },
-  armor_model: {
+  "artificer.armorer.armor_model": {
     name: "Armor Model",
     description: `You can customize your Arcane Armor. When you do so, choose one of the following armor models: Guardian or Infiltrator. The model you choose gives you special benefits while you wear it. Each model includes a special weapon. When you attack with that weapon, you can add your Intelligence modifier, instead of Strength or Dexterity, to the attack and damage rolls. You can change the armor's model whenever you finish a short or long rest, provided you have smith's tools in hand.
       Guardian. You design your armor to be in the front line of conflict. It has the following features:
@@ -32,12 +32,12 @@ export const armorer_features_en: GameLocalizationCategory = {
     description:
       "You can attack twice, rather than once, whenever you take the Attack action on your turn.",
   },
-  armor_modifications: {
+  "artificer.armorer.armor_modifications": {
     name: "Armor Modifications",
     description:
       "You learn how to use your artificer infusions to specially modify your Arcane Armor. That armor now counts as separate items for the purposes of your Infuse Items feature: armor (the chest piece), boots, helmet, and the armor's special weapon. Each of those items can bear one of your infusions, and the infusions transfer over if you change your armor's model with the Armor Model feature. In addition, the maximum number of items you can infuse at once increases by 2, but those extra items must be part of your Arcane Armor.",
   },
-  perfected_armor: {
+  "artificer.armorer.perfected_armor": {
     name: "Perfected Armor",
     description: `Your Arcane Armor gains additional benefits based on its model, as shown below.
       Guardian. When a Huge or smaller creature you can see ends its turn within 30 feet of you, you can use your reaction to magically force it to make a Strength saving throw against your spell save DC. On a failed save, you pull the creature up to 25 feet directly to an unoccupied space. If you pull the target to a space within 5 feet of you, you can make a melee weapon attack against it as part of this reaction.

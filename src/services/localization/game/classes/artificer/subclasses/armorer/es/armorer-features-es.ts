@@ -1,15 +1,15 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const armorer_features_es: GameLocalizationCategory = {
-  tools_of_the_trade: {
+  "artificer.armorer.tools_of_the_trade": {
     name: "Herramientas del Oficio",
     description: `Obtienes competencia con armaduras pesadas. También obtienes competencia con herramientas de herrero. Si ya tienes esta competencia con herramientas, obtienes competencia con otro tipo de herramientas de artesano que elijas.`,
   },
-  armorer_spells: {
+  "artificer.armorer.armorer_spells": {
     name: "Conjuros de Armero",
     description: `Siempre tienes algunos conjuros preparados cuando alcanzas determinados niveles en esta clase, tal y como aparece en la tabla "Conjuros de armero". Estos conjuros se consideran, en lo que a ti respecta, conjuros de artífice, pero no cuentan para el total de conjuros de artífice que preparas.`,
   },
-  arcane_armor: {
+  "artificer.armorer.arcane_armor": {
     name: "Armadura Arcana",
     description: `Gracias a tus actividades con la metalurgia, las armaduras han llegado a ser un conducto para tu magia. Como acción, puedes convertir una armadura que lleves puesta en Armadura Arcana, siempre que tengas a mano herramientas de herrero. Obtienes los siguientes beneficios mientras la lleves puesta:
       - Sí normalmente la armadura tiene un requisito de Fuerza, la Armadura Arcana no lo tiene en tu caso.
@@ -18,7 +18,7 @@ export const armorer_features_es: GameLocalizationCategory = {
       - Puedes ponerte o quitarte la armadura como acción.
       La armadura sigue siendo Armadura Arcana hasta que te pongas otra armadura o mueras.`,
   },
-  armor_model: {
+  "artificer.armorer.armor_model": {
     name: "Modelos de Armadura",
     description: `Puedes personalizar tu Armadura Arcana. Para ello, puedes elegir uno de los siguientes modelos de armadura: guardián o infiltrado. El modelo que elijas te brinda beneficios especiales mientras lo llevas puesto.
       Cada modelo incluye un arma especial. Al atacar con esa arma, puedes añadir tu modificador por Inteligencia, en lugar de tu modificador por Fuerza o Destreza, a las tiradas de ataque y de daño. Puedes cambiar de modelo de armadura tras finalizar un descanso corto o largo, siempre que tengas herramientas de herrero a mano.
@@ -34,11 +34,11 @@ export const armorer_features_es: GameLocalizationCategory = {
     name: "Ataque Adicional",
     description: `Cuando lleves a cabo la acción de Atacar durante tu turno, podrás hacer dos ataques en lugar de uno.`,
   },
-  armor_modifications: {
+  "artificer.armorer.armor_modifications": {
     name: "Modificaciones de Armadura",
     description: `Aprendes a utilizar las infusiones de artífice para modificar especialmente tu Armadura Arcana. A partir de ahora, las distintas partes de esa armadura se considerarán objetos independientes en lo que respecta al rasgo Imbuir Objeto: la armadura (la parte del pecho), las botas, el casco y su arma especial. Cada uno de estos elementos puede llevar una infusión y, si cambias el modelo de armadura con el rasgo Modelos de Armadura, la infusión también cambiará con él. Además, la cantidad máxima de objetos que puedes imbuir a la vez aumenta en 2, pero los objetos adicionales deben formar parte de tu Armadura Arcana.`,
   },
-  perfected_armor: {
+  "artificer.armorer.perfected_armor": {
     name: "Armadura Perfeccionada",
     description: `Tu Armadura Arcana consigue beneficios adicionales en función del modelo, tal y como se explica a continuación.
       Guardián. Cuando una criatura Enorme o más pequeña que puedas ver termine su turno a 30 pies o menos de ti, puedes usar tu reacción para obligar mágicamente a esa criatura a realizar una tirada de salvación de Fuerza frente a tu CD de salvación de conjuros, lo que atraerá a esa criatura 30 pies hacia ti hasta un espacio sin ocupar. Si acercas el objetivo a un espacio a 5 pies o menos de ti, podrás hacer un ataque con arma cuerpo a cuerpo contra él como parte de esta reacción.

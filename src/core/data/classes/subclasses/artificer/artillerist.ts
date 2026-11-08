@@ -8,20 +8,20 @@ export const ARTILLERIST: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "artillerist_tool_proficiency",
+        id: "artificer.artillerist.artillerist_tool_proficiency",
         source: "subclass" as const,
         level: 3,
         tags: ["proficiency", "tool"],
         // TODO: Grant. Tool proficiency, Woodcarver's tool
       },
       {
-        id: "artillerist_spells",
+        id: "artificer.artillerist.artillerist_spells",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],
       },
       {
-        id: "eldritch_cannon",
+        id: "artificer.artillerist.eldritch_cannon",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -37,7 +37,7 @@ export const ARTILLERIST: SubclassTemplate = {
 
     5: [
       {
-        id: "arcane_firearm",
+        id: "artificer.artillerist.arcane_firearm",
         source: "subclass" as const,
         level: 5,
         grants: [{ type: "action", id: "arcane_firearm_create" }],
@@ -48,7 +48,7 @@ export const ARTILLERIST: SubclassTemplate = {
 
     9: [
       {
-        id: "explosive_cannon",
+        id: "artificer.artillerist.explosive_cannon",
         source: "subclass" as const,
         level: 9,
         grants: [{ type: "action", id: "eldritch_cannon_detonate" }],
@@ -59,7 +59,7 @@ export const ARTILLERIST: SubclassTemplate = {
 
     15: [
       {
-        id: "fortified_position",
+        id: "artificer.artillerist.fortified_position",
         source: "subclass" as const,
         level: 15,
         tags: ["defense", "utility"],

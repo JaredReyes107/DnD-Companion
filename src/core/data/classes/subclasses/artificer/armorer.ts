@@ -8,20 +8,20 @@ export const ARMORER: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "tools_of_the_trade",
+        id: "artificer.armorer.tools_of_the_trade",
         source: "subclass" as const,
         level: 3,
         tags: ["proficiency"],
         // TODO: Grant. heavy armor + smith's tools
       },
       {
-        id: "armorer_spells",
+        id: "artificer.armorer.armorer_spells",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],
       },
       {
-        id: "arcane_armor",
+        id: "artificer.armorer.arcane_armor",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -32,7 +32,7 @@ export const ARMORER: SubclassTemplate = {
         // TODO: Equipment. Item modifier
       },
       {
-        id: "armor_model",
+        id: "artificer.armorer.armor_model",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "change_armor_model" }],
@@ -53,7 +53,7 @@ export const ARMORER: SubclassTemplate = {
 
     9: [
       {
-        id: "armor_modifications",
+        id: "artificer.armorer.armor_modifications",
         source: "subclass" as const,
         level: 9,
         tags: ["utility"],
@@ -63,7 +63,7 @@ export const ARMORER: SubclassTemplate = {
 
     15: [
       {
-        id: "perfected_armor",
+        id: "artificer.armorer.perfected_armor",
         source: "subclass" as const,
         level: 15,
         tags: ["combat", "defense"],

@@ -8,27 +8,27 @@ export const BATTLE_SMITH: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "tool_proficiency_battle_smith",
+        id: "artificer.battle_smith.tool_proficiency_battle_smith",
         source: "subclass" as const,
         level: 3,
         tags: ["proficiency", "tool"],
         // TODO: Grant. Smith's tools with selection fallback
       },
       {
-        id: "spells_battle_smith",
+        id: "artificer.battle_smith.spells_battle_smith",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],
       },
       {
-        id: "battle_ready",
+        id: "artificer.battle_smith.battle_ready",
         source: "subclass" as const,
         level: 3,
         tags: ["proficiency", "combat"],
         // TODO: Grant. Martial weapons proficiency
       },
       {
-        id: "steel_defender",
+        id: "artificer.battle_smith.steel_defender",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -52,7 +52,7 @@ export const BATTLE_SMITH: SubclassTemplate = {
 
     9: [
       {
-        id: "arcane_jolt",
+        id: "artificer.battle_smith.arcane_jolt",
         source: "subclass" as const,
         level: 9,
         grants: [
@@ -66,7 +66,7 @@ export const BATTLE_SMITH: SubclassTemplate = {
 
     15: [
       {
-        id: "improved_defender",
+        id: "artificer.battle_smith.improved_defender",
         source: "subclass" as const,
         level: 15,
         tags: ["combat", "defense"],

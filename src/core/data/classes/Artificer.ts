@@ -19,7 +19,7 @@ export const ARTIFICER: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "magical_tinkering",
+        id: "artificer.magical_tinkering",
         source: "class" as const,
         level: 1,
         grants: [
@@ -31,7 +31,7 @@ export const ARTIFICER: ClassTemplate = {
         // TODO: Item modifier.
       },
       {
-        id: "spellcasting_artificer",
+        id: "artificer.spellcasting_artificer",
         source: "class" as const,
         level: 1,
         grants: [],
@@ -41,7 +41,7 @@ export const ARTIFICER: ClassTemplate = {
 
     2: [
       {
-        id: "infuse_item",
+        id: "artificer.infuse_item",
         source: "class" as const,
         level: 2,
         grants: [
@@ -54,14 +54,14 @@ export const ARTIFICER: ClassTemplate = {
 
     3: [
       {
-        id: "artificer_specialist",
+        id: "artificer.artificer_specialist",
         source: "class" as const,
         level: 3,
         grants: [],
         tags: ["build-choice", "subclass"],
       },
       {
-        id: "the_right_tool_for_the_job",
+        id: "artificer.the_right_tool_for_the_job",
         source: "class" as const,
         level: 3,
         grants: [],
@@ -71,7 +71,7 @@ export const ARTIFICER: ClassTemplate = {
 
     6: [
       {
-        id: "tool_expertise",
+        id: "artificer.tool_expertise",
         source: "class" as const,
         level: 6,
         tags: ["expertise", "skill", "tool"],
@@ -81,7 +81,7 @@ export const ARTIFICER: ClassTemplate = {
 
     7: [
       {
-        id: "flash_of_genius",
+        id: "artificer.flash_of_genius",
         source: "class" as const,
         level: 7,
         grants: [
@@ -94,7 +94,7 @@ export const ARTIFICER: ClassTemplate = {
 
     10: [
       {
-        id: "magic_item_adept",
+        id: "artificer.magic_item_adept",
         source: "class" as const,
         level: 10,
         tags: ["utility"],
@@ -104,7 +104,7 @@ export const ARTIFICER: ClassTemplate = {
 
     11: [
       {
-        id: "spell_storing_item",
+        id: "artificer.spell_storing_item",
         source: "class" as const,
         level: 11,
         grants: [
@@ -117,7 +117,7 @@ export const ARTIFICER: ClassTemplate = {
 
     14: [
       {
-        id: "magic_item_savant",
+        id: "artificer.magic_item_savant",
         source: "class" as const,
         level: 14,
         tags: ["utility"],
@@ -127,7 +127,7 @@ export const ARTIFICER: ClassTemplate = {
 
     18: [
       {
-        id: "magic_item_master",
+        id: "artificer.magic_item_master",
         source: "class" as const,
         level: 18,
         tags: ["utility"],
@@ -137,7 +137,7 @@ export const ARTIFICER: ClassTemplate = {
 
     20: [
       {
-        id: "soul_of_artifice",
+        id: "artificer.soul_of_artifice",
         source: "class" as const,
         level: 20,
         grants: [{ type: "action", id: "soul_of_artifice" }],
