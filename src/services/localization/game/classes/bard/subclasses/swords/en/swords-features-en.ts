@@ -1,15 +1,15 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const swords_features_en: GameLocalizationCategory = {
-  bonus_proficiencies_swords: {
+  "bard.swords.bonus_proficiencies_swords": {
     name: "Bonus Proficiencies",
     description: "",
   },
-  fighting_style: {
+  "bard.swords.fighting_style": {
     name: "Fighting Style",
     description: "",
   },
-  blade_flourish: {
+  "bard.swords.blade_flourish": {
     name: "Blade Flourish",
     description: "",
   },
@@ -17,7 +17,7 @@ export const swords_features_en: GameLocalizationCategory = {
     name: "Extra Attack",
     description: "",
   },
-  masters_flourish: {
+  "bard.swords.masters_flourish": {
     name: "Master's Flourish",
     description: "",
   },

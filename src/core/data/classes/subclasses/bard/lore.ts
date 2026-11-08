@@ -8,14 +8,14 @@ export const LORE: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "cutting_words",
+        id: "bard.lore.cutting_words",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "cutting_words" }],
         tags: [],
       },
       {
-        id: "extra_proficiencies",
+        id: "bard.lore.extra_proficiencies",
         source: "subclass" as const,
         level: 3,
         tags: ["subclass", "skill", "proficiency"],
@@ -25,7 +25,7 @@ export const LORE: SubclassTemplate = {
 
     6: [
       {
-        id: "additional_magical_secrets",
+        id: "bard.lore.additional_magical_secrets",
         source: "subclass" as const,
         level: 6,
         tags: [],
@@ -35,7 +35,7 @@ export const LORE: SubclassTemplate = {
 
     14: [
       {
-        id: "peerless_skill",
+        id: "bard.lore.peerless_skill",
         source: "subclass" as const,
         level: 14,
         tags: [],

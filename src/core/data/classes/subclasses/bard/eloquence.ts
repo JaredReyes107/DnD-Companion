@@ -8,13 +8,13 @@ export const ELOQUENCE: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "silver_tongue",
+        id: "bard.eloquence.silver_tongue",
         source: "subclass" as const,
         level: 3,
         tags: ["passive", "social"],
       },
       {
-        id: "unsettling_words",
+        id: "bard.eloquence.unsettling_words",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "unsettling_words" }],
@@ -24,13 +24,13 @@ export const ELOQUENCE: SubclassTemplate = {
 
     6: [
       {
-        id: "unfailing_inspiration",
+        id: "bard.eloquence.unfailing_inspiration",
         source: "subclass" as const,
         level: 6,
         tags: ["passive", "utility"],
       },
       {
-        id: "universal_speech",
+        id: "bard.eloquence.universal_speech",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -43,7 +43,7 @@ export const ELOQUENCE: SubclassTemplate = {
 
     14: [
       {
-        id: "infectious_inspiration",
+        id: "bard.eloquence.infectious_inspiration",
         source: "subclass" as const,
         level: 14,
         grants: [

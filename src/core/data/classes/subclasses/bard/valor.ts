@@ -8,13 +8,13 @@ export const VALOR: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "combat_inspiration",
+        id: "bard.valor.combat_inspiration",
         source: "subclass" as const,
         level: 3,
         tags: ["subclass"],
       },
       {
-        id: "extra_proficiencies",
+        id: "bard.valor.extra_proficiencies",
         source: "subclass" as const,
         level: 3,
         tags: ["subclass", "skill", "proficiency"],
@@ -34,7 +34,7 @@ export const VALOR: SubclassTemplate = {
 
     14: [
       {
-        id: "battle_magic",
+        id: "bard.valor.battle_magic",
         source: "subclass" as const,
         level: 14,
         grants: [{ type: "action", id: "battle_magic" }],

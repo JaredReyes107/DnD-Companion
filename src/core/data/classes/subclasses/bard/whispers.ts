@@ -8,14 +8,14 @@ export const WHISPERS: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "psychic_blades",
+        id: "bard.whispers.psychic_blades",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "psychic_blades" }],
         tags: ["combat", "damage"],
       },
       {
-        id: "words_of_terror",
+        id: "bard.whispers.words_of_terror",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "resource", id: "words_of_terror" }],
@@ -25,7 +25,7 @@ export const WHISPERS: SubclassTemplate = {
 
     6: [
       {
-        id: "mantle_of_whispers",
+        id: "bard.whispers.mantle_of_whispers",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -40,7 +40,7 @@ export const WHISPERS: SubclassTemplate = {
 
     14: [
       {
-        id: "shadow_lore",
+        id: "bard.whispers.shadow_lore",
         source: "subclass" as const,
         level: 14,
         grants: [

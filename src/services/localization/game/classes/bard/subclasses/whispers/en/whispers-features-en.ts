@@ -1,19 +1,19 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const whispers_features_en: GameLocalizationCategory = {
-  psychic_blades: {
+  "bard.whispers.psychic_blades": {
     name: "Hoja Psíquica",
     description: "",
   },
-  words_of_terror: {
+  "bard.whispers.words_of_terror": {
     name: "Palabras de Terror",
     description: "",
   },
-  mantle_of_whispers: {
+  "bard.whispers.mantle_of_whispers": {
     name: "Manto de Susurros",
     description: "",
   },
-  shadow_lore: {
+  "bard.whispers.shadow_lore": {
     name: "Saber de las Sombras",
     description: "",
   },

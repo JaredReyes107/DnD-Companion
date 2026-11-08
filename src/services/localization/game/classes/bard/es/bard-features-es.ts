@@ -18,31 +18,31 @@ const bard_subclass_features: GameLocalizationCategory = {
 };
 
 export const bard_features_es: GameLocalizationCategory = {
-  bardic_inspiration: {
+  "bard.bardic_inspiration": {
     name: "Inspiración Bárdica",
     description: "",
   },
-  spellcasting: {
+  "bard.spellcasting": {
     name: "Lanzamiento de Conjuros",
     description: "",
   },
-  jack_of_all_trades: {
+  "bard.jack_of_all_trades": {
     name: "Aprendiz de Mucho",
     description: "",
   },
-  song_of_rest: {
+  "bard.song_of_rest": {
     name: "Canción de Descanso",
     description: "",
   },
-  magical_inspiration: {
+  "bard.magical_inspiration": {
     name: "Inspiración Mágica",
     description: "",
   },
-  bard_college: {
+  "bard.bard_college": {
     name: "Colegio Bárdico",
     description: "",
   },
-  expertise: {
+  "bard.expertise": {
     name: "Pericia",
     description: "",
   },
@@ -50,27 +50,27 @@ export const bard_features_es: GameLocalizationCategory = {
     name: "Mejora de Característica",
     description: "",
   },
-  bardic_versatility: {
+  "bard.bardic_versatility": {
     name: "Versatilidad Bárdica",
     description: "",
   },
-  font_of_inspiration: {
+  "bard.font_of_inspiration": {
     name: "Fuente de Inspiración",
     description: "",
   },
-  countercharm: {
+  "bard.countercharm": {
     name: "Contraencantamiento",
     description: "",
   },
-  bard_college_feature: {
+  "bard.bard_college_feature": {
     name: "Rasgo de Colegio",
     description: "",
   },
-  magical_secrets: {
+  "bard.magical_secrets": {
     name: "Secretos Mágicos",
     description: "",
   },
-  superior_inspiration: {
+  "bard.superior_inspiration": {
     name: "Inspiración Superior",
     description: "",
   },

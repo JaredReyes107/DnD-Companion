@@ -24,31 +24,31 @@ const bard_subclass_features: GameLocalizationCategory = {
 };
 
 export const bard_features_en: GameLocalizationCategory = {
-  bardic_inspiration: {
+  "bard.bardic_inspiration": {
     name: "Bardic Inspiration",
     description: "",
   },
-  spellcasting: {
+  "bard.spellcasting": {
     name: "Spellcasting",
     description: "",
   },
-  jack_of_all_trades: {
+  "bard.jack_of_all_trades": {
     name: "Jack of All Trades",
     description: "",
   },
-  song_of_rest: {
+  "bard.song_of_rest": {
     name: "Song of Rest (d6)",
     description: "",
   },
-  magical_inspiration: {
+  "bard.magical_inspiration": {
     name: "Magical Inspiration",
     description: "",
   },
-  bard_college: {
+  "bard.bard_college": {
     name: "Bard College",
     description: "",
   },
-  expertise: {
+  "bard.expertise": {
     name: "Expertise",
     description: "",
   },
@@ -56,27 +56,27 @@ export const bard_features_en: GameLocalizationCategory = {
     name: "Ability Score Improvement",
     description: "",
   },
-  bardic_versatility: {
+  "bard.bardic_versatility": {
     name: "Bardic Versatility",
     description: "",
   },
-  font_of_inspiration: {
+  "bard.font_of_inspiration": {
     name: "Font of Inspiration",
     description: "",
   },
-  countercharm: {
+  "bard.countercharm": {
     name: "Countercharm",
     description: "",
   },
-  bard_college_feature: {
+  "bard.bard_college_feature": {
     name: "Bard College feature",
     description: "",
   },
-  magical_secrets: {
+  "bard.magical_secrets": {
     name: "Magical Secrets",
     description: "",
   },
-  superior_inspiration: {
+  "bard.superior_inspiration": {
     name: "Superior Inspiration",
     description: "",
   },

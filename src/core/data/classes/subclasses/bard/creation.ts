@@ -8,14 +8,14 @@ export const CREATION: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "mote_of_potential",
+        id: "bard.creation.mote_of_potential",
         source: "subclass" as const,
         level: 3,
         tags: [],
         // TODO: Inspiration hook
       },
       {
-        id: "performance_of_creation",
+        id: "bard.creation.performance_of_creation",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -29,7 +29,7 @@ export const CREATION: SubclassTemplate = {
 
     6: [
       {
-        id: "animating_performance",
+        id: "bard.creation.animating_performance",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -44,7 +44,7 @@ export const CREATION: SubclassTemplate = {
 
     14: [
       {
-        id: "creative_crescendo",
+        id: "bard.creation.creative_crescendo",
         source: "subclass" as const,
         level: 14,
         tags: [],

@@ -1,23 +1,23 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const eloquence_features_en: GameLocalizationCategory = {
-  silver_tongue: {
+  "bard.eloquence.silver_tongue": {
     name: "Silver Tongue",
     description: "",
   },
-  unsettling_words: {
+  "bard.eloquence.unsettling_words": {
     name: "Unsettling Words",
     description: "",
   },
-  unfailing_inspiration: {
+  "bard.eloquence.unfailing_inspiration": {
     name: "Unfailing Inspiration",
     description: "",
   },
-  universal_speech: {
+  "bard.eloquence.universal_speech": {
     name: "Universal Speech",
     description: "",
   },
-  infectious_inspiration: {
+  "bard.eloquence.infectious_inspiration": {
     name: "Infectious Inspiration",
     description: "",
   },

@@ -1,11 +1,11 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const valor_features_en: GameLocalizationCategory = {
-  bonus_proficiencies_valor: {
+  "bard.valor.bonus_proficiencies_valor": {
     name: "Bonus Proficiencies",
     description: "",
   },
-  combat_inspiration: {
+  "bard.valor.combat_inspiration": {
     name: "Combat Inspiration",
     description: "",
   },
@@ -13,7 +13,7 @@ export const valor_features_en: GameLocalizationCategory = {
     name: "Extra Attack",
     description: "",
   },
-  battle_magic: {
+  "bard.valor.battle_magic": {
     name: "Battle Magic",
     description: "",
   },

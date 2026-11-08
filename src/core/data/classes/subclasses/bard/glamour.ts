@@ -8,14 +8,14 @@ export const GLAMOUR: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "mantle_of_inspiration",
+        id: "bard.glamour.mantle_of_inspiration",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "mantle_of_inspiration" }],
         tags: [],
       },
       {
-        id: "enthralling_performance",
+        id: "bard.glamour.enthralling_performance",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -28,7 +28,7 @@ export const GLAMOUR: SubclassTemplate = {
 
     6: [
       {
-        id: "mantle_of_majesty",
+        id: "bard.glamour.mantle_of_majesty",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -41,7 +41,7 @@ export const GLAMOUR: SubclassTemplate = {
 
     14: [
       {
-        id: "unbreakable_majesty",
+        id: "bard.glamour.unbreakable_majesty",
         source: "subclass" as const,
         level: 14,
         grants: [

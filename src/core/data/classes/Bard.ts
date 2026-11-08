@@ -18,7 +18,7 @@ export const BARD: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "bardic_inspiration",
+        id: "bard.bardic_inspiration",
         source: "class",
         level: 1,
         grants: [
@@ -28,20 +28,20 @@ export const BARD: ClassTemplate = {
         tags: ["resource", "support"],
       },
       {
-        id: "spellcasting_bard",
+        id: "bard.spellcasting_bard",
         source: "class",
         level: 1,
       },
     ],
     2: [
       {
-        id: "jack_of_all_trades",
+        id: "bard.jack_of_all_trades",
         source: "class",
         level: 2,
         tags: ["passive", "ability-checks"],
       },
       {
-        id: "song_of_rest",
+        id: "bard.song_of_rest",
         source: "class",
         level: 2,
         //TODO: Append the behaviour to the TakeShortRest function
@@ -49,13 +49,13 @@ export const BARD: ClassTemplate = {
     ],
     3: [
       {
-        id: "bard_college",
+        id: "bard.bard_college",
         source: "class",
         level: 3,
         tags: ["subclass"],
       },
       {
-        id: "expertise",
+        id: "bard.expertise",
         source: "class",
         level: 3,
         tags: [],
@@ -71,7 +71,7 @@ export const BARD: ClassTemplate = {
         // TODO: resources, actions, combatRole
       },
       {
-        id: "bardic_versatility",
+        id: "bard.bardic_versatility",
         source: "class",
         level: 4,
         tags: [],
@@ -80,7 +80,7 @@ export const BARD: ClassTemplate = {
     ],
     5: [
       {
-        id: "font_of_inspiration",
+        id: "bard.font_of_inspiration",
         source: "class",
         level: 5,
         //TODO: Override: Change recharge property to shortRest
@@ -88,14 +88,14 @@ export const BARD: ClassTemplate = {
     ],
     6: [
       {
-        id: "countercharm",
+        id: "bard.countercharm",
         source: "class",
         level: 6,
         grants: [{ type: "action", id: "countercharm" }],
         tags: ["action", "defense"],
       },
       {
-        id: "bard_college_feature",
+        id: "bard.bard_college_feature",
         source: "class",
         level: 6,
         tags: ["subclass"],
@@ -113,14 +113,14 @@ export const BARD: ClassTemplate = {
     ],
     10: [
       {
-        id: "expertise",
+        id: "bard.expertise",
         source: "class",
         level: 10,
         tags: [],
         // TODO: resources, actions, combatRole
       },
       {
-        id: "magical_secrets",
+        id: "bard.magical_secrets",
         source: "class",
         level: 10,
         tags: [],
@@ -138,14 +138,14 @@ export const BARD: ClassTemplate = {
     ],
     14: [
       {
-        id: "magical_secrets",
+        id: "bard.magical_secrets",
         source: "class",
         level: 14,
         tags: [],
         // TODO: resources, actions, combatRole
       },
       {
-        id: "bard_college_feature",
+        id: "bard.bard_college_feature",
         source: "class",
         level: 14,
         tags: ["subclass"],
@@ -163,7 +163,7 @@ export const BARD: ClassTemplate = {
     ],
     18: [
       {
-        id: "magical_secrets",
+        id: "bard.magical_secrets",
         source: "class",
         level: 18,
         tags: [],
@@ -181,7 +181,7 @@ export const BARD: ClassTemplate = {
     ],
     20: [
       {
-        id: "superior-inspiration",
+        id: "bard.superior-inspiration",
         source: "class",
         level: 20,
         // TODO: initiative hook

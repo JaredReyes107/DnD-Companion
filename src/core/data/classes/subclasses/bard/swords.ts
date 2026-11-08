@@ -8,21 +8,21 @@ export const SWORDS: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "bonus_proficiencies_swords",
+        id: "bard.swords.bonus_proficiencies_swords",
         source: "subclass" as const,
         level: 3,
         tags: ["build-choice"],
         // TODO: add proficiencies
       },
       {
-        id: "fighting_style",
+        id: "bard.swords.fighting_style",
         source: "subclass" as const,
         level: 3,
         tags: ["build-choice"],
         // TODO: add fighting styles selection
       },
       {
-        id: "blade_flourish",
+        id: "bard.swords.blade_flourish",
         source: "subclass" as const,
         level: 3,
         tags: ["build-choice"],
@@ -42,7 +42,7 @@ export const SWORDS: SubclassTemplate = {
 
     14: [
       {
-        id: "masters_flourish",
+        id: "bard.swords.masters_flourish",
         source: "subclass" as const,
         level: 14,
         tags: [],

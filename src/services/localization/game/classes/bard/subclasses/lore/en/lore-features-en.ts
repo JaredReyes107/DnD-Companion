@@ -1,19 +1,19 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const lore_features_en: GameLocalizationCategory = {
-  bonus_proficiencies_lore: {
+  "bard.lore.bonus_proficiencies_lore": {
     name: "Bonus Proficiencies",
     description: "",
   },
-  cutting_words: {
+  "bard.lore.cutting_words": {
     name: "Cutting Words",
     description: "",
   },
-  additional_magical_secrets: {
+  "bard.lore.additional_magical_secrets": {
     name: "Additional Magical Secrets",
     description: "",
   },
-  peerless_skill: {
+  "bard.lore.peerless_skill": {
     name: "Peerless Skill",
     description: "",
   },
