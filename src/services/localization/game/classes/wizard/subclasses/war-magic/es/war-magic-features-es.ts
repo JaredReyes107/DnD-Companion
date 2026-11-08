@@ -1,23 +1,23 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const war_magic_features_es: GameLocalizationCategory = {
-  arcane_deflection: {
+  "wizard.war_magic.arcane_deflection": {
     name: "",
     description: "",
   },
-  tactical_wit: {
+  "wizard.war_magic.tactical_wit": {
     name: "",
     description: "",
   },
-  power_surge: {
+  "wizard.war_magic.power_surge": {
     name: "",
     description: "",
   },
-  durable_magic: {
+  "wizard.war_magic.durable_magic": {
     name: "",
     description: "",
   },
-  deflecting_shroud: {
+  "wizard.war_magic.deflecting_shroud": {
     name: "",
     description: "",
   },

@@ -36,7 +36,7 @@ export const subclass_features: GameLocalizationCategory = {
 export const wizard_features_es: GameLocalizationCategory = {
   ...subclass_features,
 
-  spellcasting_wizard: {
+  "wizard.spellcasting_wizard": {
     name: "Lanzamiento de Conjuros",
     description: `Como estudiante de magia arcana, tienes un libro de conjuros que contiene conjuros que muestran los primeros destellos del verdadero poder.
       Trucos
@@ -59,20 +59,20 @@ export const wizard_features_es: GameLocalizationCategory = {
       Aprender conjuros de nivel 1 y superior
         Cada vez que subes de nivel de mago, puedes añadir dos conjuros de mago de tu elección a tu libro de conjuros. Cada uno de estos conjuros debe ser de un nivel para el que tengas espacios de conjuro, como se indica en la tabla del mago. Durante tus aventuras, puedes encontrar otros conjuros que añadir (ver «Tu libro de conjuros»).`,
   },
-  arcane_recovery: {
+  "wizard.arcane_recovery": {
     name: "Recuperación Arcana",
     description: `Has aprendido a recuperar parte de tu energía arcana estudiando tu libro de conjuros. Una vez por día, cuando hagas un descanso breve, puedes recuperar espacios de conjuro. Los espacios de conjuro pueden tener un nivel combinado igual o menor que la mitad de tu nivel de mago (redondeando hacia arriba) y, como máximo, nivel 5. Por ejemplo, si eres un mago de nivel 4, puedes recuperar hasta un valor de dos niveles de espacios de conjuro. Puedes recuperar un espacio de conjuro de nivel 2 o dos espacios de conjuro de nivel 1.`,
   },
-  arcane_tradition: {
+  "wizard.arcane_tradition": {
     name: "Tradición Arcana",
     description: `Comienzas a seguir una tradición arcana, que moldea tu forma de practicar la magia. Tu elección te otorga rasgos en el nivel 2 y de nuevo en los niveles 6, 10 y 14.`,
   },
-  spell_mastery: {
+  "wizard.spell_mastery": {
     name: "Maestría con Conjuros",
     description: `Has conseguido tal maestría con ciertos conjuros que puedes lanzarlos a voluntad. Elige un conjuro de mago de nivel 1 y otro de nivel 2 que estén en tu libro de conjuros. Puedes lanzarlos a su menor nivel sin gastar un espacio de conjuro cuando los tengas preparados. Para lanzarlos a un nivel superior, debes gastar un espacio de conjuro con normalidad.
       Dedicando 8 horas de estudio, puedes cambiar los conjuros por otros de mismo nivel.`,
   },
-  signature_spells: {
+  "wizard.signature_spells": {
     name: "Conjuros Insignia",
     description: `Consigues maestría con dos conjuros poderosos y puedes lanzarlos con poco esfuerzo. Elige dos conjuros de mago de nivel 3 de tu libro de conjuros como tus conjuros insignia. Siempre tienes esos conjuros preparados y no se cuentan entre el número de conjuros que tienes preparados. Puedes lanzar cada uno de ellos a nivel 3 sin gastar espacios de conjuro. Cuando lo hagas, no puedes volver a hacerlo hasta que no termines un descanso prolongado o breve.
       Si quieres lanzar cualquiera de estos conjuros a un nivel superior, debes gastar un espacio de conjuro con normalidad.`,

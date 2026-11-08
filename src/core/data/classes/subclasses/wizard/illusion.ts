@@ -8,13 +8,13 @@ export const ILLUSION: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "illusion_savant",
+        id: "wizard.illusion.illusion_savant",
         source: "subclass" as const,
         level: 2,
         tags: ["proficiency", "passive"],
       },
       {
-        id: "improved_minor_illusion",
+        id: "wizard.illusion.improved_minor_illusion",
         source: "subclass" as const,
         level: 2,
         tags: ["spells", "passive"],
@@ -24,7 +24,7 @@ export const ILLUSION: SubclassTemplate = {
 
     6: [
       {
-        id: "malleable_illusions",
+        id: "wizard.illusion.malleable_illusions",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "action", id: "malleable_illusions" }],
@@ -34,7 +34,7 @@ export const ILLUSION: SubclassTemplate = {
 
     10: [
       {
-        id: "illusory_self",
+        id: "wizard.illusion.illusory_self",
         source: "subclass" as const,
         level: 10,
         grants: [
@@ -47,7 +47,7 @@ export const ILLUSION: SubclassTemplate = {
 
     14: [
       {
-        id: "illusory_reality",
+        id: "wizard.illusion.illusory_reality",
         source: "subclass" as const,
         level: 14,
         grants: [{ type: "action", id: "illusory_reality" }],

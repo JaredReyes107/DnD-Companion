@@ -8,13 +8,13 @@ export const NECROMANCY: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "necromancy_savant",
+        id: "wizard.necromancy.necromancy_savant",
         source: "subclass" as const,
         level: 2,
         tags: ["downtime", "spells"],
       },
       {
-        id: "grim_harvest",
+        id: "wizard.necromancy.grim_harvest",
         source: "subclass" as const,
         level: 2,
         grants: [
@@ -27,7 +27,7 @@ export const NECROMANCY: SubclassTemplate = {
 
     6: [
       {
-        id: "undead_thralls",
+        id: "wizard.necromancy.undead_thralls",
         source: "subclass" as const,
         level: 6,
         tags: ["spells", "summoning"],
@@ -36,7 +36,7 @@ export const NECROMANCY: SubclassTemplate = {
 
     10: [
       {
-        id: "inured_to_undeath",
+        id: "wizard.necromancy.inured_to_undeath",
         source: "subclass" as const,
         level: 10,
         tags: ["resistance", "defense"],
@@ -45,7 +45,7 @@ export const NECROMANCY: SubclassTemplate = {
 
     14: [
       {
-        id: "command_undead",
+        id: "wizard.necromancy.command_undead",
         source: "subclass" as const,
         level: 14,
         grants: [{ type: "action", id: "command_undead" }],

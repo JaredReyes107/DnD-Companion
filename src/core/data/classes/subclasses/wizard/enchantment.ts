@@ -8,13 +8,13 @@ export const ENCHANTMENT: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "enchantment_savant",
+        id: "wizard.enchantment.enchantment_savant",
         source: "subclass" as const,
         level: 2,
         tags: ["proficiency", "passive"],
       },
       {
-        id: "hypnotic_gaze",
+        id: "wizard.enchantment.hypnotic_gaze",
         source: "subclass" as const,
         level: 2,
         grants: [
@@ -28,7 +28,7 @@ export const ENCHANTMENT: SubclassTemplate = {
 
     6: [
       {
-        id: "instinctive_charm",
+        id: "wizard.enchantment.instinctive_charm",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "action", id: "instinctive_charm" }],
@@ -38,7 +38,7 @@ export const ENCHANTMENT: SubclassTemplate = {
 
     10: [
       {
-        id: "split_enchantment",
+        id: "wizard.enchantment.split_enchantment",
         source: "subclass" as const,
         level: 10,
         tags: [],
@@ -47,7 +47,7 @@ export const ENCHANTMENT: SubclassTemplate = {
 
     14: [
       {
-        id: "alter_memories",
+        id: "wizard.enchantment.alter_memories",
         source: "subclass" as const,
         level: 14,
         grants: [{ type: "action", id: "alter_memories_erase" }],

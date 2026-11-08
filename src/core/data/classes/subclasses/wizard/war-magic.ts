@@ -8,14 +8,14 @@ export const WAR_MAGIC: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "arcane_deflection",
+        id: "wizard.war_magic.arcane_deflection",
         source: "subclass" as const,
         level: 2,
         grants: [{ type: "action", id: "arcane_deflection" }],
         tags: ["defense", "reaction"],
       },
       {
-        id: "tactical_wit",
+        id: "wizard.war_magic.tactical_wit",
         source: "subclass" as const,
         level: 2,
         tags: ["initiative"],
@@ -25,7 +25,7 @@ export const WAR_MAGIC: SubclassTemplate = {
 
     6: [
       {
-        id: "power_surge",
+        id: "wizard.war_magic.power_surge",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -40,7 +40,7 @@ export const WAR_MAGIC: SubclassTemplate = {
 
     10: [
       {
-        id: "durable_magic",
+        id: "wizard.war_magic.durable_magic",
         source: "subclass" as const,
         level: 10,
         tags: ["defense", "ac", "concentration"],
@@ -50,7 +50,7 @@ export const WAR_MAGIC: SubclassTemplate = {
 
     14: [
       {
-        id: "deflecting_shroud",
+        id: "wizard.war_magic.deflecting_shroud",
         source: "subclass" as const,
         level: 14,
         tags: ["combat", "damage", "aoe"],

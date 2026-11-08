@@ -8,13 +8,13 @@ export const DIVINATION: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "divination_savant",
+        id: "wizard.divination.divination_savant",
         source: "subclass" as const,
         level: 2,
         tags: ["downtime", "spells"],
       },
       {
-        id: "portent",
+        id: "wizard.divination.portent",
         source: "subclass" as const,
         level: 2,
         grants: [
@@ -28,7 +28,7 @@ export const DIVINATION: SubclassTemplate = {
 
     6: [
       {
-        id: "expert_divination",
+        id: "wizard.divination.expert_divination",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "action", id: "expert_divination" }],
@@ -38,7 +38,7 @@ export const DIVINATION: SubclassTemplate = {
 
     10: [
       {
-        id: "the_third_eye",
+        id: "wizard.divination.the_third_eye",
         source: "subclass" as const,
         level: 10,
         grants: [
@@ -51,7 +51,7 @@ export const DIVINATION: SubclassTemplate = {
 
     14: [
       {
-        id: "greater_portent",
+        id: "wizard.divination.greater_portent",
         source: "subclass" as const,
         level: 14,
         tags: ["passive"],

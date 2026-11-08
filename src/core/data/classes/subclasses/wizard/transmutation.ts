@@ -8,13 +8,13 @@ export const TRANSMUTATION: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "transmutation_savant",
+        id: "wizard.transmutation.transmutation_savant",
         source: "subclass" as const,
         level: 2,
         tags: ["downtime", "spells"],
       },
       {
-        id: "minor_alchemy",
+        id: "wizard.transmutation.minor_alchemy",
         source: "subclass" as const,
         level: 2,
         grants: [{ type: "action", id: "minor_alchemy" }],
@@ -24,7 +24,7 @@ export const TRANSMUTATION: SubclassTemplate = {
 
     6: [
       {
-        id: "transmuters_stone",
+        id: "wizard.transmutation.transmuters_stone",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -37,7 +37,7 @@ export const TRANSMUTATION: SubclassTemplate = {
 
     10: [
       {
-        id: "shapechanger",
+        id: "wizard.transmutation.shapechanger",
         source: "subclass" as const,
         level: 10,
         grants: [
@@ -50,7 +50,7 @@ export const TRANSMUTATION: SubclassTemplate = {
 
     14: [
       {
-        id: "master_transmuter",
+        id: "wizard.transmutation.master_transmuter",
         source: "subclass" as const,
         level: 14,
         grants: [{ type: "action", id: "master_transmuter" }],

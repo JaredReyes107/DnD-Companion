@@ -8,13 +8,13 @@ export const EVOCATION: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "evocation_savant",
+        id: "wizard.evocation.evocation_savant",
         source: "subclass" as const,
         level: 2,
         tags: ["downtime", "spells"],
       },
       {
-        id: "sculpt_spells",
+        id: "wizard.evocation.sculpt_spells",
         source: "subclass" as const,
         level: 2,
         tags: ["control"],
@@ -23,7 +23,7 @@ export const EVOCATION: SubclassTemplate = {
 
     6: [
       {
-        id: "potent_cantrip",
+        id: "wizard.evocation.potent_cantrip",
         source: "subclass" as const,
         level: 6,
         tags: ["combat", "damage"],
@@ -32,7 +32,7 @@ export const EVOCATION: SubclassTemplate = {
 
     10: [
       {
-        id: "empowered_evocation",
+        id: "wizard.evocation.empowered_evocation",
         source: "subclass" as const,
         level: 10,
         tags: ["combat", "damage"],
@@ -41,7 +41,7 @@ export const EVOCATION: SubclassTemplate = {
 
     14: [
       {
-        id: "overchannel",
+        id: "wizard.evocation.overchannel",
         source: "subclass" as const,
         level: 14,
         grants: [

@@ -8,13 +8,13 @@ export const ABJURATION: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "abjuration_savant",
+        id: "wizard.abjuration.abjuration_savant",
         source: "subclass" as const,
         level: 2,
         tags: ["downtime", "spells"],
       },
       {
-        id: "arcane_ward",
+        id: "wizard.abjuration.arcane_ward",
         source: "subclass" as const,
         level: 2,
         grants: [
@@ -29,7 +29,7 @@ export const ABJURATION: SubclassTemplate = {
 
     6: [
       {
-        id: "projected_ward",
+        id: "wizard.abjuration.projected_ward",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "action", id: "projected_ward" }],
@@ -39,7 +39,7 @@ export const ABJURATION: SubclassTemplate = {
 
     10: [
       {
-        id: "improved_abjuration",
+        id: "wizard.abjuration.improved_abjuration",
         source: "subclass" as const,
         level: 10,
         tags: ["utility"],
@@ -48,7 +48,7 @@ export const ABJURATION: SubclassTemplate = {
 
     14: [
       {
-        id: "spell_resistance",
+        id: "wizard.abjuration.spell_resistance",
         source: "subclass" as const,
         level: 14,
         //TODO: Grant modifier (Descriptive. Advantage + Resistance against spells)

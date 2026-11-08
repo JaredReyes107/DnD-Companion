@@ -8,14 +8,14 @@ export const BLADESINGING: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "training_in_war_and_song",
+        id: "wizard.bladesinging.training_in_war_and_song",
         source: "subclass" as const,
         level: 2,
         tags: ["proficiency"],
         // TODO: light armor + one one-handed melee weapon (choice) + Performance proficiency
       },
       {
-        id: "bladesong",
+        id: "wizard.bladesinging.bladesong",
         source: "subclass" as const,
         level: 2,
         grants: [
@@ -28,7 +28,7 @@ export const BLADESINGING: SubclassTemplate = {
 
     6: [
       {
-        id: "bladesinging_extra_attack",
+        id: "wizard.bladesinging.bladesinging_extra_attack",
         source: "subclass" as const,
         level: 6,
         tags: ["combat"],
@@ -38,7 +38,7 @@ export const BLADESINGING: SubclassTemplate = {
 
     10: [
       {
-        id: "song_of_defense",
+        id: "wizard.bladesinging.song_of_defense",
         source: "subclass" as const,
         level: 10,
         grants: [{ type: "action", id: "song_of_defense" }],
@@ -48,7 +48,7 @@ export const BLADESINGING: SubclassTemplate = {
 
     14: [
       {
-        id: "song_of_victory",
+        id: "wizard.bladesinging.song_of_victory",
         source: "subclass" as const,
         level: 14,
         tags: ["combat", "damage"],

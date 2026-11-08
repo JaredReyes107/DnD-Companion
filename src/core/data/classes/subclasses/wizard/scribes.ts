@@ -8,14 +8,14 @@ export const ORDER_OF_SCRIBES: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "wizardly_quill",
+        id: "wizard.scribes.wizardly_quill",
         source: "subclass" as const,
         level: 2,
         grants: [{ type: "action", id: "wizardly_quill_create" }],
         tags: ["utility"],
       },
       {
-        id: "awakened_spellbook",
+        id: "wizard.scribes.awakened_spellbook",
         source: "subclass" as const,
         level: 2,
         grants: [
@@ -31,7 +31,7 @@ export const ORDER_OF_SCRIBES: SubclassTemplate = {
 
     6: [
       {
-        id: "manifest_mind",
+        id: "wizard.scribes.manifest_mind",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -48,7 +48,7 @@ export const ORDER_OF_SCRIBES: SubclassTemplate = {
 
     10: [
       {
-        id: "master_scrivener",
+        id: "wizard.scribes.master_scrivener",
         source: "subclass" as const,
         level: 10,
         grants: [
@@ -62,7 +62,7 @@ export const ORDER_OF_SCRIBES: SubclassTemplate = {
 
     14: [
       {
-        id: "one_with_the_word",
+        id: "wizard.scribes.one_with_the_word",
         source: "subclass" as const,
         level: 14,
         grants: [{ type: "action", id: "one_with_the_word" }],

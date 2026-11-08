@@ -8,13 +8,13 @@ export const CONJURATION: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "conjuration_savant",
+        id: "wizard.conjuration.conjuration_savant",
         source: "subclass" as const,
         level: 2,
         tags: ["downtime", "spells"],
       },
       {
-        id: "minor_conjuration",
+        id: "wizard.conjuration.minor_conjuration",
         source: "subclass" as const,
         level: 2,
         grants: [{ type: "action", id: "minor_conjuration" }],
@@ -24,7 +24,7 @@ export const CONJURATION: SubclassTemplate = {
 
     6: [
       {
-        id: "benign_transposition",
+        id: "wizard.conjuration.benign_transposition",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -37,7 +37,7 @@ export const CONJURATION: SubclassTemplate = {
 
     10: [
       {
-        id: "focused_conjuration",
+        id: "wizard.conjuration.focused_conjuration",
         source: "subclass" as const,
         level: 10,
         tags: ["concentration"],
@@ -46,7 +46,7 @@ export const CONJURATION: SubclassTemplate = {
 
     14: [
       {
-        id: "durable_summons",
+        id: "wizard.conjuration.durable_summons",
         source: "subclass" as const,
         level: 14,
         tags: ["summoning"],

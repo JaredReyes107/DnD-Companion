@@ -36,7 +36,7 @@ export const subclass_features: GameLocalizationCategory = {
 export const wizard_features_en: GameLocalizationCategory = {
   ...subclass_features,
 
-  spellcasting_wizard: {
+  "wizard.spellcasting_wizard": {
     name: "Spellcasting",
     description: `As a student of arcane magic, you have a spellbook containing spells that show the first glimmerings of your true power.
       Cantrips
@@ -66,21 +66,21 @@ export const wizard_features_en: GameLocalizationCategory = {
       Learning Spells of 1st Level and Higher
         Each time you gain a wizard level, you can add two wizard spells of your choice to your spellbook. Each of these spells must be of a level for which you have spell slots, as shown on the Wizard table. On your adventures, you might find other spells that you can add to your spellbook.`,
   },
-  arcane_recovery: {
+  "wizard.arcane_recovery": {
     name: "Arcane Recovery",
     description: `You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your wizard level (rounded up), and none of the slots can be 6th level or higher.
       For example, if you're a 4th-level wizard, you can recover up to two levels worth of spell slots. You can recover either a 2nd-level spell slot or two 1st-level spell slots.`,
   },
-  arcane_tradition: {
+  "wizard.arcane_tradition": {
     name: "Arcane Tradition",
     description: `You choose an arcane tradition, shaping your practice of magic through one of the following schools. Your choice grants you features at 2nd level and again at 6th, 10th, and 14th level.`,
   },
-  spell_mastery: {
+  "wizard.spell_mastery": {
     name: "Spell Mastery",
     description: `You have achieved such mastery over certain spells that you can cast them at will. Choose a 1st-level wizard spell and a 2nd-level wizard spell that are in your spellbook. You can cast those spells at their lowest level without expending a spell slot when you have them prepared. If you want to cast either spell at a higher level, you must expend a spell slot as normal.
       By spending 8 hours in study, you can exchange one or both of the spells you chose for different spells of the same levels.`,
   },
-  signature_spells: {
+  "wizard.signature_spells": {
     name: "Signature Spells",
     description: `You gain mastery over two powerful spells and can cast them with little effort. Choose two 3rd-level wizard spells in your spellbook as your signature spells. You always have these spells prepared, they don't count against the number of spells you have prepared, and you can cast each of them once at 3rd level without expending a spell slot. When you do so, you can't do so again until you finish a short or long rest.
       If you want to cast either spell at a higher level, you must expend a spell slot as normal.`,

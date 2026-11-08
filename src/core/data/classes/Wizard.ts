@@ -18,14 +18,14 @@ export const WIZARD: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "spellcasting_wizard",
+        id: "wizard.spellcasting_wizard",
         source: "class" as const,
         level: 1,
         grants: [],
         tags: ["spells", "spellcasting"],
       },
       {
-        id: "arcane_recovery",
+        id: "wizard.arcane_recovery",
         source: "class" as const,
         level: 1,
         grants: [
@@ -38,7 +38,7 @@ export const WIZARD: ClassTemplate = {
 
     2: [
       {
-        id: "arcane_tradition",
+        id: "wizard.arcane_tradition",
         source: "class" as const,
         level: 2,
         grants: [],
@@ -48,7 +48,7 @@ export const WIZARD: ClassTemplate = {
 
     18: [
       {
-        id: "spell_mastery",
+        id: "wizard.spell_mastery",
         source: "class" as const,
         level: 18,
         grants: [
@@ -62,7 +62,7 @@ export const WIZARD: ClassTemplate = {
 
     20: [
       {
-        id: "signature_spells",
+        id: "wizard.signature_spells",
         source: "class" as const,
         level: 20,
         grants: [
