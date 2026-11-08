@@ -17,7 +17,7 @@ export const PALADIN: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "divine_sense",
+        id: "paladin.divine_sense",
         source: "class" as const,
         level: 1,
         grants: [
@@ -27,7 +27,7 @@ export const PALADIN: ClassTemplate = {
         tags: ["senses"],
       },
       {
-        id: "lay_on_hands",
+        id: "paladin.lay_on_hands",
         source: "class" as const,
         level: 1,
         grants: [
@@ -40,20 +40,20 @@ export const PALADIN: ClassTemplate = {
 
     2: [
       {
-        id: "fighting_style_paladin",
+        id: "paladin.fighting_style_paladin",
         source: "class" as const,
         level: 2,
         grants: [{ type: "choice", id: "fighting_style_paladin" }],
         tags: ["build-choice"],
       },
       {
-        id: "spellcasting_paladin",
+        id: "paladin.spellcasting_paladin",
         source: "class" as const,
         level: 2,
         tags: ["spellcasting"],
       },
       {
-        id: "divine_smite",
+        id: "paladin.divine_smite",
         source: "class" as const,
         level: 2,
         grants: [{ type: "action", id: "divine_smite" }],
@@ -63,13 +63,13 @@ export const PALADIN: ClassTemplate = {
 
     3: [
       {
-        id: "divine_health",
+        id: "paladin.divine_health",
         source: "class" as const,
         level: 3,
         tags: ["inmunity", "disease"],
       },
       {
-        id: "sacred_oath",
+        id: "paladin.sacred_oath",
         source: "class" as const,
         level: 3,
         grants: [{ type: "resource", id: "channel_divinity" }],
@@ -97,7 +97,7 @@ export const PALADIN: ClassTemplate = {
 
     6: [
       {
-        id: "aura_of_protection",
+        id: "paladin.aura_of_protection",
         source: "class" as const,
         level: 6,
         tags: ["saving-throw", "bonus"],
@@ -115,7 +115,7 @@ export const PALADIN: ClassTemplate = {
 
     10: [
       {
-        id: "aura_of_courage",
+        id: "paladin.aura_of_courage",
         source: "class" as const,
         level: 10,
         tags: ["inmunity", "frightened"],
@@ -124,7 +124,7 @@ export const PALADIN: ClassTemplate = {
 
     11: [
       {
-        id: "improved_divine_smite",
+        id: "paladin.improved_divine_smite",
         source: "class" as const,
         level: 11,
         grants: [{ type: "action", id: "improved_divine_smite" }],
@@ -143,7 +143,7 @@ export const PALADIN: ClassTemplate = {
 
     14: [
       {
-        id: "cleansing_touch",
+        id: "paladin.cleansing_touch",
         source: "class" as const,
         level: 14,
         grants: [
@@ -156,7 +156,7 @@ export const PALADIN: ClassTemplate = {
 
     15: [
       {
-        id: "sacred_oath_feature_paladin",
+        id: "paladin.sacred_oath_feature_paladin",
         source: "class" as const,
         level: 15,
         tags: ["subclass"],

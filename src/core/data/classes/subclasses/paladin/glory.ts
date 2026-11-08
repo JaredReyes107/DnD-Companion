@@ -7,19 +7,19 @@ export const GLORY: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "tenets_of_glory",
+        id: "paladin.glory.tenets_of_glory",
         source: "subclass" as const,
         level: 3,
         tags: ["flavour"],
       },
       {
-        id: "oath_spells_glory",
+        id: "paladin.glory.oath_spells_glory",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],
       },
       {
-        id: "channel_divinity_glory",
+        id: "paladin.glory.channel_divinity_glory",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -32,7 +32,7 @@ export const GLORY: SubclassTemplate = {
 
     7: [
       {
-        id: "aura_of_alacrity",
+        id: "paladin.glory.aura_of_alacrity",
         source: "subclass" as const,
         level: 7,
         //TODO: Add modifier. +10 speed.
@@ -42,7 +42,7 @@ export const GLORY: SubclassTemplate = {
 
     15: [
       {
-        id: "glorious_defense",
+        id: "paladin.glory.glorious_defense",
         source: "subclass" as const,
         level: 15,
         grants: [
@@ -55,7 +55,7 @@ export const GLORY: SubclassTemplate = {
 
     20: [
       {
-        id: "living_legend",
+        id: "paladin.glory.living_legend",
         source: "subclass" as const,
         level: 20,
         grants: [

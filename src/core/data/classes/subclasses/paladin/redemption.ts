@@ -7,19 +7,19 @@ export const REDEMPTION: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "tenets_of_redemption",
+        id: "paladin.redemption.tenets_of_redemption",
         source: "subclass" as const,
         level: 3,
         tags: ["flavour"],
       },
       {
-        id: "oath_spells_redemption",
+        id: "paladin.redemption.oath_spells_redemption",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],
       },
       {
-        id: "channel_divinity_redemption",
+        id: "paladin.redemption.channel_divinity_redemption",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -32,7 +32,7 @@ export const REDEMPTION: SubclassTemplate = {
 
     7: [
       {
-        id: "aura_of_the_guardian",
+        id: "paladin.redemption.aura_of_the_guardian",
         source: "subclass" as const,
         level: 7,
         /// TODO: Aura modifier. Purely descriptive
@@ -42,7 +42,7 @@ export const REDEMPTION: SubclassTemplate = {
 
     15: [
       {
-        id: "protective_spirit",
+        id: "paladin.redemption.protective_spirit",
         source: "subclass" as const,
         level: 15,
         // TODO: Passive conditional modifier.
@@ -53,7 +53,7 @@ export const REDEMPTION: SubclassTemplate = {
 
     20: [
       {
-        id: "emissary_of_redemption",
+        id: "paladin.redemption.emissary_of_redemption",
         source: "subclass" as const,
         level: 20,
         grants: [],

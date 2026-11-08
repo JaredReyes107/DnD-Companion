@@ -8,19 +8,19 @@ export const VENGEANCE: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "tenets_of_vengeance",
+        id: "paladin.vengeance.tenets_of_vengeance",
         source: "subclass" as const,
         level: 3,
         tags: ["flavour"],
       },
       {
-        id: "oath_spells_vengeance",
+        id: "paladin.vengeance.oath_spells_vengeance",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],
       },
       {
-        id: "channel_divinity_vengeance",
+        id: "paladin.vengeance.channel_divinity_vengeance",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -33,7 +33,7 @@ export const VENGEANCE: SubclassTemplate = {
 
     7: [
       {
-        id: "relentless_avenger",
+        id: "paladin.vengeance.relentless_avenger",
         source: "subclass" as const,
         level: 7,
         tags: ["passive", "combat", "movement"],
@@ -42,7 +42,7 @@ export const VENGEANCE: SubclassTemplate = {
 
     15: [
       {
-        id: "soul_of_vengeance",
+        id: "paladin.vengeance.soul_of_vengeance",
         source: "subclass" as const,
         level: 15,
         grants: [{ type: "action", id: "soul_of_vengeance" }],
@@ -52,7 +52,7 @@ export const VENGEANCE: SubclassTemplate = {
 
     20: [
       {
-        id: "avenging_angel",
+        id: "paladin.vengeance.avenging_angel",
         source: "subclass" as const,
         level: 20,
         grants: [

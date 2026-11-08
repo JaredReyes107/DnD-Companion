@@ -7,19 +7,19 @@ export const ANCIENTS: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "tenets_of_the_ancients",
+        id: "paladin.ancients.tenets_of_the_ancients",
         source: "subclass" as const,
         level: 3,
         tags: [],
       },
       {
-        id: "oath_spells_ancients",
+        id: "paladin.ancients.oath_spells_ancients",
         source: "subclass" as const,
         level: 3,
         tags: [],
       },
       {
-        id: "channel_divinity",
+        id: "paladin.ancients.channel_divinity",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -32,7 +32,7 @@ export const ANCIENTS: SubclassTemplate = {
 
     7: [
       {
-        id: "aura_of_warding",
+        id: "paladin.ancients.aura_of_warding",
         source: "subclass" as const,
         level: 7,
         //TODO: Modifier. Resistance again spells specifically.
@@ -42,7 +42,7 @@ export const ANCIENTS: SubclassTemplate = {
 
     15: [
       {
-        id: "undying_sentinel",
+        id: "paladin.ancients.undying_sentinel",
         source: "subclass" as const,
         level: 15,
         grants: [
@@ -55,7 +55,7 @@ export const ANCIENTS: SubclassTemplate = {
 
     20: [
       {
-        id: "elder_champion",
+        id: "paladin.ancients.elder_champion",
         source: "subclass" as const,
         level: 20,
         grants: [

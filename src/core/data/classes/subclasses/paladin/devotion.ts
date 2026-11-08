@@ -8,19 +8,19 @@ export const DEVOTION: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "tenets_of_devotion",
+        id: "paladin.devotion.tenets_of_devotion",
         source: "subclass" as const,
         level: 3,
         tags: ["flavour"],
       },
       {
-        id: "oath_spells_devotion",
+        id: "paladin.devotion.oath_spells_devotion",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],
       },
       {
-        id: "channel_divinity_devotion",
+        id: "paladin.devotion.channel_divinity_devotion",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -33,7 +33,7 @@ export const DEVOTION: SubclassTemplate = {
 
     7: [
       {
-        id: "aura_of_devotion",
+        id: "paladin.devotion.aura_of_devotion",
         source: "subclass" as const,
         level: 7,
         tags: ["aura", "inmunity", "charmed"],
@@ -42,7 +42,7 @@ export const DEVOTION: SubclassTemplate = {
 
     15: [
       {
-        id: "purity_of_spirit",
+        id: "paladin.devotion.purity_of_spirit",
         source: "subclass" as const,
         level: 15,
         tags: ["defense"],
@@ -52,7 +52,7 @@ export const DEVOTION: SubclassTemplate = {
 
     20: [
       {
-        id: "holy_nimbus",
+        id: "paladin.devotion.holy_nimbus",
         source: "subclass" as const,
         level: 20,
         grants: [

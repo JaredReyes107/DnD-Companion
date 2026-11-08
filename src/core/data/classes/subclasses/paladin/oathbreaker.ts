@@ -7,13 +7,13 @@ export const OATHBREAKER: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "oath_spells_oathbreaker",
+        id: "paladin.oathbreaker.oath_spells_oathbreaker",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],
       },
       {
-        id: "channel_divinity_oathbreaker",
+        id: "paladin.oathbreaker.channel_divinity_oathbreaker",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -26,7 +26,7 @@ export const OATHBREAKER: SubclassTemplate = {
 
     7: [
       {
-        id: "aura_of_hate",
+        id: "paladin.oathbreaker.aura_of_hate",
         source: "subclass" as const,
         level: 7,
         // TODO: Modifier. +CHA to melee weapon attack rolls
@@ -36,7 +36,7 @@ export const OATHBREAKER: SubclassTemplate = {
 
     15: [
       {
-        id: "supernatural_resistance",
+        id: "paladin.oathbreaker.supernatural_resistance",
         source: "subclass" as const,
         level: 15,
         // TODO: Modifier passive. Resistante to IPS non-magical
@@ -46,7 +46,7 @@ export const OATHBREAKER: SubclassTemplate = {
 
     20: [
       {
-        id: "dread_lord",
+        id: "paladin.oathbreaker.dread_lord",
         source: "subclass" as const,
         level: 20,
         grants: [

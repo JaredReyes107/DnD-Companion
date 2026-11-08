@@ -7,19 +7,19 @@ export const CONQUEST: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "tenets_of_conquest",
+        id: "paladin.conquest.tenets_of_conquest",
         source: "subclass" as const,
         level: 3,
         tags: ["flavour"],
       },
       {
-        id: "oath_spells_conquest",
+        id: "paladin.conquest.oath_spells_conquest",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],
       },
       {
-        id: "channel_divinity_conquest",
+        id: "paladin.conquest.channel_divinity_conquest",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -32,7 +32,7 @@ export const CONQUEST: SubclassTemplate = {
 
     7: [
       {
-        id: "aura_of_conquest",
+        id: "paladin.conquest.aura_of_conquest",
         source: "subclass" as const,
         level: 7,
         //TODO: Aura modifier. Purely descriptive.
@@ -42,7 +42,7 @@ export const CONQUEST: SubclassTemplate = {
 
     15: [
       {
-        id: "scornful_rebuke",
+        id: "paladin.conquest.scornful_rebuke",
         source: "subclass" as const,
         level: 15,
         grants: [{ type: "action", id: "scornful_rebuke" }],
@@ -52,7 +52,7 @@ export const CONQUEST: SubclassTemplate = {
 
     20: [
       {
-        id: "invincible_conqueror",
+        id: "paladin.conquest.invincible_conqueror",
         source: "subclass" as const,
         level: 20,
         grants: [{ type: "action", id: "invincible_conqueror" }],
