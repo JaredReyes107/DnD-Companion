@@ -5,6 +5,16 @@ export const TOTEM_WARRIOR: SubclassTemplate = {
   classId: "barbarian",
   source: "Players Handbook",
 
+  progression: {
+    3: [
+      "barbarian.totem_warrior.spirit_seeker",
+      "barbarian.totem_warrior.totem_spirit",
+    ],
+    6: ["barbarian.totem_warrior.aspect_of_the_beast"],
+    10: ["barbarian.totem_warrior.spirit_walker"],
+    14: ["barbarian.totem_warrior.totemic_attunement"],
+  },
+
   featuresByLevel: {
     3: [
       {

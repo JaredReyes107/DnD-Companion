@@ -5,6 +5,13 @@ export const BERSERKER: SubclassTemplate = {
   classId: "barbarian",
   source: "Players Handbook",
 
+  progression: {
+    3: ["barbarian.berserker.frenzy"],
+    6: ["barbarian.berserker.mindless_rage"],
+    10: ["barbarian.berserker.intimidating_presence"],
+    14: ["barbarian.berserker.retaliation"],
+  },
+
   featuresByLevel: {
     3: [
       {

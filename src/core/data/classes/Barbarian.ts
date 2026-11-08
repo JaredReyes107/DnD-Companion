@@ -18,6 +18,26 @@ export const BARBARIAN: ClassTemplate = {
   primaryAbilities: ["STR"],
   savingThrows: ["STR", "DEX"],
 
+  progression: {
+    1: [
+      "barbarian.proficiencies_barbarian",
+      { id: "barbarian.multiclass_proficiencies_barbarian", appliesTo: "multiclass" },
+      "barbarian.rage",
+      "barbarian.unarmored_defense",
+    ],
+    2: ["barbarian.reckless_attack", "barbarian.danger_sense"],
+    3: ["barbarian.primal_path"],
+    4: ["ability_score_improvement"],
+    5: ["extra_attack", "barbarian.fast_movement"],
+    7: ["barbarian.feral_instinct"],
+    8: ["ability_score_improvement"],
+    9: ["barbarian.brutal_critical"],
+    11: ["barbarian.relentless_rage"],
+    15: ["barbarian.persistent_rage"],
+    18: ["barbarian.indomitable_might"],
+    20: ["barbarian.primal_champion"],
+  },
+
   featuresByLevel: {
     1: [
       {

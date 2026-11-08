@@ -5,6 +5,16 @@ export const WILD_MAGIC: SubclassTemplate = {
   classId: "barbarian",
   source: "Tasha's Cauldron of Everything",
 
+  progression: {
+    3: [
+      "barbarian.wild_magic_barbarian.magic_awareness",
+      "barbarian.wild_magic_barbarian.wild_surge",
+    ],
+    6: ["barbarian.wild_magic_barbarian.bolstering_magic"],
+    10: ["barbarian.wild_magic_barbarian.unstable_backlash"],
+    14: ["barbarian.wild_magic_barbarian.controlled_surge"],
+  },
+
   featuresByLevel: {
     3: [
       {

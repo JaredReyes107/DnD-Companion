@@ -5,6 +5,13 @@ export const ANCESTRAL_GUARDIAN: SubclassTemplate = {
   classId: "barbarian",
   source: "Xanathar's Guide to Everything",
 
+  progression: {
+    3: ["barbarian.ancestral_guardian.ancestral_protectors"],
+    6: ["barbarian.ancestral_guardian.spirit_shield"],
+    10: ["barbarian.ancestral_guardian.consult_the_spirits"],
+    14: ["barbarian.ancestral_guardian.vengeful_ancestors"],
+  },
+
   featuresByLevel: {
     3: [
       {

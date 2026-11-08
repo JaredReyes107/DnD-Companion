@@ -5,6 +5,13 @@ export const STORM_HERALD: SubclassTemplate = {
   classId: "barbarian",
   source: "Xanathar's Guide to Everything",
 
+  progression: {
+    3: ["barbarian.storm_herald.storm_aura"],
+    6: ["barbarian.storm_herald.storm_soul"],
+    10: ["barbarian.storm_herald.shielding_storm"],
+    14: ["barbarian.storm_herald.raging_storm"],
+  },
+
   featuresByLevel: {
     3: [
       {

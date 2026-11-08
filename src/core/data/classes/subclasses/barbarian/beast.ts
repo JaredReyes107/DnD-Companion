@@ -5,6 +5,13 @@ export const BEAST: SubclassTemplate = {
   classId: "barbarian",
   source: "Tasha's Cauldron of Everything",
 
+  progression: {
+    3: ["barbarian.beast.form_of_the_beast"],
+    6: ["barbarian.beast.bestial_soul"],
+    10: ["barbarian.beast.infectious_fury"],
+    14: ["barbarian.beast.call_the_hunt"],
+  },
+
   featuresByLevel: {
     3: [
       {
