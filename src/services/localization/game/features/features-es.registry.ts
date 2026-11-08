@@ -1,6 +1,7 @@
 import { GameLocalization } from "@/services/localization/game-localization.types";
 
 import { barbarian_features_es } from "@/services/localization/game/classes/barbarian/es-barbarian-features";
+import { shared_features_es } from "./shared/shared-features-es";
 import { bard_features_es } from "../classes/bard/es/bard-features-es";
 import { cleric_features_es } from "../classes/cleric/es/cleric-features-es";
 import { druid_features_es } from "../classes/druid/es/druid-features-es";
@@ -29,5 +30,6 @@ export const features_es: GameLocalization = {
     ...warlock_features_es,
     ...wizard_features_es,
     ...artificer_features_es,
+    ...shared_features_es,
   },
 };

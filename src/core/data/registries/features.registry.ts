@@ -1,6 +1,7 @@
+import { sharedFeatureTemplates } from "@/core/data/features/shared";
 import { FeatureTemplate } from "@/core/entities/rules/feature-template";
 
-const BASE_FEATURES: FeatureTemplate[] = [];
+const BASE_FEATURES: FeatureTemplate[] = [...sharedFeatureTemplates];
 const homebrewFeatures: Record<string, FeatureTemplate> = {};
 
 export function registerHomebrewFeature(feature: FeatureTemplate) {

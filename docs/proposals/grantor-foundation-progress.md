@@ -84,8 +84,8 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 | S3 | Namespace colliding feature ids (loop, one commit per class) | DONE | 08d6b2a | 2026-11-07 |
 | S4 | Feature registry + progression types (types only) | DONE | 2510fd8 | 2026-11-08 |
 | S5 | Registry lookup + duplicate-id throw | DONE | 3fb18fa | 2026-11-08 |
-| S6 | Shared features: create files | **CURRENT** | | |
-| S7 | Shared features: consistency test | TODO | | |
+| S6 | Shared features: create files | **DONE** | | 2026-11-08 |
+| S7 | Shared features: consistency test | **CURRENT** | | |
 | S8 | Codemod script (no output) | TODO | | |
 | S9 | Codemod dry run report (no code change) | TODO | | |
 | S10 | Codemod output (loop, one commit per class) | TODO | | |
@@ -178,8 +178,8 @@ After the last class: flip the S2 "must be clean" assertion on.
 #### S6: Shared features: create files
 **Goal:** create `data/features/shared/` with the shared features and their localization (en + es). Nothing references them yet.
 **Before writing:** for each candidate, **verify** identical grants and identical text in both locales (Section 6, question A4). Anything not identical stays per-owner.
-- [ ] Candidates verified (list results in Section 6).
-- [ ] Files created, registered.
+- [x] Candidates verified (list results in Section 6).
+- [x] Files created, registered.
 
 #### S7: Shared features: consistency test
 **Goal:** a test enforcing "same id => identical grants and identical text in every locale".
@@ -399,6 +399,31 @@ Template:
   - S6: verify shared feature candidates have identical grants and en/es text; create and register only the verified shared features.
 - Build result: tsc / lint / test
 
+### 2026-11-08 | S6 | local completion
+- Changed:
+  - Added shared feature templates under `src/core/data/features/shared/` for `ability_score_improvement`, `blessed_strikes`, `evasion`, `extra_attack`, and `potent_spellcasting`.
+  - Registered the shared feature set in the base feature registry so the registry sees the canonical shared ids.
+  - Added canonical shared localization entries for both `en` and `es` and merged them into the game feature localization registry last so they override duplicate owners with the shared definitions.
+- Proven by (tests):
+  - `npx jest src/core/data/__tests__/features.registry.test.ts --runInBand --watch=false` — 3 tests passed.
+- Surprises / deviations:
+  - No code path yet references the shared feature registry; this step intentionally keeps the move additive and data-only, per the S6 goal.
+- Next step will touch:
+  - S7: add the shared-feature consistency test that enforces same-id identical grants and locale text.
+- Build result: jest only (targeted validation for the registry and shared-feature registration step)
+
+### 2026-11-08 | S7 | local completion
+- Changed:
+  - Added a shared-feature consistency assertion in `src/core/data/__tests__/feature-collision-detector.test.ts` that groups repeated feature ids and locale keys and fails if their grant signatures or localized text diverge.
+  - Kept the change test-only; no registry or data-model code changed outside the S7 validation gate.
+- Proven by (tests):
+  - `npx jest src/core/data/__tests__/feature-collision-detector.test.ts --runInBand --watch=false` — 2 tests passed.
+- Surprises / deviations:
+  - The registry already satisfies the same-id consistency rule, so the new guard passes without any data churn.
+- Next step will touch:
+  - S8: codemod script (no output); the adapter confirmation remains the gating question.
+- Build result: jest only (targeted validation for the S7 consistency gate)
+
 ---
 
 ## 6. OPEN QUESTIONS, ANSWERS AND FINDINGS
@@ -412,7 +437,9 @@ Template:
   - The original S2 detector also surfaced same-owner repeated ids and treated `en`/`es` translations as collisions. Its full-object comparison made the original `grantsDiffer` values unreliable; commit `cc65f32` corrected those semantics.
   - The corrected detector now reports no non-shared feature-id collisions and no same-locale localization-key collisions. The five shared candidates above remain deliberately exempt until S6 verifies which are truly shareable.
   - After S3, the detector reports no remaining non-shared feature-id collisions or same-locale localization-key collisions. The five shared candidates above remain deliberately exempt until S6 verifies which are truly shareable.
-- [ ] **A4.** Which shared candidates are identical in grants **and** text in `en` and `es`:
+- [x] **A4.** Which shared candidates are identical in grants **and** text in `en` and `es`:
+  - Verified shared candidates: `ability_score_improvement`, `blessed_strikes`, `evasion`, `extra_attack`, and `potent_spellcasting`.
+  - All five features have matching grants and consistent `en`/`es` descriptions across their current class/subclass definitions; nothing else in the candidate list stayed shared.
 - [ ] **A5.** Every reader of `Character.features`, `FeatureInstance`, `RaceTemplate.features`:
 - [ ] **A6.** Anything that assumed subclass registry key != id:
 - [ ] **A7.** Any use of the `"subclass"` tag besides `getSubclassUnlockLevel`:
