@@ -8,13 +8,13 @@ export const ASSASSIN: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "bonus_proficiencies_assassin",
+        id: "rogue.assassin.bonus_proficiencies_assassin",
         source: "subclass" as const,
         level: 3,
         tags: ["proficiency", "tool"],
       },
       {
-        id: "assassinate",
+        id: "rogue.assassin.assassinate",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "assassinate" }],
@@ -24,7 +24,7 @@ export const ASSASSIN: SubclassTemplate = {
 
     9: [
       {
-        id: "infiltration_expertise",
+        id: "rogue.assassin.infiltration_expertise",
         source: "subclass" as const,
         level: 9,
         grants: [{ type: "action", id: "infiltration_expertise" }],
@@ -34,7 +34,7 @@ export const ASSASSIN: SubclassTemplate = {
 
     13: [
       {
-        id: "impostor",
+        id: "rogue.assassin.impostor",
         source: "subclass" as const,
         level: 13,
         grants: [{ type: "action", id: "impostor" }],
@@ -44,7 +44,7 @@ export const ASSASSIN: SubclassTemplate = {
 
     17: [
       {
-        id: "death_strike",
+        id: "rogue.assassin.death_strike",
         source: "subclass" as const,
         level: 17,
         grants: [{ type: "action", id: "death_strike" }],

@@ -8,14 +8,14 @@ export const MASTERMIND: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "master_of_intrigue",
+        id: "rogue.mastermind.master_of_intrigue",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "master_of_intrigue" }],
         tags: ["proficiency", "tool", "language", "roleplay"],
       },
       {
-        id: "master_of_tactics",
+        id: "rogue.mastermind.master_of_tactics",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "master_of_tactics" }],
@@ -25,7 +25,7 @@ export const MASTERMIND: SubclassTemplate = {
 
     9: [
       {
-        id: "insightful_manipulator",
+        id: "rogue.mastermind.insightful_manipulator",
         source: "subclass" as const,
         level: 9,
         grants: [{ type: "action", id: "insightful_manipulator" }],
@@ -35,7 +35,7 @@ export const MASTERMIND: SubclassTemplate = {
 
     13: [
       {
-        id: "misdirection",
+        id: "rogue.mastermind.misdirection",
         source: "subclass" as const,
         level: 13,
         grants: [{ type: "action", id: "misdirection" }],
@@ -45,7 +45,7 @@ export const MASTERMIND: SubclassTemplate = {
 
     17: [
       {
-        id: "soul_of_deceit",
+        id: "rogue.mastermind.soul_of_deceit",
         source: "subclass" as const,
         level: 17,
         tags: ["passive", "roleplay", "defense"],

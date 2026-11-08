@@ -8,21 +8,21 @@ export const INQUISITIVE: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "ear_for_deceit",
+        id: "rogue.inquisitive.ear_for_deceit",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "ear_for_deceit" }],
         tags: ["skill"],
       },
       {
-        id: "eye_for_detail",
+        id: "rogue.inquisitive.eye_for_detail",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "eye_for_detail" }],
         tags: ["utility", "bonus-action"],
       },
       {
-        id: "insightful_fighting",
+        id: "rogue.inquisitive.insightful_fighting",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "insightful_fighting" }],
@@ -32,7 +32,7 @@ export const INQUISITIVE: SubclassTemplate = {
 
     9: [
       {
-        id: "steady_eye",
+        id: "rogue.inquisitive.steady_eye",
         source: "subclass" as const,
         level: 9,
         grants: [{ type: "action", id: "steady_eye" }],
@@ -42,7 +42,7 @@ export const INQUISITIVE: SubclassTemplate = {
 
     13: [
       {
-        id: "unerring_eye",
+        id: "rogue.inquisitive.unerring_eye",
         source: "subclass" as const,
         level: 13,
         grants: [
@@ -55,7 +55,7 @@ export const INQUISITIVE: SubclassTemplate = {
 
     17: [
       {
-        id: "eye_for_weakness",
+        id: "rogue.inquisitive.eye_for_weakness",
         source: "subclass" as const,
         level: 17,
         tags: ["combat", "damage"],

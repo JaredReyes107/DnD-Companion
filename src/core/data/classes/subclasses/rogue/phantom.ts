@@ -8,14 +8,14 @@ export const PHANTOM: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "whispers_of_the_dead",
+        id: "rogue.phantom.whispers_of_the_dead",
         source: "subclass" as const,
         level: 3,
         //TODO: Add selection after short/long rest
         tags: ["proficiency", "utility"],
       },
       {
-        id: "wails_from_the_grave",
+        id: "rogue.phantom.wails_from_the_grave",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -28,7 +28,7 @@ export const PHANTOM: SubclassTemplate = {
 
     9: [
       {
-        id: "tokens_of_the_departed",
+        id: "rogue.phantom.tokens_of_the_departed",
         source: "subclass" as const,
         level: 9,
         grants: [
@@ -43,7 +43,7 @@ export const PHANTOM: SubclassTemplate = {
 
     13: [
       {
-        id: "ghost_walk",
+        id: "rogue.phantom.ghost_walk",
         source: "subclass" as const,
         level: 13,
         grants: [
@@ -56,7 +56,7 @@ export const PHANTOM: SubclassTemplate = {
 
     17: [
       {
-        id: "deaths_friend",
+        id: "rogue.phantom.deaths_friend",
         source: "subclass" as const,
         level: 17,
         //TODO: Override. Append to 'Wails from the Grave'. Recover 1 trinket on long rest if = 0

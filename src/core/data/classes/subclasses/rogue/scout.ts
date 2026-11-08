@@ -8,14 +8,14 @@ export const SCOUT: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "skirmisher",
+        id: "rogue.scout.skirmisher",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "skirmisher" }],
         tags: ["defense", "movement", "reaction"],
       },
       {
-        id: "survivalist",
+        id: "rogue.scout.survivalist",
         source: "subclass" as const,
         level: 3,
         tags: ["proficiency", "skill", "expertise"],
@@ -24,7 +24,7 @@ export const SCOUT: SubclassTemplate = {
 
     9: [
       {
-        id: "superior_mobility",
+        id: "rogue.scout.superior_mobility",
         source: "subclass" as const,
         level: 9,
         tags: ["movement"],
@@ -34,7 +34,7 @@ export const SCOUT: SubclassTemplate = {
 
     13: [
       {
-        id: "ambush_master",
+        id: "rogue.scout.ambush_master",
         source: "subclass" as const,
         level: 13,
         grants: [{ type: "action", id: "ambush_master" }],
@@ -45,7 +45,7 @@ export const SCOUT: SubclassTemplate = {
 
     17: [
       {
-        id: "sudden_strike",
+        id: "rogue.scout.sudden_strike",
         source: "subclass" as const,
         level: 17,
         grants: [{ type: "action", id: "sudden_strike" }],

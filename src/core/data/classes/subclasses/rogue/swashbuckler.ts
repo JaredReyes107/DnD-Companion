@@ -8,14 +8,14 @@ export const SWASHBUCKLER: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "fancy_footwork",
+        id: "rogue.swashbuckler.fancy_footwork",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "fancy_footwork" }],
         tags: ["defense"],
       },
       {
-        id: "rakish_audacity",
+        id: "rogue.swashbuckler.rakish_audacity",
         source: "subclass" as const,
         level: 3,
         //TODO: Override. Append new description to Sneak Attack
@@ -25,7 +25,7 @@ export const SWASHBUCKLER: SubclassTemplate = {
 
     9: [
       {
-        id: "panache",
+        id: "rogue.swashbuckler.panache",
         source: "subclass" as const,
         level: 9,
         grants: [{ type: "action", id: "panache" }],
@@ -35,7 +35,7 @@ export const SWASHBUCKLER: SubclassTemplate = {
 
     13: [
       {
-        id: "elegant_maneuver",
+        id: "rogue.swashbuckler.elegant_maneuver",
         source: "subclass" as const,
         level: 13,
         grants: [{ type: "action", id: "elegant_maneuver" }],
@@ -45,7 +45,7 @@ export const SWASHBUCKLER: SubclassTemplate = {
 
     17: [
       {
-        id: "master_duelist",
+        id: "rogue.swashbuckler.master_duelist",
         source: "subclass" as const,
         level: 17,
         grants: [

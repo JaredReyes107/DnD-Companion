@@ -15,13 +15,13 @@ export const ARCANE_TRICKSTER: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "spellcasting_arcane_trickster",
+        id: "rogue.arcane_trickster.spellcasting_arcane_trickster",
         source: "subclass" as const,
         level: 3,
         tags: ["spellcasting"],
       },
       {
-        id: "mage_hand_legerdemain",
+        id: "rogue.arcane_trickster.mage_hand_legerdemain",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "mage_hand" }],
@@ -33,7 +33,7 @@ export const ARCANE_TRICKSTER: SubclassTemplate = {
 
     9: [
       {
-        id: "magical_ambush",
+        id: "rogue.arcane_trickster.magical_ambush",
         source: "subclass" as const,
         level: 9,
         tags: ["spells", "disadvantage"],
@@ -42,7 +42,7 @@ export const ARCANE_TRICKSTER: SubclassTemplate = {
 
     13: [
       {
-        id: "versatile_trickster",
+        id: "rogue.arcane_trickster.versatile_trickster",
         source: "subclass" as const,
         level: 13,
         tags: ["combat", "advantage", "bonus-action"],
@@ -51,7 +51,7 @@ export const ARCANE_TRICKSTER: SubclassTemplate = {
 
     17: [
       {
-        id: "spell_thief",
+        id: "rogue.arcane_trickster.spell_thief",
         source: "subclass" as const,
         level: 17,
         grants: [

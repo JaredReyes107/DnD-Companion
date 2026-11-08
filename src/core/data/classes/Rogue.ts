@@ -10,14 +10,14 @@ export const ROGUE: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "expertise_rogue",
+        id: "rogue.expertise_rogue",
         source: "class",
         level: 1,
         tags: ["expertise", "skill"],
         //TODO: Extra at level 6
       },
       {
-        id: "sneak_attack",
+        id: "rogue.sneak_attack",
         source: "class",
         level: 1,
         grants: [
@@ -27,7 +27,7 @@ export const ROGUE: ClassTemplate = {
         tags: ["combat", "damage"],
       },
       {
-        id: "thieves_cant",
+        id: "rogue.thieves_cant",
         source: "class",
         level: 1,
         tags: ["language", "roleplay"],
@@ -36,7 +36,7 @@ export const ROGUE: ClassTemplate = {
 
     2: [
       {
-        id: "cunning_action",
+        id: "rogue.cunning_action",
         source: "class",
         level: 2,
         grants: [
@@ -50,7 +50,7 @@ export const ROGUE: ClassTemplate = {
 
     3: [
       {
-        id: "roguish_archetype",
+        id: "rogue.roguish_archetype",
         source: "class",
         level: 3,
         tags: ["subclass"],
@@ -59,7 +59,7 @@ export const ROGUE: ClassTemplate = {
 
     5: [
       {
-        id: "uncanny_dodge",
+        id: "rogue.uncanny_dodge",
         source: "class",
         level: 5,
         grants: [{ type: "action", id: "uncanny_dodge" }],
@@ -79,7 +79,7 @@ export const ROGUE: ClassTemplate = {
 
     11: [
       {
-        id: "reliable_talent",
+        id: "rogue.reliable_talent",
         source: "class",
         level: 11,
         tags: ["skill"],
@@ -88,7 +88,7 @@ export const ROGUE: ClassTemplate = {
 
     14: [
       {
-        id: "blindsense",
+        id: "rogue.blindsense",
         source: "class",
         level: 14,
         tags: ["senses"],
@@ -97,7 +97,7 @@ export const ROGUE: ClassTemplate = {
 
     15: [
       {
-        id: "slippery_mind",
+        id: "rogue.slippery_mind",
         source: "class",
         level: 15,
         tags: ["defense"],
@@ -107,7 +107,7 @@ export const ROGUE: ClassTemplate = {
 
     18: [
       {
-        id: "elusive",
+        id: "rogue.elusive",
         source: "class",
         level: 18,
         tags: ["defense"],
@@ -116,7 +116,7 @@ export const ROGUE: ClassTemplate = {
 
     20: [
       {
-        id: "stroke_of_luck",
+        id: "rogue.stroke_of_luck",
         source: "class",
         level: 20,
         grants: [

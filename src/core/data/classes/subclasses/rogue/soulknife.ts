@@ -8,7 +8,7 @@ export const SOULKNIFE: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "psionic_power",
+        id: "rogue.soulknife.psionic_power",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -21,7 +21,7 @@ export const SOULKNIFE: SubclassTemplate = {
         tags: ["resource-pool"],
       },
       {
-        id: "psychic_blades",
+        id: "rogue.soulknife.psychic_blades",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -34,7 +34,7 @@ export const SOULKNIFE: SubclassTemplate = {
 
     9: [
       {
-        id: "soul_blades",
+        id: "rogue.soulknife.soul_blades",
         source: "subclass" as const,
         level: 9,
         grants: [
@@ -47,7 +47,7 @@ export const SOULKNIFE: SubclassTemplate = {
 
     13: [
       {
-        id: "psychic_veil",
+        id: "rogue.soulknife.psychic_veil",
         source: "subclass" as const,
         level: 13,
         grants: [
@@ -60,7 +60,7 @@ export const SOULKNIFE: SubclassTemplate = {
 
     17: [
       {
-        id: "rend_mind",
+        id: "rogue.soulknife.rend_mind",
         source: "subclass" as const,
         level: 17,
         grants: [

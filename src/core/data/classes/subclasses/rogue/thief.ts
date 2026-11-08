@@ -8,14 +8,14 @@ export const THIEF: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "fast_hands",
+        id: "rogue.thief.fast_hands",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "fast_hands" }],
         tags: ["utility"],
       },
       {
-        id: "second_story_work",
+        id: "rogue.thief.second_story_work",
         source: "subclass" as const,
         level: 3,
         tags: ["movement"],
@@ -24,7 +24,7 @@ export const THIEF: SubclassTemplate = {
 
     9: [
       {
-        id: "supreme_sneak",
+        id: "rogue.thief.supreme_sneak",
         source: "subclass" as const,
         level: 9,
         grants: [{ type: "action", id: "supreme_sneak" }],
@@ -34,7 +34,7 @@ export const THIEF: SubclassTemplate = {
 
     13: [
       {
-        id: "use_magic_device",
+        id: "rogue.thief.use_magic_device",
         source: "subclass" as const,
         level: 13,
         tags: ["utility"],
@@ -44,7 +44,7 @@ export const THIEF: SubclassTemplate = {
 
     17: [
       {
-        id: "thief_reflexes",
+        id: "rogue.thief.thief_reflexes",
         source: "subclass" as const,
         level: 17,
         grants: [{ type: "action", id: "thief_reflexes" }],
