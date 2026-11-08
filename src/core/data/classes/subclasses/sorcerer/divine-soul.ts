@@ -8,14 +8,14 @@ export const DIVINE_SOUL: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "divine_magic",
+        id: "sorcerer.divine_soul.divine_magic",
         source: "subclass" as const,
         level: 1,
         grants: [], //TODO: Choice/Pool
         tags: ["spells", "build-choice"],
       },
       {
-        id: "favored_by_the_gods",
+        id: "sorcerer.divine_soul.favored_by_the_gods",
         source: "subclass" as const,
         level: 1,
         grants: [
@@ -29,7 +29,7 @@ export const DIVINE_SOUL: SubclassTemplate = {
 
     6: [
       {
-        id: "empowered_healing",
+        id: "sorcerer.divine_soul.empowered_healing",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -43,7 +43,7 @@ export const DIVINE_SOUL: SubclassTemplate = {
 
     14: [
       {
-        id: "otherworldly_wings",
+        id: "sorcerer.divine_soul.otherworldly_wings",
         source: "subclass" as const,
         level: 14,
         grants: [{ type: "action", id: "otherworldly_wings" }],
@@ -53,7 +53,7 @@ export const DIVINE_SOUL: SubclassTemplate = {
 
     18: [
       {
-        id: "unearthly_recovery",
+        id: "sorcerer.divine_soul.unearthly_recovery",
         source: "subclass" as const,
         level: 18,
         grants: [

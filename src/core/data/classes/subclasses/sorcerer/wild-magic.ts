@@ -8,14 +8,14 @@ export const WILD_MAGIC_SORCERER: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "wild_magic_surge",
+        id: "sorcerer.wild_magic_sorcerer.wild_magic_surge",
         source: "subclass" as const,
         level: 1,
         grants: [{ type: "action", id: "wild_magic_surge" }],
         tags: [],
       },
       {
-        id: "tides_of_chaos",
+        id: "sorcerer.wild_magic_sorcerer.tides_of_chaos",
         source: "subclass" as const,
         level: 1,
         grants: [
@@ -28,7 +28,7 @@ export const WILD_MAGIC_SORCERER: SubclassTemplate = {
 
     6: [
       {
-        id: "bend_luck",
+        id: "sorcerer.wild_magic_sorcerer.bend_luck",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "action", id: "bend_luck" }],
@@ -38,7 +38,7 @@ export const WILD_MAGIC_SORCERER: SubclassTemplate = {
 
     14: [
       {
-        id: "controlled_chaos",
+        id: "sorcerer.wild_magic_sorcerer.controlled_chaos",
         source: "subclass" as const,
         level: 14,
         //TODO: Override. Extends Wild Magic Surge. Grants "advantage" on the roll
@@ -48,7 +48,7 @@ export const WILD_MAGIC_SORCERER: SubclassTemplate = {
 
     18: [
       {
-        id: "spell_bombardment",
+        id: "sorcerer.wild_magic_sorcerer.spell_bombardment",
         source: "subclass" as const,
         level: 18,
         grants: [{ type: "action", id: "spell_bombardment" }],

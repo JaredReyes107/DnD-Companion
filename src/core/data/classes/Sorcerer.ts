@@ -18,12 +18,12 @@ export const SORCERER: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "spellcasting_sorcerer",
+        id: "sorcerer.spellcasting_sorcerer",
         source: "class",
         level: 1,
       },
       {
-        id: "sorcerous_origin",
+        id: "sorcerer.sorcerous_origin",
         source: "class",
         level: 1,
         tags: ["subclass"],
@@ -32,7 +32,7 @@ export const SORCERER: ClassTemplate = {
 
     2: [
       {
-        id: "font_of_magic",
+        id: "sorcerer.font_of_magic",
         source: "class",
         level: 2,
         grants: [
@@ -46,7 +46,7 @@ export const SORCERER: ClassTemplate = {
 
     3: [
       {
-        id: "metamagic",
+        id: "sorcerer.metamagic",
         source: "class",
         level: 3,
         grants: [{ type: "choice", id: "metamagic" }],
@@ -56,7 +56,7 @@ export const SORCERER: ClassTemplate = {
 
     20: [
       {
-        id: "sorcerous_restoration",
+        id: "sorcerer.sorcerous_restoration",
         source: "class",
         level: 20,
         tags: ["resource"],

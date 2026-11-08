@@ -28,7 +28,7 @@ const subclass_features: GameLocalizationCategory = {
 export const sorcerer_features_en: GameLocalizationCategory = {
   ...subclass_features,
 
-  spellcasting_sorcerer: {
+  "sorcerer.spellcasting_sorcerer": {
     name: "Spellcasting",
     description: `An event in your past, or in the life of a parent or ancestor, left an indelible mark on you, infusing you with arcane magic. This font of magic, whatever its origin, fuels your spells.
       Cantrips:
@@ -47,11 +47,11 @@ export const sorcerer_features_en: GameLocalizationCategory = {
       Spellcasting Focus:
           You can use an arcane focus as a spellcasting focus for your sorcerer spells.`,
   },
-  sorcerous_origin: {
+  "sorcerer.sorcerous_origin": {
     name: "Sorcerous Origin",
     description: `Choose a sorcerous origin, which describes the source of your innate magical power. Your choice grants you features when you choose it at 1st level and again at 6th, 14th, and 18th level.`,
   },
-  font_of_magic: {
+  "sorcerer.font_of_magic": {
     name: "Font of Magic",
     description: `You tap into a deep wellspring of magic within yourself. This wellspring is represented by sorcery points, which allow you to create a variety of magical effects.
       Sorcery Points: You have 2 sorcery points, and you gain 1 more sorcery point for each level in this class above 2. You can never have more sorcery points than your level in this class. You regain all spent sorcery points when you finish a long rest.
@@ -59,11 +59,11 @@ export const sorcerer_features_en: GameLocalizationCategory = {
         - Creating Spell Slots. You can transform unexpended sorcery points into one spell slot as a bonus action on your turn. The Creating Spell Slots table shows the cost of creating a spell slot of a given level. You can create spell slots no higher in level than 5th. Any spell slot you create with this feature vanishes when you finish a long rest.
         - Converting a Spell Slot to Sorcery Points. As a bonus action on your turn, you can expend one spell slot and gain a number of sorcery points equal to the slot's level.`,
   },
-  metamagic: {
+  "sorcerer.metamagic": {
     name: "Metamagic",
     description: `You gain the ability to twist your spells to suit your needs. You gain two Metamagic options of your choice. You gain another one at 10th and 17th level. You can use only one Metamagic option on a spell when you cast it, unless otherwise noted.`,
   },
-  sorcerous_restoration: {
+  "sorcerer.sorcerous_restoration": {
     name: "Sorcerous Restoration",
     description: `You regain 4 expended sorcery points whenever you finish a short rest.`,
   },

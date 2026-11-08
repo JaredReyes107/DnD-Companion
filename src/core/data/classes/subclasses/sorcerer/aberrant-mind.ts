@@ -8,13 +8,13 @@ export const ABERRANT_MIND: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "psionic_spells",
+        id: "sorcerer.aberrant_mind.psionic_spells",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
       },
       {
-        id: "telepathic_speech",
+        id: "sorcerer.aberrant_mind.telepathic_speech",
         source: "subclass" as const,
         level: 1,
         grants: [{ type: "action", id: "telepathic_speech" }],
@@ -24,14 +24,14 @@ export const ABERRANT_MIND: SubclassTemplate = {
 
     6: [
       {
-        id: "psionic_sorcery",
+        id: "sorcerer.aberrant_mind.psionic_sorcery",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "action", id: "psionic_sorcery" }],
         tags: ["spellcasting"],
       },
       {
-        id: "psychic_defenses",
+        id: "sorcerer.aberrant_mind.psychic_defenses",
         source: "subclass" as const,
         level: 6,
         tags: ["defense", "resistance"],
@@ -40,7 +40,7 @@ export const ABERRANT_MIND: SubclassTemplate = {
 
     14: [
       {
-        id: "revelation_in_flesh",
+        id: "sorcerer.aberrant_mind.revelation_in_flesh",
         source: "subclass" as const,
         level: 14,
         grants: [{ type: "action", id: "revelation_in_flesh" }],
@@ -50,7 +50,7 @@ export const ABERRANT_MIND: SubclassTemplate = {
 
     18: [
       {
-        id: "warping_implosion",
+        id: "sorcerer.aberrant_mind.warping_implosion",
         source: "subclass" as const,
         level: 18,
         grants: [

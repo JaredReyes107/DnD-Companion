@@ -1,23 +1,23 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const divine_soul_features_es: GameLocalizationCategory = {
-  divine_magic: {
+  "sorcerer.divine_soul.divine_magic": {
     name: "",
     description: "",
   },
-  favored_by_the_gods: {
+  "sorcerer.divine_soul.favored_by_the_gods": {
     name: "",
     description: "",
   },
-  empowered_healing: {
+  "sorcerer.divine_soul.empowered_healing": {
     name: "",
     description: "",
   },
-  otherworldly_wings: {
+  "sorcerer.divine_soul.otherworldly_wings": {
     name: "",
     description: "",
   },
-  unearthly_recovery: {
+  "sorcerer.divine_soul.unearthly_recovery": {
     name: "",
     description: "",
   },

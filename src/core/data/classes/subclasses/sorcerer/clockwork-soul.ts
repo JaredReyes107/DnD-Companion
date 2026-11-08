@@ -8,13 +8,13 @@ export const CLOCKWORK_SOUL: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "clockwork_magic",
+        id: "sorcerer.clockwork_soul.clockwork_magic",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
       },
       {
-        id: "restore_balance",
+        id: "sorcerer.clockwork_soul.restore_balance",
         source: "subclass" as const,
         level: 1,
         grants: [
@@ -27,7 +27,7 @@ export const CLOCKWORK_SOUL: SubclassTemplate = {
 
     6: [
       {
-        id: "bastion_of_law",
+        id: "sorcerer.clockwork_soul.bastion_of_law",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "action", id: "bastion_of_law" }],
@@ -37,7 +37,7 @@ export const CLOCKWORK_SOUL: SubclassTemplate = {
 
     14: [
       {
-        id: "trance_of_order",
+        id: "sorcerer.clockwork_soul.trance_of_order",
         source: "subclass" as const,
         level: 14,
         grants: [
@@ -50,7 +50,7 @@ export const CLOCKWORK_SOUL: SubclassTemplate = {
 
     18: [
       {
-        id: "clockwork_cavalcade",
+        id: "sorcerer.clockwork_soul.clockwork_cavalcade",
         source: "subclass" as const,
         level: 18,
         grants: [

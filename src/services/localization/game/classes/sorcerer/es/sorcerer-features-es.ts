@@ -28,7 +28,7 @@ const subclass_features: GameLocalizationCategory = {
 export const sorcerer_features_es: GameLocalizationCategory = {
   ...subclass_features,
 
-  spellcasting_sorcerer: {
+  "sorcerer.spellcasting_sorcerer": {
     name: "Lanzamiento de Conjuros",
     description: `Un evento de tu pasado, o la vida de un padre o ancestro, dejó una marca indeleble en ti que te infundió magia arcana. Esta fuente de magia, sea cual sea su origen, alimenta tus conjuros.
       Trucos:
@@ -46,11 +46,11 @@ export const sorcerer_features_es: GameLocalizationCategory = {
       Foco para lanzar conjuros
         Puedes utilizar un foco arcano como foco para lanzar tus conjuros de hechicero.`,
   },
-  sorcerous_origin: {
+  "sorcerer.sorcerous_origin": {
     name: "Origen Sortílego",
     description: `Cada hechicero afirma que su magia innata tiene diferentes orígenes. Elige un origen sortílego que describa la fuente de tu poder mágico innato. Tu elección te otorga rasgos en el nivel 1 y de nuevo en los niveles 6, 14 y 18.`,
   },
-  font_of_magic: {
+  "sorcerer.font_of_magic": {
     name: "Fuente de Magia",
     description: `Accedes a una profunda fuente de magia dentro de ti. Esta fuente se representa mediante puntos de hechicería, los cuales te permiten crear varios efectos mágicos.
       Puntos de Hechicería: Obtienes un número de puntos de hechicería igual a tu nivel de hechicero. En ningún caso puedes tener más puntos de hechicería de los que se indican para tu nivel. Recuperas todos los puntos de hechicería gastados cuando terminas un descanso prolongado.
@@ -64,11 +64,11 @@ export const sorcerer_features_es: GameLocalizationCategory = {
           No puedes crear espacios de conjuro de nivel superior a 5.
         - Recuperar puntos de hechicería: En tu turno, como acción adicional, puedes gastar un espacio de conjuro y conseguir tantos puntos de hechicería como el nivel del espacio.`,
   },
-  metamagic: {
+  "sorcerer.metamagic": {
     name: "Metamagia",
     description: `Consigues la capacidad de moldear tus conjuros para que se ajusten a tus necesidades. Consigues dos opciones de Metamagia de tu elección. Consigues otra más en el nivel 10 y en el nivel 17. Solo puedes usar la opción de Metamagia en un conjuro cuando lo lances, a menos que se indique lo contrario.`,
   },
-  sorcerous_restoration: {
+  "sorcerer.sorcerous_restoration": {
     name: "Restablecimiento Sortílego",
     description: `Cuando termines un descanso breve, recuperas 4 puntos de sortilegio que hayas gastado.`,
   },
