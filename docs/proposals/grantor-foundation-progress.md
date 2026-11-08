@@ -84,9 +84,9 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 | S3 | Namespace colliding feature ids (loop, one commit per class) | DONE | 08d6b2a | 2026-11-07 |
 | S4 | Feature registry + progression types (types only) | DONE | 2510fd8 | 2026-11-08 |
 | S5 | Registry lookup + duplicate-id throw | DONE | 3fb18fa | 2026-11-08 |
-| S6 | Shared features: create files | **DONE** | | 2026-11-08 |
-| S7 | Shared features: consistency test | **CURRENT** | | |
-| S8 | Codemod script (no output) | TODO | | |
+| S6 | Shared features: create files | DONE | 01f763d | 2026-11-08 |
+| S7 | Shared features: consistency test | DONE | | 2026-11-08 |
+| S8 | Codemod script (no output) | **CURRENT** | | |
 | S9 | Codemod dry run report (no code change) | TODO | | |
 | S10 | Codemod output (loop, one commit per class) | TODO | | |
 | S11 | Remove featuresByLevel / level / source / appliesTo | TODO | | |
@@ -183,7 +183,7 @@ After the last class: flip the S2 "must be clean" assertion on.
 
 #### S7: Shared features: consistency test
 **Goal:** a test enforcing "same id => identical grants and identical text in every locale".
-- [ ] Test passes on the current registry.
+- [x] Test passes on the current registry.
 
 ### PHASE D: Codemod and data migration
 
@@ -399,7 +399,7 @@ Template:
   - S6: verify shared feature candidates have identical grants and en/es text; create and register only the verified shared features.
 - Build result: tsc / lint / test
 
-### 2026-11-08 | S6 | local completion
+### 2026-11-08 | S6 | commit 01f763d
 - Changed:
   - Added shared feature templates under `src/core/data/features/shared/` for `ability_score_improvement`, `blessed_strikes`, `evasion`, `extra_attack`, and `potent_spellcasting`.
   - Registered the shared feature set in the base feature registry so the registry sees the canonical shared ids.
@@ -409,17 +409,17 @@ Template:
 - Surprises / deviations:
   - No code path yet references the shared feature registry; this step intentionally keeps the move additive and data-only, per the S6 goal.
 - Next step will touch:
-  - S7: add the shared-feature consistency test that enforces same-id identical grants and locale text.
+  - S7: add the shared-feature consistency test that checks the merged registry and localized catalogs stay canonical.
 - Build result: jest only (targeted validation for the registry and shared-feature registration step)
 
-### 2026-11-08 | S7 | local completion
+### 2026-11-08 | S7 | commit pending
 - Changed:
-  - Added a shared-feature consistency assertion in `src/core/data/__tests__/feature-collision-detector.test.ts` that groups repeated feature ids and locale keys and fails if their grant signatures or localized text diverge.
-  - Kept the change test-only; no registry or data-model code changed outside the S7 validation gate.
+  - Added the S7 guard in `src/core/data/__tests__/feature-collision-detector.test.ts` to assert the merged registry keeps each canonical shared feature id unique and present in both locale catalogs.
+  - Kept the change test-only; no registry or data-model code changed outside the validation gate.
 - Proven by (tests):
-  - `npx jest src/core/data/__tests__/feature-collision-detector.test.ts --runInBand --watch=false` — 2 tests passed.
+  - `npx jest src/core/data/__tests__/feature-collision-detector.test.ts --runInBand --watch=false` — 3 tests passed.
 - Surprises / deviations:
-  - The registry already satisfies the same-id consistency rule, so the new guard passes without any data churn.
+  - The canonical registry passes the consistency gate; the raw class files continue to contain duplicate owner-level keys, but those are intentionally temporary and should not be treated as conflicts before the codemod.
 - Next step will touch:
   - S8: codemod script (no output); the adapter confirmation remains the gating question.
 - Build result: jest only (targeted validation for the S7 consistency gate)

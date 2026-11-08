@@ -2,6 +2,10 @@ import * as fs from "fs";
 import * as path from "path";
 import * as ts from "typescript";
 
+import { getFeatureRegistry } from "@/core/data/registries/features.registry";
+import { features_en } from "@/services/localization/game/features/features-en.registry";
+import { features_es } from "@/services/localization/game/features/features-es.registry";
+
 type FeatureDefinition = {
   id: string;
   owner: string;
@@ -225,6 +229,21 @@ describe("feature collision detector", () => {
 
     expect(featureCollisions.length).toBeGreaterThanOrEqual(0);
     expect(localizationCollisions.length).toBeGreaterThanOrEqual(0);
+  });
+
+  it("keeps the canonical shared feature ids unique in the merged registry", () => {
+    const registry = getFeatureRegistry();
+    const mergedSharedIds = Object.keys(registry).filter((id) =>
+      sharedFeatureIds.has(id),
+    );
+
+    expect(new Set(mergedSharedIds).size).toBe(sharedFeatureIds.size);
+    expect(mergedSharedIds.sort()).toEqual([...sharedFeatureIds].sort());
+
+    for (const id of sharedFeatureIds) {
+      expect(features_en.features[id]).toBeDefined();
+      expect(features_es.features[id]).toBeDefined();
+    }
   });
 
   it("is clean after S3 except for shared feature ids deferred to S6", () => {
