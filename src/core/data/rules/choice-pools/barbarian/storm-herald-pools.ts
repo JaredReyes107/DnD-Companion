@@ -5,7 +5,7 @@ export const STORM_HERALD_POOLS: Record<string, ChoicePoolTemplate> = {
     id: "storm_aura_environment",
     sourceId: "storm_herald",
     classId: "barbarian",
-    selectionTrigger: "onLevelUp",
+    selectionTrigger: { type: "levelUp" },
     optionIds: [
       "storm_environment_desert",
       "storm_environment_sea",

@@ -7,8 +7,8 @@ export const LAND_RESOURCES: Record<string, ResourceTemplate> = {
     category: "subclass_features",
     max: E.n(1),
 
-    tags: ["spellcasting"],
     origin: { book: "PHB" },
+    tags: ["spellcasting"],
     grantors: [
       {
         system: "feature",
@@ -21,6 +21,5 @@ export const LAND_RESOURCES: Record<string, ResourceTemplate> = {
     // recovered. The actual spell-level math (half druid level, rounded up)
     // is a TODO for the spellcasting system once slot recovery is implemented.
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
-    tags: ["spellcasting"],
   },
 };

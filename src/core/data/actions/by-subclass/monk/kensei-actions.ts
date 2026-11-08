@@ -45,8 +45,6 @@ export const KENSEI_ACTIONS: Record<string, ActionInstance> = {
     boards: ["combat"],
     duration: { kind: "instantaneous" },
     trigger: ["onAttackMiss"], //TODO: With monk weapon
-    effects: [
-      { type: "modifyResource", resourceId: "unerring_accuracy", amount: -1 },
-    ],
+    effects: [{ type: "modifyResource", resourceId: "ki_points", amount: -1 }],
   },
 };

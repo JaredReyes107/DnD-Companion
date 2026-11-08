@@ -23,7 +23,6 @@ export const CAVALIER_RESOURCES: Record<string, ResourceTemplate> = {
 
     // Gates the retaliation attack only — marking a creature on hit is free.
     recharge: [{ trigger: { type: "longRest" }, amount: "full" }],
-    tags: ["combat", "tank"],
   },
   warding_maneuver: {
     id: "warding_maneuver",

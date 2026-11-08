@@ -28,7 +28,7 @@ export function buildProficiencyPool(args: {
       id: args.id,
       sourceId: args.sourceId,
       classId: args.classId,
-      selectionTrigger: "onLevelUp",
+      selectionTrigger: { type: "levelUp" },
       optionIds: Object.keys(options),
       picksAtLevel: { [args.level ?? 1]: args.picks },
       allowDuplicates: false,
