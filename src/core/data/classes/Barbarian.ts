@@ -21,7 +21,7 @@ export const BARBARIAN: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "proficiencies_barbarian",
+        id: "barbarian.proficiencies_barbarian",
         source: "class",
         level: 1,
         appliesTo: "primary",
@@ -38,7 +38,7 @@ export const BARBARIAN: ClassTemplate = {
         tags: ["proficiency"],
       },
       {
-        id: "multiclass_proficiencies_barbarian",
+        id: "barbarian.multiclass_proficiencies_barbarian",
         source: "class",
         level: 1,
         appliesTo: "multiclass",
@@ -50,7 +50,7 @@ export const BARBARIAN: ClassTemplate = {
         tags: ["proficiency"],
       },
       {
-        id: "rage",
+        id: "barbarian.rage",
         source: "class",
         level: 1,
         grants: [
@@ -61,7 +61,7 @@ export const BARBARIAN: ClassTemplate = {
         tags: ["combat"],
       },
       {
-        id: "unarmored_defense",
+        id: "barbarian.unarmored_defense",
         source: "class",
         level: 1,
         grants: [{ type: "modifier", id: "barbarian_unarmored_defense" }],
@@ -70,13 +70,13 @@ export const BARBARIAN: ClassTemplate = {
     ],
     2: [
       {
-        id: "reckless_attack",
+        id: "barbarian.reckless_attack",
         source: "class",
         grants: [{ type: "action", id: "reckless_attack" }],
         level: 2,
       },
       {
-        id: "danger_sense",
+        id: "barbarian.danger_sense",
         source: "class",
         level: 2,
         grants: [{ type: "advantage", id: "danger_sense_dex_saves" }],
@@ -85,7 +85,7 @@ export const BARBARIAN: ClassTemplate = {
     ],
     3: [
       {
-        id: "primal_path",
+        id: "barbarian.primal_path",
         source: "class",
         level: 3,
         tags: ["subclass"],
@@ -101,7 +101,7 @@ export const BARBARIAN: ClassTemplate = {
         tags: ["combat", "extra-attack"],
       },
       {
-        id: "fast_movement",
+        id: "barbarian.fast_movement",
         source: "class",
         level: 5,
         grants: [{ type: "modifier", id: "barbarian_fast_movement" }],
@@ -110,7 +110,7 @@ export const BARBARIAN: ClassTemplate = {
     ],
     7: [
       {
-        id: "feral_instinct",
+        id: "barbarian.feral_instinct",
         source: "class",
         level: 7,
         grants: [{ type: "advantage", id: "feral_instinct_initiative" }],
@@ -120,7 +120,7 @@ export const BARBARIAN: ClassTemplate = {
     8: [abilityScoreImprovement(8)],
     9: [
       {
-        id: "brutal_critical",
+        id: "barbarian.brutal_critical",
         source: "class",
         level: 9,
         tags: ["critical", "damage"],
@@ -128,7 +128,7 @@ export const BARBARIAN: ClassTemplate = {
     ],
     11: [
       {
-        id: "relentless_rage",
+        id: "barbarian.relentless_rage",
         source: "class",
         level: 11,
         // TODO: Resource/Counter. Track DC increases
@@ -138,7 +138,7 @@ export const BARBARIAN: ClassTemplate = {
     ],
     15: [
       {
-        id: "persistent_rage",
+        id: "barbarian.persistent_rage",
         source: "class",
         level: 15,
         //TODO: Override. Description append/change behaviour based on log
@@ -147,7 +147,7 @@ export const BARBARIAN: ClassTemplate = {
     ],
     18: [
       {
-        id: "indomitable_might",
+        id: "barbarian.indomitable_might",
         source: "class",
         level: 18,
         tags: ["combat", "ability-check"],
@@ -155,7 +155,7 @@ export const BARBARIAN: ClassTemplate = {
     ],
     20: [
       {
-        id: "primal_champion",
+        id: "barbarian.primal_champion",
         source: "class",
         level: 20,
         grants: [

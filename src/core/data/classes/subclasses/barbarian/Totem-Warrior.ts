@@ -8,14 +8,14 @@ export const TOTEM_WARRIOR: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "spirit_seeker",
+        id: "barbarian.totem_warrior.spirit_seeker",
         source: "subclass",
         level: 3,
         tags: ["utility", "spellcasting"],
         // TODO: ritual spell system
       },
       {
-        id: "totem_spirit",
+        id: "barbarian.totem_warrior.totem_spirit",
         source: "subclass",
         level: 3,
         tags: ["passive", "combat"],
@@ -25,7 +25,7 @@ export const TOTEM_WARRIOR: SubclassTemplate = {
 
     6: [
       {
-        id: "aspect_of_the_beast",
+        id: "barbarian.totem_warrior.aspect_of_the_beast",
         source: "subclass",
         level: 6,
         grants: [{ type: "choice", id: "aspect_of_the_beast" }],
@@ -35,7 +35,7 @@ export const TOTEM_WARRIOR: SubclassTemplate = {
 
     10: [
       {
-        id: "spirit_walker",
+        id: "barbarian.totem_warrior.spirit_walker",
         source: "subclass",
         level: 10,
         tags: ["utility", "spellcasting"],
@@ -45,7 +45,7 @@ export const TOTEM_WARRIOR: SubclassTemplate = {
 
     14: [
       {
-        id: "totemic_attunement",
+        id: "barbarian.totem_warrior.totemic_attunement",
         source: "subclass",
         level: 14,
         grants: [{ type: "choice", id: "totemic_attunement" }],

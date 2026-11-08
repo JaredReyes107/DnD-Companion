@@ -1,23 +1,23 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const wild_magic_features_es: GameLocalizationCategory = {
-  magic_awareness: {
+  "barbarian.wild_magic_barbarian.magic_awareness": {
     name: "Conciencia mágica",
     description: "",
   },
-  wild_surge: {
+  "barbarian.wild_magic_barbarian.wild_surge": {
     name: "Oleada salvaje",
     description: "",
   },
-  bolstering_magic: {
+  "barbarian.wild_magic_barbarian.bolstering_magic": {
     name: "Magia reforzadora",
     description: "",
   },
-  unstable_backlash: {
+  "barbarian.wild_magic_barbarian.unstable_backlash": {
     name: "Represalia inestable",
     description: "",
   },
-  controlled_surge: {
+  "barbarian.wild_magic_barbarian.controlled_surge": {
     name: "Oleada controlada",
     description: "",
   },

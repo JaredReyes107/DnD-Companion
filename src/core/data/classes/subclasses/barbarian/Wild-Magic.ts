@@ -8,7 +8,7 @@ export const WILD_MAGIC: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "magic_awareness",
+        id: "barbarian.wild_magic_barbarian.magic_awareness",
         source: "subclass",
         level: 3,
         grants: [
@@ -18,7 +18,7 @@ export const WILD_MAGIC: SubclassTemplate = {
         tags: ["utility"],
       },
       {
-        id: "wild_surge",
+        id: "barbarian.wild_magic_barbarian.wild_surge",
         source: "subclass",
         level: 3,
         tags: ["combat"],
@@ -27,7 +27,7 @@ export const WILD_MAGIC: SubclassTemplate = {
 
     6: [
       {
-        id: "bolstering_magic",
+        id: "barbarian.wild_magic_barbarian.bolstering_magic",
         source: "subclass",
         level: 6,
         grants: [
@@ -39,7 +39,7 @@ export const WILD_MAGIC: SubclassTemplate = {
     ],
     10: [
       {
-        id: "unstable_backlash",
+        id: "barbarian.wild_magic_barbarian.unstable_backlash",
         source: "subclass",
         level: 10,
         grants: [{ type: "action", id: "unstable_backlash" }],
@@ -48,7 +48,7 @@ export const WILD_MAGIC: SubclassTemplate = {
     ],
     14: [
       {
-        id: "controlled_surge",
+        id: "barbarian.wild_magic_barbarian.controlled_surge",
         source: "subclass",
         level: 14,
         tags: ["passive"],

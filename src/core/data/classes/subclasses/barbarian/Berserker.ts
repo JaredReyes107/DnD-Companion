@@ -8,7 +8,7 @@ export const BERSERKER: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "frenzy",
+        id: "barbarian.berserker.frenzy",
         source: "subclass",
         level: 3,
         grants: [
@@ -23,7 +23,7 @@ export const BERSERKER: SubclassTemplate = {
 
     6: [
       {
-        id: "mindless_rage",
+        id: "barbarian.berserker.mindless_rage",
         source: "subclass",
         level: 6,
         tags: ["passive", "defense"],
@@ -33,7 +33,7 @@ export const BERSERKER: SubclassTemplate = {
 
     10: [
       {
-        id: "intimidating_presence",
+        id: "barbarian.berserker.intimidating_presence",
         source: "subclass",
         level: 10,
         grants: [{ type: "action", id: "intimidating_presence" }],
@@ -43,7 +43,7 @@ export const BERSERKER: SubclassTemplate = {
 
     14: [
       {
-        id: "retaliation",
+        id: "barbarian.berserker.retaliation",
         source: "subclass",
         level: 14,
         grants: [{ type: "action", id: "retaliation" }],

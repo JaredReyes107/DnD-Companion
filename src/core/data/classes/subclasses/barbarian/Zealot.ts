@@ -8,7 +8,7 @@ export const ZEALOT: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "divine_fury",
+        id: "barbarian.zealot.divine_fury",
         source: "subclass",
         level: 3,
         grants: [
@@ -18,7 +18,7 @@ export const ZEALOT: SubclassTemplate = {
         tags: ["combat"],
       },
       {
-        id: "warrior_of_the_gods",
+        id: "barbarian.zealot.warrior_of_the_gods",
         source: "subclass",
         level: 3,
         tags: ["passive"],
@@ -26,7 +26,7 @@ export const ZEALOT: SubclassTemplate = {
     ],
     6: [
       {
-        id: "fanatical_focus",
+        id: "barbarian.zealot.fanatical_focus",
         source: "subclass",
         level: 6,
         grants: [
@@ -39,7 +39,7 @@ export const ZEALOT: SubclassTemplate = {
     ],
     10: [
       {
-        id: "zealous_presence",
+        id: "barbarian.zealot.zealous_presence",
         source: "subclass",
         level: 10,
         grants: [
@@ -51,7 +51,7 @@ export const ZEALOT: SubclassTemplate = {
     ],
     14: [
       {
-        id: "rage_beyond_death",
+        id: "barbarian.zealot.rage_beyond_death",
         source: "subclass",
         level: 14,
         tags: ["passive", "combat", "last-stand"],

@@ -8,7 +8,7 @@ export const STORM_HERALD: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "storm_aura",
+        id: "barbarian.storm_herald.storm_aura",
         source: "subclass",
         level: 3,
         grants: [{ type: "choice", id: "storm_aura_environment" }],
@@ -17,7 +17,7 @@ export const STORM_HERALD: SubclassTemplate = {
     ],
     6: [
       {
-        id: "storm_soul",
+        id: "barbarian.storm_herald.storm_soul",
         source: "subclass",
         level: 6,
         tags: ["passive", "defense"],
@@ -26,7 +26,7 @@ export const STORM_HERALD: SubclassTemplate = {
     ],
     10: [
       {
-        id: "shielding_storm",
+        id: "barbarian.storm_herald.shielding_storm",
         source: "subclass",
         level: 10,
         tags: ["passive", "defense"],
@@ -35,7 +35,7 @@ export const STORM_HERALD: SubclassTemplate = {
     ],
     14: [
       {
-        id: "raging_storm",
+        id: "barbarian.storm_herald.raging_storm",
         source: "subclass",
         level: 14,
         tags: ["combat"],

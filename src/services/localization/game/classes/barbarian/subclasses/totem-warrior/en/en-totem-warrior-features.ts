@@ -2,23 +2,23 @@ import { GameLocalization } from "@/services/localization/game-localization.type
 
 export const totem_warrior_features_en: GameLocalization = {
   features: {
-    spirit_seeker: {
+    "barbarian.totem_warrior.spirit_seeker": {
       name: "Spirit Seeker",
       description: ``,
     },
-    totem_spirit: {
+    "barbarian.totem_warrior.totem_spirit": {
       name: "Totem Spirit",
       description: ``,
     },
-    aspect_of_the_beast: {
+    "barbarian.totem_warrior.aspect_of_the_beast": {
       name: "Aspect of the Beast",
       description: ``,
     },
-    spirit_walker: {
+    "barbarian.totem_warrior.spirit_walker": {
       name: "Spirit Walker",
       description: ``,
     },
-    totemic_attunement: {
+    "barbarian.totem_warrior.totemic_attunement": {
       name: "Totemic Attunement",
       description: ``,
     },

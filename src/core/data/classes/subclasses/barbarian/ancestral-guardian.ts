@@ -8,7 +8,7 @@ export const ANCESTRAL_GUARDIAN: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "ancestral_protectors",
+        id: "barbarian.ancestral_guardian.ancestral_protectors",
         source: "subclass",
         level: 3,
         grants: [
@@ -21,7 +21,7 @@ export const ANCESTRAL_GUARDIAN: SubclassTemplate = {
 
     6: [
       {
-        id: "spirit_shield",
+        id: "barbarian.ancestral_guardian.spirit_shield",
         source: "subclass",
         level: 6,
         grants: [{ type: "action", id: "spirit_shield" }], //TODO: Overrides. Description only
@@ -31,7 +31,7 @@ export const ANCESTRAL_GUARDIAN: SubclassTemplate = {
 
     10: [
       {
-        id: "consult_the_spirits",
+        id: "barbarian.ancestral_guardian.consult_the_spirits",
         source: "subclass",
         level: 10,
         // TODO(spells): link to the real augury/clairvoyance spells once the spell registry exists.
@@ -46,7 +46,7 @@ export const ANCESTRAL_GUARDIAN: SubclassTemplate = {
 
     14: [
       {
-        id: "vengeful_ancestors",
+        id: "barbarian.ancestral_guardian.vengeful_ancestors",
         source: "subclass",
         level: 14,
         tags: ["combat", "reaction"],

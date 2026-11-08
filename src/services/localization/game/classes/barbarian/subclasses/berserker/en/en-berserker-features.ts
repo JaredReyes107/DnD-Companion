@@ -2,19 +2,19 @@ import { GameLocalization } from "@/services/localization/game-localization.type
 
 export const berserker_features_en: GameLocalization = {
   features: {
-    frenzy: {
+    "barbarian.berserker.frenzy": {
       name: "Frenzy",
       description: ``,
     },
-    mindless_rage: {
+    "barbarian.berserker.mindless_rage": {
       name: "Mindless Rage",
       description: ``,
     },
-    intimidating_presence: {
+    "barbarian.berserker.intimidating_presence": {
       name: "Intimidating Presence",
       description: ``,
     },
-    retaliation: {
+    "barbarian.berserker.retaliation": {
       name: "Retaliation",
       description: ``,
     },

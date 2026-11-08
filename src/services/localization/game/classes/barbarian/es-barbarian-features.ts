@@ -21,23 +21,23 @@ const barbarian_subclass_features_es: GameLocalizationCategory = {
 };
 
 export const barbarian_features_es: GameLocalizationCategory = {
-  rage: {
+  "barbarian.rage": {
     name: "Furia",
     description: "",
   },
-  unarmored_defense: {
+  "barbarian.unarmored_defense": {
     name: "Defensa sin Armadura",
     description: "",
   },
-  reckless_attack: {
+  "barbarian.reckless_attack": {
     name: "Ataque Temerario",
     description: "",
   },
-  danger_sense: {
+  "barbarian.danger_sense": {
     name: "Sentido del Peligro",
     description: "",
   },
-  primal_path: {
+  "barbarian.primal_path": {
     name: "Senda de Barbaro",
     description: "",
   },
@@ -45,31 +45,31 @@ export const barbarian_features_es: GameLocalizationCategory = {
     name: "Ataque Adicional",
     description: "",
   },
-  fast_movement: {
+  "barbarian.fast_movement": {
     name: "Movimiento Rápido",
     description: "",
   },
-  feral_instinct: {
+  "barbarian.feral_instinct": {
     name: "Instinto Salvaje",
     description: "",
   },
-  brutal_critical: {
+  "barbarian.brutal_critical": {
     name: "Crítico Brutal",
     description: "",
   },
-  relentless_rage: {
+  "barbarian.relentless_rage": {
     name: "Furia Implacable",
     description: "",
   },
-  persistent_rage: {
+  "barbarian.persistent_rage": {
     name: "Furia Persistente",
     description: "",
   },
-  indomitable_might: {
+  "barbarian.indomitable_might": {
     name: "Poder Indomable",
     description: "",
   },
-  primal_champion: {
+  "barbarian.primal_champion": {
     name: "Campeón Primordial",
     description: "",
   },

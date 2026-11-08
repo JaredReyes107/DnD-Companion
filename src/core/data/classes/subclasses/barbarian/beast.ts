@@ -8,7 +8,7 @@ export const BEAST: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "form_of_the_beast",
+        id: "barbarian.beast.form_of_the_beast",
         source: "subclass",
         level: 3,
         grants: [
@@ -22,7 +22,7 @@ export const BEAST: SubclassTemplate = {
 
     6: [
       {
-        id: "bestial_soul",
+        id: "barbarian.beast.bestial_soul",
         source: "subclass",
         level: 6,
         grants: [{ type: "choice", id: "bestial_soul_movement" }],
@@ -32,7 +32,7 @@ export const BEAST: SubclassTemplate = {
 
     10: [
       {
-        id: "infectious_fury",
+        id: "barbarian.beast.infectious_fury",
         source: "subclass",
         level: 10,
         grants: [
@@ -45,7 +45,7 @@ export const BEAST: SubclassTemplate = {
 
     14: [
       {
-        id: "call_the_hunt",
+        id: "barbarian.beast.call_the_hunt",
         source: "subclass",
         level: 14,
         grants: [
