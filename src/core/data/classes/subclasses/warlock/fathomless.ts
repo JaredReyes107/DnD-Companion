@@ -8,20 +8,20 @@ export const FATHOMLESS: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "expanded_spell_list_fathomless",
+        id: "warlock.fathomless.expanded_spell_list_fathomless",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
       },
       {
-        id: "gift_of_the_sea",
+        id: "warlock.fathomless.gift_of_the_sea",
         source: "subclass" as const,
         level: 1,
         tags: ["movement"],
         // TODO: Modifier. Swim speed 40ft + water breathing. Permanent
       },
       {
-        id: "tentacle_of_the_deeps",
+        id: "warlock.fathomless.tentacle_of_the_deeps",
         source: "subclass" as const,
         level: 1,
         grants: [
@@ -35,14 +35,14 @@ export const FATHOMLESS: SubclassTemplate = {
 
     6: [
       {
-        id: "oceanic_soul",
+        id: "warlock.fathomless.oceanic_soul",
         source: "subclass" as const,
         level: 6,
         tags: ["resistance", "communication"],
         //TODO: Modifier. Cold Resistance
       },
       {
-        id: "guardian_coil",
+        id: "warlock.fathomless.guardian_coil",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "action", id: "guardian_coil" }],
@@ -53,7 +53,7 @@ export const FATHOMLESS: SubclassTemplate = {
 
     10: [
       {
-        id: "grasping_tentacles",
+        id: "warlock.fathomless.grasping_tentacles",
         source: "subclass" as const,
         level: 10,
         grants: [
@@ -67,7 +67,7 @@ export const FATHOMLESS: SubclassTemplate = {
 
     14: [
       {
-        id: "fathomless_plunge",
+        id: "warlock.fathomless.fathomless_plunge",
         source: "subclass" as const,
         level: 14,
         grants: [

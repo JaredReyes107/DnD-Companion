@@ -17,13 +17,13 @@ export const WARLOCK: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "otherworldly_patron",
+        id: "warlock.otherworldly_patron",
         source: "class",
         level: 1,
         tags: ["subclass"],
       },
       {
-        id: "pact_magic",
+        id: "warlock.pact_magic",
         source: "class",
         level: 1,
         tags: ["spellcasting"],
@@ -32,7 +32,7 @@ export const WARLOCK: ClassTemplate = {
 
     2: [
       {
-        id: "eldritch_invocations",
+        id: "warlock.eldritch_invocations",
         source: "class" as const,
         level: 2,
         grants: [{ type: "choice", id: "eldritch_invocations" }],
@@ -42,7 +42,7 @@ export const WARLOCK: ClassTemplate = {
 
     3: [
       {
-        id: "pact_boon",
+        id: "warlock.pact_boon",
         source: "class" as const,
         level: 3,
         grants: [{ type: "choice", id: "pact_boon" }],
@@ -52,7 +52,7 @@ export const WARLOCK: ClassTemplate = {
 
     11: [
       {
-        id: "mystic_arcanum_6",
+        id: "warlock.mystic_arcanum_6",
         source: "class",
         level: 11,
         tags: ["spellcasting"],
@@ -62,7 +62,7 @@ export const WARLOCK: ClassTemplate = {
 
     13: [
       {
-        id: "mystic_arcanum_7",
+        id: "warlock.mystic_arcanum_7",
         source: "class",
         level: 13,
         tags: ["spellcasting"],
@@ -71,7 +71,7 @@ export const WARLOCK: ClassTemplate = {
 
     15: [
       {
-        id: "mystic-arcanum_8",
+        id: "warlock.mystic-arcanum_8",
         source: "class",
         level: 15,
         tags: ["spellcasting"],
@@ -80,7 +80,7 @@ export const WARLOCK: ClassTemplate = {
 
     17: [
       {
-        id: "mystic_arcanum_9",
+        id: "warlock.mystic_arcanum_9",
         source: "class",
         level: 17,
         tags: ["spellcasting"],
@@ -89,7 +89,7 @@ export const WARLOCK: ClassTemplate = {
 
     20: [
       {
-        id: "eldritch_master",
+        id: "warlock.eldritch_master",
         source: "class" as const,
         level: 20,
         grants: [

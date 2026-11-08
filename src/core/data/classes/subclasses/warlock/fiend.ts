@@ -8,13 +8,13 @@ export const FIEND: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "fiend_expanded_spells",
+        id: "warlock.fiend.fiend_expanded_spells",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
       },
       {
-        id: "dark_ones_blessing",
+        id: "warlock.fiend.dark_ones_blessing",
         source: "subclass" as const,
         level: 1,
         tags: ["combat", "defense"],
@@ -27,7 +27,7 @@ export const FIEND: SubclassTemplate = {
 
     6: [
       {
-        id: "dark_ones_own_luck",
+        id: "warlock.fiend.dark_ones_own_luck",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -40,7 +40,7 @@ export const FIEND: SubclassTemplate = {
 
     10: [
       {
-        id: "fiendish_resilience",
+        id: "warlock.fiend.fiendish_resilience",
         source: "subclass" as const,
         level: 10,
         grants: [{ type: "action", id: "fiendish_resilience" }],
@@ -54,7 +54,7 @@ export const FIEND: SubclassTemplate = {
 
     14: [
       {
-        id: "hurl_through_hell",
+        id: "warlock.fiend.hurl_through_hell",
         source: "subclass" as const,
         level: 14,
         grants: [

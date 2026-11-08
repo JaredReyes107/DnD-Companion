@@ -8,19 +8,19 @@ export const CELESTIAL: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "celestial_expanded_spells",
+        id: "warlock.celestial.celestial_expanded_spells",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
       },
       {
-        id: "bonus_cantrips",
+        id: "warlock.celestial.bonus_cantrips",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
       },
       {
-        id: "healing_light",
+        id: "warlock.celestial.healing_light",
         source: "subclass" as const,
         level: 1,
         grants: [
@@ -33,7 +33,7 @@ export const CELESTIAL: SubclassTemplate = {
 
     6: [
       {
-        id: "radiant_soul",
+        id: "warlock.celestial.radiant_soul",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "action", id: "radiant_soul" }],
@@ -43,7 +43,7 @@ export const CELESTIAL: SubclassTemplate = {
 
     10: [
       {
-        id: "celestial_resilience",
+        id: "warlock.celestial.celestial_resilience",
         source: "subclass" as const,
         level: 10,
         grants: [{ type: "action", id: "celestial_resilience" }],
@@ -53,7 +53,7 @@ export const CELESTIAL: SubclassTemplate = {
 
     14: [
       {
-        id: "searing_vengeance",
+        id: "warlock.celestial.searing_vengeance",
         source: "subclass" as const,
         level: 14,
         grants: [

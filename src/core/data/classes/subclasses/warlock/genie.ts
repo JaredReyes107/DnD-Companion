@@ -8,7 +8,7 @@ export const GENIE: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "genie_expanded_spells",
+        id: "warlock.genie.genie_expanded_spells",
         source: "subclass" as const,
         level: 1,
         grants: [], //TODO: Choice/Pool
@@ -16,7 +16,7 @@ export const GENIE: SubclassTemplate = {
         // TODO: Choice/Pool. Genie kind (dao/djinni/efreeti/marid)
       },
       {
-        id: "genies_vessel",
+        id: "warlock.genie.genies_vessel",
         source: "subclass" as const,
         level: 1,
         grants: [
@@ -33,7 +33,7 @@ export const GENIE: SubclassTemplate = {
 
     6: [
       {
-        id: "elemental_gift",
+        id: "warlock.genie.elemental_gift",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -47,7 +47,7 @@ export const GENIE: SubclassTemplate = {
 
     10: [
       {
-        id: "sanctuary_vessel",
+        id: "warlock.genie.sanctuary_vessel",
         source: "subclass" as const,
         level: 10,
         tags: ["rest", "utility", "healing"],
@@ -56,7 +56,7 @@ export const GENIE: SubclassTemplate = {
 
     14: [
       {
-        id: "limited_wish",
+        id: "warlock.genie.limited_wish",
         source: "subclass" as const,
         level: 14,
         grants: [

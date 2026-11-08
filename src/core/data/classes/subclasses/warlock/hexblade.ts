@@ -8,20 +8,20 @@ export const HEXBLADE: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "hexblade_expanded_spells",
+        id: "warlock.hexblade.hexblade_expanded_spells",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
       },
       {
-        id: "hex_warrior",
+        id: "warlock.hexblade.hex_warrior",
         source: "subclass" as const,
         level: 1,
         grants: [{ type: "action", id: "hex_warrior" }],
         tags: ["proficiency", "combat"],
       },
       {
-        id: "hexblades_curse",
+        id: "warlock.hexblade.hexblades_curse",
         source: "subclass" as const,
         level: 1,
         grants: [
@@ -34,7 +34,7 @@ export const HEXBLADE: SubclassTemplate = {
 
     6: [
       {
-        id: "accursed_specter",
+        id: "warlock.hexblade.accursed_specter",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -47,7 +47,7 @@ export const HEXBLADE: SubclassTemplate = {
 
     10: [
       {
-        id: "armor_of_hexes",
+        id: "warlock.hexblade.armor_of_hexes",
         source: "subclass" as const,
         level: 10,
         grants: [{ type: "action", id: "armor_of_hexes" }],
@@ -57,7 +57,7 @@ export const HEXBLADE: SubclassTemplate = {
 
     14: [
       {
-        id: "master_of_hexes",
+        id: "warlock.hexblade.master_of_hexes",
         source: "subclass" as const,
         level: 14,
         grants: [{ type: "action", id: "master_of_hexes" }],

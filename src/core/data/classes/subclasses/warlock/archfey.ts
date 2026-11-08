@@ -8,13 +8,13 @@ export const ARCHFEY: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "archfey_expanded_spells",
+        id: "warlock.archfey.archfey_expanded_spells",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
       },
       {
-        id: "fey_presence",
+        id: "warlock.archfey.fey_presence",
         source: "subclass" as const,
         level: 1,
         grants: [
@@ -27,7 +27,7 @@ export const ARCHFEY: SubclassTemplate = {
 
     6: [
       {
-        id: "misty_escape",
+        id: "warlock.archfey.misty_escape",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -40,7 +40,7 @@ export const ARCHFEY: SubclassTemplate = {
 
     10: [
       {
-        id: "beguiling_defenses",
+        id: "warlock.archfey.beguiling_defenses",
         source: "subclass" as const,
         level: 10,
         grants: [{ type: "action", id: "beguiling_defenses" }],
@@ -51,7 +51,7 @@ export const ARCHFEY: SubclassTemplate = {
 
     14: [
       {
-        id: "dark_delirium",
+        id: "warlock.archfey.dark_delirium",
         source: "subclass" as const,
         level: 14,
         grants: [

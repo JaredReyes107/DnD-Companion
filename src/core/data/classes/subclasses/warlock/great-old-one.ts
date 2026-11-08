@@ -8,13 +8,13 @@ export const GREAT_OLD_ONE: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "great_old_one_expanded_spells",
+        id: "warlock.great_old_one.great_old_one_expanded_spells",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
       },
       {
-        id: "awakened_mind",
+        id: "warlock.great_old_one.awakened_mind",
         source: "subclass" as const,
         level: 1,
         grants: [{ type: "action", id: "awakened_mind" }],
@@ -24,7 +24,7 @@ export const GREAT_OLD_ONE: SubclassTemplate = {
 
     6: [
       {
-        id: "entropic_ward",
+        id: "warlock.great_old_one.entropic_ward",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -42,7 +42,7 @@ export const GREAT_OLD_ONE: SubclassTemplate = {
 
     10: [
       {
-        id: "thought_shield",
+        id: "warlock.great_old_one.thought_shield",
         source: "subclass" as const,
         level: 10,
         tags: ["passive", "defense", "resistance"],
@@ -54,7 +54,7 @@ export const GREAT_OLD_ONE: SubclassTemplate = {
 
     14: [
       {
-        id: "create_thrall",
+        id: "warlock.great_old_one.create_thrall",
         source: "subclass" as const,
         level: 14,
         grants: [{ type: "action", id: "create_thrall" }],
