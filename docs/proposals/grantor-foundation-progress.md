@@ -83,8 +83,8 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 | S2 | Feature id + localization collision detector (test only) | DONE | 493ec1d | 2026-11-07 |
 | S3 | Namespace colliding feature ids (loop, one commit per class) | DONE | 08d6b2a | 2026-11-07 |
 | S4 | Feature registry + progression types (types only) | DONE | 2510fd8 | 2026-11-08 |
-| S5 | Registry lookup + duplicate-id throw | **CURRENT** | | |
-| S6 | Shared features: create files | TODO | | |
+| S5 | Registry lookup + duplicate-id throw | DONE | 3fb18fa | 2026-11-08 |
+| S6 | Shared features: create files | **CURRENT** | | |
 | S7 | Shared features: consistency test | TODO | | |
 | S8 | Codemod script (no output) | TODO | | |
 | S9 | Codemod dry run report (no code change) | TODO | | |
@@ -173,7 +173,7 @@ After the last class: flip the S2 "must be clean" assertion on.
 
 #### S5: Registry lookup + duplicate-id throw
 **Goal:** `getFeatureRegistry()` returns base features + homebrew; duplicate ids throw; `getFeatureTemplateById` works for base ids. Base set is empty or only what is already extracted.
-- [ ] Unit test: duplicate throws; lookup works; homebrew registration still works.
+- [x] Unit test: duplicate throws; lookup works; homebrew registration still works.
 
 #### S6: Shared features: create files
 **Goal:** create `data/features/shared/` with the shared features and their localization (en + es). Nothing references them yet.
@@ -384,6 +384,21 @@ Template:
   - S5: registry lookup and duplicate-id throw.
 - Build result: tsc / lint / test
 
+### 2026-11-08 | S5 | commit 3fb18fa
+- Changed:
+  - Updated the feature registry to return base features plus homebrew and throw when an ID is duplicated; added tests for homebrew registration, lookup, duplicate registration, and missing IDs.
+  - Kept the base feature set empty because no features have been extracted yet; this is allowed by S5.
+- Proven by (tests):
+  - Baseline before changes: `npx tsc --noEmit`, `npm run lint`, and `npm test -- --runInBand --watchAll=false` passed; 29 suites, 590 tests, and 125 snapshots.
+  - After changes: `npx tsc --noEmit`, `npm run lint`, and `npm test -- --runInBand --watchAll=false` passed; 30 suites, 593 tests, and 125 snapshots.
+  - Focused: `npx jest src/core/data/__tests__/features.registry.test.ts --runInBand --watch=false` — 3 tests passed.
+- Surprises / deviations:
+  - The feature registry already supported homebrew features but had no base features and silently overwrote duplicate homebrew IDs.
+  - The progress update is committed separately so the S5 code commit hash can be recorded accurately without amending it.
+- Next step will touch:
+  - S6: verify shared feature candidates have identical grants and en/es text; create and register only the verified shared features.
+- Build result: tsc / lint / test
+
 ---
 
 ## 6. OPEN QUESTIONS, ANSWERS AND FINDINGS
@@ -431,6 +446,7 @@ Template:
 - Corrected the S2 detector in prerequisite commit `cc65f32` because its original implementation conflated locale translations and equivalent repeated schedule entries with collisions. The user confirmed that shared candidate IDs should remain untouched until S6; the clean assertion now explicitly excludes those IDs.
 - Completed the required Cleric schedule correction and golden update in follow-up commit `80a231a` because it was identified after the Cleric namespacing commit; no commit was amended.
 - Recorded S4 code and progress in consecutive commits because the progress entry needs the S4 commit hash, which is not available until that commit exists; the S4 implementation itself remains a single focused commit.
+- Recorded S5 code and progress in consecutive commits for the same commit-hash reason; the S5 implementation remains a single focused commit.
 
 ---
 
