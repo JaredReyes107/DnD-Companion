@@ -8,7 +8,7 @@ export const STARS: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "star_map",
+        id: "druid.stars.star_map",
         source: "subclass" as const,
         level: 2,
         grants: [
@@ -18,7 +18,7 @@ export const STARS: SubclassTemplate = {
         tags: ["utility", "spellcasting", "spells"],
       },
       {
-        id: "starry_form",
+        id: "druid.stars.starry_form",
         source: "subclass" as const,
         level: 2,
         grants: [{ type: "action", id: "starry_form" }],
@@ -29,7 +29,7 @@ export const STARS: SubclassTemplate = {
 
     6: [
       {
-        id: "cosmic_omen",
+        id: "druid.stars.cosmic_omen",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -43,7 +43,7 @@ export const STARS: SubclassTemplate = {
 
     10: [
       {
-        id: "twinkling_constellations",
+        id: "druid.stars.twinkling_constellations",
         source: "subclass" as const,
         level: 10,
         tags: ["transformation", "passive"],
@@ -53,7 +53,7 @@ export const STARS: SubclassTemplate = {
 
     14: [
       {
-        id: "full_of_stars",
+        id: "druid.stars.full_of_stars",
         source: "subclass" as const,
         level: 14,
         tags: ["defense", "passive"],

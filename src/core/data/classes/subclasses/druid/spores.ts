@@ -8,13 +8,13 @@ export const SPORES: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "circle_spells_spores",
+        id: "druid.spores.circle_spells_spores",
         source: "subclass" as const,
         level: 2,
         tags: ["spells"],
       },
       {
-        id: "halo_of_spores",
+        id: "druid.spores.halo_of_spores",
         source: "subclass" as const,
         level: 2,
         grants: [{ type: "action", id: "halo_of_spores" }],
@@ -23,7 +23,7 @@ export const SPORES: SubclassTemplate = {
         // TODO: Damage scaling (1d4 → 1d6 at lv6 → 1d8 at lv10 → 1d10 at lv14)
       },
       {
-        id: "symbiotic_entity",
+        id: "druid.spores.symbiotic_entity",
         source: "subclass" as const,
         level: 2,
         grants: [{ type: "action", id: "symbiotic_entity" }],
@@ -36,7 +36,7 @@ export const SPORES: SubclassTemplate = {
 
     6: [
       {
-        id: "fungal_infestation",
+        id: "druid.spores.fungal_infestation",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -50,7 +50,7 @@ export const SPORES: SubclassTemplate = {
 
     10: [
       {
-        id: "spreading_spores",
+        id: "druid.spores.spreading_spores",
         source: "subclass" as const,
         level: 10,
         grants: [
@@ -64,7 +64,7 @@ export const SPORES: SubclassTemplate = {
 
     14: [
       {
-        id: "fungal_body",
+        id: "druid.spores.fungal_body",
         source: "subclass" as const,
         level: 14,
         tags: ["defense", "passive", "critical", "conditions"],

@@ -8,13 +8,13 @@ export const WILDFIRE: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "circle_spells_wildfire",
+        id: "druid.wildfire.circle_spells_wildfire",
         source: "subclass" as const,
         level: 2,
         tags: ["spells"],
       },
       {
-        id: "summon_wildfire_spirit",
+        id: "druid.wildfire.summon_wildfire_spirit",
         source: "subclass" as const,
         level: 2,
         grants: [
@@ -28,7 +28,7 @@ export const WILDFIRE: SubclassTemplate = {
 
     6: [
       {
-        id: "enhanced_bond",
+        id: "druid.wildfire.enhanced_bond",
         source: "subclass" as const,
         level: 6,
         tags: ["damage", "healing", "passive"],
@@ -37,7 +37,7 @@ export const WILDFIRE: SubclassTemplate = {
 
     10: [
       {
-        id: "cauterizing_flames",
+        id: "druid.wildfire.cauterizing_flames",
         source: "subclass" as const,
         level: 10,
         grants: [
@@ -50,7 +50,7 @@ export const WILDFIRE: SubclassTemplate = {
 
     14: [
       {
-        id: "blazing_revival",
+        id: "druid.wildfire.blazing_revival",
         source: "subclass" as const,
         level: 14,
         grants: [

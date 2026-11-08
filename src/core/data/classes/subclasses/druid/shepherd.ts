@@ -8,14 +8,14 @@ export const SHEPHERD: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "speech_of_the_woods",
+        id: "druid.shepherd.speech_of_the_woods",
         source: "subclass" as const,
         level: 2,
         tags: ["utility", "roleplay", "language"],
         // TODO: language system — speak with beasts/fey, share with allies who know Druidic
       },
       {
-        id: "spirit_totem",
+        id: "druid.shepherd.spirit_totem",
         source: "subclass" as const,
         level: 2,
         grants: [
@@ -31,7 +31,7 @@ export const SHEPHERD: SubclassTemplate = {
 
     6: [
       {
-        id: "mighty_summoner",
+        id: "druid.shepherd.mighty_summoner",
         source: "subclass" as const,
         level: 6,
         tags: ["summoning", "passive"],
@@ -41,7 +41,7 @@ export const SHEPHERD: SubclassTemplate = {
 
     10: [
       {
-        id: "guardian_spirit",
+        id: "druid.shepherd.guardian_spirit",
         source: "subclass" as const,
         level: 10,
         tags: ["summoning", "healing"],
@@ -51,7 +51,7 @@ export const SHEPHERD: SubclassTemplate = {
 
     14: [
       {
-        id: "faithful_summons",
+        id: "druid.shepherd.faithful_summons",
         source: "subclass" as const,
         level: 14,
         grants: [

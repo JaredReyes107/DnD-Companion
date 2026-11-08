@@ -18,13 +18,13 @@ export const DRUID: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "spellcasting_druid",
+        id: "druid.spellcasting_druid",
         source: "class",
         level: 1,
         tags: ["spellcasting"],
       },
       {
-        id: "druidic",
+        id: "druid.druidic",
         source: "class",
         level: 1,
         tags: ["utility", "roleplay"],
@@ -34,7 +34,7 @@ export const DRUID: ClassTemplate = {
 
     2: [
       {
-        id: "wild_shape",
+        id: "druid.wild_shape",
         source: "class",
         level: 2,
         grants: [
@@ -46,13 +46,13 @@ export const DRUID: ClassTemplate = {
         // TODO: scaling (CR, movement, duration)
       },
       {
-        id: "druid_circle",
+        id: "druid.druid_circle",
         source: "class",
         level: 2,
         tags: ["subclass"],
       },
       {
-        id: "wild_companion",
+        id: "druid.wild_companion",
         source: "class",
         level: 2,
         tags: [],
@@ -64,7 +64,7 @@ export const DRUID: ClassTemplate = {
 
     4: [
       {
-        id: "wild_shape_improvement",
+        id: "druid.wild_shape_improvement",
         source: "class",
         level: 4,
         tags: ["transformation"],
@@ -79,7 +79,7 @@ export const DRUID: ClassTemplate = {
         // TODO: resources, actions, combatRole
       },
       {
-        id: "cantrip_versatility",
+        id: "druid.cantrip_versatility",
         source: "class",
         level: 4,
         tags: [],
@@ -91,7 +91,7 @@ export const DRUID: ClassTemplate = {
 
     6: [
       {
-        id: "druid_circle_feature",
+        id: "druid.druid_circle_feature",
         source: "class",
         level: 6,
         tags: ["subclass"],
@@ -103,7 +103,7 @@ export const DRUID: ClassTemplate = {
 
     8: [
       {
-        id: "wild_shape_improvement",
+        id: "druid.wild_shape_improvement",
         source: "class",
         level: 8,
         tags: [],
@@ -122,7 +122,7 @@ export const DRUID: ClassTemplate = {
 
     10: [
       {
-        id: "druid_circle_feature",
+        id: "druid.druid_circle_feature",
         source: "class",
         level: 10,
         tags: ["subclass"],
@@ -146,7 +146,7 @@ export const DRUID: ClassTemplate = {
 
     14: [
       {
-        id: "druid_circle_feature",
+        id: "druid.druid_circle_feature",
         source: "class",
         level: 14,
         tags: ["subclass"],
@@ -170,14 +170,14 @@ export const DRUID: ClassTemplate = {
 
     18: [
       {
-        id: "timeless_body",
+        id: "druid.timeless_body",
         source: "class",
         level: 18,
         tags: [],
         // TODO: resources, actions, combatRole
       },
       {
-        id: "beast_spells",
+        id: "druid.beast_spells",
         source: "class",
         level: 18,
         tags: [],
@@ -197,7 +197,7 @@ export const DRUID: ClassTemplate = {
 
     20: [
       {
-        id: "archdruid",
+        id: "druid.archdruid",
         source: "class",
         level: 20,
         tags: [],

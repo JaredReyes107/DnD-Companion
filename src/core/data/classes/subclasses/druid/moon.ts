@@ -8,7 +8,7 @@ export const MOON: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "combat_wild_shape",
+        id: "druid.moon.combat_wild_shape",
         source: "subclass" as const,
         level: 2,
         grants: [
@@ -19,7 +19,7 @@ export const MOON: SubclassTemplate = {
         // TODO: Healing hook (1d8 per spell slot level, bonus action while shifted)
       },
       {
-        id: "circle_forms",
+        id: "druid.moon.circle_forms",
         source: "subclass" as const,
         level: 2,
         tags: ["transformation"],
@@ -29,7 +29,7 @@ export const MOON: SubclassTemplate = {
 
     6: [
       {
-        id: "primal_strike",
+        id: "druid.moon.primal_strike",
         source: "subclass" as const,
         level: 6,
         tags: ["damage", "passive"],
@@ -39,7 +39,7 @@ export const MOON: SubclassTemplate = {
 
     10: [
       {
-        id: "elemental_wild_shape",
+        id: "druid.moon.elemental_wild_shape",
         source: "subclass" as const,
         level: 10,
         grants: [{ type: "action", id: "elemental_wild_shape" }],
@@ -49,7 +49,7 @@ export const MOON: SubclassTemplate = {
 
     14: [
       {
-        id: "thousand_forms",
+        id: "druid.moon.thousand_forms",
         source: "subclass" as const,
         level: 14,
         grants: [{ type: "action", id: "thousand_forms" }],

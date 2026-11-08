@@ -8,13 +8,13 @@ export const LAND: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "bonus_cantrip",
+        id: "druid.land.bonus_cantrip",
         source: "subclass" as const,
         level: 2,
         tags: ["spells"],
       },
       {
-        id: "natural_recovery",
+        id: "druid.land.natural_recovery",
         source: "subclass" as const,
         level: 2,
         grants: [
@@ -28,7 +28,7 @@ export const LAND: SubclassTemplate = {
 
     3: [
       {
-        id: "circle_spells_land",
+        id: "druid.land.circle_spells_land",
         source: "subclass" as const,
         level: 3,
         tags: ["spells", "build-choice"],
@@ -39,7 +39,7 @@ export const LAND: SubclassTemplate = {
 
     6: [
       {
-        id: "lands_stride",
+        id: "druid.land.lands_stride",
         source: "subclass" as const,
         level: 6,
         tags: ["movement", "defense"],
@@ -50,7 +50,7 @@ export const LAND: SubclassTemplate = {
 
     10: [
       {
-        id: "natures_ward",
+        id: "druid.land.natures_ward",
         source: "subclass" as const,
         level: 10,
         tags: ["defense"],
@@ -61,7 +61,7 @@ export const LAND: SubclassTemplate = {
 
     14: [
       {
-        id: "natures_sanctuary",
+        id: "druid.land.natures_sanctuary",
         source: "subclass" as const,
         level: 14,
         tags: ["defense"],

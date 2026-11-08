@@ -8,7 +8,7 @@ export const DREAMS: SubclassTemplate = {
   featuresByLevel: {
     2: [
       {
-        id: "balm_of_the_summer_court",
+        id: "druid.dreams.balm_of_the_summer_court",
         source: "subclass" as const,
         level: 2,
         grants: [
@@ -21,7 +21,7 @@ export const DREAMS: SubclassTemplate = {
 
     6: [
       {
-        id: "hearth_of_moonlight_and_shadow",
+        id: "druid.dreams.hearth_of_moonlight_and_shadow",
         source: "subclass" as const,
         level: 6,
         tags: ["utility", "passive"],
@@ -31,7 +31,7 @@ export const DREAMS: SubclassTemplate = {
 
     10: [
       {
-        id: "hidden_paths",
+        id: "druid.dreams.hidden_paths",
         source: "subclass" as const,
         level: 10,
         grants: [
@@ -45,7 +45,7 @@ export const DREAMS: SubclassTemplate = {
 
     14: [
       {
-        id: "walker_in_dreams",
+        id: "druid.dreams.walker_in_dreams",
         source: "subclass" as const,
         level: 14,
         grants: [
