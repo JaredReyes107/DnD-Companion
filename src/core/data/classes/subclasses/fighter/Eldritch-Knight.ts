@@ -14,13 +14,13 @@ export const ELDRITCH_KNIGHT: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "spellcasting",
+        id: "fighter.eldritch_knight.spellcasting",
         source: "subclass" as const,
         level: 3,
         tags: ["spellcasting"],
       },
       {
-        id: "weapon_bond",
+        id: "fighter.eldritch_knight.weapon_bond",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "weapon_bond" }],
@@ -30,7 +30,7 @@ export const ELDRITCH_KNIGHT: SubclassTemplate = {
 
     7: [
       {
-        id: "war_magic",
+        id: "fighter.eldritch_knight.war_magic",
         source: "subclass" as const,
         level: 7,
         grants: [{ type: "action", id: "war_magic" }],
@@ -40,7 +40,7 @@ export const ELDRITCH_KNIGHT: SubclassTemplate = {
 
     10: [
       {
-        id: "eldritch_strike",
+        id: "fighter.eldritch_knight.eldritch_strike",
         source: "subclass" as const,
         level: 10,
         grants: [{ type: "action", id: "eldritch_strike" }],
@@ -50,7 +50,7 @@ export const ELDRITCH_KNIGHT: SubclassTemplate = {
 
     15: [
       {
-        id: "arcane_charge",
+        id: "fighter.eldritch_knight.arcane_charge",
         source: "subclass" as const,
         level: 15,
         grants: [{ type: "action", id: "arcane_charge" }],
@@ -60,7 +60,7 @@ export const ELDRITCH_KNIGHT: SubclassTemplate = {
 
     18: [
       {
-        id: "improved_war_magic",
+        id: "fighter.eldritch_knight.improved_war_magic",
         source: "subclass" as const,
         level: 18,
         grants: [{ type: "action", id: "improved_war_magic" }],

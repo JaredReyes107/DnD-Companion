@@ -7,13 +7,13 @@ export const SAMURAI: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "bonus_proficiency_samurai",
+        id: "fighter.samurai.bonus_proficiency_samurai",
         source: "subclass" as const,
         level: 3,
         tags: ["skill", "proficiency", "language"],
       },
       {
-        id: "fighting_spirit",
+        id: "fighter.samurai.fighting_spirit",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -26,7 +26,7 @@ export const SAMURAI: SubclassTemplate = {
 
     7: [
       {
-        id: "elegant_courtier",
+        id: "fighter.samurai.elegant_courtier",
         source: "subclass" as const,
         level: 7,
         tags: ["skill", "roleplay"],
@@ -35,7 +35,7 @@ export const SAMURAI: SubclassTemplate = {
 
     10: [
       {
-        id: "tireless_spirit",
+        id: "fighter.samurai.tireless_spirit",
         source: "subclass" as const,
         level: 10,
         tags: [],
@@ -44,7 +44,7 @@ export const SAMURAI: SubclassTemplate = {
 
     15: [
       {
-        id: "rapid_strike",
+        id: "fighter.samurai.rapid_strike",
         source: "subclass" as const,
         level: 15,
         grants: [{ type: "action", id: "rapid_strike" }],
@@ -54,7 +54,7 @@ export const SAMURAI: SubclassTemplate = {
 
     18: [
       {
-        id: "strength_before_death",
+        id: "fighter.samurai.strength_before_death",
         source: "subclass" as const,
         level: 18,
         grants: [

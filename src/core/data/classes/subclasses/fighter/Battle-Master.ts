@@ -7,7 +7,7 @@ export const BATTLE_MASTER: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "combat_superiority",
+        id: "fighter.battle_master.combat_superiority",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -17,7 +17,7 @@ export const BATTLE_MASTER: SubclassTemplate = {
         tags: ["combat"],
       },
       {
-        id: "student_of_war",
+        id: "fighter.battle_master.student_of_war",
         source: "subclass" as const,
         level: 3,
         tags: ["proficiency", "tool"],
@@ -26,7 +26,7 @@ export const BATTLE_MASTER: SubclassTemplate = {
 
     7: [
       {
-        id: "know_your_enemy",
+        id: "fighter.battle_master.know_your_enemy",
         source: "subclass" as const,
         level: 7,
         grants: [{ type: "action", id: "know_your_enemy" }],
@@ -36,7 +36,7 @@ export const BATTLE_MASTER: SubclassTemplate = {
 
     15: [
       {
-        id: "relentless",
+        id: "fighter.battle_master.relentless",
         source: "subclass" as const,
         level: 15,
         tags: ["combat"],

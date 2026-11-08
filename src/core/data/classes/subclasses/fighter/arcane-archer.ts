@@ -9,13 +9,13 @@ export const ARCANE_ARCHER: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "arcane_archer_lore",
+        id: "fighter.arcane_archer.arcane_archer_lore",
         source: "subclass",
         level: 3,
         tags: ["skill", "proficiency", "spellcasting"],
       },
       {
-        id: "arcane_shot",
+        id: "fighter.arcane_archer.arcane_shot",
         source: "subclass",
         level: 3,
         grants: [
@@ -28,14 +28,14 @@ export const ARCANE_ARCHER: SubclassTemplate = {
 
     7: [
       {
-        id: "curving_shot",
+        id: "fighter.arcane_archer.curving_shot",
         source: "subclass",
         level: 7,
         grants: [{ type: "action", id: "curving_shot" }],
         tags: ["combat", "utility"],
       },
       {
-        id: "magic_arrow",
+        id: "fighter.arcane_archer.magic_arrow",
         source: "subclass",
         level: 7,
         tags: ["combat"],
@@ -44,7 +44,7 @@ export const ARCANE_ARCHER: SubclassTemplate = {
 
     15: [
       {
-        id: "ever_ready_shot",
+        id: "fighter.arcane_archer.ever_ready_shot",
         source: "subclass",
         level: 15,
         tags: ["resource"],

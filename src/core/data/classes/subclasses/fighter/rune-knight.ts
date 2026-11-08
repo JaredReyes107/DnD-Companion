@@ -7,7 +7,7 @@ export const RUNE_KNIGHT: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "bonus_proficiencies_rune_knight",
+        id: "fighter.rune_knight.bonus_proficiencies_rune_knight",
         source: "subclass",
         level: 3,
         tags: ["tools", "proficiency", "language"],
@@ -21,14 +21,14 @@ export const RUNE_KNIGHT: SubclassTemplate = {
         ],
       },
       {
-        id: "rune_carver",
+        id: "fighter.rune_knight.rune_carver",
         source: "subclass",
         level: 3,
         grants: [{ type: "choice", id: "rune_knight_runes" }],
         tags: ["build-choice", "utility"],
       },
       {
-        id: "giants_might",
+        id: "fighter.rune_knight.giants_might",
         source: "subclass",
         level: 3,
         grants: [
@@ -41,7 +41,7 @@ export const RUNE_KNIGHT: SubclassTemplate = {
 
     7: [
       {
-        id: "runic_shield",
+        id: "fighter.rune_knight.runic_shield",
         source: "subclass",
         level: 7,
         grants: [
@@ -54,7 +54,7 @@ export const RUNE_KNIGHT: SubclassTemplate = {
 
     10: [
       {
-        id: "great_stature",
+        id: "fighter.rune_knight.great_stature",
         source: "subclass",
         level: 10,
         tags: ["passive", "combat"],
@@ -64,7 +64,7 @@ export const RUNE_KNIGHT: SubclassTemplate = {
 
     15: [
       {
-        id: "master_of_runes",
+        id: "fighter.rune_knight.master_of_runes",
         source: "subclass",
         level: 15,
         tags: ["passive", "resource"],
@@ -73,7 +73,7 @@ export const RUNE_KNIGHT: SubclassTemplate = {
 
     18: [
       {
-        id: "runic_juggernaut",
+        id: "fighter.rune_knight.runic_juggernaut",
         source: "subclass",
         level: 18,
         tags: ["damage"],

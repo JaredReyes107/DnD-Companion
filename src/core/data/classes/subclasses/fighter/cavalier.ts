@@ -7,19 +7,19 @@ export const CAVALIER: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "bonus_proficiency_cavalier",
+        id: "fighter.cavalier.bonus_proficiency_cavalier",
         source: "subclass" as const,
         level: 3,
         tags: ["skill", "proficiency", "language"],
       },
       {
-        id: "born_to_the_saddle",
+        id: "fighter.cavalier.born_to_the_saddle",
         source: "subclass" as const,
         level: 3,
         tags: ["mount", "movement"],
       },
       {
-        id: "unwavering_mark",
+        id: "fighter.cavalier.unwavering_mark",
         source: "subclass",
         level: 3,
         grants: [
@@ -32,7 +32,7 @@ export const CAVALIER: SubclassTemplate = {
 
     7: [
       {
-        id: "warding_maneuver",
+        id: "fighter.cavalier.warding_maneuver",
         source: "subclass" as const,
         level: 7,
         grants: [
@@ -45,7 +45,7 @@ export const CAVALIER: SubclassTemplate = {
 
     10: [
       {
-        id: "hold_the_line",
+        id: "fighter.cavalier.hold_the_line",
         source: "subclass" as const,
         level: 10,
         grants: [{ type: "action", id: "hold_the_line" }],
@@ -55,7 +55,7 @@ export const CAVALIER: SubclassTemplate = {
 
     15: [
       {
-        id: "ferocious_charger",
+        id: "fighter.cavalier.ferocious_charger",
         source: "subclass" as const,
         level: 15,
         grants: [{ type: "action", id: "ferocious_charger" }],
@@ -65,7 +65,7 @@ export const CAVALIER: SubclassTemplate = {
 
     18: [
       {
-        id: "vigilant_defender",
+        id: "fighter.cavalier.vigilant_defender",
         source: "subclass" as const,
         level: 18,
         grants: [{ type: "action", id: "vigilant_defender" }],

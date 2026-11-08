@@ -7,7 +7,7 @@ export const CHAMPION: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "improved_critical",
+        id: "fighter.champion.improved_critical",
         source: "subclass" as const,
         level: 3,
         tags: ["critical"],
@@ -16,7 +16,7 @@ export const CHAMPION: SubclassTemplate = {
 
     7: [
       {
-        id: "remarkable_athlete",
+        id: "fighter.champion.remarkable_athlete",
         source: "subclass" as const,
         level: 7,
         tags: ["skill", "ability-check"],
@@ -25,7 +25,7 @@ export const CHAMPION: SubclassTemplate = {
 
     10: [
       {
-        id: "additional_fighting_style",
+        id: "fighter.champion.additional_fighting_style",
         source: "subclass" as const,
         level: 10,
         grants: [],
@@ -36,7 +36,7 @@ export const CHAMPION: SubclassTemplate = {
 
     15: [
       {
-        id: "superior_critical",
+        id: "fighter.champion.superior_critical",
         source: "subclass" as const,
         level: 15,
         tags: ["critical"],
@@ -45,7 +45,7 @@ export const CHAMPION: SubclassTemplate = {
 
     18: [
       {
-        id: "survivor",
+        id: "fighter.champion.survivor",
         source: "subclass" as const,
         level: 18,
         // TODO: Passive self-healing on turn

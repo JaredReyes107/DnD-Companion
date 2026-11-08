@@ -7,7 +7,7 @@ export const PSI_WARRIOR: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "psionic_power",
+        id: "fighter.psi_warrior.psionic_power",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -25,7 +25,7 @@ export const PSI_WARRIOR: SubclassTemplate = {
 
     7: [
       {
-        id: "telekinetic_adept",
+        id: "fighter.psi_warrior.telekinetic_adept",
         source: "subclass" as const,
         level: 7,
         grants: [
@@ -39,7 +39,7 @@ export const PSI_WARRIOR: SubclassTemplate = {
 
     10: [
       {
-        id: "guarded_mind",
+        id: "fighter.psi_warrior.guarded_mind",
         source: "subclass" as const,
         level: 10,
         grants: [{ type: "action", id: "guarded_mind" }],
@@ -49,7 +49,7 @@ export const PSI_WARRIOR: SubclassTemplate = {
 
     15: [
       {
-        id: "bulwark_of_force",
+        id: "fighter.psi_warrior.bulwark_of_force",
         source: "subclass" as const,
         level: 15,
         grants: [
@@ -62,7 +62,7 @@ export const PSI_WARRIOR: SubclassTemplate = {
 
     18: [
       {
-        id: "telekinetic_master",
+        id: "fighter.psi_warrior.telekinetic_master",
         source: "subclass" as const,
         level: 18,
         grants: [
