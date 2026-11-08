@@ -1,5 +1,6 @@
 import { SpellcastingTemplate } from "./spellcasting-template";
 import { FeatureTemplate } from "./feature-template";
+import { Progression } from "./feature-progression";
 
 /**
  * A SubclassTemplate defines the static data for a D&D 5E subclass.
@@ -25,6 +26,9 @@ export type SubclassTemplate = {
    * The engine collects these via the same loop used for class features.
    */
   featuresByLevel: Record<number, FeatureTemplate[]>;
+
+  /** Transitional schedule type; featuresByLevel remains in use until migration. */
+  progression?: Progression;
 
   /**
    * Optional — only for subclasses that independently grant spellcasting.
