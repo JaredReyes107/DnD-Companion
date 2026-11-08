@@ -81,8 +81,8 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 | S0 | Subclass ids match registry keys | DONE | 33fd092 | 2026-11-07 |
 | S1 | Golden grant-set test | DONE | 33fd092 | 2026-11-07 |
 | S2 | Feature id + localization collision detector (test only) | DONE | 493ec1d | 2026-11-07 |
-| S3 | Namespace colliding feature ids (loop, one commit per class) | **CURRENT** | | |
-| S4 | Feature registry + progression types (types only) | TODO | | |
+| S3 | Namespace colliding feature ids (loop, one commit per class) | DONE | 08d6b2a | 2026-11-07 |
+| S4 | Feature registry + progression types (types only) | **CURRENT** | | |
 | S5 | Registry lookup + duplicate-id throw | TODO | | |
 | S6 | Shared features: create files | TODO | | |
 | S7 | Shared features: consistency test | TODO | | |
@@ -148,7 +148,7 @@ If anything is missing: fix it in one small commit, then mark DONE.
 **Checklist**
 - [x] Output groups collisions by id, with the owning class/subclass of each definition.
 - [x] For each collision, notes whether grants differ and whether `en`/`es` text differs.
-- [x] Test may be marked skipped or `todo` for the "must be clean" assertion until S3 completes; say which. (The clean assertion is intentionally skipped in the detector until S3.)
+- [x] The clean assertion is active after S3. It compares localization keys within each locale, excludes shared candidates deferred to S6, and treats repeated same-owner definitions with identical grants as one feature.
 
 #### S3: Namespace colliding feature ids (LOOP: one commit per class)
 **Goal:** remove id collisions by renaming to `owner.name`, renaming localization keys in `en` and `es` in the same commit.
@@ -158,10 +158,10 @@ If anything is missing: fix it in one small commit, then mark DONE.
 - Do NOT rename shared candidates (evasion, ASI, potent_spellcasting, blessed_strikes, extra_attack): they move in S6.
 - Do not touch `ResourceGrantor` / `FeatureObtention`.
 **Done when per class:** golden green; S2 list shrinks; both locales updated.
-**Special:** the Cleric commit contains the one intentional golden change (the `divine_domain_feature` that declared `level: 6` inside the level-5 bucket). Call it out in the commit message and update the snapshot in that commit only.
+**Special:** move the Cleric `divine_domain_feature` declared at level 6 out of the level-5 bucket. Call out the intentional golden change and update the snapshot only for this correction. Completed in follow-up commit `80a231a` after the Cleric namespacing commit.
 
 Class queue (tick as done, add hash):
-- [ ] barbarian | [ ] bard | [ ] cleric | [ ] druid | [ ] fighter | [ ] monk | [ ] paladin | [ ] ranger | [ ] rogue | [ ] sorcerer | [ ] warlock | [ ] wizard | [ ] artificer
+- [x] barbarian `70a45b7` | [x] bard `ade0545` | [x] cleric `281254f` | [x] druid `4f36a76` | [x] fighter `9f57fc2` | [x] monk `e3a0414` | [x] paladin `eb63178` | [x] ranger `3770505` | [x] rogue `34c7842` | [x] sorcerer `0b1301b` | [x] warlock `8d334fb` | [x] wizard `9e9e564` | [x] artificer `08d6b2a`
 After the last class: flip the S2 "must be clean" assertion on.
 
 ### PHASE C: Registry and shared features
@@ -352,6 +352,25 @@ Template:
   - S3: namespace the colliding feature ids, one class/subclass set at a time.
 - Build result: jest only (reporting pass; collisions are expected at this stage)
 
+### 2026-11-07 | S3 | class commits `70a45b7` through `08d6b2a`
+- Changed:
+  - Namespaced owned feature ids as `class.feature` or `class.subclass.feature` for all 13 classes and their subclasses; renamed their localization keys in both `en` and `es`.
+  - Left `ability_score_improvement`, `blessed_strikes`, `evasion`, `extra_attack`, and `potent_spellcasting` untouched for S6, as directed.
+  - Corrected the Cleric `divine_domain_feature` schedule to level 6 and updated its one golden snapshot in follow-up commit `80a231a`.
+  - Activated the S2 clean assertion after excluding the shared candidates deferred to S6.
+- Proven by (tests):
+  - `npx jest src/core/data/__tests__/grant-golden.test.ts src/core/data/__tests__/feature-collision-detector.test.ts --runInBand --watch=false` — 127 passed; 125 snapshots passed.
+  - `npx tsc --noEmit` — passed.
+  - `npm run lint` — passed (existing React-version configuration warning).
+  - `npm test -- --watch=false` — 29 suites and 590 tests passed.
+- Surprises / deviations:
+  - The initial S2 detector counted expected `en`/`es` translations and same-owner repetitions as collisions. Corrected its comparison and locale grouping in prerequisite commit `cc65f32`; it now reports no non-shared feature-id or per-locale localization collisions.
+  - The Cleric schedule correction was discovered after its namespacing commit, so it was committed separately rather than amending a commit.
+  - The golden snapshot was generated during baseline validation because it was not tracked despite the S1 status; it is now committed.
+- Next step will touch:
+  - S4: feature registry and progression types only; no data files or helpers.
+- Build result: tsc / lint / test
+
 ---
 
 ## 6. OPEN QUESTIONS, ANSWERS AND FINDINGS
@@ -360,22 +379,11 @@ Template:
 - [ ] **A1.** Every use of `featuresByLevel`, `.appliesTo`, feature `.level` / `.source` outside `core/data/classes` (include tests and scripts):
 - [ ] **A2.** All consumers of `featureChoices`, `getTotalPicksForPool`, `getUnfilledChoices`, `getEligibleOptionsForPool`. Confirm none in UI:
 - [x] **A3.** Full collision list (from S2), and whether text differs across colliding definitions:
-  - Feature definitions currently colliding by id (owners listed):
-    - `ability_score_improvement` — Bard, Cleric, Druid, Fighter, Paladin, Ranger; `grantsDiffer: true`
-    - `bonus_cantrip` — Cleric (light), Druid (land); `grantsDiffer: true`
-    - `cantrip_versatility` — Cleric, Druid; `grantsDiffer: true`
-    - `channel_divinity` — Cleric, Paladin (ancients); `grantsDiffer: true`
-    - `divine_strike` — nine Cleric subclasses; `grantsDiffer: true`
-    - `domain_spells` — Cleric (forge), Cleric (twilight); `grantsDiffer: false`
-    - `evasion` — Monk, Rogue; `grantsDiffer: false`
-    - `extra_attack` — Barbarian, Monk, Paladin, Ranger, plus multiple artificer/bard subclass entries; `grantsDiffer: true`
-    - `extra_proficiencies` — Bard lore, Bard valor; `grantsDiffer: false`
-    - `lands_stride` — Ranger, Druid (land); `grantsDiffer: true`
-    - `potent_spellcasting` — four Cleric subclasses; `grantsDiffer: true`
-    - `psionic_power` — Fighter (psi-warrior), Rogue (soulknife); `grantsDiffer: true`
-    - `psychic_blades` — Bard (whispers), Rogue (soulknife); `grantsDiffer: true`
-    - `bard_college_feature`, `divine_domain_feature`, `druid_circle_feature`, `expertise`, `magical_secrets`, `wild_shape_improvement` also currently report duplicate definitions within a single owner and are intentionally listed for S3 remediation.
-  - Localization-key collisions: the detector logs the complete current list; the working set is intentionally unresolved until S3 and is tracked by the `feature-collision-detector.test.ts` output.
+  - Before S3, the corrected detector found these non-shared id collisions (`grantsDiffer`): `bonus_cantrip` (Cleric/light, Druid/land; false), `cantrip_versatility` (Cleric, Druid; false), `channel_divinity` (Cleric, Paladin/ancients; true), `divine_strike` (nine Cleric subclasses; false), `domain_spells` (Cleric/forge, Cleric/twilight; false), `extra_proficiencies` (Bard/lore, Bard/valor; false), `lands_stride` (Ranger, Druid/land; false), `psionic_power` (Fighter/psi-warrior, Rogue/soulknife; true), and `psychic_blades` (Bard/whispers, Rogue/soulknife; true).
+  - Same-locale localization collisions before S3 (`textDiffers`): `bonus_cantrip` (en/es; true), `bonus_proficiencies` (en/es; true), `bonus_proficiency` (es; true), `channel_divinity` (en/es; true), `cutting_words` (es; false), `divine_strike` (en/es; true), `fighting_style` (en/es; true), `lands_stride` (en/es; true), `psionic_power` (en/es; true), `psychic_blades` (en/es; true), `spellcasting` (es; true), `timeless_body` (en/es; true), and `uncanny_dodge` (en/es; true). Each key's owning class/subclass is recorded by the detector output; class/subclass keys are now owner-namespaced in both locales.
+  - The original S2 detector also surfaced same-owner repeated ids and treated `en`/`es` translations as collisions. Its full-object comparison made the original `grantsDiffer` values unreliable; commit `cc65f32` corrected those semantics.
+  - The corrected detector now reports no non-shared feature-id collisions and no same-locale localization-key collisions. The five shared candidates above remain deliberately exempt until S6 verifies which are truly shareable.
+  - After S3, the detector reports no remaining non-shared feature-id collisions or same-locale localization-key collisions. The five shared candidates above remain deliberately exempt until S6 verifies which are truly shareable.
 - [ ] **A4.** Which shared candidates are identical in grants **and** text in `en` and `es`:
 - [ ] **A5.** Every reader of `Character.features`, `FeatureInstance`, `RaceTemplate.features`:
 - [ ] **A6.** Anything that assumed subclass registry key != id:
@@ -407,7 +415,8 @@ Template:
 
 ## 7. DEVIATIONS FROM THE PLAN (agent: log any split, reorder or skipped step and why)
 
-*(none yet)*
+- Corrected the S2 detector in prerequisite commit `cc65f32` because its original implementation conflated locale translations and equivalent repeated schedule entries with collisions. The user confirmed that shared candidate IDs should remain untouched until S6; the clean assertion now explicitly excludes those IDs.
+- Completed the required Cleric schedule correction and golden update in follow-up commit `80a231a` because it was identified after the Cleric namespacing commit; no commit was amended.
 
 ---
 

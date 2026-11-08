@@ -227,7 +227,7 @@ describe("feature collision detector", () => {
     expect(localizationCollisions.length).toBeGreaterThanOrEqual(0);
   });
 
-  it.skip("must be clean after S3: duplicate feature ids and localization keys are resolved", () => {
+  it("is clean after S3 except for shared feature ids deferred to S6", () => {
     const definitions = collectFeatureDefinitions();
     const definitionGroups = new Map<string, FeatureDefinition[]>();
     for (const definition of definitions) {
