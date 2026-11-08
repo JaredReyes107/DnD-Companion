@@ -8,14 +8,14 @@ export const DRUNKEN_MASTER: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "bonus_proficiencies_drunken_master",
+        id: "monk.drunken_master.bonus_proficiencies_drunken_master",
         source: "subclass",
         level: 3,
         tags: ["skill", "proficiency", "tool"],
         // TODO: proficiency with brewer's supplies and Performance
       },
       {
-        id: "drunken_technique",
+        id: "monk.drunken_master.drunken_technique",
         source: "subclass",
         level: 3,
         tags: ["passive", "movement", "combat"],
@@ -25,7 +25,7 @@ export const DRUNKEN_MASTER: SubclassTemplate = {
 
     6: [
       {
-        id: "tipsy_sway",
+        id: "monk.drunken_master.tipsy_sway",
         source: "subclass",
         level: 6,
         grants: [{ type: "action", id: "redirect_attack" }],
@@ -35,7 +35,7 @@ export const DRUNKEN_MASTER: SubclassTemplate = {
 
     11: [
       {
-        id: "drunkards_luck",
+        id: "monk.drunken_master.drunkards_luck",
         source: "subclass",
         level: 11,
         grants: [{ type: "action", id: "dunkards_luck" }],
@@ -45,7 +45,7 @@ export const DRUNKEN_MASTER: SubclassTemplate = {
 
     17: [
       {
-        id: "intoxicated_frenzy",
+        id: "monk.drunken_master.intoxicated_frenzy",
         source: "subclass",
         level: 17,
         tags: ["passive", "combat"],

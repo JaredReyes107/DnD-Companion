@@ -8,7 +8,7 @@ export const SUN_SOUL: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "radiant_sun_bolt",
+        id: "monk.sun_soul.radiant_sun_bolt",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -21,7 +21,7 @@ export const SUN_SOUL: SubclassTemplate = {
 
     6: [
       {
-        id: "searing_arc_strike",
+        id: "monk.sun_soul.searing_arc_strike",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "action", id: "searing_arc_strike" }],
@@ -31,7 +31,7 @@ export const SUN_SOUL: SubclassTemplate = {
 
     11: [
       {
-        id: "searing_sunburst",
+        id: "monk.sun_soul.searing_sunburst",
         source: "subclass" as const,
         level: 11,
         grants: [{ type: "action", id: "searing_sunburst" }],
@@ -41,7 +41,7 @@ export const SUN_SOUL: SubclassTemplate = {
 
     17: [
       {
-        id: "sun_shield",
+        id: "monk.sun_soul.sun_shield",
         source: "subclass" as const,
         level: 17,
         grants: [

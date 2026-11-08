@@ -8,7 +8,7 @@ export const ASTRAL_SELF: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "arms_of_the_astral_self",
+        id: "monk.astral_self.arms_of_the_astral_self",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "arms_of_the_astral_self" }],
@@ -19,7 +19,7 @@ export const ASTRAL_SELF: SubclassTemplate = {
 
     6: [
       {
-        id: "visage_of_the_astral_self",
+        id: "monk.astral_self.visage_of_the_astral_self",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "action", id: "astral_visage" }],
@@ -29,7 +29,7 @@ export const ASTRAL_SELF: SubclassTemplate = {
 
     11: [
       {
-        id: "body_of_the_astral_self",
+        id: "monk.astral_self.body_of_the_astral_self",
         source: "subclass" as const,
         level: 11,
         // TODO: Override modifier of 'Arms of the Astral Self'
@@ -40,7 +40,7 @@ export const ASTRAL_SELF: SubclassTemplate = {
 
     17: [
       {
-        id: "awakened_astral_self",
+        id: "monk.astral_self.awakened_astral_self",
         source: "subclass" as const,
         level: 17,
         grants: [{ type: "action", id: "awakened_astral_self" }],

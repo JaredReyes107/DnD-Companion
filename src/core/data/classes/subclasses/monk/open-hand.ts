@@ -8,7 +8,7 @@ export const OPEN_HAND: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "open_hand_technique",
+        id: "monk.open_hand.open_hand_technique",
         source: "subclass",
         level: 3,
         grants: [{ type: "action", id: "open_hand_technique" }],
@@ -18,7 +18,7 @@ export const OPEN_HAND: SubclassTemplate = {
 
     6: [
       {
-        id: "wholeness_of_body",
+        id: "monk.open_hand.wholeness_of_body",
         source: "subclass",
         level: 6,
         grants: [
@@ -31,7 +31,7 @@ export const OPEN_HAND: SubclassTemplate = {
 
     11: [
       {
-        id: "tranquility",
+        id: "monk.open_hand.tranquility",
         source: "subclass",
         level: 11,
         tags: ["passive", "defense"],
@@ -42,7 +42,7 @@ export const OPEN_HAND: SubclassTemplate = {
 
     17: [
       {
-        id: "quivering_palm",
+        id: "monk.open_hand.quivering_palm",
         source: "subclass",
         level: 17,
         grants: [

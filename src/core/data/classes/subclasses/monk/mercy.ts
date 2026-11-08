@@ -8,20 +8,20 @@ export const MERCY: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "implements_of_mercy",
+        id: "monk.mercy.implements_of_mercy",
         source: "subclass" as const,
         level: 3,
         tags: ["proficiency", "tool", "skill"],
       },
       {
-        id: "hand_of_healing",
+        id: "monk.mercy.hand_of_healing",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "hand_of_healing" }],
         tags: ["healing"],
       },
       {
-        id: "hand_of_harm",
+        id: "monk.mercy.hand_of_harm",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "hand_of_harm" }],
@@ -31,7 +31,7 @@ export const MERCY: SubclassTemplate = {
 
     6: [
       {
-        id: "physicians_touch",
+        id: "monk.mercy.physicians_touch",
         source: "subclass" as const,
         level: 6,
         //TODO: Overrides Hand of Healing (Description only) and Hand of Harm (Description only)
@@ -41,7 +41,7 @@ export const MERCY: SubclassTemplate = {
 
     11: [
       {
-        id: "flurry_of_healing_and_harm",
+        id: "monk.mercy.flurry_of_healing_and_harm",
         source: "subclass" as const,
         level: 11,
         //TODO: Overrides Flurry of Blows. Purely descriptive
@@ -51,7 +51,7 @@ export const MERCY: SubclassTemplate = {
 
     17: [
       {
-        id: "hand_of_ultimate_mercy",
+        id: "monk.mercy.hand_of_ultimate_mercy",
         source: "subclass" as const,
         level: 17,
         grants: [

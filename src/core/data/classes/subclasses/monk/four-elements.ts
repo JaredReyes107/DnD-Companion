@@ -8,7 +8,7 @@ export const FOUR_ELEMENTS: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "disciple_of_the_elements",
+        id: "monk.four_elements.disciple_of_the_elements",
         source: "subclass",
         level: 3,
         grants: [

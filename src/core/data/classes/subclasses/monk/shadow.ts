@@ -8,7 +8,7 @@ export const SHADOW: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "shadow_arts",
+        id: "monk.shadow.shadow_arts",
         source: "subclass",
         level: 3,
         grants: [
@@ -24,7 +24,7 @@ export const SHADOW: SubclassTemplate = {
 
     6: [
       {
-        id: "shadow_step",
+        id: "monk.shadow.shadow_step",
         source: "subclass",
         level: 6,
         grants: [{ type: "action", id: "shadow_step" }],
@@ -34,7 +34,7 @@ export const SHADOW: SubclassTemplate = {
 
     11: [
       {
-        id: "cloak_of_shadows",
+        id: "monk.shadow.cloak_of_shadows",
         source: "subclass",
         level: 11,
         grants: [{ type: "action", id: "cloak_of_shadows" }],
@@ -44,7 +44,7 @@ export const SHADOW: SubclassTemplate = {
 
     17: [
       {
-        id: "opportunist",
+        id: "monk.shadow.opportunist",
         source: "subclass",
         level: 17,
         grants: [{ type: "action", id: "opportunist" }],

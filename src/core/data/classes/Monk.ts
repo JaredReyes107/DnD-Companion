@@ -11,14 +11,14 @@ export const MONK: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "unarmored_defense_monk",
+        id: "monk.unarmored_defense_monk",
         source: "class",
         level: 1,
         tags: ["passive", "defense"],
         // TODO: AC calculation hook / modifier
       },
       {
-        id: "martial_arts",
+        id: "monk.martial_arts",
         source: "class",
         level: 1,
         tags: ["combat"],
@@ -28,7 +28,7 @@ export const MONK: ClassTemplate = {
 
     2: [
       {
-        id: "ki",
+        id: "monk.ki",
         source: "class",
         level: 2,
         grants: [
@@ -40,7 +40,7 @@ export const MONK: ClassTemplate = {
         tags: ["resource"],
       },
       {
-        id: "unarmored_movement",
+        id: "monk.unarmored_movement",
         source: "class",
         level: 2,
         tags: ["movement"],
@@ -50,13 +50,13 @@ export const MONK: ClassTemplate = {
 
     3: [
       {
-        id: "monastic_tradition",
+        id: "monk.monastic_tradition",
         source: "class",
         level: 3,
         tags: ["subclass"],
       },
       {
-        id: "deflect_missiles",
+        id: "monk.deflect_missiles",
         source: "class",
         level: 3,
         grants: [{ type: "action", id: "deflect_missiles" }],
@@ -66,7 +66,7 @@ export const MONK: ClassTemplate = {
 
     4: [
       {
-        id: "slow_fall",
+        id: "monk.slow_fall",
         source: "class",
         level: 4,
         grants: [{ type: "action", id: "slow_fall" }],
@@ -82,7 +82,7 @@ export const MONK: ClassTemplate = {
         tags: ["combat"],
       },
       {
-        id: "stunning_strike",
+        id: "monk.stunning_strike",
         source: "class",
         level: 5,
         grants: [{ type: "action", id: "stunning_strike" }],
@@ -92,7 +92,7 @@ export const MONK: ClassTemplate = {
 
     6: [
       {
-        id: "ki_empowered_strikes",
+        id: "monk.ki_empowered_strikes",
         source: "class",
         level: 6,
         tags: ["combat", "passive"],
@@ -108,7 +108,7 @@ export const MONK: ClassTemplate = {
         // TODO: saving-throw hook
       },
       {
-        id: "stillness_of_mind",
+        id: "monk.stillness_of_mind",
         source: "class",
         level: 7,
         grants: [{ type: "action", id: "stillness_of_mind" }],
@@ -120,7 +120,7 @@ export const MONK: ClassTemplate = {
 
     10: [
       {
-        id: "purity_of_body",
+        id: "monk.purity_of_body",
         source: "class",
         level: 10,
         tags: ["passive", "defense"],
@@ -130,7 +130,7 @@ export const MONK: ClassTemplate = {
 
     13: [
       {
-        id: "tongue_of_the_sun_and_moon",
+        id: "monk.tongue_of_the_sun_and_moon",
         source: "class",
         level: 13,
         tags: ["utility", "roleplay"],
@@ -139,7 +139,7 @@ export const MONK: ClassTemplate = {
 
     14: [
       {
-        id: "diamond_soul",
+        id: "monk.diamond_soul",
         source: "class",
         level: 14,
         grants: [{ type: "action", id: "diamond_soul" }],
@@ -150,7 +150,7 @@ export const MONK: ClassTemplate = {
 
     15: [
       {
-        id: "timeless_body_monk",
+        id: "monk.timeless_body_monk",
         source: "class",
         level: 15,
         tags: ["passive"],
@@ -159,7 +159,7 @@ export const MONK: ClassTemplate = {
 
     18: [
       {
-        id: "empty_body",
+        id: "monk.empty_body",
         source: "class",
         level: 18,
         grants: [
@@ -172,7 +172,7 @@ export const MONK: ClassTemplate = {
 
     20: [
       {
-        id: "perfect_self",
+        id: "monk.perfect_self",
         source: "class",
         level: 20,
         tags: ["resource"],

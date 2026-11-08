@@ -8,7 +8,7 @@ export const KENSEI: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "path_of_the_kensei",
+        id: "monk.kensei.path_of_the_kensei",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -22,7 +22,7 @@ export const KENSEI: SubclassTemplate = {
 
     6: [
       {
-        id: "one_with_the_blade",
+        id: "monk.kensei.one_with_the_blade",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "action", id: "deft_strike" }],
@@ -32,7 +32,7 @@ export const KENSEI: SubclassTemplate = {
 
     11: [
       {
-        id: "sharpen_the_blade",
+        id: "monk.kensei.sharpen_the_blade",
         source: "subclass" as const,
         level: 11,
         grants: [{ type: "action", id: "sharpen_the_blade" }],
@@ -42,7 +42,7 @@ export const KENSEI: SubclassTemplate = {
 
     17: [
       {
-        id: "unerring_accuracy",
+        id: "monk.kensei.unerring_accuracy",
         source: "subclass" as const,
         level: 17,
         grants: [{ type: "action", id: "unerring_accuracy" }],
