@@ -4,6 +4,12 @@ export const SHEPHERD: SubclassTemplate = {
   id: "shepherd",
   classId: "druid",
   source: "tce",
+  progression: {
+    2: ["druid.shepherd.speech_of_the_woods", "druid.shepherd.spirit_totem"],
+    6: ["druid.shepherd.mighty_summoner"],
+    10: ["druid.shepherd.guardian_spirit"],
+    14: ["druid.shepherd.faithful_summons"],
+  },
 
   featuresByLevel: {
     2: [

@@ -3,6 +3,13 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const CHAMPION: SubclassTemplate = {
   id: "champion",
   classId: "fighter",
+  progression: {
+    3: ["fighter.champion.improved_critical"],
+    7: ["fighter.champion.remarkable_athlete"],
+    10: ["fighter.champion.additional_fighting_style"],
+    15: ["fighter.champion.superior_critical"],
+    18: ["fighter.champion.survivor"],
+  },
 
   featuresByLevel: {
     3: [

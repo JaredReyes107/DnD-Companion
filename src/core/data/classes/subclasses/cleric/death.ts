@@ -3,6 +3,13 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const DEATH: SubclassTemplate = {
   id: "death",
   classId: "cleric",
+  progression: {
+    1: ["cleric.death.bonus_proficiencies_death", "cleric.death.reaper"],
+    2: ["cleric.death.channel_divinity_touch_of_death"],
+    6: ["cleric.death.inescapable_destruction"],
+    8: ["cleric.death.divine_strike"],
+    17: ["cleric.death.improved_reaper"],
+  },
 
   featuresByLevel: {
     1: [

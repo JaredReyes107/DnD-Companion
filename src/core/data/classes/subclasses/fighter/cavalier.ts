@@ -3,6 +3,17 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const CAVALIER: SubclassTemplate = {
   id: "cavalier",
   classId: "fighter",
+  progression: {
+    3: [
+      "fighter.cavalier.bonus_proficiency_cavalier",
+      "fighter.cavalier.born_to_the_saddle",
+      "fighter.cavalier.unwavering_mark",
+    ],
+    7: ["fighter.cavalier.warding_maneuver"],
+    10: ["fighter.cavalier.hold_the_line"],
+    15: ["fighter.cavalier.ferocious_charger"],
+    18: ["fighter.cavalier.vigilant_defender"],
+  },
 
   featuresByLevel: {
     3: [

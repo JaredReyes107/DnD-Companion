@@ -4,6 +4,16 @@ export const DEVOTION: SubclassTemplate = {
   id: "devotion",
   classId: "paladin",
   source: "Player's Handbook",
+  progression: {
+    3: [
+      "paladin.devotion.tenets_of_devotion",
+      "paladin.devotion.oath_spells_devotion",
+      "paladin.devotion.channel_divinity_devotion",
+    ],
+    7: ["paladin.devotion.aura_of_devotion"],
+    15: ["paladin.devotion.purity_of_spirit"],
+    20: ["paladin.devotion.holy_nimbus"],
+  },
 
   featuresByLevel: {
     3: [

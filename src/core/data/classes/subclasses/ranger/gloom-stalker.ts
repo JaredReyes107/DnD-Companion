@@ -4,6 +4,16 @@ export const GLOOM_STALKER: SubclassTemplate = {
   id: "gloom_stalker",
   classId: "ranger",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    3: [
+      "ranger.gloom_stalker.gloom_stalker_magic",
+      "ranger.gloom_stalker.dread_ambusher",
+      "ranger.gloom_stalker.umbral_sight",
+    ],
+    7: ["ranger.gloom_stalker.iron_mind"],
+    11: ["ranger.gloom_stalker.stalkers_flurry"],
+    15: ["ranger.gloom_stalker.shadowy_dodge"],
+  },
 
   featuresByLevel: {
     3: [

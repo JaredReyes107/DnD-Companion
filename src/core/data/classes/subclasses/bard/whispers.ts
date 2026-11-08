@@ -4,6 +4,11 @@ export const WHISPERS: SubclassTemplate = {
   id: "whispers",
   classId: "bard",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    3: ["bard.whispers.psychic_blades", "bard.whispers.words_of_terror"],
+    6: ["bard.whispers.mantle_of_whispers"],
+    14: ["bard.whispers.shadow_lore"],
+  },
 
   featuresByLevel: {
     3: [

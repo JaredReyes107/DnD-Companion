@@ -10,6 +10,16 @@ export const ELDRITCH_KNIGHT: SubclassTemplate = {
     kind: "standard",
     progression: "third",
   },
+  progression: {
+    3: [
+      "fighter.eldritch_knight.spellcasting",
+      "fighter.eldritch_knight.weapon_bond",
+    ],
+    7: ["fighter.eldritch_knight.war_magic"],
+    10: ["fighter.eldritch_knight.eldritch_strike"],
+    15: ["fighter.eldritch_knight.arcane_charge"],
+    18: ["fighter.eldritch_knight.improved_war_magic"],
+  },
 
   featuresByLevel: {
     3: [

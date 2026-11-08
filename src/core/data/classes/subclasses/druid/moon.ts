@@ -4,6 +4,12 @@ export const MOON: SubclassTemplate = {
   id: "moon",
   classId: "druid",
   source: "phb",
+  progression: {
+    2: ["druid.moon.combat_wild_shape", "druid.moon.circle_forms"],
+    6: ["druid.moon.primal_strike"],
+    10: ["druid.moon.elemental_wild_shape"],
+    14: ["druid.moon.thousand_forms"],
+  },
 
   featuresByLevel: {
     2: [

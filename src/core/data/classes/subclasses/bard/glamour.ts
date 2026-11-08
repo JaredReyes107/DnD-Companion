@@ -4,6 +4,14 @@ export const GLAMOUR: SubclassTemplate = {
   id: "glamour",
   classId: "bard",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    3: [
+      "bard.glamour.mantle_of_inspiration",
+      "bard.glamour.enthralling_performance",
+    ],
+    6: ["bard.glamour.mantle_of_majesty"],
+    14: ["bard.glamour.unbreakable_majesty"],
+  },
 
   featuresByLevel: {
     3: [

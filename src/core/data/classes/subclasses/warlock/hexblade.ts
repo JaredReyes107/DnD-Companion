@@ -4,6 +4,16 @@ export const HEXBLADE: SubclassTemplate = {
   id: "hexblade",
   classId: "warlock",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    1: [
+      "warlock.hexblade.hexblade_expanded_spells",
+      "warlock.hexblade.hex_warrior",
+      "warlock.hexblade.hexblades_curse",
+    ],
+    6: ["warlock.hexblade.accursed_specter"],
+    10: ["warlock.hexblade.armor_of_hexes"],
+    14: ["warlock.hexblade.master_of_hexes"],
+  },
 
   featuresByLevel: {
     1: [

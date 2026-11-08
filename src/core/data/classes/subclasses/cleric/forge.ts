@@ -4,6 +4,17 @@ export const FORGE: SubclassTemplate = {
   id: "forge",
   classId: "cleric",
   source: "xge",
+  progression: {
+    1: [
+      "cleric.forge.bonus_proficiencies_forge",
+      "cleric.forge.domain_spells",
+      "cleric.forge.blessing_of_the_forge",
+    ],
+    2: ["cleric.forge.channel_divinity_artisans_blessing"],
+    6: ["cleric.forge.soul_of_the_forge"],
+    8: ["cleric.forge.divine_strike"],
+    17: ["cleric.forge.saint_of_forge_and_fire"],
+  },
 
   featuresByLevel: {
     1: [

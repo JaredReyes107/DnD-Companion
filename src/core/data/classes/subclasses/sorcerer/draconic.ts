@@ -4,6 +4,15 @@ export const DRACONIC_BLOODLINE: SubclassTemplate = {
   id: "draconic_bloodline",
   classId: "sorcerer",
   source: "Player's Handbook",
+  progression: {
+    1: [
+      "sorcerer.draconic_bloodline.dragon_ancestor",
+      "sorcerer.draconic_bloodline.draconic_resilience",
+    ],
+    6: ["sorcerer.draconic_bloodline.elemental_affinity"],
+    14: ["sorcerer.draconic_bloodline.dragon_wings"],
+    18: ["sorcerer.draconic_bloodline.draconic_presence"],
+  },
 
   featuresByLevel: {
     1: [

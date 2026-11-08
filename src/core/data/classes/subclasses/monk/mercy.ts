@@ -4,6 +4,16 @@ export const MERCY: SubclassTemplate = {
   id: "mercy",
   classId: "monk",
   source: "Tasha's Cauldron of Everything",
+  progression: {
+    3: [
+      "monk.mercy.implements_of_mercy",
+      "monk.mercy.hand_of_healing",
+      "monk.mercy.hand_of_harm",
+    ],
+    6: ["monk.mercy.physicians_touch"],
+    11: ["monk.mercy.flurry_of_healing_and_harm"],
+    17: ["monk.mercy.hand_of_ultimate_mercy"],
+  },
 
   featuresByLevel: {
     3: [

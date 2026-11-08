@@ -4,6 +4,16 @@ export const INQUISITIVE: SubclassTemplate = {
   id: "inquisitive",
   classId: "rogue",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    3: [
+      "rogue.inquisitive.ear_for_deceit",
+      "rogue.inquisitive.eye_for_detail",
+      "rogue.inquisitive.insightful_fighting",
+    ],
+    9: ["rogue.inquisitive.steady_eye"],
+    13: ["rogue.inquisitive.unerring_eye"],
+    17: ["rogue.inquisitive.eye_for_weakness"],
+  },
 
   featuresByLevel: {
     3: [

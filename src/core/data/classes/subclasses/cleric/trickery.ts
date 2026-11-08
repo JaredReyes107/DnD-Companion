@@ -4,6 +4,16 @@ export const TRICKERY: SubclassTemplate = {
   id: "trickery",
   classId: "cleric",
   source: "phb",
+  progression: {
+    1: [
+      "cleric.trickery.trickery_domain_spells",
+      "cleric.trickery.blessing_of_the_trickster",
+    ],
+    2: ["cleric.trickery.channel_divinity_invoke_duplicity"],
+    6: ["cleric.trickery.channel_divinity_cloak_of_shadows"],
+    8: ["cleric.trickery.divine_strike"],
+    17: ["cleric.trickery.improved_duplicity"],
+  },
 
   featuresByLevel: {
     1: [

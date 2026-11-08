@@ -14,6 +14,12 @@ export const SORCERER: ClassTemplate = {
     kind: "standard",
     progression: "full",
   },
+  progression: {
+    1: ["sorcerer.spellcasting_sorcerer", "sorcerer.sorcerous_origin"],
+    2: ["sorcerer.font_of_magic"],
+    3: ["sorcerer.metamagic"],
+    20: ["sorcerer.sorcerous_restoration"],
+  },
 
   featuresByLevel: {
     1: [

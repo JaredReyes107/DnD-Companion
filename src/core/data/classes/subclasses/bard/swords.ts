@@ -4,6 +4,15 @@ export const SWORDS: SubclassTemplate = {
   id: "swords",
   classId: "bard",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    3: [
+      "bard.swords.bonus_proficiencies_swords",
+      "bard.swords.fighting_style",
+      "bard.swords.blade_flourish",
+    ],
+    6: ["extra_attack"],
+    14: ["bard.swords.masters_flourish"],
+  },
 
   featuresByLevel: {
     3: [

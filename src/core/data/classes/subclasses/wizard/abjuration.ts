@@ -4,6 +4,12 @@ export const ABJURATION: SubclassTemplate = {
   id: "abjuration",
   classId: "wizard",
   source: "Player's Handbook",
+  progression: {
+    2: ["wizard.abjuration.abjuration_savant", "wizard.abjuration.arcane_ward"],
+    6: ["wizard.abjuration.projected_ward"],
+    10: ["wizard.abjuration.improved_abjuration"],
+    14: ["wizard.abjuration.spell_resistance"],
+  },
 
   featuresByLevel: {
     2: [

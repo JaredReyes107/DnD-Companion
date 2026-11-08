@@ -4,6 +4,18 @@ export const STORM_SORCERY: SubclassTemplate = {
   id: "storm_sorcery",
   classId: "sorcerer",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    1: [
+      "sorcerer.storm_sorcery.wind_speaker",
+      "sorcerer.storm_sorcery.tempestuous_magic",
+    ],
+    6: [
+      "sorcerer.storm_sorcery.heart_of_the_storm",
+      "sorcerer.storm_sorcery.storm_guide",
+    ],
+    14: ["sorcerer.storm_sorcery.storms_fury"],
+    18: ["sorcerer.storm_sorcery.wind_soul"],
+  },
 
   featuresByLevel: {
     1: [

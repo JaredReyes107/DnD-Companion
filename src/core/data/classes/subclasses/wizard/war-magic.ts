@@ -4,6 +4,12 @@ export const WAR_MAGIC: SubclassTemplate = {
   id: "war_magic",
   classId: "wizard",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    2: ["wizard.war_magic.arcane_deflection", "wizard.war_magic.tactical_wit"],
+    6: ["wizard.war_magic.power_surge"],
+    10: ["wizard.war_magic.durable_magic"],
+    14: ["wizard.war_magic.deflecting_shroud"],
+  },
 
   featuresByLevel: {
     2: [

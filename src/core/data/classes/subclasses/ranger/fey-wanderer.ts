@@ -4,6 +4,16 @@ export const FEY_WANDERER: SubclassTemplate = {
   id: "fey_wanderer",
   classId: "ranger",
   source: "Tasha's Cauldron of Everything",
+  progression: {
+    3: [
+      "ranger.fey_wanderer.dreadful_strikes",
+      "ranger.fey_wanderer.fey_wanderer_magic",
+      "ranger.fey_wanderer.otherworldly_glamour",
+    ],
+    7: ["ranger.fey_wanderer.beguiling_twist"],
+    11: ["ranger.fey_wanderer.fey_reinforcements"],
+    15: ["ranger.fey_wanderer.misty_wanderer"],
+  },
 
   featuresByLevel: {
     3: [

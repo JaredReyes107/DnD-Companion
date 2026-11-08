@@ -4,6 +4,15 @@ export const PHANTOM: SubclassTemplate = {
   id: "phantom",
   classId: "rogue",
   source: "Tasha's Cauldron of Everything",
+  progression: {
+    3: [
+      "rogue.phantom.whispers_of_the_dead",
+      "rogue.phantom.wails_from_the_grave",
+    ],
+    9: ["rogue.phantom.tokens_of_the_departed"],
+    13: ["rogue.phantom.ghost_walk"],
+    17: ["rogue.phantom.deaths_friend"],
+  },
 
   featuresByLevel: {
     3: [

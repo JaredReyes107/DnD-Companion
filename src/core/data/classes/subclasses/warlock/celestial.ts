@@ -4,6 +4,16 @@ export const CELESTIAL: SubclassTemplate = {
   id: "celestial",
   classId: "warlock",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    1: [
+      "warlock.celestial.celestial_expanded_spells",
+      "warlock.celestial.bonus_cantrips",
+      "warlock.celestial.healing_light",
+    ],
+    6: ["warlock.celestial.radiant_soul"],
+    10: ["warlock.celestial.celestial_resilience"],
+    14: ["warlock.celestial.searing_vengeance"],
+  },
 
   featuresByLevel: {
     1: [

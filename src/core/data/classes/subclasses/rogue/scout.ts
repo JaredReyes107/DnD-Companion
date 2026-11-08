@@ -4,6 +4,12 @@ export const SCOUT: SubclassTemplate = {
   id: "scout",
   classId: "rogue",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    3: ["rogue.scout.skirmisher", "rogue.scout.survivalist"],
+    9: ["rogue.scout.superior_mobility"],
+    13: ["rogue.scout.ambush_master"],
+    17: ["rogue.scout.sudden_strike"],
+  },
 
   featuresByLevel: {
     3: [

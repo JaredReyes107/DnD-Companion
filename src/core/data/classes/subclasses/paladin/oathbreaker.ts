@@ -3,6 +3,15 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const OATHBREAKER: SubclassTemplate = {
   id: "oathbreaker",
   classId: "paladin",
+  progression: {
+    3: [
+      "paladin.oathbreaker.oath_spells_oathbreaker",
+      "paladin.oathbreaker.channel_divinity_oathbreaker",
+    ],
+    7: ["paladin.oathbreaker.aura_of_hate"],
+    15: ["paladin.oathbreaker.supernatural_resistance"],
+    20: ["paladin.oathbreaker.dread_lord"],
+  },
 
   featuresByLevel: {
     3: [

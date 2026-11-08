@@ -3,6 +3,17 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const ORDER: SubclassTemplate = {
   id: "order",
   classId: "cleric",
+  progression: {
+    1: [
+      "cleric.order.order_domain_spells",
+      "cleric.order.bonus_proficiencies_order",
+      "cleric.order.voice_of_authority",
+    ],
+    2: ["cleric.order.channel_divinity_orders_demand"],
+    6: ["cleric.order.embodiment_of_the_law"],
+    8: ["cleric.order.divine_strike"],
+    17: ["cleric.order.orders_wrath"],
+  },
 
   featuresByLevel: {
     1: [

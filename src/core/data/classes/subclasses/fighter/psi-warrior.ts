@@ -3,6 +3,13 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const PSI_WARRIOR: SubclassTemplate = {
   id: "psi_warrior",
   classId: "fighter",
+  progression: {
+    3: ["fighter.psi_warrior.psionic_power"],
+    7: ["fighter.psi_warrior.telekinetic_adept"],
+    10: ["fighter.psi_warrior.guarded_mind"],
+    15: ["fighter.psi_warrior.bulwark_of_force"],
+    18: ["fighter.psi_warrior.telekinetic_master"],
+  },
 
   featuresByLevel: {
     3: [

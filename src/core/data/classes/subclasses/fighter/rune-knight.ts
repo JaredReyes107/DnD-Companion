@@ -3,6 +3,17 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const RUNE_KNIGHT: SubclassTemplate = {
   id: "rune_knight",
   classId: "fighter",
+  progression: {
+    3: [
+      "fighter.rune_knight.bonus_proficiencies_rune_knight",
+      "fighter.rune_knight.rune_carver",
+      "fighter.rune_knight.giants_might",
+    ],
+    7: ["fighter.rune_knight.runic_shield"],
+    10: ["fighter.rune_knight.great_stature"],
+    15: ["fighter.rune_knight.master_of_runes"],
+    18: ["fighter.rune_knight.runic_juggernaut"],
+  },
 
   featuresByLevel: {
     3: [

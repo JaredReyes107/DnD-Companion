@@ -4,6 +4,12 @@ export const KENSEI: SubclassTemplate = {
   id: "kensei",
   classId: "monk",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    3: ["monk.kensei.path_of_the_kensei"],
+    6: ["monk.kensei.one_with_the_blade"],
+    11: ["monk.kensei.sharpen_the_blade"],
+    17: ["monk.kensei.unerring_accuracy"],
+  },
 
   featuresByLevel: {
     3: [

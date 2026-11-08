@@ -4,6 +4,15 @@ export const CONJURATION: SubclassTemplate = {
   id: "conjuration",
   classId: "wizard",
   source: "Player's Handbook",
+  progression: {
+    2: [
+      "wizard.conjuration.conjuration_savant",
+      "wizard.conjuration.minor_conjuration",
+    ],
+    6: ["wizard.conjuration.benign_transposition"],
+    10: ["wizard.conjuration.focused_conjuration"],
+    14: ["wizard.conjuration.durable_summons"],
+  },
 
   featuresByLevel: {
     2: [

@@ -6,10 +6,7 @@ export const ZEALOT: SubclassTemplate = {
   source: "Xanathar's Guide to Everything",
 
   progression: {
-    3: [
-      "barbarian.zealot.divine_fury",
-      "barbarian.zealot.warrior_of_the_gods",
-    ],
+    3: ["barbarian.zealot.divine_fury", "barbarian.zealot.warrior_of_the_gods"],
     6: ["barbarian.zealot.fanatical_focus"],
     10: ["barbarian.zealot.zealous_presence"],
     14: ["barbarian.zealot.rage_beyond_death"],

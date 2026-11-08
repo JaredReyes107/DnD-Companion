@@ -6,6 +6,18 @@ export const ROGUE: ClassTemplate = {
 
   primaryAbilities: ["DEX"],
   savingThrows: ["DEX", "INT"],
+  progression: {
+    1: ["rogue.expertise_rogue", "rogue.sneak_attack", "rogue.thieves_cant"],
+    2: ["rogue.cunning_action"],
+    3: ["rogue.roguish_archetype"],
+    5: ["rogue.uncanny_dodge"],
+    7: ["evasion"],
+    11: ["rogue.reliable_talent"],
+    14: ["rogue.blindsense"],
+    15: ["rogue.slippery_mind"],
+    18: ["rogue.elusive"],
+    20: ["rogue.stroke_of_luck"],
+  },
 
   featuresByLevel: {
     1: [

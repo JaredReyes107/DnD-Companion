@@ -4,6 +4,15 @@ export const CLOCKWORK_SOUL: SubclassTemplate = {
   id: "clockwork_soul",
   classId: "sorcerer",
   source: "Tasha's Cauldron of Everything",
+  progression: {
+    1: [
+      "sorcerer.clockwork_soul.clockwork_magic",
+      "sorcerer.clockwork_soul.restore_balance",
+    ],
+    6: ["sorcerer.clockwork_soul.bastion_of_law"],
+    14: ["sorcerer.clockwork_soul.trance_of_order"],
+    18: ["sorcerer.clockwork_soul.clockwork_cavalcade"],
+  },
 
   featuresByLevel: {
     1: [

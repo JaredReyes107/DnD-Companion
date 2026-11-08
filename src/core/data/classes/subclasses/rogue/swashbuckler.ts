@@ -4,6 +4,15 @@ export const SWASHBUCKLER: SubclassTemplate = {
   id: "swashbuckler",
   classId: "rogue",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    3: [
+      "rogue.swashbuckler.fancy_footwork",
+      "rogue.swashbuckler.rakish_audacity",
+    ],
+    9: ["rogue.swashbuckler.panache"],
+    13: ["rogue.swashbuckler.elegant_maneuver"],
+    17: ["rogue.swashbuckler.master_duelist"],
+  },
 
   featuresByLevel: {
     3: [

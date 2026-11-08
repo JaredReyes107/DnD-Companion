@@ -4,6 +4,11 @@ export const LORE: SubclassTemplate = {
   id: "lore",
   classId: "bard",
   source: "Player's Handbook",
+  progression: {
+    3: ["bard.lore.cutting_words", "bard.lore.extra_proficiencies"],
+    6: ["bard.lore.additional_magical_secrets"],
+    14: ["bard.lore.peerless_skill"],
+  },
 
   featuresByLevel: {
     3: [

@@ -4,6 +4,18 @@ export const ABERRANT_MIND: SubclassTemplate = {
   id: "aberrant_mind",
   classId: "sorcerer",
   source: "Tasha's Cauldron of Everything",
+  progression: {
+    1: [
+      "sorcerer.aberrant_mind.psionic_spells",
+      "sorcerer.aberrant_mind.telepathic_speech",
+    ],
+    6: [
+      "sorcerer.aberrant_mind.psionic_sorcery",
+      "sorcerer.aberrant_mind.psychic_defenses",
+    ],
+    14: ["sorcerer.aberrant_mind.revelation_in_flesh"],
+    18: ["sorcerer.aberrant_mind.warping_implosion"],
+  },
 
   featuresByLevel: {
     1: [

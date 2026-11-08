@@ -4,6 +4,17 @@ export const TEMPEST: SubclassTemplate = {
   id: "tempest",
   classId: "cleric",
   source: "phb",
+  progression: {
+    1: [
+      "cleric.tempest.bonus_proficiencies_tempest",
+      "cleric.tempest.wrath_of_the_storm",
+      "cleric.tempest.tempest_domain_spells",
+    ],
+    2: ["cleric.tempest.channel_divinity_destructive_wrath"],
+    6: ["cleric.tempest.thunderbolt_strike"],
+    8: ["cleric.tempest.divine_strike"],
+    17: ["cleric.tempest.stormborn"],
+  },
 
   featuresByLevel: {
     1: [

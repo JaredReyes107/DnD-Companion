@@ -4,6 +4,15 @@ export const ASSASSIN: SubclassTemplate = {
   id: "assassin",
   classId: "rogue",
   source: "Player's Handbook",
+  progression: {
+    3: [
+      "rogue.assassin.bonus_proficiencies_assassin",
+      "rogue.assassin.assassinate",
+    ],
+    9: ["rogue.assassin.infiltration_expertise"],
+    13: ["rogue.assassin.impostor"],
+    17: ["rogue.assassin.death_strike"],
+  },
 
   featuresByLevel: {
     3: [

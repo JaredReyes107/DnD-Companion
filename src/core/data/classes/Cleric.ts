@@ -14,6 +14,20 @@ export const CLERIC: ClassTemplate = {
     kind: "standard",
     progression: "full",
   },
+  progression: {
+    1: ["cleric.spellcasting_cleric", "cleric.divine_domain"],
+    2: [
+      "cleric.channel_divinity",
+      "cleric.channel_divinity_turn_undead",
+      "cleric.channel_divinity_harness_divine_power",
+      "cleric.divine_domain_feature",
+    ],
+    4: ["ability_score_improvement", "cleric.cantrip_versatility"],
+    5: ["cleric.destroy_undead"],
+    6: ["cleric.divine_domain_feature"],
+    10: ["cleric.divine_intervention"],
+    16: ["ability_score_improvement"],
+  },
 
   featuresByLevel: {
     1: [

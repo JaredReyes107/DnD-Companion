@@ -4,6 +4,16 @@ export const VENGEANCE: SubclassTemplate = {
   id: "vengeance",
   classId: "paladin",
   source: "Player's Handbook",
+  progression: {
+    3: [
+      "paladin.vengeance.tenets_of_vengeance",
+      "paladin.vengeance.oath_spells_vengeance",
+      "paladin.vengeance.channel_divinity_vengeance",
+    ],
+    7: ["paladin.vengeance.relentless_avenger"],
+    15: ["paladin.vengeance.soul_of_vengeance"],
+    20: ["paladin.vengeance.avenging_angel"],
+  },
 
   featuresByLevel: {
     3: [

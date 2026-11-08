@@ -4,6 +4,12 @@ export const DREAMS: SubclassTemplate = {
   id: "dreams",
   classId: "druid",
   source: "tce",
+  progression: {
+    2: ["druid.dreams.balm_of_the_summer_court"],
+    6: ["druid.dreams.hearth_of_moonlight_and_shadow"],
+    10: ["druid.dreams.hidden_paths"],
+    14: ["druid.dreams.walker_in_dreams"],
+  },
 
   featuresByLevel: {
     2: [

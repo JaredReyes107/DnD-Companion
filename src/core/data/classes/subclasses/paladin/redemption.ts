@@ -3,6 +3,16 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const REDEMPTION: SubclassTemplate = {
   id: "redemption",
   classId: "paladin",
+  progression: {
+    3: [
+      "paladin.redemption.tenets_of_redemption",
+      "paladin.redemption.oath_spells_redemption",
+      "paladin.redemption.channel_divinity_redemption",
+    ],
+    7: ["paladin.redemption.aura_of_the_guardian"],
+    15: ["paladin.redemption.protective_spirit"],
+    20: ["paladin.redemption.emissary_of_redemption"],
+  },
 
   featuresByLevel: {
     3: [

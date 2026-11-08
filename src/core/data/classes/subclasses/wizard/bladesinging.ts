@@ -4,6 +4,15 @@ export const BLADESINGING: SubclassTemplate = {
   id: "bladesinging",
   classId: "wizard",
   source: "Tasha's Cauldron of Everything",
+  progression: {
+    2: [
+      "wizard.bladesinging.training_in_war_and_song",
+      "wizard.bladesinging.bladesong",
+    ],
+    6: ["wizard.bladesinging.bladesinging_extra_attack"],
+    10: ["wizard.bladesinging.song_of_defense"],
+    14: ["wizard.bladesinging.song_of_victory"],
+  },
 
   featuresByLevel: {
     2: [

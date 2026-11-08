@@ -4,6 +4,16 @@ export const MONSTER_SLAYER: SubclassTemplate = {
   id: "monster_slayer",
   classId: "ranger",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    3: [
+      "ranger.monster_slayer.monster_slayer_magic",
+      "ranger.monster_slayer.hunters_sense",
+      "ranger.monster_slayer.slayers_prey",
+    ],
+    7: ["ranger.monster_slayer.supernatural_defense"],
+    11: ["ranger.monster_slayer.magic_users_nemesis"],
+    15: ["ranger.monster_slayer.slayers_counter"],
+  },
 
   featuresByLevel: {
     3: [

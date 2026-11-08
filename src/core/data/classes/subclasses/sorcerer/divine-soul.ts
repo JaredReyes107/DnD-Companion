@@ -4,6 +4,15 @@ export const DIVINE_SOUL: SubclassTemplate = {
   id: "divine_soul",
   classId: "sorcerer",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    1: [
+      "sorcerer.divine_soul.divine_magic",
+      "sorcerer.divine_soul.favored_by_the_gods",
+    ],
+    6: ["sorcerer.divine_soul.empowered_healing"],
+    14: ["sorcerer.divine_soul.otherworldly_wings"],
+    18: ["sorcerer.divine_soul.unearthly_recovery"],
+  },
 
   featuresByLevel: {
     1: [

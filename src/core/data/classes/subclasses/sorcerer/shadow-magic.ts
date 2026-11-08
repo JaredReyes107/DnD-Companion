@@ -4,6 +4,16 @@ export const SHADOW_MAGIC: SubclassTemplate = {
   id: "shadow_magic",
   classId: "sorcerer",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    1: [
+      "sorcerer.shadow_magic.eyes_of_the_dark",
+      "sorcerer.shadow_magic.strength_of_the_grave",
+    ],
+    3: ["sorcerer.shadow_magic.eyes_of_the_dark_darkness"],
+    6: ["sorcerer.shadow_magic.hound_of_ill_omen"],
+    14: ["sorcerer.shadow_magic.shadow_walk"],
+    18: ["sorcerer.shadow_magic.umbral_form"],
+  },
 
   featuresByLevel: {
     1: [

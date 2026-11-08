@@ -11,6 +11,15 @@ export const ARCANE_TRICKSTER: SubclassTemplate = {
     progression: "third",
     ability: "INT",
   },
+  progression: {
+    3: [
+      "rogue.arcane_trickster.spellcasting_arcane_trickster",
+      "rogue.arcane_trickster.mage_hand_legerdemain",
+    ],
+    9: ["rogue.arcane_trickster.magical_ambush"],
+    13: ["rogue.arcane_trickster.versatile_trickster"],
+    17: ["rogue.arcane_trickster.spell_thief"],
+  },
 
   featuresByLevel: {
     3: [

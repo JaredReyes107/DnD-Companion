@@ -4,6 +4,12 @@ export const HUNTER: SubclassTemplate = {
   id: "hunter",
   classId: "ranger",
   source: "Player's Handbook",
+  progression: {
+    3: ["ranger.hunter.hunters_prey"],
+    7: ["ranger.hunter.defensive_tactics"],
+    11: ["ranger.hunter.multiattack"],
+    15: ["ranger.hunter.superior_hunters_defense"],
+  },
 
   featuresByLevel: {
     3: [

@@ -4,6 +4,15 @@ export const ILLUSION: SubclassTemplate = {
   id: "illusion",
   classId: "wizard",
   source: "Player's Handbook",
+  progression: {
+    2: [
+      "wizard.illusion.illusion_savant",
+      "wizard.illusion.improved_minor_illusion",
+    ],
+    6: ["wizard.illusion.malleable_illusions"],
+    10: ["wizard.illusion.illusory_self"],
+    14: ["wizard.illusion.illusory_reality"],
+  },
 
   featuresByLevel: {
     2: [

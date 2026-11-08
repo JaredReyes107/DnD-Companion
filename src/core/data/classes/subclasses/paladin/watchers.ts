@@ -3,6 +3,16 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const WATCHERS: SubclassTemplate = {
   id: "watchers",
   classId: "paladin",
+  progression: {
+    3: [
+      "paladin.watchers.tenets_of_watchers",
+      "paladin.watchers.oath_spells_watchers",
+      "paladin.watchers.channel_divinity_watchers",
+    ],
+    7: ["paladin.watchers.aura_of_the_sentinel"],
+    15: ["paladin.watchers.vigilant_rebuke"],
+    20: ["paladin.watchers.mortal_bulwark"],
+  },
 
   featuresByLevel: {
     3: [

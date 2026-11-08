@@ -14,6 +14,22 @@ export const BARD: ClassTemplate = {
     kind: "standard",
     progression: "full",
   },
+  progression: {
+    1: ["bard.bardic_inspiration", "bard.spellcasting_bard"],
+    2: ["bard.jack_of_all_trades", "bard.song_of_rest"],
+    3: ["bard.bard_college", "bard.expertise"],
+    4: ["ability_score_improvement", "bard.bardic_versatility"],
+    5: ["bard.font_of_inspiration"],
+    6: ["bard.countercharm", "bard.bard_college_feature"],
+    8: ["ability_score_improvement"],
+    10: ["bard.expertise", "bard.magical_secrets"],
+    12: ["ability_score_improvement"],
+    14: ["bard.magical_secrets", "bard.bard_college_feature"],
+    16: ["ability_score_improvement"],
+    18: ["bard.magical_secrets"],
+    19: ["ability_score_improvement"],
+    20: ["bard.superior-inspiration"],
+  },
 
   featuresByLevel: {
     1: [

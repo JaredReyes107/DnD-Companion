@@ -4,6 +4,13 @@ export const LAND: SubclassTemplate = {
   id: "land",
   classId: "druid",
   source: "phb",
+  progression: {
+    2: ["druid.land.bonus_cantrip", "druid.land.natural_recovery"],
+    3: ["druid.land.circle_spells_land"],
+    6: ["druid.land.lands_stride"],
+    10: ["druid.land.natures_ward"],
+    14: ["druid.land.natures_sanctuary"],
+  },
 
   featuresByLevel: {
     2: [

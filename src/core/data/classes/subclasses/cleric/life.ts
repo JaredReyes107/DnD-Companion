@@ -4,6 +4,17 @@ export const LIFE: SubclassTemplate = {
   id: "life",
   classId: "cleric",
   source: "phb",
+  progression: {
+    1: [
+      "cleric.life.bonus_proficiencies_life",
+      "cleric.life.life_domain_spells",
+      "cleric.life.disciple_of_life",
+    ],
+    2: ["cleric.life.channel_divinity_preserve_life"],
+    6: ["cleric.life.blessed_healer"],
+    8: ["cleric.life.divine_strike"],
+    17: ["cleric.life.supreme_healing"],
+  },
 
   featuresByLevel: {
     1: [

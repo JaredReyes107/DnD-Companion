@@ -4,6 +4,16 @@ export const HORIZON_WALKER: SubclassTemplate = {
   id: "horizon_walker",
   classId: "ranger",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    3: [
+      "ranger.horizon_walker.horizon_walker_magic",
+      "ranger.horizon_walker.detect_portal",
+      "ranger.horizon_walker.planar_warrior",
+    ],
+    7: ["ranger.horizon_walker.ethereal_step"],
+    11: ["ranger.horizon_walker.distant_strike"],
+    15: ["ranger.horizon_walker.spectral_defense"],
+  },
 
   featuresByLevel: {
     3: [

@@ -4,6 +4,16 @@ export const SPORES: SubclassTemplate = {
   id: "spores",
   classId: "druid",
   source: "tce",
+  progression: {
+    2: [
+      "druid.spores.circle_spells_spores",
+      "druid.spores.halo_of_spores",
+      "druid.spores.symbiotic_entity",
+    ],
+    6: ["druid.spores.fungal_infestation"],
+    10: ["druid.spores.spreading_spores"],
+    14: ["druid.spores.fungal_body"],
+  },
 
   featuresByLevel: {
     2: [

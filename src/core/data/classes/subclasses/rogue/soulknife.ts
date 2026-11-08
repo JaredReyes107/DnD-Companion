@@ -4,6 +4,12 @@ export const SOULKNIFE: SubclassTemplate = {
   id: "soulknife",
   classId: "rogue",
   source: "Tasha's Cauldron of Everything",
+  progression: {
+    3: ["rogue.soulknife.psionic_power", "rogue.soulknife.psychic_blades"],
+    9: ["rogue.soulknife.soul_blades"],
+    13: ["rogue.soulknife.psychic_veil"],
+    17: ["rogue.soulknife.rend_mind"],
+  },
 
   featuresByLevel: {
     3: [

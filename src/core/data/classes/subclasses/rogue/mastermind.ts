@@ -4,6 +4,15 @@ export const MASTERMIND: SubclassTemplate = {
   id: "mastermind",
   classId: "rogue",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    3: [
+      "rogue.mastermind.master_of_intrigue",
+      "rogue.mastermind.master_of_tactics",
+    ],
+    9: ["rogue.mastermind.insightful_manipulator"],
+    13: ["rogue.mastermind.misdirection"],
+    17: ["rogue.mastermind.soul_of_deceit"],
+  },
 
   featuresByLevel: {
     3: [

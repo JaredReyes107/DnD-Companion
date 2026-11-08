@@ -14,6 +14,24 @@ export const DRUID: ClassTemplate = {
     kind: "standard",
     progression: "full",
   },
+  progression: {
+    1: ["druid.spellcasting_druid", "druid.druidic"],
+    2: ["druid.wild_shape", "druid.druid_circle", "druid.wild_companion"],
+    4: [
+      "druid.wild_shape_improvement",
+      "ability_score_improvement",
+      "druid.cantrip_versatility",
+    ],
+    6: ["druid.druid_circle_feature"],
+    8: ["druid.wild_shape_improvement", "ability_score_improvement"],
+    10: ["druid.druid_circle_feature"],
+    12: ["ability_score_improvement"],
+    14: ["druid.druid_circle_feature"],
+    16: ["ability_score_improvement"],
+    18: ["druid.timeless_body", "druid.beast_spells"],
+    19: ["ability_score_improvement"],
+    20: ["druid.archdruid"],
+  },
 
   featuresByLevel: {
     1: [

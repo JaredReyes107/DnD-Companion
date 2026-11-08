@@ -3,6 +3,17 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const NATURE: SubclassTemplate = {
   id: "nature",
   classId: "cleric",
+  progression: {
+    1: [
+      "cleric.nature.acolyte_of_nature",
+      "cleric.nature.bonus_proficiencies_nature",
+      "cleric.nature.nature_domain_spells",
+    ],
+    2: ["cleric.nature.channel_divinity_charm_animals_and_plants"],
+    6: ["cleric.nature.dampen_elements"],
+    8: ["cleric.nature.divine_strike"],
+    17: ["cleric.nature.master_of_nature"],
+  },
 
   featuresByLevel: {
     1: [

@@ -3,6 +3,17 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const LIGHT: SubclassTemplate = {
   id: "light",
   classId: "cleric",
+  progression: {
+    1: [
+      "cleric.light.light_domain_spells",
+      "cleric.light.bonus_cantrip",
+      "cleric.light.warding_flare",
+    ],
+    2: ["cleric.light.channel_divinity_radiance_of_the_dawn"],
+    6: ["cleric.light.improved_flare"],
+    8: ["potent_spellcasting"],
+    17: ["cleric.light.corona_of_light"],
+  },
 
   featuresByLevel: {
     1: [

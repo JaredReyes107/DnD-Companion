@@ -4,6 +4,15 @@ export const WILDFIRE: SubclassTemplate = {
   id: "wildfire",
   classId: "druid",
   source: "tce",
+  progression: {
+    2: [
+      "druid.wildfire.circle_spells_wildfire",
+      "druid.wildfire.summon_wildfire_spirit",
+    ],
+    6: ["druid.wildfire.enhanced_bond"],
+    10: ["druid.wildfire.cauterizing_flames"],
+    14: ["druid.wildfire.blazing_revival"],
+  },
 
   featuresByLevel: {
     2: [

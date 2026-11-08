@@ -4,6 +4,12 @@ export const OPEN_HAND: SubclassTemplate = {
   id: "open_hand",
   classId: "monk",
   source: "Players Handbook",
+  progression: {
+    3: ["monk.open_hand.open_hand_technique"],
+    6: ["monk.open_hand.wholeness_of_body"],
+    11: ["monk.open_hand.tranquility"],
+    17: ["monk.open_hand.quivering_palm"],
+  },
 
   featuresByLevel: {
     3: [

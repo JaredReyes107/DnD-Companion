@@ -5,6 +5,17 @@ export const ARCANE_ARCHER: SubclassTemplate = {
   id: "arcane_archer",
   classId: "fighter",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    3: [
+      "fighter.arcane_archer.arcane_archer_lore",
+      "fighter.arcane_archer.arcane_shot",
+    ],
+    7: [
+      "fighter.arcane_archer.curving_shot",
+      "fighter.arcane_archer.magic_arrow",
+    ],
+    15: ["fighter.arcane_archer.ever_ready_shot"],
+  },
 
   featuresByLevel: {
     3: [

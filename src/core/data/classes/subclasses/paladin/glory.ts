@@ -3,6 +3,16 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const GLORY: SubclassTemplate = {
   id: "glory",
   classId: "paladin",
+  progression: {
+    3: [
+      "paladin.glory.tenets_of_glory",
+      "paladin.glory.oath_spells_glory",
+      "paladin.glory.channel_divinity_glory",
+    ],
+    7: ["paladin.glory.aura_of_alacrity"],
+    15: ["paladin.glory.glorious_defense"],
+    20: ["paladin.glory.living_legend"],
+  },
 
   featuresByLevel: {
     3: [

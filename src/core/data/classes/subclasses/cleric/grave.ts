@@ -3,6 +3,13 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const GRAVE: SubclassTemplate = {
   id: "grave",
   classId: "cleric",
+  progression: {
+    1: ["cleric.grave.circle_of_mortality", "cleric.grave.eyes_of_the_grave"],
+    2: ["cleric.grave.channel_divinity_path_to_the_grave"],
+    6: ["cleric.grave.sentinel_at_deaths_door"],
+    8: ["potent_spellcasting"],
+    17: ["cleric.grave.keeper_of_souls"],
+  },
 
   featuresByLevel: {
     1: [

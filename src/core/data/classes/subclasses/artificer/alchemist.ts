@@ -4,6 +4,16 @@ export const ALCHEMIST: SubclassTemplate = {
   id: "alchemist",
   classId: "artificer",
   source: "Tasha's Cauldron of Everything",
+  progression: {
+    3: [
+      "artificer.alchemist.tool_proficiency_alchemist",
+      "artificer.alchemist.alchemist_spells",
+      "artificer.alchemist.experimental_elixir",
+    ],
+    5: ["artificer.alchemist.alchemical_savant"],
+    9: ["artificer.alchemist.restorative_reagents"],
+    15: ["artificer.alchemist.chemical_mastery"],
+  },
 
   featuresByLevel: {
     3: [

@@ -4,6 +4,12 @@ export const STARS: SubclassTemplate = {
   id: "stars",
   classId: "druid",
   source: "tce",
+  progression: {
+    2: ["druid.stars.star_map", "druid.stars.starry_form"],
+    6: ["druid.stars.cosmic_omen"],
+    10: ["druid.stars.twinkling_constellations"],
+    14: ["druid.stars.full_of_stars"],
+  },
 
   featuresByLevel: {
     2: [

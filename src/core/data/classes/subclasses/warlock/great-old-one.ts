@@ -4,6 +4,15 @@ export const GREAT_OLD_ONE: SubclassTemplate = {
   id: "great_old_one",
   classId: "warlock",
   source: "Player's Handbook",
+  progression: {
+    1: [
+      "warlock.great_old_one.great_old_one_expanded_spells",
+      "warlock.great_old_one.awakened_mind",
+    ],
+    6: ["warlock.great_old_one.entropic_ward"],
+    10: ["warlock.great_old_one.thought_shield"],
+    14: ["warlock.great_old_one.create_thrall"],
+  },
 
   featuresByLevel: {
     1: [

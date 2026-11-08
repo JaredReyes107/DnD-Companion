@@ -7,6 +7,21 @@ export const MONK: ClassTemplate = {
 
   primaryAbilities: ["STR", "DEX"],
   savingThrows: ["STR", "DEX"],
+  progression: {
+    1: ["monk.unarmored_defense_monk", "monk.martial_arts"],
+    2: ["monk.ki", "monk.unarmored_movement"],
+    3: ["monk.monastic_tradition", "monk.deflect_missiles"],
+    4: ["monk.slow_fall"],
+    5: ["extra_attack", "monk.stunning_strike"],
+    6: ["monk.ki_empowered_strikes"],
+    7: ["evasion", "monk.stillness_of_mind"],
+    10: ["monk.purity_of_body"],
+    13: ["monk.tongue_of_the_sun_and_moon"],
+    14: ["monk.diamond_soul"],
+    15: ["monk.timeless_body_monk"],
+    18: ["monk.empty_body"],
+    20: ["monk.perfect_self"],
+  },
 
   featuresByLevel: {
     1: [

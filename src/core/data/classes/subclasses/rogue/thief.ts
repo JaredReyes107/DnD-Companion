@@ -4,6 +4,12 @@ export const THIEF: SubclassTemplate = {
   id: "thief",
   classId: "rogue",
   source: "Player's Handbook",
+  progression: {
+    3: ["rogue.thief.fast_hands", "rogue.thief.second_story_work"],
+    9: ["rogue.thief.supreme_sneak"],
+    13: ["rogue.thief.use_magic_device"],
+    17: ["rogue.thief.thief_reflexes"],
+  },
 
   featuresByLevel: {
     3: [

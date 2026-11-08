@@ -14,6 +14,26 @@ export const PALADIN: ClassTemplate = {
     kind: "standard",
     progression: "half",
   },
+  progression: {
+    1: ["paladin.divine_sense", "paladin.lay_on_hands"],
+    2: [
+      "paladin.fighting_style_paladin",
+      "paladin.spellcasting_paladin",
+      "paladin.divine_smite",
+    ],
+    3: ["paladin.divine_health", "paladin.sacred_oath"],
+    4: ["ability_score_improvement"],
+    5: ["extra_attack"],
+    6: ["paladin.aura_of_protection"],
+    8: ["ability_score_improvement"],
+    10: ["paladin.aura_of_courage"],
+    11: ["paladin.improved_divine_smite"],
+    12: ["ability_score_improvement"],
+    14: ["paladin.cleansing_touch"],
+    15: ["paladin.sacred_oath_feature_paladin"],
+    19: ["ability_score_improvement"],
+  },
+
   featuresByLevel: {
     1: [
       {

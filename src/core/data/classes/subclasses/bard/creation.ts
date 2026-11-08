@@ -4,6 +4,14 @@ export const CREATION: SubclassTemplate = {
   id: "creation",
   classId: "bard",
   source: "Tasha's Cauldron of Everything",
+  progression: {
+    3: [
+      "bard.creation.mote_of_potential",
+      "bard.creation.performance_of_creation",
+    ],
+    6: ["bard.creation.animating_performance"],
+    14: ["bard.creation.creative_crescendo"],
+  },
 
   featuresByLevel: {
     3: [

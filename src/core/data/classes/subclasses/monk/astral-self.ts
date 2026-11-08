@@ -4,6 +4,12 @@ export const ASTRAL_SELF: SubclassTemplate = {
   id: "astral_self",
   classId: "monk",
   source: "Tasha's Cauldron of Everything",
+  progression: {
+    3: ["monk.astral_self.arms_of_the_astral_self"],
+    6: ["monk.astral_self.visage_of_the_astral_self"],
+    11: ["monk.astral_self.body_of_the_astral_self"],
+    17: ["monk.astral_self.awakened_astral_self"],
+  },
 
   featuresByLevel: {
     3: [

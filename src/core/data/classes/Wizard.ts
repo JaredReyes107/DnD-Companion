@@ -14,6 +14,12 @@ export const WIZARD: ClassTemplate = {
     kind: "standard",
     progression: "full",
   },
+  progression: {
+    1: ["wizard.spellcasting_wizard", "wizard.arcane_recovery"],
+    2: ["wizard.arcane_tradition"],
+    18: ["wizard.spell_mastery"],
+    20: ["wizard.signature_spells"],
+  },
 
   featuresByLevel: {
     1: [

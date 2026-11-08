@@ -4,6 +4,12 @@ export const EVOCATION: SubclassTemplate = {
   id: "evocation",
   classId: "wizard",
   source: "Player's Handbook",
+  progression: {
+    2: ["wizard.evocation.evocation_savant", "wizard.evocation.sculpt_spells"],
+    6: ["wizard.evocation.potent_cantrip"],
+    10: ["wizard.evocation.empowered_evocation"],
+    14: ["wizard.evocation.overchannel"],
+  },
 
   featuresByLevel: {
     2: [

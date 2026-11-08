@@ -4,6 +4,12 @@ export const DIVINATION: SubclassTemplate = {
   id: "divination",
   classId: "wizard",
   source: "Player's Handbook",
+  progression: {
+    2: ["wizard.divination.divination_savant", "wizard.divination.portent"],
+    6: ["wizard.divination.expert_divination"],
+    10: ["wizard.divination.the_third_eye"],
+    14: ["wizard.divination.greater_portent"],
+  },
 
   featuresByLevel: {
     2: [

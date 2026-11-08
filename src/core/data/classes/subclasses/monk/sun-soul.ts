@@ -4,6 +4,12 @@ export const SUN_SOUL: SubclassTemplate = {
   id: "sun_soul",
   classId: "monk",
   source: "Xanathar's Guide to Everything",
+  progression: {
+    3: ["monk.sun_soul.radiant_sun_bolt"],
+    6: ["monk.sun_soul.searing_arc_strike"],
+    11: ["monk.sun_soul.searing_sunburst"],
+    17: ["monk.sun_soul.sun_shield"],
+  },
 
   featuresByLevel: {
     3: [

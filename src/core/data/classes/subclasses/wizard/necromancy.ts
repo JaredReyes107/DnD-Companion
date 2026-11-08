@@ -4,6 +4,15 @@ export const NECROMANCY: SubclassTemplate = {
   id: "necromancy",
   classId: "wizard",
   source: "Player's Handbook",
+  progression: {
+    2: [
+      "wizard.necromancy.necromancy_savant",
+      "wizard.necromancy.grim_harvest",
+    ],
+    6: ["wizard.necromancy.undead_thralls"],
+    10: ["wizard.necromancy.inured_to_undeath"],
+    14: ["wizard.necromancy.command_undead"],
+  },
 
   featuresByLevel: {
     2: [

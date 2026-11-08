@@ -4,6 +4,11 @@ export const VALOR: SubclassTemplate = {
   id: "valor",
   classId: "bard",
   source: "Player's Handbook",
+  progression: {
+    3: ["bard.valor.combat_inspiration", "bard.valor.extra_proficiencies"],
+    6: ["extra_attack"],
+    14: ["bard.valor.battle_magic"],
+  },
 
   featuresByLevel: {
     3: [

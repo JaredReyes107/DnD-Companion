@@ -7,6 +7,24 @@ export const FIGHTER: ClassTemplate = {
 
   primaryAbilities: ["STR", "DEX"],
   savingThrows: ["STR", "CON"],
+  progression: {
+    1: [
+      "fighter.proficiencies_fighter",
+      "fighter.fighting_style_fighter",
+      "fighter.second_wind",
+    ],
+    2: ["fighter.action_surge"],
+    3: ["fighter.martial_archetype"],
+    4: ["ability_score_improvement"],
+    5: ["fighter.extra_attack_fighter"],
+    6: ["ability_score_improvement"],
+    8: ["ability_score_improvement"],
+    9: ["fighter.indomitable"],
+    12: ["ability_score_improvement"],
+    14: ["ability_score_improvement"],
+    16: ["ability_score_improvement"],
+    19: ["ability_score_improvement"],
+  },
 
   featuresByLevel: {
     1: [

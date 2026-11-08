@@ -4,6 +4,15 @@ export const FIEND: SubclassTemplate = {
   id: "fiend",
   classId: "warlock",
   source: "Player's Handbook",
+  progression: {
+    1: [
+      "warlock.fiend.fiend_expanded_spells",
+      "warlock.fiend.dark_ones_blessing",
+    ],
+    6: ["warlock.fiend.dark_ones_own_luck"],
+    10: ["warlock.fiend.fiendish_resilience"],
+    14: ["warlock.fiend.hurl_through_hell"],
+  },
 
   featuresByLevel: {
     1: [

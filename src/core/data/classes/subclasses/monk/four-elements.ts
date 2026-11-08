@@ -4,6 +4,9 @@ export const FOUR_ELEMENTS: SubclassTemplate = {
   id: "four_elements",
   classId: "monk",
   source: "Players Handbook",
+  progression: {
+    3: ["monk.four_elements.disciple_of_the_elements"],
+  },
 
   featuresByLevel: {
     3: [

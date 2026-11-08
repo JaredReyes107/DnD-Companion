@@ -14,6 +14,21 @@ export const RANGER: ClassTemplate = {
     kind: "standard",
     progression: "half",
   },
+  progression: {
+    1: ["ranger.favored_enemy", "ranger.natural_explorer"],
+    2: ["ranger.fighting_style_ranger", "ranger.spellcasting_ranger"],
+    3: ["ranger.ranger_archetype", "ranger.primeval_awareness"],
+    4: ["ability_score_improvement"],
+    5: ["extra_attack"],
+    8: ["ability_score_improvement", "ranger.lands_stride"],
+    10: ["ranger.hide_in_plain_sight"],
+    14: ["ranger.vanish"],
+    16: ["ability_score_improvement"],
+    18: ["ranger.feral_senses"],
+    19: ["ability_score_improvement"],
+    20: ["ranger.foe_slayer"],
+  },
+
   featuresByLevel: {
     1: [
       {

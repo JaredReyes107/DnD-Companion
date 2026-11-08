@@ -4,6 +4,12 @@ export const SHADOW: SubclassTemplate = {
   id: "shadow",
   classId: "monk",
   source: "Players Handbook",
+  progression: {
+    3: ["monk.shadow.shadow_arts"],
+    6: ["monk.shadow.shadow_step"],
+    11: ["monk.shadow.cloak_of_shadows"],
+    17: ["monk.shadow.opportunist"],
+  },
 
   featuresByLevel: {
     3: [

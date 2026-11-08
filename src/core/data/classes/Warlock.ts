@@ -13,6 +13,16 @@ export const WARLOCK: ClassTemplate = {
     ability: "CHA",
     kind: "pact",
   },
+  progression: {
+    1: ["warlock.otherworldly_patron", "warlock.pact_magic"],
+    2: ["warlock.eldritch_invocations"],
+    3: ["warlock.pact_boon"],
+    11: ["warlock.mystic_arcanum_6"],
+    13: ["warlock.mystic_arcanum_7"],
+    15: ["warlock.mystic-arcanum_8"],
+    17: ["warlock.mystic_arcanum_9"],
+    20: ["warlock.eldritch_master"],
+  },
 
   featuresByLevel: {
     1: [

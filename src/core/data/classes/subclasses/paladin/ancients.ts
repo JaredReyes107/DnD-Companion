@@ -3,6 +3,16 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const ANCIENTS: SubclassTemplate = {
   id: "ancients",
   classId: "paladin",
+  progression: {
+    3: [
+      "paladin.ancients.tenets_of_the_ancients",
+      "paladin.ancients.oath_spells_ancients",
+      "paladin.ancients.channel_divinity",
+    ],
+    7: ["paladin.ancients.aura_of_warding"],
+    15: ["paladin.ancients.undying_sentinel"],
+    20: ["paladin.ancients.elder_champion"],
+  },
 
   featuresByLevel: {
     3: [

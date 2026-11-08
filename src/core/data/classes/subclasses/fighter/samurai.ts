@@ -3,6 +3,16 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const SAMURAI: SubclassTemplate = {
   id: "samurai",
   classId: "fighter",
+  progression: {
+    3: [
+      "fighter.samurai.bonus_proficiency_samurai",
+      "fighter.samurai.fighting_spirit",
+    ],
+    7: ["fighter.samurai.elegant_courtier"],
+    10: ["fighter.samurai.tireless_spirit"],
+    15: ["fighter.samurai.rapid_strike"],
+    18: ["fighter.samurai.strength_before_death"],
+  },
 
   featuresByLevel: {
     3: [

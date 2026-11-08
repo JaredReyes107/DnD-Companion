@@ -21,7 +21,10 @@ export const BARBARIAN: ClassTemplate = {
   progression: {
     1: [
       "barbarian.proficiencies_barbarian",
-      { id: "barbarian.multiclass_proficiencies_barbarian", appliesTo: "multiclass" },
+      {
+        id: "barbarian.multiclass_proficiencies_barbarian",
+        appliesTo: "multiclass",
+      },
       "barbarian.rage",
       "barbarian.unarmored_defense",
     ],

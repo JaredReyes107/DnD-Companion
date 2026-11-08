@@ -15,6 +15,21 @@ export const ARTIFICER: ClassTemplate = {
     progression: "half",
     roundUp: true,
   },
+  progression: {
+    1: ["artificer.magical_tinkering", "artificer.spellcasting_artificer"],
+    2: ["artificer.infuse_item"],
+    3: [
+      "artificer.artificer_specialist",
+      "artificer.the_right_tool_for_the_job",
+    ],
+    6: ["artificer.tool_expertise"],
+    7: ["artificer.flash_of_genius"],
+    10: ["artificer.magic_item_adept"],
+    11: ["artificer.spell_storing_item"],
+    14: ["artificer.magic_item_savant"],
+    18: ["artificer.magic_item_master"],
+    20: ["artificer.soul_of_artifice"],
+  },
 
   featuresByLevel: {
     1: [

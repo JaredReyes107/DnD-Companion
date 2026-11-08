@@ -4,6 +4,12 @@ export const GENIE: SubclassTemplate = {
   id: "genie",
   classId: "warlock",
   source: "Tasha's Cauldron of Everything",
+  progression: {
+    1: ["warlock.genie.genie_expanded_spells", "warlock.genie.genies_vessel"],
+    6: ["warlock.genie.elemental_gift"],
+    10: ["warlock.genie.sanctuary_vessel"],
+    14: ["warlock.genie.limited_wish"],
+  },
 
   featuresByLevel: {
     1: [

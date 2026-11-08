@@ -3,6 +3,16 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const CONQUEST: SubclassTemplate = {
   id: "conquest",
   classId: "paladin",
+  progression: {
+    3: [
+      "paladin.conquest.tenets_of_conquest",
+      "paladin.conquest.oath_spells_conquest",
+      "paladin.conquest.channel_divinity_conquest",
+    ],
+    7: ["paladin.conquest.aura_of_conquest"],
+    15: ["paladin.conquest.scornful_rebuke"],
+    20: ["paladin.conquest.invincible_conqueror"],
+  },
 
   featuresByLevel: {
     3: [

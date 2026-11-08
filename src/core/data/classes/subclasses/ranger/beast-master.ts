@@ -4,6 +4,12 @@ export const BEAST_MASTER: SubclassTemplate = {
   id: "beast_master",
   classId: "ranger",
   source: "Player's Handbook",
+  progression: {
+    3: ["ranger.beast_master.rangers_companion"],
+    7: ["ranger.beast_master.exceptional_training"],
+    11: ["ranger.beast_master.bestial_fury"],
+    15: ["ranger.beast_master.share_spells"],
+  },
 
   featuresByLevel: {
     3: [

@@ -4,6 +4,16 @@ export const FATHOMLESS: SubclassTemplate = {
   id: "fathomless",
   classId: "warlock",
   source: "Tasha's Cauldron of Everything",
+  progression: {
+    1: [
+      "warlock.fathomless.expanded_spell_list_fathomless",
+      "warlock.fathomless.gift_of_the_sea",
+      "warlock.fathomless.tentacle_of_the_deeps",
+    ],
+    6: ["warlock.fathomless.oceanic_soul", "warlock.fathomless.guardian_coil"],
+    10: ["warlock.fathomless.grasping_tentacles"],
+    14: ["warlock.fathomless.fathomless_plunge"],
+  },
 
   featuresByLevel: {
     1: [

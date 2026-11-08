@@ -4,6 +4,16 @@ export const KNOWLEDGE: SubclassTemplate = {
   id: "knowledge",
   classId: "cleric",
   source: "phb",
+  progression: {
+    1: [
+      "cleric.knowledge.knowledge_domain_spells",
+      "cleric.knowledge.blessings_of_knowledge",
+    ],
+    2: ["cleric.knowledge.channel_divinity_knowledge_of_the_ages"],
+    6: ["cleric.knowledge.channel_divinity_read_thoughts"],
+    8: ["potent_spellcasting"],
+    17: ["cleric.knowledge.visions_of_the_past"],
+  },
 
   featuresByLevel: {
     1: [

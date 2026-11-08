@@ -4,6 +4,15 @@ export const ENCHANTMENT: SubclassTemplate = {
   id: "enchantment",
   classId: "wizard",
   source: "Player's Handbook",
+  progression: {
+    2: [
+      "wizard.enchantment.enchantment_savant",
+      "wizard.enchantment.hypnotic_gaze",
+    ],
+    6: ["wizard.enchantment.instinctive_charm"],
+    10: ["wizard.enchantment.split_enchantment"],
+    14: ["wizard.enchantment.alter_memories"],
+  },
 
   featuresByLevel: {
     2: [

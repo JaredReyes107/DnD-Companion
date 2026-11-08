@@ -3,6 +3,17 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const PEACE: SubclassTemplate = {
   id: "peace",
   classId: "cleric",
+  progression: {
+    1: [
+      "cleric.peace.peace_domain_spells",
+      "cleric.peace.emboldening_bond",
+      "cleric.peace.implement_of_peace",
+    ],
+    2: ["cleric.peace.channel_divinity_balm_of_peace"],
+    6: ["cleric.peace.protective_bond"],
+    8: ["potent_spellcasting"],
+    17: ["cleric.peace.expansive_bond"],
+  },
 
   featuresByLevel: {
     1: [

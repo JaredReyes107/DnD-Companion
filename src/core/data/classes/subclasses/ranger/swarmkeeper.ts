@@ -4,6 +4,15 @@ export const SWARMKEEPER: SubclassTemplate = {
   id: "swarmkeeper",
   classId: "ranger",
   source: "Tasha's Cauldron of Everything",
+  progression: {
+    3: [
+      "ranger.swarmkeeper.gathered_swarm",
+      "ranger.swarmkeeper.swarmkeeper_magic",
+    ],
+    7: ["ranger.swarmkeeper.writhing_tide"],
+    11: ["ranger.swarmkeeper.mighty_swarm"],
+    15: ["ranger.swarmkeeper.swarming_dispersal"],
+  },
 
   featuresByLevel: {
     3: [

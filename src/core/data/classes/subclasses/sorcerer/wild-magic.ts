@@ -4,6 +4,15 @@ export const WILD_MAGIC_SORCERER: SubclassTemplate = {
   id: "wild_magic_sorcerer",
   classId: "sorcerer",
   source: "Player's Handbook",
+  progression: {
+    1: [
+      "sorcerer.wild_magic_sorcerer.wild_magic_surge",
+      "sorcerer.wild_magic_sorcerer.tides_of_chaos",
+    ],
+    6: ["sorcerer.wild_magic_sorcerer.bend_luck"],
+    14: ["sorcerer.wild_magic_sorcerer.controlled_chaos"],
+    18: ["sorcerer.wild_magic_sorcerer.spell_bombardment"],
+  },
 
   featuresByLevel: {
     1: [

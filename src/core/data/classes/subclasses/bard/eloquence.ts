@@ -4,6 +4,14 @@ export const ELOQUENCE: SubclassTemplate = {
   id: "eloquence",
   classId: "bard",
   source: "Tasha's Cauldron of Everything",
+  progression: {
+    3: ["bard.eloquence.silver_tongue", "bard.eloquence.unsettling_words"],
+    6: [
+      "bard.eloquence.unfailing_inspiration",
+      "bard.eloquence.universal_speech",
+    ],
+    14: ["bard.eloquence.infectious_inspiration"],
+  },
 
   featuresByLevel: {
     3: [

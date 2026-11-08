@@ -3,6 +3,14 @@ import { SubclassTemplate } from "@/core/entities/rules/subclass-template";
 export const BATTLE_MASTER: SubclassTemplate = {
   id: "battle_master",
   classId: "fighter",
+  progression: {
+    3: [
+      "fighter.battle_master.combat_superiority",
+      "fighter.battle_master.student_of_war",
+    ],
+    7: ["fighter.battle_master.know_your_enemy"],
+    15: ["fighter.battle_master.relentless"],
+  },
 
   featuresByLevel: {
     3: [

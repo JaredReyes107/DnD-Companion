@@ -4,6 +4,18 @@ export const TWILIGHT: SubclassTemplate = {
   id: "twilight",
   classId: "cleric",
   source: "tce",
+  progression: {
+    1: [
+      "cleric.twilight.bonus_proficiencies_twilight",
+      "cleric.twilight.domain_spells",
+      "cleric.twilight.eyes_of_night",
+      "cleric.twilight.vigilant_blessing",
+    ],
+    2: ["cleric.twilight.channel_divinity_twilight_sanctuary"],
+    6: ["cleric.twilight.steps_of_night"],
+    8: ["cleric.twilight.divine_strike"],
+    17: ["cleric.twilight.twilight_shroud"],
+  },
 
   featuresByLevel: {
     1: [

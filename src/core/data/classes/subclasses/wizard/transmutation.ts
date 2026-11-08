@@ -4,6 +4,15 @@ export const TRANSMUTATION: SubclassTemplate = {
   id: "transmutation",
   classId: "wizard",
   source: "Player's Handbook",
+  progression: {
+    2: [
+      "wizard.transmutation.transmutation_savant",
+      "wizard.transmutation.minor_alchemy",
+    ],
+    6: ["wizard.transmutation.transmuters_stone"],
+    10: ["wizard.transmutation.shapechanger"],
+    14: ["wizard.transmutation.master_transmuter"],
+  },
 
   featuresByLevel: {
     2: [
