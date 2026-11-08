@@ -18,13 +18,13 @@ export const CLERIC: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "spellcasting_cleric",
+        id: "cleric.spellcasting_cleric",
         source: "class",
         level: 1,
         tags: ["spellcasting"],
       },
       {
-        id: "divine_domain",
+        id: "cleric.divine_domain",
         source: "class",
         level: 1,
         tags: ["subclass"],
@@ -33,21 +33,21 @@ export const CLERIC: ClassTemplate = {
 
     2: [
       {
-        id: "channel_divinity",
+        id: "cleric.channel_divinity",
         source: "class",
         level: 2,
         grants: [{ type: "resource", id: "channel_divinity" }],
         tags: ["resource"],
       },
       {
-        id: "channel_divinity_turn_undead",
+        id: "cleric.channel_divinity_turn_undead",
         source: "class",
         level: 2,
         grants: [{ type: "action", id: "channel_divinity_turn_undead" }],
         tags: ["action", "control"],
       },
       {
-        id: "channel_divinity_harness_divine_power",
+        id: "cleric.channel_divinity_harness_divine_power",
         source: "class",
         level: 2,
         grants: [
@@ -56,7 +56,7 @@ export const CLERIC: ClassTemplate = {
         tags: ["spell-slots"],
       },
       {
-        id: "divine_domain_feature",
+        id: "cleric.divine_domain_feature",
         source: "class",
         level: 2,
         tags: ["subclass"],
@@ -73,7 +73,7 @@ export const CLERIC: ClassTemplate = {
         tags: ["build-choice", "ASI"],
       },
       {
-        id: "cantrip_versatility",
+        id: "cleric.cantrip_versatility",
         source: "class",
         level: 4,
         tags: ["spellcasting"],
@@ -83,7 +83,7 @@ export const CLERIC: ClassTemplate = {
 
     5: [
       {
-        id: "destroy_undead",
+        id: "cleric.destroy_undead",
         source: "class",
         level: 5,
         tags: ["control"],
@@ -91,7 +91,7 @@ export const CLERIC: ClassTemplate = {
         // TODO: scaling by cleric level ignored for now
       },
       {
-        id: "divine_domain_feature",
+        id: "cleric.divine_domain_feature",
         source: "class",
         level: 6,
         tags: ["subclass"],
@@ -108,7 +108,7 @@ export const CLERIC: ClassTemplate = {
 
     10: [
       {
-        id: "divine_intervention",
+        id: "cleric.divine_intervention",
         source: "class",
         level: 10,
         tags: ["special"],

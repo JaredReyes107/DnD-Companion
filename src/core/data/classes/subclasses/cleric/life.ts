@@ -8,19 +8,19 @@ export const LIFE: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "bonus_proficiencies_life",
+        id: "cleric.life.bonus_proficiencies_life",
         source: "subclass" as const,
         level: 1,
         tags: ["armor", "proficiency"],
       },
       {
-        id: "life_domain_spells",
+        id: "cleric.life.life_domain_spells",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
       },
       {
-        id: "disciple_of_life",
+        id: "cleric.life.disciple_of_life",
         source: "subclass" as const,
         level: 1,
         tags: ["healing", "skill", "proficiency"],
@@ -30,7 +30,7 @@ export const LIFE: SubclassTemplate = {
 
     2: [
       {
-        id: "channel_divinity_preserve_life",
+        id: "cleric.life.channel_divinity_preserve_life",
         source: "subclass" as const,
         level: 2,
         grants: [{ type: "action", id: "channel_divinity_preserve_life" }],
@@ -40,7 +40,7 @@ export const LIFE: SubclassTemplate = {
 
     6: [
       {
-        id: "blessed_healer",
+        id: "cleric.life.blessed_healer",
         source: "subclass" as const,
         level: 6,
         tags: ["healing", "self-sustain"],
@@ -50,7 +50,7 @@ export const LIFE: SubclassTemplate = {
 
     8: [
       {
-        id: "divine_strike",
+        id: "cleric.life.divine_strike",
         source: "subclass" as const,
         level: 8,
         tags: ["damage"],
@@ -60,7 +60,7 @@ export const LIFE: SubclassTemplate = {
 
     17: [
       {
-        id: "supreme_healing",
+        id: "cleric.life.supreme_healing",
         source: "subclass" as const,
         level: 17,
         tags: ["healing"],

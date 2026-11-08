@@ -8,13 +8,13 @@ export const TEMPEST: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "bonus_proficiencies_tempest",
+        id: "cleric.tempest.bonus_proficiencies_tempest",
         source: "subclass" as const,
         level: 1,
         tags: ["armor", "weapon", "proficiency"],
       },
       {
-        id: "wrath_of_the_storm",
+        id: "cleric.tempest.wrath_of_the_storm",
         source: "subclass" as const,
         level: 1,
         grants: [
@@ -25,7 +25,7 @@ export const TEMPEST: SubclassTemplate = {
         // TODO: Damage hook (2d8 lightning or thunder, DEX save halves)
       },
       {
-        id: "tempest_domain_spells",
+        id: "cleric.tempest.tempest_domain_spells",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
@@ -34,7 +34,7 @@ export const TEMPEST: SubclassTemplate = {
 
     2: [
       {
-        id: "channel_divinity_destructive_wrath",
+        id: "cleric.tempest.channel_divinity_destructive_wrath",
         source: "subclass" as const,
         level: 2,
         grants: [{ type: "action", id: "channel_divinity_destructive_wrath" }],
@@ -45,7 +45,7 @@ export const TEMPEST: SubclassTemplate = {
 
     6: [
       {
-        id: "thunderbolt_strike",
+        id: "cleric.tempest.thunderbolt_strike",
         source: "subclass" as const,
         level: 6,
         tags: ["damage", "movement"],
@@ -55,7 +55,7 @@ export const TEMPEST: SubclassTemplate = {
 
     8: [
       {
-        id: "divine_strike",
+        id: "cleric.tempest.divine_strike",
         source: "subclass" as const,
         level: 8,
         tags: ["damage"],
@@ -65,7 +65,7 @@ export const TEMPEST: SubclassTemplate = {
 
     17: [
       {
-        id: "stormborn",
+        id: "cleric.tempest.stormborn",
         source: "subclass" as const,
         level: 17,
         tags: ["movement"],

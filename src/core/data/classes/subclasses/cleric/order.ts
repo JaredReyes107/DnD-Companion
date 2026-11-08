@@ -7,19 +7,19 @@ export const ORDER: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "order_domain_spells",
+        id: "cleric.order.order_domain_spells",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
       },
       {
-        id: "bonus_proficiencies_order",
+        id: "cleric.order.bonus_proficiencies_order",
         source: "subclass" as const,
         level: 1,
         tags: ["skill", "proficiency", "armor"],
       },
       {
-        id: "voice_of_authority",
+        id: "cleric.order.voice_of_authority",
         source: "subclass" as const,
         level: 1,
         grants: [{ type: "action", id: "voice_of_authority" }],
@@ -29,7 +29,7 @@ export const ORDER: SubclassTemplate = {
 
     2: [
       {
-        id: "channel_divinity_orders_demand",
+        id: "cleric.order.channel_divinity_orders_demand",
         source: "subclass" as const,
         level: 2,
         grants: [{ type: "action", id: "channel_divinity_orders_demand" }],
@@ -39,7 +39,7 @@ export const ORDER: SubclassTemplate = {
 
     6: [
       {
-        id: "embodiment_of_the_law",
+        id: "cleric.order.embodiment_of_the_law",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -52,7 +52,7 @@ export const ORDER: SubclassTemplate = {
 
     8: [
       {
-        id: "divine_strike",
+        id: "cleric.order.divine_strike",
         source: "subclass" as const,
         level: 8,
         tags: [],
@@ -61,7 +61,7 @@ export const ORDER: SubclassTemplate = {
 
     17: [
       {
-        id: "orders_wrath",
+        id: "cleric.order.orders_wrath",
         source: "subclass" as const,
         level: 17,
         tags: ["passive", "damage"],

@@ -7,20 +7,20 @@ export const NATURE: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "acolyte_of_nature",
+        id: "cleric.nature.acolyte_of_nature",
         source: "subclass" as const,
         level: 1,
         tags: ["proficiency", "skill", "spells"],
       },
       {
-        id: "bonus_proficiencies_nature",
+        id: "cleric.nature.bonus_proficiencies_nature",
         source: "subclass" as const,
         level: 1,
         tags: ["proficiency", "armor"],
       },
 
       {
-        id: "nature_domain_spells",
+        id: "cleric.nature.nature_domain_spells",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
@@ -29,7 +29,7 @@ export const NATURE: SubclassTemplate = {
 
     2: [
       {
-        id: "channel_divinity_charm_animals_and_plants",
+        id: "cleric.nature.channel_divinity_charm_animals_and_plants",
         source: "subclass" as const,
         level: 2,
         grants: [
@@ -41,7 +41,7 @@ export const NATURE: SubclassTemplate = {
 
     6: [
       {
-        id: "dampen_elements",
+        id: "cleric.nature.dampen_elements",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "action", id: "dampen_elements" }],
@@ -51,7 +51,7 @@ export const NATURE: SubclassTemplate = {
 
     8: [
       {
-        id: "divine_strike",
+        id: "cleric.nature.divine_strike",
         source: "subclass" as const,
         level: 8,
         tags: [],
@@ -61,7 +61,7 @@ export const NATURE: SubclassTemplate = {
 
     17: [
       {
-        id: "master_of_nature",
+        id: "cleric.nature.master_of_nature",
         source: "subclass" as const,
         level: 17,
         grants: [{ type: "action", id: "master_of_nature" }],

@@ -8,19 +8,19 @@ export const FORGE: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "bonus_proficiencies_forge",
+        id: "cleric.forge.bonus_proficiencies_forge",
         source: "subclass" as const,
         level: 1,
         tags: ["tool", "proficiency", "armor"],
       },
       {
-        id: "domain_spells",
+        id: "cleric.forge.domain_spells",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
       },
       {
-        id: "blessing_of_the_forge",
+        id: "cleric.forge.blessing_of_the_forge",
         source: "subclass" as const,
         level: 1,
         tags: ["ritual", "support"],
@@ -30,7 +30,7 @@ export const FORGE: SubclassTemplate = {
 
     2: [
       {
-        id: "channel_divinity_artisans_blessing",
+        id: "cleric.forge.channel_divinity_artisans_blessing",
         source: "subclass" as const,
         level: 2,
         grants: [{ type: "action", id: "channel_divinity_artisans_blessing" }],
@@ -41,7 +41,7 @@ export const FORGE: SubclassTemplate = {
 
     6: [
       {
-        id: "soul_of_the_forge",
+        id: "cleric.forge.soul_of_the_forge",
         source: "subclass" as const,
         level: 6,
         tags: ["defense"],
@@ -51,7 +51,7 @@ export const FORGE: SubclassTemplate = {
 
     8: [
       {
-        id: "divine_strike",
+        id: "cleric.forge.divine_strike",
         source: "subclass" as const,
         level: 8,
         tags: ["damage"],
@@ -61,7 +61,7 @@ export const FORGE: SubclassTemplate = {
 
     17: [
       {
-        id: "saint_of_forge_and_fire",
+        id: "cleric.forge.saint_of_forge_and_fire",
         source: "subclass" as const,
         level: 17,
         tags: ["defense"],

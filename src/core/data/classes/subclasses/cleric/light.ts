@@ -7,21 +7,21 @@ export const LIGHT: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "light_domain_spells",
+        id: "cleric.light.light_domain_spells",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
         // TODO: Add to spell list
       },
       {
-        id: "bonus_cantrip",
+        id: "cleric.light.bonus_cantrip",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
         // TODO: Add to spell list
       },
       {
-        id: "warding_flare",
+        id: "cleric.light.warding_flare",
         source: "subclass" as const,
         level: 1,
         grants: [
@@ -34,7 +34,7 @@ export const LIGHT: SubclassTemplate = {
 
     2: [
       {
-        id: "channel_divinity_radiance_of_the_dawn",
+        id: "cleric.light.channel_divinity_radiance_of_the_dawn",
         source: "subclass" as const,
         level: 2,
         grants: [
@@ -47,7 +47,7 @@ export const LIGHT: SubclassTemplate = {
 
     6: [
       {
-        id: "improved_flare",
+        id: "cleric.light.improved_flare",
         source: "subclass" as const,
         level: 6,
         tags: ["combat", "defense"],
@@ -67,7 +67,7 @@ export const LIGHT: SubclassTemplate = {
 
     17: [
       {
-        id: "corona_of_light",
+        id: "cleric.light.corona_of_light",
         source: "subclass" as const,
         level: 17,
         grants: [{ type: "action", id: "corona_of_light" }],

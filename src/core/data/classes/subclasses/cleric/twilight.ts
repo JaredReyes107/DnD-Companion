@@ -8,19 +8,19 @@ export const TWILIGHT: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "bonus_proficiencies_twilight",
+        id: "cleric.twilight.bonus_proficiencies_twilight",
         source: "subclass" as const,
         level: 1,
         tags: ["armor", "weapon", "proficiency"],
       },
       {
-        id: "domain_spells",
+        id: "cleric.twilight.domain_spells",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
       },
       {
-        id: "eyes_of_night",
+        id: "cleric.twilight.eyes_of_night",
         source: "subclass" as const,
         level: 1,
         grants: [
@@ -31,7 +31,7 @@ export const TWILIGHT: SubclassTemplate = {
         // TODO: Apply modifier for Darkvision (300ft, allies within 10ft)
       },
       {
-        id: "vigilant_blessing",
+        id: "cleric.twilight.vigilant_blessing",
         source: "subclass" as const,
         level: 1,
         grants: [{ type: "action", id: "vigilant_blessing" }],
@@ -42,7 +42,7 @@ export const TWILIGHT: SubclassTemplate = {
 
     2: [
       {
-        id: "channel_divinity_twilight_sanctuary",
+        id: "cleric.twilight.channel_divinity_twilight_sanctuary",
         source: "subclass" as const,
         level: 2,
         grants: [{ type: "action", id: "channel_divinity_twilight_sanctuary" }],
@@ -53,7 +53,7 @@ export const TWILIGHT: SubclassTemplate = {
 
     6: [
       {
-        id: "steps_of_night",
+        id: "cleric.twilight.steps_of_night",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "resource", id: "steps_of_the_night" }],
@@ -63,7 +63,7 @@ export const TWILIGHT: SubclassTemplate = {
 
     8: [
       {
-        id: "divine_strike",
+        id: "cleric.twilight.divine_strike",
         source: "subclass" as const,
         level: 8,
         tags: ["damage"],
@@ -73,7 +73,7 @@ export const TWILIGHT: SubclassTemplate = {
 
     17: [
       {
-        id: "twilight_shroud",
+        id: "cleric.twilight.twilight_shroud",
         source: "subclass" as const,
         level: 17,
         tags: ["defense"],

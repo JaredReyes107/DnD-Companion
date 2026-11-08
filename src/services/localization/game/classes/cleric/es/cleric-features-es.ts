@@ -41,7 +41,7 @@ const subclass_features: GameLocalizationCategory = {
 };
 
 export const cleric_features_es: GameLocalizationCategory = {
-  spellcasting: {
+  "cleric.spellcasting": {
     name: "Lanzamiento de Conjuros",
     description: `Puedes lanzar conjuros de clérigo como conducto del poder divino.
     En el nivel 1, sabes tres trucos de tu elección de la lista de conjuros de clérigo. En niveles superiores aprenderás más, como se muestra en la columna «Trucos» de la tabla del clérigo.
@@ -54,29 +54,29 @@ export const cleric_features_es: GameLocalizationCategory = {
       Modificador al ataque con conjuros = tu bonificador por competencia + tu modificador por Sabiduría
     Puedes lanzar un conjuro de clérigo como ritual si tiene la etiqueta de ritual y tienes el conjuro preparado. Puedes usar un símbolo sagrado como foco para lanzar tus conjuros de clérigo.`,
   },
-  divine_domain: {
+  "cleric.divine_domain": {
     name: "Dominio Divino",
     description:
       "Sigues uno de los dominios de tu elección entre el dominio de la vida, el del descubrimiento, el de la conquista, el de lo salvaje, el del sol, el de la oscuridad y el de la prosperidad (detallados al final de la descripción de esta clase), que te otorga conjuros de dominio y otros rasgos a partir del nivel 1. También te otorga otras formas de usar Canalizar divinidad cuando consigas dicho rasgo en el nivel 2, así como beneficios adicionales en los niveles 6, 8 y 17.",
   },
-  channel_divinity: {
+  "cleric.channel_divinity": {
     name: "Canalizar Divinidad",
     description: `A partir del nivel 2, ganas la habilidad de canalizar energía divina directamente desde tu deidad, usando esa energía para alimentar efectos mágicos. Comienzas con dos efectos: Expulsar Muertos Vivientes y un efecto determinado por tu dominio. Algunos dominios te otorgan efectos adicionales conforme consigues más niveles, como lo detalla la descrupción del dominio.
       Cuando usas tu Canalizar Divinidad, tú elgies que efecto creat. Debes terminar un descanso corto o largo para usar tu Canalizar Divinidad de nuevo.
       Algunos efectos de Canalizar Divindad requieren tiradas de salvación. Cuando usas tal efecto de esta clase, el CD es igual a tu CD de salvación de conjuros de clérigo.
       A partir del nivel 6, puedes usar tu Canalizar Divinidad dos veces entre descansos y tres veces a partir de nivel 18.`,
   },
-  channel_divinity_turn_undead: {
+  "cleric.channel_divinity_turn_undead": {
     name: "Canalizar Divinidad: Expulsar Muertos Vivientes",
     description: `Como acción, presentas tu símbolo sagrado y dices una oración para expulsar a los muertos vivientes. Cada muerto que te vea o te escuche en un radio de 30 pies debe hacer una tirada de salvación de Sabiduría. Si falla, es expulsado durante un minuto o hasta que reciba daño.
       Una criatura expulsada debe dedicar su turno a intentar moverse tan lejos de ti como pueda. No puede moverse voluntariamente a un espacio que se encuentre a menos de 30 pies de ti ni realizar reacciones. Durante su acción, solo puede realizar la acción de esprintar o intentar escapar del efecto que le impida moverse. Si no hay ningún lugar al que pueda moverse, puede usar la acción esquivar.`,
   },
-  channel_divinity_harness_divine_power: {
+  "cleric.channel_divinity_harness_divine_power": {
     name: "Canalizar Divinidad: ",
     description:
       "A partir de nivel 2, puedes usar una carga de tu Canalizar Divinidad para alimentar tus conjuros. Como acción adicional, tocas tu símbolo sagrado, dices una oración y recuperas un espacio de conjuro gastado cuyo nivel no sea mayor a la mitdad de tu bonificador de competencia (redondeado hacia arriba). ",
   },
-  divine_domain_feature: {
+  "cleric.divine_domain_feature": {
     name: "Característica de Dominio Divino",
     description: "",
   },
@@ -85,16 +85,16 @@ export const cleric_features_es: GameLocalizationCategory = {
     description:
       "Cuando  alcanzas nivel 4, 8, 12, 16 y 19, puedes incrementar una puntuación de características de tu elección en 2 o incrementar dos puntuaciones de características de tu elección en 1. No puedes incrementar una puntuación de característica por encima de 20 usando esta característica.",
   },
-  cantrip_versatility: {
+  "cleric.cantrip_versatility": {
     name: "",
     description: "",
   },
-  destroy_undead: {
+  "cleric.destroy_undead": {
     name: "",
     description:
       "A partir del nivel 5, cuando un muerto viviente falle su tirada de salvación contra tu rasgo de Expulsar muertos vivientes, la criatura se destruirá instantáneamente si su valor de desafío es igual o inferior al umbral siguiente:",
   },
-  divine_intervention: {
+  "cleric.divine_intervention": {
     name: "Intervención Divina",
     description: `Puedes solicitar a tu deidad que interceda por ti en momentos de gran necesidad. Para implorar el auxilio de tu dios es necesario que utilices tu acción. Describe el tipo de ayuda que solicitas y tira 1d100. Si sacas un resultado igual o inferior a tu nivel de clérigo, tu deidad intercederá. El DM decide la naturaleza exacta de la intercesión; el efecto de cualquier conjuro de clérigo o de dominio, por ejemplo, sería un resultado apropiado.
       Si la divinidad interviene, no podrás volver a emplear este rasgo durante 7 días. Si no, puedes volver a usarlo tras finalizar un descanso largo.

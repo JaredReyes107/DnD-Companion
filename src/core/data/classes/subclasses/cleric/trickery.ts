@@ -8,13 +8,13 @@ export const TRICKERY: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "trickery_domain_spells",
+        id: "cleric.trickery.trickery_domain_spells",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
       },
       {
-        id: "blessing_of_the_trickster",
+        id: "cleric.trickery.blessing_of_the_trickster",
         source: "subclass" as const,
         level: 1,
         grants: [{ type: "action", id: "blessing_of_the_trickster" }],
@@ -24,7 +24,7 @@ export const TRICKERY: SubclassTemplate = {
 
     2: [
       {
-        id: "channel_divinity_invoke_duplicity",
+        id: "cleric.trickery.channel_divinity_invoke_duplicity",
         source: "subclass" as const,
         level: 2,
         grants: [
@@ -37,7 +37,7 @@ export const TRICKERY: SubclassTemplate = {
 
     6: [
       {
-        id: "channel_divinity_cloak_of_shadows",
+        id: "cleric.trickery.channel_divinity_cloak_of_shadows",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "action", id: "channel_divinity_cloak_of_shadows" }],
@@ -47,7 +47,7 @@ export const TRICKERY: SubclassTemplate = {
 
     8: [
       {
-        id: "divine_strike",
+        id: "cleric.trickery.divine_strike",
         source: "subclass" as const,
         level: 8,
         tags: ["damage"],
@@ -57,7 +57,7 @@ export const TRICKERY: SubclassTemplate = {
 
     17: [
       {
-        id: "improved_duplicity",
+        id: "cleric.trickery.improved_duplicity",
         source: "subclass" as const,
         level: 17,
         tags: ["illusion", "utility"],

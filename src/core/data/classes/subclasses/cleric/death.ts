@@ -7,14 +7,14 @@ export const DEATH: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "bonus_proficiencies_death",
+        id: "cleric.death.bonus_proficiencies_death",
         source: "subclass" as const,
         level: 1,
         tags: [],
         // TODO: resources, actions
       },
       {
-        id: "reaper",
+        id: "cleric.death.reaper",
         source: "subclass" as const,
         level: 1,
         tags: [],
@@ -23,7 +23,7 @@ export const DEATH: SubclassTemplate = {
 
     2: [
       {
-        id: "channel_divinity_touch_of_death",
+        id: "cleric.death.channel_divinity_touch_of_death",
         source: "subclass" as const,
         level: 2,
         grants: [{ type: "action", id: "channel_divinity_touch_of_death" }],
@@ -33,7 +33,7 @@ export const DEATH: SubclassTemplate = {
 
     6: [
       {
-        id: "inescapable_destruction",
+        id: "cleric.death.inescapable_destruction",
         source: "subclass" as const,
         level: 6,
         tags: [],
@@ -42,7 +42,7 @@ export const DEATH: SubclassTemplate = {
 
     8: [
       {
-        id: "divine_strike",
+        id: "cleric.death.divine_strike",
         source: "subclass" as const,
         level: 8,
         tags: [],
@@ -51,7 +51,7 @@ export const DEATH: SubclassTemplate = {
 
     17: [
       {
-        id: "improved_reaper",
+        id: "cleric.death.improved_reaper",
         source: "subclass" as const,
         level: 17,
         tags: [],

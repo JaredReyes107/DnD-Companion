@@ -7,13 +7,13 @@ export const GRAVE: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "circle_of_mortality",
+        id: "cleric.grave.circle_of_mortality",
         source: "subclass" as const,
         level: 1,
         tags: ["spells", "healing"],
       },
       {
-        id: "eyes_of_the_grave",
+        id: "cleric.grave.eyes_of_the_grave",
         source: "subclass" as const,
         level: 1,
         grants: [
@@ -26,7 +26,7 @@ export const GRAVE: SubclassTemplate = {
 
     2: [
       {
-        id: "channel_divinity_path_to_the_grave",
+        id: "cleric.grave.channel_divinity_path_to_the_grave",
         source: "subclass" as const,
         level: 2,
         grants: [{ type: "action", id: "channel_divinity_path_to_the_grave" }],
@@ -36,7 +36,7 @@ export const GRAVE: SubclassTemplate = {
 
     6: [
       {
-        id: "sentinel_at_deaths_door",
+        id: "cleric.grave.sentinel_at_deaths_door",
         source: "subclass" as const,
         level: 6,
         grants: [
@@ -59,7 +59,7 @@ export const GRAVE: SubclassTemplate = {
 
     17: [
       {
-        id: "keeper_of_souls",
+        id: "cleric.grave.keeper_of_souls",
         source: "subclass" as const,
         level: 17,
         tags: ["healing"],

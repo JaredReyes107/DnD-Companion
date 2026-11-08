@@ -7,13 +7,13 @@ export const PEACE: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "peace_domain_spells",
+        id: "cleric.peace.peace_domain_spells",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
       },
       {
-        id: "emboldening_bond",
+        id: "cleric.peace.emboldening_bond",
         source: "subclass" as const,
         level: 1,
         grants: [
@@ -29,7 +29,7 @@ export const PEACE: SubclassTemplate = {
         ],
       },
       {
-        id: "implement_of_peace",
+        id: "cleric.peace.implement_of_peace",
         source: "subclass" as const,
         level: 1,
         tags: ["skill", "proficiency"],
@@ -38,7 +38,7 @@ export const PEACE: SubclassTemplate = {
 
     2: [
       {
-        id: "channel_divinity_balm_of_peace",
+        id: "cleric.peace.channel_divinity_balm_of_peace",
         source: "subclass" as const,
         level: 2,
         grants: [{ type: "action", id: "channel_divinity_balm_of_peace" }],
@@ -48,7 +48,7 @@ export const PEACE: SubclassTemplate = {
 
     6: [
       {
-        id: "protective_bond",
+        id: "cleric.peace.protective_bond",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "action", id: "protective_bond" }],
@@ -67,7 +67,7 @@ export const PEACE: SubclassTemplate = {
 
     17: [
       {
-        id: "expansive_bond",
+        id: "cleric.peace.expansive_bond",
         source: "subclass" as const,
         level: 17,
         tags: [],

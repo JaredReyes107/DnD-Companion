@@ -8,19 +8,19 @@ export const WAR: SubclassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "bonus_proficiencies_war",
+        id: "cleric.war.bonus_proficiencies_war",
         source: "subclass" as const,
         level: 1,
         tags: ["armor", "proficiency", "weapon"],
       },
       {
-        id: "war_domain_spells",
+        id: "cleric.war.war_domain_spells",
         source: "subclass" as const,
         level: 1,
         tags: ["spells"],
       },
       {
-        id: "war_priest",
+        id: "cleric.war.war_priest",
         source: "subclass" as const,
         level: 1,
         grants: [
@@ -34,7 +34,7 @@ export const WAR: SubclassTemplate = {
 
     2: [
       {
-        id: "channel_divinity_guided_strike",
+        id: "cleric.war.channel_divinity_guided_strike",
         source: "subclass" as const,
         level: 2,
         grants: [{ type: "action", id: "channel_divinity_guided_strike" }],
@@ -45,7 +45,7 @@ export const WAR: SubclassTemplate = {
 
     6: [
       {
-        id: "channel_divinity_war_gods_blessing",
+        id: "cleric.war.channel_divinity_war_gods_blessing",
         source: "subclass" as const,
         level: 6,
         grants: [{ type: "action", id: "channel_divinity_war_gods_blessing" }],
@@ -63,7 +63,7 @@ export const WAR: SubclassTemplate = {
         // TODO: Damage hook. Damage scaling
       },
       {
-        id: "divine_strike",
+        id: "cleric.war.divine_strike",
         source: "subclass" as const,
         level: 8,
         tags: ["damage"],
@@ -73,7 +73,7 @@ export const WAR: SubclassTemplate = {
 
     17: [
       {
-        id: "avatar_of_battle",
+        id: "cleric.war.avatar_of_battle",
         source: "subclass" as const,
         level: 17,
         tags: ["defense"],

@@ -41,7 +41,7 @@ const subclass_features: GameLocalizationCategory = {
 };
 
 export const cleric_features_en: GameLocalizationCategory = {
-  spellcasting_cleric: {
+  "cleric.spellcasting_cleric": {
     name: "Spellcasting",
     description: `As a conduit for divine power, you can cast cleric spells. At 1st level, you know three cantrips of your choice from the cleric spell list. You learn additional cleric cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Cleric table.
     The Cleric table shows how many spell slots you have to cast your cleric spells of 1st level and higher. To cast one of these spells, you must expend a slot of the spell's level or higher. You regain all expended spell slots when you finish a long rest.
@@ -53,28 +53,28 @@ export const cleric_features_en: GameLocalizationCategory = {
       Spell attack modifier = your proficiency bonus + your Wisdom modifier
     You can cast a cleric spell as a ritual if that spell has the ritual tag and you have the spell prepared. You can use a holy symbol as a spellcasting focus for your cleric spells.`,
   },
-  divine_domain: {
+  "cleric.divine_domain": {
     name: "Divine Domain",
     description: `At 1st level, you choose a domain shaped by your choice of Deity and the gifts they grant you. Your choice grants you domain spells and other features when you choose it at 1st level. It also grants you additional ways to use Channel Divinity when you gain that feature at 2nd level, and additional benefits at 6th, 8th, and 17th levels.`,
   },
-  channel_divinity: {
+  "cleric.channel_divinity": {
     name: "Channel Divinity",
     description: `At 2nd level, you gain the ability to channel divine energy directly from your deity, using that energy to fuel magical effects. You start with two such effects: Turn Undead and an effect determined by your domain. Some domains grant you additional effects as you advance in levels, as noted in the domain description.
       When you use your Channel Divinity, you choose which effect to create. You must then finish a short or long rest to use your Channel Divinity again.
       Some Channel Divinity effects require saving throws. When you use such an effect from this class, the DC equals your cleric spell save DC.
       Beginning at 6th level, you can use your Channel Divinity twice between rests, and beginning at 18th level, you can use it three times between rests. When you finish a short or long rest, you regain your expended uses.`,
   },
-  channel_divinity_turn_undead: {
+  "cleric.channel_divinity_turn_undead": {
     name: "Channel Divinity",
     description: `As an action, you present your holy symbol and speak a prayer censuring the undead. Each undead that can see or hear you within 30 feet of you must make a Wisdom saving throw. If the creature fails its saving throw, it is turned for 1 minute or until it takes any damage.
       A turned creature must spend its turns trying to move as far away from you as it can, and it can't willingly move to a space within 30 feet of you. It also can't take reactions. For its action, it can use only the Dash action or try to escape from an effect that prevents it from moving. If there's nowhere to move, the creature can use the Dodge action.`,
   },
-  channel_divinity_harness_divine_power: {
+  "cleric.channel_divinity_harness_divine_power": {
     name: "Channel Divinity: Harness Divine Power",
     description:
       "At 2nd level, you can expend a use of your Channel Divinity to fuel your spells. As a bonus action, you touch your holy symbol, utter a prayer, and regain one expended spell slot, the level of which can be no higher than half your proficiency bonus (rounded up).",
   },
-  divine_domain_feature: {
+  "cleric.divine_domain_feature": {
     name: "Divine Domain feature",
     description: "",
   },
@@ -83,17 +83,17 @@ export const cleric_features_en: GameLocalizationCategory = {
     description:
       "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature.",
   },
-  cantrip_versatility: {
+  "cleric.cantrip_versatility": {
     name: "Cantrip Versatility",
     description:
       "Whenever you reach a level in this class that grants the Ability Score Improvement feature, you can replace one cantrip you learned from this class's Spellcasting feature with another cantrip from the cleric spell list.",
   },
-  destroy_undead: {
+  "cleric.destroy_undead": {
     name: "Destroy Undead",
     description:
       "Starting at 5th level, when an undead fails its saving throw against your Turn Undead feature, the creature is instantly destroyed if its challenge rating is at or below a certain threshold, as shown in the Cleric table above.",
   },
-  divine_intervention: {
+  "cleric.divine_intervention": {
     name: "Divine Intervention",
     description: `Beginning at 10th level, you can call on your deity to intervene on your behalf when your need is great.
       Imploring your deity's aid requires you to use your action. Describe the assistance you seek, and roll percentile dice. If you roll a number equal to or lower than your cleric level, your deity intervenes. The DM chooses the nature of the intervention; the effect of any cleric spell or cleric domain spell would be appropriate. If your deity intervenes, you can't use this feature again for 7 days. Otherwise, you can use it again after you finish a long rest.
