@@ -8,7 +8,7 @@ export const SWARMKEEPER: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "gathered_swarm",
+        id: "ranger.swarmkeeper.gathered_swarm",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -20,7 +20,7 @@ export const SWARMKEEPER: SubclassTemplate = {
         tags: ["combat"],
       },
       {
-        id: "swarmkeeper_magic",
+        id: "ranger.swarmkeeper.swarmkeeper_magic",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],
@@ -29,7 +29,7 @@ export const SWARMKEEPER: SubclassTemplate = {
 
     7: [
       {
-        id: "writhing_tide",
+        id: "ranger.swarmkeeper.writhing_tide",
         source: "subclass" as const,
         level: 7,
         grants: [
@@ -42,7 +42,7 @@ export const SWARMKEEPER: SubclassTemplate = {
 
     11: [
       {
-        id: "mighty_swarm",
+        id: "ranger.swarmkeeper.mighty_swarm",
         source: "subclass" as const,
         level: 11,
         tags: ["combat"],
@@ -52,7 +52,7 @@ export const SWARMKEEPER: SubclassTemplate = {
 
     15: [
       {
-        id: "swarming_dispersal",
+        id: "ranger.swarmkeeper.swarming_dispersal",
         source: "subclass" as const,
         level: 15,
         grants: [

@@ -8,7 +8,7 @@ export const BEAST_MASTER: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "rangers_companion",
+        id: "ranger.beast_master.rangers_companion",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "command_beast" }],
@@ -18,7 +18,7 @@ export const BEAST_MASTER: SubclassTemplate = {
 
     7: [
       {
-        id: "exceptional_training",
+        id: "ranger.beast_master.exceptional_training",
         source: "subclass" as const,
         level: 7,
         grants: [{ type: "action", id: "exceptional_training" }],
@@ -28,7 +28,7 @@ export const BEAST_MASTER: SubclassTemplate = {
 
     11: [
       {
-        id: "bestial_fury",
+        id: "ranger.beast_master.bestial_fury",
         source: "subclass" as const,
         level: 11,
         tags: ["companion", "combat"],
@@ -37,7 +37,7 @@ export const BEAST_MASTER: SubclassTemplate = {
 
     15: [
       {
-        id: "share_spells",
+        id: "ranger.beast_master.share_spells",
         source: "subclass" as const,
         level: 15,
         tags: ["companion", "spellcasting"],

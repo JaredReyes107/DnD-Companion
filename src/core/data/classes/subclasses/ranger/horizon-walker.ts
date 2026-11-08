@@ -8,13 +8,13 @@ export const HORIZON_WALKER: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "horizon_walker_magic",
+        id: "ranger.horizon_walker.horizon_walker_magic",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],
       },
       {
-        id: "detect_portal",
+        id: "ranger.horizon_walker.detect_portal",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -24,7 +24,7 @@ export const HORIZON_WALKER: SubclassTemplate = {
         tags: ["utility", "senses"],
       },
       {
-        id: "planar_warrior",
+        id: "ranger.horizon_walker.planar_warrior",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "planar_warrior" }],
@@ -34,7 +34,7 @@ export const HORIZON_WALKER: SubclassTemplate = {
 
     7: [
       {
-        id: "ethereal_step",
+        id: "ranger.horizon_walker.ethereal_step",
         source: "subclass" as const,
         level: 7,
         grants: [
@@ -47,7 +47,7 @@ export const HORIZON_WALKER: SubclassTemplate = {
 
     11: [
       {
-        id: "distant_strike",
+        id: "ranger.horizon_walker.distant_strike",
         source: "subclass" as const,
         level: 11,
         grants: [{ type: "action", id: "distant_strike" }],
@@ -58,7 +58,7 @@ export const HORIZON_WALKER: SubclassTemplate = {
 
     15: [
       {
-        id: "spectral_defense",
+        id: "ranger.horizon_walker.spectral_defense",
         source: "subclass" as const,
         level: 15,
         grants: [{ type: "action", id: "spectral_defense" }],

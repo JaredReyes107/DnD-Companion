@@ -8,7 +8,7 @@ export const FEY_WANDERER: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "dreadful_strikes",
+        id: "ranger.fey_wanderer.dreadful_strikes",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -18,13 +18,13 @@ export const FEY_WANDERER: SubclassTemplate = {
         tags: ["combat", "damage"],
       },
       {
-        id: "fey_wanderer_magic",
+        id: "ranger.fey_wanderer.fey_wanderer_magic",
         source: "subclass" as const,
         level: 3,
         tags: ["spells", "roleplay"],
       },
       {
-        id: "otherworldly_glamour",
+        id: "ranger.fey_wanderer.otherworldly_glamour",
         source: "subclass" as const,
         level: 3,
         grants: [],
@@ -35,7 +35,7 @@ export const FEY_WANDERER: SubclassTemplate = {
 
     7: [
       {
-        id: "beguiling_twist",
+        id: "ranger.fey_wanderer.beguiling_twist",
         source: "subclass" as const,
         level: 7,
         grants: [{ type: "action", id: "beguiling_twist" }],
@@ -46,7 +46,7 @@ export const FEY_WANDERER: SubclassTemplate = {
 
     11: [
       {
-        id: "fey_reinforcements",
+        id: "ranger.fey_wanderer.fey_reinforcements",
         source: "subclass" as const,
         level: 11,
         grants: [
@@ -60,7 +60,7 @@ export const FEY_WANDERER: SubclassTemplate = {
 
     15: [
       {
-        id: "misty_wanderer",
+        id: "ranger.fey_wanderer.misty_wanderer",
         source: "subclass" as const,
         level: 15,
         grants: [

@@ -8,13 +8,13 @@ export const MONSTER_SLAYER: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "monster_slayer_magic",
+        id: "ranger.monster_slayer.monster_slayer_magic",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],
       },
       {
-        id: "hunters_sense",
+        id: "ranger.monster_slayer.hunters_sense",
         source: "subclass" as const,
         level: 3,
         grants: [
@@ -24,7 +24,7 @@ export const MONSTER_SLAYER: SubclassTemplate = {
         tags: ["utility", "senses"],
       },
       {
-        id: "slayers_prey",
+        id: "ranger.monster_slayer.slayers_prey",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "slayers_prey" }],
@@ -34,7 +34,7 @@ export const MONSTER_SLAYER: SubclassTemplate = {
 
     7: [
       {
-        id: "supernatural_defense",
+        id: "ranger.monster_slayer.supernatural_defense",
         source: "subclass" as const,
         level: 7,
         grants: [{ type: "action", id: "supernatural_defense" }],
@@ -44,7 +44,7 @@ export const MONSTER_SLAYER: SubclassTemplate = {
 
     11: [
       {
-        id: "magic_users_nemesis",
+        id: "ranger.monster_slayer.magic_users_nemesis",
         source: "subclass" as const,
         level: 11,
         grants: [
@@ -57,7 +57,7 @@ export const MONSTER_SLAYER: SubclassTemplate = {
 
     15: [
       {
-        id: "slayers_counter",
+        id: "ranger.monster_slayer.slayers_counter",
         source: "subclass" as const,
         level: 15,
         grants: [{ type: "action", id: "slayers_counter" }],

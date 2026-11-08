@@ -8,7 +8,7 @@ export const HUNTER: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "hunters_prey",
+        id: "ranger.hunter.hunters_prey",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "choice", id: "hunters_prey" }],
@@ -18,7 +18,7 @@ export const HUNTER: SubclassTemplate = {
 
     7: [
       {
-        id: "defensive_tactics",
+        id: "ranger.hunter.defensive_tactics",
         source: "subclass" as const,
         level: 7,
         grants: [{ type: "choice", id: "defensive_tactics" }],
@@ -28,7 +28,7 @@ export const HUNTER: SubclassTemplate = {
 
     11: [
       {
-        id: "multiattack",
+        id: "ranger.hunter.multiattack",
         source: "subclass" as const,
         level: 11,
         grants: [{ type: "choice", id: "multiattack" }],
@@ -38,7 +38,7 @@ export const HUNTER: SubclassTemplate = {
 
     15: [
       {
-        id: "superior_hunters_defense",
+        id: "ranger.hunter.superior_hunters_defense",
         source: "subclass" as const,
         level: 15,
         grants: [{ type: "choice", id: "superior_hunters_defense" }],

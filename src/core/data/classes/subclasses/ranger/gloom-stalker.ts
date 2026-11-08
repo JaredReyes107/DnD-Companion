@@ -8,13 +8,13 @@ export const GLOOM_STALKER: SubclassTemplate = {
   featuresByLevel: {
     3: [
       {
-        id: "gloom_stalker_magic",
+        id: "ranger.gloom_stalker.gloom_stalker_magic",
         source: "subclass" as const,
         level: 3,
         tags: ["spells"],
       },
       {
-        id: "dread_ambusher",
+        id: "ranger.gloom_stalker.dread_ambusher",
         source: "subclass" as const,
         level: 3,
         grants: [{ type: "action", id: "dread_ambusher" }],
@@ -25,7 +25,7 @@ export const GLOOM_STALKER: SubclassTemplate = {
         // - Action: +1 attack to Attack action. Extra 1d8 for that attack
       },
       {
-        id: "umbral_sight",
+        id: "ranger.gloom_stalker.umbral_sight",
         source: "subclass" as const,
         level: 3,
         tags: ["senses", "stealth"],
@@ -36,7 +36,7 @@ export const GLOOM_STALKER: SubclassTemplate = {
 
     7: [
       {
-        id: "iron_mind",
+        id: "ranger.gloom_stalker.iron_mind",
         source: "subclass" as const,
         level: 7,
         tags: ["proficiency"],
@@ -47,7 +47,7 @@ export const GLOOM_STALKER: SubclassTemplate = {
 
     11: [
       {
-        id: "stalkers_flurry",
+        id: "ranger.gloom_stalker.stalkers_flurry",
         source: "subclass" as const,
         level: 11,
         grants: [
@@ -60,7 +60,7 @@ export const GLOOM_STALKER: SubclassTemplate = {
 
     15: [
       {
-        id: "shadowy_dodge",
+        id: "ranger.gloom_stalker.shadowy_dodge",
         source: "subclass" as const,
         level: 15,
         grants: [{ type: "action", id: "shadowy_dodge" }],

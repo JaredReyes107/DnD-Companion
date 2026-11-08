@@ -17,13 +17,13 @@ export const RANGER: ClassTemplate = {
   featuresByLevel: {
     1: [
       {
-        id: "favored_enemy",
+        id: "ranger.favored_enemy",
         source: "class" as const,
         level: 1,
         tags: [],
       },
       {
-        id: "natural_explorer",
+        id: "ranger.natural_explorer",
         source: "class" as const,
         level: 1,
         tags: [],
@@ -32,14 +32,14 @@ export const RANGER: ClassTemplate = {
 
     2: [
       {
-        id: "fighting_style_ranger",
+        id: "ranger.fighting_style_ranger",
         source: "class" as const,
         level: 2,
         grants: [{ type: "choice", id: "fighting_style_ranger" }],
         tags: [],
       },
       {
-        id: "spellcasting_ranger",
+        id: "ranger.spellcasting_ranger",
         source: "class" as const,
         level: 2,
         tags: ["spellcasting"],
@@ -48,13 +48,13 @@ export const RANGER: ClassTemplate = {
 
     3: [
       {
-        id: "ranger_archetype",
+        id: "ranger.ranger_archetype",
         source: "class" as const,
         level: 3,
         tags: ["subclass"],
       },
       {
-        id: "primeval_awareness",
+        id: "ranger.primeval_awareness",
         source: "class" as const,
         level: 3,
         grants: [{ type: "action", id: "primeval_awareness" }],
@@ -88,7 +88,7 @@ export const RANGER: ClassTemplate = {
         tags: [],
       },
       {
-        id: "lands_stride",
+        id: "ranger.lands_stride",
         source: "class" as const,
         level: 8,
         tags: [],
@@ -97,7 +97,7 @@ export const RANGER: ClassTemplate = {
 
     10: [
       {
-        id: "hide_in_plain_sight",
+        id: "ranger.hide_in_plain_sight",
         source: "class" as const,
         level: 10,
         grants: [{ type: "action", id: "hide_in_plain_sight" }],
@@ -107,7 +107,7 @@ export const RANGER: ClassTemplate = {
 
     14: [
       {
-        id: "vanish",
+        id: "ranger.vanish",
         source: "class" as const,
         level: 14,
         grants: [{ type: "action", id: "hide" }],
@@ -128,7 +128,7 @@ export const RANGER: ClassTemplate = {
 
     18: [
       {
-        id: "feral_senses",
+        id: "ranger.feral_senses",
         source: "class" as const,
         level: 18,
         tags: [],
@@ -146,7 +146,7 @@ export const RANGER: ClassTemplate = {
 
     20: [
       {
-        id: "foe_slayer",
+        id: "ranger.foe_slayer",
         source: "class" as const,
         level: 20,
         grants: [{ type: "resource", id: "foe_slayer" }],

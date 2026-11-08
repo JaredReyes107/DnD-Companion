@@ -1,23 +1,23 @@
 import { GameLocalizationCategory } from "@/services/localization/game-localization.types";
 
 export const swarmkeeper_features_es: GameLocalizationCategory = {
-  gathered_swarm: {
+  "ranger.swarmkeeper.gathered_swarm": {
     name: "",
     description: "",
   },
-  swarmkeeper_magic: {
+  "ranger.swarmkeeper.swarmkeeper_magic": {
     name: "",
     description: "",
   },
-  writhing_tide: {
+  "ranger.swarmkeeper.writhing_tide": {
     name: "",
     description: "",
   },
-  mighty_swarm: {
+  "ranger.swarmkeeper.mighty_swarm": {
     name: "",
     description: "",
   },
-  swarming_dispersal: {
+  "ranger.swarmkeeper.swarming_dispersal": {
     name: "",
     description: "",
   },
