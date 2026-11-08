@@ -82,7 +82,7 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 | S1 | Golden grant-set test | DONE | 33fd092 | 2026-11-07 |
 | S2 | Feature id + localization collision detector (test only) | DONE | 493ec1d | 2026-11-07 |
 | S3 | Namespace colliding feature ids (loop, one commit per class) | DONE | 08d6b2a | 2026-11-07 |
-| S4 | Feature registry + progression types (types only) | **CURRENT** | | |
+| S4 | Feature registry + progression types (types only) | DONE | 2510fd8 | 2026-11-08 |
 | S5 | Registry lookup + duplicate-id throw | TODO | | |
 | S6 | Shared features: create files | TODO | | |
 | S7 | Shared features: consistency test | TODO | | |
@@ -169,7 +169,7 @@ After the last class: flip the S2 "must be clean" assertion on.
 #### S4: Feature registry + progression types (types only)
 **Goal:** introduce `FeatureRef` and `Progression` types and an optional `progression` field on class/subclass templates, **alongside** `featuresByLevel`. No data moves, no behavior changes.
 **Do not touch:** any data file, any helper.
-- [ ] Types added, optional, documented as transitional.
+- [x] Types added, optional, documented as transitional.
 
 #### S5: Registry lookup + duplicate-id throw
 **Goal:** `getFeatureRegistry()` returns base features + homebrew; duplicate ids throw; `getFeatureTemplateById` works for base ids. Base set is empty or only what is already extracted.
@@ -371,6 +371,19 @@ Template:
   - S4: feature registry and progression types only; no data files or helpers.
 - Build result: tsc / lint / test
 
+### 2026-11-08 | S4 | commit 2510fd8
+- Changed:
+  - Added `FeatureRef` and `Progression` types, plus optional transitional `progression` fields on class and subclass templates; retained `featuresByLevel` unchanged.
+- Proven by (tests):
+  - Baseline before changes: `npx tsc --noEmit`, `npm run lint`, and `npm test -- --runInBand --watchAll=false` passed; 29 suites, 590 tests, and 125 snapshots.
+  - After changes: `npx tsc --noEmit`, `npm run lint`, and `npm test -- --runInBand --watchAll=false` passed; 29 suites, 590 tests, and 125 snapshots.
+- Surprises / deviations:
+  - The new type file initially had CRLF line endings; Prettier normalized it before the successful lint run.
+  - This progress update is committed separately so the S4 code commit hash can be recorded accurately without amending it.
+- Next step will touch:
+  - S5: registry lookup and duplicate-id throw.
+- Build result: tsc / lint / test
+
 ---
 
 ## 6. OPEN QUESTIONS, ANSWERS AND FINDINGS
@@ -417,6 +430,7 @@ Template:
 
 - Corrected the S2 detector in prerequisite commit `cc65f32` because its original implementation conflated locale translations and equivalent repeated schedule entries with collisions. The user confirmed that shared candidate IDs should remain untouched until S6; the clean assertion now explicitly excludes those IDs.
 - Completed the required Cleric schedule correction and golden update in follow-up commit `80a231a` because it was identified after the Cleric namespacing commit; no commit was amended.
+- Recorded S4 code and progress in consecutive commits because the progress entry needs the S4 commit hash, which is not available until that commit exists; the S4 implementation itself remains a single focused commit.
 
 ---
 
