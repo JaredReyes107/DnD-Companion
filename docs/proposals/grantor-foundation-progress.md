@@ -80,7 +80,7 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 |---|---|---|---|---|
 | S0 | Subclass ids match registry keys | DONE | 33fd092 | 2026-11-07 |
 | S1 | Golden grant-set test | DONE | 33fd092 | 2026-11-07 |
-| S2 | Feature id + localization collision detector (test only) | DONE | TBD | 2026-11-07 |
+| S2 | Feature id + localization collision detector (test only) | DONE | 493ec1d | 2026-11-07 |
 | S3 | Namespace colliding feature ids (loop, one commit per class) | **CURRENT** | | |
 | S4 | Feature registry + progression types (types only) | TODO | | |
 | S5 | Registry lookup + duplicate-id throw | TODO | | |
@@ -340,7 +340,7 @@ Template:
   - S2: collision detector test only.
 - Build result: tsc / lint / test
 
-### 2026-11-07 | S2 | commit TBD
+### 2026-11-07 | S2 | commit 493ec1d
 - Changed:
   - Added `src/core/data/__tests__/feature-collision-detector.test.ts` to list duplicate feature ids and duplicate localization keys without making any fix.
   - Kept the clean assertion intentionally `it.skip()` until S3 resolves the collisions.
