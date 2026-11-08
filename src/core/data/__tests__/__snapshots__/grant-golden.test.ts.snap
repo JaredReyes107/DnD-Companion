@@ -236,6 +236,8 @@ exports[`golden: classes cleric 1`] = `
     ],
     "5": [
       "control",
+    ],
+    "6": [
       "subclass",
     ],
   },

@@ -90,6 +90,9 @@ export const CLERIC: ClassTemplate = {
         // TODO: hook into Turn Undead resolution
         // TODO: scaling by cleric level ignored for now
       },
+    ],
+
+    6: [
       {
         id: "cleric.divine_domain_feature",
         source: "class",
@@ -97,8 +100,6 @@ export const CLERIC: ClassTemplate = {
         tags: ["subclass"],
       },
     ],
-
-    6: [],
 
     7: [],
 
