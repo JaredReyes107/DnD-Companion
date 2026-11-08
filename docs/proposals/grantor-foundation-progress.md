@@ -83,7 +83,7 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 | S2 | Feature id + localization collision detector (test only) | DONE | 493ec1d | 2026-11-07 |
 | S3 | Namespace colliding feature ids (loop, one commit per class) | DONE | 08d6b2a | 2026-11-07 |
 | S4 | Feature registry + progression types (types only) | DONE | 2510fd8 | 2026-11-08 |
-| S5 | Registry lookup + duplicate-id throw | TODO | | |
+| S5 | Registry lookup + duplicate-id throw | **CURRENT** | | |
 | S6 | Shared features: create files | TODO | | |
 | S7 | Shared features: consistency test | TODO | | |
 | S8 | Codemod script (no output) | TODO | | |
