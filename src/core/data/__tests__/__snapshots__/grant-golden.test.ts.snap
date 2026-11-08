@@ -1,0 +1,5119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`golden: classes artificer 1`] = `
+{
+  "grants": {
+    "action": {
+      "flash_of_genius": 7,
+      "magical_tinkering_bestow": 1,
+      "magical_tinkering_end": 1,
+      "soul_of_artifice": 20,
+      "spell_storing_item_store": 11,
+    },
+    "choice": {
+      "infusions_known": 2,
+    },
+    "resource": {
+      "flash_of_genius": 7,
+      "infused_items": 2,
+      "magical_tinkering": 1,
+      "spell_storing_item_limit": 11,
+    },
+  },
+  "schedule": {
+    "1": [
+      "spellcasting+spells",
+      "utility",
+    ],
+    "10": [
+      "utility",
+    ],
+    "11": [
+      "spellcasting+utility",
+    ],
+    "14": [
+      "utility",
+    ],
+    "18": [
+      "utility",
+    ],
+    "2": [
+      "build-choice",
+    ],
+    "20": [
+      "defense+reaction",
+    ],
+    "3": [
+      "build-choice+subclass",
+      "utility",
+    ],
+    "6": [
+      "expertise+skill+tool",
+    ],
+    "7": [
+      "utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: classes barbarian 1`] = `
+{
+  "grants": {
+    "action": {
+      "end_rage": 1,
+      "rage": 1,
+      "reckless_attack": 2,
+      "relentless_rage": 11,
+    },
+    "advantage": {
+      "danger_sense_dex_saves": 2,
+      "feral_instinct_initiative": 7,
+    },
+    "choice": {
+      "barbarian_skills": 1,
+    },
+    "modifier": {
+      "barbarian_fast_movement": 5,
+      "barbarian_primal_champion_con": 20,
+      "barbarian_primal_champion_str": 20,
+      "barbarian_unarmored_defense": 1,
+    },
+    "proficiency": {
+      "armor.light": 1,
+      "armor.medium": 1,
+      "armor.shield": 1,
+      "savingThrow.CON": 1,
+      "savingThrow.STR": 1,
+      "weapon.martial": 1,
+      "weapon.simple": 1,
+    },
+    "resource": {
+      "rage": 1,
+    },
+  },
+  "schedule": {
+    "1": [
+      "ac+combat",
+      "combat",
+      "proficiency",
+    ],
+    "11": [
+      "last-stand",
+    ],
+    "15": [
+      "combat",
+    ],
+    "18": [
+      "ability-check+combat",
+    ],
+    "2": [
+      "-",
+      "advantage+combat",
+    ],
+    "20": [
+      "ability-score",
+    ],
+    "3": [
+      "subclass",
+    ],
+    "4": [
+      "ASI",
+    ],
+    "5": [
+      "combat+extra-attack",
+      "movement",
+    ],
+    "7": [
+      "advantage+initiative",
+    ],
+    "8": [
+      "ASI",
+    ],
+    "9": [
+      "critical+damage",
+    ],
+  },
+}
+`;
+
+exports[`golden: classes bard 1`] = `
+{
+  "grants": {
+    "action": {
+      "bardic_inspiration": 1,
+      "countercharm": 6,
+    },
+    "resource": {
+      "bardic_inspiration": 1,
+    },
+  },
+  "schedule": {
+    "1": [
+      "-",
+      "resource+support",
+    ],
+    "10": [
+      "-",
+      "-",
+    ],
+    "12": [
+      "-",
+    ],
+    "14": [
+      "-",
+      "subclass",
+    ],
+    "16": [
+      "-",
+    ],
+    "18": [
+      "-",
+    ],
+    "19": [
+      "-",
+    ],
+    "2": [
+      "-",
+      "ability-checks+passive",
+    ],
+    "20": [
+      "combat+resource",
+    ],
+    "3": [
+      "-",
+      "subclass",
+    ],
+    "4": [
+      "-",
+      "-",
+    ],
+    "5": [
+      "-",
+    ],
+    "6": [
+      "action+defense",
+      "subclass",
+    ],
+    "8": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: classes cleric 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_harness_divine_power": 2,
+      "channel_divinity_turn_undead": 2,
+    },
+    "resource": {
+      "channel_divinity": 2,
+    },
+  },
+  "schedule": {
+    "1": [
+      "spellcasting",
+      "subclass",
+    ],
+    "10": [
+      "special",
+    ],
+    "16": [
+      "-",
+    ],
+    "2": [
+      "action+control",
+      "resource",
+      "spell-slots",
+      "subclass",
+    ],
+    "4": [
+      "ASI+build-choice",
+      "spellcasting",
+    ],
+    "5": [
+      "control",
+      "subclass",
+    ],
+  },
+}
+`;
+
+exports[`golden: classes druid 1`] = `
+{
+  "grants": {
+    "action": {
+      "wild_shape": 2,
+    },
+    "resource": {
+      "wild_shape": 2,
+    },
+  },
+  "schedule": {
+    "1": [
+      "roleplay+utility",
+      "spellcasting",
+    ],
+    "10": [
+      "subclass",
+    ],
+    "12": [
+      "-",
+    ],
+    "14": [
+      "subclass",
+    ],
+    "16": [
+      "-",
+    ],
+    "18": [
+      "-",
+      "-",
+    ],
+    "19": [
+      "-",
+    ],
+    "2": [
+      "-",
+      "resource+transformation",
+      "subclass",
+    ],
+    "20": [
+      "-",
+    ],
+    "4": [
+      "-",
+      "-",
+      "transformation",
+    ],
+    "6": [
+      "subclass",
+    ],
+    "8": [
+      "-",
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: classes fighter 1`] = `
+{
+  "grants": {
+    "action": {
+      "action_surge": 2,
+      "indomitable": 9,
+      "second_wind": 1,
+    },
+    "choice": {
+      "fighting_style_fighter": 1,
+    },
+    "proficiency": {
+      "armor.heavy": 1,
+      "armor.light": 1,
+      "armor.medium": 1,
+      "armor.shield": 1,
+      "savingThrow.CON": 1,
+      "savingThrow.STR": 1,
+      "tool.thievesTools": 1,
+      "weapon.martial": 1,
+      "weapon.simple": 1,
+    },
+    "resource": {
+      "action_surge": 2,
+      "indomitable": 9,
+      "second_wind": 1,
+    },
+  },
+  "schedule": {
+    "1": [
+      "build-choice",
+      "combat+healing+self-sustain",
+      "proficiency",
+    ],
+    "12": [
+      "combat+extra-attack",
+    ],
+    "14": [
+      "-",
+    ],
+    "16": [
+      "-",
+    ],
+    "19": [
+      "-",
+    ],
+    "2": [
+      "combat",
+    ],
+    "3": [
+      "subclass",
+    ],
+    "4": [
+      "-",
+    ],
+    "5": [
+      "combat+extra-attack",
+    ],
+    "6": [
+      "-",
+    ],
+    "8": [
+      "-",
+    ],
+    "9": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: classes monk 1`] = `
+{
+  "grants": {
+    "action": {
+      "deflect_missiles": 3,
+      "diamond_soul": 14,
+      "empty_body_astral_projection": 18,
+      "empty_body_invisibility": 18,
+      "flurry_of_blows": 2,
+      "patient_defense": 2,
+      "slow_fall": 4,
+      "step_of_the_wind": 2,
+      "stillness_of_mind": 7,
+      "stunning_strike": 5,
+    },
+    "resource": {
+      "ki_points": 2,
+    },
+  },
+  "schedule": {
+    "1": [
+      "combat",
+      "defense+passive",
+    ],
+    "10": [
+      "defense+passive",
+    ],
+    "13": [
+      "roleplay+utility",
+    ],
+    "14": [
+      "defense",
+    ],
+    "15": [
+      "passive",
+    ],
+    "18": [
+      "resource",
+    ],
+    "2": [
+      "movement",
+      "resource",
+    ],
+    "20": [
+      "resource",
+    ],
+    "3": [
+      "combat+reaction",
+      "subclass",
+    ],
+    "4": [
+      "reaction",
+    ],
+    "5": [
+      "combat",
+      "combat+debuff",
+    ],
+    "6": [
+      "combat+passive",
+    ],
+    "7": [
+      "action",
+      "defense",
+    ],
+  },
+}
+`;
+
+exports[`golden: classes paladin 1`] = `
+{
+  "grants": {
+    "action": {
+      "cleansing_touch": 14,
+      "divine_sense": 1,
+      "divine_smite": 2,
+      "improved_divine_smite": 11,
+      "lay_on_hands": 1,
+    },
+    "choice": {
+      "fighting_style_paladin": 2,
+    },
+    "resource": {
+      "channel_divinity": 3,
+      "cleansing_touch": 14,
+      "divine_sense": 1,
+      "lay_on_hands": 1,
+    },
+  },
+  "schedule": {
+    "1": [
+      "cleansing+healing",
+      "senses",
+    ],
+    "10": [
+      "frightened+inmunity",
+    ],
+    "11": [
+      "damage",
+    ],
+    "12": [
+      "ASI",
+    ],
+    "14": [
+      "cleansing",
+    ],
+    "15": [
+      "subclass",
+    ],
+    "19": [
+      "ASI",
+    ],
+    "2": [
+      "build-choice",
+      "combat+damage",
+      "spellcasting",
+    ],
+    "3": [
+      "disease+inmunity",
+      "subclass",
+    ],
+    "4": [
+      "ASI",
+    ],
+    "5": [
+      "attack",
+    ],
+    "6": [
+      "bonus+saving-throw",
+    ],
+    "8": [
+      "ASI",
+    ],
+  },
+}
+`;
+
+exports[`golden: classes ranger 1`] = `
+{
+  "grants": {
+    "action": {
+      "hide": 14,
+      "hide_in_plain_sight": 10,
+      "primeval_awareness": 3,
+    },
+    "choice": {
+      "fighting_style_ranger": 2,
+    },
+    "resource": {
+      "foe_slayer": 20,
+    },
+  },
+  "schedule": {
+    "1": [
+      "-",
+      "-",
+    ],
+    "10": [
+      "-",
+    ],
+    "14": [
+      "-",
+    ],
+    "16": [
+      "-",
+    ],
+    "18": [
+      "-",
+    ],
+    "19": [
+      "-",
+    ],
+    "2": [
+      "-",
+      "spellcasting",
+    ],
+    "20": [
+      "-",
+    ],
+    "3": [
+      "-",
+      "subclass",
+    ],
+    "4": [
+      "-",
+    ],
+    "5": [
+      "-",
+    ],
+    "8": [
+      "-",
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: classes rogue 1`] = `
+{
+  "grants": {
+    "action": {
+      "cunning_action_dash": 2,
+      "cunning_action_disengage": 2,
+      "cunning_action_hide": 2,
+      "sneak_attack": 1,
+      "stroke_of_luck": 20,
+      "uncanny_dodge": 5,
+    },
+    "resource": {
+      "sneak_attack": 1,
+      "stroke_of_luck": 20,
+    },
+  },
+  "schedule": {
+    "1": [
+      "combat+damage",
+      "expertise+skill",
+      "language+roleplay",
+    ],
+    "11": [
+      "skill",
+    ],
+    "14": [
+      "senses",
+    ],
+    "15": [
+      "defense",
+    ],
+    "18": [
+      "defense",
+    ],
+    "2": [
+      "combat",
+    ],
+    "20": [
+      "combat",
+    ],
+    "3": [
+      "subclass",
+    ],
+    "5": [
+      "defense+reaction",
+    ],
+    "7": [
+      "defense",
+    ],
+  },
+}
+`;
+
+exports[`golden: classes sorcerer 1`] = `
+{
+  "grants": {
+    "action": {
+      "font_of_magic_from_spellslots": 2,
+      "font_of_magic_to_spellslots": 2,
+    },
+    "choice": {
+      "metamagic": 3,
+    },
+    "resource": {
+      "sorcery_points": 2,
+    },
+  },
+  "schedule": {
+    "1": [
+      "-",
+      "subclass",
+    ],
+    "2": [
+      "resource",
+    ],
+    "20": [
+      "resource",
+    ],
+    "3": [
+      "build-choice",
+    ],
+  },
+}
+`;
+
+exports[`golden: classes warlock 1`] = `
+{
+  "grants": {
+    "action": {
+      "eldritch_master": 20,
+    },
+    "choice": {
+      "eldritch_invocations": 2,
+      "pact_boon": 3,
+    },
+    "resource": {
+      "eldritch_master": 20,
+    },
+  },
+  "schedule": {
+    "1": [
+      "spellcasting",
+      "subclass",
+    ],
+    "11": [
+      "spellcasting",
+    ],
+    "13": [
+      "spellcasting",
+    ],
+    "15": [
+      "spellcasting",
+    ],
+    "17": [
+      "spellcasting",
+    ],
+    "2": [
+      "build-choice",
+    ],
+    "20": [
+      "utility",
+    ],
+    "3": [
+      "build-choice",
+    ],
+  },
+}
+`;
+
+exports[`golden: classes wizard 1`] = `
+{
+  "grants": {
+    "action": {
+      "arcane_recovery": 1,
+      "cast_signature_spell_1": 20,
+      "cast_signature_spell_2": 20,
+      "cast_spell_mastery_1st": 18,
+      "cast_spell_mastery_2nd": 18,
+      "replace_spell_mastery": 18,
+    },
+    "resource": {
+      "arcane_recovery": 1,
+      "signature_spell_1": 20,
+      "signature_spell_2": 20,
+    },
+  },
+  "schedule": {
+    "1": [
+      "spellcasting+spells",
+      "utility",
+    ],
+    "18": [
+      "build-choice+spellcasting+spells",
+    ],
+    "2": [
+      "build-choice+subclass",
+    ],
+    "20": [
+      "build-choice+spellcasting+spells",
+    ],
+  },
+}
+`;
+
+exports[`golden: multiclass builds (sets, order of classes matters) barbarian5 > fighter5 1`] = `
+{
+  "action": [
+    "action_surge",
+    "end_rage",
+    "rage",
+    "reckless_attack",
+    "second_wind",
+  ],
+  "advantage": [
+    "danger_sense_dex_saves",
+  ],
+  "choice": [
+    "barbarian_skills",
+    "fighting_style_fighter",
+  ],
+  "modifier": [
+    "barbarian_fast_movement",
+    "barbarian_unarmored_defense",
+  ],
+  "proficiency": [
+    "armor.heavy",
+    "armor.light",
+    "armor.medium",
+    "armor.shield",
+    "savingThrow.CON",
+    "savingThrow.STR",
+    "tool.thievesTools",
+    "weapon.martial",
+    "weapon.simple",
+  ],
+  "resource": [
+    "action_surge",
+    "rage",
+    "second_wind",
+  ],
+}
+`;
+
+exports[`golden: multiclass builds (sets, order of classes matters) cleric6/life > paladin6/devotion (channel divinity) 1`] = `
+{
+  "action": [
+    "channel_divinity_harness_divine_power",
+    "channel_divinity_preserve_life",
+    "channel_divinity_sacred_weapon",
+    "channel_divinity_turn_the_unholy",
+    "channel_divinity_turn_undead",
+    "divine_sense",
+    "divine_smite",
+    "lay_on_hands",
+  ],
+  "choice": [
+    "fighting_style_paladin",
+  ],
+  "resource": [
+    "channel_divinity",
+    "divine_sense",
+    "lay_on_hands",
+  ],
+}
+`;
+
+exports[`golden: multiclass builds (sets, order of classes matters) druid5/land > cleric5/nature 1`] = `
+{
+  "action": [
+    "channel_divinity_charm_animals_and_plants",
+    "channel_divinity_harness_divine_power",
+    "channel_divinity_turn_undead",
+    "natural_recovery",
+    "wild_shape",
+  ],
+  "resource": [
+    "channel_divinity",
+    "natural_recovery",
+    "wild_shape",
+  ],
+}
+`;
+
+exports[`golden: multiclass builds (sets, order of classes matters) fighter5 > barbarian5 1`] = `
+{
+  "action": [
+    "action_surge",
+    "end_rage",
+    "rage",
+    "reckless_attack",
+    "second_wind",
+  ],
+  "advantage": [
+    "danger_sense_dex_saves",
+  ],
+  "choice": [
+    "fighting_style_fighter",
+  ],
+  "modifier": [
+    "barbarian_fast_movement",
+    "barbarian_unarmored_defense",
+  ],
+  "proficiency": [
+    "armor.heavy",
+    "armor.light",
+    "armor.medium",
+    "armor.shield",
+    "savingThrow.CON",
+    "savingThrow.STR",
+    "tool.thievesTools",
+    "weapon.martial",
+    "weapon.simple",
+  ],
+  "resource": [
+    "action_surge",
+    "rage",
+    "second_wind",
+  ],
+}
+`;
+
+exports[`golden: multiclass builds (sets, order of classes matters) fighter7/battle_master > barbarian7/berserker 1`] = `
+{
+  "action": [
+    "action_surge",
+    "end_rage",
+    "frenzy_attack",
+    "frenzy_start",
+    "know_your_enemy",
+    "rage",
+    "reckless_attack",
+    "second_wind",
+  ],
+  "advantage": [
+    "danger_sense_dex_saves",
+    "feral_instinct_initiative",
+  ],
+  "choice": [
+    "fighting_style_fighter",
+    "maneuvers",
+  ],
+  "modifier": [
+    "barbarian_fast_movement",
+    "barbarian_unarmored_defense",
+  ],
+  "proficiency": [
+    "armor.heavy",
+    "armor.light",
+    "armor.medium",
+    "armor.shield",
+    "savingThrow.CON",
+    "savingThrow.STR",
+    "tool.thievesTools",
+    "weapon.martial",
+    "weapon.simple",
+  ],
+  "resource": [
+    "action_surge",
+    "rage",
+    "second_wind",
+    "superiority_dice",
+  ],
+}
+`;
+
+exports[`golden: multiclass builds (sets, order of classes matters) rogue7 > monk7 (evasion twice) 1`] = `
+{
+  "action": [
+    "cunning_action_dash",
+    "cunning_action_disengage",
+    "cunning_action_hide",
+    "deflect_missiles",
+    "flurry_of_blows",
+    "patient_defense",
+    "slow_fall",
+    "sneak_attack",
+    "step_of_the_wind",
+    "stillness_of_mind",
+    "stunning_strike",
+    "uncanny_dodge",
+  ],
+  "resource": [
+    "ki_points",
+    "sneak_attack",
+  ],
+}
+`;
+
+exports[`golden: multiclass builds (sets, order of classes matters) wizard5 > warlock5 > sorcerer5 1`] = `
+{
+  "action": [
+    "arcane_recovery",
+    "font_of_magic_from_spellslots",
+    "font_of_magic_to_spellslots",
+  ],
+  "choice": [
+    "eldritch_invocations",
+    "metamagic",
+    "pact_boon",
+  ],
+  "resource": [
+    "arcane_recovery",
+    "sorcery_points",
+  ],
+}
+`;
+
+exports[`golden: pools and options option grants and pool membership 1`] = `
+{
+  "ambush": {
+    "grants": [
+      "action:ambush",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "aspect_bear": {
+    "grants": [],
+    "pools": [
+      "aspect_of_the_beast",
+    ],
+  },
+  "aspect_eagle": {
+    "grants": [],
+    "pools": [
+      "aspect_of_the_beast",
+    ],
+  },
+  "aspect_elk": {
+    "grants": [],
+    "pools": [
+      "aspect_of_the_beast",
+    ],
+  },
+  "aspect_tiger": {
+    "grants": [],
+    "pools": [
+      "aspect_of_the_beast",
+    ],
+  },
+  "aspect_wolf": {
+    "grants": [],
+    "pools": [
+      "aspect_of_the_beast",
+    ],
+  },
+  "attunement_bear": {
+    "grants": [],
+    "pools": [
+      "totemic_attunement",
+    ],
+  },
+  "attunement_eagle": {
+    "grants": [],
+    "pools": [
+      "totemic_attunement",
+    ],
+  },
+  "attunement_elk": {
+    "grants": [
+      "action:totemic_attunement_elk",
+    ],
+    "pools": [
+      "totemic_attunement",
+    ],
+  },
+  "attunement_tiger": {
+    "grants": [
+      "action:totemic_attunement_tiger",
+    ],
+    "pools": [
+      "totemic_attunement",
+    ],
+  },
+  "attunement_wolf": {
+    "grants": [
+      "action:totemic_attunement_wolf",
+    ],
+    "pools": [
+      "totemic_attunement",
+    ],
+  },
+  "bait_and_switch": {
+    "grants": [
+      "action:bait_and_switch",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "banishing_arrow": {
+    "grants": [
+      "action:banishing_arrow",
+    ],
+    "pools": [
+      "arcane_shots_known",
+    ],
+  },
+  "barbarian_skills_animal_handling": {
+    "grants": [
+      "proficiency:animal_handling",
+    ],
+    "pools": [
+      "barbarian_skills",
+    ],
+  },
+  "barbarian_skills_athletics": {
+    "grants": [
+      "proficiency:athletics",
+    ],
+    "pools": [
+      "barbarian_skills",
+    ],
+  },
+  "barbarian_skills_intimidation": {
+    "grants": [
+      "proficiency:intimidation",
+    ],
+    "pools": [
+      "barbarian_skills",
+    ],
+  },
+  "barbarian_skills_nature": {
+    "grants": [
+      "proficiency:nature",
+    ],
+    "pools": [
+      "barbarian_skills",
+    ],
+  },
+  "barbarian_skills_perception": {
+    "grants": [
+      "proficiency:perception",
+    ],
+    "pools": [
+      "barbarian_skills",
+    ],
+  },
+  "barbarian_skills_survival": {
+    "grants": [
+      "proficiency:survival",
+    ],
+    "pools": [
+      "barbarian_skills",
+    ],
+  },
+  "beguiling_arrow": {
+    "grants": [
+      "action:beguiling_arrow",
+    ],
+    "pools": [
+      "arcane_shots_known",
+    ],
+  },
+  "bestial_soul_climb": {
+    "grants": [],
+    "pools": [
+      "bestial_soul_movement",
+    ],
+  },
+  "bestial_soul_jump": {
+    "grants": [],
+    "pools": [
+      "bestial_soul_movement",
+    ],
+  },
+  "bestial_soul_swim": {
+    "grants": [],
+    "pools": [
+      "bestial_soul_movement",
+    ],
+  },
+  "brace": {
+    "grants": [
+      "action:brace",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "breath_of_winter": {
+    "grants": [
+      "action:breath_of_winter",
+    ],
+    "pools": [
+      "four_elements_disciplines",
+    ],
+  },
+  "bursting_arrow": {
+    "grants": [
+      "action:bursting_arrow",
+    ],
+    "pools": [
+      "arcane_shots_known",
+    ],
+  },
+  "clench_of_the_north_wind": {
+    "grants": [
+      "action:clench_of_the_north_wind",
+    ],
+    "pools": [
+      "four_elements_disciplines",
+    ],
+  },
+  "cloud_rune": {
+    "grants": [
+      "action:cloud_rune",
+      "advantage:cloud_rune_passive",
+      "resource:cloud_rune",
+    ],
+    "pools": [
+      "rune_knight_runes",
+    ],
+  },
+  "colossus_slayer": {
+    "grants": [
+      "action:colossus_slayer",
+      "resource:colossus_slayer",
+    ],
+    "pools": [
+      "hunters_prey",
+    ],
+  },
+  "commander_strike": {
+    "grants": [
+      "action:commander_strike",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "commanding_presence": {
+    "grants": [
+      "action:commanding_presence",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "disarming_attack": {
+    "grants": [
+      "action:disarming_attack",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "distracting_strike": {
+    "grants": [
+      "action:distracting_strike",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "enfeebling_arrow": {
+    "grants": [
+      "action:enfeebling_arrow",
+    ],
+    "pools": [
+      "arcane_shots_known",
+    ],
+  },
+  "escape_the_horde": {
+    "grants": [],
+    "pools": [
+      "defensive_tactics",
+    ],
+  },
+  "eternal_mountain_defense": {
+    "grants": [
+      "action:eternal_mountain_defense",
+    ],
+    "pools": [
+      "four_elements_disciplines",
+    ],
+  },
+  "evasion_hunter": {
+    "grants": [],
+    "pools": [
+      "superior_hunters_defense",
+    ],
+  },
+  "evasive_footwork": {
+    "grants": [
+      "action:evasive_footwork",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "fangs_of_the_fire_snake": {
+    "grants": [
+      "action:fangs_of_the_fire_snake",
+      "action:fangs_of_the_fire_snake_bite",
+    ],
+    "pools": [
+      "four_elements_disciplines",
+    ],
+  },
+  "feinting_attack": {
+    "grants": [
+      "action:feinting_attack",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "fighting_style_archery": {
+    "grants": [
+      "modifier:fighting_style_archery_attack",
+    ],
+    "pools": [],
+  },
+  "fighting_style_defense": {
+    "grants": [
+      "modifier:fighting_style_defense_ac",
+    ],
+    "pools": [
+      "fighting_style_swords",
+    ],
+  },
+  "fighting_style_dueling": {
+    "grants": [
+      "modifier:fighting_style_dueling_damage",
+    ],
+    "pools": [
+      "fighting_style_swords",
+    ],
+  },
+  "fighting_style_great_weapon_fighting": {
+    "grants": [],
+    "pools": [],
+  },
+  "fighting_style_protection": {
+    "grants": [],
+    "pools": [],
+  },
+  "fighting_style_two_weapon_fighting": {
+    "grants": [],
+    "pools": [
+      "fighting_style_swords",
+    ],
+  },
+  "fire_rune": {
+    "grants": [
+      "action:fire_rune",
+      "modifier:fire_rune_tool_pb",
+      "resource:fire_rune",
+    ],
+    "pools": [
+      "rune_knight_runes",
+    ],
+  },
+  "fist_of_four_thunders": {
+    "grants": [
+      "action:fist_of_four_thunders",
+    ],
+    "pools": [
+      "four_elements_disciplines",
+    ],
+  },
+  "fist_of_unbroken_air": {
+    "grants": [
+      "action:fist_of_unbroken_air",
+    ],
+    "pools": [
+      "four_elements_disciplines",
+    ],
+  },
+  "flames_of_the_phoenix": {
+    "grants": [
+      "action:flames_of_the_phoenix",
+    ],
+    "pools": [
+      "four_elements_disciplines",
+    ],
+  },
+  "frost_rune": {
+    "grants": [
+      "action:frost_rune",
+      "advantage:frost_rune_passive",
+      "resource:frost_rune",
+    ],
+    "pools": [
+      "rune_knight_runes",
+    ],
+  },
+  "giant_killer": {
+    "grants": [
+      "action:giant_killer",
+    ],
+    "pools": [
+      "hunters_prey",
+    ],
+  },
+  "goading_attack": {
+    "grants": [
+      "action:goading_attack",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "gong_of_the_summit": {
+    "grants": [
+      "action:gong_of_the_summit",
+    ],
+    "pools": [
+      "four_elements_disciplines",
+    ],
+  },
+  "grappling_strike": {
+    "grants": [
+      "action:grappling_strike",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "grasping_arrow": {
+    "grants": [
+      "action:grasping_arrow",
+    ],
+    "pools": [
+      "arcane_shots_known",
+    ],
+  },
+  "hill_rune": {
+    "grants": [
+      "action:hill_rune",
+      "resource:hill_rune",
+    ],
+    "pools": [
+      "rune_knight_runes",
+    ],
+  },
+  "horde_breaker": {
+    "grants": [
+      "action:horde_breaker",
+      "resource:horde_breaker",
+    ],
+    "pools": [
+      "hunters_prey",
+    ],
+  },
+  "lunging_attack": {
+    "grants": [
+      "action:lunging_attack",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "maneuvering_attack": {
+    "grants": [
+      "action:maneuvering_attack",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "menacing_attack": {
+    "grants": [
+      "action:menacing_attack",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "mist_stance": {
+    "grants": [
+      "action:mist_stance",
+    ],
+    "pools": [
+      "four_elements_disciplines",
+    ],
+  },
+  "multiattack_defense": {
+    "grants": [],
+    "pools": [
+      "defensive_tactics",
+    ],
+  },
+  "parry": {
+    "grants": [
+      "action:parry",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "piercing_arrow": {
+    "grants": [
+      "action:piercing_arrow",
+    ],
+    "pools": [
+      "arcane_shots_known",
+    ],
+  },
+  "precision_attack": {
+    "grants": [
+      "action:precision_attack",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "pushing_attack": {
+    "grants": [
+      "action:pushing_attack",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "quick_toss": {
+    "grants": [
+      "action:quick_toss",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "rally": {
+    "grants": [
+      "action:rally",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "ride_the_wind": {
+    "grants": [
+      "action:ride_the_wind",
+    ],
+    "pools": [
+      "four_elements_disciplines",
+    ],
+  },
+  "riposte": {
+    "grants": [
+      "action:riposte",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "river_of_hungry_flame": {
+    "grants": [
+      "action:river_of_hungry_flame",
+    ],
+    "pools": [
+      "four_elements_disciplines",
+    ],
+  },
+  "rush_of_the_gale_spirits": {
+    "grants": [
+      "action:rush_of_the_gale_spirits",
+    ],
+    "pools": [
+      "four_elements_disciplines",
+    ],
+  },
+  "seeking_arrow": {
+    "grants": [
+      "action:seeking_arrow",
+    ],
+    "pools": [
+      "arcane_shots_known",
+    ],
+  },
+  "shadow_arrow": {
+    "grants": [
+      "action:shadow_arrow",
+    ],
+    "pools": [
+      "arcane_shots_known",
+    ],
+  },
+  "shape_the_flowing_river": {
+    "grants": [
+      "action:shape_the_flowing_river",
+    ],
+    "pools": [
+      "four_elements_disciplines",
+    ],
+  },
+  "stand_against_the_tide": {
+    "grants": [
+      "action:stand_against_the_tide",
+    ],
+    "pools": [
+      "superior_hunters_defense",
+    ],
+  },
+  "steel_will": {
+    "grants": [],
+    "pools": [
+      "defensive_tactics",
+    ],
+  },
+  "stone_rune": {
+    "grants": [
+      "action:stone_rune",
+      "advantage:stone_rune_passive",
+      "resource:stone_rune",
+    ],
+    "pools": [
+      "rune_knight_runes",
+    ],
+  },
+  "storm_environment_desert": {
+    "grants": [
+      "action:raging_storm_desert",
+      "action:storm_aura_desert",
+    ],
+    "pools": [
+      "storm_aura_environment",
+    ],
+  },
+  "storm_environment_sea": {
+    "grants": [
+      "action:raging_storm_sea",
+      "action:storm_aura_sea",
+    ],
+    "pools": [
+      "storm_aura_environment",
+    ],
+  },
+  "storm_environment_tundra": {
+    "grants": [
+      "action:raging_storm_tundra",
+      "action:storm_aura_tundra",
+    ],
+    "pools": [
+      "storm_aura_environment",
+    ],
+  },
+  "storm_rune": {
+    "grants": [
+      "action:storm_rune",
+      "action:storm_rune_foresight",
+      "advantage:storm_rune_passive",
+      "resource:storm_rune",
+    ],
+    "pools": [
+      "rune_knight_runes",
+    ],
+  },
+  "sweeping_attack": {
+    "grants": [
+      "action:sweeping_attack",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "sweeping_cinder_strike": {
+    "grants": [
+      "action:sweeping_cinder_strike",
+    ],
+    "pools": [
+      "four_elements_disciplines",
+    ],
+  },
+  "tactical_assesment": {
+    "grants": [
+      "action:tactical_assesment",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "totem_spirit_bear": {
+    "grants": [],
+    "pools": [
+      "totem_spirit",
+    ],
+  },
+  "totem_spirit_eagle": {
+    "grants": [
+      "action:totem_eagle_dash",
+    ],
+    "pools": [
+      "totem_spirit",
+    ],
+  },
+  "totem_spirit_elk": {
+    "grants": [
+      "modifier:totem_elk_speed",
+    ],
+    "pools": [
+      "totem_spirit",
+    ],
+  },
+  "totem_spirit_tiger": {
+    "grants": [],
+    "pools": [
+      "totem_spirit",
+    ],
+  },
+  "totem_spirit_wolf": {
+    "grants": [],
+    "pools": [
+      "totem_spirit",
+    ],
+  },
+  "trip_attack": {
+    "grants": [
+      "action:trip_attack",
+    ],
+    "pools": [
+      "maneuvers",
+    ],
+  },
+  "uncanny_dodge_hunter": {
+    "grants": [
+      "action:uncanny_dodge_hunter",
+    ],
+    "pools": [
+      "superior_hunters_defense",
+    ],
+  },
+  "volley": {
+    "grants": [
+      "action:volley",
+    ],
+    "pools": [
+      "multiattack",
+    ],
+  },
+  "water_whip": {
+    "grants": [
+      "action:water_whip",
+    ],
+    "pools": [
+      "four_elements_disciplines",
+    ],
+  },
+  "wave_of_rolling_earth": {
+    "grants": [
+      "action:wave_of_rolling_earth",
+    ],
+    "pools": [
+      "four_elements_disciplines",
+    ],
+  },
+  "whirlwind_attack": {
+    "grants": [
+      "action:whirlwind_attack",
+    ],
+    "pools": [
+      "multiattack",
+    ],
+  },
+}
+`;
+
+exports[`golden: pools and options pool membership (picks are deliberately excluded; commits 23-24 change them) 1`] = `
+{
+  "arcane_shots_known": [
+    "banishing_arrow",
+    "beguiling_arrow",
+    "bursting_arrow",
+    "enfeebling_arrow",
+    "grasping_arrow",
+    "piercing_arrow",
+    "seeking_arrow",
+    "shadow_arrow",
+  ],
+  "aspect_of_the_beast": [
+    "aspect_bear",
+    "aspect_eagle",
+    "aspect_elk",
+    "aspect_tiger",
+    "aspect_wolf",
+  ],
+  "barbarian_skills": [
+    "barbarian_skills_animal_handling",
+    "barbarian_skills_athletics",
+    "barbarian_skills_intimidation",
+    "barbarian_skills_nature",
+    "barbarian_skills_perception",
+    "barbarian_skills_survival",
+  ],
+  "bestial_soul_movement": [
+    "bestial_soul_climb",
+    "bestial_soul_jump",
+    "bestial_soul_swim",
+  ],
+  "defensive_tactics": [
+    "escape_the_horde",
+    "multiattack_defense",
+    "steel_will",
+  ],
+  "eldritch_invocations": [
+    "invocation_agonizing_blast",
+    "invocation_armor_of_shadows",
+    "invocation_ascendant_step",
+    "invocation_aspect_of_the_moon",
+    "invocation_beast_speech",
+    "invocation_beguiling_influence",
+    "invocation_bewitching_whispers",
+    "invocation_bond_of_the_talisman",
+    "invocation_book_of_ancient_secrets",
+    "invocation_chains_of_carceri",
+    "invocation_cloak_of_flies",
+    "invocation_devils_sight",
+    "invocation_dreadful_word",
+    "invocation_eldritch_mind",
+    "invocation_eldritch_sight",
+    "invocation_eldritch_smite",
+    "invocation_eldritch_spear",
+    "invocation_eyes_of_the_rune_keeper",
+    "invocation_far_scribe",
+    "invocation_fiendish_vigor",
+    "invocation_gaze_of_two_minds",
+    "invocation_ghostly_gaze",
+    "invocation_gift_of_the_depths",
+    "invocation_gift_of_the_ever_living_ones",
+    "invocation_gift_of_the_protectors",
+    "invocation_grasp_of_hadar",
+    "invocation_improved_pact_weapon",
+    "invocation_investment_of_the_chain_master",
+    "invocation_lance_of_lethargy",
+    "invocation_lifedrinker",
+    "invocation_maddening_hex",
+    "invocation_mask_of_many_faces",
+    "invocation_master_of_myriad_forms",
+    "invocation_minions_of_chaos",
+    "invocation_mire_the_mind",
+    "invocation_misty_visions",
+    "invocation_one_with_shadows",
+    "invocation_otherworldly_leap",
+    "invocation_protection_of_the_talisman",
+    "invocation_rebuke_of_the_talisman",
+    "invocation_relentless_hex",
+    "invocation_repelling_blast",
+    "invocation_sculptor_of_flesh",
+    "invocation_shroud_of_shadow",
+    "invocation_sign_of_ill_omen",
+    "invocation_thief_of_five_fates",
+    "invocation_thirsting_blade",
+    "invocation_tomb_of_levistus",
+    "invocation_tricksters_escape",
+    "invocation_undying_servitude",
+    "invocation_visions_of_distant_realms",
+    "invocation_voice_of_the_chain_master",
+    "invocation_whispers_of_the_grave",
+    "invocation_witch_sight",
+  ],
+  "fighting_style_fighter": [
+    "fighting_style_archery",
+    "fighting_style_defense",
+    "fighting_style_dueling",
+    "fighting_style_great_weapon_fighting",
+    "fighting_style_protection",
+    "fighting_style_two_weapon_fighting",
+  ],
+  "fighting_style_paladin": [
+    "fighting_style_defense",
+    "fighting_style_dueling",
+    "fighting_style_great_weapon_fighting",
+    "fighting_style_protection",
+  ],
+  "fighting_style_ranger": [
+    "fighting_style_archery",
+    "fighting_style_defense",
+    "fighting_style_dueling",
+    "fighting_style_two_weapon_fighting",
+  ],
+  "fighting_style_swords": [
+    "fighting_style_dueling",
+    "fighting_style_two_weapon_fighting",
+  ],
+  "form_of_the_beast_weapon": [
+    "beast_weapon_bite",
+    "beast_weapon_claws",
+    "beast_weapon_tail",
+  ],
+  "four_elements_disciplines": [
+    "breath_of_winter",
+    "clench_of_the_north_wind",
+    "eternal_mountain_defense",
+    "fangs_of_the_fire_snake",
+    "fist_of_four_thunders",
+    "fist_of_unbroken_air",
+    "flames_of_the_phoenix",
+    "gong_of_the_summit",
+    "mist_stance",
+    "ride_the_wind",
+    "river_of_hungry_flame",
+    "rush_of_the_gale_spirits",
+    "shape_the_flowing_river",
+    "sweeping_cinder_strike",
+    "water_whip",
+    "wave_of_rolling_earth",
+  ],
+  "hunters_prey": [
+    "colossus_slayer",
+    "giant_killer",
+    "horde_breaker",
+  ],
+  "infusions_known": [
+    "arcane_propulsion_armor",
+    "armor_of_magical_strength",
+    "boots_of_the_winding_path",
+    "enhanced_arcane_focus",
+    "enhanced_defense",
+    "enhanced_weapon",
+    "helm_of_awareness",
+    "homunculus_servant",
+    "mind_sharpener",
+    "radiant_weapon",
+    "repeating_shot",
+    "replicate_magic_item",
+    "repulsion_shield",
+    "resistant_armor",
+    "returning_weapon",
+    "spell_refueling_ring",
+  ],
+  "maneuvers": [
+    "maneuver_ambush",
+    "maneuver_bait_and_switch",
+    "maneuver_commander_strike",
+    "maneuver_commanding_presence",
+    "maneuver_disarming_attack",
+    "maneuver_distracting_strike",
+    "maneuver_evasive_footwork",
+    "maneuver_feinting_attack",
+    "maneuver_goading_attack",
+    "maneuver_grappling_strike",
+    "maneuver_lunging_attack",
+    "maneuver_maneuvering_attack",
+    "maneuver_menacing_attack",
+    "maneuver_parry",
+    "maneuver_precision_attack",
+    "maneuver_pushing_attack",
+    "maneuver_quick_toss",
+    "maneuver_rally",
+    "maneuver_riposte",
+    "maneuver_sweeping_attack",
+    "maneuver_tactical_assessment",
+    "maneuver_trip_attack",
+  ],
+  "metamagic": [
+    "careful_spell",
+    "distant_spell",
+    "empowered_spell",
+    "extended_spell",
+    "heightened_spell",
+    "quickened_spell",
+    "subtle_spell",
+    "twinned_spell",
+  ],
+  "multiattack": [
+    "volley",
+    "whirlwind_attack",
+  ],
+  "pact_boon": [
+    "pact_of_the_blade",
+    "pact_of_the_chain",
+    "pact_of_the_talisman",
+    "pact_of_the_tome",
+  ],
+  "rune_knight_runes": [
+    "cloud_rune",
+    "fire_rune",
+    "frost_rune",
+    "hill_rune",
+    "stone_rune",
+    "storm_rune",
+  ],
+  "storm_aura_environment": [
+    "storm_environment_desert",
+    "storm_environment_sea",
+    "storm_environment_tundra",
+  ],
+  "superior_hunters_defense": [
+    "evasion_hunter",
+    "stand_against_the_tide",
+    "uncanny_dodge_hunter",
+  ],
+  "totem_spirit": [
+    "totem_spirit_bear",
+    "totem_spirit_eagle",
+    "totem_spirit_elk",
+    "totem_spirit_tiger",
+    "totem_spirit_wolf",
+  ],
+  "totemic_attunement": [
+    "attunement_bear",
+    "attunement_eagle",
+    "attunement_elk",
+    "attunement_tiger",
+    "attunement_wolf",
+  ],
+}
+`;
+
+exports[`golden: subclasses (additions over the class) artificer/alchemist 1`] = `
+{
+  "grants": {
+    "action": {
+      "cast_greater_restoration_free": 15,
+      "cast_heal_free": 15,
+      "cast_lesser_restoration_free": 9,
+      "experimental_elixir_create": 3,
+      "experimental_elixir_fabricate": 3,
+    },
+    "resource": {
+      "cast_greater_restoration_free": 15,
+      "cast_heal_free": 15,
+      "cast_lesser_restoration_free": 9,
+    },
+  },
+  "schedule": {
+    "15": [
+      "healing+resistance+spellcasting",
+    ],
+    "3": [
+      "combat+healing+utility",
+      "proficiency+tool",
+      "spells",
+    ],
+    "5": [
+      "combat+healing",
+    ],
+    "9": [
+      "healing",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) artificer/armorer 1`] = `
+{
+  "grants": {
+    "action": {
+      "arcane_armor_create": 3,
+      "arcane_armor_don_doff": 3,
+      "change_armor_model": 3,
+    },
+  },
+  "schedule": {
+    "15": [
+      "combat+defense",
+    ],
+    "3": [
+      "build-choice",
+      "equipment+utility",
+      "proficiency",
+      "spells",
+    ],
+    "5": [
+      "combat",
+    ],
+    "9": [
+      "utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) artificer/artillerist 1`] = `
+{
+  "grants": {
+    "action": {
+      "arcane_firearm_create": 5,
+      "eldritch_cannon_activate": 3,
+      "eldritch_cannon_create": 3,
+      "eldritch_cannon_detonate": 9,
+      "eldritch_cannon_dismiss": 3,
+    },
+    "resource": {
+      "eldritch_cannon_reservoir": 3,
+      "eldritch_cannons_limit": 3,
+    },
+  },
+  "schedule": {
+    "15": [
+      "defense+utility",
+    ],
+    "3": [
+      "combat+summoning",
+      "proficiency+tool",
+      "spells",
+    ],
+    "5": [
+      "combat+damage+equipment",
+    ],
+    "9": [
+      "aoe+combat+damage",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) artificer/battle_smith 1`] = `
+{
+  "grants": {
+    "action": {
+      "arcane_jolt_burst": 9,
+      "arcane_jolt_heal": 9,
+      "steel_defender_command": 3,
+      "steel_defender_create": 3,
+      "steel_defender_revive": 3,
+    },
+    "resource": {
+      "arcane_jolt": 9,
+    },
+  },
+  "schedule": {
+    "15": [
+      "combat+defense",
+    ],
+    "3": [
+      "combat+proficiency",
+      "combat+summoning",
+      "proficiency+tool",
+      "spells",
+    ],
+    "5": [
+      "combat",
+    ],
+    "9": [
+      "combat+damage+healing",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) barbarian/ancestral_guardian 1`] = `
+{
+  "grants": {
+    "action": {
+      "ancestral_protectors": 3,
+      "consult_the_spirits_augury": 10,
+      "consult_the_spirits_clairvoyance": 10,
+      "spirit_shield": 6,
+    },
+    "resource": {
+      "ancestral_protectors": 3,
+      "consult_the_spirits": 10,
+    },
+  },
+  "schedule": {
+    "10": [
+      "spellcasting+utility",
+    ],
+    "14": [
+      "combat+reaction",
+    ],
+    "3": [
+      "combat+debuff",
+    ],
+    "6": [
+      "defense+reaction",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) barbarian/beast 1`] = `
+{
+  "grants": {
+    "action": {
+      "beast_form_bite": 3,
+      "beast_form_claws": 3,
+      "beast_form_tail": 3,
+      "call_the_hunt": 14,
+      "infectious_fury": 10,
+    },
+    "choice": {
+      "bestial_soul_movement": 6,
+    },
+    "resource": {
+      "call_the_hunt": 14,
+      "infectious_fury": 10,
+    },
+  },
+  "schedule": {
+    "10": [
+      "combat+debuff",
+    ],
+    "14": [
+      "combat+support",
+    ],
+    "3": [
+      "combat",
+    ],
+    "6": [
+      "combat+passive",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) barbarian/berserker 1`] = `
+{
+  "grants": {
+    "action": {
+      "frenzy_attack": 3,
+      "frenzy_start": 3,
+      "intimidating_presence": 10,
+      "retaliation": 14,
+    },
+  },
+  "schedule": {
+    "10": [
+      "action+debuff",
+    ],
+    "14": [
+      "combat+reaction",
+    ],
+    "3": [
+      "combat",
+    ],
+    "6": [
+      "defense+passive",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) barbarian/storm_herald 1`] = `
+{
+  "grants": {
+    "choice": {
+      "storm_aura_environment": 3,
+    },
+  },
+  "schedule": {
+    "10": [
+      "defense+passive",
+    ],
+    "14": [
+      "combat",
+    ],
+    "3": [
+      "build-choice+combat",
+    ],
+    "6": [
+      "defense+passive",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) barbarian/totem_warrior 1`] = `
+{
+  "grants": {
+    "choice": {
+      "aspect_of_the_beast": 6,
+      "totem_spirit": 3,
+      "totemic_attunement": 14,
+    },
+  },
+  "schedule": {
+    "10": [
+      "spellcasting+utility",
+    ],
+    "14": [
+      "combat+passive",
+    ],
+    "3": [
+      "combat+passive",
+      "spellcasting+utility",
+    ],
+    "6": [
+      "exploration+passive",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) barbarian/wild_magic_barbarian 1`] = `
+{
+  "grants": {
+    "action": {
+      "bolstering_magic": 6,
+      "magic_awareness": 3,
+      "unstable_backlash": 10,
+    },
+    "resource": {
+      "bolstering_magic": 6,
+      "magic_awareness": 3,
+    },
+  },
+  "schedule": {
+    "10": [
+      "combat+reaction",
+    ],
+    "14": [
+      "passive",
+    ],
+    "3": [
+      "combat",
+      "utility",
+    ],
+    "6": [
+      "support+utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) barbarian/zealot 1`] = `
+{
+  "grants": {
+    "action": {
+      "divine_fury": 3,
+      "fanatical_focus": 6,
+      "zealous_presence": 10,
+    },
+    "resource": {
+      "divine_fury": 3,
+      "fanatical_focus": 6,
+      "zealous_presence": 10,
+    },
+  },
+  "schedule": {
+    "10": [
+      "combat+support",
+    ],
+    "14": [
+      "combat+last-stand+passive",
+    ],
+    "3": [
+      "combat",
+      "passive",
+    ],
+    "6": [
+      "defense",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) bard/creation 1`] = `
+{
+  "grants": {
+    "action": {
+      "animating_performance": 6,
+      "performance_of_creation": 3,
+    },
+    "resource": {
+      "animating_performance": 6,
+      "performance_of_creation": 3,
+    },
+  },
+  "schedule": {
+    "14": [
+      "-",
+    ],
+    "3": [
+      "-",
+      "-",
+    ],
+    "6": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) bard/eloquence 1`] = `
+{
+  "grants": {
+    "action": {
+      "infectious_inspiration": 14,
+      "universal_speech": 6,
+      "unsettling_words": 3,
+    },
+    "resource": {
+      "infectious_inspiration": 14,
+      "universal_speech": 6,
+    },
+  },
+  "schedule": {
+    "14": [
+      "utility",
+    ],
+    "3": [
+      "combat+debuff",
+      "passive+social",
+    ],
+    "6": [
+      "-",
+      "passive+utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) bard/glamour 1`] = `
+{
+  "grants": {
+    "action": {
+      "enthralling_performance": 3,
+      "mantle_of_inspiration": 3,
+      "mantle_of_majesty": 6,
+      "unbreakable_majesty": 14,
+    },
+    "resource": {
+      "enthralling_performance": 3,
+      "mantle_of_majesty": 6,
+      "unbreakable_majesty": 14,
+    },
+  },
+  "schedule": {
+    "14": [
+      "-",
+    ],
+    "3": [
+      "-",
+      "-",
+    ],
+    "6": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) bard/lore 1`] = `
+{
+  "grants": {
+    "action": {
+      "cutting_words": 3,
+    },
+  },
+  "schedule": {
+    "14": [
+      "-",
+    ],
+    "3": [
+      "-",
+      "proficiency+skill+subclass",
+    ],
+    "6": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) bard/swords 1`] = `
+{
+  "grants": {},
+  "schedule": {
+    "14": [
+      "-",
+    ],
+    "3": [
+      "build-choice",
+      "build-choice",
+      "build-choice",
+    ],
+    "6": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) bard/valor 1`] = `
+{
+  "grants": {
+    "action": {
+      "battle_magic": 14,
+    },
+  },
+  "schedule": {
+    "14": [
+      "-",
+    ],
+    "3": [
+      "proficiency+skill+subclass",
+      "subclass",
+    ],
+    "6": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) bard/whispers 1`] = `
+{
+  "grants": {
+    "action": {
+      "mantle_of_whispers_capture_shadow": 6,
+      "mantle_of_whispers_disguise": 6,
+      "psychic_blades": 3,
+      "shadow_lore": 14,
+    },
+    "resource": {
+      "mantle_of_whispers_capture_shadow": 6,
+      "mantle_of_whispers_disguise": 6,
+      "shadow_lore": 14,
+      "words_of_terror": 3,
+    },
+  },
+  "schedule": {
+    "14": [
+      "deception",
+    ],
+    "3": [
+      "combat+damage",
+      "deception",
+    ],
+    "6": [
+      "deception+roleplay",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) cleric/death 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_touch_of_death": 2,
+    },
+  },
+  "schedule": {
+    "1": [
+      "-",
+      "-",
+    ],
+    "17": [
+      "-",
+    ],
+    "2": [
+      "-",
+    ],
+    "6": [
+      "-",
+    ],
+    "8": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) cleric/forge 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_artisans_blessing": 2,
+    },
+  },
+  "schedule": {
+    "1": [
+      "armor+proficiency+tool",
+      "ritual+support",
+      "spells",
+    ],
+    "17": [
+      "defense",
+    ],
+    "2": [
+      "utility",
+    ],
+    "6": [
+      "defense",
+    ],
+    "8": [
+      "damage",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) cleric/grave 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_path_to_the_grave": 2,
+      "eyes_of_the_grave": 1,
+      "sentinel_at_deaths_door": 6,
+    },
+    "resource": {
+      "eyes_of_the_grave": 1,
+      "sentinel_at_deaths_door": 6,
+    },
+  },
+  "schedule": {
+    "1": [
+      "healing+spells",
+      "senses+utility",
+    ],
+    "17": [
+      "healing",
+    ],
+    "2": [
+      "debuff+vulnerability",
+    ],
+    "6": [
+      "critical+defense+support",
+    ],
+    "8": [
+      "damage",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) cleric/knowledge 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_knowledge_of_the_ages": 2,
+      "channel_divinity_read_thoughts": 6,
+    },
+  },
+  "schedule": {
+    "1": [
+      "languages+proficiency+skill",
+      "spells",
+    ],
+    "17": [
+      "-",
+    ],
+    "2": [
+      "proficiency+skill+tool",
+    ],
+    "6": [
+      "combat+social",
+    ],
+    "8": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) cleric/life 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_preserve_life": 2,
+    },
+  },
+  "schedule": {
+    "1": [
+      "armor+proficiency",
+      "healing+proficiency+skill",
+      "spells",
+    ],
+    "17": [
+      "healing",
+    ],
+    "2": [
+      "healing",
+    ],
+    "6": [
+      "healing+self-sustain",
+    ],
+    "8": [
+      "damage",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) cleric/light 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_radiance_of_the_dawn": 2,
+      "corona_of_light": 17,
+      "warding_flare": 1,
+    },
+    "resource": {
+      "warding_flare": 1,
+    },
+  },
+  "schedule": {
+    "1": [
+      "defense+reaction",
+      "spells",
+      "spells",
+    ],
+    "17": [
+      "-",
+    ],
+    "2": [
+      "action",
+    ],
+    "6": [
+      "combat+defense",
+    ],
+    "8": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) cleric/nature 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_charm_animals_and_plants": 2,
+      "dampen_elements": 6,
+      "master_of_nature": 17,
+    },
+  },
+  "schedule": {
+    "1": [
+      "armor+proficiency",
+      "proficiency+skill+spells",
+      "spells",
+    ],
+    "17": [
+      "-",
+    ],
+    "2": [
+      "-",
+    ],
+    "6": [
+      "-",
+    ],
+    "8": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) cleric/order 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_orders_demand": 2,
+      "embodiment_of_the_law": 6,
+      "voice_of_authority": 1,
+    },
+    "resource": {
+      "embodiment_of_the_law": 6,
+    },
+  },
+  "schedule": {
+    "1": [
+      "armor+proficiency+skill",
+      "combat+support",
+      "spells",
+    ],
+    "17": [
+      "damage+passive",
+    ],
+    "2": [
+      "charm+combat+crowd-control",
+    ],
+    "6": [
+      "action-economy+combat",
+    ],
+    "8": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) cleric/peace 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_balm_of_peace": 2,
+      "emboldening_bond": 1,
+      "protective_bond": 6,
+    },
+    "resource": {
+      "emboldening_bond": 1,
+    },
+  },
+  "schedule": {
+    "1": [
+      "attack-throw+saving-throw+skill-check+support+throw-bonus",
+      "proficiency+skill",
+      "spells",
+    ],
+    "17": [
+      "-",
+    ],
+    "2": [
+      "healing+movement",
+    ],
+    "6": [
+      "damage-redirection+defense",
+    ],
+    "8": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) cleric/tempest 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_destructive_wrath": 2,
+      "wrath_of_the_storm": 1,
+    },
+    "resource": {
+      "wrath_of_the_storm": 1,
+    },
+  },
+  "schedule": {
+    "1": [
+      "armor+proficiency+weapon",
+      "damage+reaction",
+      "spells",
+    ],
+    "17": [
+      "movement",
+    ],
+    "2": [
+      "damage",
+    ],
+    "6": [
+      "damage+movement",
+    ],
+    "8": [
+      "damage",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) cleric/trickery 1`] = `
+{
+  "grants": {
+    "action": {
+      "blessing_of_the_trickster": 1,
+      "channel_divinity_cloak_of_shadows": 6,
+      "channel_divinity_invoke_duplicity": 2,
+    },
+  },
+  "schedule": {
+    "1": [
+      "spells",
+      "support+utility",
+    ],
+    "17": [
+      "illusion+utility",
+    ],
+    "2": [
+      "illusion+utility",
+    ],
+    "6": [
+      "defense+stealth",
+    ],
+    "8": [
+      "damage",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) cleric/twilight 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_twilight_sanctuary": 2,
+      "eyes_of_night": 1,
+      "vigilant_blessing": 1,
+    },
+    "resource": {
+      "eyes_of_night": 1,
+      "steps_of_the_night": 6,
+    },
+  },
+  "schedule": {
+    "1": [
+      "armor+proficiency+weapon",
+      "spells",
+      "support",
+      "support+utility",
+    ],
+    "17": [
+      "defense",
+    ],
+    "2": [
+      "defense+support",
+    ],
+    "6": [
+      "movement",
+    ],
+    "8": [
+      "damage",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) cleric/war 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_guided_strike": 2,
+      "channel_divinity_war_gods_blessing": 6,
+      "war_priest": 1,
+    },
+    "resource": {
+      "war_priest": 1,
+    },
+  },
+  "schedule": {
+    "1": [
+      "armor+proficiency+weapon",
+      "combat",
+      "spells",
+    ],
+    "17": [
+      "defense",
+    ],
+    "2": [
+      "combat",
+    ],
+    "6": [
+      "reaction+support",
+    ],
+    "8": [
+      "damage",
+      "damage",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) druid/dreams 1`] = `
+{
+  "grants": {
+    "action": {
+      "balm_of_the_summer_court": 2,
+      "hidden_paths_other": 10,
+      "hidden_paths_self": 10,
+      "walker_in_dreams": 14,
+    },
+    "resource": {
+      "balm_of_the_summer_court": 2,
+      "hidden_paths": 10,
+      "walker_in_dreams": 14,
+    },
+  },
+  "schedule": {
+    "10": [
+      "movement+support",
+    ],
+    "14": [
+      "spellcasting+utility",
+    ],
+    "2": [
+      "healing+support",
+    ],
+    "6": [
+      "passive+utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) druid/land 1`] = `
+{
+  "grants": {
+    "action": {
+      "natural_recovery": 2,
+    },
+    "resource": {
+      "natural_recovery": 2,
+    },
+  },
+  "schedule": {
+    "10": [
+      "defense",
+    ],
+    "14": [
+      "defense",
+    ],
+    "2": [
+      "resource+spellcasting",
+      "spells",
+    ],
+    "3": [
+      "build-choice+spells",
+    ],
+    "6": [
+      "defense+movement",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) druid/moon 1`] = `
+{
+  "grants": {
+    "action": {
+      "combat_wild_shape_heal": 2,
+      "combat_wild_shape_transform": 2,
+      "elemental_wild_shape": 10,
+      "thousand_forms": 14,
+    },
+  },
+  "schedule": {
+    "10": [
+      "transformation",
+    ],
+    "14": [
+      "spellcasting+utility",
+    ],
+    "2": [
+      "combat+transformation",
+      "transformation",
+    ],
+    "6": [
+      "damage+passive",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) druid/shepherd 1`] = `
+{
+  "grants": {
+    "action": {
+      "faithful_summons": 14,
+      "spirit_totem_move": 2,
+      "spirit_totem_summon": 2,
+    },
+    "resource": {
+      "faithful_summons": 14,
+      "spirit_totem": 2,
+    },
+  },
+  "schedule": {
+    "10": [
+      "healing+summoning",
+    ],
+    "14": [
+      "defense+summoning",
+    ],
+    "2": [
+      "build-choice+support",
+      "language+roleplay+utility",
+    ],
+    "6": [
+      "passive+summoning",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) druid/spores 1`] = `
+{
+  "grants": {
+    "action": {
+      "fungal_infestation": 6,
+      "halo_of_spores": 2,
+      "spreading_spores_activate": 10,
+      "spreading_spores_deactivate": 10,
+      "symbiotic_entity": 2,
+    },
+    "resource": {
+      "fungal_infestation": 6,
+    },
+  },
+  "schedule": {
+    "10": [
+      "build-choice+damage",
+    ],
+    "14": [
+      "conditions+critical+defense+passive",
+    ],
+    "2": [
+      "combat+transformation",
+      "damage+reaction",
+      "spells",
+    ],
+    "6": [
+      "reaction+summoning",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) druid/stars 1`] = `
+{
+  "grants": {
+    "action": {
+      "cosmic_omen": 6,
+      "star_map_guiding_bolt": 2,
+      "starry_form": 2,
+    },
+    "resource": {
+      "cosmic_omen": 6,
+      "star_map_guiding_bolt": 2,
+    },
+  },
+  "schedule": {
+    "10": [
+      "passive+transformation",
+    ],
+    "14": [
+      "defense+passive",
+    ],
+    "2": [
+      "build-choice+transformation",
+      "spellcasting+spells+utility",
+    ],
+    "6": [
+      "debuff+reaction+support",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) druid/wildfire 1`] = `
+{
+  "grants": {
+    "action": {
+      "blazing_revival": 14,
+      "cauterizing_flames": 10,
+      "command_wildfire_spirit": 2,
+      "summon_wildfire_spirit": 2,
+    },
+    "resource": {
+      "blazing_revival": 14,
+      "cauterizing_flames": 10,
+    },
+  },
+  "schedule": {
+    "10": [
+      "damage+healing+reaction",
+    ],
+    "14": [
+      "defense+healing",
+    ],
+    "2": [
+      "build-choice+summoning",
+      "spells",
+    ],
+    "6": [
+      "damage+healing+passive",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) fighter/arcane_archer 1`] = `
+{
+  "grants": {
+    "action": {
+      "curving_shot": 7,
+    },
+    "choice": {
+      "arcane_shots_known": 3,
+    },
+    "resource": {
+      "arcane_shot": 3,
+    },
+  },
+  "schedule": {
+    "15": [
+      "resource",
+    ],
+    "3": [
+      "build-choice+combat",
+      "proficiency+skill+spellcasting",
+    ],
+    "7": [
+      "combat",
+      "combat+utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) fighter/battle_master 1`] = `
+{
+  "grants": {
+    "action": {
+      "know_your_enemy": 7,
+    },
+    "choice": {
+      "maneuvers": 3,
+    },
+    "resource": {
+      "superiority_dice": 3,
+    },
+  },
+  "schedule": {
+    "15": [
+      "combat",
+    ],
+    "3": [
+      "combat",
+      "proficiency+tool",
+    ],
+    "7": [
+      "utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) fighter/cavalier 1`] = `
+{
+  "grants": {
+    "action": {
+      "ferocious_charger": 15,
+      "hold_the_line": 10,
+      "unwavering_mark": 3,
+      "unwavering_mark_retaliate": 3,
+      "vigilant_defender": 18,
+      "warding_maneuver": 7,
+    },
+    "resource": {
+      "warding_maneuver": 7,
+    },
+  },
+  "schedule": {
+    "10": [
+      "combat+control+reaction",
+    ],
+    "15": [
+      "combat+control",
+    ],
+    "18": [
+      "reaction",
+    ],
+    "3": [
+      "combat+debuff+tank",
+      "language+proficiency+skill",
+      "mount+movement",
+    ],
+    "7": [
+      "damage-reduction+defense+reaction",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) fighter/champion 1`] = `
+{
+  "grants": {},
+  "schedule": {
+    "10": [
+      "-",
+    ],
+    "15": [
+      "critical",
+    ],
+    "18": [
+      "healing+self-sustain",
+    ],
+    "3": [
+      "critical",
+    ],
+    "7": [
+      "ability-check+skill",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) fighter/eldritch_knight 1`] = `
+{
+  "grants": {
+    "action": {
+      "arcane_charge": 15,
+      "eldritch_strike": 10,
+      "improved_war_magic": 18,
+      "war_magic": 7,
+      "weapon_bond": 3,
+    },
+  },
+  "schedule": {
+    "10": [
+      "-",
+    ],
+    "15": [
+      "-",
+    ],
+    "18": [
+      "-",
+    ],
+    "3": [
+      "-",
+      "spellcasting",
+    ],
+    "7": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) fighter/psi_warrior 1`] = `
+{
+  "grants": {
+    "action": {
+      "bulwark_of_force": 15,
+      "guarded_mind": 10,
+      "protective_field": 3,
+      "psi_powered_leap": 7,
+      "psionic_recovery": 3,
+      "psionic_strike": 3,
+      "telekinetic_master_attack": 18,
+      "telekinetic_master_telekinesis": 18,
+      "telekinetic_movement": 3,
+      "telekinetic_thrust": 7,
+    },
+    "resource": {
+      "bulwark_of_force": 15,
+      "psi_powered_leap": 7,
+      "psionic_dice": 3,
+      "psionic_recovery": 3,
+      "telekinetic_master": 18,
+      "telekinetic_movement": 3,
+    },
+  },
+  "schedule": {
+    "10": [
+      "-",
+    ],
+    "15": [
+      "-",
+    ],
+    "18": [
+      "-",
+    ],
+    "3": [
+      "combat",
+    ],
+    "7": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) fighter/rune_knight 1`] = `
+{
+  "grants": {
+    "action": {
+      "giants_might": 3,
+      "runic_shield": 7,
+    },
+    "choice": {
+      "rune_knight_runes": 3,
+    },
+    "language": {
+      "language.giant[readWrite+speak+understand]": 3,
+    },
+    "proficiency": {
+      "tool.smithsTools": 3,
+    },
+    "resource": {
+      "giants_might": 3,
+      "runic_shield": 7,
+    },
+  },
+  "schedule": {
+    "10": [
+      "combat+passive",
+    ],
+    "15": [
+      "passive+resource",
+    ],
+    "18": [
+      "damage",
+    ],
+    "3": [
+      "bonus-action+buff+combat",
+      "build-choice+utility",
+      "language+proficiency+tools",
+    ],
+    "7": [
+      "defense+reaction",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) fighter/samurai 1`] = `
+{
+  "grants": {
+    "action": {
+      "fighting_spirit": 3,
+      "rapid_strike": 15,
+      "strength_before_death": 18,
+    },
+    "resource": {
+      "fighting_spirit": 3,
+      "strength_before_death": 18,
+    },
+  },
+  "schedule": {
+    "10": [
+      "-",
+    ],
+    "15": [
+      "build-choice+combat",
+    ],
+    "18": [
+      "defense+last-stand",
+    ],
+    "3": [
+      "advantage+combat+temporary-hit-points",
+      "language+proficiency+skill",
+    ],
+    "7": [
+      "roleplay+skill",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) monk/astral_self 1`] = `
+{
+  "grants": {
+    "action": {
+      "arms_of_the_astral_self": 3,
+      "astral_visage": 6,
+      "awakened_astral_self": 17,
+      "deflect_energy": 11,
+    },
+  },
+  "schedule": {
+    "11": [
+      "defense+passive",
+    ],
+    "17": [
+      "bonus-action+buff+combat+transformation",
+    ],
+    "3": [
+      "combat+transformation",
+    ],
+    "6": [
+      "combat+exploration+senses",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) monk/drunken_master 1`] = `
+{
+  "grants": {
+    "action": {
+      "dunkards_luck": 11,
+      "redirect_attack": 6,
+    },
+  },
+  "schedule": {
+    "11": [
+      "passive+resource",
+    ],
+    "17": [
+      "combat+passive",
+    ],
+    "3": [
+      "combat+movement+passive",
+      "proficiency+skill+tool",
+    ],
+    "6": [
+      "movement+utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) monk/four_elements 1`] = `
+{
+  "grants": {
+    "action": {
+      "elemental_attunement": 3,
+    },
+    "choice": {
+      "four_elements_disciplines": 3,
+    },
+  },
+  "schedule": {
+    "3": [
+      "build-choice+spellcasting",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) monk/kensei 1`] = `
+{
+  "grants": {
+    "action": {
+      "agile_parry": 3,
+      "deft_strike": 6,
+      "kensei_shot": 3,
+      "sharpen_the_blade": 11,
+      "unerring_accuracy": 17,
+    },
+  },
+  "schedule": {
+    "11": [
+      "bonus-action+buff+combat",
+    ],
+    "17": [
+      "combat+reroll",
+    ],
+    "3": [
+      "build-choice+proficiency+tools+weapon",
+    ],
+    "6": [
+      "combat+damage+magic",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) monk/mercy 1`] = `
+{
+  "grants": {
+    "action": {
+      "hand_of_harm": 3,
+      "hand_of_healing": 3,
+      "hand_of_ultimate_mercy": 17,
+    },
+    "resource": {
+      "hand_of_ultimate_mercy": 17,
+    },
+  },
+  "schedule": {
+    "11": [
+      "combat+healing+passive+resistance",
+    ],
+    "17": [
+      "healing+revival",
+    ],
+    "3": [
+      "combat+damage",
+      "healing",
+      "proficiency+skill+tool",
+    ],
+    "6": [
+      "combat+debuff+healing",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) monk/open_hand 1`] = `
+{
+  "grants": {
+    "action": {
+      "open_hand_technique": 3,
+      "quivering_palm_mark": 17,
+      "quivering_palm_trigger": 17,
+      "wholeness_of_body": 6,
+    },
+    "resource": {
+      "wholeness_of_body": 6,
+    },
+  },
+  "schedule": {
+    "11": [
+      "defense+passive",
+    ],
+    "17": [
+      "combat",
+    ],
+    "3": [
+      "combat+debuff",
+    ],
+    "6": [
+      "healing+resource+self-sustain",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) monk/shadow 1`] = `
+{
+  "grants": {
+    "action": {
+      "cloak_of_shadows": 11,
+      "opportunist": 17,
+      "shadow_arts_darkness": 3,
+      "shadow_arts_darkvision": 3,
+      "shadow_arts_minor_illusion": 3,
+      "shadow_arts_pass_without_trace": 3,
+      "shadow_arts_silence": 3,
+      "shadow_step": 6,
+    },
+  },
+  "schedule": {
+    "11": [
+      "defense+stealth",
+    ],
+    "17": [
+      "combat+reaction",
+    ],
+    "3": [
+      "spellcasting+stealth+utility",
+    ],
+    "6": [
+      "movement+stealth",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) monk/sun_soul 1`] = `
+{
+  "grants": {
+    "action": {
+      "radiant_sun_bolt": 3,
+      "radiant_sun_burst": 3,
+      "searing_arc_strike": 6,
+      "searing_sunburst": 11,
+      "sun_shield_retaliate": 17,
+      "sun_shield_switch_aura": 17,
+    },
+  },
+  "schedule": {
+    "11": [
+      "aoe+combat+damage+saving-throw",
+    ],
+    "17": [
+      "aura+damage+passive+reaction",
+    ],
+    "3": [
+      "combat+damage+ranged",
+    ],
+    "6": [
+      "aoe+bonus-action+combat+damage",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) paladin/ancients 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_nature_wrath": 3,
+      "channel_divinity_turn_the_faithless": 3,
+      "elder_champion": 20,
+      "undying_sentinel": 15,
+    },
+    "resource": {
+      "elder_champion": 20,
+      "undying_sentinel": 15,
+    },
+  },
+  "schedule": {
+    "15": [
+      "-",
+    ],
+    "20": [
+      "-",
+    ],
+    "3": [
+      "-",
+      "-",
+      "-",
+    ],
+    "7": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) paladin/conquest 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_conquering_presence": 3,
+      "channel_divinity_guided_strike": 3,
+      "invincible_conqueror": 20,
+      "scornful_rebuke": 15,
+    },
+  },
+  "schedule": {
+    "15": [
+      "-",
+    ],
+    "20": [
+      "-",
+    ],
+    "3": [
+      "-",
+      "flavour",
+      "spells",
+    ],
+    "7": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) paladin/devotion 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_sacred_weapon": 3,
+      "channel_divinity_turn_the_unholy": 3,
+      "holy_nimbus": 20,
+    },
+    "resource": {
+      "holy_nimbus": 20,
+    },
+  },
+  "schedule": {
+    "15": [
+      "defense",
+    ],
+    "20": [
+      "aura+combat+damage",
+    ],
+    "3": [
+      "buff+combat",
+      "flavour",
+      "spells",
+    ],
+    "7": [
+      "aura+charmed+inmunity",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) paladin/glory 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_inspiring_smite": 3,
+      "channel_divinity_peerless_athlete": 3,
+      "glorious_defense": 15,
+      "living_legend": 20,
+      "living_legend_precise_attack": 20,
+      "living_legend_resilient": 20,
+    },
+    "resource": {
+      "glorious_defense": 15,
+      "living_legend": 20,
+    },
+  },
+  "schedule": {
+    "15": [
+      "-",
+    ],
+    "20": [
+      "-",
+    ],
+    "3": [
+      "-",
+      "flavour",
+      "spells",
+    ],
+    "7": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) paladin/oathbreaker 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_control_undead": 3,
+      "channel_divinity_dreadful_aspect": 3,
+      "dread_lord": 20,
+    },
+    "resource": {
+      "dread_lord": 20,
+    },
+  },
+  "schedule": {
+    "15": [
+      "-",
+    ],
+    "20": [
+      "-",
+    ],
+    "3": [
+      "-",
+      "spells",
+    ],
+    "7": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) paladin/redemption 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_emissary_of_peace": 3,
+      "channel_divinity_rebuke_the_violent": 3,
+    },
+  },
+  "schedule": {
+    "15": [
+      "healing+self-sustain",
+    ],
+    "20": [
+      "-",
+    ],
+    "3": [
+      "-",
+      "flavour",
+      "spells",
+    ],
+    "7": [
+      "-",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) paladin/vengeance 1`] = `
+{
+  "grants": {
+    "action": {
+      "avenging_angel": 20,
+      "channel_divinity_abjure_enemy": 3,
+      "channel_divinity_vow_of_enmity": 3,
+      "soul_of_vengeance": 15,
+    },
+    "resource": {
+      "avenging_angel": 20,
+    },
+  },
+  "schedule": {
+    "15": [
+      "combat+reaction",
+    ],
+    "20": [
+      "buff+combat+movement+transformation",
+    ],
+    "3": [
+      "buff+combat+control",
+      "flavour",
+      "spells",
+    ],
+    "7": [
+      "combat+movement+passive",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) paladin/watchers 1`] = `
+{
+  "grants": {
+    "action": {
+      "channel_divinity_abjure_the_extraplanar": 3,
+      "channel_divinity_watchers_will": 3,
+      "mortal_bulwark": 20,
+      "vigilant_rebuke": 15,
+    },
+    "resource": {
+      "mortal_bulwark": 20,
+    },
+  },
+  "schedule": {
+    "15": [
+      "combat+reaction+support",
+    ],
+    "20": [
+      "combat+damage+movement+transformation",
+    ],
+    "3": [
+      "combat+control+support",
+      "flavour",
+      "spells",
+    ],
+    "7": [
+      "aura+initiative+support",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) ranger/beast_master 1`] = `
+{
+  "grants": {
+    "action": {
+      "command_beast": 3,
+      "exceptional_training": 7,
+    },
+  },
+  "schedule": {
+    "11": [
+      "combat+companion",
+    ],
+    "15": [
+      "companion+spellcasting",
+    ],
+    "3": [
+      "companion+summoning",
+    ],
+    "7": [
+      "action-economy+companion",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) ranger/fey_wanderer 1`] = `
+{
+  "grants": {
+    "action": {
+      "beguiling_twist": 7,
+      "dreadful_strikes": 3,
+      "fey_reinforcements": 11,
+      "misty_wanderer": 15,
+    },
+    "resource": {
+      "dreadful_strikes": 3,
+      "fey_reinforcements": 11,
+      "misty_wanderer": 15,
+    },
+  },
+  "schedule": {
+    "11": [
+      "spells+summoning",
+    ],
+    "15": [
+      "movement+spells",
+    ],
+    "3": [
+      "bonus+proficiency+skill",
+      "combat+damage",
+      "roleplay+spells",
+    ],
+    "7": [
+      "combat+control+reaction",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) ranger/gloom_stalker 1`] = `
+{
+  "grants": {
+    "action": {
+      "dread_ambusher": 3,
+      "shadowy_dodge": 15,
+      "stalkers_flurry": 11,
+    },
+    "resource": {
+      "stalkers_flurry": 11,
+    },
+  },
+  "schedule": {
+    "11": [
+      "combat",
+    ],
+    "15": [
+      "defense+reaction",
+    ],
+    "3": [
+      "combat+initiative+movement",
+      "senses+stealth",
+      "spells",
+    ],
+    "7": [
+      "proficiency",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) ranger/horizon_walker 1`] = `
+{
+  "grants": {
+    "action": {
+      "detect_portal": 3,
+      "distant_strike": 11,
+      "ethereal_step": 7,
+      "planar_warrior": 3,
+      "spectral_defense": 15,
+    },
+    "resource": {
+      "detect_portal": 3,
+      "ethereal_step": 7,
+    },
+  },
+  "schedule": {
+    "11": [
+      "combat+movement+passive",
+    ],
+    "15": [
+      "defense+reaction+resistance",
+    ],
+    "3": [
+      "buff+combat+damage",
+      "senses+utility",
+      "spells",
+    ],
+    "7": [
+      "movement+spells+utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) ranger/hunter 1`] = `
+{
+  "grants": {
+    "choice": {
+      "defensive_tactics": 7,
+      "hunters_prey": 3,
+      "multiattack": 11,
+      "superior_hunters_defense": 15,
+    },
+  },
+  "schedule": {
+    "11": [
+      "build-choice+combat",
+    ],
+    "15": [
+      "build-choice+defense",
+    ],
+    "3": [
+      "build-choice+combat",
+    ],
+    "7": [
+      "build-choice+defense+passive",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) ranger/monster_slayer 1`] = `
+{
+  "grants": {
+    "action": {
+      "hunters_sense": 3,
+      "magic_users_nemesis": 11,
+      "slayers_counter": 15,
+      "slayers_prey": 3,
+      "supernatural_defense": 7,
+    },
+    "resource": {
+      "hunters_sense": 3,
+      "magic_users_nemesis": 11,
+    },
+  },
+  "schedule": {
+    "11": [
+      "control+reaction",
+    ],
+    "15": [
+      "combat+reaction",
+    ],
+    "3": [
+      "buff+combat+damage",
+      "senses+utility",
+      "spells",
+    ],
+    "7": [
+      "defense+passive",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) ranger/swarmkeeper 1`] = `
+{
+  "grants": {
+    "action": {
+      "gathered_swarm_damage": 3,
+      "gathered_swarm_push": 3,
+      "gathered_swarm_self_move": 3,
+      "swarming_dispersal": 15,
+      "writhing_tide": 7,
+    },
+    "resource": {
+      "gathered_swarm": 3,
+      "swarming_dispersal": 15,
+      "writhing_tide": 7,
+    },
+  },
+  "schedule": {
+    "11": [
+      "combat",
+    ],
+    "15": [
+      "defense+movement+reaction+resistance",
+    ],
+    "3": [
+      "combat",
+      "spells",
+    ],
+    "7": [
+      "movement+utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) rogue/arcane_trickster 1`] = `
+{
+  "grants": {
+    "action": {
+      "mage_hand": 3,
+      "spell_thief": 17,
+    },
+    "resource": {
+      "spell_thief": 17,
+    },
+  },
+  "schedule": {
+    "13": [
+      "advantage+bonus-action+combat",
+    ],
+    "17": [
+      "combat+control+reaction+spells",
+    ],
+    "3": [
+      "spellcasting",
+      "spells+utility",
+    ],
+    "9": [
+      "disadvantage+spells",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) rogue/assassin 1`] = `
+{
+  "grants": {
+    "action": {
+      "assassinate": 3,
+      "death_strike": 17,
+      "impostor": 13,
+      "infiltration_expertise": 9,
+    },
+  },
+  "schedule": {
+    "13": [
+      "downtime+roleplay",
+    ],
+    "17": [
+      "combat+damage+passive",
+    ],
+    "3": [
+      "combat",
+      "proficiency+tool",
+    ],
+    "9": [
+      "downtime+roleplay",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) rogue/inquisitive 1`] = `
+{
+  "grants": {
+    "action": {
+      "ear_for_deceit": 3,
+      "eye_for_detail": 3,
+      "insightful_fighting": 3,
+      "steady_eye": 9,
+      "unerring_eye": 13,
+    },
+    "resource": {
+      "unerring_eye": 13,
+    },
+  },
+  "schedule": {
+    "13": [
+      "senses+utility",
+    ],
+    "17": [
+      "combat+damage",
+    ],
+    "3": [
+      "bonus-action+buff+combat",
+      "bonus-action+utility",
+      "skill",
+    ],
+    "9": [
+      "skill",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) rogue/mastermind 1`] = `
+{
+  "grants": {
+    "action": {
+      "insightful_manipulator": 9,
+      "master_of_intrigue": 3,
+      "master_of_tactics": 3,
+      "misdirection": 13,
+    },
+  },
+  "schedule": {
+    "13": [
+      "defense+reaction",
+    ],
+    "17": [
+      "defense+passive+roleplay",
+    ],
+    "3": [
+      "advantage+utility",
+      "language+proficiency+roleplay+tool",
+    ],
+    "9": [
+      "roleplay+utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) rogue/phantom 1`] = `
+{
+  "grants": {
+    "action": {
+      "ghost_walk": 13,
+      "tokens_of_the_departed_capture": 9,
+      "tokens_of_the_departed_interrogate": 9,
+      "tokens_of_the_departed_retribution": 9,
+      "wails_from_the_grave": 3,
+    },
+    "resource": {
+      "ghost_walk": 13,
+      "soul_trinkets": 9,
+      "wails_from_the_grave": 3,
+    },
+  },
+  "schedule": {
+    "13": [
+      "combat+movement+transformation",
+    ],
+    "17": [
+      "combat+passive",
+    ],
+    "3": [
+      "combat+damage",
+      "proficiency+utility",
+    ],
+    "9": [
+      "combat+reaction+utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) rogue/scout 1`] = `
+{
+  "grants": {
+    "action": {
+      "ambush_master": 13,
+      "skirmisher": 3,
+      "sudden_strike": 17,
+    },
+  },
+  "schedule": {
+    "13": [
+      "combat+initiative",
+    ],
+    "17": [
+      "bonus-action+combat+damage",
+    ],
+    "3": [
+      "defense+movement+reaction",
+      "expertise+proficiency+skill",
+    ],
+    "9": [
+      "movement",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) rogue/soulknife 1`] = `
+{
+  "grants": {
+    "action": {
+      "homing_strikes": 9,
+      "psi_bolstered_knack": 3,
+      "psionic_energy_die_recover": 3,
+      "psychic_blade_attack": 3,
+      "psychic_blade_offhand_attack": 3,
+      "psychic_teleportation": 9,
+      "psychic_veil": 13,
+      "psychic_whispers": 3,
+      "rend_mind": 17,
+    },
+    "resource": {
+      "psionic_energy_dice": 3,
+      "psychic_veil": 13,
+      "psychic_whispers": 3,
+      "rend_mind": 17,
+    },
+  },
+  "schedule": {
+    "13": [
+      "defense+utility",
+    ],
+    "17": [
+      "combat+control",
+    ],
+    "3": [
+      "combat+damage",
+      "resource-pool",
+    ],
+    "9": [
+      "combat+movement+utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) rogue/swashbuckler 1`] = `
+{
+  "grants": {
+    "action": {
+      "elegant_maneuver": 13,
+      "fancy_footwork": 3,
+      "master_duelist": 17,
+      "panache": 9,
+    },
+    "resource": {
+      "master_duelist": 17,
+    },
+  },
+  "schedule": {
+    "13": [
+      "bonus-action+utility",
+    ],
+    "17": [
+      "combat+reroll",
+    ],
+    "3": [
+      "combat+initiative",
+      "defense",
+    ],
+    "9": [
+      "combat+control+roleplay",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) rogue/thief 1`] = `
+{
+  "grants": {
+    "action": {
+      "fast_hands": 3,
+      "supreme_sneak": 9,
+      "thief_reflexes": 17,
+    },
+  },
+  "schedule": {
+    "13": [
+      "utility",
+    ],
+    "17": [
+      "combat+initiative",
+    ],
+    "3": [
+      "movement",
+      "utility",
+    ],
+    "9": [
+      "stealth",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) sorcerer/aberrant_mind 1`] = `
+{
+  "grants": {
+    "action": {
+      "psionic_sorcery": 6,
+      "revelation_in_flesh": 14,
+      "telepathic_speech": 1,
+      "warping_implosion": 18,
+    },
+    "resource": {
+      "warping_implosion": 18,
+    },
+  },
+  "schedule": {
+    "1": [
+      "bonus-action+communication+utility",
+      "spells",
+    ],
+    "14": [
+      "bonus-action+transformation+utility",
+    ],
+    "18": [
+      "aoe+combat+damage+movement",
+    ],
+    "6": [
+      "defense+resistance",
+      "spellcasting",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) sorcerer/clockwork_soul 1`] = `
+{
+  "grants": {
+    "action": {
+      "bastion_of_law": 6,
+      "clockwork_cavalcade": 18,
+      "restore_balance": 1,
+      "trance_of_order": 14,
+    },
+    "resource": {
+      "clockwork_cavalcade": 18,
+      "restore_balance": 1,
+      "trance_of_order": 14,
+    },
+  },
+  "schedule": {
+    "1": [
+      "control+reaction",
+      "spells",
+    ],
+    "14": [
+      "bonus-action+buff+combat",
+    ],
+    "18": [
+      "aoe+combat+healing+utility",
+    ],
+    "6": [
+      "buff+defense",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) sorcerer/divine_soul 1`] = `
+{
+  "grants": {
+    "action": {
+      "empowered_healing": 6,
+      "favored_by_the_gods": 1,
+      "otherworldly_wings": 14,
+      "unearthly_recovery": 18,
+    },
+    "resource": {
+      "empowered_healing": 6,
+      "favored_by_the_gods": 1,
+      "unearthly_recovery": 18,
+    },
+  },
+  "schedule": {
+    "1": [
+      "attack-roll+bonus+saving-throw+utility",
+      "build-choice+spells",
+    ],
+    "14": [
+      "bonus-action+movement+transformation",
+    ],
+    "18": [
+      "healing",
+    ],
+    "6": [
+      "combat+healing",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) sorcerer/draconic_bloodline 1`] = `
+{
+  "grants": {
+    "action": {
+      "draconic_presence": 18,
+      "dragon_wings_dismiss": 14,
+      "dragon_wings_manifest": 14,
+      "elemental_affinity_damage": 6,
+      "elemental_affinity_resistance": 6,
+    },
+  },
+  "schedule": {
+    "1": [
+      "ac+maximumHp",
+      "build-choice+expertise+language",
+    ],
+    "14": [
+      "bonus-action+movement+transformation",
+    ],
+    "18": [
+      "aoe+combat+concentration+control",
+    ],
+    "6": [
+      "combat+damage+resistance",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) sorcerer/shadow_magic 1`] = `
+{
+  "grants": {
+    "action": {
+      "eyes_of_the_dark_darkness": 3,
+      "hound_of_ill_omen": 6,
+      "shadow_walk": 14,
+      "strength_of_the_grave": 1,
+      "umbral_form": 18,
+    },
+    "resource": {
+      "strength_of_the_grave": 1,
+    },
+  },
+  "schedule": {
+    "1": [
+      "defense",
+      "senses",
+    ],
+    "14": [
+      "bonus-action+movement",
+    ],
+    "18": [
+      "bonus-action+defense+resistance+transformation",
+    ],
+    "3": [
+      "spells",
+    ],
+    "6": [
+      "combat+summoning",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) sorcerer/storm_sorcery 1`] = `
+{
+  "grants": {
+    "action": {
+      "heart_of_the_storm": 6,
+      "storm_guide_stop_rain": 6,
+      "storm_guide_wind_direction": 6,
+      "storms_fury": 14,
+      "tempestuous_magic": 1,
+      "wind_soul_share_flight": 18,
+    },
+    "resource": {
+      "wind_soul_share_flight": 18,
+    },
+  },
+  "schedule": {
+    "1": [
+      "bonus-action+movement",
+      "language",
+    ],
+    "14": [
+      "combat+damage+reaction",
+    ],
+    "18": [
+      "buff+movement",
+    ],
+    "6": [
+      "combat+damage+resistance",
+      "environment+utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) sorcerer/wild_magic_sorcerer 1`] = `
+{
+  "grants": {
+    "action": {
+      "bend_luck": 6,
+      "spell_bombardment": 18,
+      "tides_of_chaos": 1,
+      "wild_magic_surge": 1,
+    },
+    "resource": {
+      "tides_of_chaos": 1,
+    },
+  },
+  "schedule": {
+    "1": [
+      "-",
+      "advantage+attack+saving-throw+skill+utility",
+    ],
+    "14": [
+      "-",
+    ],
+    "18": [
+      "combat+damage",
+    ],
+    "6": [
+      "control+reaction",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) warlock/archfey 1`] = `
+{
+  "grants": {
+    "action": {
+      "beguiling_defenses": 10,
+      "dark_delirium": 14,
+      "fey_presence": 1,
+      "misty_escape": 6,
+    },
+    "resource": {
+      "dark_delirium": 14,
+      "fey_presence": 1,
+      "misty_escape": 6,
+    },
+  },
+  "schedule": {
+    "1": [
+      "aoe+combat+control",
+      "spells",
+    ],
+    "10": [
+      "control+defense+reaction",
+    ],
+    "14": [
+      "combat+concentration+control",
+    ],
+    "6": [
+      "defense+movement+reaction",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) warlock/celestial 1`] = `
+{
+  "grants": {
+    "action": {
+      "celestial_resilience": 10,
+      "healing_light": 1,
+      "radiant_soul": 6,
+      "searing_vengeance": 14,
+    },
+    "resource": {
+      "healing_light_dice": 1,
+      "searing_vengeance": 14,
+    },
+  },
+  "schedule": {
+    "1": [
+      "healing",
+      "spells",
+      "spells",
+    ],
+    "10": [
+      "combat+defense",
+    ],
+    "14": [
+      "aoe+combat+damage+death-saves+healing",
+    ],
+    "6": [
+      "combat+damage+resistance",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) warlock/fathomless 1`] = `
+{
+  "grants": {
+    "action": {
+      "fathomless_plunge": 14,
+      "grasping_tentacles": 10,
+      "guardian_coil": 6,
+      "tentacle_of_the_deeps_move_attack": 1,
+      "tentacle_of_the_deeps_summon": 1,
+    },
+    "resource": {
+      "fathomless_plunge": 14,
+      "grasping_tentacles": 10,
+      "tentacle_of_the_deeps": 1,
+    },
+  },
+  "schedule": {
+    "1": [
+      "combat+damage+utility",
+      "movement",
+      "spells",
+    ],
+    "10": [
+      "concentration+control+defense+spells",
+    ],
+    "14": [
+      "movement+utility",
+    ],
+    "6": [
+      "communication+resistance",
+      "defense+reaction",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) warlock/fiend 1`] = `
+{
+  "grants": {
+    "action": {
+      "dark_ones_blessing": 1,
+      "dark_ones_own_luck": 6,
+      "fiendish_resilience": 10,
+      "hurl_through_hell": 14,
+    },
+    "resource": {
+      "dark_ones_own_luck": 6,
+      "hurl_through_hell": 14,
+    },
+  },
+  "schedule": {
+    "1": [
+      "combat+defense",
+      "spells",
+    ],
+    "10": [
+      "build-choice+defense+resistance",
+    ],
+    "14": [
+      "combat+control+damage",
+    ],
+    "6": [
+      "utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) warlock/genie 1`] = `
+{
+  "grants": {
+    "action": {
+      "bottled_respite": 1,
+      "elemental_gift_flight": 6,
+      "genies_wrath": 1,
+      "limited_wish": 14,
+      "replace_vessel": 1,
+    },
+    "resource": {
+      "bottled_respite": 1,
+      "elemental_gift_flight": 6,
+      "genies_wrath": 1,
+      "limited_wish": 14,
+    },
+  },
+  "schedule": {
+    "1": [
+      "build-choice+spells",
+      "combat+damage+equipment+utility",
+    ],
+    "10": [
+      "healing+rest+utility",
+    ],
+    "14": [
+      "spellcasting+utility",
+    ],
+    "6": [
+      "movement+resistance",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) warlock/great_old_one 1`] = `
+{
+  "grants": {
+    "action": {
+      "awakened_mind": 1,
+      "create_thrall": 14,
+      "entropic_ward": 6,
+      "thought_shield": 10,
+    },
+    "resource": {
+      "entropic_ward": 6,
+    },
+  },
+  "schedule": {
+    "1": [
+      "communication+utility",
+      "spells",
+    ],
+    "10": [
+      "defense+passive+resistance",
+    ],
+    "14": [
+      "control+utility",
+    ],
+    "6": [
+      "defense+reaction",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) warlock/hexblade 1`] = `
+{
+  "grants": {
+    "action": {
+      "accursed_specter": 6,
+      "armor_of_hexes": 10,
+      "hex_warrior": 1,
+      "hexblades_curse": 1,
+      "master_of_hexes": 14,
+    },
+    "resource": {
+      "accursed_specter": 6,
+      "hexblades_curse": 1,
+    },
+  },
+  "schedule": {
+    "1": [
+      "buff+combat+debuff",
+      "combat+proficiency",
+      "spells",
+    ],
+    "10": [
+      "defense+reaction",
+    ],
+    "14": [
+      "buff+combat",
+    ],
+    "6": [
+      "combat+control+summoning",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) wizard/abjuration 1`] = `
+{
+  "grants": {
+    "action": {
+      "arcane_ward_create": 2,
+      "arcane_ward_recharge": 2,
+      "projected_ward": 6,
+    },
+    "resource": {
+      "arcane_ward_create": 2,
+      "arcane_ward_hp": 2,
+    },
+  },
+  "schedule": {
+    "10": [
+      "utility",
+    ],
+    "14": [
+      "advantage+defense+resistance",
+    ],
+    "2": [
+      "defense+self-sustain",
+      "downtime+spells",
+    ],
+    "6": [
+      "defense+reaction",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) wizard/bladesinging 1`] = `
+{
+  "grants": {
+    "action": {
+      "bladesong": 2,
+      "song_of_defense": 10,
+    },
+    "resource": {
+      "bladesong": 2,
+    },
+  },
+  "schedule": {
+    "10": [
+      "defense+reaction",
+    ],
+    "14": [
+      "combat+damage",
+    ],
+    "2": [
+      "buff+combat+concentration",
+      "proficiency",
+    ],
+    "6": [
+      "combat",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) wizard/conjuration 1`] = `
+{
+  "grants": {
+    "action": {
+      "benign_transposition": 6,
+      "minor_conjuration": 2,
+    },
+    "resource": {
+      "benign_transposition": 6,
+    },
+  },
+  "schedule": {
+    "10": [
+      "concentration",
+    ],
+    "14": [
+      "summoning",
+    ],
+    "2": [
+      "downtime+spells",
+      "utility",
+    ],
+    "6": [
+      "movement+teleportation",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) wizard/divination 1`] = `
+{
+  "grants": {
+    "action": {
+      "expert_divination": 6,
+      "portent": 2,
+      "the_third_eye": 10,
+    },
+    "resource": {
+      "portent_dice": 2,
+      "portent_turn_uses": 2,
+      "the_third_eye": 10,
+    },
+  },
+  "schedule": {
+    "10": [
+      "senses+utility",
+    ],
+    "14": [
+      "passive",
+    ],
+    "2": [
+      "downtime+spells",
+      "utility",
+    ],
+    "6": [
+      "spells+utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) wizard/enchantment 1`] = `
+{
+  "grants": {
+    "action": {
+      "alter_memories_erase": 14,
+      "hypnotic_gaze_initiate": 2,
+      "hypnotic_gaze_maintain": 2,
+      "instinctive_charm": 6,
+    },
+    "resource": {
+      "hypnotic_gaze": 2,
+    },
+  },
+  "schedule": {
+    "10": [
+      "-",
+    ],
+    "14": [
+      "control+utility",
+    ],
+    "2": [
+      "control",
+      "passive+proficiency",
+    ],
+    "6": [
+      "control+defense+reaction",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) wizard/evocation 1`] = `
+{
+  "grants": {
+    "action": {
+      "overchannel": 14,
+    },
+    "resource": {
+      "overchannel": 14,
+    },
+  },
+  "schedule": {
+    "10": [
+      "combat+damage",
+    ],
+    "14": [
+      "combat+damage",
+    ],
+    "2": [
+      "control",
+      "downtime+spells",
+    ],
+    "6": [
+      "combat+damage",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) wizard/illusion 1`] = `
+{
+  "grants": {
+    "action": {
+      "illusory_reality": 14,
+      "illusory_self": 10,
+      "malleable_illusions": 6,
+    },
+    "resource": {
+      "illusory_self": 10,
+    },
+  },
+  "schedule": {
+    "10": [
+      "defense+reaction",
+    ],
+    "14": [
+      "bonus-action+spells+utility",
+    ],
+    "2": [
+      "passive+proficiency",
+      "passive+spells",
+    ],
+    "6": [
+      "spells+utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) wizard/necromancy 1`] = `
+{
+  "grants": {
+    "action": {
+      "command_undead": 14,
+      "grim_harvest": 2,
+    },
+    "resource": {
+      "grim_harvest": 2,
+    },
+  },
+  "schedule": {
+    "10": [
+      "defense+resistance",
+    ],
+    "14": [
+      "control",
+    ],
+    "2": [
+      "combat+healing",
+      "downtime+spells",
+    ],
+    "6": [
+      "spells+summoning",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) wizard/scribes 1`] = `
+{
+  "grants": {
+    "action": {
+      "awakened_spellbook_fast_ritual": 2,
+      "awakened_spellbook_swap_damage_type": 2,
+      "manifest_mind_cast_through": 6,
+      "manifest_mind_dismiss": 6,
+      "manifest_mind_move": 6,
+      "manifest_mind_summon": 6,
+      "master_scrivener": 10,
+      "one_with_the_word": 14,
+      "wizardly_quill_create": 2,
+    },
+    "resource": {
+      "awakened_spellbook_fast_ritual": 2,
+      "manifest_mind": 6,
+      "manifest_mind_cast_through": 6,
+      "master_scrivener": 10,
+    },
+  },
+  "schedule": {
+    "10": [
+      "spellcasting+utility",
+    ],
+    "14": [
+      "defense+reaction",
+    ],
+    "2": [
+      "spellcasting+utility",
+      "utility",
+    ],
+    "6": [
+      "senses+utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) wizard/transmutation 1`] = `
+{
+  "grants": {
+    "action": {
+      "master_transmuter": 14,
+      "minor_alchemy": 2,
+      "shapechanger": 10,
+      "transmuters_stone_alter": 6,
+      "transmuters_stone_create": 6,
+    },
+    "resource": {
+      "shapechanger": 10,
+    },
+  },
+  "schedule": {
+    "10": [
+      "spellcasting+spells",
+    ],
+    "14": [
+      "healing+spells+utility",
+    ],
+    "2": [
+      "downtime+spells",
+      "utility",
+    ],
+    "6": [
+      "buff+utility",
+    ],
+  },
+}
+`;
+
+exports[`golden: subclasses (additions over the class) wizard/war_magic 1`] = `
+{
+  "grants": {
+    "action": {
+      "arcane_deflection": 2,
+      "power_surge_accumulate": 6,
+      "power_surge_liberate": 6,
+    },
+    "resource": {
+      "power_surge": 6,
+      "power_surge_turn_uses": 6,
+    },
+  },
+  "schedule": {
+    "10": [
+      "ac+concentration+defense",
+    ],
+    "14": [
+      "aoe+combat+damage",
+    ],
+    "2": [
+      "defense+reaction",
+      "initiative",
+    ],
+    "6": [
+      "combat+damage",
+    ],
+  },
+}
+`;
