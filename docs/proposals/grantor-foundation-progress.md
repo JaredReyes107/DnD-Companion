@@ -97,9 +97,9 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 | S16 | Resources + actions from resolver | DONE | 48a0a1f | 2026-11-09 |
 | S17 | Modifiers from resolver | DONE | | 2026-11-09 |
 | S18 | Advantage + proficiency + language from resolver | DONE | 1805709 | 2026-11-09 |
-| S19 | Overrides + choice-grant traversal from resolver | DONE | | 2026-11-09 |
-| S20 | `feature` in OptionGrant + registry cycle validation | **CURRENT** | | |
-| S21 | `picks` on choice grants (types + data, additive) | TODO | | |
+| S19 | Overrides + choice-grant traversal from resolver | DONE | d6febb6 | 2026-11-09 |
+| S20 | `feature` in OptionGrant + registry cycle validation | DONE | b033311 | 2026-11-09 |
+| S21 | `picks` on choice grants (types + data, additive) | **CURRENT** | | |
 | S22 | Slot-keyed ChoiceInstance | TODO | | |
 | S23 | Legacy choice key migration | TODO | | |
 | S24 | Pool data fixes | TODO | | |
@@ -246,7 +246,7 @@ Large classes (cleric, fighter, wizard, warlock) may be split by subclass group.
 
 #### S20: `feature` in OptionGrant + registry cycle validation
 **Goal:** options may grant features. Registration validates that the feature graph is acyclic and every referenced id exists (+ an integrity test).
-- [ ] Tests: cycle rejected; dangling id rejected; feat-as-option works end to end.
+- [x] Tests: cycle rejected; dangling id rejected; feat-as-option works end to end.
 
 ### PHASE F: Choices
 
@@ -581,7 +581,7 @@ Template:
 - Build result: tsc / lint / test
 - Implementation commit: `1805709`
 
-### 2026-11-09 | S19 | commit pending
+### 2026-11-09 | S19 | commit d6febb6
 - Changed:
   - Confirmed the resolver remains the single traversal engine for feature, option, and choice graph expansion while override and choice helpers consume the resolved grant graph instead of walking it themselves.
   - Applied the step-level status update and advanced the board to the next execution step without widening scope past the S19 definition of done.
@@ -595,6 +595,24 @@ Template:
 - Next step will touch:
   - S20: `feature` in OptionGrant + registry cycle validation.
 - Build result: tsc / lint / test
+- Implementation commit: `d6febb6`
+
+### 2026-11-09 | S20 | commit b033311
+- Changed:
+  - Validated feature grant references and cycles when assembling the feature registry; the integrity test now checks the combined registered and class/subclass feature graph, including feature grants from options.
+  - Verified `OptionGrant` already admits `feature` grants through its existing `Exclude<FeatureGrant, { type: "choice" }>` definition.
+  - Added end-to-end coverage for a selected option granting a feature that itself grants another feature.
+- Proven by (tests):
+  - `npx tsc --noEmit`
+  - `npm run lint`
+  - `npm test -- --watchAll=false --runInBand` (33 suites, 626 tests, 125 snapshots)
+- Surprises / deviations:
+  - Class/subclass feature templates remain transitional inline data, so integrity validation builds one graph from those templates plus registered and option features rather than assuming all templates are already in the feature registry.
+  - Recorded the implementation hash in this follow-up progress-document commit; the S20 implementation itself remains one focused commit.
+- Next step will touch:
+  - S21: `picks` on choice grants (types + data, additive).
+- Build result: tsc / lint / test
+- Implementation commit: `b033311`
 
 ---
 
@@ -650,6 +668,7 @@ Template:
 - Recorded S15 code and progress in consecutive commits for the same commit-hash reason; the S15 implementation remains a single focused commit.
 - Recorded S16 code and progress in consecutive commits for the same commit-hash reason; the S16 implementation remains a single focused commit.
 - Recorded S18's implementation hash in a follow-up documentation commit because the hash was unavailable when the implementation and progress update were first committed.
+- Recorded S20's implementation hash in a follow-up documentation commit for the same reason; the implementation remains a single focused commit.
 
 ---
 
