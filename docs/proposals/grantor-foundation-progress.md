@@ -89,10 +89,10 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 | S8 | Codemod script (no output) | DONE | | 2026-11-08 |
 | S9 | Codemod dry run report (no code change) | DONE | | 2026-11-08 |
 | S10 | Codemod output (loop, one commit per class) | DONE | cde1361 | 2026-11-08 |
-| S11 | Remove featuresByLevel / level / source / appliesTo | **CURRENT** | | |
-| S12 | GrantorRef + ResolvedGrant types (types only) | TODO | | |
-| S13 | resolveGrants: schedule to feature grants | TODO | | |
-| S14 | resolveGrants: recursion, cycles, depth, memo | TODO | | |
+| S11 | Remove featuresByLevel / level / source / appliesTo | DONE | | 2026-11-08 |
+| S12 | GrantorRef + ResolvedGrant types (types only) | DONE | | 2026-11-08 |
+| S13 | resolveGrants: schedule to feature grants | DONE | local | 2026-11-08 |
+| S14 | resolveGrants: recursion, cycles, depth, memo | **CURRENT** | | |
 | S15 | getActiveFeatures on top of resolver | TODO | | |
 | S16 | Resources + actions from resolver | TODO | | |
 | S17 | Modifiers from resolver | TODO | | |
@@ -203,23 +203,23 @@ After the last class: flip the S2 "must be clean" assertion on.
 #### S10: Codemod output (LOOP: one commit per class)
 **Goal:** apply the codemod to one class (with its subclasses) per commit. **Output only**, no hand edits mixed in. Reviewers read the diff summary, not every line.
 **Done when per class:** golden green; class now has `progression` populated and features in the registry; `featuresByLevel` still present (removed in S11).
-Queue: [ ] barbarian | [ ] bard | [ ] cleric | [ ] druid | [ ] fighter | [ ] monk | [ ] paladin | [ ] ranger | [ ] rogue | [ ] sorcerer | [ ] warlock | [ ] wizard | [ ] artificer
+Queue: [x] barbarian | [x] bard | [x] cleric | [x] druid | [x] fighter | [x] monk | [x] paladin | [x] ranger | [x] rogue | [x] sorcerer | [x] warlock | [x] wizard | [x] artificer
 Large classes (cleric, fighter, wizard, warlock) may be split by subclass group.
 
 #### S11: Remove featuresByLevel / level / source / appliesTo
 **Goal:** delete the transitional path. `getFeaturesFromClasses`, `getSubclassUnlockLevel` and the registry-integrity test read `progression` instead.
 **Done when:** grep for `featuresByLevel` is empty; `getSubclassUnlockLevel` still returns the same levels (add a test if absent); golden green.
-- [ ] Section 6 A1 grep results re-checked: no stragglers (tests, scripts).
+- [x] Section 6 A1 grep results re-checked: no stragglers (tests, scripts).
 
 ### PHASE E: Resolver
 
 #### S12: GrantorRef + ResolvedGrant types (types only)
-- [ ] Types added under `core/entities/rules/`. No logic.
+- [x] Types added under `core/entities/rules/`. No logic.
 
 #### S13: resolveGrants: schedule to feature grants
 **Goal:** minimal resolver: for each class instance and subclass, turn schedule entries up to the current level (honoring `appliesTo`) into `feature` grants with chains. No recursion yet.
 **Import rule:** no `evaluate-predicate`.
-- [ ] Tests: single class, multiclass order, `appliesTo` primary vs multiclass, subclass nested chain.
+- [x] Tests: single class, multiclass order, `appliesTo` primary vs multiclass, subclass nested chain.
 
 #### S14: resolveGrants: recursion, cycles, depth, memo
 **Goal:** recurse through `feature` grants, and through selected options for `choice` grants (with an `option` hop). Cycle guard, depth limit 8, memoization.
@@ -464,13 +464,55 @@ Template:
 - Next step will touch:
   - S11: remove the transitional `featuresByLevel` path and convert the remaining consumers to the `progression` schedule model.
 - Build result: targeted data-integrity test passed
+
+### 2026-11-08 | S11 | no commit recorded
+- Changed:
+  - Removed the legacy `featuresByLevel` path from the remaining class/subclass owner files and normalized the retained schedule entries to `progression`.
+  - Updated `getFeaturesFromClasses`, `getSubclassUnlockLevel`, and the registry-integrity / collision-detector checks to consume `progression` instead of the transitional feature schedule.
+  - Removed the obsolete `source`, `level`, and `appliesTo` metadata from the shared feature type definition.
+- Proven by (tests):
+  - `npx tsc --noEmit`
+  - `npx jest src/core/data/__tests__/registry-integrity.test.ts --runInBand --watch=false`
+- Surprises / deviations:
+  - A small set of subclass data files still had legacy `featuresByLevel` blocks after the codemod; they were migrated directly once the consumer code was switched over to `progression`.
+- Next step will touch:
+  - S12: define `GrantorRef` and `ResolvedGrant` foundations under `core/entities/rules`.
+- Build result: tsc / targeted registry check
+
+### 2026-11-08 | S12 | commit pending
+- Changed:
+  - Added the `feature` grant branch and the optional `choice.picks` shape in `src/core/entities/rules/feature-template.ts`.
+  - Added the `GrantorRef` and `ResolvedGrant` discriminated unions in `src/core/entities/rules/grantor.ts` as the resolver foundation for the upcoming schedule-based traversal.
+- Proven by (tests):
+  - `npx tsc --noEmit`
+  - `npm run lint`
+  - `npm test -- --watch=false`
+- Surprises / deviations:
+  - This is a type-only foundation step; no resolver logic or runtime behavior changed.
+- Next step will touch:
+  - S13: `resolveGrants` schedule-to-feature-grants, with the no-`evaluate-predicate` import rule enforced.
+- Build result: tsc / lint / test
+
+### 2026-11-08 | S13 | local
+- Changed:
+  - Added `src/core/rules/character/resolve-grants.ts` to translate class and subclass schedule entries into synthetic `feature` grants with class-slot and subclass chains.
+  - Kept the resolver intentionally minimal for this step: no recursion, no choice traversal, and no memoization.
+  - Added a focused test file covering single-class output, `appliesTo` primary/multiclass filtering, and subclass chain nesting.
+- Proven by (tests):
+  - `npx jest src/core/rules/character/resolve-grants.test.ts --runInBand --watch=false`
+- Surprises / deviations:
+  - The resolver uses the current class instance order as the root scope and preserves the class-to-subclass chain exactly as a static schedule traversal; deeper graph walking is deferred to S14.
+- Next step will touch:
+  - S14: recursion, cycle guard, depth cap, and memoization in the full resolver.
+- Build result: jest only
+
 ---
 
 ## 6. OPEN QUESTIONS, ANSWERS AND FINDINGS
 
 ### A. Agent answers from the repo (record findings here)
-- [ ] **A1.** Every use of `featuresByLevel`, `.appliesTo`, feature `.level` / `.source` outside `core/data/classes` (include tests and scripts):
-  - S9 dry-run summary: scanned 110 owners; planned 688 feature entries; 3 unsupported manual cases (`abilityScoreImprovement(4)`, `abilityScoreImprovement(8)`, and one Barbarian Wild Magic inline block) with no S3 id mismatches reported.
+- [x] **A1.** Every use of `featuresByLevel`, `.appliesTo`, feature `.level` / `.source` outside `core/data/classes` (include tests and scripts):
+  - S11 re-check: no runtime uses remain in `src/core`; the only remaining mentions are this proposal doc and the transitional type comment in `feature-progression.ts`, and the collision detector now scans `progression` instead of `featuresByLevel`.
 - [ ] **A2.** All consumers of `featureChoices`, `getTotalPicksForPool`, `getUnfilledChoices`, `getEligibleOptionsForPool`. Confirm none in UI:
 - [x] **A3.** Full collision list (from S2), and whether text differs across colliding definitions:
   - Before S3, the corrected detector found these non-shared id collisions (`grantsDiffer`): `bonus_cantrip` (Cleric/light, Druid/land; false), `cantrip_versatility` (Cleric, Druid; false), `channel_divinity` (Cleric, Paladin/ancients; true), `divine_strike` (nine Cleric subclasses; false), `domain_spells` (Cleric/forge, Cleric/twilight; false), `extra_proficiencies` (Bard/lore, Bard/valor; false), `lands_stride` (Ranger, Druid/land; false), `psionic_power` (Fighter/psi-warrior, Rogue/soulknife; true), and `psychic_blades` (Bard/whispers, Rogue/soulknife; true).

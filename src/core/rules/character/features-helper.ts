@@ -10,6 +10,8 @@ import { FeatureTemplate } from "@/core/entities/rules/feature-template";
 import { FeatureRef } from "@/core/entities/rules/feature-progression";
 import { Character } from "@/core/entities/character/Character";
 
+export { resolveGrants } from "./resolve-grants";
+
 function collectProgressionFeatures(
   refs: FeatureRef[] | undefined,
   isPrimary: boolean,

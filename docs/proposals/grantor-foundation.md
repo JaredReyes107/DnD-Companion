@@ -1,6 +1,6 @@
 ## 0. How to work (read first)
 
-- **Work in atomic, reviewable commits.** Each commit does one thing, leaves the build green (`npx tsc --noEmit`, `npm run lint`, `npm test`), and leaves the golden test (commit 1) green unless the commit says otherwise.
+- **Work in atomic, reviewable commits.** Each commit does one thing, leaves the build green (`npx tsc --noEmit`, `npm run lint:fix`, `npm test`), and leaves the golden test (commit 1) green unless the commit says otherwise.
 - **Never implement more than one numbered commit per response.** At the end of each step, stop and report:
   1. what changed,
   2. which tests prove it,

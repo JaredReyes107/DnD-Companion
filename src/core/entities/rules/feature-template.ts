@@ -4,7 +4,8 @@ export type FeatureGrant =
   | { type: "resource"; id: string }
   | { type: "action"; id: string }
   | { type: "modifier"; id: string }
-  | { type: "choice"; id: string }
+  | { type: "feature"; id: string }
+  | { type: "choice"; id: string; picks?: number }
   | { type: "proficiency"; nodeId: string }
   | { type: "language"; nodeId: string; modes: LanguageMode[] }
   | { type: "advantage"; id: string }
