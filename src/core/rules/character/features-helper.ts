@@ -9,6 +9,7 @@ import { FeatureInstance } from "@/core/entities/features/feature-instance";
 import { FeatureTemplate } from "@/core/entities/rules/feature-template";
 import { FeatureRef } from "@/core/entities/rules/feature-progression";
 import { Character } from "@/core/entities/character/Character";
+import { resolveGrants } from "./resolve-grants";
 
 export { resolveGrants } from "./resolve-grants";
 
@@ -91,8 +92,33 @@ export function getFeaturesFromCharacter(
 // Everything downstream (resources, actions, modifiers build functions)
 // calls this and gets the full picture regardless of grant source.
 export function getActiveFeatures(character: Character): FeatureTemplate[] {
-  return [
-    ...getFeaturesFromClasses(character.classes),
-    ...getFeaturesFromCharacter(character.features),
-  ];
+  const registry = getFeatureRegistry();
+  const classFeatures = new Map(
+    getFeaturesFromClasses(character.classes).map((feature) => [
+      feature.id,
+      feature,
+    ]),
+  );
+  const activeFeatures = new Map<string, FeatureTemplate>();
+
+  for (const { grant } of resolveGrants(character)) {
+    if (grant.type !== "feature" || activeFeatures.has(grant.id)) {
+      continue;
+    }
+
+    activeFeatures.set(
+      grant.id,
+      registry[grant.id] ??
+        classFeatures.get(grant.id) ??
+        getFeatureTemplateById(grant.id),
+    );
+  }
+
+  for (const feature of getFeaturesFromCharacter(character.features)) {
+    if (!activeFeatures.has(feature.id)) {
+      activeFeatures.set(feature.id, feature);
+    }
+  }
+
+  return [...activeFeatures.values()];
 }

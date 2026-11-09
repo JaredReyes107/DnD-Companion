@@ -1,8 +1,10 @@
 import { CharacterClasses } from "@/core/entities/character/character-classes";
 import { Character } from "@/core/entities/character/Character";
+import { registerHomebrewFeature } from "@/core/data/registries/features.registry";
 import { registerHomebrewClass } from "@/core/data/registries/classes.registry";
 import { registerHomebrewOption } from "@/core/data/registries/options.registry";
 import { FeatureTemplate } from "@/core/entities/rules/feature-template";
+import { getActiveFeatures } from "./features-helper";
 import { resolveGrants } from "./resolve-grants";
 
 let fixtureClassCount = 0;
@@ -50,6 +52,28 @@ function makeFixtureCharacter(
 }
 
 describe("resolveGrants", () => {
+  it("uses resolved feature grants once per id while retaining character features", () => {
+    const root = makeFeature("test.active_root", [
+      { type: "feature", id: "test.active_child" },
+      { type: "feature", id: "test.active_child" },
+    ]);
+    const child = makeFeature("test.active_child");
+    registerHomebrewFeature(root);
+    registerHomebrewFeature(child);
+
+    const character = {
+      ...makeFixtureCharacter([root, child]),
+      features: {
+        acquired: { featureId: child.id },
+      },
+    } as Character;
+
+    expect(getActiveFeatures(character).map((feature) => feature.id)).toEqual([
+      root.id,
+      child.id,
+    ]);
+  });
+
   it("turns class progression entries into feature grants", () => {
     const grants = resolveGrants(
       makeCharacter({

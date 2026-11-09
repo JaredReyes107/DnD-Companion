@@ -91,10 +91,10 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 | S10 | Codemod output (loop, one commit per class) | DONE | cde1361 | 2026-11-08 |
 | S11 | Remove featuresByLevel / level / source / appliesTo | DONE | | 2026-11-08 |
 | S12 | GrantorRef + ResolvedGrant types (types only) | DONE | | 2026-11-08 |
-| S13 | resolveGrants: schedule to feature grants | DONE | local | 2026-11-08 |
-| S14 | resolveGrants: recursion, cycles, depth, memo | DONE | local | 2026-11-08 |
-| S15 | getActiveFeatures on top of resolver | **CURRENT** | | |
-| S16 | Resources + actions from resolver | TODO | | |
+| S13 | resolveGrants: schedule to feature grants | DONE | 1ce4f76 | 2026-11-08 |
+| S14 | resolveGrants: recursion, cycles, depth, memo | DONE | 4fa6e19 | 2026-11-08 |
+| S15 | getActiveFeatures on top of resolver | DONE | pending | 2026-11-08 |
+| S16 | Resources + actions from resolver | **CURRENT** | | |
 | S17 | Modifiers from resolver | TODO | | |
 | S18 | Advantage + proficiency + language from resolver | TODO | | |
 | S19 | Overrides + choice-grant traversal from resolver | TODO | | |
@@ -227,7 +227,7 @@ Large classes (cleric, fighter, wizard, warlock) may be split by subclass group.
 
 #### S15: getActiveFeatures on top of resolver
 **Goal:** reimplement `getActiveFeatures` as "feature grants from `resolveGrants`, de-duplicated by id". Observable behavior unchanged.
-- [ ] Golden green. No other call site changed.
+- [x] Golden green. No other call site changed.
 
 #### S16: Resources + actions from resolver
 **Goal:** `getResourcesFromFeatures` / `getActionsFromFeatures` and their choice counterparts consume resolver output. De-dupe by id, **expose `sources: GrantorRef[][]`**.
@@ -493,7 +493,7 @@ Template:
   - S13: `resolveGrants` schedule-to-feature-grants, with the no-`evaluate-predicate` import rule enforced.
 - Build result: tsc / lint / test
 
-### 2026-11-08 | S13 | local
+### 2026-11-08 | S13 | commit 1ce4f76
 - Changed:
   - Added `src/core/rules/character/resolve-grants.ts` to translate class and subclass schedule entries into synthetic `feature` grants with class-slot and subclass chains.
   - Kept the resolver intentionally minimal for this step: no recursion, no choice traversal, and no memoization.
@@ -506,7 +506,7 @@ Template:
   - S14: recursion, cycle guard, depth cap, and memoization in the full resolver.
 - Build result: jest only
 
-### 2026-11-08 | S14 | local
+### 2026-11-08 | S14 | commit 4fa6e19
 - Changed:
   - Extended `resolveGrants` to recurse through feature grants and selected choice options, adding feature and option hops to each grant chain.
   - Added path-based cycle detection, an eight-level expansion limit, and memoization keyed by class identity and checked against choice/acquisition state.
@@ -521,6 +521,20 @@ Template:
 - Next step will touch:
   - S15: reimplement `getActiveFeatures` using `resolveGrants` and de-duplicate by feature id.
 - Build result: tsc / lint / jest
+
+### 2026-11-08 | S15 | commit pending
+- Changed:
+  - Reimplemented `getActiveFeatures` from feature grants emitted by `resolveGrants`, de-duplicating by feature id while retaining character-owned features.
+  - Reconciled the S13/S14 Status Board entries with their commits (`1ce4f76`, `4fa6e19`).
+- Proven by (tests):
+  - `npx tsc --noEmit`
+  - `npm run lint`
+  - `npx jest src/core/rules/character/resolve-grants.test.ts src/core/data/__tests__/grant-golden.test.ts --runInBand --watch=false`
+- Surprises / deviations:
+  - No behavior change outside `getActiveFeatures`; its existing callers remain untouched.
+- Next step will touch:
+  - S16: resources and actions from resolver output.
+- Build result: tsc / lint / test
 
 ---
 
@@ -573,6 +587,7 @@ Template:
 - Completed the required Cleric schedule correction and golden update in follow-up commit `80a231a` because it was identified after the Cleric namespacing commit; no commit was amended.
 - Recorded S4 code and progress in consecutive commits because the progress entry needs the S4 commit hash, which is not available until that commit exists; the S4 implementation itself remains a single focused commit.
 - Recorded S5 code and progress in consecutive commits for the same commit-hash reason; the S5 implementation remains a single focused commit.
+- Recorded S15 code and progress in consecutive commits for the same commit-hash reason; the S15 implementation remains a single focused commit.
 
 ---
 
