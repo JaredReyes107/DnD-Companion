@@ -8,6 +8,7 @@ import { getAllClassTemplates } from "@/core/data/registries/classes.registry";
 import {
   getFeatureRegistry,
   getFeatureTemplateById,
+  validateFeatureGraph,
 } from "@/core/data/registries/features.registry";
 import { getSubclassRegistry } from "@/core/data/registries/subclasses.registry";
 import {
@@ -74,6 +75,24 @@ function collectGranters(): Granter[] {
   return out;
 }
 
+function collectFeatureTemplates(): Record<string, FeatureTemplate> {
+  const features = { ...getFeatureRegistry() };
+  const addFeatures = (templates: FeatureTemplate[] = []) => {
+    for (const feature of templates) {
+      features[feature.id] ??= feature;
+    }
+  };
+
+  for (const classTemplate of getAllClassTemplates()) {
+    addFeatures(Object.values(classTemplate.featuresByLevel ?? {}).flat());
+  }
+  for (const subclass of Object.values(getSubclassRegistry())) {
+    addFeatures(Object.values(subclass.featuresByLevel ?? {}).flat());
+  }
+
+  return features;
+}
+
 describe("every grant points at something that exists", () => {
   const granters = collectGranters();
   const registries = {
@@ -81,9 +100,16 @@ describe("every grant points at something that exists", () => {
     action: getActionRegistry(),
     modifier: getModifierRegistry(),
     choice: getChoicePoolRegistry(),
+    feature: collectFeatureTemplates(),
   } as const;
 
-  for (const type of ["resource", "action", "modifier", "choice"] as const) {
+  for (const type of [
+    "resource",
+    "action",
+    "modifier",
+    "choice",
+    "feature",
+  ] as const) {
     it(`${type} grants resolve`, () => {
       const missing = granters.flatMap((g) =>
         g.grants
@@ -96,6 +122,12 @@ describe("every grant points at something that exists", () => {
       expect(missing).toEqual([]);
     });
   }
+
+  it("feature grant graph is acyclic and option feature grants resolve", () => {
+    expect(() =>
+      validateFeatureGraph(collectFeatureTemplates(), getOptionRegistry()),
+    ).not.toThrow();
+  });
 });
 
 describe("resource templates", () => {

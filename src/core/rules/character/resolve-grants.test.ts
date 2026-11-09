@@ -82,6 +82,44 @@ describe("resolveGrants", () => {
     ]);
   });
 
+  it("resolves features granted by selected options", () => {
+    const poolId = "test.option_feature_pool";
+    const optionId = "test.option_feature_option";
+    const optionFeature = makeFeature("test.option_granted_feature", [
+      { type: "feature", id: "test.option_feature_child" },
+    ]);
+    const child = makeFeature("test.option_feature_child");
+    const root = makeFeature("test.option_feature_root", [
+      { type: "choice", id: poolId },
+    ]);
+
+    registerHomebrewFeature(optionFeature);
+    registerHomebrewFeature(child);
+    registerHomebrewOption({
+      id: optionId,
+      poolIds: [poolId],
+      grants: [{ type: "feature", id: optionFeature.id }],
+    });
+
+    const character = makeFixtureCharacter([root, optionFeature, child], {
+      [poolId]: { poolId, selectedOptionIds: [optionId] },
+    });
+
+    expect(getActiveFeatures(character).map((feature) => feature.id)).toEqual([
+      root.id,
+      optionFeature.id,
+      child.id,
+    ]);
+    expect(
+      resolveGrants(character).some(
+        ({ grant, chain }) =>
+          grant.type === "feature" &&
+          grant.id === optionFeature.id &&
+          chain.some((ref) => ref.kind === "option" && ref.id === optionId),
+      ),
+    ).toBe(true);
+  });
+
   it("deduplicates passive modifiers by template id from resolver output", () => {
     const modifierId = "test.duplicate_modifier";
     registerHomebrewModifier({
