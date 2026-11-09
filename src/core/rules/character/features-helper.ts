@@ -9,6 +9,7 @@ import { FeatureInstance } from "@/core/entities/features/feature-instance";
 import { FeatureTemplate } from "@/core/entities/rules/feature-template";
 import { FeatureRef } from "@/core/entities/rules/feature-progression";
 import { Character } from "@/core/entities/character/Character";
+import { GrantorRef, ResolvedGrant } from "@/core/entities/rules/grantor";
 import { resolveGrants } from "./resolve-grants";
 
 export { resolveGrants } from "./resolve-grants";
@@ -81,11 +82,24 @@ export function getFeaturesFromClasses(
 // These are explicit grants — homebrew feats, racial features,
 // training features, anything outside the class level pipeline
 export function getFeaturesFromCharacter(
-  characterFeatures: Record<string, FeatureInstance>,
+  characterFeatures: Record<string, FeatureInstance> = {},
 ): FeatureTemplate[] {
-  return Object.values(characterFeatures).map((instance) =>
+  return Object.values(characterFeatures ?? {}).map((instance) =>
     getFeatureTemplateById(instance.featureId),
   );
+}
+
+export function getGrantPaths(character: Character): ResolvedGrant[] {
+  const characterFeatureGrants: ResolvedGrant[] = getFeaturesFromCharacter(
+    character.features,
+  ).flatMap((feature) =>
+    (feature.grants ?? []).map((grant) => ({
+      grant,
+      chain: [{ kind: "feature", id: feature.id } as GrantorRef],
+    })),
+  );
+
+  return [...resolveGrants(character), ...characterFeatureGrants];
 }
 
 // Single entry point for all consumers — merges both sources.

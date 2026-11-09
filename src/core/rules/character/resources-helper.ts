@@ -1,14 +1,14 @@
 import { Character } from "@/core/entities/character/Character";
 import { CharacterResources } from "@/core/entities/resources/character-resources";
-import { FeatureTemplate } from "@/core/entities/rules/feature-template";
-import { getActiveFeatures } from "./features-helper";
+import { ResolvedGrant } from "@/core/entities/rules/grantor";
+import { getGrantPaths } from "./features-helper";
 import { getResourceRegistry } from "@/core/data/registries/resources.registry";
 import { getResourcesFromChoices } from "./choices-helper";
 import {
   ResourceCategory,
   ResourceTemplate,
 } from "@/core/entities/rules/resource-template";
-import { grantsOfType } from "../shared/grant-filters";
+import { resolvedGrantsWithSources } from "../shared/grant-filters";
 import {
   buildResourceContext,
   resolvedResource,
@@ -26,22 +26,17 @@ export type GroupedResources = Partial<
   Record<ResourceCategory, ResourceEntry[]>
 >;
 
-export function getResourcesFromFeatures(
-  features: FeatureTemplate[],
-): Set<string> {
-  const ids = new Set<string>();
-  for (const feature of features) {
-    grantsOfType(feature.grants, "resource").forEach((g) => ids.add(g.id));
-  }
-  return ids;
+export function getResourcesFromFeatures(grants: ResolvedGrant[]) {
+  return resolvedGrantsWithSources(grants, "resource", false);
 }
 
 export function buildCharacterClassResources(
   character: Character,
 ): CharacterResources {
+  const grants = getGrantPaths(character);
   const ids = new Set([
-    ...getResourcesFromFeatures(getActiveFeatures(character)),
-    ...getResourcesFromChoices(character),
+    ...getResourcesFromFeatures(grants).map(({ id }) => id),
+    ...getResourcesFromChoices(grants).map(({ id }) => id),
   ]);
   const next = { ...character.resources };
   for (const id of ids) {

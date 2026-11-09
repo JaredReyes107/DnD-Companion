@@ -6,13 +6,11 @@ import {
   ModifierType,
 } from "@/core/entities/modifiers/Modifier";
 import { DEFAULT_MODIFIER_PRIORITY } from "../modifiers/stacking";
-import { getModifiersFromChoices } from "./choices-helper";
 import {
   getModifierTemplateById,
   lookupModifierTemplate,
 } from "@/core/data/registries/modifiers.registry";
-import { getActiveFeatures } from "./features-helper";
-import { grantsOfType } from "@/core/rules/shared/grant-filters";
+import { getGrantPaths } from "./features-helper";
 import * as Crypto from "expo-crypto";
 import { ResolvedBase } from "@/core/entities/rules/resolved-base";
 import { getRawBase } from "./abilities-modifiers";
@@ -88,22 +86,19 @@ export function refreshModifierInstance(
 export function buildCharacterPassiveModifiers(
   character: Character,
 ): Record<string, ModifierInstance> {
-  const features = getActiveFeatures(character);
   const nextModifiers: Record<string, ModifierInstance> = {};
 
-  for (const feature of features) {
-    grantsOfType(feature.grants, "modifier").forEach((g) => {
-      const template = getModifierTemplateById(g.id);
-      const instance = instantiateModifier(template, character, feature.id);
-      nextModifiers[`${feature.id}:${g.id}`] = instance;
-    });
-  }
+  for (const resolved of getGrantPaths(character)) {
+    if (resolved.grant.type !== "modifier") continue;
 
-  const choiceModifierIds = getModifiersFromChoices(character);
-  for (const modifierId of choiceModifierIds) {
-    const template = getModifierTemplateById(modifierId);
-    const instance = instantiateModifier(template, character, modifierId);
-    nextModifiers[`choice:${modifierId}`] = instance;
+    const template = getModifierTemplateById(resolved.grant.id);
+    if (nextModifiers[template.id]) continue;
+
+    nextModifiers[template.id] = instantiateModifier(
+      template,
+      character,
+      resolved.grant.id,
+    );
   }
 
   return nextModifiers;

@@ -1,5 +1,37 @@
 import { FeatureGrant } from "@/core/entities/rules/feature-template";
 import { OptionGrant } from "@/core/entities/rules/option-template";
+import { GrantWithSources, ResolvedGrant } from "@/core/entities/rules/grantor";
+
+export function resolvedGrantsWithSources<
+  T extends Extract<FeatureGrant["type"], "resource" | "action">,
+>(
+  resolvedGrants: ResolvedGrant[],
+  type: T,
+  fromChoice: boolean,
+): GrantWithSources[] {
+  const byId = new Map<string, GrantWithSources>();
+
+  for (const resolved of resolvedGrants) {
+    if (
+      resolved.grant.type !== type ||
+      resolved.chain.some((ref) => ref.kind === "option") !== fromChoice
+    ) {
+      continue;
+    }
+
+    const existing = byId.get(resolved.grant.id);
+    if (existing) {
+      existing.sources.push(resolved.chain);
+    } else {
+      byId.set(resolved.grant.id, {
+        id: resolved.grant.id,
+        sources: [resolved.chain],
+      });
+    }
+  }
+
+  return [...byId.values()];
+}
 
 /**
  * Filters a grants array down to one variant, with a real type guard —

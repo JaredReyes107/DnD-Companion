@@ -1,38 +1,33 @@
 import { Character } from "@/core/entities/character/Character";
 import { ActionInstance } from "@/core/entities/actions/action-instance";
 import { ActionSlot } from "@/core/entities/combat/action-economy";
-import { FeatureTemplate } from "@/core/entities/rules/feature-template";
-import { getActiveFeatures } from "../character/features-helper";
+import { ResolvedGrant } from "@/core/entities/rules/grantor";
+import { getGrantPaths } from "../character/features-helper";
 import {
   getActionRegistry,
   GroupedActions,
 } from "@/core/data/registries/actions.registry";
 import { getActionsFromChoices } from "@/core/rules/character/choices-helper";
 import { DEFAULT_ACTIONS } from "@/core/data/actions/default-actions";
-import { grantsOfType } from "../shared/grant-filters";
+import { resolvedGrantsWithSources } from "../shared/grant-filters";
 import {
   OverrideContext,
   buildOverrideContext,
 } from "../overrides/active-overrides";
 import { resolveTemplateWith } from "../overrides/resolve-template";
 
-export function getActionsFromFeatures(
-  features: FeatureTemplate[],
-): Set<string> {
-  const ids = new Set<string>();
-  for (const feature of features) {
-    grantsOfType(feature.grants, "action").forEach((g) => ids.add(g.id));
-  }
-  return ids;
+export function getActionsFromFeatures(grants: ResolvedGrant[]) {
+  return resolvedGrantsWithSources(grants, "action", false);
 }
 
 /** Ids only. Defaults first, then feature grants, then choice grants. */
 export function getActiveActionIds(character: Character): string[] {
+  const grants = getGrantPaths(character);
   return [
     ...new Set([
       ...Object.keys(DEFAULT_ACTIONS),
-      ...getActionsFromFeatures(getActiveFeatures(character)),
-      ...getActionsFromChoices(character),
+      ...getActionsFromFeatures(grants).map(({ id }) => id),
+      ...getActionsFromChoices(grants).map(({ id }) => id),
     ]),
   ];
 }

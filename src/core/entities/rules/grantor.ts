@@ -28,3 +28,8 @@ export type ResolvedGrant = {
   grant: FeatureGrant;
   chain: GrantorRef[];
 };
+
+export type GrantWithSources = {
+  id: string;
+  sources: GrantorRef[][];
+};

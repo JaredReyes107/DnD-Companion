@@ -3,8 +3,11 @@ import { Character } from "@/core/entities/character/Character";
 import { registerHomebrewFeature } from "@/core/data/registries/features.registry";
 import { registerHomebrewClass } from "@/core/data/registries/classes.registry";
 import { registerHomebrewOption } from "@/core/data/registries/options.registry";
+import { registerHomebrewModifier } from "@/core/data/registries/modifiers.registry";
 import { FeatureTemplate } from "@/core/entities/rules/feature-template";
+import { ModifierType } from "@/core/entities/modifiers/Modifier";
 import { getActiveFeatures } from "./features-helper";
+import { buildCharacterPassiveModifiers } from "./modifiers-helper";
 import { resolveGrants } from "./resolve-grants";
 
 let fixtureClassCount = 0;
@@ -72,6 +75,29 @@ describe("resolveGrants", () => {
       root.id,
       child.id,
     ]);
+  });
+
+  it("deduplicates passive modifiers by template id from resolver output", () => {
+    const modifierId = "test.duplicate_modifier";
+    registerHomebrewModifier({
+      id: modifierId,
+      sourceId: modifierId,
+      statModel: { type: "custom", key: "attack" },
+      type: ModifierType.ADDITIVE,
+      value: 2,
+    });
+
+    const character = makeFixtureCharacter([
+      makeFeature("test.modifier_root", [{ type: "modifier", id: modifierId }]),
+      makeFeature("test.modifier_bridge", [
+        { type: "modifier", id: modifierId },
+      ]),
+    ]);
+
+    const modifiers = buildCharacterPassiveModifiers(character);
+
+    expect(Object.keys(modifiers)).toEqual([modifierId]);
+    expect(modifiers[modifierId].sourceId).toBe(modifierId);
   });
 
   it("turns class progression entries into feature grants", () => {
