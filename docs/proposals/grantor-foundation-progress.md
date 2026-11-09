@@ -93,7 +93,7 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 | S12 | GrantorRef + ResolvedGrant types (types only) | DONE | | 2026-11-08 |
 | S13 | resolveGrants: schedule to feature grants | DONE | 1ce4f76 | 2026-11-08 |
 | S14 | resolveGrants: recursion, cycles, depth, memo | DONE | 4fa6e19 | 2026-11-08 |
-| S15 | getActiveFeatures on top of resolver | DONE | pending | 2026-11-08 |
+| S15 | getActiveFeatures on top of resolver | DONE | db111d6 | 2026-11-08 |
 | S16 | Resources + actions from resolver | **CURRENT** | | |
 | S17 | Modifiers from resolver | TODO | | |
 | S18 | Advantage + proficiency + language from resolver | TODO | | |
@@ -522,7 +522,7 @@ Template:
   - S15: reimplement `getActiveFeatures` using `resolveGrants` and de-duplicate by feature id.
 - Build result: tsc / lint / jest
 
-### 2026-11-08 | S15 | commit pending
+### 2026-11-08 | S15 | commit db111d6
 - Changed:
   - Reimplemented `getActiveFeatures` from feature grants emitted by `resolveGrants`, de-duplicating by feature id while retaining character-owned features.
   - Reconciled the S13/S14 Status Board entries with their commits (`1ce4f76`, `4fa6e19`).
