@@ -5,6 +5,13 @@ export const ORDER_OF_SCRIBES: SubclassTemplate = {
   classId: "wizard",
   source: "Tasha's Cauldron of Everything",
 
+  progression: {
+    2: ["wizard.scribes.wizardly_quill", "wizard.scribes.awakened_spellbook"],
+    6: ["wizard.scribes.manifest_mind"],
+    10: ["wizard.scribes.master_scrivener"],
+    14: ["wizard.scribes.one_with_the_word"],
+  },
+
   featuresByLevel: {
     2: [
       {

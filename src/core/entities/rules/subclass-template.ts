@@ -8,7 +8,7 @@ import { Progression } from "./feature-progression";
  * Subclasses are always owned by a class (via classId) but are independent
  * data sources in the engine. Their features feed the same getActiveFeatures
  * pipeline as class features, and their resources/actions live in the same
- * flat registries — no special handling required.
+ * flat registries â€” no special handling required.
  *
  * A subclass MAY define a spellcastingTemplate for subclasses that grant
  * spellcasting independently of their parent class (e.g. Eldritch Knight,
@@ -16,22 +16,22 @@ import { Progression } from "./feature-progression";
  */
 export type SubclassTemplate = {
   id: string; // e.g. "champion", "battle_master", "eldritch_knight"
-  classId: string; // e.g. "fighter" — the owning class
+  classId: string; // e.g. "fighter" â€” the owning class
 
-  source?: string; // e.g. "Players Handbook", "Tasha's Cauldron" — for homebrew distinction
+  source?: string; // e.g. "Players Handbook", "Tasha's Cauldron" â€” for homebrew distinction
 
   /**
    * Subclass features keyed by character level (not subclass level).
    * Levels with no subclass features should be omitted or left as empty arrays.
    * The engine collects these via the same loop used for class features.
    */
-  featuresByLevel: Record<number, FeatureTemplate[]>;
+  featuresByLevel?: Record<number, FeatureTemplate[]>;
 
   /** Transitional schedule type; featuresByLevel remains in use until migration. */
   progression?: Progression;
 
   /**
-   * Optional — only for subclasses that independently grant spellcasting.
+   * Optional â€” only for subclasses that independently grant spellcasting.
    * Examples: Eldritch Knight (fighter), Arcane Trickster (rogue).
    * Most subclasses leave this undefined.
    */

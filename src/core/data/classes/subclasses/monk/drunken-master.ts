@@ -5,6 +5,16 @@ export const DRUNKEN_MASTER: SubclassTemplate = {
   classId: "monk",
   source: "Xanathar's Guide to Everything",
 
+  progression: {
+    3: [
+      "monk.drunken_master.bonus_proficiencies_drunken_master",
+      "monk.drunken_master.drunken_technique",
+    ],
+    6: ["monk.drunken_master.tipsy_sway"],
+    11: ["monk.drunken_master.drunkards_luck"],
+    17: ["monk.drunken_master.intoxicated_frenzy"],
+  },
+
   featuresByLevel: {
     3: [
       {
@@ -19,7 +29,7 @@ export const DRUNKEN_MASTER: SubclassTemplate = {
         source: "subclass",
         level: 3,
         tags: ["passive", "movement", "combat"],
-        // TODO: extends flurry_of_blows — Also gain the disengage modifier and +10ft speed
+        // TODO: extends flurry_of_blows â€” Also gain the disengage modifier and +10ft speed
       },
     ],
 
@@ -49,7 +59,7 @@ export const DRUNKEN_MASTER: SubclassTemplate = {
         source: "subclass",
         level: 17,
         tags: ["passive", "combat"],
-        // TODO: extends flurry_of_blows — descriptive, function deferred
+        // TODO: extends flurry_of_blows â€” descriptive, function deferred
       },
     ],
   },

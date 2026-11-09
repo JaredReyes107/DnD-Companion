@@ -5,6 +5,17 @@ export const ARTILLERIST: SubclassTemplate = {
   classId: "artificer",
   source: "Tasha's Cauldron of Everything",
 
+  progression: {
+    3: [
+      "artificer.artillerist.artillerist_tool_proficiency",
+      "artificer.artillerist.artillerist_spells",
+      "artificer.artillerist.eldritch_cannon",
+    ],
+    5: ["artificer.artillerist.arcane_firearm"],
+    9: ["artificer.artillerist.explosive_cannon"],
+    15: ["artificer.artillerist.fortified_position"],
+  },
+
   featuresByLevel: {
     3: [
       {

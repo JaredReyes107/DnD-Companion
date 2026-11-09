@@ -1,10 +1,44 @@
-import { getFeatureTemplateById } from "@/core/data/registries/features.registry";
+import {
+  getFeatureRegistry,
+  getFeatureTemplateById,
+} from "@/core/data/registries/features.registry";
 import { getSubclassTemplateById } from "@/core/data/registries/subclasses.registry";
 import { getClassTemplateById } from "@/core/data/registries/classes.registry";
 import { CharacterClasses } from "@/core/entities/character/character-classes";
 import { FeatureInstance } from "@/core/entities/features/feature-instance";
 import { FeatureTemplate } from "@/core/entities/rules/feature-template";
+import { FeatureRef } from "@/core/entities/rules/feature-progression";
 import { Character } from "@/core/entities/character/Character";
+
+function collectProgressionFeatures(
+  refs: FeatureRef[] | undefined,
+  isPrimary: boolean,
+  legacyFeatures: FeatureTemplate[],
+): FeatureTemplate[] {
+  if (!refs) {
+    return [];
+  }
+
+  const featureRegistry = getFeatureRegistry();
+  const features: FeatureTemplate[] = [];
+
+  for (const ref of refs) {
+    const appliesTo = typeof ref === "string" ? undefined : ref.appliesTo;
+
+    if (appliesTo !== undefined && (appliesTo === "primary") !== isPrimary) {
+      continue;
+    }
+
+    const featureId = typeof ref === "string" ? ref : ref.id;
+    const feature =
+      legacyFeatures.find((legacyFeature) => legacyFeature.id === featureId) ??
+      featureRegistry[featureId] ??
+      getFeatureTemplateById(featureId);
+    features.push(feature);
+  }
+
+  return features;
+}
 
 export function getFeaturesFromClasses(
   characterClasses: CharacterClasses,
@@ -12,24 +46,31 @@ export function getFeaturesFromClasses(
   const features: FeatureTemplate[] = [];
 
   characterClasses.order.forEach((classKey, index) => {
-    // order is acquisition order, so index 0 is the primary class
     const isPrimary = index === 0;
-    const applies = (f: FeatureTemplate) =>
-      f.appliesTo === undefined || (f.appliesTo === "primary") === isPrimary;
-
     const classInstance = characterClasses.byId[classKey];
     const classTemplate = getClassTemplateById(classInstance.classId);
     const subclass = classInstance.subclassId
       ? getSubclassTemplateById(classInstance.subclassId)
       : undefined;
 
-    for (let lvl = 1; lvl <= classInstance.level; lvl++) {
+    for (let level = 1; level <= classInstance.level; level++) {
       features.push(
-        ...(classTemplate.featuresByLevel[lvl] ?? []).filter(applies),
+        ...collectProgressionFeatures(
+          classTemplate.progression?.[level],
+          isPrimary,
+          classTemplate.featuresByLevel?.[level] ?? [],
+        ),
       );
-      features.push(...(subclass?.featuresByLevel[lvl] ?? []).filter(applies));
+      features.push(
+        ...collectProgressionFeatures(
+          subclass?.progression?.[level],
+          isPrimary,
+          subclass?.featuresByLevel?.[level] ?? [],
+        ),
+      );
     }
   });
+
   return features;
 }
 

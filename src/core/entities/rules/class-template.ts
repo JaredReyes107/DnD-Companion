@@ -13,7 +13,7 @@ export type ClassTemplate = {
 
   spellcastingTemplate?: SpellcastingTemplate;
 
-  featuresByLevel: Record<number, FeatureTemplate[]>;
+  featuresByLevel?: Record<number, FeatureTemplate[]>;
 
   /** Transitional schedule type; featuresByLevel remains in use until migration. */
   progression?: Progression;

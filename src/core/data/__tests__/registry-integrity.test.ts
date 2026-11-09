@@ -5,8 +5,15 @@ import { getModifierRegistry } from "@/core/data/registries/modifiers.registry";
 import { getOptionRegistry } from "@/core/data/registries/options.registry";
 import { getChoicePoolRegistry } from "@/core/data/registries/choice-pools.registry";
 import { getAllClassTemplates } from "@/core/data/registries/classes.registry";
+import {
+  getFeatureRegistry,
+  getFeatureTemplateById,
+} from "@/core/data/registries/features.registry";
 import { getSubclassRegistry } from "@/core/data/registries/subclasses.registry";
-import { FeatureGrant } from "@/core/entities/rules/feature-template";
+import {
+  FeatureGrant,
+  FeatureTemplate,
+} from "@/core/entities/rules/feature-template";
 
 import { duplicateEffectKeys } from "@/core/rules/validation/action-effects";
 
@@ -28,14 +35,37 @@ type Granter = { owner: string; grants: FeatureGrant[] };
 
 function collectGranters(): Granter[] {
   const out: Granter[] = [];
-  for (const c of getAllClassTemplates())
-    for (const feats of Object.values(c.featuresByLevel))
-      for (const f of feats)
-        out.push({ owner: `${c.id}:${f.id}`, grants: f.grants ?? [] });
-  for (const s of Object.values(getSubclassRegistry()))
-    for (const feats of Object.values(s.featuresByLevel))
-      for (const f of feats)
-        out.push({ owner: `${s.id}:${f.id}`, grants: f.grants ?? [] });
+
+  const collectFromProgression = (
+    owner: string,
+    progression: Record<number, Array<string | { id: string }>> | undefined,
+    legacyFeaturesByLevel: Record<number, FeatureTemplate[]> | undefined,
+  ) => {
+    if (!progression) return;
+
+    for (const refs of Object.values(progression)) {
+      for (const ref of refs) {
+        const id = typeof ref === "string" ? ref : ref.id;
+        const feature =
+          Object.values(legacyFeaturesByLevel ?? {})
+            .flat()
+            .find((legacyFeature) => legacyFeature.id === id) ??
+          getFeatureRegistry()[id] ??
+          getFeatureTemplateById(id);
+        out.push({
+          owner: `${owner}:${feature.id}`,
+          grants: feature.grants ?? [],
+        });
+      }
+    }
+  };
+
+  for (const c of getAllClassTemplates()) {
+    collectFromProgression(c.id, c.progression, c.featuresByLevel);
+  }
+  for (const s of Object.values(getSubclassRegistry())) {
+    collectFromProgression(s.id, s.progression, s.featuresByLevel);
+  }
   for (const o of Object.values(getOptionRegistry()))
     out.push({
       owner: `option:${o.id}`,

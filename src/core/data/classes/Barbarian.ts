@@ -20,7 +20,10 @@ export const BARBARIAN: ClassTemplate = {
 
   progression: {
     1: [
-      "barbarian.proficiencies_barbarian",
+      {
+        id: "barbarian.proficiencies_barbarian",
+        appliesTo: "primary",
+      },
       {
         id: "barbarian.multiclass_proficiencies_barbarian",
         appliesTo: "multiclass",

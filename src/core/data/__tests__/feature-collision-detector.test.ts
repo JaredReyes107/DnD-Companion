@@ -60,26 +60,29 @@ function collectFeatureDefinitions(): FeatureDefinition[] {
         const init = prop.initializer;
         if (ts.isArrayLiteralExpression(init)) {
           for (const element of init.elements) {
-            if (!ts.isObjectLiteralExpression(element)) continue;
-            const featureId = element.properties.find(
-              (p): p is ts.PropertyAssignment =>
-                ts.isPropertyAssignment(p) &&
-                getIdentifierText(p.name) === "id" &&
-                ts.isStringLiteralLike(p.initializer),
-            );
-            if (!featureId || !ts.isStringLiteralLike(featureId.initializer)) {
-              continue;
+            let featureIdText: string | undefined;
+
+            if (ts.isStringLiteralLike(element)) {
+              featureIdText = element.text;
+            } else if (ts.isObjectLiteralExpression(element)) {
+              const idProp = element.properties.find(
+                (p): p is ts.PropertyAssignment =>
+                  ts.isPropertyAssignment(p) &&
+                  getIdentifierText(p.name) === "id" &&
+                  ts.isStringLiteralLike(p.initializer),
+              );
+              if (idProp && ts.isStringLiteralLike(idProp.initializer)) {
+                featureIdText = idProp.initializer.text;
+              }
             }
-            const grants = element.properties.find(
-              (p): p is ts.PropertyAssignment =>
-                ts.isPropertyAssignment(p) &&
-                getIdentifierText(p.name) === "grants",
-            );
+
+            if (!featureIdText) continue;
+
             definitions.push({
-              id: featureId.initializer.text,
+              id: featureIdText,
               owner: path.relative(path.join(__dirname, ".."), file),
               file,
-              signature: grants?.initializer.getText(sf) ?? "[]",
+              signature: element.getText(sf),
             });
           }
         }
@@ -92,7 +95,7 @@ function collectFeatureDefinitions(): FeatureDefinition[] {
     const visit = (node: ts.Node) => {
       if (
         ts.isPropertyAssignment(node) &&
-        getIdentifierText(node.name) === "featuresByLevel"
+        getIdentifierText(node.name) === "progression"
       ) {
         if (ts.isObjectLiteralExpression(node.initializer)) {
           visitObject(node.initializer);

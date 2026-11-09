@@ -5,6 +5,18 @@ export const WAR: SubclassTemplate = {
   classId: "cleric",
   source: "phb",
 
+  progression: {
+    1: [
+      "cleric.war.bonus_proficiencies_war",
+      "cleric.war.war_domain_spells",
+      "cleric.war.war_priest",
+    ],
+    2: ["cleric.war.channel_divinity_guided_strike"],
+    6: ["cleric.war.channel_divinity_war_gods_blessing"],
+    8: ["blessed_strikes", "cleric.war.divine_strike"],
+    17: ["cleric.war.avatar_of_battle"],
+  },
+
   featuresByLevel: {
     1: [
       {

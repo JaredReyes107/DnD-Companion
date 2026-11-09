@@ -5,6 +5,18 @@ export const ARMORER: SubclassTemplate = {
   classId: "artificer",
   source: "Tasha's Cauldron of Everything",
 
+  progression: {
+    3: [
+      "artificer.armorer.tools_of_the_trade",
+      "artificer.armorer.armorer_spells",
+      "artificer.armorer.arcane_armor",
+      "artificer.armorer.armor_model",
+    ],
+    5: ["extra_attack"],
+    9: ["artificer.armorer.armor_modifications"],
+    15: ["artificer.armorer.perfected_armor"],
+  },
+
   featuresByLevel: {
     3: [
       {

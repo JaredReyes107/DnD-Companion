@@ -5,6 +5,18 @@ export const BATTLE_SMITH: SubclassTemplate = {
   classId: "artificer",
   source: "Tasha's Cauldron of Everything",
 
+  progression: {
+    3: [
+      "artificer.battle_smith.tool_proficiency_battle_smith",
+      "artificer.battle_smith.spells_battle_smith",
+      "artificer.battle_smith.battle_ready",
+      "artificer.battle_smith.steel_defender",
+    ],
+    5: ["extra_attack"],
+    9: ["artificer.battle_smith.arcane_jolt"],
+    15: ["artificer.battle_smith.improved_defender"],
+  },
+
   featuresByLevel: {
     3: [
       {
