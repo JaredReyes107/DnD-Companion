@@ -1,11 +1,17 @@
-import { grantsOfType } from "@/core/rules/shared/grant-filters";
-import { getActiveFeatures } from "./features-helper";
 import { Character } from "@/core/entities/character/Character";
 import {
   CharacterLanguageState,
   LanguageMode,
 } from "@/core/entities/character/language-state";
 import { getLanguageNodeAncestryChain } from "@/core/data/registries/language-nodes.registry";
+import { GrantorRef, ResolvedGrant } from "@/core/entities/rules/grantor";
+import { getGrantPaths } from "./features-helper";
+
+export type LanguageGrantWithSources = {
+  nodeId: string;
+  mode: LanguageMode;
+  sources: GrantorRef[][];
+};
 
 export function resolveLanguageMode(
   character: Character,
@@ -45,6 +51,29 @@ export function revokeLanguageMode(
   };
 }
 
+export function getLanguageGrantsFromFeatures(
+  grants: ResolvedGrant[],
+): LanguageGrantWithSources[] {
+  const byEffect = new Map<string, LanguageGrantWithSources>();
+  for (const resolved of grants) {
+    if (resolved.grant.type !== "language") continue;
+    for (const mode of resolved.grant.modes) {
+      const key = `${resolved.grant.nodeId}\u0000${mode}`;
+      const existing = byEffect.get(key);
+      if (existing) {
+        existing.sources.push(resolved.chain);
+      } else {
+        byEffect.set(key, {
+          nodeId: resolved.grant.nodeId,
+          mode,
+          sources: [resolved.chain],
+        });
+      }
+    }
+  }
+  return [...byEffect.values()];
+}
+
 /**
  * Merges feature-derived language grants into whatever the character
  * already has (manual/spell-granted modes, once that path exists).
@@ -60,13 +89,12 @@ export function buildCharacterLanguageState(
     next[nodeId] = new Set(modes);
   }
 
-  const features = getActiveFeatures(character);
-  for (const feature of features) {
-    for (const grant of grantsOfType(feature.grants, "language")) {
-      const existing = next[grant.nodeId] ?? new Set<LanguageMode>();
-      grant.modes.forEach((m) => existing.add(m));
-      next[grant.nodeId] = existing;
-    }
+  for (const { nodeId, mode } of getLanguageGrantsFromFeatures(
+    getGrantPaths(character),
+  )) {
+    const existing = next[nodeId] ?? new Set<LanguageMode>();
+    existing.add(mode);
+    next[nodeId] = existing;
   }
 
   return next;

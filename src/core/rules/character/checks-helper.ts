@@ -4,10 +4,9 @@ import {
   getCheckNodeById,
   getCheckNodeAncestryChain,
 } from "@/core/data/registries/check-nodes.registry";
-import { getProficienciesFromChoices } from "@/core/rules/character/choices-helper";
-import { FeatureTemplate } from "@/core/entities/rules/feature-template";
-import { getActiveFeatures } from "./features-helper";
-import { grantsOfType } from "../shared/grant-filters";
+import { GrantWithSources, ResolvedGrant } from "@/core/entities/rules/grantor";
+import { getGrantPaths } from "./features-helper";
+import { resolvedGrantsWithSources } from "../shared/grant-filters";
 
 const DEFAULT_CHECK_ABILITY: Ability = "INT"; // arbitrary fallback
 
@@ -70,10 +69,9 @@ export function isProficiencyDerived(
 export function buildCharacterDerivedProficiencies(
   character: Character,
 ): Set<string> {
-  return new Set([
-    ...getProficienciesFromFeatures(getActiveFeatures(character)),
-    ...getProficienciesFromChoices(character),
-  ]);
+  return new Set(
+    getProficienciesFromFeatures(getGrantPaths(character)).map(({ id }) => id),
+  );
 }
 
 export function grantCheckProficiency(
@@ -124,15 +122,9 @@ export function clearCheckAbilityOverride(
 }
 
 export function getProficienciesFromFeatures(
-  features: FeatureTemplate[],
-): Set<string> {
-  const ids = new Set<string>();
-  for (const feature of features) {
-    grantsOfType(feature.grants, "proficiency").forEach((g) =>
-      ids.add(g.nodeId),
-    );
-  }
-  return ids;
+  grants: ResolvedGrant[],
+): GrantWithSources[] {
+  return resolvedGrantsWithSources(grants, "proficiency");
 }
 
 export const EXPERTISE_TAG = "expertise";

@@ -4,9 +4,6 @@ import {
   AdvantagePolarity,
 } from "@/core/entities/rules/advantage/advantage-instance";
 import { AdvantageState } from "@/core/entities/character/advantage-state";
-import { FeatureTemplate } from "@/core/entities/rules/feature-template";
-import { grantsOfType } from "../shared/grant-filters";
-import { getActiveFeatures } from "./features-helper";
 import { ExpiryCondition } from "@/core/entities/rules/duration/expiry-condition";
 import * as Crypto from "expo-crypto";
 import { getStatusAdvantageInstances } from "./status-effects-helper";
@@ -15,7 +12,6 @@ import {
   evaluateCondition,
 } from "@/core/rules/modifiers/condition-evaluator";
 import { buildEvaluationContext } from "@/core/systems/stats/resolve-stats";
-import { getAdvantageGrantsFromChoices } from "./choices-helper";
 import { Condition } from "@/core/entities/modifiers/Condition";
 import { resolveCheckNodeAncestryChain } from "@/core/data/registries/check-nodes.registry";
 import { resolveCheckAbility } from "./checks-helper";
@@ -23,6 +19,9 @@ import {
   ExpandedAdvantage,
   expandAdvantageTemplate,
 } from "@/core/data/registries/advantage.registry";
+import { GrantorRef, ResolvedGrant } from "@/core/entities/rules/grantor";
+import { getGrantPaths } from "./features-helper";
+import { resolvedGrantsWithSources } from "../shared/grant-filters";
 
 function collectInstancesForNode(
   character: Character,
@@ -118,12 +117,14 @@ export function revokeAdvantageBySource(
 }
 
 export function getAdvantageGrantsFromFeatures(
-  features: FeatureTemplate[],
-): ExpandedAdvantage[] {
-  return features.flatMap((f) =>
-    grantsOfType(f.grants, "advantage").flatMap((g) =>
-      expandAdvantageTemplate(g.id, f.id),
-    ),
+  grants: ResolvedGrant[],
+): Array<ExpandedAdvantage & { sources: GrantorRef[][] }> {
+  return resolvedGrantsWithSources(grants, "advantage").flatMap(
+    ({ id, sources }) =>
+      expandAdvantageTemplate(id, id).map((advantage) => ({
+        ...advantage,
+        sources,
+      })),
   );
 }
 
@@ -181,10 +182,8 @@ export function buildCharacterAdvantageInstances(
     };
   };
 
-  for (const g of getAdvantageGrantsFromFeatures(getActiveFeatures(character)))
+  for (const g of getAdvantageGrantsFromFeatures(getGrantPaths(character)))
     install(g, FEATURE_PREFIX);
-  for (const g of getAdvantageGrantsFromChoices(character))
-    install(g, CHOICE_PREFIX);
 
   return next;
 }

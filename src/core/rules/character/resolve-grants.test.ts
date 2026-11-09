@@ -9,6 +9,11 @@ import { ModifierType } from "@/core/entities/modifiers/Modifier";
 import { getActiveFeatures } from "./features-helper";
 import { buildCharacterPassiveModifiers } from "./modifiers-helper";
 import { resolveGrants } from "./resolve-grants";
+import { getGrantPaths } from "./features-helper";
+import { registerHomebrewAdvantage } from "@/core/data/registries/advantage.registry";
+import { getAdvantageGrantsFromFeatures } from "./advantage-helper";
+import { getProficienciesFromFeatures } from "./checks-helper";
+import { getLanguageGrantsFromFeatures } from "./languages-helper";
 
 let fixtureClassCount = 0;
 
@@ -98,6 +103,89 @@ describe("resolveGrants", () => {
 
     expect(Object.keys(modifiers)).toEqual([modifierId]);
     expect(modifiers[modifierId].sourceId).toBe(modifierId);
+  });
+
+  it("resolves advantage, proficiency, and language grants with deduplicated sources", () => {
+    const advantageId = "test.resolved_advantage";
+    const poolId = "test.resolved_grants_pool";
+    const optionId = "test.resolved_grants_option";
+    registerHomebrewAdvantage({
+      id: advantageId,
+      sourceId: advantageId,
+      nodeIds: ["skill.arcana"],
+      polarity: "advantage",
+    });
+    registerHomebrewOption({
+      id: optionId,
+      poolIds: [poolId],
+      grants: [
+        { type: "advantage", id: advantageId },
+        { type: "proficiency", nodeId: "tool.smithsTools" },
+        {
+          type: "language",
+          nodeId: "language.giant",
+          modes: ["speak"],
+        },
+      ],
+    });
+    const root = makeFeature("test.grant_sources_root", [
+      { type: "advantage", id: advantageId },
+      { type: "proficiency", nodeId: "tool.smithsTools" },
+      {
+        type: "language",
+        nodeId: "language.giant",
+        modes: ["speak", "understand"],
+      },
+      { type: "feature", id: "test.grant_sources_child" },
+      { type: "choice", id: poolId },
+    ]);
+    const child = makeFeature("test.grant_sources_child", [
+      { type: "advantage", id: advantageId },
+      { type: "proficiency", nodeId: "tool.smithsTools" },
+      {
+        type: "language",
+        nodeId: "language.giant",
+        modes: ["speak"],
+      },
+    ]);
+    const character = makeFixtureCharacter([root, child], {
+      [poolId]: { poolId, selectedOptionIds: [optionId] },
+    });
+    const grants = getGrantPaths(character);
+
+    const advantages = getAdvantageGrantsFromFeatures(grants);
+    expect(advantages).toEqual([
+      expect.objectContaining({
+        nodeId: "skill.arcana",
+        polarity: "advantage",
+        sources: [expect.any(Array), expect.any(Array), expect.any(Array)],
+      }),
+    ]);
+    expect(
+      advantages[0].sources.some((chain) =>
+        chain.some((ref) => ref.kind === "option"),
+      ),
+    ).toBe(true);
+    expect(getProficienciesFromFeatures(grants)).toEqual([
+      {
+        id: "tool.smithsTools",
+        sources: [expect.any(Array), expect.any(Array), expect.any(Array)],
+      },
+    ]);
+    expect(getLanguageGrantsFromFeatures(grants)).toEqual(
+      expect.arrayContaining([
+        {
+          nodeId: "language.giant",
+          mode: "speak",
+          sources: [expect.any(Array), expect.any(Array), expect.any(Array)],
+        },
+        {
+          nodeId: "language.giant",
+          mode: "understand",
+          sources: [expect.any(Array)],
+        },
+      ]),
+    );
   });
 
   it("turns class progression entries into feature grants", () => {

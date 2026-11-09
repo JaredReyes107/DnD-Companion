@@ -96,8 +96,8 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 | S15 | getActiveFeatures on top of resolver | DONE | db111d6 | 2026-11-08 |
 | S16 | Resources + actions from resolver | DONE | 48a0a1f | 2026-11-09 |
 | S17 | Modifiers from resolver | DONE | | 2026-11-09 |
-| S18 | Advantage + proficiency + language from resolver | **CURRENT** | | |
-| S19 | Overrides + choice-grant traversal from resolver | TODO | | |
+| S18 | Advantage + proficiency + language from resolver | DONE | | 2026-11-09 |
+| S19 | Overrides + choice-grant traversal from resolver | **CURRENT** | | |
 | S20 | `feature` in OptionGrant + registry cycle validation | TODO | | |
 | S21 | `picks` on choice grants (types + data, additive) | TODO | | |
 | S22 | Slot-keyed ChoiceInstance | TODO | | |
@@ -235,10 +235,10 @@ Large classes (cleric, fighter, wizard, warlock) may be split by subclass group.
 
 #### S17: Modifiers from resolver
 **Goal:** passive modifiers from the resolver; de-dupe by `templateId`.
-- [ ] Golden green. Test: Evasion-style duplicate does not double a modifier.
+- [x] Golden green. Test: Evasion-style duplicate does not double a modifier.
 
 #### S18: Advantage + proficiency + language from resolver
-- [ ] Golden green. Same de-dupe + sources rule.
+- [x] Golden green. Same de-dupe + sources rule, including selected-option source paths.
 
 #### S19: Overrides + choice-grant traversal from resolver
 **Goal:** `buildOverrideContext` and `getGrantsFromChoices` stop walking graphs themselves; delete the duplicated traversal.
@@ -564,18 +564,20 @@ Template:
   - S18: advantage + proficiency + language from resolver.
 - Build result: tsc / jest
 
-### 2026-11-09 | S18 | current working tree
+### 2026-11-09 | S18 | completed
 - Changed:
-  - Kept the board aligned to the active work item: `S18` remains the only step in scope.
-  - Re-checked the repo baseline and confirmed the current branch is green before moving into the resolver work for advantage / proficiency / language synthesis.
+  - Advantage, proficiency, and language synthesis now reads resolved grant paths, deduplicates effects, and exposes the contributing source chains.
+  - Selected-option grants for all three types are covered through the resolver, including multiple paths to the same effect.
+  - Reconciled the S17 checklist with its DONE status after confirming its duplicate-modifier regression test and full-suite pass.
 - Proven by (tests):
   - `npx tsc --noEmit`
   - `npm run lint`
   - `npm test -- --watchAll=false --runInBand`
+  - `npx jest src/core/rules/character/resolve-grants.test.ts --runInBand --watch=false`
 - Surprises / deviations:
-  - No implementation changes were made for S18 in this pass; this update is documentation-only to keep the plan synced with the active step.
+  - The initial S18 regression assertion overcounted the `understand` source paths; the focused test exposed and corrected the expectation.
 - Next step will touch:
-  - S18: advantage + proficiency + language from resolver.
+  - S19: overrides + choice-grant traversal from resolver.
 - Build result: tsc / lint / test
 
 ---

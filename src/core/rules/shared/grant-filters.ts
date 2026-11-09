@@ -2,29 +2,30 @@ import { FeatureGrant } from "@/core/entities/rules/feature-template";
 import { OptionGrant } from "@/core/entities/rules/option-template";
 import { GrantWithSources, ResolvedGrant } from "@/core/entities/rules/grantor";
 
-export function resolvedGrantsWithSources<
-  T extends Extract<FeatureGrant["type"], "resource" | "action">,
->(
+export function resolvedGrantsWithSources<T extends FeatureGrant["type"]>(
   resolvedGrants: ResolvedGrant[],
   type: T,
-  fromChoice: boolean,
+  fromChoice?: boolean,
 ): GrantWithSources[] {
   const byId = new Map<string, GrantWithSources>();
 
   for (const resolved of resolvedGrants) {
     if (
       resolved.grant.type !== type ||
-      resolved.chain.some((ref) => ref.kind === "option") !== fromChoice
+      (fromChoice !== undefined &&
+        resolved.chain.some((ref) => ref.kind === "option") !== fromChoice)
     ) {
       continue;
     }
 
-    const existing = byId.get(resolved.grant.id);
+    const id =
+      "nodeId" in resolved.grant ? resolved.grant.nodeId : resolved.grant.id;
+    const existing = byId.get(id);
     if (existing) {
       existing.sources.push(resolved.chain);
     } else {
-      byId.set(resolved.grant.id, {
-        id: resolved.grant.id,
+      byId.set(id, {
+        id,
         sources: [resolved.chain],
       });
     }
