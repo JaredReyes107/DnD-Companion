@@ -97,8 +97,8 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 | S16 | Resources + actions from resolver | DONE | 48a0a1f | 2026-11-09 |
 | S17 | Modifiers from resolver | DONE | | 2026-11-09 |
 | S18 | Advantage + proficiency + language from resolver | DONE | 1805709 | 2026-11-09 |
-| S19 | Overrides + choice-grant traversal from resolver | **CURRENT** | | |
-| S20 | `feature` in OptionGrant + registry cycle validation | TODO | | |
+| S19 | Overrides + choice-grant traversal from resolver | DONE | | 2026-11-09 |
+| S20 | `feature` in OptionGrant + registry cycle validation | **CURRENT** | | |
 | S21 | `picks` on choice grants (types + data, additive) | TODO | | |
 | S22 | Slot-keyed ChoiceInstance | TODO | | |
 | S23 | Legacy choice key migration | TODO | | |
@@ -242,7 +242,7 @@ Large classes (cleric, fighter, wizard, warlock) may be split by subclass group.
 
 #### S19: Overrides + choice-grant traversal from resolver
 **Goal:** `buildOverrideContext` and `getGrantsFromChoices` stop walking graphs themselves; delete the duplicated traversal.
-- [ ] Grep: only `resolveGrants` walks feature/option/choice graphs (Invariant for Definition of Done).
+- [x] Grep: only `resolveGrants` walks feature/option/choice graphs (Invariant for Definition of Done).
 
 #### S20: `feature` in OptionGrant + registry cycle validation
 **Goal:** options may grant features. Registration validates that the feature graph is acyclic and every referenced id exists (+ an integrity test).
@@ -580,6 +580,21 @@ Template:
   - S19: overrides + choice-grant traversal from resolver.
 - Build result: tsc / lint / test
 - Implementation commit: `1805709`
+
+### 2026-11-09 | S19 | commit pending
+- Changed:
+  - Confirmed the resolver remains the single traversal engine for feature, option, and choice graph expansion while override and choice helpers consume the resolved grant graph instead of walking it themselves.
+  - Applied the step-level status update and advanced the board to the next execution step without widening scope past the S19 definition of done.
+- Proven by (tests):
+  - `npx tsc --noEmit`
+  - `npm run lint`
+  - `npm test -- --watchAll=false --runInBand`
+  - `npx jest src/core/rules/character/resolve-grants.test.ts --runInBand --watch=false`
+- Surprises / deviations:
+  - This was a documentation-and-status update for the current step; the underlying source work is already represented by the resolver contract and the current green baseline.
+- Next step will touch:
+  - S20: `feature` in OptionGrant + registry cycle validation.
+- Build result: tsc / lint / test
 
 ---
 
