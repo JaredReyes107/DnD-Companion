@@ -32,7 +32,7 @@ export const BEAST: SubclassTemplate = {
         id: "barbarian.beast.bestial_soul",
         source: "subclass",
         level: 6,
-        grants: [{ type: "choice", id: "bestial_soul_movement" }],
+        grants: [{ type: "choice", id: "bestial_soul_movement", picks: 1 }],
         tags: ["passive", "combat"],
       },
     ],

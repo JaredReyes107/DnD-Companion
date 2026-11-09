@@ -60,7 +60,7 @@ export const ARTIFICER: ClassTemplate = {
         source: "class" as const,
         level: 2,
         grants: [
-          { type: "choice", id: "infusions_known" },
+          { type: "choice", id: "infusions_known", picks: 4 },
           { type: "resource", id: "infused_items" },
         ],
         tags: ["build-choice"],

@@ -55,7 +55,7 @@ export const SORCERER: ClassTemplate = {
         id: "sorcerer.metamagic",
         source: "class",
         level: 3,
-        grants: [{ type: "choice", id: "metamagic" }],
+        grants: [{ type: "choice", id: "metamagic", picks: 2 }],
         tags: ["build-choice"],
       },
     ],

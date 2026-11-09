@@ -16,7 +16,7 @@ export const FOUR_ELEMENTS: SubclassTemplate = {
         level: 3,
         grants: [
           { type: "action", id: "elemental_attunement" },
-          { type: "choice", id: "four_elements_disciplines" },
+          { type: "choice", id: "four_elements_disciplines", picks: 1 },
         ],
         tags: ["spellcasting", "build-choice"],
       },

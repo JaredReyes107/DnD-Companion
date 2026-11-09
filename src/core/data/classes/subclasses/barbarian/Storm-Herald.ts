@@ -18,7 +18,7 @@ export const STORM_HERALD: SubclassTemplate = {
         id: "barbarian.storm_herald.storm_aura",
         source: "subclass",
         level: 3,
-        grants: [{ type: "choice", id: "storm_aura_environment" }],
+        grants: [{ type: "choice", id: "storm_aura_environment", picks: 1 }],
         tags: ["combat", "build-choice"],
       },
     ],

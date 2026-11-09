@@ -31,7 +31,7 @@ export const ARCANE_ARCHER: SubclassTemplate = {
         level: 3,
         grants: [
           { type: "resource", id: "arcane_shot" },
-          { type: "choice", id: "arcane_shots_known" },
+          { type: "choice", id: "arcane_shots_known", picks: 2 },
         ],
         tags: ["combat", "build-choice"],
       },

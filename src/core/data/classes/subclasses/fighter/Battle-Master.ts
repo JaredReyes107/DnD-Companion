@@ -19,7 +19,7 @@ export const BATTLE_MASTER: SubclassTemplate = {
         source: "subclass" as const,
         level: 3,
         grants: [
-          { type: "choice", id: "maneuvers" },
+          { type: "choice", id: "maneuvers", picks: 3 },
           { type: "resource", id: "superiority_dice" },
         ],
         tags: ["combat"],

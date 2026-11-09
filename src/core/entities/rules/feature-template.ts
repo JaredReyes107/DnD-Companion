@@ -1,11 +1,12 @@
 import { LanguageMode } from "../character/language-state";
+import type { Num } from "./expr/expr";
 
 export type FeatureGrant =
   | { type: "resource"; id: string }
   | { type: "action"; id: string }
   | { type: "modifier"; id: string }
   | { type: "feature"; id: string }
-  | { type: "choice"; id: string; picks?: number }
+  | { type: "choice"; id: string; picks?: Num }
   | { type: "proficiency"; nodeId: string }
   | { type: "language"; nodeId: string; modes: LanguageMode[] }
   | { type: "advantage"; id: string }
