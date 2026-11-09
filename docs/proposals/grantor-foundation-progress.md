@@ -92,8 +92,8 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 | S11 | Remove featuresByLevel / level / source / appliesTo | DONE | | 2026-11-08 |
 | S12 | GrantorRef + ResolvedGrant types (types only) | DONE | | 2026-11-08 |
 | S13 | resolveGrants: schedule to feature grants | DONE | local | 2026-11-08 |
-| S14 | resolveGrants: recursion, cycles, depth, memo | **CURRENT** | | |
-| S15 | getActiveFeatures on top of resolver | TODO | | |
+| S14 | resolveGrants: recursion, cycles, depth, memo | DONE | local | 2026-11-08 |
+| S15 | getActiveFeatures on top of resolver | **CURRENT** | | |
 | S16 | Resources + actions from resolver | TODO | | |
 | S17 | Modifiers from resolver | TODO | | |
 | S18 | Advantage + proficiency + language from resolver | TODO | | |
@@ -223,7 +223,7 @@ Large classes (cleric, fighter, wizard, warlock) may be split by subclass group.
 
 #### S14: resolveGrants: recursion, cycles, depth, memo
 **Goal:** recurse through `feature` grants, and through selected options for `choice` grants (with an `option` hop). Cycle guard, depth limit 8, memoization.
-- [ ] Tests: cycle warns and stops; depth limit; memo hit/miss (`combatState` change does not invalidate; `featureChoices` change does); **path redundancy** (Evasion from Rogue 7 and Monk 7 gives two ResolvedGrants).
+- [x] Tests: cycle warns and stops; depth limit; memo hit/miss (`combatState` change does not invalidate; `featureChoices` change does); **path redundancy** (Evasion from Rogue 7 and Monk 7 gives two ResolvedGrants).
 
 #### S15: getActiveFeatures on top of resolver
 **Goal:** reimplement `getActiveFeatures` as "feature grants from `resolveGrants`, de-duplicated by id". Observable behavior unchanged.
@@ -505,6 +505,22 @@ Template:
 - Next step will touch:
   - S14: recursion, cycle guard, depth cap, and memoization in the full resolver.
 - Build result: jest only
+
+### 2026-11-08 | S14 | local
+- Changed:
+  - Extended `resolveGrants` to recurse through feature grants and selected choice options, adding feature and option hops to each grant chain.
+  - Added path-based cycle detection, an eight-level expansion limit, and memoization keyed by class identity and checked against choice/acquisition state.
+  - Added tests for nested grants, choice traversal, cycle/depth warnings, memo behavior, and duplicate Evasion paths.
+- Proven by (tests):
+  - `npx tsc --noEmit`
+  - `npm run lint`
+  - `npx jest src/core/rules/character/resolve-grants.test.ts --runInBand --watch=false`
+  - `npx jest --runInBand --watchAll=false` (32 suites, 616 tests passed)
+- Surprises / deviations:
+  - The required baseline lint found CRLF formatting errors in the existing resolver test; normalized that file while adding the S14 cases.
+- Next step will touch:
+  - S15: reimplement `getActiveFeatures` using `resolveGrants` and de-duplicate by feature id.
+- Build result: tsc / lint / jest
 
 ---
 
