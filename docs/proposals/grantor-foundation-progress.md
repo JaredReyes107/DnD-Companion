@@ -96,7 +96,7 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 | S15 | getActiveFeatures on top of resolver | DONE | db111d6 | 2026-11-08 |
 | S16 | Resources + actions from resolver | DONE | 48a0a1f | 2026-11-09 |
 | S17 | Modifiers from resolver | DONE | | 2026-11-09 |
-| S18 | Advantage + proficiency + language from resolver | DONE | | 2026-11-09 |
+| S18 | Advantage + proficiency + language from resolver | DONE | 1805709 | 2026-11-09 |
 | S19 | Overrides + choice-grant traversal from resolver | **CURRENT** | | |
 | S20 | `feature` in OptionGrant + registry cycle validation | TODO | | |
 | S21 | `picks` on choice grants (types + data, additive) | TODO | | |
@@ -579,6 +579,7 @@ Template:
 - Next step will touch:
   - S19: overrides + choice-grant traversal from resolver.
 - Build result: tsc / lint / test
+- Implementation commit: `1805709`
 
 ---
 
@@ -633,6 +634,7 @@ Template:
 - Recorded S5 code and progress in consecutive commits for the same commit-hash reason; the S5 implementation remains a single focused commit.
 - Recorded S15 code and progress in consecutive commits for the same commit-hash reason; the S15 implementation remains a single focused commit.
 - Recorded S16 code and progress in consecutive commits for the same commit-hash reason; the S16 implementation remains a single focused commit.
+- Recorded S18's implementation hash in a follow-up documentation commit because the hash was unavailable when the implementation and progress update were first committed.
 
 ---
 
