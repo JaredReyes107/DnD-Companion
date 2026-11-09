@@ -99,8 +99,8 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 | S18 | Advantage + proficiency + language from resolver | DONE | 1805709 | 2026-11-09 |
 | S19 | Overrides + choice-grant traversal from resolver | DONE | d6febb6 | 2026-11-09 |
 | S20 | `feature` in OptionGrant + registry cycle validation | DONE | b033311 | 2026-11-09 |
-| S21 | `picks` on choice grants (types + data, additive) | **CURRENT** | | |
-| S22 | Slot-keyed ChoiceInstance | TODO | | |
+| S21 | `picks` on choice grants (types + data, additive) | DONE | 2bdf446 | 2026-11-09 |
+| S22 | Slot-keyed ChoiceInstance | **CURRENT** | | |
 | S23 | Legacy choice key migration | TODO | | |
 | S24 | Pool data fixes | TODO | | |
 | S25 | Remove classId/picksAtLevel/sourceId from pools | TODO | | |
@@ -614,6 +614,24 @@ Template:
 - Build result: tsc / lint / test
 - Implementation commit: `b033311`
 
+### 2026-11-09 | S21 | commit 2bdf446
+- Changed:
+  - Widened `FeatureGrant.choice.picks` from `number` to `Num` (number \| Expr) in feature-template.ts.
+  - Populated `picks` on all 15 choice grants in featuresByLevel across 12 class/subclass files, mirroring picksAtLevel as per-grant increments (clean 1:1 pools only; multi-level pools get first-level increment, rest is S24 gap).
+  - Added choices-picks.test.ts with 30 tests: synthetic mechanism test (levels 1-20), no-picks grant contributes 0, real-data tests for 1:1 pools at feature level and level 20, and S24-gap pools at feature level only.
+- Proven by (tests):
+  - `npx tsc --noEmit` — passed
+  - `npm run lint:fix` — passed (prettier reformatting)
+  - `npm test -- --watchAll=false --runInBand` — 34 suites, 656 tests, 125 snapshots — all passed
+- Surprises / deviations:
+  - fighting_style_fighter/paladin/ranger: feature level (1/2) ≠ picksAtLevel first key (3) → no picks set, logged as S24 gap.
+  - maneuvers, arcane_shots_known, rune_knight_runes, four_elements_disciplines: picksAtLevel has entries at levels with no granting feature → only first-level increment set, rest is S24 gap.
+  - barbarian_skills: no pool with picksAtLevel → no picks set.
+  - fighting_style_swords (bard): pool exists but no granting feature → no grant to add picks to.
+- Next step will touch:
+  - S22: Slot-keyed ChoiceInstance.
+- Build result: tsc / lint / test
+
 ---
 
 ## 6. OPEN QUESTIONS, ANSWERS AND FINDINGS
@@ -621,7 +639,12 @@ Template:
 ### A. Agent answers from the repo (record findings here)
 - [x] **A1.** Every use of `featuresByLevel`, `.appliesTo`, feature `.level` / `.source` outside `core/data/classes` (include tests and scripts):
   - S11 re-check: no runtime uses remain in `src/core`; the only remaining mentions are this proposal doc and the transitional type comment in `feature-progression.ts`, and the collision detector now scans `progression` instead of `featuresByLevel`.
-- [ ] **A2.** All consumers of `featureChoices`, `getTotalPicksForPool`, `getUnfilledChoices`, `getEligibleOptionsForPool`. Confirm none in UI:
+- [x] **A2.** All consumers of `featureChoices`, `getTotalPicksForPool`, `getUnfilledChoices`, `getEligibleOptionsForPool`. Confirm none in UI:
+  - `featureChoices`: read in `choices-helper.ts` (getGrantsFromChoices, getAdvantageGrantsFromChoices, getModifiersFromChoices, getProficienciesFromChoices, getOverridesFromChoices, bootstrapFeatureChoices, resetChoicesForTrigger), `resolve-grants.ts` (line 208 legacy key lookup), `character-provider.tsx` (calls bootstrapFeatureChoices on save), `character-migration.ts` (hydrateMap), test fixtures. No UI consumers.
+  - `getTotalPicksForPool`: defined and used only in `choices-helper.ts` (by getUnfilledChoices).
+  - `getUnfilledChoices`: defined and used only in `choices-helper.ts`.
+  - `getEligibleOptionsForPool`: defined in `choices-helper.ts`, documented in docs/domain-model.md. No UI consumers.
+  - None in `app/` or `components/`.
 - [x] **A3.** Full collision list (from S2), and whether text differs across colliding definitions:
   - Before S3, the corrected detector found these non-shared id collisions (`grantsDiffer`): `bonus_cantrip` (Cleric/light, Druid/land; false), `cantrip_versatility` (Cleric, Druid; false), `channel_divinity` (Cleric, Paladin/ancients; true), `divine_strike` (nine Cleric subclasses; false), `domain_spells` (Cleric/forge, Cleric/twilight; false), `extra_proficiencies` (Bard/lore, Bard/valor; false), `lands_stride` (Ranger, Druid/land; false), `psionic_power` (Fighter/psi-warrior, Rogue/soulknife; true), and `psychic_blades` (Bard/whispers, Rogue/soulknife; true).
   - Same-locale localization collisions before S3 (`textDiffers`): `bonus_cantrip` (en/es; true), `bonus_proficiencies` (en/es; true), `bonus_proficiency` (es; true), `channel_divinity` (en/es; true), `cutting_words` (es; false), `divine_strike` (en/es; true), `fighting_style` (en/es; true), `lands_stride` (en/es; true), `psionic_power` (en/es; true), `psychic_blades` (en/es; true), `spellcasting` (es; true), `timeless_body` (en/es; true), and `uncanny_dodge` (en/es; true). Each key's owning class/subclass is recorded by the detector output; class/subclass keys are now owner-namespaced in both locales.
