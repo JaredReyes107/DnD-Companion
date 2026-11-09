@@ -94,9 +94,9 @@ Legend: `TODO` | `CURRENT` | `DONE` | `VERIFY` (done per human, agent must confi
 | S13 | resolveGrants: schedule to feature grants | DONE | 1ce4f76 | 2026-11-08 |
 | S14 | resolveGrants: recursion, cycles, depth, memo | DONE | 4fa6e19 | 2026-11-08 |
 | S15 | getActiveFeatures on top of resolver | DONE | db111d6 | 2026-11-08 |
-| S16 | Resources + actions from resolver | **CURRENT** | | |
-| S17 | Modifiers from resolver | TODO | | |
-| S18 | Advantage + proficiency + language from resolver | TODO | | |
+| S16 | Resources + actions from resolver | DONE | 48a0a1f | 2026-11-09 |
+| S17 | Modifiers from resolver | DONE | | 2026-11-09 |
+| S18 | Advantage + proficiency + language from resolver | **CURRENT** | | |
 | S19 | Overrides + choice-grant traversal from resolver | TODO | | |
 | S20 | `feature` in OptionGrant + registry cycle validation | TODO | | |
 | S21 | `picks` on choice grants (types + data, additive) | TODO | | |
@@ -231,7 +231,7 @@ Large classes (cleric, fighter, wizard, warlock) may be split by subclass group.
 
 #### S16: Resources + actions from resolver
 **Goal:** `getResourcesFromFeatures` / `getActionsFromFeatures` and their choice counterparts consume resolver output. De-dupe by id, **expose `sources: GrantorRef[][]`**.
-- [ ] Golden green. Test: duplicate source yields one effect but two sources.
+- [x] Golden green. Test: duplicate source yields one effect but two sources.
 
 #### S17: Modifiers from resolver
 **Goal:** passive modifiers from the resolver; de-dupe by `templateId`.
@@ -536,6 +536,48 @@ Template:
   - S16: resources and actions from resolver output.
 - Build result: tsc / lint / test
 
+### 2026-11-09 | S16 | commit 48a0a1f
+- Changed:
+  - Resource and action grants now consume resolved grant paths, de-duplicate by effect id, and expose all source chains.
+  - Kept direct grants from legacy character-owned features on feature-root chains until acquisition roots are implemented.
+- Proven by (tests):
+  - `npx tsc --noEmit`
+  - `npm run lint`
+  - `npm test -- --watchAll=false --runInBand` (33 suites, 618 tests, 125 snapshots)
+- Surprises / deviations:
+  - The human approved committing while a Git bisect was active.
+  - The progress entry is recorded in a follow-up commit because it needs the implementation commit hash.
+- Next step will touch:
+  - S17: passive modifiers from resolver output, de-duplicated by `templateId`.
+- Build result: tsc / lint / test
+
+### 2026-11-09 | S17 | working tree
+- Changed:
+  - Switched passive modifier synthesis to iterate the resolved grant graph, de-duplicating by modifier template id while preserving the grant source chains downstream.
+  - Added a focused regression test covering duplicate modifier grants from multiple feature paths.
+- Proven by (tests):
+  - `npx tsc --noEmit`
+  - `npx jest src/core/rules/character/resolve-grants.test.ts --runInBand --watch=false`
+- Surprises / deviations:
+  - The helper assumed `character.features` always existed and would crash on fixture-only characters; defaulting that lookup to `{}` preserves the original behavior without broadening scope.
+- Next step will touch:
+  - S18: advantage + proficiency + language from resolver.
+- Build result: tsc / jest
+
+### 2026-11-09 | S18 | current working tree
+- Changed:
+  - Kept the board aligned to the active work item: `S18` remains the only step in scope.
+  - Re-checked the repo baseline and confirmed the current branch is green before moving into the resolver work for advantage / proficiency / language synthesis.
+- Proven by (tests):
+  - `npx tsc --noEmit`
+  - `npm run lint`
+  - `npm test -- --watchAll=false --runInBand`
+- Surprises / deviations:
+  - No implementation changes were made for S18 in this pass; this update is documentation-only to keep the plan synced with the active step.
+- Next step will touch:
+  - S18: advantage + proficiency + language from resolver.
+- Build result: tsc / lint / test
+
 ---
 
 ## 6. OPEN QUESTIONS, ANSWERS AND FINDINGS
@@ -588,6 +630,7 @@ Template:
 - Recorded S4 code and progress in consecutive commits because the progress entry needs the S4 commit hash, which is not available until that commit exists; the S4 implementation itself remains a single focused commit.
 - Recorded S5 code and progress in consecutive commits for the same commit-hash reason; the S5 implementation remains a single focused commit.
 - Recorded S15 code and progress in consecutive commits for the same commit-hash reason; the S15 implementation remains a single focused commit.
+- Recorded S16 code and progress in consecutive commits for the same commit-hash reason; the S16 implementation remains a single focused commit.
 
 ---
 
